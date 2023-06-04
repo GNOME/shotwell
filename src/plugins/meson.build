@@ -1,10 +1,11 @@
+sw_plugin_library_version = '0.33'
 # Plugin helper library
 sw_plugin_dev = library('shotwell-plugin-dev-1.0',
                                ['DataImportsInterfaces.vala',
                                 'PublishingInterfaces.vala',
                                 'SpitInterfaces.vala',
                                 'TransitionsInterfaces.vala'],
-                                version: meson.project_version(),
+                                version: sw_plugin_library_version,
                                 vala_header : 'shotwell-plugin-dev-1.0.h',
                                 vala_vapi : 'shotwell-plugin-dev-1.0.vapi',
                                 dependencies : [gmodule, gtk, gio, gee],

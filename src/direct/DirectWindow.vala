@@ -8,7 +8,7 @@ public class DirectWindow : AppWindow {
     private DirectPhotoPage direct_photo_page;
     
     public DirectWindow(File file) {
-	base();
+        base();
 
         direct_photo_page = new DirectPhotoPage(file);
         direct_photo_page.get_view().items_altered.connect(on_photo_changed);
@@ -23,12 +23,16 @@ public class DirectWindow : AppWindow {
         // simple layout: menu on top, photo in center, toolbar along bottom (mimicking the
         // PhotoPage in the library, but without the sidebar)
         Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        layout.pack_start(direct_photo_page, true, true, 0);
-        layout.pack_end(direct_photo_page.get_toolbar(), false, false, 0);
+        layout.prepend(direct_photo_page);
+        layout.append(direct_photo_page.get_toolbar());
         
-        Application.set_menubar (direct_photo_page.get_menubar ());
+        set_menubar(direct_photo_page.get_menubar ());
 
-        add(layout);
+        set_child(layout);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        ((Gtk.Widget)this).add_controller(key);
     }
     
     public static DirectWindow get_app() {
@@ -74,23 +78,22 @@ public class DirectWindow : AppWindow {
         base.on_quit();
     }
     
-    public override bool delete_event(Gdk.EventAny event) {
+    public override bool close_request() {
         if (!get_direct_page().check_quit())
             return true;
-        
-        return (base.delete_event != null) ? base.delete_event(event) : false;
+
+        return false;
     }
 
-    public override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // check for an escape
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+        if (Gdk.keyval_name(keyval) == "Escape") {
             on_quit();
             
             return true;
         }
-        
-       // ...then let the base class take over
-       return (base.key_press_event != null) ? base.key_press_event(event) : false;
+
+        return base.key_press_event(event, keyval, keycode, modifiers);
     }
 }
 

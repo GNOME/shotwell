@@ -37,38 +37,28 @@ public abstract class CollectionPage : MediaPage {
         init_item_context_menu("CollectionContextMenu");
         init_toolbar("CollectionToolbar");
         
-        show_all();
+        show();
 
         // watch for updates to the external app settings
         Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
     }
 
-    public override Gtk.Toolbar get_toolbar() {
+    public override Gtk.Box get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
 
-            // separator to force slider to right side of toolbar
-            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-            separator.set_expand(true);
-            separator.set_draw(false);
-            get_toolbar().insert(separator, -1);
-
-            Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
-            drawn_separator.set_expand(false);
-            drawn_separator.set_draw(true);
-            
-            get_toolbar().insert(drawn_separator, -1);
-            
             // zoom slider assembly
             MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
             connect_slider(zoom_slider_assembly);
-            get_toolbar().insert(zoom_slider_assembly, -1);
+            get_toolbar().append(zoom_slider_assembly);
 
-            Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+            Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
+            #if 0
+            is this even necessary?
             unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
-
+#endif
         }
         
         return toolbar;
@@ -355,9 +345,10 @@ public abstract class CollectionPage : MediaPage {
         }
     }
     
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        string? format = null;
+        switch (Gdk.keyval_name(keyval)) {
             case "Page_Up":
             case "KP_Page_Up":
             case "Page_Down":
@@ -366,15 +357,14 @@ public abstract class CollectionPage : MediaPage {
             case "KP_Home":
             case "End":
             case "KP_End":
-                key_press_event(event);
+                event.forward(this);
             break;
-            
             case "bracketright":
-                activate_action("RotateClockwise");
+                activate_action("win.RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise");
+                activate_action("win.RotateCounterclockwise", format);
             break;
             
             default:
@@ -382,7 +372,7 @@ public abstract class CollectionPage : MediaPage {
             break;
         }
         
-        return handled ? true : base.on_app_key_pressed(event);
+        return handled ? true : base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
 
     protected override void on_export() {
@@ -541,17 +531,20 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         if (can_revert_editable_selected()) {
-            if (!revert_editable_dialog(AppWindow.get_instance(),
-                (Gee.Collection<Photo>) get_view().get_selected_sources())) {
-                return;
-            }
-            
-            foreach (DataObject object in get_view().get_selected_sources())
-                ((Photo) object).revert_to_master();
+            revert_editable_dialog.begin(AppWindow.get_instance(),
+                (Gee.Collection<Photo>) get_view().get_selected_sources(), (source, res) => {
+                    if (revert_editable_dialog.end(res)) {
+                        foreach (DataObject object in get_view().get_selected_sources())
+                            ((Photo) object).revert_to_master();
+                        
+                        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+                        get_command_manager().execute(command);
+                    }
+                });
+        } else {
+            RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+            get_command_manager().execute(command);    
         }
-        
-        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
-        get_command_manager().execute(command);
     }
     
     public void on_copy_adjustments() {
@@ -608,13 +601,15 @@ public abstract class CollectionPage : MediaPage {
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(photo_source,
             get_view().get_selected_count(), true, selected_has_videos, only_videos_selected);
 
-        int64 time_shift;
-        bool keep_relativity, modify_originals;
-        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
-            AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
-                get_view().get_selected(), time_shift, keep_relativity, modify_originals);
-            get_command_manager().execute(command);
-        }
+        dialog.execute.begin((source, res) => {
+            int64 time_shift;
+            bool keep_relativity, modify_originals;
+            if (dialog.execute.end(res, out time_shift, out keep_relativity, out modify_originals)) {
+                AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
+                    get_view().get_selected(), time_shift, keep_relativity, modify_originals);
+                get_command_manager().execute(command);
+            }    
+        });
     }
     
     private void on_external_edit() {
@@ -655,23 +650,28 @@ public abstract class CollectionPage : MediaPage {
         MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) get_view().get_selected_sources(),
             photos, null);
         
-        bool desktop, screensaver;
         if (photos.size == 1) {
             SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
-            if (dialog.execute(out desktop, out screensaver)) {
-                AppWindow.get_instance().set_busy_cursor();
-                DesktopIntegration.set_background(photos[0], desktop, screensaver);
-                AppWindow.get_instance().set_normal_cursor();
-            }
+            dialog.execute.begin((source, res) => {
+                bool desktop, screensaver;
+                if (dialog.execute.end(res, out desktop, out screensaver)) {
+                    AppWindow.get_instance().set_busy_cursor();
+                    DesktopIntegration.set_background(photos[0], desktop, screensaver);
+                    AppWindow.get_instance().set_normal_cursor();
+                }
+            });
         } else if (photos.size > 1) {
             SetBackgroundSlideshowDialog dialog = new SetBackgroundSlideshowDialog();
-            int delay;
-            if (dialog.execute(out delay, out desktop, out screensaver)) {
-                AppWindow.get_instance().set_busy_cursor();
-                DesktopIntegration.set_background_slideshow(photos, delay,
-                    DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver);
-                AppWindow.get_instance().set_normal_cursor();
-            }
+            dialog.execute.begin((source, res) => {
+                int delay;
+                bool desktop, screensaver;
+                if (dialog.execute.end(res, out delay, out desktop, out screensaver)) {
+                    AppWindow.get_instance().set_busy_cursor();
+                    DesktopIntegration.set_background_slideshow(photos, delay,
+                        DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver);
+                    AppWindow.get_instance().set_normal_cursor();
+                }
+            });
         }
     }
     
@@ -698,26 +698,26 @@ public abstract class CollectionPage : MediaPage {
             photo));
     }
     
-    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+    protected override bool on_ctrl_pressed() {
+        Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
         if (rotate_button != null) {
             rotate_button.set_action_name ("win.RotateCounterclockwise");
             rotate_button.set_icon_name (Resources.COUNTERCLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CCW_TOOLTIP);
         }
 
-        return base.on_ctrl_pressed(event);
+        return base.on_ctrl_pressed();
     }
     
-    protected override bool on_ctrl_released(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+    protected override bool on_ctrl_released() {
+        Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
         if (rotate_button != null) {
             rotate_button.set_action_name ("win.RotateClockwise");
             rotate_button.set_icon_name (Resources.CLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CW_TOOLTIP);
         }
 
-        return base.on_ctrl_released(event);
+        return base.on_ctrl_released();
     }
     
     public override SearchViewFilter get_search_view_filter() {

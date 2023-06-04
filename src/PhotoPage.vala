@@ -375,7 +375,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
-            base(host_page.get_container(), host_page.canvas.get_window(), host_page.get_photo(),
+            base(host_page.get_container(), host_page.canvas.get_native().get_surface(), host_page.get_photo(),
                 host_page.get_cairo_context(), host_page.get_surface_dim(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
@@ -391,23 +391,25 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ViewCollection? parent_view = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
-    private Gtk.ToolButton rotate_button = null;
-    private Gtk.ToggleToolButton crop_button = null;
-    private Gtk.ToggleToolButton redeye_button = null;
-    private Gtk.ToggleToolButton adjust_button = null;
-    private Gtk.ToggleToolButton straighten_button = null;
-    private Gtk.ToggleToolButton faces_button = null;
-    private Gtk.ToolButton enhance_button = null;
+    private Gtk.Button rotate_button = null;
+    private Gtk.ToggleButton crop_button = null;
+    private Gtk.ToggleButton redeye_button = null;
+    private Gtk.ToggleButton adjust_button = null;
+    private Gtk.ToggleButton straighten_button = null;
+    private Gtk.ToggleButton faces_button = null;
+    private Gtk.Button enhance_button = null;
     private Gtk.Scale zoom_slider = null;
-    private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
-    private Gtk.ToolButton next_button = new Gtk.ToolButton(null, Resources.NEXT_LABEL);
+    private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
+    private Gtk.Button next_button = new Gtk.Button.with_label(Resources.NEXT_LABEL);
     private EditingTools.EditingTool current_tool = null;
-    private Gtk.ToggleToolButton current_editing_toggle = null;
+    private Gtk.ToggleButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache master_cache = null;
+    #if 0
     private DragAndDropHandler dnd_handler = null;
+    #endif
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
     private bool is_pan_in_progress = false;
@@ -429,130 +431,125 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // the viewport can change size independent of the window being resized (when the searchbar
         // disappears, for example)
-        viewport.size_allocate.connect(on_viewport_resized);
+        viewport.notify["default-height"].connect(on_viewport_resized);
+        viewport.notify["default-width"].connect(on_viewport_resized);
+        viewport.notify["maximized"].connect(on_viewport_resized);
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // rotate tool
-        rotate_button = new Gtk.ToolButton (null, Resources.ROTATE_CW_LABEL);
+        rotate_button = new Gtk.Button.with_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.connect(on_rotate_clockwise);
-        rotate_button.is_important = true;
-        toolbar.insert(rotate_button, -1);
+        toolbar.append(rotate_button);
+        #if 0
         unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
         Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
         Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
+        #endif
         
         // crop tool
-        crop_button = new Gtk.ToggleToolButton ();
+        crop_button = new Gtk.ToggleButton ();
         crop_button.set_icon_name("image-crop-symbolic");
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
         crop_button.toggled.connect(on_crop_toggled);
-        crop_button.is_important = true;
-        toolbar.insert(crop_button, -1);
+        toolbar.append(crop_button);
 
         // straightening tool
-        straighten_button = new Gtk.ToggleToolButton ();
+        straighten_button = new Gtk.ToggleButton ();
         straighten_button.set_icon_name(Resources.STRAIGHTEN);
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
         straighten_button.toggled.connect(on_straighten_toggled);
-        straighten_button.is_important = true;
-        toolbar.insert(straighten_button, -1);
+        toolbar.append(straighten_button);
 
         // redeye reduction tool
-        redeye_button = new Gtk.ToggleToolButton ();
+        redeye_button = new Gtk.ToggleButton ();
         redeye_button.set_icon_name("stock-eye-symbolic");
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
         redeye_button.toggled.connect(on_redeye_toggled);
-        redeye_button.is_important = true;
-        toolbar.insert(redeye_button, -1);
+        toolbar.append(redeye_button);
         
         // adjust tool
-        adjust_button = new Gtk.ToggleToolButton();
+        adjust_button = new Gtk.ToggleButton();
         adjust_button.set_icon_name(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
         adjust_button.toggled.connect(on_adjust_toggled);
-        adjust_button.is_important = true;
-        toolbar.insert(adjust_button, -1);
+        toolbar.append(adjust_button);
 
         // enhance tool
-        enhance_button = new Gtk.ToolButton(null, Resources.ENHANCE_LABEL);
+        enhance_button = new Gtk.Button.with_label (Resources.ENHANCE_LABEL);
         enhance_button.set_icon_name(Resources.ENHANCE);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
         enhance_button.clicked.connect(on_enhance);
-        enhance_button.is_important = true;
-        toolbar.insert(enhance_button, -1);
+        toolbar.append (enhance_button);
         
         // faces tool
         insert_faces_button(toolbar);
-        faces_button = new Gtk.ToggleToolButton();
+        faces_button = new Gtk.ToggleButton();
         //face_button
 
         // separator to force next/prev buttons to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_expand(true);
-        separator.set_draw(false);
-        toolbar.insert(separator, -1);
+        var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
+        separator.hexpand = true;
+        separator.halign = Gtk.Align.START;
+        toolbar.append(separator);
         
         Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         
-        Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        Gtk.EventBox zoom_out_box = new Gtk.EventBox();
-        zoom_out_box.set_above_child(true);
-        zoom_out_box.set_visible_window(false);
-        zoom_out_box.add(zoom_out);
+        Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
+        var click = new Gtk.GestureClick();
+        click.set_exclusive(true);
+        click.pressed.connect(() => {snap_zoom_to_min();});
+        zoom_out.add_controller(click);
 
-        zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
+        //zoom_out.button_press_event.connect(on_zoom_out_pressed);
 
-        zoom_group.pack_start(zoom_out_box, false, false, 0);
+        zoom_group.append(zoom_out);
 
         // zoom slider
         zoom_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
         zoom_slider.set_draw_value(false);
         zoom_slider.set_size_request(120, -1);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        #if 0
         zoom_slider.button_press_event.connect(on_zoom_slider_drag_begin);
         zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
         zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
+        #endif
 
-        zoom_group.pack_start(zoom_slider, false, false, 0);
+        zoom_group.append(zoom_slider);
         
-        Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        Gtk.EventBox zoom_in_box = new Gtk.EventBox();
-        zoom_in_box.set_above_child(true);
-        zoom_in_box.set_visible_window(false);
-        zoom_in_box.add(zoom_in);
-        
-        zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
+        Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
+        click = new Gtk.GestureClick();
+        click.set_exclusive(true);
+        click.pressed.connect(() => {snap_zoom_to_max();});
+        zoom_in.add_controller(click);
 
-        zoom_group.pack_start(zoom_in_box, false, false, 0);
+        zoom_group.append(zoom_in);
 
-        Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
-        group_wrapper.add(zoom_group);
-
-        toolbar.insert(group_wrapper, -1);
-
-        separator = new Gtk.SeparatorToolItem();
-        separator.set_draw(false);
-        toolbar.insert(separator, -1);
+        toolbar.append(zoom_group);
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
         prev_button.set_icon_name("go-previous-symbolic");
         prev_button.clicked.connect(on_previous_photo);
-        toolbar.insert(prev_button, -1);
+        toolbar.append(prev_button);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
         next_button.set_icon_name("go-next-symbolic");
         next_button.clicked.connect(on_next_photo);
-        toolbar.insert(next_button, -1);
+        toolbar.append(next_button);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        add_controller(key);
     }
     
     ~EditingHostPage() {
@@ -582,43 +579,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_cursor_for_zoom_context();
     }
 
-    private bool on_zoom_slider_drag_begin(Gdk.EventButton event) {
-        enable_interactive_zoom_refresh = true;
-        
-        if (get_container() is FullscreenWindow)
-            ((FullscreenWindow) get_container()).disable_toolbar_dismissal();
-
-        return false;
-    }
-
-    private bool on_zoom_slider_drag_end(Gdk.EventButton event) {
-        enable_interactive_zoom_refresh = false;
-
-        if (get_container() is FullscreenWindow)
-            ((FullscreenWindow) get_container()).update_toolbar_dismissal();
-
-        ZoomState zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
-        set_zoom_state(zoom_state);
-        
-        repaint();
-
-        return false;
-    }
-
-    private bool on_zoom_out_pressed(Gdk.EventButton event) {
-        snap_zoom_to_min();
-        return true;
-    }
-    
-    private bool on_zoom_in_pressed(Gdk.EventButton event) {
-        snap_zoom_to_max();
-        return true;
-    }
-
-    private Gdk.Point get_cursor_wrt_viewport(Gdk.EventScroll event) {
+    private Gdk.Point get_cursor_wrt_viewport(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
-        cursor_wrt_canvas.x = (int) event.x;
-        cursor_wrt_canvas.y = (int) event.y;
+        double x;
+        double y;
+        event.get_current_event().get_position(out x, out y);
+        cursor_wrt_canvas.x = (int) x;
+        cursor_wrt_canvas.y = (int) y;
 
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         Gdk.Point result = {0};
@@ -630,7 +597,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return result;
     }
 
-    private Gdk.Point get_cursor_wrt_viewport_center(Gdk.EventScroll event) {
+    private Gdk.Point get_cursor_wrt_viewport_center(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_viewport = get_cursor_wrt_viewport(event);
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         
@@ -641,7 +608,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return subtract_points(cursor_wrt_viewport, viewport_center);
     }
 
-    private Gdk.Point get_iso_pixel_under_cursor(Gdk.EventScroll event) {
+    private Gdk.Point get_iso_pixel_under_cursor(Gtk.EventControllerScroll event) {
         Gdk.Point viewport_center_iso = scale_point(get_zoom_state().get_viewport_center(),
             1.0 / get_zoom_state().get_zoom_factor());
 
@@ -664,7 +631,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return snap_interpolation_factor(get_zoom_state().get_interpolation_factor() + adjustment);
     }
 
-    private void zoom_about_event_cursor_point(Gdk.EventScroll event, double zoom_increment) {
+    private void zoom_about_event_cursor_point(Gtk.EventControllerScroll event, double zoom_increment) {
         if (photo_missing)
             return;
 
@@ -711,32 +678,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.set_value(iso_state.get_interpolation_factor());
     }
 
-    protected virtual bool on_zoom_slider_key_press(Gdk.EventKey event) {
-        switch (Gdk.keyval_name(event.keyval)) {
-            case "equal":
-            case "plus":
-            case "KP_Add":
-                activate_action("IncreaseSize");
-                return true;
-            
-            case "minus":
-            case "underscore":
-            case "KP_Subtract":
-                activate_action("DecreaseSize");
-                return true;
-            
-            case "KP_Divide":
-                activate_action("Zoom100");
-                return true;
-
-            case "KP_Multiply":
-                activate_action("ZoomFit");
-                return true;
-        }
-
-        return false;
-    }
-
     protected virtual void on_increase_size() {
         zoom_slider.set_value(adjust_interpolation_factor(ZOOM_INCREMENT_SIZE));
     }
@@ -754,7 +695,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return zoom_buffer;
     }
     
-    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
+    protected override bool on_mousewheel_up(Gtk.EventControllerScroll event) {
         if (get_zoom_state().is_max() || !zoom_slider.get_sensitive())
             return false;
 
@@ -762,7 +703,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
     
-    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
+    protected override bool on_mousewheel_down(Gtk.EventControllerScroll event) {
         if (get_zoom_state().is_min() || !zoom_slider.get_sensitive())
             return false;
         
@@ -786,8 +727,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.set_container(container);
         
         // DnD not available in fullscreen mode
-        if (!(container is FullscreenWindow))
-            dnd_handler = new DragAndDropHandler(this);
+        //if (!(container is FullscreenWindow))
+          //  dnd_handler = new DragAndDropHandler(this);
     }
     
     public ViewCollection? get_parent_view() {
@@ -1102,7 +1043,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.sensitive = sensitivity;
         zoom_slider.sensitive = sensitivity;
 
-        deactivate_tool();
+        //deactivate_tool();
     }
     
     // This should only be called when it's known that the photo is actually missing.
@@ -1240,8 +1181,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // a left pointer in case it had been a hand-grip cursor indicating that panning
         // was possible; the null guards are required because zoom can be cancelled at
         // any time
-        if (canvas != null && canvas.get_window() != null)
-            set_page_cursor(Gdk.CursorType.LEFT_PTR);
+        if (canvas != null /*&& canvas.get_window() != null*/)
+            set_page_cursor(null);
         
         repaint();
     }
@@ -1319,11 +1260,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         return false;
     }
-    
+
     protected override void on_resize(Gdk.Rectangle rect) {
         base.on_resize(rect);
 
-        track_tool_window();
+        //track_tool_window();
     }
     
     protected override void on_resize_finished(Gdk.Rectangle rect) {
@@ -1370,33 +1311,33 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.update_actions(selected_count, count);
     }
     
-    protected override bool on_shift_pressed(Gdk.EventKey? event) {
+    protected override bool on_shift_pressed() {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
         if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed() && has_photo())
             swap_in_original();
         
-        return base.on_shift_pressed(event);
+        return base.on_shift_pressed();
     }
     
-    protected override bool on_shift_released(Gdk.EventKey? event) {
+    protected override bool on_shift_released() {
         if (current_tool == null)
             swap_out_original();
         
-        return base.on_shift_released(event);
+        return base.on_shift_released();
     }
 
-    protected override bool on_alt_pressed(Gdk.EventKey? event) {
+    protected override bool on_alt_pressed() {
         if (current_tool == null)
             swap_out_original();
         
-        return base.on_alt_pressed(event);
+        return base.on_alt_pressed();
     }
     
-    protected override bool on_alt_released(Gdk.EventKey? event) {
+    protected override bool on_alt_released() {
         if (current_tool == null && get_shift_pressed() && !get_ctrl_pressed())
             swap_in_original();
         
-        return base.on_alt_released(event);
+        return base.on_alt_released();
     }
 
     private void swap_in_original() {
@@ -1492,6 +1433,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
 
+        #if 0
         // save the position of the tool
         EditingTools.EditingToolWindow? tool_window = tool.get_tool_window();
         if (tool_window != null && tool_window.has_user_moved()) {
@@ -1500,6 +1442,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             last_locations[tool.name + "_x"] = last_location_x;
             last_locations[tool.name + "_y"] = last_location_y;
         }
+        #endif
         
         // deactivate with the tool taken out of the hooks and
         // disconnect any signals we may have connected on activating
@@ -1547,24 +1490,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     // This virtual method is called only when the user double-clicks on the page and no tool
     // is active
-    protected virtual bool on_double_click(Gdk.EventButton event) {
+    protected virtual bool on_double_click(Gtk.EventController event, double x, double y) {
         return false;
     }
     
     // Return true to block the DnD handler from activating a drag
-    protected override bool on_left_click(Gdk.EventButton event) {
+    protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // report double-click if no tool is active, otherwise all double-clicks are eaten
-        if (event.type == Gdk.EventType.2BUTTON_PRESS)
-            return (current_tool == null) ? on_double_click(event) : false;
-        
-        int x = (int) event.x;
-        int y = (int) event.y;
+        if (press == 2) {
+            return (current_tool == null) ? on_double_click (event, x, y) : false;
+        }
 
         // if no editing tool, then determine whether we should start a pan operation over the
         // zoomed photo or fall through to the default DnD behavior if we're not zoomed
         if ((current_tool == null) && (zoom_slider.get_value() != 0.0)) {
-            zoom_pan_start_point.x = (int) event.x;
-            zoom_pan_start_point.y = (int) event.y;
+            zoom_pan_start_point.x = (int) x;
+            zoom_pan_start_point.y = (int) y;
             is_pan_in_progress = true;
             suspend_cursor_hiding();
 
@@ -1578,20 +1519,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // only concerned about mouse-downs on the pixbuf ... return true prevents DnD when the
         // user drags outside the displayed photo
-        if (!is_inside_pixbuf(x, y))
+        if (!is_inside_pixbuf((int)x, (int)y))
             return true;
 
-        current_tool.on_left_click(x, y);
+        current_tool.on_left_click((int)x, (int)y);
         
         // block DnD handlers if tool is enabled
         return true;
     }
     
-    protected override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         if (is_pan_in_progress) {
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
-            int delta_x = ((int) event.x) - zoom_pan_start_point.x;
-            int delta_y = ((int) event.y) - zoom_pan_start_point.y;
+            int delta_x = ((int) x) - zoom_pan_start_point.x;
+            int delta_y = ((int) y) - zoom_pan_start_point.y;
             viewport_center.x -= delta_x;
             viewport_center.y -= delta_y;
 
@@ -1608,7 +1549,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null)
             return false;
         
-        current_tool.on_left_released((int) event.x, (int) event.y);
+        current_tool.on_left_released((int) x, (int) y);
 
         if (current_tool.get_tool_window() != null)
             current_tool.get_tool_window().present();
@@ -1616,8 +1557,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
-    protected override bool on_right_click(Gdk.EventButton event) {
-        return on_context_buttonpress(event);
+    protected override bool on_right_click(Gtk.EventController event, int press, double x, double y) {
+        if (press != 1) return false;
+        var sequence = ((Gtk.GestureSingle)event).get_current_sequence();
+        var last_event = ((Gtk.Gesture)event).get_last_event(sequence);
+
+        if (!last_event.triggers_context_menu()) return false;
+
+        return on_context_buttonpress(event, x, y);
     }
     
     private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
@@ -1658,18 +1605,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void update_cursor_for_zoom_context() {
         if (is_panning_possible())
-            set_page_cursor(Gdk.CursorType.FLEUR);
+            set_page_cursor("move");
         else
-            set_page_cursor(Gdk.CursorType.LEFT_PTR);
+            set_page_cursor(null);
     }
     
     // Return true to block the DnD handler from activating a drag
-    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
         if (current_tool != null) {
-            current_tool.on_motion(x, y, mask);
-
-            // this requests more events after "hints"
-            Gdk.Event.request_motions(event);
+            current_tool.on_motion((int)x, (int)y, mask);
 
             return true;
         }
@@ -1677,8 +1621,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_cursor_for_zoom_context();
         
         if (is_pan_in_progress) {
-            int delta_x = ((int) event.x) - zoom_pan_start_point.x;
-            int delta_y = ((int) event.y) - zoom_pan_start_point.y;
+            int delta_x = (int)x - zoom_pan_start_point.x;
+            int delta_y = (int)y - zoom_pan_start_point.y;
 
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
             viewport_center.x -= delta_x;
@@ -1693,39 +1637,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_motion(event, x, y, mask);
     }
     
-    protected override bool on_leave_notify_event() {
+    protected override void on_leave_notify_event(Gtk.EventControllerMotion event) {
         if (current_tool != null)
-            return current_tool.on_leave_notify_event();
+            current_tool.on_leave_notify_event();
         
-        return base.on_leave_notify_event();
+        base.on_leave_notify_event(event);
     }
     
-    private void track_tool_window() {
-        // if editing tool window is present and the user hasn't touched it, it moves with the window
-        if (current_tool != null) {
-            EditingTools.EditingToolWindow tool_window = current_tool.get_tool_window();
-            if (tool_window != null && !tool_window.has_user_moved())
-                place_tool_window();
-        }
-    }
-    
-    protected override void on_move(Gdk.Rectangle rect) {
-        track_tool_window();
-        
-        base.on_move(rect);
-    }
-
-    protected override void on_move_finished(Gdk.Rectangle rect) {
-        last_locations.clear();
-
-        base.on_move_finished(rect);
-    }
-
-    private bool on_keyboard_pan_event(Gdk.EventKey event) {
+    private bool on_keyboard_pan_event(uint keyval) {
         ZoomState current_zoom_state = get_zoom_state();
         Gdk.Point viewport_center = current_zoom_state.get_viewport_center();
 
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Left":
             case "KP_Left":
             case "KP_4":
@@ -1761,28 +1684,36 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
     
-    public override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        print("key_press_event! %s\n", Gdk.keyval_name(keyval));
         // editing tool gets first crack at the keypress
         if (current_tool != null) {
-            if (current_tool.on_keypress(event))
-                return true;
-        }
-        
-        // if panning is possible, the pan handler (on MUNI?) gets second crack at the keypress
-        if (is_panning_possible()) {
-            if (on_keyboard_pan_event(event))
+            if (current_tool.on_keypress(event, keyval, keycode, modifiers))
                 return true;
         }
 
+        print("key_press_event! 2\n");
+        
+        // if panning is possible, the pan handler (on MUNI?) gets second crack at the keypress
+        if (is_panning_possible()) {
+            if (on_keyboard_pan_event(keyval))
+                return true;
+        }
+
+
+        #if 0
         // if the user pressed the "0", "1" or "2" keys then handle the event as if were
         // directed at the zoom slider ("0", "1" and "2" are hotkeys that jump to preset
         // zoom levels
         if (on_zoom_slider_key_press(event))
             return true;
+
+        #endif
         
         bool handled = true;
+        string? format = null;
         
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             // this block is only here to prevent base from moving focus to toolbar
             case "Down":
             case "KP_Down":
@@ -1792,25 +1723,29 @@ public abstract class EditingHostPage : SinglePhotoPage {
             case "equal":
             case "plus":
             case "KP_Add":
-                activate_action("IncreaseSize");
+                activate_action("win.IncreaseSize", format);
             break;
             
             // underscore is the keysym generated by SHIFT-[minus sign] -- this means zoom out
             case "minus":
             case "underscore":
             case "KP_Subtract":
-                activate_action("DecreaseSize");
+                activate_action("win.DecreaseSize", format);
             break;
-            
+            case "KP_Divide":
+                activate_action("win.Zoom100", format);
+            break;
+  
+            case "KP_Multiply":
+                activate_action("win.ZoomFit", format);
+            break;
             default:
                 handled = false;
             break;
         }
+        print("key_press_event! 3\n");
         
-        if (handled)
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return base.key_press_event(event, keyval, keycode, modifiers);
     }
     
     protected override void new_surface(Cairo.Context default_ctx, Dimensions dim) {
@@ -1939,30 +1874,36 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate(Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, "");
     }
     
-    public void on_revert() {
-        if (photo_missing)
-            return;
-
-        deactivate_tool();
-        
-        if (!has_photo())
-            return;
-
-        if (get_photo().has_editable()) {
-            if (!revert_editable_dialog(AppWindow.get_instance(), 
-                (Gee.Collection<Photo>) get_view().get_sources())) {
-                return;
-            }
-            
-            get_photo().revert_to_master();
-        }
-        
+    private void do_revert () {
         cancel_zoom();
 
         set_photo_missing(false);
         
         RevertSingleCommand command = new RevertSingleCommand(get_photo());
         get_command_manager().execute(command);
+
+    }
+
+    public void on_revert() {
+        if (photo_missing)
+            return;
+
+        //deactivate_tool();
+        
+        if (!has_photo())
+            return;
+
+        if (get_photo().has_editable()) {
+            revert_editable_dialog.begin(AppWindow.get_instance(),
+                (Gee.Collection<Photo>) get_view().get_sources(), (source, res) => {
+                    if (revert_editable_dialog.end(res)) {
+                        get_photo().revert_to_master();
+                        do_revert();
+                    }
+                });
+        } else {
+            do_revert ();
+        }        
     }
     
     public void on_edit_title() {
@@ -1973,12 +1914,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
-        string? new_title = edit_title_dialog.execute();
-        if (new_title == null)
-            return;
-        
-        EditTitleCommand command = new EditTitleCommand(item, new_title);
-        get_command_manager().execute(command);
+        edit_title_dialog.execute.begin((source, res) => {
+            string? new_title = edit_title_dialog.execute.end(res);
+            if (new_title != null)
+                get_command_manager().execute(new EditTitleCommand(item, new_title));
+    
+        });
     }
 
     public void on_edit_comment() {
@@ -1989,12 +1930,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.get_comment());
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment == null)
-            return;
-        
-        EditCommentCommand command = new EditCommentCommand(item, new_comment);
-        get_command_manager().execute(command);
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            EditCommentCommand command = new EditCommentCommand(item, new_comment);
+            get_command_manager().execute(command);
+        });
     }
 
     public void on_adjust_date_time() {
@@ -2003,30 +1946,35 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(get_photo(), 1, !(this is DirectPhotoPage));
 
-        int64 time_shift;
-        bool keep_relativity, modify_originals;
-        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
-            get_view().get_selected();
+        dialog.execute.begin((source, res) => {
+            int64 time_shift;
+            bool keep_relativity, modify_originals;
+                if (dialog.execute.end(res, out time_shift, out keep_relativity, out modify_originals)) {
+                get_view().get_selected();
             
-            AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(get_photo(),
-                time_shift, modify_originals);
-            get_command_manager().execute(command);
-        }
+                AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(get_photo(),
+                    time_shift, modify_originals);
+                get_command_manager().execute(command);    
+            }
+        });
     }
     
     public void on_set_background() {
-        if (has_photo()) {
-            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+        if (!has_photo())
+            return;
+
+        SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+        dialog.execute.begin((source, res) => {
             bool desktop, screensaver;
-            if (dialog.execute(out desktop, out screensaver)) {
+            if (dialog.execute.end(res, out desktop, out screensaver)) {
                 AppWindow.get_instance().set_busy_cursor();
                 DesktopIntegration.set_background(get_photo(), desktop, screensaver);
                 AppWindow.get_instance().set_normal_cursor();
             }
-        }
+        });
     }
 
-    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
+    protected override bool on_ctrl_pressed() {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
@@ -2036,10 +1984,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null)
             swap_out_original();
 
-        return base.on_ctrl_pressed(event);
+        return base.on_ctrl_pressed();
     }
     
-    protected override bool on_ctrl_released(Gdk.EventKey? event) {
+    protected override bool on_ctrl_released() {
         rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
@@ -2049,10 +1997,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null && get_shift_pressed() && !get_alt_pressed())
             swap_in_original();
         
-        return base.on_ctrl_released(event);
+        return base.on_ctrl_released();
     }
     
-    protected void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTools.EditingTool.Factory factory) {
+    protected void on_tool_button_toggled(Gtk.ToggleButton toggle, EditingTools.EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is
         // a deactivate, deactivate the current tool and exit
         bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
@@ -2194,9 +2142,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // do this so window size is properly allocated, but window not shown
         tool_window.set_transient_for(AppWindow.get_instance());
-        tool_window.show_all();
-        tool_window.hide();
+        tool_window.show();
+        tool_window.present();
         
+        #if 0
         Gtk.Allocation tool_alloc;
         tool_window.get_allocation(out tool_alloc);
         int x, y;
@@ -2258,6 +2207,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.move(x, y);
         tool_window.show();
         tool_window.present();
+        #endif
     }
     
     protected override void on_next_photo() {
@@ -2338,7 +2288,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // it in LibraryPhotoPage, since FacesTool must only be present in
     // LibraryMode, but it need to be called from constructor of EditingHostPage
     // to place it correctly in the toolbar.
-    protected virtual void insert_faces_button(Gtk.Toolbar toolbar) {
+    protected virtual void insert_faces_button(Gtk.Box toolbar) {
         ;
     }
 }
@@ -2355,7 +2305,7 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    private Gtk.ToggleToolButton faces_button = null;
+    private Gtk.ToggleButton faces_button = null;
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -2581,6 +2531,13 @@ public class LibraryPhotoPage : EditingHostPage {
         action.set_state (value);
     }
     
+    void switch_developer(RawDeveloper rd) {
+        var command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
+        get_command_manager().execute(command);
+
+        update_development_menu_item_sensitivity();
+    }
+
     protected virtual void developer_changed(RawDeveloper rd) {
         if (get_view().get_selected_count() != 1)
             return;
@@ -2591,12 +2548,14 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // Check if any photo has edits
         // Display warning only when edits could be destroyed
-        if (!photo.has_transformations() || Dialogs.confirm_warn_developer_changed(1)) {
-            SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(),
-                rd);
-            get_command_manager().execute(command);
-            
-            update_development_menu_item_sensitivity();
+        if (!photo.has_transformations()) {
+            switch_developer(rd);
+        } else {
+            Dialogs.confirm_warn_developer_changed.begin(1, (source, res) => {
+                if (Dialogs.confirm_warn_developer_changed.end(res)) {
+                    switch_developer(rd);
+                }
+            });
         }
     }
     
@@ -2611,7 +2570,8 @@ public class LibraryPhotoPage : EditingHostPage {
     public void display_for_collection(CollectionPage return_page, Photo photo, 
         ViewCollection? view = null) {
         this.return_page = return_page;
-        return_page.destroy.connect(on_page_destroyed);
+        //return_page.destroy.connect(on_page_destroyed);
+        //TODO
         
         display_copy_of(view != null ? view : return_page.get_view(), photo);
     }
@@ -2689,18 +2649,6 @@ public class LibraryPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
     }
 
-    protected override bool on_zoom_slider_key_press(Gdk.EventKey event) {
-        if (base.on_zoom_slider_key_press(event))
-            return true;
-
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
-            return_to_collection();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
         
@@ -2752,12 +2700,13 @@ public class LibraryPhotoPage : EditingHostPage {
         base.notify_photo_backing_missing(photo, missing);
     }
     
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (base.key_press_event != null && base.key_press_event(event) == true)
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
-        
+
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        string? format = null;
+        switch (Gdk.keyval_name(keyval)) {
             case "Escape":
             case "Return":
             case "KP_Enter":
@@ -2769,57 +2718,57 @@ public class LibraryPhotoPage : EditingHostPage {
                 // although bound as an accelerator in the menu, accelerators are currently
                 // unavailable in fullscreen mode (a variant of #324), so we do this manually
                 // here
-                activate_action("MoveToTrash");
+                activate_action("win.MoveToTrash", format);
             break;
 
             case "period":
             case "greater":
-                activate_action("IncreaseRating");
+                activate_action("win.IncreaseRating", format);
             break;
             
             case "comma":
             case "less":
-                activate_action("DecreaseRating");
+                activate_action("win.DecreaseRating", format);
             break;
 
             case "KP_1":
-                activate_action("RateOne");
+                activate_action("win.RateOne", format);
             break;
             
             case "KP_2":
-                activate_action("RateTwo");
+                activate_action("win.RateTwo", format);
             break;
 
             case "KP_3":
-                activate_action("RateThree");
+                activate_action("win.RateThree", format);
             break;
         
             case "KP_4":
-                activate_action("RateFour");
+                activate_action("win.RateFour", format);
             break;
 
             case "KP_5":
-                activate_action("RateFive");
+                activate_action("win.RateFive", format);
             break;
 
             case "KP_0":
-                activate_action("RateUnrated");
+                activate_action("win.RateUnrated", format);
             break;
 
             case "KP_9":
-                activate_action("RateRejected");
+                activate_action("win.RateRejected", format);
             break;
             
             case "bracketright":
-                activate_action("RotateClockwise");
+                activate_action("win.RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise");
+                activate_action("win.RotateCounterclockwise", format);
             break;
             
             case "slash":
-                activate_action("Flag");
+                activate_action("win.Flag", format);
             break;
             
             default:
@@ -2829,8 +2778,8 @@ public class LibraryPhotoPage : EditingHostPage {
         
         return handled;
     }
-    
-    protected override bool on_double_click(Gdk.EventButton event) {
+
+    protected override bool on_double_click(Gtk.EventController event, double x, double y) {
         FullscreenWindow? fs = get_container() as FullscreenWindow;
         if (fs == null)
             return_to_collection_on_release = true;
@@ -2840,7 +2789,7 @@ public class LibraryPhotoPage : EditingHostPage {
         return true;
     }
     
-    protected override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         if (return_to_collection_on_release) {
             return_to_collection_on_release = false;
             return_to_collection();
@@ -2848,30 +2797,27 @@ public class LibraryPhotoPage : EditingHostPage {
             return true;
         }
         
-        return base.on_left_released(event);
+        return base.on_left_released(event, press, x, y);
     }
 
-    private Gtk.Menu context_menu;
+    private Gtk.PopoverMenu context_menu;
 
-    private Gtk.Menu get_context_menu() {
+    private Gtk.PopoverMenu get_context_menu() {
         if (context_menu == null) {
-            var model = this.builder.get_object ("PhotoContextMenu")
-                as GLib.MenuModel;
-            context_menu = new Gtk.Menu.from_model (model);
-            context_menu.attach_to_widget (this, null);
+            context_menu = get_popover_menu_from_builder (this.builder, "PhotoContextMenu", this);
         }
 
         return this.context_menu;
     }
     
-    protected override bool on_context_buttonpress(Gdk.EventButton event) {
-        popup_context_menu(get_context_menu(), event);
+    protected override bool on_context_buttonpress(Gtk.EventController event, double x, double y) {
+        popup_context_menu(get_context_menu(), x, y);
 
         return true;
     }
 
     protected override bool on_context_keypress() {
-        popup_context_menu(get_context_menu());
+        //popup_context_menu(get_context_menu());
         
         return true;
     }
@@ -2890,7 +2836,7 @@ public class LibraryPhotoPage : EditingHostPage {
         Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         photos.add(photo);
         
-        remove_from_app(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
+        remove_from_app.begin(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
             GLib.dpgettext2(null, "Dialog Title", "Removing Photo From Library"));
     }
     
@@ -3145,24 +3091,27 @@ public class LibraryPhotoPage : EditingHostPage {
 
     private void on_add_tags() {
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
-        if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(
-                HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names), 
-                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
-        }
+        dialog.execute.begin((source, res) => {
+            string[]? names = dialog.execute.end(res);
+            if (names != null) {
+                get_command_manager().execute(new AddTagsCommand(
+                    HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names), 
+                    (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
+            }
+            });
     }
 
     private void on_modify_tags() {
         LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
         
         ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
-        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+        dialog.execute.begin((source, res) => {
+            var new_tags = dialog.execute.end(res);
+            if (new_tags == null)
+                return;
         
-        if (new_tags == null)
-            return;
-        
-        get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+            get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+        });
     }
 
     private void on_faces_toggled() {
@@ -3173,14 +3122,13 @@ public class LibraryPhotoPage : EditingHostPage {
         faces_button.set_active(!faces_button.get_active());
     }
     
-    protected override void insert_faces_button(Gtk.Toolbar toolbar) {
-        faces_button = new Gtk.ToggleToolButton();
+    protected override void insert_faces_button(Gtk.Box toolbar) {
+        faces_button = new Gtk.ToggleButton();
         faces_button.set_icon_name(Resources.ICON_FACES);
         faces_button.set_label(Resources.FACES_LABEL);
         faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
         faces_button.toggled.connect(on_faces_toggled);
-        faces_button.is_important = true;
-        toolbar.insert(faces_button, -1);
+        toolbar.append(faces_button);
     }
 }
 

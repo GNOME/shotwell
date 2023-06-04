@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.0 -->
 <interface domain="shotwell">
-  <requires lib="gtk+" version="3.14"/>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtk" version="4.0"/>
   <template class="PublishingGooglePhotosPublishingOptionsPane" parent="GtkBox">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <property name="margin_start">18</property>
     <property name="margin_end">18</property>
     <property name="margin_top">18</property>
@@ -16,200 +14,133 @@
     </child>
     <child>
       <object class="GtkLabel" id="login_identity_label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">32</property>
-        <property name="label">'you are logged in as $name' (populated in the application code)</property>
+        <property name="label">&apos;you are logged in as $name&apos; (populated in the application code)</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="padding">4</property>
-        <property name="position">1</property>
-      </packing>
     </child>
     <child>
       <object class="GtkBox" id="album_gallery_layout_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="margin_start">32</property>
         <property name="margin_end">32</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="publish_to_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="vexpand">0</property>
             <property name="halign">start</property>
             <property name="label">$mediatype will appear in (populated in code)</property>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkGrid" id="album_choice_area_grid">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">24</property>
             <property name="margin_end">24</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">12</property>
-            <property name="column_homogeneous">True</property>
+            <property name="column_homogeneous">1</property>
             <child>
               <object class="GtkComboBoxText" id="existing_albums_combo">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="strip_metadata_check">
                 <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="focusable">1</property>
                 <property name="halign">start</property>
                 <property name="margin_top">16</property>
-                <property name="hexpand">True</property>
-                <property name="use_underline">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="hexpand">1</property>
+                <property name="use_underline">1</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Photo _size preset</property>
-                <property name="use_underline">True</property>
+                <property name="use_underline">1</property>
                 <property name="mnemonic_widget">size_combo</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkComboBoxText" id="size_combo">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="existing_album_radio">
+              <object class="GtkCheckButton" id="existing_album_radio">
                 <property name="label" translatable="yes">An existing album</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
                 <property name="halign">end</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="active">1</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="new_album_radio">
+              <object class="GtkCheckButton" id="new_album_radio">
                 <property name="label" translatable="yes">A new album named</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
                 <property name="halign">end</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="active">0</property>
                 <property name="group">existing_album_radio</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="new_album_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="focusable">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="padding">4</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
-      </packing>
     </child>
     <child>
       <placeholder/>
     </child>
     <child>
-      <object class="GtkButtonBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="layout_style">spread</property>
+      <object class="GtkBox">
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="yes">_Logout</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
+            <property name="use_underline">1</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkButton" id="publish_button">
             <property name="label" translatable="yes">_Publish</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
+            <property name="use_underline">1</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">4</property>
-      </packing>
     </child>
   </template>
   <object class="GtkSizeGroup">

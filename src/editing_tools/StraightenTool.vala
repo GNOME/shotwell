@@ -125,27 +125,27 @@ public class StraightenTool : EditingTool {
             angle_label.set_size_request(MIN_LABEL_SIZE,-1);
 
             Gtk.Box slider_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
-            slider_layout.pack_start(angle_slider, true, true, 0);
+            slider_layout.append(angle_slider);
 
             Gtk.Box button_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             cancel_button.set_size_request(MIN_BUTTON_SIZE, -1);
             reset_button.set_size_request(MIN_BUTTON_SIZE, -1);
             ok_button.set_size_request(MIN_BUTTON_SIZE, -1);
-            button_layout.pack_start(cancel_button, true, true, 0);
-            button_layout.pack_start(reset_button, true, true, 0);
-            button_layout.pack_start(ok_button, true, true, 0);
+            button_layout.append(cancel_button);
+            button_layout.append(reset_button);
+            button_layout.append(ok_button);
 
             Gtk.Box main_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            main_layout.pack_start(description_label, true, true, 0);
-            main_layout.pack_start(slider_layout, true, true, 0);
-            main_layout.pack_start(angle_label, true, true, 0);
-            main_layout.pack_start(button_layout, true, true, 0);
+            main_layout.append(description_label);
+            main_layout.append(slider_layout);
+            main_layout.append(angle_label);
+            main_layout.append(button_layout);
 
             add(main_layout);
 
             reset_button.clicked.connect(on_reset_clicked);
 
-            set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
+            //set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
         }
 
         private void on_reset_clicked() {
@@ -252,20 +252,20 @@ public class StraightenTool : EditingTool {
             canvas.repaint();
     }
 
-    public override bool on_keypress(Gdk.EventKey event) {
-        if ((Gdk.keyval_name(event.keyval) == "KP_Enter") ||
-            (Gdk.keyval_name(event.keyval) == "Enter") ||
-            (Gdk.keyval_name(event.keyval) == "Return")) {
+    public override bool on_keypress(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if ((Gdk.keyval_name(keyval) == "KP_Enter") ||
+            (Gdk.keyval_name(keyval) == "Enter") ||
+            (Gdk.keyval_name(keyval) == "Return")) {
             on_ok_clicked();
             return true;
         }
 
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+        if (Gdk.keyval_name(keyval) == "Escape") {
             notify_cancel();
             return true;
         }
 
-        return base.on_keypress(event);
+        return base.on_keypress(event, keyval, keycode, modifiers);
     }
 
     private void prepare_image() {
@@ -358,11 +358,7 @@ public class StraightenTool : EditingTool {
         prepare_image();
 
         // set crosshair cursor
-        var drawing_window = canvas.get_drawing_window ();
-        var display = drawing_window.get_display ();
-        var cursor = new Gdk.Cursor.for_display (display,
-                                                 Gdk.CursorType.CROSSHAIR);
-        drawing_window.set_cursor (cursor);
+        canvas.set_cursor("crosshair");
 
         window = new StraightenToolWindow(canvas.get_container());
         bind_window_handlers();
@@ -375,7 +371,7 @@ public class StraightenTool : EditingTool {
         window.angle_label.set_text(tmp);
 
         high_qual_repaint();
-        window.show_all();
+        window.show();
     }
 
     /**
@@ -392,7 +388,7 @@ public class StraightenTool : EditingTool {
 
         if (canvas != null) {
             unbind_canvas_handlers(canvas);
-            canvas.get_drawing_window().set_cursor(null);
+            canvas.get_container().set_cursor(null);
         }
 
         base.deactivate();
@@ -407,14 +403,14 @@ public class StraightenTool : EditingTool {
     }
 
     private void bind_window_handlers() {
-        window.key_press_event.connect(on_keypress);
+        //window.key_press_event.connect(on_keypress);
         window.ok_button.clicked.connect(on_ok_clicked);
         window.cancel_button.clicked.connect(notify_cancel);
         window.angle_slider.value_changed.connect(on_angle_changed);
     }
 
     private void unbind_window_handlers() {
-        window.key_press_event.disconnect(on_keypress);
+        //window.key_press_event.disconnect(on_keypress);
         window.ok_button.clicked.disconnect(on_ok_clicked);
         window.cancel_button.clicked.disconnect(notify_cancel);
         window.angle_slider.value_changed.disconnect(on_angle_changed);

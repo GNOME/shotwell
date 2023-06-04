@@ -428,7 +428,6 @@ namespace Publishing.Tumblr {
                     builder = new Gtk.Builder();
                     builder.add_from_resource (Resources.RESOURCE_PATH +
                             "/tumblr_publishing_options_pane.ui");
-                    builder.connect_signals(null);
 
                     // pull in the necessary widgets from the glade file
                     pane_widget = (Gtk.Box) this.builder.get_object("tumblr_pane");
@@ -463,17 +462,11 @@ namespace Publishing.Tumblr {
                 }
             }
 
-
-
-
-
             private void on_logout_clicked() {
                 logout();
             }
 
             private void on_publish_clicked() {
-
-
                 publish();
             }
 

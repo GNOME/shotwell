@@ -24,10 +24,20 @@ public class SetBackgroundPhotoDialog : Gtk.Dialog {
                                 screensaver_checkbox.active);
     }
 
-    public bool execute(out bool desktop_background, out bool screensaver) {
-        this.show_all();
-        var result = this.run() == Gtk.ResponseType.OK;
-        this.hide ();
+    public async bool execute(out bool desktop_background, out bool screensaver) {
+        this.show();
+
+        SourceFunc continue_cb = execute.callback;
+        int response = 0;
+        this.response.connect((source, res) => {
+            this.hide();
+            res = response;
+            continue_cb();
+        });
+        
+        yield;
+
+        var result = response == Gtk.ResponseType.OK;
 
         desktop_background = desktop_background_checkbox.active;
         screensaver = screensaver_checkbox.active;

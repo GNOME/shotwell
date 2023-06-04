@@ -40,9 +40,9 @@ namespace Shotwell {
                 var name = profiles.get_value(group, "Name");
                 var active = this.profile == name;
                 return new Profile(profiles.get_value(group, "Name"),
-                                id,
-                                get_data_dir_for_profile(id, group),
-                                active);
+                                   id,
+                                   get_data_dir_for_profile(id, group),
+                                   active);
             } catch (KeyFileError err) {
                 if (err is KeyFileError.GROUP_NOT_FOUND) {
                     assert_not_reached();

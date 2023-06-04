@@ -34,11 +34,11 @@ public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
     public StaticMessagePane(string message_string, bool enable_markup = false, bool show_spinner = false) {
         Object(show_spinner: false);
 
-        spinner.active = show_spinner;
+        spinner.spinning = show_spinner;
 
         if (enable_markup) {
             static_msg_label.set_markup(message_string);
-            static_msg_label.set_line_wrap(true);
+            static_msg_label.set_wrap(true);
             static_msg_label.set_use_markup(true);
         } else {
             static_msg_label.set_label(message_string);

@@ -570,6 +570,31 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return null;
     }
 
+    private Gdk.Pixbuf? get_icon_trinket(string icon_name, int scale) {
+        try {
+            var theme = Gtk.IconTheme.get_for_display(AppWindow.get_instance().get_display());
+            var paintable = theme.lookup_icon(icon_name, null, 1, scale * 2, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.PRELOAD);
+
+            var snapshot = new Gtk.Snapshot();
+            paintable.snapshot_symbolic(snapshot, scale * 2, scale * 2, {{0.8f, 0.8f, 0.8f, 1.0f}});
+            var node = snapshot.free_to_node();
+            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, scale * 2, scale * 2);
+            var ctx = new Cairo.Context(surface);
+            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+            ctx.rectangle(0, 0, scale * 2, scale * 2);
+            ctx.fill();
+            ctx.move_to(0,0);
+            node.draw(ctx);
+            ctx.paint();
+
+            return Gdk.pixbuf_get_from_surface(surface, 0, 0, scale * 2, scale * 2);
+        } catch (Error err) {
+            critical ("%s", err.message);
+
+            return null;
+        }        
+    }
+
     public Gdk.Pixbuf? get_video_trinket(int scale) {
         int cache_key = scale << 18;
         var cached_pixbuf = get_cached_trinket(cache_key);
@@ -577,25 +602,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (cached_pixbuf != null)
             return cached_pixbuf;
 
-        try {
-            var theme = Gtk.IconTheme.get_default();
-            var info = theme.lookup_icon ("filter-videos-symbolic", (int)(scale * 2), Gtk.IconLookupFlags.GENERIC_FALLBACK);
-            var icon = info.load_symbolic({0.8, 0.8, 0.8, 1.0}, null, null, null);
-            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
-            var ctx = new Cairo.Context(surface);
-            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
-            ctx.rectangle(0, 0, icon.width, icon.height);
-            ctx.fill();
-            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
-            ctx.paint();
+        var trinket = get_icon_trinket("filter-videos-symbolic", scale);
+        if (trinket != null) {
 
-            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            trinket_cache[cache_key] = trinket;
             return trinket_cache[cache_key];
-        } catch (Error err) {
-            critical ("%s", err.message);
-
-            return null;
         }
+
+        return null;
     }
 
     public Gdk.Pixbuf? get_flagged_trinket(int scale) {
@@ -605,25 +619,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (cached_pixbuf != null)
             return cached_pixbuf;
 
-        try {
-            var theme = Gtk.IconTheme.get_default();
-            var info = theme.lookup_icon ("filter-flagged-symbolic", (int)(scale * 1.33), Gtk.IconLookupFlags.GENERIC_FALLBACK);
-            var icon = info.load_symbolic({0.8, 0.8, 0.8, 1.0}, null, null, null);
-            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
-            var ctx = new Cairo.Context(surface);
-            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
-            ctx.rectangle(0, 0, icon.width, icon.height);
-            ctx.fill();
-            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
-            ctx.paint();
+        var trinket = get_icon_trinket("filter-flagged-symbolic", scale);
+        if (trinket != null) {
 
-            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            trinket_cache[cache_key] = trinket;
             return trinket_cache[cache_key];
-        } catch (Error err) {
-            critical ("%s", err.message);
-
-            return null;
         }
+
+        return null;
     }
 
     private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
@@ -787,9 +790,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string SELECT_ALL_MENU = _("Select _All");
     public const string SELECT_ALL_TOOLTIP = _("Select all items");
-    
-    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
-    Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
     private string HH_MM_FORMAT_STRING = null;
     private string HH_MM_SS_FORMAT_STRING = null;
@@ -997,11 +997,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private void init_css_provider() {
         Gtk.CssProvider provider = new Gtk.CssProvider();
         provider.load_from_resource("/org/gnome/Shotwell/themes/org.gnome.Shotwell.css");
-        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
     
     private void init_icon_theme_engine() {
-        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
+        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
         icon_theme.add_resource_path("/org/gnome/Shotwell/Publishing/icons");
@@ -1010,68 +1010,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         icon_theme.add_resource_path("/org/gnome/Shotwell/Transitions/icons/hicolor");
     }
     
-    // This method returns a reference to a cached pixbuf that may be shared throughout the system.
-    // If the pixbuf is to be modified, make a copy of it.
-    public Gdk.Pixbuf? get_icon(string name, int scale = DEFAULT_ICON_SCALE) {
-        if (scaled_icon_cache != null) {
-            string scaled_name = "%s-%d".printf(name, scale);
-            if (scaled_icon_cache.has_key(scaled_name))
-                return scaled_icon_cache.get(scaled_name);
-        }
-        
-        // stash icons not available through the UI Manager (i.e. used directly as pixbufs)
-        // in the local cache
-        if (icon_cache == null)
-            icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
-        
-        // fetch from cache and if not present, from disk
-        Gdk.Pixbuf? pixbuf = icon_cache.get(name);
-        if (pixbuf == null) {
-            pixbuf = load_icon(name, scale);
-            if (pixbuf == null)
-                return null;
-            
-            icon_cache.set(name, pixbuf);
-        }
-        
-        if (scale <= 0)
-            return pixbuf;
-        
-        Gdk.Pixbuf scaled_pixbuf = scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false);
-        
-        if (scaled_icon_cache == null)
-            scaled_icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
-        
-        scaled_icon_cache.set("%s-%d".printf(name, scale), scaled_pixbuf);
-        
-        return scaled_pixbuf;
-    }
-    
-    public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            var theme = Gtk.IconTheme.get_default();
-            var info = theme.lookup_icon(name, scale, Gtk.IconLookupFlags.GENERIC_FALLBACK);
-            pixbuf = info.load_symbolic_for_context(AppWindow.get_instance().get_style_context(), null);
-        } catch (Error err) {
-            debug("Failed to find icon %s in theme, falling back to resources", name);
-        }
-
-        if (pixbuf == null) {
-            try {
-                var path = "/org/gnome/Shotwell/icons/%s".printf(name);
-                pixbuf = new Gdk.Pixbuf.from_resource(path);
-            } catch (Error err) {
-                critical("Unable to load icon %s: %s", name, err.message);
-            }
-        }
-
-        if (pixbuf == null)
-            return null;
-
-        return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
-    }
-
     // Get the directory where our help files live.  Returns a string
     // describing the help path we want, or, if we're installed system
     // -wide already, returns null.
@@ -1137,7 +1075,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             uri += anchor;
         }
 
-        Gtk.show_uri_on_window(window, uri, Gdk.CURRENT_TIME);
+        Gtk.show_uri(window, uri, Gdk.CURRENT_TIME);
     }
     
     public const int ALL_DATA = -1;

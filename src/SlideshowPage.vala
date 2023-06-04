@@ -11,8 +11,8 @@ class SlideshowPage : SinglePhotoPage {
     private SourceCollection sources;
     private ViewCollection controller;
     private Photo current;
-    private Gtk.ToolButton play_pause_button;
-    private Gtk.ToolButton settings_button;
+    private Gtk.Button play_pause_button;
+    private Gtk.Button settings_button;
     private PixbufCache cache = null;
     private Timer timer = new Timer();
     private bool playing = true;
@@ -130,38 +130,37 @@ class SlideshowPage : SinglePhotoPage {
         update_transition_effect();
         
         // Set up toolbar
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // add toolbar buttons
-        Gtk.ToolButton previous_button = new Gtk.ToolButton(null, _("Back"));
+        Gtk.Button previous_button = new Gtk.Button.with_label(_("Back"));
         previous_button.set_icon_name("go-previous-symbolic");
         previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked.connect(on_previous_photo);
         
-        toolbar.insert(previous_button, -1);
+        toolbar.append(previous_button);
         
-        play_pause_button = new Gtk.ToolButton(null, _("Pause"));
+        play_pause_button = new Gtk.Button.with_label( _("Pause"));
         play_pause_button.set_icon_name("media-playback-pause-symbolic");
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked.connect(on_play_pause);
         
-        toolbar.insert(play_pause_button, -1);
+        toolbar.append(play_pause_button);
         
-        Gtk.ToolButton next_button = new Gtk.ToolButton(null, _("Next"));
+        Gtk.Button next_button = new Gtk.Button.with_label(_("Next"));
         next_button.set_icon_name("go-next-symbolic");
         next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked.connect(on_next_photo);
         
-        toolbar.insert(next_button, -1);
+        toolbar.append(next_button);
 
-        settings_button = new Gtk.ToolButton(null, null);
+        settings_button = new Gtk.Button();
         settings_button.set_icon_name("preferences-system-symbolic");
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked.connect(on_change_settings);
-        settings_button.is_important = true;
         
-        toolbar.insert(settings_button, -1);
+        toolbar.append(settings_button);
 
         screensaver = new Screensaver();
     }
@@ -337,9 +336,9 @@ class SlideshowPage : SinglePhotoPage {
         return true;
     }
     
-    public override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             // Block activating the toolbar on key down
             // FIXME: Why is SinglePhotoPage not a PhotoPage which already does this?
             case "Down":
@@ -355,36 +354,36 @@ class SlideshowPage : SinglePhotoPage {
             break;
         }
         
-        if (handled)
-            return true;
-        
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
 
     private void on_change_settings() {
         SettingsDialog settings_dialog = new SettingsDialog();
-        settings_dialog.show_all();
+        settings_dialog.show();
+        settings_dialog.set_transient_for(get_container());
         
         bool slideshow_playing = playing;
         playing = false;
         hide_toolbar();
         suspend_cursor_hiding();
-        
-        if (settings_dialog.run() == Gtk.ResponseType.OK) {
-            // sync with the config setting so it will persist
-            Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
-            
-            Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-            Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
-            Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
-            
-            update_transition_effect();
-        }
-        
-        settings_dialog.destroy();
-        restore_cursor_hiding();
-        playing = slideshow_playing;
-        timer.start();
+        settings_dialog.show();
+        settings_dialog.response.connect((source, res) => {
+            if (res == Gtk.ResponseType.OK) {
+
+                // sync with the config setting so it will persist
+                Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
+                
+                Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
+                Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
+                Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
+                
+                update_transition_effect();
+                restore_cursor_hiding();
+                playing = slideshow_playing;
+                timer.start();    
+            }
+            settings_dialog.destroy();
+        });
     }
     
     private void update_transition_effect() {
@@ -409,8 +408,13 @@ class SlideshowPage : SinglePhotoPage {
         string? title = current.get_title();
         
         // If the photo doesn't have a title, don't paint anything
-        if (title == null || title == "")
+        if (title == null || title == "") {
+            title = current.get_name();
+        }
+
+        if (title == null || title == "") {
             return;
+        }
         
         Pango.Layout layout = create_pango_layout(title);
         Pango.AttrList list = new Pango.AttrList();

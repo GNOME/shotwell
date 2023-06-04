@@ -4,7 +4,7 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-internal class BackgroundProgressBar : Gtk.ProgressBar {
+internal class BackgroundProgressBar : Gtk.Box {
     public enum Priority {
         NONE = 0,
         STARTUP_SCAN = 35,
@@ -15,15 +15,15 @@ internal class BackgroundProgressBar : Gtk.ProgressBar {
 
     public bool should_be_visible { get; private set; default = false; }
 
-#if UNITY_SUPPORT
-    // UnityProgressBar: init
-    private UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
+    private Gtk.ProgressBar progress_bar;
 
     private const int PULSE_MSEC = 250;
 
     public BackgroundProgressBar() {
-        Object(show_text: true);
+        Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 0);
+        progress_bar = new Gtk.ProgressBar();
+        progress_bar.show_text = true;
+        append (progress_bar);
     }
 
     private Priority current_priority = Priority.NONE;
@@ -36,8 +36,8 @@ internal class BackgroundProgressBar : Gtk.ProgressBar {
         stop(priority, false);
 
         current_priority = priority;
-        set_text(label);
-        pulse();
+        progress_bar.set_text(label);
+        progress_bar.pulse();
         should_be_visible = true;
         pulse_id = Timeout.add(PULSE_MSEC, on_pulse_timeout);
     }
@@ -70,15 +70,9 @@ internal class BackgroundProgressBar : Gtk.ProgressBar {
         current_priority = priority;
 
         double fraction = count / total;
-        set_fraction(fraction);
-        set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
+        progress_bar.set_fraction(fraction);
+        progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
         should_be_visible = true;
-
-#if UNITY_SUPPORT
-        // UnityProgressBar: try to draw & set progress
-        uniprobar.set_visible(true);
-        uniprobar.set_progress(fraction);
-#endif
 
         return true;
     }
@@ -91,18 +85,14 @@ internal class BackgroundProgressBar : Gtk.ProgressBar {
 
         current_priority = 0;
 
-        set_fraction(0.0);
-        set_text("");
+        progress_bar.set_fraction(0.0);
+        progress_bar.set_text("");
         should_be_visible = false;
 
-#if UNITY_SUPPORT
-        // UnityProgressBar: reset
-        uniprobar.reset();
-#endif
     }
 
     private bool on_pulse_timeout() {
-        pulse();
+        progress_bar.pulse();
 
         return true;
     }

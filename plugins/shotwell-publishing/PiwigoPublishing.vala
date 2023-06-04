@@ -1036,8 +1036,12 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         var info = this.get_builder ().get_object ("default") as Gtk.Button;
         if (cert != null) {
             info.clicked.connect (() => {
-                var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
-                var widget = new Gcr.CertificateWidget (simple_cert);
+                //var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
+                var scrollable = new Gtk.ScrolledWindow();
+                scrollable.set_vexpand(true);
+                //var widget = new Gcr.CertificateWidget (simple_cert);
+                //widget.set_vexpand(true);
+                //scrollable.set_child(widget);
                 bool use_header = true;
                 Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
                 var flags = (Gtk.DialogFlags) 0;
@@ -1050,15 +1054,17 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
                                 null,
                                 flags,
                                 _("_OK"), Gtk.ResponseType.OK);
-                dialog.get_content_area ().add (widget);
+                dialog.get_content_area ().append (scrollable);
                 dialog.set_default_response (Gtk.ResponseType.OK);
-                dialog.set_default_size (640, -1);
-                dialog.show_all ();
-                dialog.run ();
-                dialog.destroy ();
+                dialog.set_default_size (640, 480);
+                dialog.show ();
+                dialog.set_modal(true);
+                dialog.response.connect(() => {
+                    dialog.destroy();
+                });
             });
         } else {
-            info.get_parent().remove(info);
+            info.unparent();
         }
 
         var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
@@ -1095,7 +1101,6 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
     public AuthenticationPane (PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
         Object (resource_path : Resources.RESOURCE_PATH +
                                 "/piwigo_authentication_pane.ui",
-                connect_signals : true,
                 default_id : "login_button",
                 mode : mode,
                 publisher : publisher);
@@ -1179,7 +1184,6 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
 
         url_entry.grab_focus();
         password_entry.set_activates_default(true);
-        login_button.can_default = true;
         update_login_button_sensitivity();
     }
 }
@@ -1191,8 +1195,8 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private static string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
-    private Gtk.RadioButton use_existing_radio;
-    private Gtk.RadioButton create_new_radio;
+    private Gtk.CheckButton use_existing_radio;
+    private Gtk.CheckButton create_new_radio;
     private Gtk.ComboBoxText existing_categories_combo;
     private Gtk.Entry new_category_entry;
     private Gtk.Label within_existing_label;
@@ -1235,7 +1239,6 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                                  bool strip_metadata_enabled) {
         Object (resource_path : Resources.RESOURCE_PATH +
                                 "/piwigo_publishing_options_pane.ui",
-                connect_signals : true,
                 default_id : "publish_button",
                 last_category : last_category,
                 last_permission_level : last_permission_level,
@@ -1253,8 +1256,8 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         base.constructed ();
         var builder = this.get_builder ();
 
-        use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
-        create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
+        use_existing_radio = builder.get_object("use_existing_radio") as Gtk.CheckButton;
+        create_new_radio = builder.get_object("create_new_radio") as Gtk.CheckButton;
         existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
         new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
         within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
@@ -1285,8 +1288,8 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         publish_button = builder.get_object("publish_button") as Gtk.Button;
         publish_button.clicked.connect(on_publish_button_clicked);
 
-        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
-        create_new_radio.clicked.connect(on_create_new_radio_clicked);
+        use_existing_radio.toggled.connect(on_use_existing_radio_clicked);
+        create_new_radio.toggled.connect(on_create_new_radio_clicked);
         new_category_entry.changed.connect(on_new_category_entry_changed);
         within_existing_combo.changed.connect(on_existing_combo_changed);
 
@@ -1408,7 +1411,6 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         create_permissions_combo();
         create_size_combo();
 
-        publish_button.can_default = true;
         update_publish_button_sensitivity();
     }
 

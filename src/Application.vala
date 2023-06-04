@@ -109,10 +109,6 @@ public class Application {
         get_instance().system_app.set_accels_for_action (action, accel);
     }
 
-    public static void set_menubar (GLib.MenuModel? model) {
-        get_instance().system_app.set_menubar (model);
-    }
-
     /**
      * @brief Signal handler for GApplication's 'activate' signal.
      *

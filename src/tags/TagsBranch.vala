@@ -123,39 +123,28 @@ public class Tags.Branch : Sidebar.Branch {
 }
 
 public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
-    Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
-    private Gtk.Builder builder;
-    private Gtk.Menu? context_menu = null;
+    Sidebar.Contextable {
+    private Gtk.PopoverMenu? context_menu = null;
     
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
-        setup_context_menu();
-    }
-
-    private void setup_context_menu() {
-        this.builder = new Gtk.Builder ();
-        try {
-            this.builder.add_from_resource(Resources.get_ui("tag_sidebar_context.ui"));
-            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
-            this.context_menu = new Gtk.Menu.from_model (model);
-        } catch (Error error) {
-            AppWindow.error_message("Error loading UI resource: %s".printf(
-                error.message));
-            Application.get_instance().panic();
-        }
+        this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
+        print("\t%p\n", this.context_menu.get_parent());
     }
 
     public bool internal_drop_received(Gee.List<MediaSource> media) {
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
-        if (names == null || names.length == 0)
-            return false;
-        
-        AppWindow.get_command_manager().execute(new AddTagsCommand(names, media));
-        
+        dialog.execute.begin((source, res) => {
+            string[]? tags = dialog.execute.end(res);
+            if (tags != null && tags.length > 0) {
+                AppWindow.get_command_manager().execute(new AddTagsCommand(tags, media));
+            }
+        });
+
         return true;
     }
 
+#if 0
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
@@ -177,15 +166,16 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     public void prepare_selection_data(Gtk.SelectionData data) {
         ;
     }
+    #endif
 
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
+    public Gtk.PopoverMenu? get_sidebar_context_menu() {
         return context_menu;
     }
 }
 
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
-    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry,
-    Sidebar.InternalDragSourceEntry {
+    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry
+     {
     private string single_tag_icon = Resources.ICON_ONE_TAG;
     
     private Tag tag;
@@ -237,8 +227,11 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     public void destroy_source() {
-        if (Dialogs.confirm_delete_tag(tag))
-            AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+        Dialogs.confirm_delete_tag.begin(tag, (source, res) => {
+            if (Dialogs.confirm_delete_tag.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+            }
+        });
     }
     
     public bool internal_drop_received(Gee.List<MediaSource> media) {
@@ -248,6 +241,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return true;
     }
 
+#if 0
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
@@ -278,14 +272,18 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         
         return false;
     }
+    #endif
 
     public bool expand_on_select() {
         return false;
     }
 
+
+#if 0
     public void prepare_selection_data(Gtk.SelectionData data) {
         data.set(Gdk.Atom.intern_static_string(LibraryWindow.TAG_PATH_MIME_TYPE), 0,
             tag.get_path().data);
     }
+    #endif
 }
 

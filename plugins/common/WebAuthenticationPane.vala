@@ -20,15 +20,11 @@ namespace Shotwell.Plugins.Common {
 
         public void clear() {
             debug("Clearing the data of WebKit...");
-            this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
+            //this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
         }
 
         public override void constructed () {
             base.constructed ();
-            var ctx = WebKit.WebContext.get_default();
-            if (!ctx.get_sandbox_enabled()) {
-                ctx.set_sandbox_enabled(true);
-            }
 
             var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
             this.widget = box;
@@ -36,7 +32,7 @@ namespace Shotwell.Plugins.Common {
             this.entry.editable = false;
             this.entry.get_style_context().add_class("flat");
             this.entry.get_style_context().add_class("read-only");
-            box.pack_start (entry, false, false, 6);
+            box.append (entry);
 
             this.webview = new WebKit.WebView ();
 
@@ -45,7 +41,8 @@ namespace Shotwell.Plugins.Common {
             this.webview.context_menu.connect ( () => { return false; });
             this.webview.decide_policy.connect (this.on_decide_policy);
             this.webview.bind_property("uri", this.entry, "text", GLib.BindingFlags.DEFAULT);
-            box.pack_end (this.webview);
+            this.webview.set_vexpand(true);
+            box.append (this.webview);
         }
 
         private bool on_decide_policy(WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
@@ -67,19 +64,6 @@ namespace Shotwell.Plugins.Common {
 
         public abstract void on_page_load ();
 
-        protected void set_cursor (Gdk.CursorType type) {
-            var window = webview.get_window ();
-            if (window == null)
-                return;
-
-            var display = window.get_display ();
-            if (display == null)
-                return;
-
-            var cursor = new Gdk.Cursor.for_display (display, type);
-            window.set_cursor (cursor);
-        }
-
         private bool on_page_load_failed (WebKit.LoadEvent load_event, string uri, Error error) {
             // OAuth call-back scheme. Produces a load error because it is not HTTP(S)
             // Do not set the load_error, but continue the error handling
@@ -96,10 +80,10 @@ namespace Shotwell.Plugins.Common {
             switch (load_event) {
                 case WebKit.LoadEvent.STARTED:
                 case WebKit.LoadEvent.REDIRECTED:
-                    this.set_cursor (Gdk.CursorType.WATCH);
+                    this.widget.set_cursor_from_name ("progress");
                     break;
                 case WebKit.LoadEvent.FINISHED:
-                    this.set_cursor (Gdk.CursorType.LEFT_PTR);
+                    this.widget.set_cursor_from_name ("default");
                     this.on_page_load ();
                     break;
                 default:

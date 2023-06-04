@@ -551,7 +551,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
 
         if (!publisher.get_authenticator().can_logout()) {
-            logout_button.parent.remove(logout_button);
+            logout_button.unparent();
         }
 
         this.parameters = parameters;

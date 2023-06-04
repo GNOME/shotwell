@@ -22,18 +22,18 @@ public class EventPage : CollectionPage {
         return page_event;
     }
     
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // If and only if one image is selected, propagate F2 to the rest of
         // the window, otherwise, consume it here - if we don't do this, it'll
         // either let us re-title multiple images at the same time or
         // spuriously highlight the event name in the sidebar for editing...
-        if (Gdk.keyval_name(event.keyval) == "F2") {
+        if (Gdk.keyval_name(keyval) == "F2") {
             if (get_view().get_selected_count() != 1) {
                 return true; 
             }
         }
          
-        return base.on_app_key_pressed(event);
+        return base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
     
     ~EventPage() {
@@ -100,13 +100,15 @@ public class EventPage : CollectionPage {
     private void on_edit_event_comment() {
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment(),
         true);
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment == null)
-            return;
-        
-        EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
-        get_command_manager().execute(command);
-        return;
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
+            get_command_manager().execute(command);
+    
+        });
     }
 
     protected override void on_edit_comment() {

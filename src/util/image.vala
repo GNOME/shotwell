@@ -29,16 +29,9 @@ Gdk.Pixbuf get_placeholder_pixbuf () {
     Gdk.Pixbuf? pixbuf = null;
 
     try {
-        var icon_theme = Gtk.IconTheme.get_default ();
-        pixbuf = icon_theme.load_icon("image-missing",
-                Gtk.IconSize.DIALOG, 0);
-    } catch (Error error) {
-        try {
-            pixbuf = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/image-missing.png");
-        } catch (Error err) {
-            warning("Could not load fall-back icon: %s", err.message);
-        }
-        warning("Could not load icon from theme: %s", error.message);
+        pixbuf = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/image-missing.png");
+    } catch (Error err) {
+        warning("Could not load fall-back icon: %s", err.message);
     }
 
     return pixbuf;

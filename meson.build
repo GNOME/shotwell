@@ -1,7 +1,9 @@
 project('shotwell', ['vala', 'c'],
-        version : '0.32.1',
+        version : '33.alpha',
         meson_version : '>= 0.59.0',
         default_options : ['buildtype=debugoptimized'])
+
+so_version = '0.33'
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -29,6 +31,7 @@ add_global_arguments(
         '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
         '--enable-checking',
         '--enable-experimental',
+        '--enable-deprecated',
     ],
     language : 'vala'
 )
@@ -45,15 +48,14 @@ endif
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
-gtk = dependency('gtk+-3.0', version : '>= 3.22')
+gtk = dependency('gtk4', version : '>= 4.4')
 gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
-webkit = dependency('webkit2gtk-4.1', version: '>= 2.26')
+webkit = [dependency('webkitgtk-6.0', version: '>= 2.26'), dependency('javascriptcoregtk-6.0')]
 soup = dependency('libsoup-3.0')
 json_glib = dependency('json-glib-1.0')
 xml = dependency('libxml-2.0')
-gdk = dependency('gdk-3.0', version : '>= 3.22')
 gdk_pixbuf = dependency('gdk-pixbuf-2.0')
 sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.20')
@@ -63,16 +65,11 @@ gudev = dependency('gudev-1.0', version : '>= 145', required: false)
 gexiv2 = dependency('gexiv2', version: '>= 0.12.3')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
-unity = dependency('unity', required : false)
 secret = dependency('libsecret-1', required: true)
-portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk3', version: '>= 0.5')]
- 
+portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk4', version: '>= 0.5')]
+pangocairo = dependency('pangocairo', required: true)
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
-
-if unity.found() and get_option('unity_support')
-  add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
-endif
 
 foreach publisher : get_option('publishers')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],
@@ -110,8 +107,7 @@ if get_option('face_detection')
 endif
 
 json_glib = dependency('json-glib-1.0')
-gcr = dependency('gcr-3')
-gcr_ui = dependency('gcr-ui-3')
+gcr = dependency('gcr-4')
 cairo = dependency('cairo')
 
 valac = meson.get_compiler('vala')

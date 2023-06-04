@@ -39,7 +39,6 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
             try {
                 builder = new Gtk.Builder();
                 builder.add_from_resource (Resources.RESOURCE_PATH + "/tumblr_authentication_pane.ui");
-                builder.connect_signals(null);
                 var content = builder.get_object ("content") as Gtk.Widget;
 
                 Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
@@ -55,10 +54,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
                 }
 
                 username_entry = builder.get_object ("username_entry") as Gtk.Entry;
-
                 password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-
-
 
                 login_button = builder.get_object("login_button") as Gtk.Button;
 
@@ -66,8 +62,8 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
                 password_entry.changed.connect(on_password_changed);
                 login_button.clicked.connect(on_login_button_clicked);
 
-                content.parent.remove (content);
-                pane_widget.add (content);
+                content.unparent();
+                pane_widget.append (content);
             } catch (Error e) {
                 warning(_("Could not load UI: %s"), e.message);
             }
@@ -107,7 +103,6 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         public void on_pane_installed() {
             username_entry.grab_focus();
             password_entry.set_activates_default(true);
-            login_button.can_default = true;
             update_login_button_sensitivity();
         }
 

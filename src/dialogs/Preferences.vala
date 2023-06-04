@@ -28,7 +28,9 @@ public class PreferencesDialog : Gtk.Dialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     [GtkChild]
-    private unowned Gtk.FileChooserButton library_dir_button;
+    private unowned Gtk.Button library_dir_button;
+    [GtkChild]
+    private unowned Gtk.Label library_dir_text;
     [GtkChild]
     private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
@@ -42,6 +44,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
@@ -55,20 +58,20 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.Stack preferences_stack;
 
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_checker_radio;
+    private unowned Gtk.CheckButton transparent_checker_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_solid_radio;
+    private unowned Gtk.CheckButton transparent_solid_radio;
     [GtkChild]
     private unowned Gtk.ColorButton transparent_solid_color;
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_none_radio;
+    private unowned Gtk.CheckButton transparent_none_radio;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
 
-        set_parent_window(AppWindow.get_instance().get_parent_window());
+        //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
-        delete_event.connect(on_delete);
+        close_request.connect(on_delete);
         response.connect(on_close);
 
         transparent_checker_radio.toggled.connect(on_radio_changed);
@@ -95,6 +98,8 @@ public class PreferencesDialog : Gtk.Dialog {
                 transparent_none_radio.active = true;
             break;
         }
+
+        library_dir_button.clicked.connect(on_library_button_clicked);
 
         // Ticket #3162 - Move dir pattern blurb into Gnome help.
         // Because specifying a particular snippet of the help requires
@@ -126,8 +131,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).add(plugins_mediator);
-        ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).add(new Shotwell.ProfileBrowser());
+        ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).append(plugins_mediator);
+        ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).append(new Shotwell.ProfileBrowser());
 
 
         populate_preference_options();
@@ -153,6 +158,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(),
             Config.Facade.get_instance().get_external_raw_app(), out external_raw_apps);
+
+        library_dir_text.set_label(AppDirs.get_import_dir().get_path());
 
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
@@ -206,14 +213,14 @@ public class PreferencesDialog : Gtk.Dialog {
         // populate application ComboBox with app names and icons
         Gtk.CellRendererPixbuf pixbuf_renderer = new Gtk.CellRendererPixbuf();
         Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
+        pixbuf_renderer.xpad = 6;
         combo_box.clear();
         combo_box.pack_start(pixbuf_renderer, false);
         combo_box.pack_start(text_renderer, false);
-        combo_box.add_attribute(pixbuf_renderer, "pixbuf", 0);
+        combo_box.add_attribute(pixbuf_renderer, "gicon", 0);
         combo_box.add_attribute(text_renderer, "text", 1);
 
-        // TODO: need more space between icons and text
-        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
+        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(GLib.Object), typeof(string));
         Gtk.TreeIter iter;
 
         int current_app = -1;
@@ -221,24 +228,11 @@ public class PreferencesDialog : Gtk.Dialog {
         foreach (AppInfo app in external_apps) {
             combo_store.append(out iter);
 
-            Icon app_icon = app.get_icon();
-            try {
-                if (app_icon is FileIcon) {
-                    combo_store.set_value(iter, 0, scale_pixbuf(new Gdk.Pixbuf.from_file(
-                        ((FileIcon) app_icon).get_file().get_path()), Resources.DEFAULT_ICON_SCALE,
-                        Gdk.InterpType.BILINEAR, false));
-                } else if (app_icon is ThemedIcon) {
-                    Gdk.Pixbuf icon_pixbuf =
-                        Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],
-                        Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
-
-                    combo_store.set_value(iter, 0, icon_pixbuf);
-                }
-            } catch (GLib.Error error) {
-                warning("Error loading icon pixbuf: " + error.message);
-            }
-
-            combo_store.set_value(iter, 1, app.get_name());
+            Icon? app_icon = app.get_icon();
+            if (app_icon != null)
+                combo_store.set (iter, 0, app_icon, 1, app.get_name());
+            else
+                combo_store.set (iter, 1, app.get_name());
 
             if (app.get_commandline() == current_app_executable)
                 current_app = external_apps.index_of(app);
@@ -287,8 +281,7 @@ public class PreferencesDialog : Gtk.Dialog {
             preferences_dialog = new PreferencesDialog();
 
         preferences_dialog.populate_preference_options();
-        preferences_dialog.show_all();
-        preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
+        preferences_dialog.show();
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
@@ -318,7 +311,7 @@ public class PreferencesDialog : Gtk.Dialog {
             return true;
 
         commit_on_close();
-        return hide_on_delete(); //prevent widgets from getting destroyed
+        return false; //hide_on_delete(); //prevent widgets from getting destroyed
     }
 
     private void on_close() {
@@ -410,19 +403,26 @@ public class PreferencesDialog : Gtk.Dialog {
         Config.Facade.get_instance().set_default_raw_developer(raw_developer_from_combo());
     }
 
-    private void on_current_folder_changed() {
-        lib_dir = library_dir_button.get_filename();
-    }
-
-    public override bool map_event(Gdk.EventAny event) {
-        var result = base.map_event(event);
-        // Set the signal for the lib dir button after the dialog is displayed,
-        // because the FileChooserButton has a nasty habit of selecting a
-        // different folder when displayed if the provided path doesn't exist.
-        // See ticket #3000 for more info.
-        library_dir_button.current_folder_changed.connect(on_current_folder_changed);
-
-        return result;
+    private void on_library_button_clicked() {
+        var file_chooser = new Gtk.FileChooserNative(_("Select Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, null, null);
+        var filter = new Gtk.FileFilter();
+        filter.name = _("Folders");
+        filter.add_mime_type ("inode/directory");
+        file_chooser.add_filter(filter);
+        try {
+            file_chooser.set_current_folder(AppDirs.get_import_dir());
+        } catch (Error error) {
+            debug("Failed to set current import dir to file chooser: %s", error.message);
+        }
+        file_chooser.set_modal (true);
+        file_chooser.show ();
+        file_chooser.response.connect ((foo, response) => {
+            print(foo.get_type().name());
+            var path = file_chooser.get_file().get_path();
+            AppDirs.set_import_dir(path);
+            library_dir_text.set_label (path);
+            file_chooser.destroy();
+        });
     }
 
     private void add_to_dir_formats(string name, string? pattern) {

@@ -15,7 +15,7 @@ public abstract class FaceShape : Object {
     public signal void delete_me_requested();
     
     protected FacesTool.EditingFaceToolWindow face_window;
-    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+    protected string current_cursor_type = "se-resize";
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
     protected double[] face_vec;
@@ -36,7 +36,7 @@ public abstract class FaceShape : Object {
         face_window = new FacesTool.EditingFaceToolWindow(this.canvas.get_container());
         face_window.key_pressed.connect(key_press_event);
         
-        face_window.show_all();
+        face_window.show();
         face_window.hide();
         
         this.face_vec = vec;
@@ -53,7 +53,7 @@ public abstract class FaceShape : Object {
         canvas.new_surface.disconnect(prepare_ctx);
         
         // make sure the cursor isn't set to a modify indicator
-        canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
+        canvas.set_cursor(null);
     }
     
     public static FaceShape from_serialized(EditingTools.PhotoCanvas canvas, string serialized)
@@ -119,7 +119,7 @@ public abstract class FaceShape : Object {
             face_window.hide();
         
         // make sure the cursor isn't set to a modify indicator
-        canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
+        canvas.set_cursor(null);
     }
     
     public void show() {
@@ -156,8 +156,8 @@ public abstract class FaceShape : Object {
         this.editable = editable;
     }
     
-    public bool key_press_event(Gdk.EventKey event) {
-        switch (Gdk.keyval_name(event.keyval)) {
+    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Escape":
                 delete_me_requested();
             break;
@@ -316,6 +316,7 @@ public class FaceRectangle : FaceShape {
         int x = 0;
         int y = 0;
         
+        #if 0
         if (canvas.get_container() == appWindow) {
             appWindow.get_current_page().get_window().get_origin(out x, out y);
         } else assert(canvas.get_container() is FullscreenWindow);
@@ -330,6 +331,7 @@ public class FaceRectangle : FaceShape {
         y += top + FACE_WINDOW_MARGIN;
         
         face_window.move(x, y);
+        #endif
     }
     
     protected override void paint() {
@@ -707,49 +709,49 @@ public class FaceRectangle : FaceShape {
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
         Box offset_scaled_box = box.get_offset(scaled_pos.x, scaled_pos.y);
         
-        Gdk.CursorType cursor_type = Gdk.CursorType.LEFT_PTR;
+        string? cursor_type = null;
         switch (offset_scaled_box.approx_location(x, y)) {
             case BoxLocation.LEFT_SIDE:
-                cursor_type = Gdk.CursorType.LEFT_SIDE;
+                cursor_type = "w-resize";
             break;
 
             case BoxLocation.TOP_SIDE:
-                cursor_type = Gdk.CursorType.TOP_SIDE;
+                cursor_type = "n-resize";
             break;
 
             case BoxLocation.RIGHT_SIDE:
-                cursor_type = Gdk.CursorType.RIGHT_SIDE;
+                cursor_type = "e-resize";
             break;
 
             case BoxLocation.BOTTOM_SIDE:
-                cursor_type = Gdk.CursorType.BOTTOM_SIDE;
+                cursor_type = "s-resize";
             break;
 
             case BoxLocation.TOP_LEFT:
-                cursor_type = Gdk.CursorType.TOP_LEFT_CORNER;
+                cursor_type = "nw-resize";
             break;
 
             case BoxLocation.BOTTOM_LEFT:
-                cursor_type = Gdk.CursorType.BOTTOM_LEFT_CORNER;
+                cursor_type = "sw-resize";
             break;
 
             case BoxLocation.TOP_RIGHT:
-                cursor_type = Gdk.CursorType.TOP_RIGHT_CORNER;
+                cursor_type = "ne-resize";
             break;
 
             case BoxLocation.BOTTOM_RIGHT:
-                cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+                cursor_type = "se-resize";
             break;
 
             case BoxLocation.INSIDE:
-                cursor_type = Gdk.CursorType.FLEUR;
+                cursor_type = "move";
             break;
-            
+
             default:
                 // use Gdk.CursorType.LEFT_PTR
             break;
         }
-        
+
         if (cursor_type != current_cursor_type) {
             canvas.set_cursor(cursor_type);
             current_cursor_type = cursor_type;

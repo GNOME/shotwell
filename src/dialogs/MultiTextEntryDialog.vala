@@ -19,7 +19,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
 
     public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {
         set_title(title);
-        set_parent_window(AppWindow.get_instance().get_parent_window());
+        //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
 
@@ -28,13 +28,22 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         entry.grab_focus();
     }
 
-    public string? execute() {
+    public async string? execute() {
         string? text = null;
 
-        show_all();
+        show();
 
-        if (run() == Gtk.ResponseType.OK)
-            text = entry.buffer.text;
+        SourceFunc continue_async = execute.callback;
+
+        response.connect((source, response_id) => {
+            if (response_id == Gtk.ResponseType.OK) {
+                text = entry.buffer.text;
+            }
+
+            continue_async();
+        });
+
+        yield;
 
         destroy();
 

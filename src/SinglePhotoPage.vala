@@ -38,7 +38,6 @@ public abstract class SinglePhotoPage : Page {
 
     protected SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
-        this.wheel_factor = 0.9999;
 
         this.scale_up_to_viewport = scale_up_to_viewport;
 
@@ -46,25 +45,25 @@ public abstract class SinglePhotoPage : Page {
 
         // With the current code automatically resizing the image to the viewport, scrollbars
         // should never be shown, but this may change if/when zooming is supported
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
-        set_border_width(0);
-        set_shadow_type(Gtk.ShadowType.NONE);
+        viewport.set_child(canvas);
 
-        viewport.set_shadow_type(Gtk.ShadowType.NONE);
-        viewport.set_border_width(0);
-        viewport.add(canvas);
+        scrolled.set_child(viewport);
 
-        add(viewport);
+        viewport.notify["default-width"].connect(on_viewport_resize);
+        viewport.notify["default-height"].connect(on_viewport_resize);
+        viewport.notify["maximized"].connect(on_viewport_resize);
 
-        canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
-            | Gdk.EventMask.SUBSTRUCTURE_MASK);
-
-        viewport.size_allocate.connect(on_viewport_resize);
-        canvas.draw.connect(on_canvas_exposed);
-
+        canvas.resize.connect(on_viewport_resize);
+        canvas.set_draw_func(on_canvas_exposed);
+        canvas.set_name ("SinglePhoto drawing");
         set_event_source(canvas);
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        add_controller(key);
     }
 
     ~SinglePhotoPage() {
@@ -208,7 +207,7 @@ public abstract class SinglePhotoPage : Page {
         // scrollbar policy in fullscreen mode needs to be auto/auto, else the pixbuf will shift
         // off the screen
         if (container is FullscreenWindow)
-            set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+            scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
 
     // max_dim represents the maximum size of the original pixbuf (i.e. pixbuf may be scaled and
@@ -287,16 +286,15 @@ public abstract class SinglePhotoPage : Page {
     }
 
     public void invalidate(Gdk.Rectangle rect) {
-        if (canvas.get_window() != null)
-            canvas.get_window().invalidate_rect(rect, false);
+        queue_draw();
     }
 
     public void invalidate_all() {
-        if (canvas.get_window() != null)
-            canvas.get_window().invalidate_rect(null, false);
+        canvas.queue_draw();
     }
 
     private void on_viewport_resize() {
+        print("Viewport resized!");
         // do fast repaints while resizing
         internal_repaint(true, null);
     }
@@ -308,7 +306,7 @@ public abstract class SinglePhotoPage : Page {
         repaint();
     }
 
-    private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
+    private void on_canvas_exposed(Gtk.DrawingArea da, Cairo.Context exposed_ctx, int width, int height) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
         if (pixmap != null) {
@@ -320,19 +318,11 @@ public abstract class SinglePhotoPage : Page {
 
         exposed_ctx.rectangle(0, 0, get_allocated_width(), get_allocated_height());
         exposed_ctx.paint();
-
-        if (pixmap != null) {
-            pixmap.set_device_scale(1.0, 1.0);
-        }
-
-        return true;
     }
 
-    protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {
-    }
+    protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {}
 
-    protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
-    }
+    protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {}
 
     protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
@@ -376,7 +366,7 @@ public abstract class SinglePhotoPage : Page {
         }
 
         // no image or window, no painting
-        if (unscaled == null || canvas.get_window() == null)
+        if (unscaled == null /*|| canvas.get_window() == null*/)
             return;
 
         Gtk.Allocation allocation;
@@ -459,7 +449,7 @@ public abstract class SinglePhotoPage : Page {
 
     private void init_pixmap(int width, int height) {
         assert(unscaled != null);
-        assert(canvas.get_window() != null);
+        // assert(canvas.get_window() != null);
 
         // Cairo backing surface (manual double-buffering)
         pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
@@ -482,29 +472,28 @@ public abstract class SinglePhotoPage : Page {
     }
 
     protected override bool on_context_keypress() {
-        return popup_context_menu(get_page_context_menu());
+        // return popup_context_menu(get_page_context_menu());
+        return false;
     }
 
-    protected virtual void on_previous_photo() {
-    }
+    protected virtual void on_previous_photo() {}
 
-    protected virtual void on_next_photo() {
-    }
+    protected virtual void on_next_photo() {}
 
-    public override bool key_press_event(Gdk.EventKey event) {
+    public virtual bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // if the user holds the arrow keys down, we will receive a steady stream of key press
-        // events for an operation that isn't designed for a rapid succession of output ... 
+        // events for an operation that isn't designed for a rapid succession of output ...
         // we staunch the supply of new photos to under a quarter second (#533)
-        bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
+        bool nav_ok = (event.get_current_event_time() - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
 
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Left":
             case "KP_Left":
             case "BackSpace":
                 if (nav_ok) {
                     on_previous_photo();
-                    last_nav_key = event.time;
+                    last_nav_key = event.get_current_event_time();
                 }
             break;
 
@@ -513,7 +502,7 @@ public abstract class SinglePhotoPage : Page {
             case "space":
                 if (nav_ok) {
                     on_next_photo();
-                    last_nav_key = event.time;
+                    last_nav_key = event.get_current_event_time();
                 }
             break;
 
@@ -522,10 +511,7 @@ public abstract class SinglePhotoPage : Page {
             break;
         }
 
-        if (handled)
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
 
     private void on_colors_changed() {

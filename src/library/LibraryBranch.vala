@@ -8,10 +8,14 @@ public class Library.Branch : Sidebar.Branch {
     private const string POSITION_DATA = "x-photos-entry-position";
 
     public Library.PhotosEntry photos_entry { get; private set; }
+    #if 0
     public Library.FlaggedSidebarEntry flagged_entry { get; private set; }
+    #endif
     public Library.LastImportSidebarEntry last_imported_entry { get; private set; }
     public Library.ImportQueueSidebarEntry import_queue_entry { get; private set; }
+    #if 0
     public Library.OfflineSidebarEntry offline_entry { get; private set; }
+    #endif
     public Library.TrashSidebarEntry trash_entry { get; private set; }
     
     // This lists the order of the library items in the sidebar. To re-order, simply move
@@ -33,15 +37,17 @@ public class Library.Branch : Sidebar.Branch {
         photos_entry = new Library.PhotosEntry();
         trash_entry = new Library.TrashSidebarEntry();
         last_imported_entry = new Library.LastImportSidebarEntry();
+        #if 0
         flagged_entry = new Library.FlaggedSidebarEntry();
         offline_entry = new Library.OfflineSidebarEntry();
+        #endif
         import_queue_entry = new Library.ImportQueueSidebarEntry();
 
         insert(photos_entry, EntryPosition.PHOTOS);
         insert(trash_entry, EntryPosition.TRASH);
 
-        flagged_entry.visibility_changed.connect(on_flagged_visibility_changed);
-        on_flagged_visibility_changed();
+        //flagged_entry.visibility_changed.connect(on_flagged_visibility_changed);
+        //on_flagged_visibility_changed();
 
         last_imported_entry.visibility_changed.connect(on_last_imported_visibility_changed);
         on_last_imported_visibility_changed();
@@ -49,8 +55,8 @@ public class Library.Branch : Sidebar.Branch {
         import_queue_entry.visibility_changed.connect(on_import_queue_visibility_changed);
         on_import_queue_visibility_changed();
 
-        offline_entry.visibility_changed.connect(on_offline_visibility_changed);
-        on_offline_visibility_changed();
+        //offline_entry.visibility_changed.connect(on_offline_visibility_changed);
+        //on_offline_visibility_changed();
     }
     
     private void insert(Sidebar.Entry entry, int position) {
@@ -59,7 +65,7 @@ public class Library.Branch : Sidebar.Branch {
     }
 
     private void on_flagged_visibility_changed() {
-        update_entry_visibility(flagged_entry, EntryPosition.FLAGGED);
+        //update_entry_visibility(flagged_entry, EntryPosition.FLAGGED);
     }
 
     private void on_last_imported_visibility_changed() {
@@ -71,7 +77,7 @@ public class Library.Branch : Sidebar.Branch {
     }
 
     private void on_offline_visibility_changed() {
-        update_entry_visibility(offline_entry, EntryPosition.OFFLINE);
+        //update_entry_visibility(offline_entry, EntryPosition.OFFLINE);
     }
 
     private void update_entry_visibility(Library.HideablePageEntry entry, int position) {

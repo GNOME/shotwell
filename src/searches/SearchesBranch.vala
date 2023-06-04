@@ -61,28 +61,14 @@ public class Searches.Branch : Sidebar.Branch {
 }
 
 public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
-    private Gtk.Builder builder;
-    private Gtk.Menu? context_menu = null;
+    private Gtk.PopoverMenu? context_menu = null;
     
     public Header() {
         base (_("Saved Searches"), _("Organize your saved searches"));
-        setup_context_menu();
+        context_menu = get_popover_menu_from_resource(Resources.get_ui("search_sidebar_context.ui"), "popup-menu", null);
     }
 
-    private void setup_context_menu() {
-        this.builder = new Gtk.Builder ();
-        try {
-            this.builder.add_from_resource(Resources.get_ui("search_sidebar_context.ui"));
-            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
-            this.context_menu = new Gtk.Menu.from_model (model);
-        } catch (Error error) {
-            AppWindow.error_message("Error loading UI resource: %s".printf(
-                error.message));
-            Application.get_instance().panic();
-        }
-    }
-
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
+    public Gtk.PopoverMenu? get_sidebar_context_menu() {
         return context_menu;
     }
 }
@@ -131,7 +117,10 @@ public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.Renameable
     }
     
     public void destroy_source() {
-        if (Dialogs.confirm_delete_saved_search(search))
-            AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+        Dialogs.confirm_delete_saved_search.begin(search, (source, res) => {
+            if (Dialogs.confirm_delete_saved_search.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+            }
+        });
     }
 }

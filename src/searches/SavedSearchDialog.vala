@@ -48,18 +48,17 @@ public class SavedSearchDialog : Gtk.Dialog {
             set_type_combo_box(SearchCondition.SearchType.ANY_TEXT); // Sets default.
             type_combo.changed.connect(on_type_changed);
             
-            remove_button = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
-            remove_button.set_relief(Gtk.ReliefStyle.NONE);
+            remove_button = new Gtk.Button.from_icon_name("window-close-symbolic");
             remove_button.clicked.connect(on_removed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            box.pack_start(type_combo, false, false, 0);
-            box.pack_end(remove_button, false, false, 0);
+            box.prepend(type_combo);
+            box.append(remove_button);
             box.margin_top = 2;
             box.margin_bottom = 2;
             box.margin_start = 8;
             box.margin_end = 8;
-            box.show_all();
+            box.show();
         }
         
         private void on_type_changed() {
@@ -110,7 +109,7 @@ public class SavedSearchDialog : Gtk.Dialog {
                     assert_not_reached ();
             }
             
-            box.pack_start (my_row.get_widget());
+            box.append (my_row.get_widget());
         }
         
         public SearchCondition.SearchType get_search_type() {
@@ -181,9 +180,9 @@ public class SavedSearchDialog : Gtk.Dialog {
             entry.changed.connect(on_changed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(text_context, false, false, 0);
-            box.pack_start(entry, false, false, 0);
-            box.show_all();
+            box.append(text_context);
+            box.append(entry);
+            box.show();
         }
         
         ~SearchRowText() {
@@ -259,9 +258,9 @@ public class SavedSearchDialog : Gtk.Dialog {
             media_type.changed.connect(on_changed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(media_context, false, false, 0);
-            box.pack_start(media_type, false, false, 0);
-            box.show_all();
+            box.append(media_context);
+            box.append(media_type);
+            box.show();
         }
         
         ~SearchRowMediaType() {
@@ -321,9 +320,9 @@ public class SavedSearchDialog : Gtk.Dialog {
             modified_state.changed.connect(on_changed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(modified_context, false, false, 0);
-            box.pack_start(modified_state, false, false, 0);
-            box.show_all();
+            box.append(modified_context);
+            box.append(modified_state);
+            box.show();
         }
         
         ~SearchRowModified() {
@@ -376,9 +375,9 @@ public class SavedSearchDialog : Gtk.Dialog {
             flagged_state.changed.connect(on_changed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(new Gtk.Label(_("is")), false, false, 0);
-            box.pack_start(flagged_state, false, false, 0);
-            box.show_all();
+            box.append(new Gtk.Label(_("is")));
+            box.append(flagged_state);
+            box.show();
         }
         
         ~SearchRowFlagged() {
@@ -441,10 +440,10 @@ public class SavedSearchDialog : Gtk.Dialog {
             context.changed.connect(on_changed);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(new Gtk.Label(_("is")), false, false, 0);
-            box.pack_start(rating, false, false, 0);
-            box.pack_start(context, false, false, 0);
-            box.show_all();
+            box.append(new Gtk.Label(_("is")));
+            box.append(rating);
+            box.append(context);
+            box.show();
         }
         
         ~SearchRowRating() {
@@ -516,12 +515,12 @@ public class SavedSearchDialog : Gtk.Dialog {
             and = new Gtk.Label(_("and"));
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            box.pack_start(context, false, false, 0);
-            box.pack_start(label_one, false, false, 0);
-            box.pack_start(and, false, false, 0);
-            box.pack_start(label_two, false, false, 0);
+            box.append(context);
+            box.append(label_one);
+            box.append(and);
+            box.append(label_two);
             
-            box.show_all();
+            box.show();
             update_date_labels();
         }
         
@@ -612,13 +611,10 @@ public class SavedSearchDialog : Gtk.Dialog {
             d.set_modal(true);
             d.set_resizable(false);
             d.set_decorated(false);
-            ((Gtk.Box) d.get_content_area()).add(cal);
+            ((Gtk.Box) d.get_content_area()).append(cal);
             ulong id_1 = cal.day_selected.connect(()=>{update_date_labels();});
-            ulong id_2 = cal.day_selected_double_click.connect(()=> {
-                  d.response(Gtk.ResponseType.ACCEPT);
-            });
-            d.show_all();
-            int res = d.run();
+            d.show();
+            int res = 0; //d.run();
             if (res != Gtk.ResponseType.ACCEPT) {
                 // User hit cancel, restore original date.
                 cal.day = orig_day;
@@ -626,7 +622,6 @@ public class SavedSearchDialog : Gtk.Dialog {
                 cal.year = orig_year;
             }
             cal.disconnect(id_1);
-            cal.disconnect(id_2);
             d.destroy();
             update_date_labels();
         }
@@ -668,8 +663,9 @@ public class SavedSearchDialog : Gtk.Dialog {
         add_text_search();
         row_list.get(0).allow_removal(false);
 
-        show_all();
+        show();
         set_valid(false);
+        response.connect (() => {destroy();});
     }
     
     public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
@@ -679,7 +675,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         edit_mode = true;
         setup_dialog();
         
-        show_all();
+        show();
         
         // Load existing search into dialog.
         operator.set_active((SearchOperator) saved_search.get_operator());
@@ -703,17 +699,11 @@ public class SavedSearchDialog : Gtk.Dialog {
         
         search_title.changed.connect(on_title_changed);
         if (Resources.use_header_bar() == 1) {
-            var box = search_title.get_parent();
+            var box = (Gtk.Box)search_title.get_parent();
             box.remove(search_title);
-            box.get_parent().remove(box);
-            ((Gtk.HeaderBar) get_header_bar()).set_custom_title(search_title);
+            ((Gtk.Box)box.get_parent()).remove(box);
+            ((Gtk.HeaderBar) get_header_bar()).set_title_widget(search_title);
         }
-    }
-    
-    // Displays the dialog.
-    public new void show() {
-        run();
-        destroy();
     }
     
     double upper;

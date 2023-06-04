@@ -20,8 +20,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int left_nub_max = 255 - NUB_SIZE - 1;
     private int right_nub_min = NUB_SIZE + 1;
 
-    private static Gtk.WidgetPath slider_draw_path = new Gtk.WidgetPath();
-    private static Gtk.WidgetPath frame_draw_path = new Gtk.WidgetPath();
     private static bool paths_setup = false;
 
     private RGBHistogram histogram = null;
@@ -36,33 +34,33 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     public RGBHistogramManipulator( ) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         can_focus = true;
-        
-        if (!paths_setup) {
-            slider_draw_path.append_type(typeof(Gtk.Scale));
-            slider_draw_path.iter_add_class(0, "scale");
-            slider_draw_path.iter_add_class(0, "range");
-            
-            frame_draw_path.append_type(typeof(Gtk.Frame));
-            frame_draw_path.iter_add_class(0, "default");
-            
-            paths_setup = true;
-        }
-            
-        add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
-        add_events(Gdk.EventMask.BUTTON_RELEASE_MASK);
-        add_events(Gdk.EventMask.BUTTON_MOTION_MASK);
-        add_events(Gdk.EventMask.FOCUS_CHANGE_MASK);
-        add_events(Gdk.EventMask.KEY_PRESS_MASK);
+        focusable = true;
 
-        button_press_event.connect(on_button_press);
-        button_release_event.connect(on_button_release);
-        motion_notify_event.connect(on_button_motion);
+        var focus = new Gtk.EventControllerFocus();
+        focus.leave.connect(queue_draw);
+        add_controller(focus);
 
-        this.size_allocate.connect(on_size_allocate);
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(on_key_pressed);
+        add_controller(key);
+
+        var click = new Gtk.GestureClick();
+        click.set_touch_only(false);
+        click.set_button(Gdk.BUTTON_PRIMARY);
+        click.pressed.connect(on_button_press);
+        click.released.connect(on_button_released);
+        add_controller(click);
+
+        var motion = new Gtk.EventControllerMotion();
+        motion.motion.connect(on_button_motion);
+        add_controller(motion);
+
+        this.resize.connect(on_resize);
+        set_draw_func(on_draw);
     }
 
-    private void on_size_allocate(Gtk.Allocation region) {
-        this.offset = (region.width - RGBHistogram.GRAPHIC_WIDTH - NUB_SIZE) / 2;
+    private void on_resize(int width, int height) {
+        this.offset = (width - RGBHistogram.GRAPHIC_WIDTH - NUB_SIZE) / 2;
     }
 
     private LocationCode hit_test_point(int x, int y) {
@@ -84,29 +82,37 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         else
             return LocationCode.RIGHT_TROUGH;
     }
-    
-    private bool on_button_press(Gdk.EventButton event_record) {
+
+    private void on_button_press(Gtk.GestureClick gesture, int press, double x, double y) {
+        if (get_focus_on_click() && !has_focus) {
+            grab_focus();
+        }
+        
+        if (press != 1) {
+            return;
+        }
+
         // Adjust mouse position to drawing offset
         // Easier to modify the event and shit the whole drawing then adjusting the nub drawing code
-        event_record.x -= this.offset;
-        LocationCode loc = hit_test_point((int) event_record.x, (int) event_record.y);
+        x -= this.offset;
+        LocationCode loc = hit_test_point((int) x, (int) y);
         bool retval = true;
 
         switch (loc) {
             case LocationCode.LEFT_NUB:
-                track_start_x = ((int) event_record.x);
+                track_start_x = ((int) x);
                 track_nub_start_position = left_nub_position;
                 is_left_nub_tracking = true;
                 break;
 
             case LocationCode.RIGHT_NUB:
-                track_start_x = ((int) event_record.x);
+                track_start_x = ((int) x);
                 track_nub_start_position = right_nub_position;
                 is_right_nub_tracking = true;
                 break;
 
             case LocationCode.LEFT_TROUGH:
-                left_nub_position = ((int) event_record.x) - NUB_HALF_WIDTH;
+                left_nub_position = ((int) x) - NUB_HALF_WIDTH;
                 left_nub_position = left_nub_position.clamp(0, left_nub_max);
                 force_update();
                 nub_position_changed();
@@ -114,7 +120,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
                 break;
 
             case LocationCode.RIGHT_TROUGH:
-                right_nub_position = ((int) event_record.x) - NUB_HALF_WIDTH;
+                right_nub_position = ((int) x) - NUB_HALF_WIDTH;
                 right_nub_position = right_nub_position.clamp(right_nub_min, 255);
                 force_update();
                 nub_position_changed();
@@ -127,12 +133,15 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         }
 
         // Remove adjustment position to drawing offset
-        event_record.x += this.offset;
+        x += this.offset;
 
-        return retval;
+        if (retval) {
+            var sequence = gesture.get_current_sequence ();
+            gesture.set_sequence_state (sequence, Gtk.EventSequenceState.CLAIMED);
+        }
     }
     
-    private bool on_button_release(Gdk.EventButton event_record) {
+    private void on_button_released(Gtk.GestureClick gesture, int press, double x, double y) {
         if (is_left_nub_tracking || is_right_nub_tracking) {
             nub_position_changed();
             update_nub_extrema();
@@ -140,57 +149,39 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
 
         is_left_nub_tracking = false;
         is_right_nub_tracking = false;
-
-        return false;
     }
     
-    private bool on_button_motion(Gdk.EventMotion event_record) {
+    private void on_button_motion(double x, double y) {
         if ((!is_left_nub_tracking) && (!is_right_nub_tracking))
-            return false;
+            return;
     
-        event_record.x -= this.offset;
+        x -= this.offset;
         if (is_left_nub_tracking) {
-            int track_x_delta = ((int) event_record.x) - track_start_x;
+            int track_x_delta = ((int) x) - track_start_x;
             left_nub_position = (track_nub_start_position + track_x_delta);
             left_nub_position = left_nub_position.clamp(0, left_nub_max);
         } else { /* right nub is tracking */
-            int track_x_delta = ((int) event_record.x) - track_start_x;
+            int track_x_delta = ((int) x) - track_start_x;
             right_nub_position = (track_nub_start_position + track_x_delta);
             right_nub_position = right_nub_position.clamp(right_nub_min, 255);
         }
         
         force_update();
-        event_record.x += this.offset;
-
-        return true;
+        x += this.offset;
     }
 
-    public override bool focus_out_event(Gdk.EventFocus event) {
-        if (base.focus_out_event(event)) {
-            return true;
-        }
-
-        queue_draw();
-
-        return false;
-    }
-
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (base.key_press_event(event)) {
-            return true;
-        }
-
+    public bool on_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         int delta = 0;
 
-        if (event.keyval == Gdk.Key.Left || event.keyval == Gdk.Key.Up) {
+        if (keyval == Gdk.Key.Left || keyval == Gdk.Key.Up) {
             delta = -1;
         }
 
-        if (event.keyval == Gdk.Key.Right || event.keyval == Gdk.Key.Down) {
+        if (keyval == Gdk.Key.Right || keyval == Gdk.Key.Down) {
             delta = 1;
         }
 
-        if (!(Gdk.ModifierType.CONTROL_MASK in event.state)) {
+        if (!(Gdk.ModifierType.CONTROL_MASK in modifiers)) {
             delta *= 5;
         }
 
@@ -198,7 +189,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
             return false;
         }
 
-        if (Gdk.ModifierType.SHIFT_MASK in event.state) {
+        if (Gdk.ModifierType.SHIFT_MASK in modifiers) {
             right_nub_position += delta;
             right_nub_position = right_nub_position.clamp(right_nub_min, 255);
         } else {
@@ -214,8 +205,11 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         return true;
     }
     
-    public override bool draw(Cairo.Context ctx) {
-        Gtk.Border padding = get_style_context().get_padding(Gtk.StateFlags.NORMAL);
+    public void on_draw(Gtk.DrawingArea self, Cairo.Context ctx, int width, int height) {
+        var sctx = get_style_context();
+        sctx.save();
+        sctx.set_state (Gtk.StateFlags.NORMAL);
+        Gtk.Border padding = sctx.get_padding();
 
         Gdk.Rectangle area = Gdk.Rectangle();
         area.x = padding.left + this.offset;
@@ -224,7 +218,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         area.height = RGBHistogram.GRAPHIC_HEIGHT + padding.bottom;
 
         if (has_focus) {
-            get_style_context().render_focus(ctx, area.x, area.y,
+            sctx.render_focus(ctx, area.x, area.y,
                                              area.width + NUB_SIZE,
                                              area.height + NUB_SIZE + NUB_HALF_WIDTH);
         }
@@ -232,8 +226,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         draw_histogram(ctx, area);
         draw_nub(ctx, area, left_nub_position);
         draw_nub(ctx, area, right_nub_position);
-
-        return true;
+        sctx.restore();
     }
     
     private void draw_histogram(Cairo.Context ctx, Gdk.Rectangle area) {
@@ -273,7 +266,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     }
     
     private void force_update() {
-        get_window().invalidate_rect(null, true);
+        queue_draw();
     }
     
     private void update_nub_extrema() {

@@ -185,8 +185,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     }
 
     public void set_dialog_default_widget(Gtk.Widget widget) {
-        widget.can_default = true;
-        dialog.set_default(widget);
+        dialog.set_default_widget(widget);
     }
     
     public Spit.Publishing.Publisher.MediaType get_publishable_media_type() {

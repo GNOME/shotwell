@@ -24,7 +24,7 @@ public class TextEntryDialog : Gtk.Dialog {
     public void setup(OnModifyValidateType? modify_validate, string title, string label,
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
-        set_parent_window(AppWindow.get_instance().get_parent_window());
+        //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
 
@@ -37,25 +37,34 @@ public class TextEntryDialog : Gtk.Dialog {
         if (completion_list != null) { // Textfield with autocompletion
             EntryMultiCompletion completion = new EntryMultiCompletion(completion_list,
                 completion_delimiter);
-            entry.set_completion(completion);
+            entry.set_completion(completion.get_completion());
         }
 
         set_default_response(Gtk.ResponseType.OK);
     }
 
-    public string? execute() {
+    public async string? execute() {
         string? text = null;
 
         // validate entry to start with
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
 
-        show_all();
+        show();
 
-        if (run() == Gtk.ResponseType.OK)
+        SourceFunc continue_async = execute.callback;
+        int response_id = 0;
+
+        response.connect((source, res) => {
+            response_id = res;
+            entry.changed.disconnect(on_entry_changed);
+            destroy();    
+            continue_async();
+        });
+
+        yield;
+
+        if (response_id == Gtk.ResponseType.OK)
             text = entry.get_text();
-
-        entry.changed.disconnect(on_entry_changed);
-        destroy();
 
         return text;
     }

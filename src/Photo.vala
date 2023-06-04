@@ -1724,7 +1724,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             
             return;
         }
-        
+
         if (is_master_baseline())
             notify_altered(new Alteration.from_list("metadata:master-timestamp,metadata:baseline-timestamp"));
         else
@@ -1732,7 +1732,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
-    public void update_editable_modification_time(FileInfo info) throws Error {
+    public void update_editable_modification_time(FileInfo info) throws DatabaseError, Error {
         var modification = info.get_modification_date_time();
         
         bool altered = false;
@@ -1751,7 +1751,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Most useful if the appropriate SourceCollection is frozen while calling this.
     public static void update_many_editable_timestamps(Gee.Map<Photo, FileInfo> map)
-        throws DatabaseError {
+        throws DatabaseError, Error {
         DatabaseTable.begin_transaction();
         foreach (Photo photo in map.keys) {
             try {
@@ -2188,7 +2188,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
-    public void set_master_metadata_dirty(bool dirty) throws Error {
+    public void set_master_metadata_dirty(bool dirty) throws DatabaseError, Error {
         bool committed = false;
         lock (row) {
             if (row.metadata_dirty != dirty) {
@@ -3048,7 +3048,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             string center_key = "center%d".printf(i);
             string radius_key = "radius%d".printf(i);
 
-            res[i].center = map.get_point(center_key, default_point);
+            //res[i].center = map.get_point(center_key, default_point);
             assert(res[i].center.x != default_point.x);
             assert(res[i].center.y != default_point.y);
 

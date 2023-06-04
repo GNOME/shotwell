@@ -15,7 +15,7 @@ public abstract class CheckerboardPage : Page {
     private string page_context_menu_path = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected CheckerboardItem anchor = null;
-    protected CheckerboardItem cursor = null;
+    protected CheckerboardItem current_cursor = null;
     private CheckerboardItem current_hovered_item = null;
     private bool autoscroll_scheduled = false;
     private CheckerboardItem activated_item = null;
@@ -54,19 +54,13 @@ public abstract class CheckerboardPage : Page {
 
         set_event_source(layout);
 
-        set_border_width(0);
-        set_shadow_type(Gtk.ShadowType.NONE);
-
-        viewport.set_border_width(0);
-        viewport.set_shadow_type(Gtk.ShadowType.NONE);
-
-        viewport.add(stack);
+        viewport.set_child(stack);
 
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
-        layout.set_adjustments(get_hadjustment(), get_vadjustment());
+        layout.set_adjustments(scrolled.get_hadjustment(), scrolled.get_vadjustment());
 
-        add(viewport);
+        scrolled.set_child(viewport);
 
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);
@@ -75,7 +69,17 @@ public abstract class CheckerboardPage : Page {
         get_view().items_visibility_changed.connect(on_items_visibility_changed);
 
         // scrollbar policy
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+
+        var key_controller = new Gtk.EventControllerKey();
+        key_controller.key_pressed.connect(key_press_event);
+        add_controller (key_controller);
+    }
+
+    protected override bool on_configure(Gdk.Rectangle rect) {
+        layout.on_viewport_resized();
+
+        return false;
     }
 
     public void init_item_context_menu(string path) {
@@ -86,41 +90,36 @@ public abstract class CheckerboardPage : Page {
         page_context_menu_path = path;
     }
 
-    public Gtk.Menu? get_context_menu() {
+    public Gtk.PopoverMenu? get_context_menu() {
         // show page context menu if nothing is selected
         return (get_view().get_selected_count() != 0) ? get_item_context_menu() :
             get_page_context_menu();
     }
 
-    private Gtk.Menu item_context_menu;
-    public virtual Gtk.Menu? get_item_context_menu() {
+    private Gtk.PopoverMenu item_context_menu;
+    public virtual Gtk.PopoverMenu? get_item_context_menu() {
         if (item_context_menu == null) {
-            var model = this.builder.get_object (item_context_menu_path)
-                as GLib.MenuModel;
-            item_context_menu = new Gtk.Menu.from_model (model);
-            item_context_menu.attach_to_widget (this, null);
+            item_context_menu = get_popover_menu_from_builder (this.builder, item_context_menu_path, this);
         }
 
         return item_context_menu;
     }
 
-    private Gtk.Menu page_context_menu;
-    public override Gtk.Menu? get_page_context_menu() {
+    private Gtk.PopoverMenu page_context_menu;
+    public override Gtk.PopoverMenu? get_page_context_menu() {
         if (page_context_menu_path == null)
             return null;
 
         if (page_context_menu == null) {
-            var model = this.builder.get_object (page_context_menu_path)
-                as GLib.MenuModel;
-            page_context_menu = new Gtk.Menu.from_model (model);
-            page_context_menu.attach_to_widget (this, null);
+            page_context_menu = get_popover_menu_from_builder (this.builder, page_context_menu_path, this);
         }
 
         return page_context_menu;
     }
 
     protected override bool on_context_keypress() {
-        return popup_context_menu(get_context_menu());
+        //return popup_context_menu(get_context_menu());
+        return true;
     }
 
     protected virtual string get_view_empty_icon() {
@@ -161,7 +160,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     public void scroll_to_item(CheckerboardItem item) {
-        Gtk.Adjustment vadj = get_vadjustment();
+        Gtk.Adjustment vadj = scrolled.get_vadjustment();
         if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
               && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
 
@@ -255,21 +254,21 @@ public abstract class CheckerboardPage : Page {
             if (anchor == item)
                 anchor = null;
 
-            if (cursor == item)
-                cursor = null;
+            if (current_cursor == item)
+                current_cursor = null;
 
             if (current_hovered_item == item)
                 current_hovered_item = null;
         }
     }
 
-    protected override bool key_press_event(Gdk.EventKey event) {
+    protected bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
 
         // mask out the modifiers we're interested in
-        uint state = event.state & Gdk.ModifierType.SHIFT_MASK;
+        uint state = modifiers & Gdk.ModifierType.SHIFT_MASK;
 
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Up":
             case "KP_Up":
                 move_cursor(CompassPoint.NORTH);
@@ -329,27 +328,25 @@ public abstract class CheckerboardPage : Page {
             break;
         }
 
-        if (handled)
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
 
-    protected override bool on_left_click(Gdk.EventButton event) {
+    protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // only interested in single-click and double-clicks for now
-        if ((event.type != Gdk.EventType.BUTTON_PRESS) && (event.type != Gdk.EventType.2BUTTON_PRESS))
+        if (press != 1 && press != 2)
             return false;
 
         // mask out the modifiers we're interested in
-        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
+        var state = event.get_current_event_state () &
+                (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
 
         // use clicks for multiple selection and activation only; single selects are handled by
         // button release, to allow for multiple items to be selected then dragged ...
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item != null) {
             // ... however, there is no dragging if the user clicks on an interactive part of the
             // CheckerboardItem (e.g. a tag)
-            if (layout.handle_left_click(item, event.x, event.y, event.state))
+            if (layout.handle_left_click(item, x, y, event.get_current_event_state()))
                 return true;
 
             switch (state) {
@@ -361,7 +358,7 @@ public abstract class CheckerboardPage : Page {
 
                     if (item.is_selected()) {
                         anchor = item;
-                        cursor = item;
+                        current_cursor = item;
                     }
                 break;
 
@@ -373,7 +370,7 @@ public abstract class CheckerboardPage : Page {
 
                     select_between_items(anchor, item);
 
-                    cursor = item;
+                    current_cursor = item;
                 break;
 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -386,11 +383,11 @@ public abstract class CheckerboardPage : Page {
 
                     select_between_items(anchor, item);
 
-                    cursor = item;
+                    current_cursor = item;
                 break;
 
                 default:
-                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+                    if (press == 2) {
                         activated_item = item;
                     } else {
                         // if the user has selected one or more items and is preparing for a drag,
@@ -406,7 +403,7 @@ public abstract class CheckerboardPage : Page {
                     }
 
                     anchor = item;
-                    cursor = item;
+                    current_cursor = item;
                 break;
             }
             layout.set_cursor(item);
@@ -421,7 +418,7 @@ public abstract class CheckerboardPage : Page {
             foreach (DataView view in get_view().get_selected())
                 previously_selected.add((CheckerboardItem) view);
 
-            layout.set_drag_select_origin((int) event.x, (int) event.y);
+            layout.set_drag_select_origin((int) x, (int) y);
 
             return true;
         }
@@ -432,19 +429,19 @@ public abstract class CheckerboardPage : Page {
         return get_view().get_selected_count() == 0;
     }
 
-    protected override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         previously_selected = null;
 
         // if drag-selecting, stop here and do nothing else
         if (layout.is_drag_select_active()) {
             layout.clear_drag_select();
-            anchor = cursor;
+            anchor = current_cursor;
 
             return true;
         }
 
         // only interested in non-modified button releases
-        if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
+        if ((event.get_current_event_state() & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
 
         // if the item was activated in the double-click, report it now
@@ -455,13 +452,13 @@ public abstract class CheckerboardPage : Page {
             return true;
         }
 
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item == null) {
             // released button on "dead" area
             return true;
         }
 
-        if (cursor != item) {
+        if (current_cursor != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
             get_view().unselect_all();
@@ -477,16 +474,16 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
 
-    protected override bool on_right_click(Gdk.EventButton event) {
+    protected override bool on_right_click(Gtk.EventController event, int press, double x, double y) {
         // only interested in single-clicks for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS)
+        if (press != 1)
             return false;
 
         // get what's right-clicked upon
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item != null) {
             // mask out the modifiers we're interested in
-            switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
+            switch (event.get_current_event_state() & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
                 case Gdk.ModifierType.CONTROL_MASK:
                     // chosen item is toggled
                     Marker marker = get_view().mark(item);
@@ -517,8 +514,8 @@ public abstract class CheckerboardPage : Page {
             get_view().unselect_all();
         }
 
-        Gtk.Menu context_menu = get_context_menu();
-        return popup_context_menu(context_menu, event);
+        Gtk.PopoverMenu context_menu = get_context_menu();
+        return popup_context_menu(context_menu, x, y);
     }
 
     protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
@@ -547,9 +544,9 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
 
-    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
         // report what item the mouse is hovering over
-        if (!on_mouse_over(get_item_at_pixel(x, y), x, y, mask))
+        if (!on_mouse_over(get_item_at_pixel(x, y), (int)x, (int)y, mask))
             return false;
 
         // go no further if not drag-selecting
@@ -557,13 +554,13 @@ public abstract class CheckerboardPage : Page {
             return false;
 
         // set the new endpoint of the drag selection
-        layout.set_drag_select_endpoint(x, y);
+        layout.set_drag_select_endpoint((int)x, (int)y);
 
         updated_selection_band();
 
         // if out of bounds, schedule a check to auto-scroll the viewport
         if (!autoscroll_scheduled 
-            && get_adjustment_relation(get_vadjustment(), y) != AdjustmentRelation.IN_RANGE) {
+            && get_adjustment_relation(scrolled.get_vadjustment(), (int)y) != AdjustmentRelation.IN_RANGE) {
             Timeout.add(AUTOSCROLL_TICKS_MSEC, selection_autoscroll);
             autoscroll_scheduled = true;
         }
@@ -600,8 +597,8 @@ public abstract class CheckerboardPage : Page {
             else
                 to_unselect.mark(item);
 
-            if (cursor == null)
-                cursor = item;
+            if (current_cursor == null)
+                current_cursor = item;
         }
 
         get_view().select_marked(to_select);
@@ -616,9 +613,9 @@ public abstract class CheckerboardPage : Page {
         }
 
         // as the viewport never scrolls horizontally, only interested in vertical
-        Gtk.Adjustment vadj = get_vadjustment();
+        Gtk.Adjustment vadj = scrolled.get_vadjustment();
 
-        int x, y;
+        double x, y;
         Gdk.ModifierType mask;
         get_event_source_pointer(out x, out y, out mask);
 
@@ -660,7 +657,7 @@ public abstract class CheckerboardPage : Page {
     public void cursor_to_item(CheckerboardItem item) {
         assert(get_view().contains(item));
 
-        cursor = item;
+        current_cursor = item;
 
         if (!get_ctrl_pressed()) {
             get_view().unselect_all();
@@ -679,7 +676,7 @@ public abstract class CheckerboardPage : Page {
         // if there is no better starting point, simply select the first and exit
         // The right half of the or is related to Bug #732334, the cursor might be non-null and still not contained in
         // the view, if the user dragged a full screen Photo off screen
-        if (cursor == null && layout.get_cursor() == null || cursor != null && !get_view().contains(cursor)) {
+        if (cursor == null && layout.get_cursor() == null || cursor != null && !get_view().contains(current_cursor)) {
             CheckerboardItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
             anchor = item;
@@ -688,20 +685,20 @@ public abstract class CheckerboardPage : Page {
         }
 
         if (cursor == null) {
-            cursor = layout.get_cursor() as CheckerboardItem;
+            current_cursor = layout.get_cursor() as CheckerboardItem;
         }
 
         // move the cursor relative to the "first" item
-        CheckerboardItem? item = layout.get_item_relative_to(cursor, point);
+        CheckerboardItem? item = layout.get_item_relative_to(current_cursor, point);
         if (item != null)
             cursor_to_item(item);
    }
 
-    public void set_cursor(CheckerboardItem item) {
+    public new void set_cursor(CheckerboardItem item) {
         Marker marker = get_view().mark(item);
         get_view().select_marked(marker);
 
-        cursor = item;
+        current_cursor = item;
         anchor = item;
    }
 
@@ -736,9 +733,9 @@ public abstract class CheckerboardPage : Page {
 
         if (state == Gdk.ModifierType.SHIFT_MASK) {
             get_view().unselect_all();
-            select_between_items(anchor, cursor);
+            select_between_items(anchor, current_cursor);
         } else {
-            anchor = cursor;
+            anchor = current_cursor;
         }
     }
 

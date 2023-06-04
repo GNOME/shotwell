@@ -11,7 +11,6 @@ namespace Shotwell.Plugins.Common {
             get; construct; default = DialogPane.GeometryOptions.NONE;
         }
         public string resource_path { owned get; construct; }
-        public bool connect_signals { get; construct; default = false; }
         public string default_id {
             owned get; construct; default = "default";
         }
@@ -25,15 +24,12 @@ namespace Shotwell.Plugins.Common {
             debug ("Adding new builder from path %s", resource_path);
 
             this.builder = new Gtk.Builder.from_resource (resource_path);
-            if (this.connect_signals) {
-                this.builder.connect_signals (null);
-            }
 
             this.content = this.builder.get_object ("content") as Gtk.Widget;
 
             // Just to be sure, if we still use old-style Builder files
             if (this.content.parent != null) {
-                this.content.parent.remove (this.content);
+                this.content.unparent();
             }
         }
 

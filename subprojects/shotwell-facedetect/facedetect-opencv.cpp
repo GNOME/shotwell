@@ -43,6 +43,7 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
 	if (inputName.empty()) {
         g_warning("No file to process. aborting");
         return {};
+        return {};
 	}
 
     cv::Mat const img = cv::imread(inputName, 1);

@@ -45,23 +45,22 @@ public abstract class MediaPage : CheckerboardPage {
         MAX = 4
     }
 
-    protected class ZoomSliderAssembly : Gtk.ToolItem {
+    protected class ZoomSliderAssembly : Gtk.Box {
         private Gtk.Scale slider;
         private Gtk.Adjustment adjustment;
         
         public signal void zoom_changed();
 
         public ZoomSliderAssembly() {
-            Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Object (orientation : Gtk.Orientation.HORIZONTAL, spacing : 9);
 
-            Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            Gtk.EventBox zoom_out_box = new Gtk.EventBox();
-            zoom_out_box.set_above_child(true);
-            zoom_out_box.set_visible_window(false);
-            zoom_out_box.add(zoom_out);
-            zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
+            Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
+            var click = new Gtk.GestureClick();
+            click.set_exclusive(true);
+            zoom_out.add_controller(click);
+            click.pressed.connect(() => { snap_to_min();});
             
-            zoom_group.pack_start(zoom_out_box, false, false, 0);
+            append(zoom_out);
 
             // virgin ZoomSliderAssemblies are created such that they have whatever value is
             // persisted in the configuration system for the photo thumbnail scale
@@ -75,18 +74,15 @@ public abstract class MediaPage : CheckerboardPage {
             slider.set_size_request(200, -1);
             slider.set_tooltip_text(_("Adjust the size of the thumbnails"));
 
-            zoom_group.pack_start(slider, false, false, 0);
+            append(slider);
 
-            Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            Gtk.EventBox zoom_in_box = new Gtk.EventBox();
-            zoom_in_box.set_above_child(true);
-            zoom_in_box.set_visible_window(false);
-            zoom_in_box.add(zoom_in);
-            zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
+            Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
+            click = new Gtk.GestureClick();
+            click.set_exclusive(true);
+            zoom_in.add_controller(click);
+            click.pressed.connect(() => {snap_to_max();});
 
-            zoom_group.pack_start(zoom_in_box, false, false, 0);
-
-            add(zoom_group);
+            append(zoom_in);
         }
         
         public static double scale_to_slider(int value) {
@@ -100,16 +96,6 @@ public abstract class MediaPage : CheckerboardPage {
             assert(res <= Thumbnail.MAX_SCALE);
             
             return res;
-        }
-
-        private bool on_zoom_out_pressed(Gdk.EventButton event) {
-            snap_to_min();
-            return true;
-        }
-        
-        private bool on_zoom_in_pressed(Gdk.EventButton event) {
-            snap_to_max();
-            return true;
         }
         
         private void on_slider_changed() {
@@ -155,7 +141,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     private ZoomSliderAssembly? connected_slider = null;
-    private DragAndDropHandler dnd_handler = null;
+    //private DragAndDropHandler dnd_handler = null;
     private MediaViewTracker tracker;
     
     protected MediaPage(string page_name) {
@@ -178,7 +164,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().thaw_notifications();
 
         // enable drag-and-drop export of media
-        dnd_handler = new DragAndDropHandler(this);
+        //TODO dnd_handler = new DragAndDropHandler(this);
     }
    
     private static int compute_zoom_scale_increase(int current_scale) {
@@ -380,8 +366,8 @@ public abstract class MediaPage : CheckerboardPage {
         return new ZoomSliderAssembly();
     }
 
-    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+    protected override bool on_mousewheel_up(Gtk.EventControllerScroll event) {
+        if ((event.get_current_event_state() & Gdk.ModifierType.CONTROL_MASK) != 0) {
             increase_zoom_level();
             return true;
         } else {
@@ -389,8 +375,8 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
 
-    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+    protected override bool on_mousewheel_down(Gtk.EventControllerScroll event) {
+        if ((event.get_current_event_state() & Gdk.ModifierType.CONTROL_MASK) != 0) {
             decrease_zoom_level();
             return true;
         } else {
@@ -418,59 +404,61 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
 
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        print("On_App_key_pressed: %s\n", Gdk.keyval_name(keyval));
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        string? format = null; // Workaround for missing annotation
+        switch (Gdk.keyval_name(keyval)) {
             case "equal":
             case "plus":
             case "KP_Add":
-                activate_action("IncreaseSize");
+                activate_action("win.IncreaseSize", format);
             break;
             
             case "minus":
             case "underscore":
             case "KP_Subtract":
-                activate_action("DecreaseSize");
+                activate_action("win.DecreaseSize", format);
             break;
             
             case "period":
-                activate_action("IncreaseRating");
+                activate_action("win.IncreaseRating", format);
             break;
             
             case "comma":
-                activate_action("DecreaseRating");
+                activate_action("win.DecreaseRating", format);
             break;
             
             case "KP_1":
-                activate_action("RateOne");
+                activate_action("win.RateOne", format);
             break;
             
             case "KP_2":
-                activate_action("RateTwo");
+                activate_action("win.RateTwo", format);
             break;
             
             case "KP_3":
-                activate_action("RateThree");
+                activate_action("win.RateThree", format);
             break;
             
             case "KP_4":
-                activate_action("RateFour");
+                activate_action("win.RateFour", format);
             break;
             
             case "KP_5":
-                activate_action("RateFive");
+                activate_action("win.RateFive", format);
             break;
             
             case "KP_0":
-                activate_action("RateUnrated");
+                activate_action("win.RateUnrated", format);
             break;
             
             case "KP_9":
-                activate_action("RateRejected");
+                activate_action("win.RateRejected", format);
             break;
             
             case "slash":
-                activate_action("Flag");
+                activate_action("win.Flag", format);
             break;
             
             default:
@@ -478,7 +466,7 @@ public abstract class MediaPage : CheckerboardPage {
             break;
         }
         
-        return handled ? true : base.on_app_key_pressed(event);
+        return handled ? true : base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
 
     public override void switched_to() {
@@ -562,13 +550,15 @@ public abstract class MediaPage : CheckerboardPage {
             return;
         
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
+        dialog.execute.begin((source, res) => {
+            string[]? names = dialog.execute.end(res);
         
-        if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(
-                HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names),
-                (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
-        }
+            if (names != null) {
+                get_command_manager().execute(new AddTagsCommand(
+                    HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names),
+                    (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
+            }
+        });
     }
 
     private void on_modify_tags() {
@@ -578,12 +568,13 @@ public abstract class MediaPage : CheckerboardPage {
         MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
         
         ModifyTagsDialog dialog = new ModifyTagsDialog(media);
-        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+
+        dialog.execute.begin((source, res) => {
+            Gee.ArrayList<Tag>? new_tags = dialog.execute.end(res);
+            if (new_tags != null)
+                get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
+        });
         
-        if (new_tags == null)
-            return;
-        
-        get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
     }
 
     private void set_display_tags(bool display) {
@@ -679,14 +670,14 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     private void on_remove_from_library() {
-        remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
+        remove_photos_from_library.begin((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
     }
 
     protected virtual void on_move_to_trash() {
         CheckerboardItem? restore_point = null;
 
         if (cursor != null) {
-            restore_point = get_view().get_next(cursor) as CheckerboardItem;
+            restore_point = get_view().get_next(current_cursor) as CheckerboardItem;
         }
 
         var sources = get_view().get_selected_sources();
@@ -709,21 +700,30 @@ public abstract class MediaPage : CheckerboardPage {
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditTitleDialog edit_title_dialog = new EditTitleDialog(media_sources[0].get_title());
-        string? new_title = edit_title_dialog.execute();
-        if (new_title != null)
-            get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
+        edit_title_dialog.execute.begin((source, res) => {
+            string? new_title = edit_title_dialog.execute.end(res);
+            if (new_title != null)
+                get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
+    
+        });
     }
 
     protected virtual void on_edit_comment() {
         if (get_view().get_selected_count() == 0)
             return;
         
+            print ("==============>\n ");
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(media_sources[0].get_comment());
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment != null)
-            get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));
+
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));    
+        });
     }
 
     protected virtual void on_display_titles(GLib.SimpleAction action, Variant? value) {
@@ -796,6 +796,13 @@ public abstract class MediaPage : CheckerboardPage {
         action.set_state (value);
     }
 
+    void switch_developer(Gee.ArrayList<DataView> to_set, RawDeveloper rd) {
+        SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
+        get_command_manager().execute(command);
+
+        update_development_menu_item_sensitivity();
+    }
+
     protected virtual void developer_changed(RawDeveloper rd) {
         if (get_view().get_selected_count() == 0)
             return;
@@ -817,12 +824,14 @@ public abstract class MediaPage : CheckerboardPage {
                 }
             }
         }
-        
-        if (!need_warn || Dialogs.confirm_warn_developer_changed(to_set.size)) {
-            SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
-            get_command_manager().execute(command);
-
-            update_development_menu_item_sensitivity();
+        if (!need_warn) {
+            switch_developer(to_set, rd);
+        } else {
+            Dialogs.confirm_warn_developer_changed.begin(to_set.size, (source, res) => {
+                if (Dialogs.confirm_warn_developer_changed.end(res)) {
+                    switch_developer(to_set, rd);
+                }
+            });
         }
     }
 
@@ -937,10 +946,10 @@ public abstract class MediaPage : CheckerboardPage {
         set_view_comparator(sort_by, sort_ascending);
     }
 
-    public override void destroy() {
+    public override void dispose() {
         disconnect_slider();
         
-        base.destroy();
+        base.dispose();
     }
 
     public void increase_zoom_level() {

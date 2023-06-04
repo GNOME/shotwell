@@ -13,10 +13,6 @@ public class ImportQueuePage : SinglePhotoPage {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private bool stopped = false;
 
-#if UNITY_SUPPORT
-    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
-    
     public signal void batch_added(BatchImport batch_import);
     
     public signal void batch_removed(BatchImport batch_import);
@@ -25,32 +21,18 @@ public class ImportQueuePage : SinglePhotoPage {
         base (NAME, false);
         
         // Set up toolbar
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // Stop button
-        Gtk.ToolButton stop_button = new Gtk.ToolButton(null, null);
-        stop_button.set_icon_name("process-stop-symbolic");
+        var stop_button = new Gtk.Button.from_icon_name ("process-stop-symbolic");
         stop_button.set_action_name ("win.Stop");
         
-        toolbar.insert(stop_button, -1);
+        toolbar.append(stop_button);
 
-        // separator to force progress bar to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_draw(false);
-        
-        toolbar.insert(separator, -1);
-        
         // Progress bar
-        Gtk.ToolItem progress_item = new Gtk.ToolItem();
-        progress_item.set_expand(true);
-        progress_item.add(progress_bar);
         progress_bar.set_show_text(true);
         
-        toolbar.insert(progress_item, -1);
-#if UNITY_SUPPORT
-        //UnityProgressBar: try to draw progress bar
-        uniprobar.set_visible(true);
-#endif
+        toolbar.append(progress_bar);
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -134,10 +116,6 @@ public class ImportQueuePage : SinglePhotoPage {
         double pct = (completed_bytes <= total_bytes) ? (double) completed_bytes / (double) total_bytes
             : 0.0;
         progress_bar.set_fraction(pct);
-#if UNITY_SUPPORT
-        //UnityProgressBar: set progress
-        uniprobar.set_progress(pct);
-#endif
     }
     
     private void on_imported(ThumbnailSource source, Gdk.Pixbuf pixbuf, int to_follow) {
@@ -186,10 +164,6 @@ public class ImportQueuePage : SinglePhotoPage {
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.set_fraction(0.0);
-#if UNITY_SUPPORT
-            //UnityProgressBar: reset
-            uniprobar.reset();
-#endif
 
             // blank the display
             blank_display();

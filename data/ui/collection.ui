@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
 <interface domain="shotwell">
-  <requires lib="gtk+" version="3.18"/>
+  <requires lib="gtk" version="4.0"/>
   <menu id="CollectionContextMenu">
     <section>
       <item>
@@ -137,91 +136,62 @@
       </item>
     </section>
   </menu>
-  <object class="GtkToolbar" id="CollectionToolbar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="toolbar_style">both-horiz</property>
+  <object class="GtkBox" id="CollectionToolbar">
+    <style>
+      <class name="toolbar"/>
+    </style>
+    <property name="can_focus">0</property>
     <child>
-      <object class="GtkToolButton" id="ToolRotate">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolRotate">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Rotate the photos right (press Ctrl to rotate left)</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.RotateClockwise</property>
         <property name="label" translatable="yes">Rotate</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
         <property name="icon_name">object-rotate-right-symbolic</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolEnhance">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolEnhance">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Automatically improve the photo’s appearance</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.Enhance</property>
         <property name="label" translatable="yes">Enhance</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
         <property name="icon_name">image-auto-adjust-symbolic</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkSeparatorToolItem">
-        <property name="can_focus">False</property>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="can_focus">0</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">False</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolPublish">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolPublish">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Publish to various websites</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.Publish</property>
         <property name="label" translatable="yes">Publish</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
         <property name="icon_name">send-to-symbolic</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkSeparatorToolItem">
-        <property name="can_focus">False</property>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="can_focus">0</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">False</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToggleToolButton" id="ToolFind">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkToggleButton" id="ToolFind">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.CommonDisplaySearchbar</property>
         <property name="label" translatable="yes">Find</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
         <property name="icon_name">edit-find-symbolic</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
   </object>
 </interface>

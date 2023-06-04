@@ -36,7 +36,7 @@ public class PublishingDialog : Gtk.Dialog {
         bool use_header = Resources.use_header_bar() == 1;
         Object(use_header_bar: Resources.use_header_bar());
         if (use_header) {
-            ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
+            ((Gtk.HeaderBar) get_header_bar()).set_show_title_buttons(false);
         } else {
             get_content_area().set_spacing(6);
         }
@@ -44,7 +44,7 @@ public class PublishingDialog : Gtk.Dialog {
         resizable = false;
         modal = true;
         set_transient_for(AppWindow.get_instance());
-        delete_event.connect(on_window_close);
+        close_request.connect(on_window_close);
 
         publishables = new Spit.Publishing.Publishable[0];
         bool has_photos = false;
@@ -141,31 +141,29 @@ public class PublishingDialog : Gtk.Dialog {
             service_selector_box.vexpand = false;
 
             Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-            service_selector_layouter.set_border_width(12);
             service_selector_layouter.hexpand = true;
-            service_selector_layouter.add(service_selector_box_label);
-            service_selector_layouter.pack_start(service_selector_box, true, true, 0);
+            service_selector_layouter.append(service_selector_box_label);
+            service_selector_layouter.prepend(service_selector_box);
 
             /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
                rest of the dialog */
             Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            service_area_layouter.add(service_selector_layouter);
-            service_area_layouter.add(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
+            service_area_layouter.append(service_selector_layouter);
+            service_area_layouter.append(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
             service_area_layouter.halign = Gtk.Align.FILL;
             service_area_layouter.valign = Gtk.Align.START;
             service_area_layouter.hexpand = true;
             service_area_layouter.vexpand = false;
 
-            get_content_area().pack_start(service_area_layouter, false, false, 0);
+            get_content_area().prepend(service_area_layouter);
         }
 
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
-        get_content_area().pack_start(central_area_layouter, true, true, 0);
+        get_content_area().prepend(central_area_layouter);
         
         if (use_header) {
             close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
-            close_cancel_button.set_can_default(true);
 
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
@@ -178,7 +176,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         set_standard_window_mode();
         
-        show_all();
+        show();
     }
     
     private static Spit.Publishing.Service[] load_all_services() {
@@ -305,7 +303,7 @@ public class PublishingDialog : Gtk.Dialog {
         elapsed_is_valid = true;
     }
     
-    private bool on_window_close(Gdk.EventAny evt) {
+    private bool on_window_close() {
         host.stop_publishing();
         host = null;
         hide();
@@ -396,12 +394,12 @@ public class PublishingDialog : Gtk.Dialog {
 
     public void set_close_button_mode() {
         close_cancel_button.set_label(_("_Close"));
-        set_default(close_cancel_button);
+        set_default_widget(close_cancel_button);
     }
 
     public void set_cancel_button_mode() {
         close_cancel_button.set_label(_("_Cancel"));
-        set_default(null);
+        set_default_widget(null);
     }
 
     public void lock_service() {
@@ -422,8 +420,8 @@ public class PublishingDialog : Gtk.Dialog {
             central_area_layouter.remove(active_pane.get_widget());
         }
 
-        central_area_layouter.pack_start(pane.get_widget(), true, true, 0);
-        show_all();
+        central_area_layouter.prepend(pane.get_widget());
+        show();
 
         Spit.Publishing.DialogPane.GeometryOptions geometry_options =
             pane.get_preferred_geometry();
@@ -446,7 +444,7 @@ public class PublishingDialog : Gtk.Dialog {
     public new int run() {
         on_service_changed();
 
-        int result = base.run();
+        int result = 0; //base.run();
         
         host = null;
         

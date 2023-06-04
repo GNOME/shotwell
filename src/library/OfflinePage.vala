@@ -100,31 +100,35 @@ public class OfflinePage : CheckerboardPage {
         if (sources.size == 0)
             return;
         
-        if (!remove_offline_dialog(AppWindow.get_instance(), sources.size))
-            return;
-        
-        AppWindow.get_instance().set_busy_cursor();
-        
-        ProgressDialog progress = null;
-        if (sources.size >= 20)
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting…"));
+        remove_offline_dialog.begin(AppWindow.get_instance(), sources.size, (source, res) => {
+            if (!remove_offline_dialog.end(res)) {
+                return;
+            }
 
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
-        MediaSourceCollection.filter_media(sources, photos, videos);
-
-        if (progress != null) {
-            LibraryPhoto.global.remove_from_app(photos, false, progress.monitor);
-            Video.global.remove_from_app(videos, false, progress.monitor);
-        } else {
-            LibraryPhoto.global.remove_from_app(photos, false);
-            Video.global.remove_from_app(videos, false);
-        }
+            AppWindow.get_instance().set_busy_cursor();
         
-        if (progress != null)
-            progress.close();
+            ProgressDialog progress = null;
+            if (sources.size >= 20)
+                progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting…"));
+    
+            Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+            Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+            MediaSourceCollection.filter_media(sources, photos, videos);
+    
+            if (progress != null) {
+                LibraryPhoto.global.remove_from_app(photos, false, progress.monitor);
+                Video.global.remove_from_app(videos, false, progress.monitor);
+            } else {
+                LibraryPhoto.global.remove_from_app(photos, false);
+                Video.global.remove_from_app(videos, false);
+            }
+            
+            if (progress != null)
+                progress.close();
+            
+            AppWindow.get_instance().set_normal_cursor();    
+        });
         
-        AppWindow.get_instance().set_normal_cursor();
     }
     
     public override SearchViewFilter get_search_view_filter() {

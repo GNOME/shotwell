@@ -117,8 +117,11 @@ public class FacePage : CollectionPage {
     }
     
     private void on_delete_face() {
-        if (Dialogs.confirm_delete_face(face))
-            AppWindow.get_command_manager().execute(new DeleteFaceCommand(face));
+        Dialogs.confirm_delete_face.begin(face, (source, res) => {
+            if (Dialogs.confirm_delete_face.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteFaceCommand(face));
+            }
+        });        
     }
     
     private void on_remove_face_from_photos() {

@@ -280,6 +280,8 @@ class ImportPreview : MediaSourceItem {
         } catch (Error err) {
             warning("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
         }
+
+        print ("======> pixbuf? %p\n", pixbuf);
         
         // use placeholder if no preview available
         bool using_placeholder = (pixbuf == null);
@@ -694,10 +696,6 @@ public class ImportPage : CheckerboardPage {
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
 
-#if UNITY_SUPPORT
-    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
-    
     public enum RefreshResult {
         OK,
         BUSY,
@@ -753,75 +751,56 @@ public class ImportPage : CheckerboardPage {
         Video.global.contents_altered.disconnect(on_media_added_removed);
     }
     
-    public override Gtk.Toolbar get_toolbar() {
+    public override Gtk.Box get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
 
             // hide duplicates checkbox
             hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
             hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
-            hide_imported.clicked.connect(on_hide_imported);
+            hide_imported.toggled.connect(on_hide_imported);
             hide_imported.sensitive = false;
             hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
-            Gtk.ToolItem hide_item = new Gtk.ToolItem();
-            hide_item.is_important = true;
-            hide_item.add(hide_imported);
             
-            toolbar.insert(hide_item, -1);
-            
-            // separator to force buttons to right side of toolbar
-            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-            separator.set_draw(false);
-            
-            toolbar.insert(separator, -1);
+            toolbar.append(hide_imported);
             
             // progress bar in center of toolbar
             progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
             progress_bar.visible = false;
-            Gtk.ToolItem progress_item = new Gtk.ToolItem();
-            progress_item.set_expand(true);
-            progress_item.add(progress_bar);
             progress_bar.set_show_text(true);
             
-            toolbar.insert(progress_item, -1);
+            toolbar.append(progress_bar);
             
             // Find button
-            Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
+            Gtk.ToggleButton find_button = new Gtk.ToggleButton();
             find_button.set_icon_name("edit-find-symbolic");
             find_button.set_action_name ("win.CommonDisplaySearchbar");
             
-            toolbar.insert(find_button, -1);
-            
-            // Separator
-            toolbar.insert(new Gtk.SeparatorToolItem(), -1);
+            toolbar.append(find_button);
             
             // Import selected
-            Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
-            import_selected_button.set_icon_name(Resources.IMPORT);
+            Gtk.Button import_selected_button = new Gtk.Button.from_icon_name(Resources.IMPORT);
             import_selected_button.set_label(_("Import _Selected"));
-            import_selected_button.is_important = true;
             import_selected_button.use_underline = true;
             import_selected_button.set_action_name ("win.ImportSelected");
             
-            toolbar.insert(import_selected_button, -1);
+            toolbar.append(import_selected_button);
             
             // Import all
-            Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
-            import_all_button.set_icon_name(Resources.IMPORT_ALL);
+            Gtk.Button import_all_button = new Gtk.Button.from_icon_name(Resources.IMPORT_ALL);
             import_all_button.set_label(_("Import _All"));
-            import_all_button.is_important = true;
             import_all_button.use_underline = true;
             import_all_button.set_action_name ("win.ImportAll");
             
-            toolbar.insert(import_all_button, -1);
+            toolbar.append(import_all_button);
 
             // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
             // show_all queue so we have more control over its visibility
-            progress_bar.set_no_show_all(true);
+            progress_bar.set_visible(true);
             
             update_toolbar_state();
             
-            show_all();
+            show();
         }
         
         return toolbar;
@@ -1004,14 +983,16 @@ public class ImportPage : CheckerboardPage {
                         Gtk.ButtonsType.CANCEL, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.add_button(_("_Unmount"), Gtk.ResponseType.YES);
-                    int dialog_res = dialog.run();
-                    dialog.destroy();
-                    
-                    if (dialog_res != Gtk.ResponseType.YES) {
-                        set_page_message(_("Please unmount the camera."));
-                    } else {
-                        unmount_camera(mount);
-                    }
+                    dialog.set_transient_for(AppWindow.get_instance());
+                    dialog.show();
+                    dialog.response.connect((source, res) => {
+                        if (res != Gtk.ResponseType.YES) {
+                            set_page_message(_("Please unmount the camera."));
+                        } else {
+                            unmount_camera(mount);
+                        }
+                        dialog.destroy();
+                    });
                 } else {
                     string locked_message = _("The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again.");
 
@@ -1020,10 +1001,12 @@ public class ImportPage : CheckerboardPage {
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
                         Gtk.ButtonsType.OK, "%s", locked_message);
                     dialog.title = Resources.APP_TITLE;
-                    dialog.run();
-                    dialog.destroy();
-                    
-                    set_page_message(_("Please close any other application using the camera."));
+                    dialog.set_transient_for(AppWindow.get_instance());
+                    dialog.show();
+                    dialog.response.connect((source, res) => {                    
+                        set_page_message(_("Please close any other application using the camera."));
+                        dialog.destroy();
+                    });
                 }
             break;
             
@@ -1259,19 +1242,9 @@ public class ImportPage : CheckerboardPage {
 
         // Associate files (for RAW+JPEG)
         auto_match_raw_jpeg(import_list);
-        
-#if UNITY_SUPPORT
-        //UnityProgressBar: try to draw progress bar
-        uniprobar.set_visible(true);
-#endif
-        
+                
         load_previews_and_metadata(import_list);
-        
-#if UNITY_SUPPORT
-        //UnityProgressBar: reset
-        uniprobar.reset();
-#endif
-        
+                
         progress_bar.visible = false;
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text("");
@@ -1623,10 +1596,6 @@ public class ImportPage : CheckerboardPage {
             import_sources.add(import_source);
             
             progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.size);
-#if UNITY_SUPPORT
-            //UnityProgressBar: set progress
-            uniprobar.set_progress((double) (loaded_photos) / (double) import_list.size);
-#endif
             
             // spin the event loop so the UI doesn't freeze
             spin_event_loop();
@@ -1736,34 +1705,39 @@ public class ImportPage : CheckerboardPage {
         // until this function returns (at any time)
         ImportPage? local_ref = this.local_ref;
         this.local_ref = null;
-        
-        if (manifest.success.size > 0) {
-            string photos_string = (ngettext("Delete this photo from camera?",
-                "Delete these %d photos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string videos_string = (ngettext("Delete this video from camera?",
-                "Delete these %d videos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string both_string = (ngettext("Delete this photo/video from camera?",
-                "Delete these %d photos/videos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string neither_string = (ngettext("Delete these files from camera?",
-                "Delete these %d files from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
 
-            string question_string = ImportUI.get_media_specific_string(manifest.success,
-                photos_string, videos_string, both_string, neither_string);
-
-            ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-                question_string, Resources.DELETE_LABEL, _("_Keep"));
-        
-            if (!ImportUI.report_manifest(manifest, false, question))
-                return;
-        } else {
-            ImportUI.report_manifest(manifest, false, null);
+        if (manifest.success.size <= 0) {
+            ImportUI.report_manifest.begin(manifest, false, null);
             return;
         }
         
+        string photos_string = (ngettext("Delete this photo from camera?",
+            "Delete these %d photos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string videos_string = (ngettext("Delete this video from camera?",
+            "Delete these %d videos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string both_string = (ngettext("Delete this photo/video from camera?",
+            "Delete these %d photos/videos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string neither_string = (ngettext("Delete these files from camera?",
+            "Delete these %d files from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+
+        string question_string = ImportUI.get_media_specific_string(manifest.success,
+            photos_string, videos_string, both_string, neither_string);
+
+        ImportUI.QuestionParams question = new ImportUI.QuestionParams(
+            question_string, Resources.DELETE_LABEL, _("_Keep"));
+
+        ImportUI.report_manifest.begin(manifest, false, question, (source, res) => {
+            if (ImportUI.report_manifest.end(res)) {
+                delete_from_camera(manifest);
+            }
+        });
+    }
+
+    void delete_from_camera(ImportManifest manifest) {
         // delete the photos from the camera and the SourceCollection... for now, this is an 
         // all-or-nothing deal
         Marker marker = import_sources.start_marking();

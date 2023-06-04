@@ -107,18 +107,13 @@ public class ExportDialog : Gtk.Dialog {
 
         table.set_row_spacing(6);
         table.set_column_spacing(12);
-        table.set_border_width(18);
 
-        ((Gtk.Box) get_content_area()).add(table);
+        ((Gtk.Box) get_content_area()).append(table);
 
         // add buttons to action area
         add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
         ok_button = add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
-
-        ok_button.set_can_default(true);
-        ok_button.has_default = true;
-        set_default(ok_button);
 
         if (current_constraint == ScaleConstraint.ORIGINAL) {
             pixels_entry.sensitive = false;
@@ -178,7 +173,7 @@ public class ExportDialog : Gtk.Dialog {
     // it's passed qualified as ref and not as out
     public bool execute(out int scale, out ScaleConstraint constraint,
         ref ExportFormatParameters parameters) {
-        show_all();
+        show();
 
         // if the export format mode isn't set to last (i.e., don't use the persisted settings),
         // reset the scale constraint to original size
@@ -195,7 +190,7 @@ public class ExportDialog : Gtk.Dialog {
         format_set_active_text(get_label_for_parameters(parameters));
         on_format_changed();
 
-        bool ok = (run() == Gtk.ResponseType.OK);
+        bool ok = false; //(run() == Gtk.ResponseType.OK);
         if (ok) {
             int index = constraint_combo.get_active();
             assert(index >= 0);

@@ -13,9 +13,6 @@ public class ProgressDialog : Gtk.Window {
     private int update_every = 1;
     private int minimum_on_screen_time_msec = 500;
     private ulong time_started;
-#if UNITY_SUPPORT
-    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
 
     public ProgressDialog(Gtk.Window? owner, string text, Cancellable? cancellable = null) {
         this.cancellable = cancellable;
@@ -25,24 +22,23 @@ public class ProgressDialog : Gtk.Window {
         if (owner != null)
             set_transient_for(owner);
         set_modal(true);
-        set_type_hint(Gdk.WindowTypeHint.DIALOG);
 
         progress_bar.set_size_request(300, -1);
         progress_bar.set_show_text(true);
 
         Gtk.Box vbox_bar = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        vbox_bar.pack_start(progress_bar, true, false, 0);
+        vbox_bar.prepend(progress_bar);
 
         if (cancellable != null) {
             cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
             cancel_button.clicked.connect(on_cancel);
-            delete_event.connect(on_window_closed);
+            close_request.connect(on_window_closed);
         }
 
         Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        hbox.pack_start(vbox_bar, true, false, 0);
+        hbox.prepend(vbox_bar);
         if (cancel_button != null)
-            hbox.pack_end(cancel_button, false, false, 0);
+            hbox.append(cancel_button);
 
         Gtk.Label primary_text_label = new Gtk.Label("");
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
@@ -50,8 +46,8 @@ public class ProgressDialog : Gtk.Window {
         primary_text_label.yalign = 0.5f;
 
         Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
-        vbox.pack_start(primary_text_label, false, false, 0);
-        vbox.pack_start(hbox, true, false, 0);
+        vbox.prepend(primary_text_label);
+        vbox.append(hbox);
         vbox.halign = Gtk.Align.CENTER;
         vbox.valign = Gtk.Align.CENTER;
         vbox.hexpand = true;
@@ -61,17 +57,13 @@ public class ProgressDialog : Gtk.Window {
         vbox.margin_top = 12;
         vbox.margin_bottom = 12;
 
-        add(vbox);
+        set_child(vbox);
 
         time_started = now_ms();
-    }
-
-    public override void realize() {
-        base.realize();
-
-        // if unable to cancel the progress bar, remove the close button
-        if (cancellable == null)
-            get_window().set_functions(Gdk.WMFunction.MOVE);
+        set_titlebar(new Gtk.HeaderBar());
+        if (cancellable == null) {
+            ((Gtk.HeaderBar)get_titlebar()).set_show_title_buttons(false);
+        }
     }
 
     public void update_display_every(int update_every) {
@@ -95,21 +87,12 @@ public class ProgressDialog : Gtk.Window {
 
         progress_bar.set_fraction(pct);
         progress_bar.set_text(_("%d%%").printf((int) (pct * 100.0)));
-
-#if UNITY_SUPPORT
-        //UnityProgressBar: set progress
-        uniprobar.set_progress(pct);
-#endif
     }
 
     public void set_status(string text) {
         progress_bar.set_text(text);
 
-#if UNITY_SUPPORT
-        //UnityProgressBar: try to draw progress bar
-        uniprobar.set_visible(true);
-#endif
-        show_all();
+        show();
     }
 
     // This can be used as a ProgressMonitor delegate.
@@ -134,10 +117,6 @@ public class ProgressDialog : Gtk.Window {
     }
 
     public new void close() {
-#if UNITY_SUPPORT
-        //UnityProgressBar: reset
-        uniprobar.reset();
-#endif
         hide();
         destroy();
     }
@@ -166,11 +145,7 @@ public class ProgressDialog : Gtk.Window {
             // If there is still more work to do for at least MINIMUM_ON_SCREEN_TIME_MSEC,
             // finally display the dialog.
             if (ttc > minimum_on_screen_time_msec) {
-#if UNITY_SUPPORT
-                //UnityProgressBar: try to draw progress bar
-                uniprobar.set_visible(true);
-#endif
-                show_all();
+                show();
                 spin_event_loop();
             }
         }

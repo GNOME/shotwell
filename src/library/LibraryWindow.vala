@@ -53,11 +53,13 @@ public class LibraryWindow : AppWindow {
     public const string TAG_PATH_MIME_TYPE = "shotwell/tag-path";
     public const string MEDIA_LIST_MIME_TYPE = "shotwell/media-id-atom";
     
+    #if 0
     public const Gtk.TargetEntry[] DND_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
         { MEDIA_LIST_MIME_TYPE, Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST },
         { TAG_PATH_MIME_TYPE, Gtk.TargetFlags.SAME_WIDGET, TargetType.TAG_PATH }
     };
+    #endif
 
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
     // esp. regarding when the widget is realized and when it should first try and throw them image
@@ -90,7 +92,7 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    private string import_dir = Environment.get_home_dir();
+    private GLib.File import_dir = File.new_for_commandline_arg(Environment.get_home_dir());
     private bool import_recursive = true;
 
     private Gtk.Paned sidebar_paned = new Gtk.Paned(Gtk.Orientation.VERTICAL);
@@ -105,13 +107,14 @@ public class LibraryWindow : AppWindow {
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
     private Folders.Branch folders_branch = new Folders.Branch();
-    private Faces.Branch faces_branch = new Faces.Branch();
+    private Faces.Branch faces_branch = new Faces.Branch();    
     private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
+
     private bool page_switching_enabled = true;
-    
+
     private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     
     private LibraryPhotoPage photo_page = null;
@@ -125,7 +128,7 @@ public class LibraryWindow : AppWindow {
     // own UIManager which will suck up the accelerators, and we want them to be associated with
     // AppWindows instead.
     private SearchFilterActions search_actions = new SearchFilterActions();
-    private SearchFilterToolbar search_toolbar;
+    private Gtk.Revealer search_toolbar;
     
     private Gtk.Box top_section = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Revealer background_progress_frame = new Gtk.Revealer();
@@ -146,8 +149,7 @@ public class LibraryWindow : AppWindow {
         base();
 
         // prep sidebar and add roots
-        sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
-            external_drop_handler);
+        sidebar_tree = new Sidebar.Tree();
         
         sidebar_tree.page_created.connect(on_page_created);
         sidebar_tree.destroying_page.connect(on_destroying_page);
@@ -167,7 +169,8 @@ public class LibraryWindow : AppWindow {
             on_update_properties_now);
 
         // setup search bar and add its accelerators to the window
-        search_toolbar = new SearchFilterToolbar(search_actions);
+        search_toolbar = new Gtk.Revealer();
+        search_toolbar.set_child (new SearchFilterToolbar(search_actions));
 
         // create the main layout & start at the Library page
         basic_properties = new BasicProperties();
@@ -181,6 +184,7 @@ public class LibraryWindow : AppWindow {
             media_sources.items_altered.connect(on_media_altered);
         }
         
+        #if DOES_NOT_WORK_WITH_GTK4
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
         Gtk.TargetEntry[] main_window_dnd_targets = {
@@ -191,6 +195,7 @@ public class LibraryWindow : AppWindow {
         };
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, main_window_dnd_targets,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
+            #endif
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         
@@ -259,7 +264,6 @@ public class LibraryWindow : AppWindow {
     private const GLib.ActionEntry[] common_actions = {
         // Normal actions
         { "CommonFileImport", on_file_import },
-        { "ExternalLibraryImport", on_external_library_import },
         { "CommonPreferences", on_preferences },
         { "CommonEmptyTrash", on_empty_trash },
         { "CommonJumpToEvent", on_jump_to_event },
@@ -326,8 +330,8 @@ public class LibraryWindow : AppWindow {
     }
 
     // show_all() may make visible certain items we wish to keep programmatically hidden
-    public override void show_all() {
-        base.show_all();
+    public override void show() {
+        base.show();
 
         var basic_properties_action = get_current_page ().get_common_action
             ("CommonDisplayBasicProperties");
@@ -396,7 +400,7 @@ public class LibraryWindow : AppWindow {
         if (entry != null)
             sidebar_tree.rename_entry_in_place(entry);
         else
-            assert_not_reached();
+            debug("No face found for rename");
     }
     
     protected override void on_quit() {
@@ -460,7 +464,7 @@ public class LibraryWindow : AppWindow {
             start = photo;
             view_collection = null;
             
-            return true;
+            return false;
         }
 
         if (page is LibraryPhotoPage) {
@@ -499,41 +503,36 @@ public class LibraryWindow : AppWindow {
         go_fullscreen(fs_photo);
     }
 
+    async void do_file_import(ListModel files, bool recursive) {
+        var result = yield copy_files_dialog();
+        if (result != Gtk.ResponseType.CANCEL) {
+            dispatch_import_jobs(files, "folders",
+                result == Gtk.ResponseType.ACCEPT, recursive);
+        }
+    }
+
     private void on_file_import() {
         var import_dialog = new Gtk.FileChooserNative(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
-        import_dialog.set_local_only(false);
-        import_dialog.set_select_multiple(true);
-        import_dialog.set_current_folder(import_dir);
 
-        var recursive = new Gtk.CheckButton.with_label(_("Recurse Into Subfolders"));
-        recursive.active = import_recursive;
-        import_dialog.set_extra_widget(recursive);
-        
-        int response = import_dialog.run();
-        
-        if (response == Gtk.ResponseType.ACCEPT) {
-            import_dialog.hide();
-            // force file linking if directory is inside current library directory
-            Gtk.ResponseType copy_files_response =
-                AppDirs.is_in_import_dir(File.new_for_uri(import_dialog.get_uri()))
-                    ? Gtk.ResponseType.REJECT : copy_files_dialog();
-            
-            if (copy_files_response != Gtk.ResponseType.CANCEL) {
-                dispatch_import_jobs(import_dialog.get_uris(), "folders",
-                    copy_files_response == Gtk.ResponseType.ACCEPT, recursive.active);
-            }
+        import_dialog.set_modal(true);
+        import_dialog.set_transient_for(this);
+        import_dialog.set_select_multiple(true);
+        try {
+            import_dialog.set_current_folder(import_dir);
+        } catch (Error err) {
+            debug("Failed to set dialog to old import dir : %s", err.message);
         }
-        
-        import_dir = import_dialog.get_current_folder();
-        import_recursive = recursive.active;
-        import_dialog.destroy();
-    }
-    
-    private void on_external_library_import() {
-        Gtk.Dialog import_dialog = DataImportsUI.DataImportsDialog.get_or_create_instance();
-        
-        import_dialog.run();
+
+        import_dialog.add_choice("recursive-import", _("Recurse Into Subfolders"), null, null);
+        import_dialog.set_choice("recursive-import", import_recursive.to_string());
+        import_dialog.show();
+        import_dialog.response.connect((dialog, response) => {
+            import_dir = import_dialog.get_current_folder();
+            import_recursive = bool.parse(import_dialog.get_choice("recursive-import"));
+            do_file_import.begin(import_dialog.get_files(), import_recursive);
+            import_dialog.destroy();
+        });
     }
     
     protected override void update_common_action_availability(Page? old_page, Page? new_page) {
@@ -574,9 +573,10 @@ public class LibraryWindow : AppWindow {
         to_remove.add_all(LibraryPhoto.global.get_trashcan_contents());
         to_remove.add_all(Video.global.get_trashcan_contents());
         
-        remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash…"));
-        
-        AppWindow.get_command_manager().reset();
+        remove_from_app.begin(to_remove, _("Empty Trash"),  _("Emptying Trash…"), (source, res) => {
+            remove_from_app.end(res);
+            AppWindow.get_command_manager().reset();
+        });
     }
     
     private void on_new_search() {
@@ -617,7 +617,7 @@ public class LibraryWindow : AppWindow {
         action.change_state (true);
 
         // give it focus (which should move cursor to the text entry control)
-        search_toolbar.take_focus();
+        ((SearchFilterToolbar)search_toolbar.get_child()).take_focus();
     }
     
     private void on_media_altered() {
@@ -656,7 +656,7 @@ public class LibraryWindow : AppWindow {
             basic_properties.update_properties(get_current_page());
             bottom_frame.show();
         } else {
-            if (sidebar_paned.get_child2() != null) {
+            if (sidebar_paned.get_end_child() != null) {
                 bottom_frame.hide();
             }
         }
@@ -747,10 +747,10 @@ public class LibraryWindow : AppWindow {
     }
     
     private void import_reporter(ImportManifest manifest) {
-        ImportUI.report_manifest(manifest, true);
+        ImportUI.report_manifest.begin(manifest, true);
     }
     
-    private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library, bool recurse) {
+    private void dispatch_import_jobs(ListModel uris, string job_name, bool copy_to_library, bool recurse) {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
             Gtk.ResponseType response = AppWindow.affirm_cancel_question(
                 _("Shotwell is configured to import photos to your home directory.\n" + 
@@ -765,8 +765,8 @@ public class LibraryWindow : AppWindow {
         }
         
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
-        foreach (string uri in uris) {
-            File file_or_dir = File.new_for_uri(uri);
+        for (var i = 0; i < uris.get_n_items(); i++) {
+            var file_or_dir = (File) uris.get_item(i);
             if (file_or_dir.get_path() == null) {
                 // TODO: Specify which directory/file.
                 AppWindow.error_message(_("Photos cannot be imported from this directory."));
@@ -774,7 +774,7 @@ public class LibraryWindow : AppWindow {
                 continue;
             }
 
-            jobs.add(new FileImportJob(file_or_dir, copy_to_library, recurse));
+            jobs.add(new FileImportJob(file_or_dir, copy_to_library && !AppDirs.is_in_import_dir(file_or_dir), recurse));
         }
         
         if (jobs.size > 0) {
@@ -784,6 +784,7 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    #if 0
     private Gdk.DragAction get_drag_action() {
         Gdk.ModifierType mask;
 
@@ -830,7 +831,10 @@ public class LibraryWindow : AppWindow {
 
         return true;
     }
+    #endif
     
+
+    #if 0
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         if (selection_data.get_data().length < 0)
@@ -885,6 +889,7 @@ public class LibraryWindow : AppWindow {
         
         Gtk.drag_finish(context, true, false, time);
     }
+    #endif
     
     public void switch_to_library_page() {
         switch_to_page(library_branch.photos_entry.get_page());
@@ -951,18 +956,18 @@ public class LibraryWindow : AppWindow {
     // This should only be called by LibraryWindow and PageStub.
     public void add_to_stack(Page page) {
         // need to show all before handing over to stack
-        page.show_all();
+        page.show();
         
-        stack.add(page);
+        stack.add_child(page);
         // need to show_all() after pages are added and removed
-        stack.show_all();
+        stack.show();
     }
     
     private void remove_from_stack(Page page) {
         stack.remove(page);
         
         // need to show_all() after pages are added and removed
-        stack.show_all();
+        stack.show();
     }
     
     // check for settings that should persist between instances
@@ -1030,12 +1035,12 @@ public class LibraryWindow : AppWindow {
     private void create_layout(Page start_page) {
         
         // put the sidebar in a scrolling window
-        Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
+        Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow();
+        scrolled_sidebar.vexpand = true;
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-        scrolled_sidebar.add(sidebar_tree);
+        scrolled_sidebar.set_child(sidebar_tree);
         
-        background_progress_frame.set_border_width(2);
-        background_progress_frame.add(background_progress_bar);
+        background_progress_frame.set_child(background_progress_bar);
         background_progress_frame.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
         background_progress_frame.halign = Gtk.Align.FILL;
         background_progress_frame.valign = Gtk.Align.END;
@@ -1047,42 +1052,41 @@ public class LibraryWindow : AppWindow {
         basic_properties.halign = Gtk.Align.FILL;
         basic_properties.valign = Gtk.Align.CENTER;
         basic_properties.hexpand = true;
-        basic_properties.vexpand = true;
         basic_properties.margin_top = 10;
         basic_properties.margin_bottom = 10;
         basic_properties.margin_start = 6;
         basic_properties.margin_end = 6;
 
-        bottom_frame.add(basic_properties);
+        bottom_frame.set_child(basic_properties);
         bottom_frame.get_style_context().remove_class("frame");
         
         // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
         // top two and the basic information pane
-        top_section.pack_start(scrolled_sidebar, true, true, 0);
-        top_section.pack_end(background_progress_frame, false, false, 0);
+        top_section.prepend(scrolled_sidebar);
+        top_section.append(background_progress_frame);
 
-        sidebar_paned.pack1(top_section, true, false);
-        sidebar_paned.pack2(bottom_frame, false, false);
-        sidebar_paned.set_position(1000);
+        sidebar_paned.set_start_child(top_section);
+        sidebar_paned.set_end_child(bottom_frame);
+        sidebar_paned.set_position(700);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        right_vbox.pack_start(search_toolbar, false, false, 0);
+        right_vbox.append(search_toolbar);
         var stack_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        stack_box.pack_start(stack, true, true, 0);
-        right_vbox.pack_start(stack_box, true, true, 0);
-        right_vbox.add (toolbar_revealer);
+        stack_box.append(stack);
+        right_vbox.append(stack_box);
+        right_vbox.append(toolbar_revealer);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
-        client_paned.pack1(sidebar_paned, false, false);
+        client_paned.set_start_child(sidebar_paned);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        client_paned.pack2(right_vbox, true, false);
+        client_paned.set_end_child(right_vbox);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
-        var scrolled = new Gtk.ScrolledWindow(null, null);
+        var scrolled = new Gtk.ScrolledWindow();
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-        scrolled.add(extended_properties);
-        extended_properties_revealer.add(scrolled);
+        scrolled.set_child(extended_properties);
+        extended_properties_revealer.set_child(scrolled);
         extended_properties_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_LEFT);
         extended_properties_revealer.halign = Gtk.Align.END;
         extended_properties_revealer.valign = Gtk.Align.FILL;
@@ -1094,7 +1098,7 @@ public class LibraryWindow : AppWindow {
         extended_properties.set_margin_end (9);
         scrolled.set_size_request(EXTENDED_INFO_MIN_WIDTH, -1);
 
-        stack_box.pack_end(extended_properties_revealer, false, false, 0);
+        stack_box.append(extended_properties_revealer);
         extended_properties_revealer.halign = Gtk.Align.END;
         extended_properties_revealer.hexpand = false;
         if (Config.Facade.get_instance().get_display_extended_properties()) {
@@ -1103,9 +1107,9 @@ public class LibraryWindow : AppWindow {
             extended_properties_revealer.set_reveal_child(false);
         }
 
-        layout.pack_end(client_paned, true, true, 0);
+        layout.append(client_paned);
         
-        add(layout);
+        set_child(layout);
 
         switch_to_page(start_page);
         start_page.grab_focus();
@@ -1129,12 +1133,11 @@ public class LibraryWindow : AppWindow {
         
         Page current_page = get_current_page();
         if (current_page != null) {
-            set_show_menubar (false);
-            Application.set_menubar (null);
+            set_menubar(null);
 
-            Gtk.Toolbar toolbar = current_page.get_toolbar();
+            var toolbar = current_page.get_toolbar();
             if (toolbar != null)
-                toolbar_revealer.remove(toolbar);
+                toolbar_revealer.set_child(null);
 
             current_page.switching_from();
             
@@ -1180,23 +1183,22 @@ public class LibraryWindow : AppWindow {
         if (page is CheckerboardPage)
             init_view_filter((CheckerboardPage)page);
         
-        page.show_all();
+        page.show();
         
         // subscribe to these signals for each event page so basic properties display will update
         subscribe_for_basic_information(get_current_page());
         
         page.switched_to();
 
-        Application.set_menubar (page.get_menubar ());
-        set_show_menubar (true);
+        set_menubar (page.get_menubar ());
         var old = get_settings().gtk_shell_shows_menubar;
         get_settings().gtk_shell_shows_menubar = !old;
         get_settings().gtk_shell_shows_menubar = old;
         
-        Gtk.Toolbar toolbar = page.get_toolbar();
+        var toolbar = page.get_toolbar();
         if (toolbar != null) {
-            toolbar_revealer.add(toolbar);
-            toolbar.show_all();
+            toolbar_revealer.set_child(toolbar);
+            toolbar.show();
             toolbar_revealer.set_reveal_child (this.is_toolbar_visible ());
         }
 
@@ -1204,7 +1206,7 @@ public class LibraryWindow : AppWindow {
     }
 
     private void init_view_filter(CheckerboardPage page) {
-        search_toolbar.set_view_filter(page.get_search_view_filter());
+        ((SearchFilterToolbar)search_toolbar.get_child()).set_view_filter(page.get_search_view_filter());
         page.get_view().install_view_filter(page.get_search_view_filter());
     }
 
@@ -1217,7 +1219,7 @@ public class LibraryWindow : AppWindow {
         search_toolbar.set_reveal_child(show);
         if (show) {
             assert(null != page);
-            search_toolbar.set_view_filter(page.get_search_view_filter());
+            ((SearchFilterToolbar)search_toolbar.get_child()).set_view_filter(page.get_search_view_filter());
             page.get_view().install_view_filter(page.get_search_view_filter());
         } else {
             if (page != null)
@@ -1252,7 +1254,6 @@ public class LibraryWindow : AppWindow {
     private void on_sidebar_selected_entry_removed(Sidebar.SelectableEntry selectable) {
         // if the currently selected item is removed, want to jump to fallback page (which
         // depends on the item that was selected)
-        
         Library.LastImportSidebarEntry last_import_entry = library_branch.last_imported_entry;
         
         // Importing... -> Last Import (if available)
@@ -1347,16 +1348,16 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event)
-            && sidebar_tree.key_press_event(event)) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event, keyval, keycode, modifiers)
+            && event.forward(sidebar_tree)) {
             return true;
         }
         
-        if (base.key_press_event(event))
+        if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
-        
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+
+        if (Gdk.keyval_name(keyval) == "Escape") {
             on_clear_search();
             return true;
         }

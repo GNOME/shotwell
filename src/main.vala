@@ -81,7 +81,7 @@ void library_exec(string[] mounts) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", errormsg);
         dialog.title = Resources.APP_TITLE;
-        dialog.run();
+        dialog.show(); //TODO dialog.run();
         dialog.destroy();
         
         DatabaseTable.terminate();
@@ -110,11 +110,7 @@ void library_exec(string[] mounts) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
-            try {
-                progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/hicolor/scalable/org.gnome.Shotwell.svg");
-            } catch (Error err) {
-                debug("Warning - could not load application icon for loading window: %s", err.message);
-            }
+            progress_dialog.icon_name = "org.gnome.Shotwell";
             
             aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
             monitor = aggregate_monitor.monitor;
@@ -181,7 +177,7 @@ void library_exec(string[] mounts) {
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount, true);
 
-    library_window.show_all();
+    library_window.show();
 
     WelcomeServiceEntry[] selected_import_entries = new WelcomeServiceEntry[0];
     if (Config.Facade.get_instance().get_show_welcome_dialog() &&
@@ -254,7 +250,7 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
     if (do_external_import && (manifest.all.size == 0))
         return;
 
-    ImportUI.report_manifest(manifest, true);
+    ImportUI.report_manifest.begin(manifest, true);
 }
 
 void dump_tags (GExiv2.Metadata metadata, string[] tags) throws Error {
@@ -311,7 +307,7 @@ void editing_exec(string filename, bool fullscreen) {
     //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry
     
     DirectWindow direct_window = new DirectWindow(initial_file);
-    direct_window.show_all();
+    direct_window.show();
     direct_window.maximize();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
@@ -393,11 +389,12 @@ void main(string[] args) {
             "/data/gsettings", true);
     }
 
-    // init GTK (valac has already called g_threads_init())
+    Gtk.init();
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
-            Resources.APP_GETTEXT_PACKAGE);
-
+        // TODO: Let GApplication handle the arguments
+        var context = new GLib.OptionContext("");
+        context.add_main_entries (CommandlineOptions.entries, Resources.APP_GETTEXT_PACKAGE);
+        context.parse(ref args);
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run “%s --help” to see a full list of available command line options.\n"), args[0]);
@@ -418,9 +415,10 @@ void main(string[] args) {
             }
             window.response(Gtk.ResponseType.OK);
         });
-        window.get_content_area().add(browser);
+        window.get_content_area().append(browser);
         window.set_size_request(430, 560);
-        var response = window.run();
+
+        var response = Gtk.ResponseType.OK; //window.run();
         window.destroy();
         // Anything else than selecting an entry in the list will stop shotwell from starting
         if (response != Gtk.ResponseType.OK) {
