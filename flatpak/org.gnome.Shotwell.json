@@ -69,7 +69,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "commit" : "6dbc5e032fa851d1a25fb4a895d735ed3441975b",
+                    "commit" : "e60a7c0d490b5bd94524680deb74177d7bfb9ae4",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
