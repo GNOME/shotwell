@@ -5,7 +5,7 @@
  */
 
 class HeifFileFormatProperties : PhotoFileFormatProperties {
-    private static string[] KNOWN_EXTENSIONS = { "heif", "heic" };
+    private static string[] KNOWN_EXTENSIONS = { "heif", "heic", "hif" };
     private static string[] KNOWN_MIME_TYPES = { "image/heif" };
 
     private static HeifFileFormatProperties instance = null;
