@@ -16,7 +16,7 @@ public abstract class SinglePhotoPage : Page {
     }
 
     protected Gtk.DrawingArea canvas = new Gtk.DrawingArea();
-    protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+    //protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
 
     private bool scale_up_to_viewport;
     private TransitionClock transition_clock;
@@ -47,13 +47,11 @@ public abstract class SinglePhotoPage : Page {
         // should never be shown, but this may change if/when zooming is supported
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
-        viewport.set_child(canvas);
+        scrolled.set_child(canvas);
 
-        scrolled.set_child(viewport);
-
-        viewport.notify["default-width"].connect(on_viewport_resize);
-        viewport.notify["default-height"].connect(on_viewport_resize);
-        viewport.notify["maximized"].connect(on_viewport_resize);
+        scrolled.notify["default-width"].connect(on_viewport_resize);
+        scrolled.notify["default-height"].connect(on_viewport_resize);
+        scrolled.notify["maximized"].connect(on_viewport_resize);
 
         canvas.resize.connect(on_viewport_resize);
         canvas.set_draw_func(on_canvas_exposed);
@@ -264,7 +262,7 @@ public abstract class SinglePhotoPage : Page {
 
     public Scaling get_canvas_scaling() {
         return (get_container() is FullscreenWindow) ? Scaling.for_screen(AppWindow.get_instance(), scale_up_to_viewport)
-            : Scaling.for_widget(viewport, scale_up_to_viewport);
+            : Scaling.for_widget(scrolled, scale_up_to_viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
@@ -370,7 +368,7 @@ public abstract class SinglePhotoPage : Page {
             return;
 
         Gtk.Allocation allocation;
-        viewport.get_allocation(out allocation);
+        scrolled.get_allocation(out allocation);
 
         int width = allocation.width;
         int height = allocation.height;

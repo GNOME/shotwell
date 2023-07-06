@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution.
  */
 
-public class CheckerboardLayout : Gtk.DrawingArea {
+public class CheckerboardLayout : Gtk.Widget {
     public const int TOP_PADDING = 16;
     public const int BOTTOM_PADDING = 16;
     public const int ROW_GUTTER_PADDING = 24;
@@ -83,7 +83,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
-        set_draw_func (on_draw);
+        //set_draw_func (on_draw);
 
         var focus_controller = new Gtk.EventControllerFocus ();
         focus_controller.set_name ("CheckerboardLayout focus watcher");
@@ -1095,19 +1095,28 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         viewport_resized();
     }
+
+    /*
+    public override Gtk.SizeRequestMode get_request_mode() {
+        return Gtk.SizeRequestMode.HEIGHT_FOR_WIDTH;
+    }
+
+    public override void measure(Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
+        base.measure(orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
+
+        print("%s %d, %d, %d, %d, %d\n", orientation.to_string(), for_size, minimum, natural, minimum_baseline, natural_baseline);
+    }
+    */
     
-    public void on_draw(Gtk.DrawingArea da, Cairo.Context ctx, int width, int height) {
+    public override void snapshot(Gtk.Snapshot snapshot) {
         // Note: It's possible for draw to be called when in_view is false; this happens
         // when pages are switched prior to switched_to() being called, and some of the other
         // controls allow for events to be processed while they are orienting themselves.  Since
         // we want switched_to() to be the final call in the process (indicating that the page is
         // now in place and should do its thing to update itself), have to be be prepared for
         // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
+        snapshot.render_background(get_style_context(), 0, 0, get_width(), get_height());
 
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        get_style_context().render_background (ctx, 0, 0, allocation.width, allocation.height);
-        
 #if TRACE_REFLOW
         debug("draw %s: %s", page_name, rectangle_to_string(visible_page));
 #endif
@@ -1117,12 +1126,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         // have all items in the exposed area paint themselves
         foreach (CheckerboardItem item in intersection(visible_page)) {
-            item.paint(get_style_context(), ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
+            item.paint(get_style_context(), snapshot, bg_color, item.is_selected() ? selected_color : unselected_color,
                 border_color, focus_color);
         }
-        
+
         // draw the selection band last, so it appears floating over everything else
-        draw_selection_band(ctx);
+        draw_selection_band(snapshot);
     }
     
     class RubberbandProxy : Gtk.Widget {
@@ -1140,7 +1149,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
     }
 
-    private void draw_selection_band(Cairo.Context ctx) {
+    private void draw_selection_band(Gtk.Snapshot snapshot) {
         // no selection band, nothing to draw
         if (selection_band.width <= 1 || selection_band.height <= 1)
             return;
@@ -1159,11 +1168,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         style.save();
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
-            style.render_background(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
+            snapshot.render_background(style, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
         }
         
         // border
-        style.render_frame(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
+        snapshot.render_frame(style, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
         style.restore();
     }
     
