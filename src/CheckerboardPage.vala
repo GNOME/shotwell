@@ -13,7 +13,7 @@ public abstract class CheckerboardPage : Page {
     private PageMessagePane message_pane;
     private string item_context_menu_path = null;
     private string page_context_menu_path = null;
-    private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+    //private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected CheckerboardItem anchor = null;
     protected CheckerboardItem current_cursor = null;
     private CheckerboardItem current_hovered_item = null;
@@ -54,13 +54,13 @@ public abstract class CheckerboardPage : Page {
 
         set_event_source(layout);
 
-        viewport.set_child(stack);
+        //viewport.set_child(stack);
 
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
         layout.set_adjustments(scrolled.get_hadjustment(), scrolled.get_vadjustment());
 
-        scrolled.set_child(viewport);
+        scrolled.set_child(stack);
 
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);

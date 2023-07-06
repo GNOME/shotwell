@@ -513,11 +513,86 @@ public abstract class CheckerboardItem : ThumbnailView {
         return null;
     }
     
-    public void paint(Gtk.StyleContext style_context, Cairo.Context ctx, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
+    public void paint(Gtk.StyleContext style_context, Gtk.Snapshot snapshot, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
         Gdk.RGBA? border_color, Gdk.RGBA? focus_color) {
-        ctx.save();
-        ctx.translate(allocation.x + FRAME_WIDTH,
-                      allocation.y + FRAME_WIDTH);
+        var rect = Graphene.Rect.alloc();
+            rect.init(allocation.x + FRAME_WIDTH, allocation.y + FRAME_WIDTH, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
+        snapshot.save();
+        snapshot.translate(rect.origin);
+
+        // draw shadow
+        if (border_color != null) {
+            Dimensions shadow_dim = Dimensions();
+            shadow_dim.width = pixbuf_dim.width + BORDER_WIDTH;
+            shadow_dim.height = pixbuf_dim.height + BORDER_WIDTH;
+            var shadow_rect = Graphene.Rect.alloc();
+            shadow_rect.init(BORDER_WIDTH, BORDER_WIDTH, shadow_dim.width, shadow_dim.height);
+            var rounded_rect = Gsk.RoundedRect();
+            rounded_rect.init_from_rect(shadow_rect, 0);
+            snapshot.append_outset_shadow(rounded_rect, border_color, 0, 0, BORDER_WIDTH * 10, 10.0f);
+        }
+
+        if (is_cursor) {
+            var shadow_rect = Graphene.Rect.alloc();
+            shadow_rect.init(0, 0, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
+            var cursor_rect = Gsk.RoundedRect();
+            cursor_rect.init_from_rect(shadow_rect, 0);
+            var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
+            float border[4] = {w, w, w, w};
+            Gdk.RGBA c[4] = {(!)focus_color, (!)focus_color, (!)focus_color, (!)focus_color};
+            snapshot.append_border(cursor_rect, border, c);
+        }
+
+        // title and subtitles are LABEL_PADDING below bottom of pixbuf
+        int text_y = pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
+        if (title != null && title_visible) {
+            // get the layout sized so its width is no more than the pixbuf's
+            // resize the text width to be no more than the pixbuf's
+            title.allocation.x = 0;
+            title.allocation.y = text_y;
+            title.allocation.width = pixbuf_dim.width;
+            title.allocation.height = title.get_height();
+            snapshot.render_layout(style_context, title.allocation.x, title.allocation.y,
+                    title.get_pango_layout(pixbuf_dim.width));
+
+            text_y += title.get_height() + LABEL_PADDING;
+        }
+
+        if (comment != null && comment_visible) {
+            comment.allocation.x = 0;
+            comment.allocation.y = text_y;
+            comment.allocation.width = pixbuf_dim.width;
+            comment.allocation.height = comment.get_height();
+            snapshot.render_layout(style_context, comment.allocation.x, comment.allocation.y,
+                    comment.get_pango_layout(pixbuf_dim.width));
+
+            text_y += comment.get_height() + LABEL_PADDING;
+        }
+
+        if (subtitle != null && subtitle_visible) {
+            subtitle.allocation.x = 0;
+            subtitle.allocation.y = text_y;
+            subtitle.allocation.width = pixbuf_dim.width;
+            subtitle.allocation.height = subtitle.get_height();
+
+            snapshot.render_layout(style_context, subtitle.allocation.x, subtitle.allocation.y,
+                    subtitle.get_pango_layout(pixbuf_dim.width));
+
+            // increment text_y if more text lines follow
+        }
+
+        if (display_pixbuf != null) {
+            snapshot.save();
+            var texture = Gdk.Texture.for_pixbuf(display_pixbuf);
+            texture.snapshot(snapshot, display_pixbuf.get_width(), display_pixbuf.get_height());
+            snapshot.restore();
+        }
+        
+        snapshot.restore();
+
+            #if 0
+        print(" 1 => %f %f %f %f\n", allocation.x + FRAME_WIDTH, allocation.y + FRAME_WIDTH, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
+        print(" 2 => %f %f %f %f\n", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
         pixbuf_origin.x = BORDER_WIDTH;
@@ -645,6 +720,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             ctx.fill();
         }
         ctx.restore();
+        #endif
     }
     
     protected void set_horizontal_trinket_offset(int horizontal_trinket_offset) {
