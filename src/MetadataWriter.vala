@@ -113,7 +113,7 @@ public class MetadataWriter : Object {
             MetadataDateTime? metadata_exposure_date_time = metadata.get_exposure_date_time();
             if (metadata_exposure_date_time != null)
                 metadata_exposure_time = metadata_exposure_date_time.get_timestamp();
-            if (current_exposure_time != metadata_exposure_time) {
+            if (nullsafe_date_time_comperator(current_exposure_time, metadata_exposure_time) != 0) {
                 metadata.set_exposure_date_time(current_exposure_time != null
                     ? new MetadataDateTime(current_exposure_time)
                     : null);
