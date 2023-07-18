@@ -66,7 +66,7 @@
   font-family: 'Inter Var';
   font-weight: 100 900;
   font-display: swap;
-  font-style: oblique 0deg 10deg;
+  font-style: oblique italic 0deg 10deg;
   src: url("fonts/Inter.var.woff2?v=3.19") format("woff2");
 }
 
