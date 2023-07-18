@@ -443,6 +443,7 @@ tbody td {
 
 /* Code Blocks */
 .highlighter-rouge {
+  line-height: normal;
   padding: 2px 1rem;
   border-radius: 5px;
   background-color: var(--light1);
