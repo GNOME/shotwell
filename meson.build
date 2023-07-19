@@ -67,6 +67,7 @@ libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 secret = dependency('libsecret-1', required: true)
 portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk4', version: '>= 0.5')]
+math = meson.get_compiler('c').find_library('m', required: false)
 pangocairo = dependency('pangocairo', required: true)
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
