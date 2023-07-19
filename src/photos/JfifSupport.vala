@@ -223,7 +223,7 @@ namespace Jpeg {
 
         public bool is_sof() {
             // FFCn is SOF unless n is a multiple of 4 > 0 (FFC4, FFC8, FFCC)
-            if ((this & 0xC0) != 0xC0) {
+            if ((this >> 4) != 0xC) {
                 return false;
             }
 

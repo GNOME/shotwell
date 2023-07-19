@@ -66,6 +66,7 @@ libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 secret = dependency('libsecret-1', required: true)
 portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk3', version: '>= 0.5')]
+math = meson.get_compiler('c').find_library('m', required: false)
  
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
