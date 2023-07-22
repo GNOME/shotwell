@@ -1170,8 +1170,11 @@ public class BackingPhotoRow {
 
         if (timestamp == null)
             return false;
-        
-        return timestamp.equal(info.get_modification_date_time());
+
+        // Need to remove the microseconds from the FileInfo, since the database
+        // just stores second granularity, causing the file to be marked as modified all
+        // the time
+        return timestamp.equal(coarsify_date_time(info.get_modification_date_time()));
     }
     
     public bool is_touched(FileInfo info) {
@@ -1180,8 +1183,11 @@ public class BackingPhotoRow {
 
         if (timestamp == null)
             return true;
-        
-        return !timestamp.equal(info.get_modification_date_time());
+
+        // Need to remove the microseconds from the FileInfo, since the database
+        // just stores second granularity, causing the file to be marked as modified all
+        // the time
+        return !timestamp.equal(coarsify_date_time(info.get_modification_date_time()));
     }
     
     // Copies another backing photo row into this one.

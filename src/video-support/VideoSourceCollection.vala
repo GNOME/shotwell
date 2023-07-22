@@ -126,7 +126,7 @@ public class VideoSourceCollection : MediaSourceCollection {
         if (video.get_filesize() != info.get_size())
             return;
 
-        if (video.get_timestamp().equal(info.get_modification_date_time()))
+        if (video.get_timestamp().equal(coarsify_date_time(info.get_modification_date_time())))
             matching_master.add(video);
     }
 
