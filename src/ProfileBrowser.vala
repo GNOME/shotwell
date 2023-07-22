@@ -182,6 +182,8 @@ namespace Shotwell {
             label = new Gtk.Label(import_dir);
             label.halign = Gtk.Align.START;
             label.set_ellipsize(Pango.EllipsizeMode.END);
+            label.set_tooltip_text(import_dir);
+            label.set_selectable(true);
             grid.attach(label, 1, 0, 1, 1);
     
             label = new Gtk.Label(_("Data Folder"));
@@ -193,6 +195,8 @@ namespace Shotwell {
             label.halign = Gtk.Align.START;
             label.hexpand = true;
             label.set_ellipsize(Pango.EllipsizeMode.END);
+            label.set_tooltip_text(profile.data_dir);
+            label.set_selectable(true);
             grid.attach(label, 1, 1, 1, 1);
             
             if (profile.id != Profile.SYSTEM && !profile.active) {
