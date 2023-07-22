@@ -57,7 +57,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             }
 
             var response = "";
-            var mins = new MemoryInputStream.from_data(response.data, null);
+            var mins = new MemoryInputStream.from_data(response.data);
             request.finish(mins, -1, "text/plain");
         }
 
