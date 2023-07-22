@@ -98,7 +98,7 @@ public class VideoReader {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
 
-        var timestamp = info.get_modification_date_time();
+        var timestamp = coarsify_date_time(info.get_modification_date_time());
 
         // make sure params has a valid md5
         assert(params.md5 != null);

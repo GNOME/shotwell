@@ -199,3 +199,14 @@ public static int64 nullsafe_date_time_comperator(DateTime? time_a, DateTime? ti
     return time_a.compare(time_b);
 
 }
+
+/*
+ * Drop microseconds from input DateTime
+ */
+public DateTime? coarsify_date_time(DateTime? dt) {
+    if (dt == null) {
+        return null;
+    }
+
+    return dt.add(-dt.get_microsecond());
+}

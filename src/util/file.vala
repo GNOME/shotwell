@@ -158,8 +158,8 @@ public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Progr
 public DateTime query_file_modified(File file) throws Error {
     FileInfo info = file.query_info(FileAttribute.TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
         null);
-
-    return info.get_modification_date_time();
+    
+    return coarsify_date_time(info.get_modification_date_time());
 }
 
 public bool query_is_directory(File file) {

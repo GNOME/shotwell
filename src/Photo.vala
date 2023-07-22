@@ -640,7 +640,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         File file = File.new_for_path(bpr.filepath);
         FileInfo info = file.query_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        var timestamp = info.get_modification_date_time();
+        var timestamp = coarsify_date_time(info.get_modification_date_time());
         
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(
             file, PhotoFileSniffer.Options.GET_ALL);
@@ -1185,7 +1185,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
-        var timestamp = info.get_modification_date_time();
+        var timestamp = coarsify_date_time(info.get_modification_date_time());
         
         // if all MD5s supplied, don't sniff for them
         if (params.exif_md5 != null && params.thumbnail_md5 != null && params.full_md5 != null)
@@ -1354,7 +1354,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             return null;
         }
         
-        var modification_time = info.get_modification_date_time();
+        var modification_time = coarsify_date_time(info.get_modification_date_time());
         
         backing.filepath = file.get_path();
         backing.timestamp = modification_time;
@@ -1709,7 +1709,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Use this only if the master file's modification time has been changed (i.e. touched)
     public void set_master_timestamp(FileInfo info) {
-        var modification = info.get_modification_date_time();
+        var modification = coarsify_date_time(info.get_modification_date_time());
         
         try {
             lock (row) {
@@ -1733,7 +1733,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
     public void update_editable_modification_time(FileInfo info) throws DatabaseError, Error {
-        var modification = info.get_modification_date_time();
+        var modification = coarsify_date_time(info.get_modification_date_time());
         
         bool altered = false;
         lock (row) {
@@ -2296,7 +2296,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             error("Unable to read file information for %s: %s", to_string(), err.message);
         }
         
-        var timestamp = info.get_modification_date_time();
+        var timestamp = coarsify_date_time(info.get_modification_date_time());
         
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
@@ -4014,8 +4014,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 return;
             }
             
-            var timestamp = info.get_modification_date_time();
-        
+            var timestamp = coarsify_date_time(info.get_modification_date_time());
+
             BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp,
                 info.get_size());
             lock (row) {
