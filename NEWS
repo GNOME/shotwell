@@ -1,3 +1,36 @@
+Shotwell 0.32.2 (stable) - 22 Jul 2023
+ * Fix using wrong data folder when starting profile through browser
+ * Fix sendto in flatpak environment
+ * Support HEIF files with HIF extension
+ * Fix meta-data being written in a loop
+ * Fix detecting false mtime changes
+ * Fix broken aspect ratio of thumbnail when using external editors
+ * Fix critical when exporting file with no exposure date
+ * Fix minor leak in Flickr and Google authenticators
+ * Enable C&P of paths in profile editor
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://github.com/flathub/org.gnome.Shotwell/issues/46
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/230
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5048
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5049
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5059
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/75
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Ihor M <erwaht@gmail.com>
+ - Daniel Rusek <mail@asciiwolf.com>
+ - Kryštof Černý <cleverline1mc@gmail.com>
+ - Sabri Ünal <libreajans@gmail.com>
+
+Added/updated translations:
+ - cs.po, courtesy of Daniel Rusek
+ - tr.po, courtesy of Sabri Ünal
+
 Shotwell 0.32.1 (stable) - 09 May 2023
  * Fix version display in about dialog when not building from git
  * Fix settings schema migration when source is using obsolete
