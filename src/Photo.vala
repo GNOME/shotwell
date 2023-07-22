@@ -2816,7 +2816,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         lock (row) {
             return row.transformations != null 
                 || row.orientation != backing_photo_row.original_orientation
-                || (date_time != null && !row.exposure_time.equal(date_time.get_timestamp()))
+                || (date_time != null && nullsafe_date_time_comperator(row.exposure_time, date_time.get_timestamp()) != 0)
                 || (get_comment() != comment)
                 || (get_title() != title);
         }
