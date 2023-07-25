@@ -16,7 +16,6 @@
   <support-forum rdf:resource="https://discourse.gnome.org/tag/shotwell" />
   <developer-forum rdf:resource="https://discourse.gnome.org/tag/shotwell" />
   <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/shotwell/issues" />
-  <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>Vala</programming-language>
 
   <maintainer>
