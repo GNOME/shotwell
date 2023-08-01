@@ -2,6 +2,7 @@
 <!-- Copyright 2016 Software Freedom Conservancy Inc. -->
 <component type="desktop">
   <id>org.gnome.Shotwell.desktop</id>
+  <launchable type="desktop-id">org.gnome.Shotwell.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <translation type="gettext">shotwell</translation>
@@ -48,7 +49,6 @@
     </screenshot>
   </screenshots>
   <update_contact>mail@jensge.org</update_contact>
-  <project_group>GNOME</project_group>
 
   <developer_name>The Shotwell developers</developer_name>
 
@@ -73,7 +73,7 @@
   </releases>
 
   <!--GNOME Projects usually have no per-app donation page-->
-  <url type="donation">http://www.gnome.org/friends/</url>
+  <url type="donation">https://www.gnome.org/friends/</url>
 
-  <url type="help">http://shotwell-project.org/doc/html</url>
+  <url type="help">https://shotwell-project.org/doc/html</url>
 </component>
