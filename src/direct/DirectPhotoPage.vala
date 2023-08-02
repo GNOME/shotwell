@@ -9,6 +9,7 @@ public class DirectPhotoPage : EditingHostPage {
     private DirectViewCollection? view_controller = null;
     private File current_save_dir;
     private bool drop_if_dirty = false;
+    private bool in_shutdown = false;
     
     public DirectPhotoPage(File file) {
         base (DirectPhoto.global, file.get_basename());
@@ -319,7 +320,10 @@ public class DirectPhotoPage : EditingHostPage {
             return true;
         }
 
-        bool is_writeable = get_photo().get_file_format().can_write();
+        // Check if we can write the target format
+        bool is_writeable = get_photo().get_file_format().can_write()
+        
+        // TODO: Check if we can actually write to the file
         string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
 
         Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
@@ -336,6 +340,7 @@ public class DirectPhotoPage : EditingHostPage {
                 on_save_as();
         } else if ((response == Gtk.ResponseType.CANCEL) || (response == Gtk.ResponseType.DELETE_EVENT) ||
             (response == Gtk.ResponseType.CLOSE)) {
+            in_shutdown = false;
             return false;
         }
 
@@ -343,6 +348,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     public bool check_quit() {
+        in_shutdown = true;
         return check_ok_to_close_photo(get_photo(), false);
     }
     
@@ -352,8 +358,9 @@ public class DirectPhotoPage : EditingHostPage {
 
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
         PhotoFileFormat format, bool copy_unmodified = false, bool save_metadata = true) {
+
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
-        
+    
         try {
             get_photo().export(dest, scaling, quality, format, copy_unmodified, save_metadata);
         } catch (Error err) {
@@ -362,6 +369,8 @@ public class DirectPhotoPage : EditingHostPage {
 
             return;
         }
+
+        if (in_shutdown) return;
 
         // Fetch the DirectPhoto and reimport.
         DirectPhoto photo;
