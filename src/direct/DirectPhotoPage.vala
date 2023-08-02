@@ -321,7 +321,7 @@ public class DirectPhotoPage : EditingHostPage {
         }
 
         // Check if we can write the target format
-        bool is_writeable = get_photo().get_file_format().can_write()
+        bool is_writeable = get_photo().get_file_format().can_write();
         
         // TODO: Check if we can actually write to the file
         string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
