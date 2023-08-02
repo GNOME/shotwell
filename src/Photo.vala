@@ -3808,6 +3808,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         if (ext == null || !file_format.get_properties().is_recognized_extension(ext))
             ext = file_format.get_properties().get_default_extension();
         
+        // TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
         string editable_basename = "%s_%s.%s".printf(name, _("modified"), ext);
         
         bool collision;
