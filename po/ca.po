@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2023-03-22 12:27+0200\n"
+"PO-Revision-Date: 2023-08-20 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -6398,7 +6398,7 @@ msgstr ""
 #. add toolbar buttons
 #: src/SlideshowPage.vala:136
 msgid "Back"
-msgstr "Fons"
+msgstr "Enrere"
 
 #: src/SlideshowPage.vala:138
 msgid "Go to the previous photo"
