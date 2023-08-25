@@ -113,11 +113,6 @@ public class CheckerboardLayout : Gtk.Widget {
         if (vadjustment != null)
             vadjustment.value_changed.disconnect(on_viewport_shifted);
         
-        #if 0
-        if (parent != null)
-            parent.size_allocate.disconnect(on_viewport_resized);
-            #endif
-
         Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
     }
     
@@ -130,7 +125,6 @@ public class CheckerboardLayout : Gtk.Widget {
         vadjustment.value_changed.connect(on_viewport_shifted);
         
         // monitor parent's size changes for a similar reason
-        //parent.resized.connect(on_viewport_resized);
     }
     
     // This method allows for some optimizations to occur in reflow() by using the known max.
@@ -145,6 +139,39 @@ public class CheckerboardLayout : Gtk.Widget {
     
     public new void set_name(string name) {
         page_name = name;
+    }
+
+    public override Gtk.SizeRequestMode get_request_mode() {
+        return Gtk.SizeRequestMode.HEIGHT_FOR_WIDTH;    
+    }
+
+    public override void measure (Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
+        print("IN: %s %d, %d, %d, %d, %d\n", orientation.to_string(), for_size, minimum, natural, minimum_baseline, natural_baseline);
+
+        var w = get_width();
+        var h = get_height();
+
+        if (orientation == Gtk.Orientation.HORIZONTAL) {
+            // TODO: What is the minimum width here?
+            minimum = 100;
+            natural = 100;
+        } else {
+            if (for_size == -1 && w == 0) {
+                minimum = 100;
+                natural = 100;
+            } else {
+                if (for_size == -1)  {
+                    for_size = w;
+                }
+
+                reflow("measure", for_size, out minimum);
+                natural = minimum;
+            }
+        }
+
+        minimum_baseline = -1;
+        natural_baseline = -1;
+        print("OUT: %s %d, %d, %d, %d, %d\n", orientation.to_string(), for_size, minimum, natural, minimum_baseline, natural_baseline);
     }
     
     public void on_viewport_resized() {
@@ -310,7 +337,7 @@ public class CheckerboardLayout : Gtk.Widget {
     }
     
     private bool do_reflow() {
-        reflow("do_reflow");
+        queue_resize();
         need_exposure("do_reflow");
 
         flow_scheduled = false;
@@ -713,17 +740,14 @@ public class CheckerboardLayout : Gtk.Widget {
 #endif
     }
     
-    private void reflow(string caller) {
+    private void reflow(string caller, int for_size, out int minimum) {
         reflow_needed = false;
         
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        
-        int visible_width = (visible_page.width > 0) ? visible_page.width : allocation.width;
+        int visible_width = (visible_page.width > 0) ? visible_page.width : for_size;
         
 #if TRACE_REFLOW
         debug("reflow: Using visible page width of %d (allocated: %d)", visible_width,
-            allocation.width);
+            for_size);
 #endif
         
         // don't bother until layout is of some appreciable size (even this is too low)
@@ -1013,17 +1037,20 @@ public class CheckerboardLayout : Gtk.Widget {
         // Step 6: Define the total size of the page as the size of the visible width (to avoid
         // the horizontal scrollbar from appearing) and the height of all the items plus padding
         int total_height = y + row_heights[row] + BOTTOM_PADDING;
-        if (visible_width != allocation.width || total_height != allocation.height) {
-#if TRACE_REFLOW
-            debug("reflow %s: Changing layout dimensions from %dx%d to %dx%d", page_name, 
-                allocation.width, allocation.height, visible_width, total_height);
+        #if TRACE_REFLOW
+        debug("reflow %s: Changing layout dimensions from %dx%d to %dx%d", page_name, 
+            for_size, 0, /*get_heigth(),*/ visible_width, total_height);
 #endif
+/*         if (visible_width != for_size || total_height != allocation.height) {
             set_size_request(visible_width, total_height);
             size_allocate_due_to_reflow = true;
             
             // when height changes, center on the anchor to minimize amount of visual change
             center_on_anchor(total_height);
         }
+        */
+        minimum = total_height;
+        center_on_anchor(total_height);
     }
     
     private void items_dirty(string reason, Gee.Iterable<DataView> items) {
@@ -1090,12 +1117,6 @@ public class CheckerboardLayout : Gtk.Widget {
         ctx.restore();
     }
     
-    public override void size_allocate(int a, int b, int c)  {
-        base.size_allocate(a, b, c);
-        
-        viewport_resized();
-    }
-
     /*
     public override Gtk.SizeRequestMode get_request_mode() {
         return Gtk.SizeRequestMode.HEIGHT_FOR_WIDTH;
@@ -1109,6 +1130,7 @@ public class CheckerboardLayout : Gtk.Widget {
     */
     
     public override void snapshot(Gtk.Snapshot snapshot) {
+        snapshot.save();
         // Note: It's possible for draw to be called when in_view is false; this happens
         // when pages are switched prior to switched_to() being called, and some of the other
         // controls allow for events to be processed while they are orienting themselves.  Since
@@ -1132,6 +1154,7 @@ public class CheckerboardLayout : Gtk.Widget {
 
         // draw the selection band last, so it appears floating over everything else
         draw_selection_band(snapshot);
+        snapshot.restore();
     }
     
     class RubberbandProxy : Gtk.Widget {
