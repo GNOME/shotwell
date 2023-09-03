@@ -509,13 +509,26 @@ public class ThumbnailCache : Object {
         File src_file = get_source_cached_file(src_source);
         File dest_file = get_cached_file(dest_source.get_representative_id(),
             src_source.get_preferred_thumbnail_format());
+        bool success = false;
         
         try {
             src_file.copy(dest_file, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, null);
+            success = true;
         } catch (Error err) {
-            AppWindow.panic("%s".printf(err.message));
+            debug("Failed to duplicate thumbnail: %s", err.message);
         }
-        
+
+        if (success) {
+            return;
+        }
+
+        try {            
+            _import_from_source(dest_source, true);
+            _import_from_source(src_source, false);
+        } catch (Error err) {
+            debug("Failed to duplicate thumbnail: %s", err.message);
+        }
+
         // Do NOT store in memory cache, for similar reasons as stated in _import().
     }
     
