@@ -116,6 +116,10 @@ h2 {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+
   body {
     filter: invert(100%) hue-rotate(180deg);
   }
