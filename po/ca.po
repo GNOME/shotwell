@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2023-08-20 12:27+0200\n"
+"PO-Revision-Date: 2023-09-16 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -408,7 +408,7 @@ msgstr "identificador d'efecte de transició"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
 msgid "The time (in seconds) to show each transition between photos in a slideshow"
 msgstr ""
-"El temps (en segons) per a mostrar cada transició entre les fotos en un "
+"El temps (en segons) per a mostrar cada transició entre les fotos en una "
 "presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:210
@@ -910,7 +910,7 @@ msgstr "restricció de la imatge escalada carregada"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:591
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr ""
-"La identificació de l'escalat restringit de la imatge que es va a carregar"
+"La identificació de l'escalat restringit de la imatge que es carregarà"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:596
 msgid "pixels of the major axis uploaded picture"
@@ -1249,7 +1249,7 @@ msgstr ""
 "disc, organitzar-les per data i tema, fins i tot puntuar-les. També ofereix "
 "funcions bàsiques d'edició, com retallar, correcció d'ulls vermells, "
 "ajustaments de color, i redreçar. L'editor de fotografies Shotwell no "
-"destrueix ni altera les seves imatges mestres, per tant,  és fàcil "
+"destrueix ni altera les seves imatges mestres, per tant, és fàcil "
 "d'experimentar i corregir errors."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
@@ -2406,7 +2406,7 @@ msgid ""
 "encryption."
 msgstr ""
 "⚫ La identificació d'aquest lloc web no pot ser de confiança, ja que "
-"utilitza el xifrat molt feble."
+"utilitza un xifratge molt feble."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:272
