@@ -451,7 +451,7 @@ tbody td {
   padding: 2px 1rem;
   border-radius: 5px;
   background-color: var(--light1);
-  max-width: 100%;
+  max-width: 100vw;
   overflow-x: auto;
 }
   @media only screen and (max-device-width : 480px) {
