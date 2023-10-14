@@ -1,7 +1,10 @@
 ---
 layout: default
 ---
-![Pixels](assets/splash.png){:.full.pixels}
+<picture class="full pixels">
+    <source srcset="assets/splash-dark.png" media="(prefers-color-scheme: dark)">
+    <img src="assets/splash.png">
+</picture>
 
 
 [OS Component Template](https://github.com/jimmac/os-component-website) is a project that aims to greatly simplify creating a  website for your project. It aims to let you write simple markdown pages and deploy the simple jekyll project to [gitlab](https://gitlab.org) or [github](https://github.com).

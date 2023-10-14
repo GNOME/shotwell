@@ -58,6 +58,21 @@
   --dark5: rgb(0,0,0);
   --primary-color: var(--green5); /* Set your project color */
   --borders: var(--light3);
+  --fg-color: #241f31;
+  --bg-color: #f6f5f4;
+  --term-fg: var(--dark3);
+  --term-bg: var(--light1);
+  --term-br: 9px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --fg-color: #eee;
+    --bg-color: #29384c;
+    --term-fg: var(--light1);
+    --term-bg: var(--dark4);
+  }
 }
 
 /* Typography */
@@ -85,8 +100,8 @@ html, body {
   scroll-behavior: smooth;
 }
 body {
-  color: #241f31;
-  background-color: #f6f5f4;
+  color: var(--fg-color);
+  background-color: var(--bg-color);
   /* ⇩⇩ put footer at the bottom for short pages, such as the 404 ⇩⇩ */
   display: grid;
   min-height: 100vh;
@@ -115,23 +130,7 @@ h2 {
   font-size: 1.2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
 
-  body {
-    filter: invert(100%) hue-rotate(180deg);
-  }
-
-  html {
-    background-color: var(--dark5);
-  }
-
-  img, video, iframe {
-    filter: invert(100%) hue-rotate(180deg);
-  }
-}
 
 a {
   font-weight: 600;
@@ -160,8 +159,8 @@ img {
   margin: 2rem auto;
   max-width: 100%;
   }
-  img.full { width: 100%; }
-  img.pixels { 
+  img.full, picture.full img { width: 100%; }
+  img.pixels, picture.pixels img { 
     image-rendering: crisp-edges; /* older firefox browsers */ 
     image-rendering: pixelated; 
   }
@@ -197,7 +196,6 @@ img {
 
   @media (prefers-color-scheme: dark) {
     #logo {
-      filter: invert(100%) hue-rotate(180deg); /* uninvert */
       background-image: url('assets/page-logo-i.svg');
     }
   }
@@ -441,18 +439,19 @@ tbody td {
   color: #bbbbbb;
 }
 .highlight {
-  background-color: #f8f8f8;
 }
 
 
 /* Code Blocks */
 .highlighter-rouge {
+  font-size: 80%;
   line-height: normal;
   padding: 2px 1rem;
-  border-radius: 5px;
-  background-color: var(--light1);
+  border-radius: var(--term-br);
+  background-color: var(--term-bg);
   max-width: 100vw;
   overflow-x: auto;
+  margin: 1rem 0;
 }
   @media only screen and (max-device-width : 480px) {
   /*mobile*/
@@ -460,13 +459,12 @@ tbody td {
   }
   
 .highlighter-rouge * {
-  background-color: var(--light1);
 }
 
 /* Inline Code */
 code.highlighter-rouge {
   padding: 2px 6px;
-  background-color: rgba(0,0,0, 0.07);
+  background-color: var(--term-bg);
 }
 
 /* Buttons */
