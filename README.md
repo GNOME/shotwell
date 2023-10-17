@@ -1,6 +1,6 @@
 # OS Component Website
 
-This project is a template to build a low key (in terms of product branding) OS component website in the likes of [Pipewire](https://pipewire.org/), [Tracker](https://tracker.gnome.org), [Toolbx](https://containertoolbx.org/) and [Fleet Commander](https://fleet-commander.org/). 
+This project is a template to build a low key (in terms of product branding) OS component website in the likes of [Pipewire](https://pipewire.org/), [Tracker](https://tracker.gnome.org), [Toolbx](https://containertoolbx.org/), [Desktop Portal](https://flatpak.github.io/xdg-desktop-portal/) and [Fleet Commander](https://fleet-commander.org/). 
 
 The top level goal was to make it a nicer looking, spam-free alternative to a wiki:
 
