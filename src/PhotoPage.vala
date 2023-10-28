@@ -78,15 +78,22 @@ public class ZoomBuffer : Object {
     private TransformationJob? demand_transform_job = null; // only 1 demand transform job can be
                                                             // active at a time
     private Workers workers = null;
-    private SinglePhotoPage parent_page;
+    private unowned SinglePhotoPage parent_page;
     private bool is_interactive_redraw_in_progress = false;
 
     public ZoomBuffer(SinglePhotoPage parent_page, Photo backing_photo,
         Gdk.Pixbuf preview_image) {
         this.parent_page = parent_page;
+        this.parent_page.add_weak_pointer(&this.parent_page);
         this.preview_image = preview_image;
         this.backing_photo = backing_photo;
         this.workers = new Workers(2, false);
+    }
+
+    ~ZoomBuffer() {
+        if (this.parent_page != null) {
+            this.parent_page.remove_weak_pointer(&this.parent_page);
+        }
     }
 
     private void on_iso_source_fetch_complete(BackgroundJob job) {
@@ -103,7 +110,7 @@ public class ZoomBuffer : Object {
         }
         object_state = ObjectState.SOURCE_NOT_TRANSFORMED;
 
-        if (!is_interactive_redraw_in_progress)
+        if (!is_interactive_redraw_in_progress && parent_page != null)
             parent_page.repaint();
 
         BackgroundJob transformation_job = new TransformationJob(this, iso_source_image,
@@ -140,7 +147,7 @@ public class ZoomBuffer : Object {
         demand_transform_cached_pixbuf = transform_job.transformed;
         demand_transform_job = null;
 
-        parent_page.repaint();
+        if (parent_page != null) parent_page.repaint();
     }
 
     // passing a 'reduced_pixbuf' that has one-quarter the number of pixels as the 'iso_pixbuf' is
