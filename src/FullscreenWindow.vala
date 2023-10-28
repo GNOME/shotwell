@@ -19,7 +19,7 @@ public class FullscreenWindow : PageWindow {
         { "LeaveFullscreen", on_close }
     };
 
-    public FullscreenWindow(Page page) {
+    public FullscreenWindow(Page page, Gdk.Monitor monitor) {
         base ();
 
         set_current_page(page);
@@ -66,10 +66,10 @@ public class FullscreenWindow : PageWindow {
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
         // also causes pixbuf cache updates, so it really saves some work.
-        //set_default_size(monitor.width, monitor.height);
-        
+        var geometry = monitor.get_geometry();
+        set_default_size(geometry.width, geometry.height);
         // need to create a Gdk.Window to set masks
-        fullscreen();
+        fullscreen_on_monitor(monitor);
         show();
 
         // capture motion events to show the toolbar

@@ -4,8 +4,9 @@
  * See the COPYING file in this distribution.
  */
 
+
 // AppWindow is the parent window for most windows in Shotwell (FullscreenWindow is the exception).
-// There are multiple types of AppWindows (LibraryWindow, DirectWindow) for different tasks, but only 
+// There are multiple types of AppWindows (LibraryWindow, DirectWindow) for different tasks, but only
 // one AppWindow may exist per process.  Thus, if the user closes an AppWindow, the program exits.
 //
 // AppWindow also offers support for going into fullscreen mode.  It handles the interface
@@ -364,10 +365,12 @@ public abstract class AppWindow : PageWindow {
             return;
         }
 
-        //get_position(out pos_x, out pos_y);
+        // Need to call this before hide() otherwise we will always get 
+        // the left-most monitor
+        var monitor = get_display().get_monitor_at_surface(get_surface());
         hide();
         
-        FullscreenWindow fsw = new FullscreenWindow(page);
+        FullscreenWindow fsw = new FullscreenWindow(page, monitor);
         
         if (get_current_page() != null)
             get_current_page().switching_to_fullscreen(fsw);
@@ -380,8 +383,6 @@ public abstract class AppWindow : PageWindow {
         if (fullscreen_window == null)
             return;
         
-        //move(pos_x, pos_y);
-
         show();
         
         if (get_current_page() != null)
