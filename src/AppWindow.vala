@@ -201,6 +201,11 @@ public class FullscreenWindow : PageWindow {
         
         int py;
         seat.get_pointer().get_position(null, null, out py);
+
+        // If we are on a completely different screen, ignore it
+        if (seat.get_display() != toolbar.get_display()) {
+            return false;
+        }
         
         int wy;
         toolbar.get_window().get_geometry(null, out wy, null, null);
