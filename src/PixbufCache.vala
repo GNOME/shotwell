@@ -80,7 +80,7 @@ public class PixbufCache : Object {
     private Gee.ArrayList<Photo> lru = new Gee.ArrayList<Photo>();
     private Gee.HashMap<Photo, FetchJob> in_progress = new Gee.HashMap<Photo, FetchJob>();
     
-    public signal void fetched(Photo photo, Gdk.Pixbuf? pixbuf, Error? err);
+    public signal void fetched(Photo photo, owned Gdk.Pixbuf? pixbuf, Error? err);
     
     public PixbufCache(SourceCollection sources, PhotoType type, Scaling scaling, int max_count,
         CacheFilter? filter = null) {
