@@ -23,7 +23,17 @@ public class FullscreenWindow : PageWindow {
         { "LeaveFullscreen", on_close }
     };
 
-    public FullscreenWindow(Page page) {
+    public struct Monitor {
+        Gdk.Screen screen;
+        Gdk.Monitor? monitor;
+        int monitor_nr;
+
+        public Gdk.Rectangle get_geometry() {
+            return monitor.get_geometry();
+        }
+    }
+
+    public FullscreenWindow(Page page, Monitor monitor) {
         base ();
 
         set_current_page(page);
@@ -32,12 +42,7 @@ public class FullscreenWindow : PageWindow {
         const string[] accels = { "F11", null };
         Application.set_accels_for_action ("win.LeaveFullscreen", accels);
 
-        set_screen(AppWindow.get_instance().get_screen());
-        
-        // Needed so fullscreen will occur on correct monitor in multi-monitor setups
-        Gdk.Rectangle monitor = get_monitor_geometry();
-        move(monitor.x, monitor.y);
-        
+        set_screen(monitor.screen);
         set_border_width(0);
 
         // restore pin state
@@ -80,10 +85,11 @@ public class FullscreenWindow : PageWindow {
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
         // also causes pixbuf cache updates, so it really saves some work.
-        set_default_size(monitor.width, monitor.height);
+        Gdk.Rectangle monitor_geometry = monitor.get_geometry();
+        set_default_size(monitor_geometry.width, monitor_geometry.height);
         
         // need to create a Gdk.Window to set masks
-        fullscreen();
+        fullscreen_on_monitor(monitor.screen, monitor.monitor_nr);
         show_all();
 
         // capture motion events to show the toolbar
@@ -112,11 +118,6 @@ public class FullscreenWindow : PageWindow {
     
     public void update_toolbar_dismissal() {
         is_toolbar_dismissal_enabled = !pin_button.get_active();
-    }
-
-    private Gdk.Rectangle get_monitor_geometry() {
-        var monitor = get_display().get_monitor_at_window(AppWindow.get_instance().get_window());
-        return monitor.get_geometry();
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
@@ -402,8 +403,6 @@ public abstract class AppWindow : PageWindow {
     // added to is the one that claims its accelerators
     protected bool maximized = false;
     protected Dimensions dimensions;
-    protected int pos_x = 0;
-    protected int pos_y = 0;
     
     protected AppWindow() {
         base();
@@ -659,10 +658,20 @@ public abstract class AppWindow : PageWindow {
             return;
         }
 
-        get_position(out pos_x, out pos_y);
+        // Need to call this before hide() otherwise we will always get 
+        // the left-most monitor
+        FullscreenWindow.Monitor monitor= {get_screen(), null, 0};
+        var display = get_display();
+        for (var i = 0; i < display.get_n_monitors(); i++) {
+            if  (display.get_monitor(i) == display.get_monitor_at_window(get_window())) {
+                monitor.monitor = display.get_monitor(i);
+                monitor.monitor_nr = i;
+                break;
+            }
+        }
         hide();
         
-        FullscreenWindow fsw = new FullscreenWindow(page);
+        FullscreenWindow fsw = new FullscreenWindow(page, monitor);
         
         if (get_current_page() != null)
             get_current_page().switching_to_fullscreen(fsw);
@@ -675,8 +684,6 @@ public abstract class AppWindow : PageWindow {
         if (fullscreen_window == null)
             return;
         
-        move(pos_x, pos_y);
-
         show_all();
         
         if (get_current_page() != null)
