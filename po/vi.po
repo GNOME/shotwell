@@ -14,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-01-25 21:57+0000\n"
-"PO-Revision-Date: 2023-02-04 09:07+0700\n"
+"POT-Creation-Date: 2023-10-28 09:59+0000\n"
+"PO-Revision-Date: 2023-10-29 08:51+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
-"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language-Team: Vietnamese <Vietnamese <gnome-vi-list@gnome.org>>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Generator: Gtranslator 42.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:432
 msgid "OAuth Access Phase Token"
 msgstr "Thẻ bài phân tích cú pháp truy cập OAuth"
 
@@ -35,7 +35,7 @@ msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Thẻ xác thực cho người dùng Tumblr hiện đang đăng nhập, nếu có"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token Secret"
 msgstr "Bí mật Thẻ bài phân tích cú pháp truy cập OAuth"
 
@@ -48,19 +48,19 @@ msgstr ""
 "người dùng Tumblr hiện đang đăng nhập, nếu có"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:440
-#: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#: data/gsettings/org.gnome.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:444
+#: data/gsettings/org.gnome.shotwell.gschema.xml:502
+#: data/gsettings/org.gnome.shotwell.gschema.xml:564
 msgid "username"
 msgstr "tài khoản"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:441
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Tên người dùng của người dùng Flickr hiện đang đăng nhập, nếu có"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476
 msgid "default size"
 msgstr "cỡ mặc định"
 
@@ -587,70 +587,70 @@ msgstr "chương trình sửa ảnh RAW"
 msgid "External application used to edit RAW photos"
 msgstr "Chương trình sửa ảnh bên ngoài được dùng để sửa ảnh RAW"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:369
-#: data/gsettings/org.gnome.shotwell.gschema.xml:370
+#: data/gsettings/org.gnome.shotwell.gschema.xml:373
+#: data/gsettings/org.gnome.shotwell.gschema.xml:374
 msgid "Setting in export dialog: how to trim images"
 msgstr "Cài đặt trong hộp thoại xuất: xém ảnh thế nào"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:375
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379
 msgid "export metadata"
 msgstr "xuất siêu dữ liệu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:376
+#: data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Cài đặt trong hộp thoại xuất: tùy chọn xuất siêu dữ liệu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:381
+#: data/gsettings/org.gnome.shotwell.gschema.xml:385
 msgid "format setting, special value"
 msgstr "cài đặt định dạng, giá trị đặc biệt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:382
+#: data/gsettings/org.gnome.shotwell.gschema.xml:386
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Cài đặt trong hộp thoại xuất: cài đặt định dạng, giá trị đặc biệt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:387
+#: data/gsettings/org.gnome.shotwell.gschema.xml:391
 msgid "format setting, type value"
 msgstr "cài đặt định dạng, giá trị kiểu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:388
+#: data/gsettings/org.gnome.shotwell.gschema.xml:392
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Cài đặt trong hộp thoại xuất: cài đặt định dạng, giá trị kiểu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:393
+#: data/gsettings/org.gnome.shotwell.gschema.xml:397
 msgid "JPEG quality option"
 msgstr "Tùy chọn về chất lượng JPEG"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:394
+#: data/gsettings/org.gnome.shotwell.gschema.xml:398
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Cài đặt trong hộp thoại xuất: tùy chọn chất lượng jpeg"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:399
+#: data/gsettings/org.gnome.shotwell.gschema.xml:403
 msgid "maximal size of image"
 msgstr "cỡ ảnh tối đa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:400
+#: data/gsettings/org.gnome.shotwell.gschema.xml:404
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Cài đặt trong hộp thoại xuất: cỡ ảnh tối đa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:407
+#: data/gsettings/org.gnome.shotwell.gschema.xml:411
 msgid "last used publishing service"
 msgstr "dịch vụ xuất bản đã dùng lần cuối"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:408
-#: data/gsettings/org.gnome.shotwell.gschema.xml:414
+#: data/gsettings/org.gnome.shotwell.gschema.xml:412
+#: data/gsettings/org.gnome.shotwell.gschema.xml:418
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr "Mã số đại diện cho dịch vụ cuối cùng mà ảnh được xuất bản"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:413
+#: data/gsettings/org.gnome.shotwell.gschema.xml:417
 msgid "default publishing service"
 msgstr "dịch vụ xuất bản mặc định"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:429
+#: data/gsettings/org.gnome.shotwell.gschema.xml:433
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Thẻ xác thực cho người dùng Flickr hiện đang đăng nhập, nếu có"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:435
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -658,33 +658,33 @@ msgstr ""
 "Khóa bí mật mật mã hóa được sử dụng để ký các yêu cầu chống lại mã thông báo "
 "ủy quyền cho người dùng Flickr hiện đang đăng nhập, nếu có"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:450
 msgid "default size code"
 msgstr "mã cỡ mặc định"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:447
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr "Mã số đại diện cho kích thước mặc định cho ảnh được tải lên Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default visibility"
 msgstr "khả kiến mặc định"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:453
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr "Mã số đại diện cho tính khả kiến mặc định cho ảnh được tải lên Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:458
-#: data/gsettings/org.gnome.shotwell.gschema.xml:484
-#: data/gsettings/org.gnome.shotwell.gschema.xml:534
-#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:462
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488
+#: data/gsettings/org.gnome.shotwell.gschema.xml:538
+#: data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "remove sensitive info from uploads"
 msgstr "gỡ bỏ các thông tin nhạy cảm khi tải lên"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:459
+#: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
@@ -692,12 +692,12 @@ msgstr ""
 "Liệu hình ảnh được tải lên Flickr có nên xóa siêu dữ liệu của chúng trước "
 "hay không"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#: data/gsettings/org.gnome.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:470
+#: data/gsettings/org.gnome.shotwell.gschema.xml:608
 msgid "refresh token"
 msgstr "lấy thẻ mới"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:467
+#: data/gsettings/org.gnome.shotwell.gschema.xml:471
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -705,7 +705,7 @@ msgstr ""
 "Mã thông báo OAuth được sử dụng để làm mới phiên Google Photos cho người "
 "dùng hiện đang đăng nhập, nếu có"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:473
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -713,17 +713,17 @@ msgstr ""
 "Mã số đại diện cho kích thước mặc định cho ảnh được tải lên Album Google "
 "Photos"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478
-#: data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:482
+#: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "last album"
 msgstr "tuyển tập cuối cùng"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:479
-#: data/gsettings/org.gnome.shotwell.gschema.xml:579
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Tên của album cuối cùng mà người dùng đã xuất bản ảnh, nếu có"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:485
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -731,55 +731,55 @@ msgstr ""
 "Liệu hình ảnh được tải lên Google Photos có nên xóa siêu dữ liệu của chúng "
 "trước hay không"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+#: data/gsettings/org.gnome.shotwell.gschema.xml:496
 msgid "Piwigo URL"
 msgstr "Piwigo URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:493
+#: data/gsettings/org.gnome.shotwell.gschema.xml:497
 msgid "URL of the Piwigo server"
 msgstr "URL của máy phục vụ Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:499
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "Piwigo username, if logged in"
 msgstr "Tài khoản Piwigo, nếu đã đăng nhập"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+#: data/gsettings/org.gnome.shotwell.gschema.xml:508
 msgid "password"
 msgstr "mật khẩu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:505
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "Piwigo password, if logged in"
 msgstr "Mật khẩu Piwigo, nếu đã đăng nhập"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+#: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "remember password"
 msgstr "nhớ mật khẩu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:511
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "If true, remember the Piwigo password"
 msgstr "Nếu chọn, sẽ nhớ mật khẩu Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:516
+#: data/gsettings/org.gnome.shotwell.gschema.xml:520
 msgid "last category"
 msgstr "thể loại cuối"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:517
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "The last selected Piwigo category"
 msgstr "Thể loại Piwigo đã chọn lần cuối"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+#: data/gsettings/org.gnome.shotwell.gschema.xml:526
 msgid "last permission level"
 msgstr "mức phân quyền cuối cùng"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:523
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "The last chosen Piwigo permission level"
 msgstr "Mức phân quyền chọn lần cuối cho Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:528
+#: data/gsettings/org.gnome.shotwell.gschema.xml:532
 msgid "last photo size"
 msgstr "cỡ ảnh cuối"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:529
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -787,7 +787,7 @@ msgstr ""
 "Mã số đại diện cho cài đặt trước kích thước ảnh cuối cùng được sử dụng khi "
 "xuất bản lên Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:535
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
@@ -795,14 +795,14 @@ msgstr ""
 "Liệu hình ảnh được tải lên Piwigo có nên xóa siêu dữ liệu của chúng trước "
 "hay không"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:544
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "nếu tựa đề được đặt và phần ghi chú thì không, vậy thì dùng tựa đề làm ghi "
 "chú cho tải lên Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:541
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -810,11 +810,11 @@ msgstr ""
 "Liệu ảnh được tải lên Piwigo có nên chứa ghi chú của chúng đặt từ tiêu đề "
 "hay không nếu tiêu đề được đặt và bình luận không được đặt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:550
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "không tải các thẻ khi tải lên Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:547
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -822,11 +822,11 @@ msgstr ""
 "Liệu ảnh được tải lên Piwigo có nên xóa thẻ của chúng khi tải lên hay không, "
 "sao cho các thẻ này sẽ không xuất hiện trên máy chủ Piwigo từ xa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "không tải các đánh giá khi tải lên Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:553
+#: data/gsettings/org.gnome.shotwell.gschema.xml:557
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -834,27 +834,27 @@ msgstr ""
 "Liệu ảnh được tải lên Piwigo có nên tải lên xếp hạng của chúng hay không, "
 "sao cho các xếp hạng này sẽ không xuất hiện trên máy chủ Piwigo từ xa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:561
+#: data/gsettings/org.gnome.shotwell.gschema.xml:565
 msgid "Gallery3 username"
 msgstr "Tài khoản Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "API key"
 msgstr "Khóa API"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:567
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 API key"
 msgstr "Khóa Gallery3 API"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:576
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:573
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "Gallery3 site URL"
 msgstr "URL trang Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:585
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -862,19 +862,19 @@ msgstr ""
 "Liệu hình ảnh được tải lên Gallery3 có nên xóa siêu dữ liệu của chúng trước "
 "hay không"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "scaling constraint of uploaded picture"
 msgstr "hằng số co giãn của ảnh được tải lên"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:591
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "ID hằng số co giãn của ảnh được tải lên"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "pixels of the major axis uploaded picture"
 msgstr "các điểm ảnh của trục trính của ảnh tải lên"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:597
+#: data/gsettings/org.gnome.shotwell.gschema.xml:601
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -882,7 +882,7 @@ msgstr ""
 "Các điểm ảnh của trục chính của hình ảnh sẽ được tải lên; chỉ được sử dụng "
 "nếu scaling-constraint-id là một giá trị thích hợp"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:605
+#: data/gsettings/org.gnome.shotwell.gschema.xml:609
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -890,54 +890,54 @@ msgstr ""
 "Mã thông báo OAuth được sử dụng để làm mới phiên YouTube cho người dùng hiện "
 "đang đăng nhập, nếu có"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:616
 msgid "last used import service"
 msgstr "dịch vụ nhập sử dụng lần cuối"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:613
+#: data/gsettings/org.gnome.shotwell.gschema.xml:617
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr "Mã số đại diện cho dịch vụ cuối cùng mà ảnh được nhập"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:620
+#: data/gsettings/org.gnome.shotwell.gschema.xml:624
 msgid "content layout mode"
 msgstr "chế độ bố trí nội dung"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:621
+#: data/gsettings/org.gnome.shotwell.gschema.xml:625
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr "Mã số mô tả cách đặt ảnh trên trang trong khi in"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:626
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid "content ppi"
 msgstr "ppi nội dung"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:627
+#: data/gsettings/org.gnome.shotwell.gschema.xml:631
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Số điểm ảnh mỗi inh-xơ gửi đến máy in trong quá trình in ấn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:632
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content width"
 msgstr "chiều rộng nội dung"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:637
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Chiều rộng của emulsion được in trên trang khi in"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:638
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "content height"
 msgstr "chiều cao nội dung"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:643
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Chiều cao của emulsion được in trên trang khi in"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:644
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "content units"
 msgstr "đơn vị nội dung"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:649
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -945,11 +945,11 @@ msgstr ""
 "Mã bằng số đại diện cho đơn vị đo lường (inh-xơ hoặc cen-ti-mét) được dùng "
 "khi in ấn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:650
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid "images per page code"
 msgstr "mã số số ảnh trên mỗi trang"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:655
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -957,22 +957,22 @@ msgstr ""
 "Mã bằng số đại diện cho chế độ số lượng ảnh trên mỗi trang hiện được chọn "
 "được sử dụng khi in ấn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:656
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "size selection"
 msgstr "chọn cỡ"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:661
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Chỉ số của cỡ in hiện tại trong một danh sách đã được định nghĩa từ trước "
 "của các cỡ tiêu chuẩn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:662
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "match aspect ratio"
 msgstr "khớp về tỷ lệ hình thể"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:667
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -980,189 +980,191 @@ msgstr ""
 "Xác định xem kích cỡ in tùy chỉnh có phải khớp với tỷ lệ khung hình của ảnh "
 "gốc hay không"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:668
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "print titles"
 msgstr "in tựa đề ảnh"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:673
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr ""
 "Nếu chọn thì tựa đề của ảnh sẽ được in khi ảnh được in ra, không thì thôi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:674
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "titles font"
 msgstr "phông chữ tựa đề"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:679
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Tên của phông chữ dùng cho in ấn tựa đề ảnh"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:686
+#: data/gsettings/org.gnome.shotwell.gschema.xml:690
 msgid "enable flickr publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:687
+#: data/gsettings/org.gnome.shotwell.gschema.xml:691
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên Flickr, đừng chọn nếu không phải "
 "vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:692
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
+#: data/gsettings/org.gnome.shotwell.gschema.xml:702
 msgid "enable Google Photos publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên Google Photos"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:693
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+#: data/gsettings/org.gnome.shotwell.gschema.xml:703
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên Google Photos, đừng chọn nếu "
 "không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:698
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable youtube publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên youtube"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên YouTube, đừng chọn nếu không "
 "phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:704
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "enable piwigo publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên Piwigo, đừng chọn nếu không phải "
 "vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:710
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable tumblr publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên tumblr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên Tumblr, đừng chọn nếu không phải "
 "vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:716
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable gallery3 publishing plugin"
 msgstr "bật phần bổ sung xuất ảnh lên gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung xuất ảnh lên Gallery3, đừng chọn nếu không "
 "phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:722
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable slideshow crumble transition"
 msgstr "bật chuyển tiếp trình chiếu crumble"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:723
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu vỡ vụn, đừng "
 "chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:728
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable slideshow fade transition"
 msgstr "bật chuyển tiếp trình chiếu fade"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu mờ dần, đừng "
 "chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:734
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow slide transition"
-msgstr "bật chuyển tiếp trình chiếu slide"
+msgstr "bật chuyển tiếp trình chiếu trượt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:735
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu Trượt, đừng "
 "chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:740
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow clock transition"
-msgstr "bật chuyển tiếp trình chiếu clock"
+msgstr "bật chuyển tiếp trình chiếu dạng đồng hồ"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu đồng hồ, "
 "đừng chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:746
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow circle transition"
-msgstr "bật chuyển tiếp trình chiếu circle"
+msgstr "bật chuyển tiếp trình chiếu kiểu vòng tròn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:747
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu một vòng "
 "tròn, đừng chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:752
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circles transition"
-msgstr "bật chuyển tiếp trình chiếu circles"
+msgstr "bật chuyển tiếp trình chiếu kiểu các vòng tròn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu nhiều vòng "
 "tròn, đừng chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:758
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow blinds transition"
-msgstr "bật chuyển tiếp trình chiếu blinds"
+msgstr "bật chuyển tiếp trình chiếu kiểu blinds"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu mành, đừng "
 "chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:764
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow squares transition"
-msgstr "bật chuyển tiếp trình chiếu squares"
+msgstr "bật chuyển tiếp trình chiếu kiểu hình vuông"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu các hình "
 "vuông, đừng chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:770
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow stripes transition"
-msgstr "bật chuyển tiếp trình chiếu stripes"
+msgstr "bật chuyển tiếp trình chiếu kiểu sọc vằn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu sọc vằn, "
 "đừng chọn nếu không phải vậy"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:776
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow chess transition"
-msgstr "bật chuyển tiếp trình chiếu chess"
+msgstr "bật chuyển tiếp trình chiếu kiểu ô bàn cờ"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1170,19 +1172,19 @@ msgstr ""
 "Chọn nếu muốn bật phần bổ sung chuyển tiếp ảnh trình chiếu kiểu ô bàn cờ, "
 "đừng chọn nếu không phải vậy"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
+#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
+#: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:347
+#: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.appdata.xml.in:10
 msgid "Digital photo organizer"
 msgstr "Trình tổ chức ảnh kỹ thuật số"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:11
+#: data/org.gnome.Shotwell.appdata.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1198,7 +1200,7 @@ msgstr ""
 "thẳng. Trình chỉnh sửa ảnh không phá hủy của Shotwell không làm thay đổi ảnh "
 "chính của bạn, giúp bạn dễ dàng thử nghiệm và sửa lỗi."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:18
+#: data/org.gnome.Shotwell.appdata.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1206,7 +1208,7 @@ msgstr ""
 "Khi sẵn sàng, Shotwell có thể tải ảnh của bạn lên nhiều trang thông tin điện "
 "tử khác nhau như Flickr, Google Photos, và nhiều nơi khác nữa."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:22
+#: data/org.gnome.Shotwell.appdata.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell hỗ trợ các định dạng tập tin JPEG, PNG, TIFF, và biến thể RAW."
@@ -1226,10 +1228,6 @@ msgstr "Tổ chức ảnh của bạn"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#| msgid ""
-#| "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-#| "organize;photo;photographs;photos;picture;pictures;photography;print;"
-#| "publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -1256,174 +1254,176 @@ msgstr "Trình xem ảnh Shotwell"
 msgid "Photo Viewer"
 msgstr "Trình xem ảnh"
 
-#: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:227
-#: src/CollectionPage.vala:119 src/Resources.vala:152
+#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136
+#: data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:223
+#: src/CollectionPage.vala:109 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "_Tăng cường"
 
-#: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:254
-#: src/CollectionPage.vala:120 src/Resources.vala:180
+#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163
+#: data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:250
+#: src/CollectionPage.vala:110 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "H_oàn nguyên về nguyên bản"
 
-#: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
-#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:379
-#: data/ui/tags.ui:390 src/Resources.vala:278
+#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454
+#: data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:375
+#: data/ui/tags.ui:386 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "Thêm _thẻ…"
 
-#: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
-#: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:384 data/ui/tags.ui:395 src/Resources.vala:350
+#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459
+#: data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22
+#: data/ui/photo.ui:380 data/ui/tags.ui:391 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "Chỉnh _sửa thẻ…"
 
-#: data/ui/collection.ui:33 data/ui/event.ui:281 data/ui/event.ui:472
-#: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:272 data/ui/tags.ui:281
+#: data/ui/collection.ui:32 data/ui/event.ui:277 data/ui/event.ui:468
+#: data/ui/faces.ui:277 data/ui/media.ui:277 data/ui/photo_context.ui:30
+#: data/ui/photo.ui:268 data/ui/tags.ui:277
 msgid "Toggle _Flag"
 msgstr "Bật/Tắt _Thẻ"
 
-#: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
-#: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:277 data/ui/tags.ui:286 src/Resources.vala:212
+#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474
+#: data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35
+#: data/ui/photo.ui:273 data/ui/tags.ui:282 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "Đánh _giá"
 
-#: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
-#: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:305 data/ui/tags.ui:314 src/Resources.vala:222
+#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497
+#: data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63
+#: data/ui/photo.ui:301 data/ui/tags.ui:310 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "_Chưa đánh giá"
 
-#: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
-#: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:228
+#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501
+#: data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68
+#: data/ui/photo.ui:306 data/ui/tags.ui:315 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "_Loại bỏ"
 
-#: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
-#: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:317 data/ui/tags.ui:326 src/Resources.vala:216
+#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507
+#: data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75
+#: data/ui/photo.ui:313 data/ui/tags.ui:322 src/Resources.vala:217
 msgid "_Increase"
 msgstr "_Tăng"
 
-#: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
-#: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:219
+#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511
+#: data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80
+#: data/ui/photo.ui:318 data/ui/tags.ui:327 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "_Giảm"
 
-#: data/ui/collection.ui:82 data/ui/event.ui:353 data/ui/event.ui:521
-#: data/ui/faces.ui:353 data/ui/media.ui:353 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:348 data/ui/tags.ui:353
+#: data/ui/collection.ui:81 data/ui/event.ui:349 data/ui/event.ui:517
+#: data/ui/faces.ui:349 data/ui/media.ui:349 data/ui/photo_context.ui:88
+#: data/ui/photo.ui:344 data/ui/tags.ui:349
 msgid "_Developer"
-msgstr "_Trình hiển thị ảnh"
+msgstr "_Phát triển"
 
-#: data/ui/collection.ui:90 data/ui/event.ui:361 data/ui/event.ui:529
-#: data/ui/faces.ui:361 data/ui/media.ui:361 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:356 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
+#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525
+#: data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96
+#: data/ui/photo.ui:352 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Máy ảnh"
 
-#: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
-#: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:331 data/ui/tags.ui:340 src/Resources.vala:264
+#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533
+#: data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "Sửa _tựa đề…"
 
-#: data/ui/collection.ui:103 data/ui/events_directory.ui:144
-#: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
-#: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:336 data/ui/tags.ui:345
-#: src/Resources.vala:268
+#: data/ui/collection.ui:102 data/ui/events_directory.ui:140
+#: data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394
+#: data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:332 data/ui/tags.ui:341
+#: src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "Sửa _chú thích…"
 
-#: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:365 src/CollectionPage.vala:143 src/Resources.vala:285
+#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115
+#: data/ui/photo.ui:361 src/CollectionPage.vala:133 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "Mở bằng trình biên soạn bên n_goài"
 
-#: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:370 src/CollectionPage.vala:146 src/Resources.vala:287
+#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120
+#: data/ui/photo.ui:366 src/CollectionPage.vala:136 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "Mở bằng trình biên soạn RA_W"
 
-#: data/ui/collection.ui:119 data/ui/event.ui:387 data/ui/event.ui:558
-#: data/ui/faces.ui:381 data/ui/media.ui:381 data/ui/photo_context.ui:126
-#: data/ui/tags.ui:381
+#: data/ui/collection.ui:118 data/ui/event.ui:383 data/ui/event.ui:554
+#: data/ui/faces.ui:377 data/ui/media.ui:377 data/ui/photo_context.ui:126
+#: data/ui/tags.ui:377
 msgid "View Eve_nt for Photo"
 msgstr "Xem sự _kiện của ảnh"
 
-#: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
-#: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
-#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
-#: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
-#: src/Resources.vala:776
+#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30
+#: data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23
+#: data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224
+#: src/Resources.vala:780
 msgid "Show in File Mana_ger"
 msgstr "Hiển thị trong Bộ _quản lý tập tin"
 
-#: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
-#: data/ui/event.ui:567 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:289
+#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23
+#: data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:73
+#: src/Resources.vala:290
 msgid "Send _To…"
 msgstr "Gửi đế_n…"
 
-#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
-#: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:785
+#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569
+#: data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141
+#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:789
 msgid "_Move to Trash"
 msgstr "Chu_yển vào thùng rác"
 
-#: data/ui/collection.ui:148 src/Resources.vala:108
+#: data/ui/collection.ui:147 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Xoay ảnh sang phải (nhấn Ctrl để quay trái)"
+msgstr "Xoay ảnh sang phải (nhấn Ctrl để xoay trái)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
+#: data/ui/collection.ui:149 src/Resources.vala:107 src/Resources.vala:112
 msgid "Rotate"
 msgstr "Xoay"
 
-#: data/ui/collection.ui:164 src/Resources.vala:154
+#: data/ui/collection.ui:157 src/Resources.vala:155
 msgid "Automatically improve the photo’s appearance"
 msgstr "Tự động cải thiện diện mạo của ảnh"
 
-#: data/ui/collection.ui:167 src/Resources.vala:153
+#: data/ui/collection.ui:159 src/Resources.vala:154
 msgid "Enhance"
 msgstr "Tăng cường"
 
-#: data/ui/collection.ui:189 src/Resources.vala:262
+#: data/ui/collection.ui:173 src/Resources.vala:263
 msgid "Publish to various websites"
 msgstr "Xuất bản lên các trang khác nhau"
 
-#: data/ui/collection.ui:192
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:261
+#: data/ui/collection.ui:175
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+#: src/Resources.vala:262
 msgid "Publish"
 msgstr "Xuất bản"
 
-#: data/ui/collection.ui:214 data/ui/offline.ui:236 data/ui/trash.ui:309
-#: src/Resources.vala:294
+#: data/ui/collection.ui:189 data/ui/offline.ui:232 data/ui/trash.ui:302
+#: src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Tìm ảnh bằng gõ các chữ xuất hiện trong tên thẻ của nó"
 
-#: data/ui/collection.ui:217 data/ui/offline.ui:239 data/ui/trash.ui:312
-#: src/Resources.vala:293
+#: data/ui/collection.ui:191 data/ui/offline.ui:235 data/ui/trash.ui:295
+#: src/Resources.vala:294
 msgid "Find"
 msgstr "Tìm"
 
 #: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
 #: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
 #: data/ui/media.ui:5 data/ui/offline.ui:5 data/ui/photo.ui:5 data/ui/tags.ui:5
-#: data/ui/trash.ui:5
+#: data/ui/trash.ui:6
 msgid "_File"
 msgstr "_Tập tin"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
+#. Check if we can write the target format
+#. TODO: Check if we can actually write to the file
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
+#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
 msgid "_Save"
 msgstr "_Lưu"
 
@@ -1431,386 +1431,379 @@ msgstr "_Lưu"
 msgid "Save _As…"
 msgstr "Lư_u dạng…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
-#: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
-#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
+#: data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29
+#: data/ui/media.ui:36 data/ui/offline.ui:21 data/ui/photo.ui:46
+#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Thoát"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
-#: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
-#: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:125
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
+#: data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43
+#: data/ui/offline.ui:28 data/ui/photo.ui:53 data/ui/tags.ui:43
+#: data/ui/trash.ui:34 src/Resources.vala:126
 msgid "_Edit"
 msgstr "_Chỉnh sửa"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
-#: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
-#: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:190
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
+#: data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46
+#: data/ui/offline.ui:31 data/ui/photo.ui:56 data/ui/tags.ui:46
+#: data/ui/trash.ui:37 src/Resources.vala:191
 msgid "_Undo"
 msgstr "_Hủy thao tác"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
-#: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
-#: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:193
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51
+#: data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51
+#: data/ui/offline.ui:36 data/ui/photo.ui:61 data/ui/tags.ui:51
+#: data/ui/trash.ui:42 src/Resources.vala:194
 msgid "_Redo"
 msgstr "Hoàn _lại"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
-#: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
-#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:97
-#: data/ui/tags.ui:99 data/ui/trash.ui:87
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95
+#: data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70
+#: data/ui/media.ui:95 data/ui/offline.ui:74 data/ui/photo.ui:93
+#: data/ui/tags.ui:95 data/ui/trash.ui:84
 msgid "_View"
 msgstr "H_iển thị"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:125 data/ui/photo.ui:175
-#: src/Resources.vala:127
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171
+#: src/Resources.vala:128
 msgid "Fulls_creen"
 msgstr "Toàn_Màn hình"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:260 data/ui/faces.ui:260
-#: data/ui/media.ui:260 data/ui/photo.ui:146 data/ui/tags.ui:260
-#: src/Resources.vala:149
+#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256
+#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
+#: src/Resources.vala:150
 msgid "Zoom _In"
 msgstr "Phóng _to"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:265 data/ui/faces.ui:265
-#: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:150
+#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261
+#: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
+#: src/Resources.vala:151
 msgid "Zoom _Out"
 msgstr "Thu _nhỏ"
 
-#: data/ui/direct.ui:81 data/ui/photo.ui:158
+#: data/ui/direct.ui:81 data/ui/photo.ui:154
 msgid "Fit to _Page"
 msgstr "_Vừa khít trang"
 
-#: data/ui/direct.ui:86 data/ui/photo.ui:163
+#: data/ui/direct.ui:86 data/ui/photo.ui:159
 msgid "Zoom _100%"
 msgstr "Phóng _100%"
 
-#: data/ui/direct.ui:91 data/ui/photo.ui:168
+#: data/ui/direct.ui:91 data/ui/photo.ui:164
 msgid "Zoom _200%"
 msgstr "Phóng _200%"
 
-#: data/ui/direct.ui:98 data/ui/photo.ui:189
+#: data/ui/direct.ui:98 data/ui/photo.ui:185
 msgid "_Photo"
 msgstr "Ả_nh"
 
-#: data/ui/direct.ui:101 data/ui/photo.ui:192
+#: data/ui/direct.ui:101 data/ui/photo.ui:188
 msgid "_Previous Photo"
 msgstr "Ảnh t_rước"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:197
+#: data/ui/direct.ui:106 data/ui/photo.ui:193
 msgid "_Next Photo"
 msgstr "Ảnh _sau"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:204 src/CollectionPage.vala:110
-#: src/Resources.vala:105
+#: data/ui/direct.ui:113 data/ui/photo.ui:200 src/CollectionPage.vala:100
+#: src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "Xoay _phải"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:209 src/CollectionPage.vala:113
-#: src/Resources.vala:110
+#: data/ui/direct.ui:118 data/ui/photo.ui:205 src/CollectionPage.vala:103
+#: src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "Xoay _trái"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:214 src/CollectionPage.vala:116
-#: src/Resources.vala:115
+#: data/ui/direct.ui:123 data/ui/photo.ui:210 src/CollectionPage.vala:106
+#: src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "Lật _ngang"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:218 src/CollectionPage.vala:117
-#: src/Resources.vala:118
+#: data/ui/direct.ui:127 data/ui/photo.ui:214 src/CollectionPage.vala:107
+#: src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "Lật dọ_c"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:224
+#: data/ui/direct.ui:133 data/ui/photo.ui:220
 msgid "T_ools"
 msgstr "_Công cụ"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:232 src/Resources.vala:164
+#: data/ui/direct.ui:141 data/ui/photo.ui:228 src/Resources.vala:165
 msgid "_Crop"
 msgstr "_Cắt"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:237
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
+#: data/ui/direct.ui:146 data/ui/photo.ui:233
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
-msgstr "_Vuốt thẳng"
+msgstr "_Nắn thẳng"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:242 src/Resources.vala:172
+#: data/ui/direct.ui:151 data/ui/photo.ui:238 src/Resources.vala:173
 msgid "_Red-eye"
 msgstr "_Giảm mắt đỏ"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:247 src/Resources.vala:176
+#: data/ui/direct.ui:156 data/ui/photo.ui:243 src/Resources.vala:177
 msgid "_Adjust"
 msgstr "Điề_u chỉnh"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:341 src/Resources.vala:275
+#: data/ui/direct.ui:169 data/ui/photo.ui:337 src/Resources.vala:276
 msgid "_Adjust Date and Time…"
 msgstr "_Chỉnh ngày và giờ…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:150
-#: data/ui/events_directory.ui:153 data/ui/event.ui:420 data/ui/event.ui:423
-#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
-#: data/ui/import_queue.ui:68 data/ui/import.ui:183 data/ui/import.ui:186
-#: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
-#: data/ui/offline.ui:183 data/ui/photo.ui:391 data/ui/photo.ui:394
-#: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
-#: data/ui/trash.ui:192 src/Resources.vala:128
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146
+#: data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419
+#: data/ui/faces.ui:426 data/ui/faces.ui:429 data/ui/import_queue.ui:61
+#: data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182
+#: data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:176
+#: data/ui/offline.ui:179 data/ui/photo.ui:387 data/ui/photo.ui:390
+#: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186
+#: data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
 msgstr "Trợ _giúp"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:158 data/ui/event.ui:428
-#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
-#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:399
-#: data/ui/tags.ui:430 data/ui/trash.ui:197
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424
+#: data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187
+#: data/ui/media.ui:407 data/ui/offline.ui:184 data/ui/photo.ui:395
+#: data/ui/tags.ui:426 data/ui/trash.ui:194
 msgid "_Frequently Asked Questions"
 msgstr "_Thắc mắc hay gặp phải"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:162 data/ui/event.ui:432
-#: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:195
-#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:403
-#: data/ui/tags.ui:434 data/ui/trash.ui:201
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428
+#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
+#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:399
+#: data/ui/tags.ui:430 data/ui/trash.ui:198
 msgid "_Report a Problem…"
 msgstr "_Báo cáo trục trặc…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
-#: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
-#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434
+#: data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197
+#: data/ui/media.ui:417 data/ui/offline.ui:194 data/ui/photo.ui:405
+#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
 msgid "_About"
 msgstr "_Giới thiệu"
 
 #: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
 #: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
-#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:8
+#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:9
 msgid "_Import From Folder…"
 msgstr "_Nhập từ thư mục…"
 
-#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13
-#: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
-#: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
-#: data/ui/trash.ui:13
-msgid "Import From _Application…"
-msgstr "Nhập từ ứng _dụng…"
-
-#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
-#: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
-#: data/ui/offline.ui:19 data/ui/photo.ui:44 data/ui/tags.ui:34
-#: data/ui/trash.ui:24 data/ui/trash.ui:234 data/ui/trash.ui:242
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30
+#: data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30
+#: data/ui/offline.ui:15 data/ui/photo.ui:40 data/ui/tags.ui:30
+#: data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
 msgid "Empty T_rash"
 msgstr "Đổ _rác"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
-#: data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47
-#: data/ui/tags.ui:62 data/ui/trash.ui:52
+#: data/ui/events_directory.ui:43 data/ui/event.ui:58 data/ui/faces.ui:58
+#: data/ui/import.ui:51 data/ui/media.ui:58 data/ui/offline.ui:43
+#: data/ui/tags.ui:58 data/ui/trash.ui:49
 msgid "_Find"
 msgstr "Tìm _kiếm"
 
-#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
-#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:72
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
+#: data/ui/media.ui:62 data/ui/offline.ui:47 data/ui/photo.ui:68
 #: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
-#: data/ui/tags.ui:66 data/ui/trash.ui:56
+#: data/ui/tags.ui:62 data/ui/trash.ui:53
 msgid "Ne_w Saved Search…"
 msgstr "Tạo tìm kiếm ghi lại _mới…"
 
-#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
-#: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:787
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82
+#: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:61
+#: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:791
 msgid "Select _All"
 msgstr "Chọn _tất cả"
 
-#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
-#: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
-#: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:134 src/Resources.vala:283
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89
+#: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:68
+#: data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
+#: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "Tù_y thích"
 
-#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
-#: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
-#: data/ui/offline.ui:81 data/ui/photo.ui:100 data/ui/tags.ui:102
-#: data/ui/trash.ui:90
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98
+#: data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98
+#: data/ui/offline.ui:77 data/ui/photo.ui:96 data/ui/tags.ui:98
+#: data/ui/trash.ui:87
 msgid "_Basic Information"
 msgstr "Thông tin cơ _bản"
 
-#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
-#: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
-#: data/ui/photo.ui:105 data/ui/tags.ui:107 data/ui/trash.ui:95
+#: data/ui/events_directory.ui:75 data/ui/event.ui:103 data/ui/faces.ui:103
+#: data/ui/import.ui:78 data/ui/media.ui:103 data/ui/offline.ui:82
+#: data/ui/photo.ui:101 data/ui/tags.ui:103 data/ui/trash.ui:92
 msgid "E_xtended Information"
 msgstr "Thông tin mở rộng"
 
-#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112
-#: data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91
-#: data/ui/tags.ui:112 data/ui/trash.ui:100
+#: data/ui/events_directory.ui:80 data/ui/event.ui:108 data/ui/faces.ui:108
+#: data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:87
+#: data/ui/tags.ui:108 data/ui/trash.ui:97
 msgid "_Search Bar"
 msgstr "Thanh _tìm kiếm"
 
-#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
-#: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
-#: data/ui/photo.ui:110 data/ui/tags.ui:117 data/ui/trash.ui:105
+#: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:113
+#: data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:92
+#: data/ui/photo.ui:106 data/ui/tags.ui:113 data/ui/trash.ui:102
 msgid "S_idebar"
 msgstr "K_hung bên"
 
-#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
-#: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
-#: data/ui/photo.ui:115 data/ui/tags.ui:122 data/ui/trash.ui:110
+#: data/ui/events_directory.ui:90 data/ui/event.ui:118 data/ui/faces.ui:118
+#: data/ui/import.ui:93 data/ui/media.ui:118 data/ui/offline.ui:97
+#: data/ui/photo.ui:111 data/ui/tags.ui:118 data/ui/trash.ui:107
 msgid "T_oolbar"
 msgstr "_Thanh công cụ"
 
-#: data/ui/events_directory.ui:101 data/ui/event.ui:134 data/ui/faces.ui:134
-#: data/ui/media.ui:134 data/ui/tags.ui:134
+#: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:130
+#: data/ui/media.ui:130 data/ui/tags.ui:130
 msgid "_Comments"
 msgstr "Ghi _chú"
 
-#: data/ui/events_directory.ui:108 data/ui/event.ui:243 data/ui/faces.ui:243
-#: data/ui/import_queue.ui:48 data/ui/import.ui:166 data/ui/media.ui:243
-#: data/ui/offline.ui:163 data/ui/photo.ui:129 data/ui/tags.ui:243
-#: data/ui/trash.ui:172
+#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239
+#: data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239
+#: data/ui/offline.ui:159 data/ui/photo.ui:125 data/ui/tags.ui:239
+#: data/ui/trash.ui:169
 msgid "Sort _Events"
 msgstr "Sắp xếp _Sự kiện"
 
-#: data/ui/events_directory.ui:111 data/ui/event.ui:231 data/ui/event.ui:246
-#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
-#: data/ui/import.ui:169 data/ui/media.ui:231 data/ui/media.ui:246
-#: data/ui/offline.ui:166 data/ui/photo.ui:132 data/ui/tags.ui:231
-#: data/ui/tags.ui:246 data/ui/trash.ui:175
+#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242
+#: data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47
+#: data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
+#: data/ui/offline.ui:162 data/ui/photo.ui:128 data/ui/tags.ui:227
+#: data/ui/tags.ui:242 data/ui/trash.ui:172
 msgid "_Ascending"
 msgstr "_Tăng dần"
 
-#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/faces.ui:236
-#: data/ui/import_queue.ui:56 data/ui/media.ui:236 data/ui/offline.ui:171
-#: data/ui/tags.ui:236 data/ui/trash.ui:180
+#: data/ui/events_directory.ui:112 data/ui/event.ui:232 data/ui/faces.ui:232
+#: data/ui/import_queue.ui:52 data/ui/media.ui:232 data/ui/offline.ui:167
+#: data/ui/tags.ui:232 data/ui/trash.ui:177
 msgid "D_escending"
 msgstr "_Giảm dần"
 
-#: data/ui/events_directory.ui:132 data/ui/event.ui:379 data/ui/faces.ui:373
-#: data/ui/media.ui:373 data/ui/tags.ui:373
+#: data/ui/events_directory.ui:128 data/ui/event.ui:375 data/ui/faces.ui:369
+#: data/ui/media.ui:369 data/ui/tags.ui:369
 msgid "Even_ts"
 msgstr "Sự _kiện"
 
-#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
-#: src/Resources.vala:208
+#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173
+#: src/Resources.vala:209
 msgid "_Merge Events"
 msgstr "_Hòa trộn sự kiện"
 
-#: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
-#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:196
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
+#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
 msgid "Re_name Event…"
 msgstr "Đổi tê_n sự kiện…"
 
-#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
+#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13
+#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
 msgid "_Export…"
 msgstr "_Xuất…"
 
-#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
-#: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:783
+#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70
+#: data/ui/offline.ui:54 data/ui/offline.ui:203 data/ui/offline.ui:220
+#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:787
 msgid "R_emove From Library"
 msgstr "Xó_a khỏi thư viện"
 
-#: data/ui/event.ui:129 data/ui/faces.ui:129 data/ui/import.ui:104
-#: data/ui/media.ui:129 data/ui/tags.ui:129
+#: data/ui/event.ui:125 data/ui/faces.ui:125 data/ui/import.ui:100
+#: data/ui/media.ui:125 data/ui/tags.ui:125
 msgid "_Titles"
 msgstr "_Tựa đề"
 
-#: data/ui/event.ui:139 data/ui/event.ui:404 data/ui/faces.ui:139
-#: data/ui/faces.ui:387 data/ui/media.ui:139 data/ui/media.ui:387
-#: data/ui/photo.ui:376 data/ui/tags.ui:139 data/ui/tags.ui:387
+#: data/ui/event.ui:135 data/ui/event.ui:400 data/ui/faces.ui:135
+#: data/ui/faces.ui:383 data/ui/media.ui:135 data/ui/media.ui:383
+#: data/ui/photo.ui:372 data/ui/tags.ui:135 data/ui/tags.ui:383
 msgid "Ta_gs"
 msgstr "T_hẻ"
 
-#: data/ui/event.ui:144 data/ui/faces.ui:144 data/ui/media.ui:144
-#: data/ui/photo.ui:122 data/ui/tags.ui:144 src/Resources.vala:245
+#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140
+#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
 msgid "_Ratings"
 msgstr "_Đánh giá"
 
-#: data/ui/event.ui:151 data/ui/faces.ui:151 data/ui/import.ui:111
-#: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
-#: data/ui/trash.ui:117 src/Resources.vala:248
+#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107
+#: data/ui/media.ui:147 data/ui/offline.ui:104 data/ui/tags.ui:147
+#: data/ui/trash.ui:114 src/Resources.vala:249
 msgid "_Filter Photos"
 msgstr "_Lọc ảnh"
 
-#: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
-#: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:241
+#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140
+#: data/ui/media.ui:180 data/ui/offline.ui:137 data/ui/search_bar.ui:18
+#: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "Mọ_i ảnh"
 
-#: data/ui/event.ui:190 data/ui/faces.ui:190 data/ui/import.ui:150
-#: data/ui/media.ui:190 data/ui/offline.ui:147 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:238
+#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146
+#: data/ui/media.ui:186 data/ui/offline.ui:143 data/ui/search_bar.ui:12
+#: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "Tất + _Loại bỏ"
 
-#: data/ui/event.ui:196 data/ui/faces.ui:196 data/ui/import.ui:156
-#: data/ui/media.ui:196 data/ui/offline.ui:153 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:234
+#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152
+#: data/ui/media.ui:192 data/ui/offline.ui:149 data/ui/search_bar.ui:6
+#: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "_Chỉ loại bỏ"
 
-#: data/ui/event.ui:206 data/ui/faces.ui:206 data/ui/media.ui:206
-#: data/ui/tags.ui:206
+#: data/ui/event.ui:202 data/ui/faces.ui:202 data/ui/media.ui:202
+#: data/ui/tags.ui:202
 msgid "Sort _Photos"
 msgstr "Sắ_p xếp ảnh"
 
-#: data/ui/event.ui:209 data/ui/faces.ui:209 data/ui/media.ui:209
-#: data/ui/tags.ui:209
+#: data/ui/event.ui:205 data/ui/faces.ui:205 data/ui/media.ui:205
+#: data/ui/tags.ui:205
 msgid "By _Title"
 msgstr "Theo _Tựa đề"
 
-#: data/ui/event.ui:214 data/ui/faces.ui:214 data/ui/media.ui:214
-#: data/ui/tags.ui:214
+#: data/ui/event.ui:210 data/ui/faces.ui:210 data/ui/media.ui:210
+#: data/ui/tags.ui:210
 msgid "By _Filename"
 msgstr "Theo tê_n tập tin"
 
-#: data/ui/event.ui:219 data/ui/faces.ui:219 data/ui/media.ui:219
-#: data/ui/tags.ui:219
+#: data/ui/event.ui:215 data/ui/faces.ui:215 data/ui/media.ui:215
+#: data/ui/tags.ui:215
 msgid "By Exposure _Date"
 msgstr "Theo _Ngày phơi sáng"
 
-#: data/ui/event.ui:224 data/ui/faces.ui:224 data/ui/media.ui:224
-#: data/ui/tags.ui:224
+#: data/ui/event.ui:220 data/ui/faces.ui:220 data/ui/media.ui:220
+#: data/ui/tags.ui:220
 msgid "By _Rating"
 msgstr "Theo đánh _giá"
 
-#: data/ui/event.ui:251 data/ui/faces.ui:251 data/ui/import.ui:174
-#: data/ui/media.ui:251 data/ui/photo.ui:137 data/ui/tags.ui:251
+#: data/ui/event.ui:247 data/ui/faces.ui:247 data/ui/import.ui:170
+#: data/ui/media.ui:247 data/ui/photo.ui:133 data/ui/tags.ui:247
 msgid "_Descending"
 msgstr "_Giảm dần"
 
-#: data/ui/event.ui:275 data/ui/faces.ui:275 data/ui/media.ui:275
-#: data/ui/tags.ui:275
+#: data/ui/event.ui:271 data/ui/faces.ui:271 data/ui/media.ui:271
+#: data/ui/tags.ui:271
 msgid "_Photos"
 msgstr "Ả_nh"
 
-#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:199
+#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:200
 msgid "Make _Key Photo for Event"
 msgstr "Tạo _khóa ảnh cho sự kiện"
 
-#: data/ui/event.ui:382 data/ui/faces.ui:376 data/ui/media.ui:376
-#: data/ui/tags.ui:376 src/Resources.vala:202
+#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372
+#: data/ui/tags.ui:372 src/Resources.vala:203
 msgid "_New Event"
 msgstr "Sự kiện _mới"
 
-#: data/ui/event.ui:592 src/Resources.vala:272
+#: data/ui/event.ui:588 src/Resources.vala:273
 msgid "Edit Event _Comment…"
 msgstr "Sửa ghi _chú sự kiện…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:300
-#: src/Resources.vala:301
+#: data/ui/faces.ui:399 src/faces/FacesBranch.vala:87 src/Resources.vala:301
+#: src/Resources.vala:302
 msgid "Faces"
 msgstr "Mặt"
 
-#: data/ui/faces.ui:465
+#: data/ui/faces.ui:461
 msgid "Rename…"
 msgstr "Đổi tên…"
 
-#: data/ui/faces.ui:469 src/library/TrashPage.vala:114
+#: data/ui/faces.ui:465 src/library/TrashPage.vala:114
 msgid "Delete"
 msgstr "Xóa"
 
@@ -1818,370 +1811,373 @@ msgstr "Xóa"
 msgid "_Stop Import"
 msgstr "_Dừng nhập"
 
-#: data/ui/import.ui:13 data/ui/import.ui:210 src/camera/ImportPage.vala:801
+#. Import selected
+#: data/ui/import.ui:13 data/ui/import.ui:206 src/camera/ImportPage.vala:783
 msgid "Import _Selected"
 msgstr "Nhập cái đã _chọn"
 
-#: data/ui/import.ui:17 data/ui/import.ui:214 src/camera/ImportPage.vala:811
+#. Import all
+#: data/ui/import.ui:17 data/ui/import.ui:210 src/camera/ImportPage.vala:791
 msgid "Import _All"
 msgstr "Nhập _tất cả"
 
-#: data/ui/login_welcome_pane_widget.ui:35
+#: data/ui/login_welcome_pane_widget.ui:22
 msgid "_Log in"
 msgstr "Đăng nhậ_p"
 
-#: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
-#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/data_imports/DataImportsUI.vala:302
-#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
-#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: data/ui/multitextentrydialog.ui:38 data/ui/slideshow_settings.ui:182
+#: data/ui/textentrydialog.ui:43 src/AppWindow.vala:215 src/AppWindow.vala:236
+#: src/data_imports/DataImportsUI.vala:310
+#: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:792
+#: src/Dialogs.vala:823 src/Exporter.vala:349 src/ProfileBrowser.vala:71
+#: src/ProfileBrowser.vala:103 src/publishing/PublishingUI.vala:172
+#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "Thô_i"
 
-#: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
-#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
+#: data/ui/multitextentrydialog.ui:45 data/ui/slideshow_settings.ui:190
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: src/ProfileBrowser.vala:71 src/ProfileBrowser.vala:103
+#: src/Resources.vala:133
 msgid "_OK"
 msgstr "Đồn_g ý"
 
-#: data/ui/offline.ui:221 src/Resources.vala:771
+#: data/ui/offline.ui:217 src/Resources.vala:775
 msgid "Remove the selected photos from the library"
 msgstr "Loại bỏ ảnh đã chọn khỏi thư viện"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:279
+#: data/ui/photo_context.ui:17 src/Resources.vala:280
 msgid "_Add Tags…"
 msgstr "_Thêm thẻ…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:290
+#: data/ui/photo_context.ui:135 src/Resources.vala:291
 msgid "Send T_o…"
 msgstr "_Gửi đến…"
 
-#: data/ui/photo.ui:182 src/CollectionPage.vala:102
+#: data/ui/photo.ui:178 src/CollectionPage.vala:92
 msgid "S_lideshow"
 msgstr "_Trình chiếu"
 
-#: data/ui/photo.ui:260 src/CollectionPage.vala:122 src/Resources.vala:156
+#: data/ui/photo.ui:256 src/CollectionPage.vala:112 src/Resources.vala:157
 msgid "_Copy Color Adjustments"
 msgstr "_Chép chỉnh sửa màu"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:125 src/Resources.vala:160
+#: data/ui/photo.ui:261 src/CollectionPage.vala:115 src/Resources.vala:161
 msgid "_Paste Color Adjustments"
 msgstr "_Dán chỉnh sửa màu"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:31 src/library/LibraryBranch.vala:34
+#: src/library/LibraryBranch.vala:133
+msgid "Library"
+msgstr "Thư viện"
+
+#: data/ui/preferences_dialog.ui:80 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "Vị trí thư viện"
 
-#: data/ui/preferences_dialog.ui:118
+#: data/ui/preferences_dialog.ui:94
 msgid "_Import photos to:"
 msgstr "Nhập ảnh _vào:"
 
-#: data/ui/preferences_dialog.ui:129
+#: data/ui/preferences_dialog.ui:105
 msgid "_Watch library directory for new files"
 msgstr "_Phát hiện tập tin mới trong thư viện"
 
-#: data/ui/preferences_dialog.ui:151
+#: data/ui/preferences_dialog.ui:122
 msgid "Importing"
 msgstr "Nhập ảnh"
 
-#: data/ui/preferences_dialog.ui:167
+#: data/ui/preferences_dialog.ui:136
 msgid "_Directory structure:"
 msgstr "_Cấu trúc thư mục:"
 
-#: data/ui/preferences_dialog.ui:181
+#: data/ui/preferences_dialog.ui:148
 msgid "Example:"
 msgstr "Ví dụ:"
 
-#: data/ui/preferences_dialog.ui:190
+#: data/ui/preferences_dialog.ui:157
 msgid "R_ename imported files to lowercase"
 msgstr "Đổi _tên tập tin đã nhập sang chữ thường"
 
-#: data/ui/preferences_dialog.ui:211
+#: data/ui/preferences_dialog.ui:173
 msgid "Metadata"
 msgstr "Thông tin"
 
-#: data/ui/preferences_dialog.ui:224
+#: data/ui/preferences_dialog.ui:186
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "_Ghi thẻ, tựa đề, và các thông tin khác lên tập tin ảnh"
 
-#: data/ui/preferences_dialog.ui:245
+#: data/ui/preferences_dialog.ui:202
 msgid "RAW Developer"
 msgstr "RAW Developer"
 
-#: data/ui/preferences_dialog.ui:261
+#: data/ui/preferences_dialog.ui:216
 msgid "De_fault:"
 msgstr "_Mặc định:"
 
-#: data/ui/preferences_dialog.ui:314
+#: data/ui/preferences_dialog.ui:260
 msgid "_Pattern:"
 msgstr "_Mẫu:"
 
-#: data/ui/preferences_dialog.ui:350
+#: data/ui/preferences_dialog.ui:283
 msgid "Checkered"
 msgstr "Ô bàn cờ"
 
-#: data/ui/preferences_dialog.ui:370
+#: data/ui/preferences_dialog.ui:292
 msgid "Solid color"
 msgstr "Màu đặc"
 
-#: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:307 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "Không có"
 
-#: data/ui/preferences_dialog.ui:430
+#: data/ui/preferences_dialog.ui:320
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "Khi xem ảnh trong suốt, chúng sẽ được vẽ trên nền này."
 
-#: data/ui/preferences_dialog.ui:433
+#: data/ui/preferences_dialog.ui:323
 msgid "Transparent Background:"
 msgstr "Nền trong suốt:"
 
-#: data/ui/preferences_dialog.ui:445
+#: data/ui/preferences_dialog.ui:333
 msgid "Use dark theme"
 msgstr "Dùng chủ đề tối"
 
-#: data/ui/preferences_dialog.ui:470
+#: data/ui/preferences_dialog.ui:355
 msgid "Display"
 msgstr "Hiển thị"
 
-#: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:127
-msgid "Library"
-msgstr "Thư viện"
-
-#: data/ui/preferences_dialog.ui:553 src/library/LibraryBranch.vala:97
-#: src/SearchFilter.vala:1104
-msgid "Photos"
-msgstr "Ảnh"
-
-#: data/ui/preferences_dialog.ui:596 src/photos/RawSupport.vala:136
-msgid "RAW"
-msgstr "RAW"
-
-#: data/ui/preferences_dialog.ui:626
+#: data/ui/preferences_dialog.ui:418
 msgid "External Editors"
 msgstr "Chương trình khác"
 
-#: data/ui/preferences_dialog.ui:647
+#: data/ui/preferences_dialog.ui:433 src/library/LibraryBranch.vala:103
+#: src/SearchFilter.vala:973
+msgid "Photos"
+msgstr "Ảnh"
+
+#: data/ui/preferences_dialog.ui:459 src/photos/RawSupport.vala:136
+msgid "RAW"
+msgstr "RAW"
+
+#: data/ui/preferences_dialog.ui:480
 msgid "Plugins"
 msgstr "Phần bổ sung"
 
-#: data/ui/preferences_dialog.ui:668
+#: data/ui/preferences_dialog.ui:500
 msgid "Profiles"
 msgstr "Hồ sơ"
 
-#: data/ui/preferences_dialog.ui:692
+#: data/ui/preferences_dialog.ui:527
 msgid "Shotwell Preferences"
 msgstr "Tùy chỉnh Shotwell"
 
-#: data/ui/printing_widget.ui:18
+#: data/ui/printing_widget.ui:13
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Cỡ ảnh được in</b>"
 
-#: data/ui/printing_widget.ui:38
+#: data/ui/printing_widget.ui:26
 msgid "Use a _standard size:"
 msgstr "Dùng cỡ ch_uẩn:"
 
-#: data/ui/printing_widget.ui:65
+#: data/ui/printing_widget.ui:48
 msgid "Use a c_ustom size:"
 msgstr "Dùng cỡ tù_y chọn:"
 
 #. Abbrevation for "inch"
-#: data/ui/printing_widget.ui:128
+#: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "in."
 
 #. Abbrevation for "centimeters"
-#: data/ui/printing_widget.ui:129
+#: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "cm"
 
-#: data/ui/printing_widget.ui:146
+#: data/ui/printing_widget.ui:98
 msgid "_Match photo aspect ratio"
 msgstr "_Khớp về tỷ lệ hình thể ảnh"
 
-#: data/ui/printing_widget.ui:161
+#: data/ui/printing_widget.ui:110
 msgid "_Autosize:"
 msgstr "Cỡ _tự động:"
 
-#: data/ui/printing_widget.ui:202
+#: data/ui/printing_widget.ui:138
 msgid "<b>Titles</b>"
 msgstr "<b>Tựa đề</b>"
 
-#: data/ui/printing_widget.ui:219
+#: data/ui/printing_widget.ui:148
 msgid "Print image _title"
 msgstr "In _tựa đề ảnh"
 
-#: data/ui/printing_widget.ui:262
+#: data/ui/printing_widget.ui:170
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Phân giải điểm ảnh</b>"
 
-#: data/ui/printing_widget.ui:282
+#: data/ui/printing_widget.ui:181
 msgid "_Output photo at:"
 msgstr "_Xuất ảnh tại:"
 
-#: data/ui/printing_widget.ui:316
+#: data/ui/printing_widget.ui:200
 msgid "pixels per inch"
 msgstr "điểm ảnh mỗi insơ"
 
-#: data/ui/saved_search_dialog.ui:8
+#: data/ui/saved_search_dialog.ui:5
 msgid "Search"
 msgstr "Tìm"
 
-#: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:209
-msgid "Cancel"
-msgstr "Hủy bỏ"
-
-#: data/ui/saved_search_dialog.ui:39
-msgid "OK"
-msgstr "Đồng ý"
-
-#: data/ui/saved_search_dialog.ui:77
+#: data/ui/saved_search_dialog.ui:29
 msgid "_Name of search:"
 msgstr "_Tên tìm kiếm:"
 
-#: data/ui/saved_search_dialog.ui:122
+#: data/ui/saved_search_dialog.ui:55
 msgid "_Match"
 msgstr "_Khớp"
 
-#: data/ui/saved_search_dialog.ui:139
+#: data/ui/saved_search_dialog.ui:66
 msgid "any"
 msgstr "bất kỳ"
 
-#: data/ui/saved_search_dialog.ui:140
+#: data/ui/saved_search_dialog.ui:67
 msgid "all"
 msgstr "tất cả"
 
-#: data/ui/saved_search_dialog.ui:141
+#: data/ui/saved_search_dialog.ui:68
 msgid "none"
 msgstr "không gì cả"
 
-#: data/ui/saved_search_dialog.ui:155
+#: data/ui/saved_search_dialog.ui:74
 msgid "of the following:"
 msgstr "thứ sau đây:"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:391
+#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
+#: src/ProfileBrowser.vala:225
+msgid "Cancel"
+msgstr "Hủy bỏ"
+
+#: data/ui/saved_search_dialog.ui:137
+msgid "OK"
+msgstr "Đồng ý"
+
+#: data/ui/savedsearch.ui:6 src/Resources.vala:392
 msgid "Re_name…"
 msgstr "Đổi tê_n…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:390
+#: data/ui/savedsearch.ui:10 src/Resources.vala:391
 msgid "_Edit…"
 msgstr "_Chỉnh sửa…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
-#: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:728
-#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
-#: src/Resources.vala:389 src/Resources.vala:769
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60
+#: data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:753
+#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
+#: src/Resources.vala:390 src/Resources.vala:773
 msgid "_Delete"
 msgstr "_Xóa"
 
-#: data/ui/set_background_dialog.ui:9
+#: data/ui/set_background_dialog.ui:6
 msgid "Set as Desktop Background"
 msgstr "Đặt làm ảnh màn hình nền"
 
-#: data/ui/set_background_dialog.ui:69
-#: data/ui/set_background_slideshow_dialog.ui:132
+#: data/ui/set_background_dialog.ui:16
+#: data/ui/set_background_slideshow_dialog.ui:49
 msgid "Use for Desktop"
 msgstr "Dùng cho màn hình nền"
 
-#: data/ui/set_background_dialog.ui:86
-#: data/ui/set_background_slideshow_dialog.ui:149
+#: data/ui/set_background_dialog.ui:25
+#: data/ui/set_background_slideshow_dialog.ui:58
 msgid "Use for Lock Screen"
 msgstr "Dùng cho màn hình khóa"
 
-#: data/ui/set_background_slideshow_dialog.ui:16
+#: data/ui/set_background_slideshow_dialog.ui:13
 msgid "Set as Desktop Slideshow"
 msgstr "Đặt làm trình chiếu trên màn hình nền"
 
-#: data/ui/set_background_slideshow_dialog.ui:54
-msgid "Generate desktop background slideshow"
-msgstr "Tạo bản trình chiếu trên màn hình nền"
-
-#: data/ui/set_background_slideshow_dialog.ui:80
+#: data/ui/set_background_slideshow_dialog.ui:23
 msgid "Show each photo for"
 msgstr "Hiển thị từng ảnh cho"
 
-#: data/ui/set_background_slideshow_dialog.ui:92
+#: data/ui/set_background_slideshow_dialog.ui:28
 msgid "period of time"
 msgstr "thời điểm kết thúc"
 
-#: data/ui/set_background_slideshow_dialog.ui:114
+#: data/ui/set_background_slideshow_dialog.ui:39
 msgid "How long each photo is shown on the desktop background"
 msgstr "Mỗi ảnh trên màn hình nền được chiếu trong vòng bao lâu"
+
+#: data/ui/set_background_slideshow_dialog.ui:86
+msgid "Generate desktop background slideshow"
+msgstr "Tạo bản trình chiếu trên màn hình nền"
 
 #: data/ui/sidebar_default_context.ui:11 data/ui/tag_sidebar_context.ui:6
 msgid "New _Tag…"
 msgstr "_Thẻ mới…"
 
-#: data/ui/slideshow_settings.ui:21 src/SlideshowPage.vala:159
+#: data/ui/slideshow_settings.ui:19 src/SlideshowPage.vala:159
 msgid "Settings"
 msgstr "Cài đặt"
 
-#: data/ui/slideshow_settings.ui:98
+#: data/ui/slideshow_settings.ui:43
 msgid "_Duration:"
 msgstr "Thời _lượng:"
 
-#: data/ui/slideshow_settings.ui:99
+#: data/ui/slideshow_settings.ui:44
 msgid "The time (in seconds) to show each photo"
 msgstr "Thời gian (tính bằng giây) hiển thị mỗi ảnh"
 
-#: data/ui/slideshow_settings.ui:113
+#: data/ui/slideshow_settings.ui:56
 msgid "_Transition effect:"
 msgstr "Hiệu ứng ch_uyển:"
 
-#: data/ui/slideshow_settings.ui:127
+#: data/ui/slideshow_settings.ui:68
 msgid "Transition d_uration:"
 msgstr "Thời gian _chuyển:"
 
-#: data/ui/slideshow_settings.ui:128
+#: data/ui/slideshow_settings.ui:69
 msgid "The time (in seconds) to show each transition between photos"
 msgstr "Thời gian (tính bằng giây) để hiển thị từng chuyển đổi giữa các ảnh"
 
-#: data/ui/slideshow_settings.ui:138
+#: data/ui/slideshow_settings.ui:79
 msgid "Show t_itle"
 msgstr "Hiện tự_a đề"
 
-#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
+#: data/ui/slideshow_settings.ui:146 data/ui/slideshow_settings.ui:155
 msgid "seconds"
 msgstr "giây"
 
-#: data/ui/tags.ui:450 src/Resources.vala:130 src/Resources.vala:338
+#: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
 msgid "_New"
 msgstr "Mớ_i"
 
-#: data/ui/tags.ui:456 src/Resources.vala:306 src/Resources.vala:348
+#: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
 msgid "_Rename…"
 msgstr "Đổ_i tên…"
 
-#: data/ui/textentrydialog.ui:66
+#: data/ui/textentrydialog.ui:20
 msgid "label"
 msgstr "nhãn"
 
-#: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
-#: src/Resources.vala:773
+#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263
+#: src/Resources.vala:777
 msgid "_Restore"
 msgstr "_Khôi phục"
 
-#: data/ui/trash.ui:255 src/Resources.vala:770
+#: data/ui/trash.ui:252 src/Resources.vala:774
 msgid "Remove the selected photos from the trash"
 msgstr "Loại bỏ ảnh đã chọn khỏi thùng rác"
 
-#: data/ui/trash.ui:270 src/Resources.vala:774
+#: data/ui/trash.ui:261 src/Resources.vala:778
 msgid "Move the selected photos back into the library"
 msgstr "Chuyển các ảnh đã chọn trở lại thư viện"
 
-#: data/ui/trash.ui:285
+#: data/ui/trash.ui:270
 msgid "Delete all photos in the trash"
 msgstr "Xóa tất cả ảnh trong thùng rác"
 
-#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:576
 msgid "Empty Trash"
 msgstr "Đổ rác"
 
@@ -2240,8 +2236,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2264,17 +2260,17 @@ msgstr ""
 "thấy trong <a href=\"help:shotwell/privacy-policy\">chính sách quyền riêng "
 "tư về dịch vụ trực tuyến</a> của chúng tôi\n"
 "\n"
-"Đối với chính sách quyền riêng tư của Google, vui lòng tham khảo <a href="
-"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
-"a>"
+"Đối với chính sách quyền riêng tư của Google, vui lòng tham khảo <a "
+"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2287,8 +2283,8 @@ msgstr ""
 "Bạn hiện chưa đăng nhập vào Google Photos.\n"
 "\n"
 "Bạn phải đã đăng ký Tài khoản Google và thiết lập tài khoản đó để sử dụng "
-"với Google Photos. Shotwell sử dụng các dịch vụ API google Photos <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"với Google Photos. Shotwell sử dụng các dịch vụ API google Photos <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> cho mọi tương tác với dữ liệu Google Photos của bạn. Bạn sẽ phải "
 "cấp quyền truy cập Shotwell vào thư viện Google Photos của mình.\n"
 "\n"
@@ -2296,20 +2292,20 @@ msgstr ""
 "đến Tài khoản Google của bạn nói chung và Google Photos nói riêng có thể "
 "được tìm thấy trong <a href=\"help:shotwell/privacy-policy\">chính sách bảo "
 "mật dịch vụ trực tuyến</a> của chúng tôi. Đối với chính sách quyền riêng tư "
-"của Google, vui lòng tham khảo <a href=\"https://policies.google.com/privacy"
-"\">https://policies.google.com/privacy</a>"
+"của Google, vui lòng tham khảo <a href=\"https://policies.google.com/"
+"privacy\">https://policies.google.com/privacy</a>"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
 msgstr "Đị_a chỉ thư điện tử"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
 msgid "_Password"
 msgstr "_Mật khẩu"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
 msgid "Log in"
 msgstr "Đăng nhập"
 
@@ -2318,26 +2314,27 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Nhập vào tài khoản và mật khẩu từ tài khoản Tumblr của bạn."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
 msgid "Username and/or password invalid. Please try again"
 msgstr "Tên người dùng và/hoặc mật khẩu không hợp lệ. Vui lòng thử lại"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:52
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
 msgid "Invalid User Name or Password"
 msgstr "Tên người dùng hay mật khẩu không hợp lệ"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:462
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:68
+#: plugins/shotwell-publishing/TumblrPublishing.vala:461
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Không thể tải UI: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Viếng thăm trang thông tin điện tử của Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:292
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME <gnome-vi-list@gnome.org>"
 
@@ -2345,7 +2342,8 @@ msgstr "Nhóm Việt hóa GNOME <gnome-vi-list@gnome.org>"
 #: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
-msgstr "⚫ Định danh được dùng trong trang web này thuộc về một trang web khác."
+msgstr ""
+"⚫ Định danh được dùng trong trang web này thuộc về một trang web khác."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:247
@@ -2373,8 +2371,8 @@ msgstr "⚫ Định danh của trang web này không thể được xử lý. N�
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Định danh của trang web này đã bị thu hồi bởi tổ chức đáng tin nơi mà đã "
 "phát hành nó."
@@ -2398,42 +2396,41 @@ msgstr ""
 "Kiểm tra ngày trên lịch máy tính của bạn."
 
 #: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:567
+#: plugins/shotwell-publishing/TumblrPublishing.vala:560
 #: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Tập tin tạm là cần thiết để xuất bản lại không sẵn sàng"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
 msgid "Photo _size"
 msgstr "_Cỡ ảnh"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
-"_Xóa bỏ vị trí, máy ảnh và các thông tin định danh khác trước khi tải lên"
+"_Gỡ bỏ vị trí, máy ảnh và các thông tin định danh khác trước khi tải lên"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
 msgid "_Logout"
 msgstr "Đăng _xuất"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52
+#: src/CollectionPage.vala:72 src/PhotoPage.vala:2438
 msgid "_Publish"
-msgstr "_Xuất bản"
+msgstr "Xuất _bản"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
-#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Bản quyền 2016 Software Freedom Conservancy Inc."
 
@@ -2489,7 +2486,7 @@ msgid "Photos and videos _visible to"
 msgstr "Ảnh và phim chỉ _dành cho"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Everyone"
 msgstr "Mọi người"
 
@@ -2510,34 +2507,34 @@ msgid "Just me"
 msgstr "Cá nhân tôi"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:641
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 #: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 điểm ảnh"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:642
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 #: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 điểm ảnh"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:643
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1318
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 điểm ảnh"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:644
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1319
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 điểm ảnh"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:645
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Kích cỡ gốc"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:44
 msgid ""
 "Shotwell can only publish into albums that it created by itself, so this "
 "list might be empty despite the fact that you already have albums in your "
@@ -2547,20 +2544,20 @@ msgstr ""
 "vậy danh sách này có thể trống mặc dù thực tế là bạn đã có album trong tài "
 "khoản Google Photos của mình"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
 msgid "Photo _size preset"
 msgstr "Đặt trước _cỡ ảnh"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:88
 msgid "An existing album"
 msgstr "Tuyển tập ảnh sẵn có"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:99
 msgid "A new album named"
 msgstr "Tên mới của tuyển tập"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1196
 msgid "Shotwell Connect"
 msgstr "Kết nối Shotwell"
 
@@ -2581,7 +2578,6 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 điểm ảnh)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/EditingTools.vala:742
 msgid "Original Size"
 msgstr "Kích thước ban đầu"
 
@@ -2596,7 +2592,7 @@ msgid "Videos will appear in:"
 msgstr "Phim sẽ xuất hiện trong:"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:15
 msgid "Photos will appear in:"
 msgstr "Ảnh sẽ xuất hiện trong:"
 
@@ -2610,57 +2606,57 @@ msgstr "Tuyển tập mặc định"
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "Bản quyền 2019 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:44
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:30
 msgid "_URL of your Piwigo photo library"
 msgstr "Địa chỉ _URL của thư viện ảnh Piwigo"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:94
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:75
 msgid "User _name"
 msgstr "Tê_n người dùng"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:109
 msgid "Remember Password"
 msgstr "Nhớ mật khẩu"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:25
 msgid "An _existing category"
 msgstr "Thể loại _sẵn có"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:84
 msgid "A _new album named"
 msgstr "Tê_n mới của tuyển tập"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:109
 msgid "within category"
 msgstr "có trong thể loại"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:120
 msgid "Album comment"
 msgstr "Ghi chú tuyển tập ảnh"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:130
 msgid "Photos will be _visible by"
 msgstr "Ảnh sẽ được khả kiến _với"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
 msgid "Photo size"
 msgstr "Cỡ ảnh"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr ""
 "_Nếu tựa đề được đặt và phần ghi chú thì không, vậy thì dùng tựa đề làm ghi "
 "chú"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid "_Do no upload tags"
 msgstr "Đừn_g tải thẻ lên"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
 msgid "_Do not upload ratings"
 msgstr "Đừn_g tải đánh giá lên"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:271
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:196
 msgid "Logout"
 msgstr "Đăng xuất"
 
@@ -2685,12 +2681,12 @@ msgstr ""
 "đang cố gắng đánh cắp hoặc thay đổi thông tin đi đến hoặc từ trang web này "
 "(ví dụ: tin nhắn riêng tư, thông tin thẻ tín dụng hoặc mật khẩu)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
 msgstr "Chứng nhận của %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1089
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2698,7 +2694,7 @@ msgstr ""
 "Nhập vào URL của thư viện ảnh Piwigo của bạn cũng tốt như là tổ hợp tài "
 "khoản và mật khẩu với tài khoản Piwigo cho thư viện đó."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2706,35 +2702,35 @@ msgstr ""
 "Shotwell không thể liên lạc với thư viện ảnh Piwigo của bạn. Vui lòng xem "
 "lại URL đã nhập"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid URL"
 msgstr "URL không hợp lệ"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Quản trị, Gia đình, Bạn bè, Liên lạc"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 msgid "Admins, Family, Friends"
 msgstr "Quản trị, Gia đình, Bạn bè"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
 msgid "Admins, Family"
 msgstr "Quản trị, Gia đình"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
 msgid "Admins"
 msgstr "Quản trị"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:15
 msgid "This connection is not secure"
 msgstr "Kết nối này là không an toàn"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:50
 msgid "Show the certificate…"
 msgstr "Hiển thị chứng thực…"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:57
 msgid "I understand, please _proceed."
 msgstr "Tôi hiểu, cứ _xử lý đi."
 
@@ -2742,7 +2738,7 @@ msgstr "Tôi hiểu, cứ _xử lý đi."
 msgid "Core Publishing Services"
 msgstr "Dịch vụ xuất bản liệu lõi"
 
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:28
 msgid "Blogs"
 msgstr "Blogs"
 
@@ -2761,16 +2757,24 @@ msgstr ""
 "TumblrPublisher: start( ): không thể khởi chạy; bộ xuất bản này không có khả "
 "năng khởi động lại."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:444
+#: plugins/shotwell-publishing/TumblrPublishing.vala:443
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
 msgstr "Bạn đã đăng nhập Tumblr với tên %s.\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:25
 msgid "Video privacy _setting"
 msgstr "Cài đặt chính _sách riêng tư với phim"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27
+msgid ""
+"Copyright 2016 Software Freedom Conservancy Inc.\n"
+"Copyright 2022 Jens Georg <mail@jensge.org>"
+msgstr ""
+"Bản quyền 2016 Software Freedom Conservancy Inc.\n"
+"Bản quyền 2022 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
@@ -2803,7 +2807,7 @@ msgstr "Tấm che sáng"
 
 #: plugins/shotwell-transitions/ChessEffect.vala:20
 msgid "Chess"
-msgstr "Ô cờ"
+msgstr "Ô bàn cờ"
 
 #: plugins/shotwell-transitions/CircleEffect.vala:20
 msgid "Circle"
@@ -2831,11 +2835,11 @@ msgstr "Chuyển tiếp trình chiếu lõi"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
-"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
-"Inc."
+"Copyright 2010 Maxim Kartashev\n"
+"Copyright 2016 Software Freedom Conservancy Inc."
 msgstr ""
-"Bản quyền (C) 2010 Maxim Kartashev, Bản quyền (C) 2016 Software Freedom "
-"Conservancy Inc."
+"Bản quyền (C) 2010 Maxim Kartashev\n"
+"Bản quyền (C) 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2864,39 +2868,27 @@ msgstr "Không thể tạo thư mục dữ liệu %s: %s"
 msgid "Pictures"
 msgstr "Hình ảnh"
 
-#: src/AppDirs.vala:205
+#: src/AppDirs.vala:211
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Không thể tạo thư mục tạm %s: %s"
 
-#: src/AppDirs.vala:222 src/AppDirs.vala:253
+#: src/AppDirs.vala:229 src/AppDirs.vala:260
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Không thể tạo thư mục dữ liệu con %s: %s"
 
-#: src/AppDirs.vala:235
+#: src/AppDirs.vala:242
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Không thể tạo thư mục ghi được %s"
 
-#: src/AppDirs.vala:238
+#: src/AppDirs.vala:245
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Không thể tạo thư mục ghi được %s: %s"
 
-#: src/AppWindow.vala:47
-msgid "Pin Toolbar"
-msgstr "Cố định thanh công cụ"
-
-#: src/AppWindow.vala:48
-msgid "Pin the toolbar open"
-msgstr "Cố định thanh công cụ"
-
-#: src/AppWindow.vala:53
-msgid "Leave fullscreen"
-msgstr "Thoát chế độ toàn màn hình"
-
-#: src/AppWindow.vala:560
+#: src/AppWindow.vala:264
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2909,21 +2901,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:289
 msgid "Visit the Shotwell web site"
-msgstr "Viếng thăm trang thông tin điện tử của Shotwell"
+msgstr "Truy cập trang thông tin điện tử của Shotwell"
 
-#: src/AppWindow.vala:592
+#: src/AppWindow.vala:302
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Không thể hiển thị trợ giúp: %s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:310
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Không thể chuyển đến cơ sở dữ liệu lỗi: %s"
 
-#: src/AppWindow.vala:608
+#: src/AppWindow.vala:318
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Không thể hiển thị FAQ: %s"
@@ -3004,35 +2996,35 @@ msgstr "Liệt kê tất cả các thiết bị chụp ảnh tìm thấy"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/camera/ImportPage.vala:307 src/Properties.vala:239
+#: src/camera/ImportPage.vala:309 src/Properties.vala:242
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:466
+#: src/camera/ImportPage.vala:468
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 "Không thể tháo gắn kết máy ảnh. Thử tháo gắn kết từ trình quản lí tập tin."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:761
+#: src/camera/ImportPage.vala:759
 msgid "Hide photos already imported"
 msgstr "Ẩn các ảnh đã nhập"
 
-#: src/camera/ImportPage.vala:762
+#: src/camera/ImportPage.vala:760
 msgid "Only display photos that have not been imported"
 msgstr "Chỉ hiện các ảnh chưa nhập"
 
-#: src/camera/ImportPage.vala:839
+#: src/camera/ImportPage.vala:822
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Máy ảnh dường như trống rỗng. Không tìm thấy phim/ảnh nào để mà nhập"
 
-#: src/camera/ImportPage.vala:843
+#: src/camera/ImportPage.vala:826
 msgid "No new photos/videos found on camera"
 msgstr "Không tìm thấy ảnh/phim trên máy ảnh"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:996
+#: src/camera/ImportPage.vala:979
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3040,15 +3032,15 @@ msgstr ""
 "Shotwell cần bỏ gắn máy ảnh khỏi hệ thống tập tin để có thể truy cập nó. "
 "Tiếp tục?"
 
-#: src/camera/ImportPage.vala:1002
+#: src/camera/ImportPage.vala:985
 msgid "_Unmount"
 msgstr "_Bỏ gắn"
 
-#: src/camera/ImportPage.vala:1007
+#: src/camera/ImportPage.vala:990
 msgid "Please unmount the camera."
 msgstr "Vui lòng tháo gắn kết máy ảnh."
 
-#: src/camera/ImportPage.vala:1012
+#: src/camera/ImportPage.vala:997
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3058,11 +3050,11 @@ msgstr ""
 "ảnh khi nó không bị khóa. Vui lòng đóng ứng dụng khác nếu nó dùng máy ảnh và "
 "thử lại."
 
-#: src/camera/ImportPage.vala:1022
+#: src/camera/ImportPage.vala:1007
 msgid "Please close any other application using the camera."
 msgstr "Vui lòng đóng bất kỳ ứng dụng nào khác cũng đang dùng máy ảnh."
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1014
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3071,135 +3063,135 @@ msgstr ""
 "Không thể lấy phần xem thử từ máy ảnh:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1031
 msgid "Unmounting…"
 msgstr "Đang tháo gắn kết…"
 
-#: src/camera/ImportPage.vala:1137
+#: src/camera/ImportPage.vala:1124
 msgid "Connecting to camera, please wait…"
 msgstr "Đang kết nối đến máy ảnh, vui lòng chờ…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1156
 msgid "Starting import, please wait…"
 msgstr "Bắt đầu nhập, vui lòng chờ…"
 
-#: src/camera/ImportPage.vala:1175
+#: src/camera/ImportPage.vala:1162
 msgid "Fetching photo information"
 msgstr "Đang nạp thông tin ảnh"
 
-#: src/camera/ImportPage.vala:1543
+#: src/camera/ImportPage.vala:1520
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Lấy phần xem thử cho %s"
 
-#: src/camera/ImportPage.vala:1652
+#: src/camera/ImportPage.vala:1625
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Không thể khóa máy ảnh: %s"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1714
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Xóa %d ảnh này khỏi máy ảnh?"
 
-#: src/camera/ImportPage.vala:1740
+#: src/camera/ImportPage.vala:1717
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Xóa %d phim khỏi máy ảnh?"
 
-#: src/camera/ImportPage.vala:1743
+#: src/camera/ImportPage.vala:1720
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Xóa %d ảnh/phim khỏi máy ảnh?"
 
-#: src/camera/ImportPage.vala:1746
+#: src/camera/ImportPage.vala:1723
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Xóa %d tập tin này khỏi máy ảnh?"
 
-#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:727
+#: src/camera/ImportPage.vala:1731 src/Dialogs.vala:752
 msgid "_Keep"
 msgstr "_Giữ lại"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1751
 msgid "Removing photos/videos from camera"
 msgstr "Đang loại bỏ ảnh/phim khỏi máy ảnh"
 
-#: src/camera/ImportPage.vala:1777
+#: src/camera/ImportPage.vala:1755
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Không thể xóa %d ảnh/phim khỏi máy ảnh do lỗi."
 
-#: src/CheckerboardPage.vala:131
+#: src/CheckerboardPage.vala:130
 msgid "No photos/videos"
 msgstr "Không có ảnh/phim"
 
-#: src/CheckerboardPage.vala:135
+#: src/CheckerboardPage.vala:134
 msgid "No photos/videos found which match the current filter"
 msgstr "Không tìm thấy ảnh/phim nào khớp với bộ lọc hiện tại"
 
-#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2481 src/Resources.vala:136
+#: src/CollectionPage.vala:70 src/direct/DirectPhotoPage.vala:86
+#: src/PhotoPage.vala:2433 src/Resources.vala:137
 msgid "_Print"
 msgstr "_In"
 
-#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2491 src/Resources.vala:186
+#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:91
+#: src/PhotoPage.vala:2443 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Đặt làm ảnh _màn hình nền"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:252
+#: src/CollectionPage.vala:82 src/Resources.vala:253
 msgid "_Duplicate"
 msgstr "_Nhân đôi"
 
-#: src/CollectionPage.vala:100
+#: src/CollectionPage.vala:90
 msgid "Fullscreen"
 msgstr "Toàn màn hình"
 
-#: src/CollectionPage.vala:135
+#: src/CollectionPage.vala:125
 msgid "Adjust Date and Time…"
 msgstr "Chỉnh ngày và giờ…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:133
+#: src/CollectionPage.vala:139 src/Resources.vala:134
 msgid "_Play"
 msgstr "_Phát"
 
-#: src/CollectionPage.vala:410
+#: src/CollectionPage.vala:400
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Xuất ảnh/phim"
 
-#: src/CollectionPage.vala:412
+#: src/CollectionPage.vala:402
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Xuất ảnh"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:489 src/CollectionPage.vala:505
 msgid "Rotating"
 msgstr "Xoay ảnh"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:489 src/CollectionPage.vala:505
 msgid "Undoing Rotate"
 msgstr "Hủy thao tác xoay"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:514
 msgid "Flipping Horizontally"
 msgstr "Rộng hơn theo chiều ngang"
 
-#: src/CollectionPage.vala:525
+#: src/CollectionPage.vala:515
 msgid "Undoing Flip Horizontally"
 msgstr "Hủy thao tác làm rộng hơn theo chiều ngang"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:524
 msgid "Flipping Vertically"
 msgstr "Làm rộng hơn theo chiều dọc"
 
-#: src/CollectionPage.vala:535
+#: src/CollectionPage.vala:525
 msgid "Undoing Flip Vertically"
 msgstr "Hủy thao tác làm rộng hơn theo chiều dọc"
 
@@ -3301,76 +3293,76 @@ msgstr "Chỉnh ngày và giờ"
 msgid "Undoing Date and Time Adjustment"
 msgstr "Hủy thao tác chỉnh ngày và giờ"
 
-#: src/Commands.vala:1415
+#: src/Commands.vala:1429
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Ảnh gốc không thể bị chỉnh sửa."
 
-#: src/Commands.vala:1417 src/Commands.vala:1441
+#: src/Commands.vala:1431 src/Commands.vala:1448
 msgid "Time Adjustment Error"
 msgstr "Lỗi chỉnh giờ"
 
-#: src/Commands.vala:1439
+#: src/Commands.vala:1446
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 "Chỉnh giờ là thao tác không hoàn lại được trên những tập tin ảnh sau đây."
 
-#: src/Commands.vala:1653 src/Commands.vala:1676
+#: src/Commands.vala:1660 src/Commands.vala:1683
 msgid "Create Tag"
 msgstr "Tạo thẻ"
 
-#: src/Commands.vala:1711
+#: src/Commands.vala:1718
 #, c-format
 msgid "Move Tag “%s”"
 msgstr "Di chuyển thẻ “%s”"
 
-#: src/Commands.vala:2361
+#: src/Commands.vala:2368
 msgid "Move Photos to Trash"
 msgstr "Chuyển ảnh vào Thùng rác"
 
-#: src/Commands.vala:2361
+#: src/Commands.vala:2368
 msgid "Restore Photos from Trash"
 msgstr "Phục hồi ảnh từ Thùng rác"
 
-#: src/Commands.vala:2362
+#: src/Commands.vala:2369
 msgid "Move the photos to the Shotwell trash"
 msgstr "Chuyển ảnh vào Thùng rác của Shotwell"
 
-#: src/Commands.vala:2362
+#: src/Commands.vala:2369
 msgid "Restore the photos back to the Shotwell library"
-msgstr "Phục hồi ảnh trở về thư viện của Shotwell"
+msgstr "Đưa ảnh trở về Thư viện của Shotwell"
 
-#: src/Commands.vala:2381
+#: src/Commands.vala:2388
 msgid "Moving Photos to Trash"
-msgstr "Chuyển ảnh vào Thùng rác"
+msgstr "Cho ảnh vào Thùng rác"
 
-#: src/Commands.vala:2381
+#: src/Commands.vala:2388
 msgid "Restoring Photos From Trash"
-msgstr "Phục hồi ảnh từ Thùng rác"
+msgstr "Lấy lại ảnh từ Thùng rác"
 
-#: src/Commands.vala:2467
+#: src/Commands.vala:2474
 msgid "Flag selected photos"
 msgstr "Gắn cờ cho ảnh đã chọn"
 
-#: src/Commands.vala:2468
+#: src/Commands.vala:2475
 msgid "Unflag selected photos"
 msgstr "Gỡ cờ các ảnh đã chọn"
 
-#: src/Commands.vala:2469
+#: src/Commands.vala:2476
 msgid "Flagging selected photos"
 msgstr "Đang đánh thẻ các ảnh đã chọn"
 
-#: src/Commands.vala:2470
+#: src/Commands.vala:2477
 msgid "Unflagging selected photos"
 msgstr "Đang xóa bỏ thẻ các ảnh đã chọn"
 
-#: src/Commands.vala:2477
+#: src/Commands.vala:2484
 msgid "Flag"
 msgstr "Gắn cờ"
 
-#: src/Commands.vala:2477
+#: src/Commands.vala:2484
 msgid "Unflag"
 msgstr "Gỡ cờ"
 
@@ -3405,22 +3397,23 @@ msgstr ""
 "xung nhập dữ liệu được bật. Phần bổ xung có thể bật từ hộp thoại “Tùy thích”."
 
 #: src/data_imports/DataImportsUI.vala:100
-msgid "Database file:"
-msgstr "Tập tin cơ sở dữ liệu:"
+#: src/data_imports/DataImportsUI.vala:102
+msgid "Database file"
+msgstr "Tập tin cơ sở dữ liệu"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:759
 msgid "_Import"
 msgstr "_Nhập"
 
-#: src/data_imports/DataImportsUI.vala:219
+#: src/data_imports/DataImportsUI.vala:229
 msgid "Import From Application"
 msgstr "Nhập từ ứng dụng"
 
-#: src/data_imports/DataImportsUI.vala:220
+#: src/data_imports/DataImportsUI.vala:230
 msgid "Import media _from:"
 msgstr "Đã nhập đa phương tiện _từ:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
+#: src/data_imports/DataImportsUI.vala:423 src/publishing/PublishingUI.vala:396
 msgid "_Close"
 msgstr "Đó_ng"
 
@@ -3487,49 +3480,49 @@ msgstr "Không thể xuất ảnh nền đến %s: %s"
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Không thể chuẩn bị trình chiếu màn hình nền: %s"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:78
+#: src/dialogs/AdjustDateTimeDialog.vala:81
 msgid "AM"
 msgstr "Sáng"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:79
+#: src/dialogs/AdjustDateTimeDialog.vala:82
 msgid "PM"
 msgstr "Chiều"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:80
+#: src/dialogs/AdjustDateTimeDialog.vala:83
 msgid "24 Hr"
 msgstr "24 giờ"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:95
+#: src/dialogs/AdjustDateTimeDialog.vala:98
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Dịch chuyển phim/ảnh theo cùng số lượng"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:100
+#: src/dialogs/AdjustDateTimeDialog.vala:103
 msgid "Set _all photos/videos to this time"
 msgstr "Đặt _mọi phim/ảnh thành thời điểm này"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:106
+#: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Sửa tập tin ảnh gốc"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:110
+#: src/dialogs/AdjustDateTimeDialog.vala:114
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Sửa tập tin gốc"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:220
+#: src/dialogs/AdjustDateTimeDialog.vala:233
 msgid "Original: "
 msgstr "Gốc: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:221
+#: src/dialogs/AdjustDateTimeDialog.vala:234
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%H:%M:%S, %d/%m/%Y"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:222
+#: src/dialogs/AdjustDateTimeDialog.vala:235
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%I:%M:%S %p, %d/%m/%Y"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:305
+#: src/dialogs/AdjustDateTimeDialog.vala:327
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3538,7 +3531,7 @@ msgstr ""
 "Thời gian phơi sáng sẽ được dịch về phía trước theo\n"
 "%d %s, %d %s, %d %s, và %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:328
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3547,22 +3540,22 @@ msgstr ""
 "Thời gian phơi sáng sẽ được dịch về phía sau theo\n"
 "%d %s, %d %s, %d %s, và %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:308
+#: src/dialogs/AdjustDateTimeDialog.vala:330
 msgid "day"
 msgid_plural "days"
 msgstr[0] "ngày"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:331
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "giờ"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:332
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "phút"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:333
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "giây"
@@ -3602,39 +3595,47 @@ msgstr "Xuất _siêu dữ liệu:"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
+#: src/dialogs/Preferences.vala:113 src/dialogs/Preferences.vala:117
 msgid "(Help)"
 msgstr "(Trợ giúp)"
 
-#: src/dialogs/Preferences.vala:116
+#: src/dialogs/Preferences.vala:121
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Năm%sTháng%sNgày"
 
-#: src/dialogs/Preferences.vala:118
+#: src/dialogs/Preferences.vala:123
 #, c-format
 msgid "Year%sMonth"
 msgstr "Năm%sTháng"
 
-#: src/dialogs/Preferences.vala:120
+#: src/dialogs/Preferences.vala:125
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Năm%sTháng-Ngày"
 
-#: src/dialogs/Preferences.vala:122
+#: src/dialogs/Preferences.vala:127
 msgid "Year-Month-Day"
 msgstr "Năm-Tháng-Ngày"
 
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
+#: src/dialogs/Preferences.vala:128
 msgid "Custom"
 msgstr "Tùy chọn"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:353
+#: src/dialogs/Preferences.vala:346
 msgid "Invalid pattern"
 msgstr "Mẫu không hợp lệ"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/Preferences.vala:407
+msgid "Select Library Folder"
+msgstr "Chọn thư mục Thư viện"
+
+#: src/dialogs/Preferences.vala:409 src/folders/FoldersBranch.vala:144
+msgid "Folders"
+msgstr "Thư mục"
+
+#: src/dialogs/ProgressDialog.vala:89
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -3687,31 +3688,31 @@ msgstr[0] ""
 msgid "_Switch Developer"
 msgstr "_Chuyển bộ hiển thị ảnh"
 
-#: src/Dialogs.vala:52
+#: src/Dialogs.vala:59
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "Loại bỏ face “%s” khỏi %d ảnh. Tiếp tục?"
 
-#: src/Dialogs.vala:70
+#: src/Dialogs.vala:77
 msgid "Export Video"
 msgstr "Xuất phim"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3016
+#: src/Dialogs.vala:77 src/PhotoPage.vala:2964
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Xuất ảnh"
 
-#: src/Dialogs.vala:94
+#: src/Dialogs.vala:104
 msgid "Export Photos"
-msgstr "Xuất ảnh"
+msgstr "Xuất nhiều ảnh"
 
 #. Ticket #3023
 #. Attempt to replace the system error with something friendlier
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:121
+#: src/Dialogs.vala:133
 #, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
@@ -3720,7 +3721,7 @@ msgstr ""
 "Shotwell không thể tạo tập tin để chỉnh sửa ảnh này vì bạn không có đủ quyền "
 "để ghi vào %s."
 
-#: src/Dialogs.vala:130
+#: src/Dialogs.vala:142
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -3728,7 +3729,7 @@ msgstr ""
 "Không thể xuất ảnh sau do lỗi tập tin.\n"
 "\n"
 
-#: src/Dialogs.vala:136
+#: src/Dialogs.vala:148
 msgid ""
 "\n"
 "\n"
@@ -3738,34 +3739,34 @@ msgstr ""
 "\n"
 "Bạn có muốn tiếp tục xuất?"
 
-#: src/Dialogs.vala:137
+#: src/Dialogs.vala:149
 msgid "Con_tinue"
 msgstr "_Tiếp tục"
 
-#: src/Dialogs.vala:147
+#: src/Dialogs.vala:159
 msgid "Save Details…"
 msgstr "Lưu các Chi tiết…"
 
-#: src/Dialogs.vala:148
+#: src/Dialogs.vala:160
 msgid "Save Details"
 msgstr "Chi tiết lưu"
 
-#: src/Dialogs.vala:163
+#: src/Dialogs.vala:175
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(và %d nữa)\n"
 
-#: src/Dialogs.vala:216
+#: src/Dialogs.vala:228
 msgid "Import Results Report"
 msgstr "Báo cáo kết quả nhập"
 
-#: src/Dialogs.vala:220
+#: src/Dialogs.vala:232
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Đã thử nhập %d tập tin."
 
-#: src/Dialogs.vala:223
+#: src/Dialogs.vala:235
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3774,30 +3775,30 @@ msgstr[0] "Trong số chúng, %d tập tin đã được nhập thành công."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:235
+#: src/Dialogs.vala:247
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Ảnh/Phim trùng lặp không được nhập vào:"
 
-#: src/Dialogs.vala:239
+#: src/Dialogs.vala:251
 msgid "duplicates existing media item"
 msgstr "nhân bản hạng mục đa phương tiện sẵn có"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:250
+#: src/Dialogs.vala:262
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Ảnh/Phim không nhập được vì có lỗi của máy ảnh:"
 
-#: src/Dialogs.vala:253 src/Dialogs.vala:268 src/Dialogs.vala:283
-#: src/Dialogs.vala:299 src/Dialogs.vala:314 src/Dialogs.vala:328
+#: src/Dialogs.vala:265 src/Dialogs.vala:280 src/Dialogs.vala:295
+#: src/Dialogs.vala:311 src/Dialogs.vala:326 src/Dialogs.vala:340
 msgid "error message:"
 msgstr "thông báo lỗi:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:264
+#: src/Dialogs.vala:276
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Các tập tin không thể nhập được bởi vì chúng không được xem như là Ảnh hay "
@@ -3806,7 +3807,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:279
+#: src/Dialogs.vala:291
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3817,7 +3818,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:294
+#: src/Dialogs.vala:306
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
@@ -3825,7 +3826,7 @@ msgstr ""
 "Các tập tin không thể nhập được bởi vì Shotwell không thể chép chúng vào thư "
 "viện:"
 
-#: src/Dialogs.vala:298
+#: src/Dialogs.vala:310
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3837,61 +3838,61 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:310
+#: src/Dialogs.vala:322
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Ảnh/Phim không được nhập vào bởi vì các tập tin đã hỏng:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:325
+#: src/Dialogs.vala:337
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Ảnh/Phim không được nhập vào bởi vì khác:"
 
-#: src/Dialogs.vala:345
+#: src/Dialogs.vala:357
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "%d ảnh giống nhau không được nhập:\n"
 
-#: src/Dialogs.vala:348
+#: src/Dialogs.vala:360
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d phim trùng lặp không được nhập:\n"
 
-#: src/Dialogs.vala:351
+#: src/Dialogs.vala:363
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d ảnh/phim trùng lặp không được nhập:\n"
 
-#: src/Dialogs.vala:365
+#: src/Dialogs.vala:377
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "%d ảnh không được nhập do lỗi tập tin hay phần cứng:\n"
 
-#: src/Dialogs.vala:368
+#: src/Dialogs.vala:380
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] "%d phim không được nhập do lỗi tập tin hay phần cứng:\n"
 
-#: src/Dialogs.vala:371
+#: src/Dialogs.vala:383
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] "%d ảnh/phim không được nhập do lỗi tập tin hay phần cứng:\n"
 
-#: src/Dialogs.vala:374
+#: src/Dialogs.vala:386
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] "%d tập tin không được nhập do lỗi tập tin hay phần cứng:\n"
 
-#: src/Dialogs.vala:388
+#: src/Dialogs.vala:400
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3901,7 +3902,7 @@ msgid_plural ""
 msgstr[0] ""
 "%d ảnh không được nhập vì không có quyền ghi vào thư mục thư viện:\n"
 
-#: src/Dialogs.vala:391
+#: src/Dialogs.vala:403
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3911,7 +3912,7 @@ msgid_plural ""
 msgstr[0] ""
 "%d phim không được nhập vì không có quyền ghi vào thư mục thư viện:\n"
 
-#: src/Dialogs.vala:394
+#: src/Dialogs.vala:406
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3922,7 +3923,7 @@ msgid_plural ""
 msgstr[0] ""
 "%d ảnh/phim không được nhập vì không có quyền ghi vào thư mục thư viện:\n"
 
-#: src/Dialogs.vala:397
+#: src/Dialogs.vala:409
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3932,49 +3933,49 @@ msgid_plural ""
 msgstr[0] ""
 "%d tập tin không được nhập vì không có quyền ghi vào thư mục thư viện:\n"
 
-#: src/Dialogs.vala:411
+#: src/Dialogs.vala:423
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "%d ảnh không được nhập do lỗi máy ảnh:\n"
 
-#: src/Dialogs.vala:414
+#: src/Dialogs.vala:426
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "%d phim không được nhập do lỗi máy ảnh:\n"
 
-#: src/Dialogs.vala:417
+#: src/Dialogs.vala:429
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] "%d ảnh/phim không được nhập do lỗi máy ảnh:\n"
 
-#: src/Dialogs.vala:420
+#: src/Dialogs.vala:432
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "%d tập tin không được nhập do lỗi máy ảnh:\n"
 
-#: src/Dialogs.vala:434
+#: src/Dialogs.vala:446
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "%d ảnh không được nhập vì chúng bị hỏng:\n"
 
-#: src/Dialogs.vala:437
+#: src/Dialogs.vala:449
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "%d phim không được nhập vì chúng bị hỏng:\n"
 
-#: src/Dialogs.vala:440
+#: src/Dialogs.vala:452
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "%d tập tin hay phim không được nhập vì chúng bị hỏng:\n"
 
-#: src/Dialogs.vala:443
+#: src/Dialogs.vala:455
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3984,7 +3985,7 @@ msgstr[0] "%d tập tin không được nhập vì chúng bị hỏng:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:460
+#: src/Dialogs.vala:472
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3992,49 +3993,49 @@ msgstr[0] "%d ảnh không được hỗ trợ bị bỏ qua:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:475
+#: src/Dialogs.vala:487
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "%d tập tin không phải ảnh bị bỏ qua.\n"
 
-#: src/Dialogs.vala:486
+#: src/Dialogs.vala:498
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "%d ảnh bị bỏ qua do người dùng yêu cầu:\n"
 
-#: src/Dialogs.vala:489
+#: src/Dialogs.vala:501
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "%d phim bị bỏ qua do người dùng yêu cầu:\n"
 
-#: src/Dialogs.vala:492
+#: src/Dialogs.vala:504
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "%d ảnh/phim bị bỏ qua do người dùng chỉ định:\n"
 
-#: src/Dialogs.vala:495
+#: src/Dialogs.vala:507
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "%d tập tin bị bỏ qua do người dùng chỉ định:\n"
 
-#: src/Dialogs.vala:509
+#: src/Dialogs.vala:521
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "%d ảnh đã được nhập.\n"
 
-#: src/Dialogs.vala:512
+#: src/Dialogs.vala:524
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "%d phim đã được nhập.\n"
 
-#: src/Dialogs.vala:515
+#: src/Dialogs.vala:527
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -4042,63 +4043,63 @@ msgstr[0] "%d ảnh/phim đã được nhập.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:531
+#: src/Dialogs.vala:543
 msgid "No photos or videos imported.\n"
 msgstr "Không có ảnh hoặc phim được nhập.\n"
 
-#: src/Dialogs.vala:538 src/Dialogs.vala:557
+#: src/Dialogs.vala:548
 msgid "Import Complete"
 msgstr "Đã nhập xong"
 
-#: src/Dialogs.vala:657 src/Resources.vala:197
+#: src/Dialogs.vala:675 src/Resources.vala:198
 msgid "Rename Event"
 msgstr "Đổi tên sự kiện"
 
-#: src/Dialogs.vala:657
+#: src/Dialogs.vala:675
 msgid "Name:"
 msgstr "Tên:"
 
 #. Dialog title
-#: src/Dialogs.vala:668
+#: src/Dialogs.vala:686
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Sửa tựa đề"
 
-#: src/Dialogs.vala:669 src/Properties.vala:352
+#: src/Dialogs.vala:687 src/Properties.vala:355
 msgid "Title:"
 msgstr "Tựa đề:"
 
 #. Dialog title
-#: src/Dialogs.vala:685 src/Resources.vala:273
+#: src/Dialogs.vala:703 src/Resources.vala:274
 msgid "Edit Event Comment"
 msgstr "Sửa ghi chú sự kiện"
 
-#: src/Dialogs.vala:686
+#: src/Dialogs.vala:704
 msgid "Edit Photo/Video Comment"
 msgstr "Sửa phần ghi chú của phim hay ảnh"
 
-#: src/Dialogs.vala:687 src/Properties.vala:650
+#: src/Dialogs.vala:705 src/Properties.vala:653
 msgid "Comment:"
 msgstr "Ghi chú:"
 
-#: src/Dialogs.vala:703
+#: src/Dialogs.vala:721
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Xóa bỏ và đưa vào _Thùng rác"
 
-#: src/Dialogs.vala:707
+#: src/Dialogs.vala:726
 msgid "_Remove From Library"
 msgstr "_Loại khỏi thư viện"
 
-#: src/Dialogs.vala:750
+#: src/Dialogs.vala:782
 msgid "Revert External Edit?"
 msgstr "Hoàn lại sửa đổi bên ngoài?"
 
-#: src/Dialogs.vala:750
+#: src/Dialogs.vala:782
 msgid "Revert External Edits?"
 msgstr "Hoàn lại các sửa đổi bên ngoài?"
 
-#: src/Dialogs.vala:752
+#: src/Dialogs.vala:784
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -4106,33 +4107,33 @@ msgid_plural ""
 msgstr[0] ""
 "Việc này sẽ phá hủy toàn bộ các thay đổi với %d tập tin bên ngoài. Tiếp tục?"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:788
 msgid "Re_vert External Edit"
 msgstr "H_oàn lại sửa đổi bên ngoài"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:788
 msgid "Re_vert External Edits"
 msgstr "H_oàn lại các sửa đổi bên ngoài"
 
-#: src/Dialogs.vala:777
+#: src/Dialogs.vala:817
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Loại bỏ %d ảnh khỏi thư viện. Bạn có muốn tiếp tục?"
 
-#: src/Dialogs.vala:784 src/Resources.vala:139
+#: src/Dialogs.vala:824 src/Resources.vala:140
 msgid "_Remove"
 msgstr "_Xóa bỏ"
 
-#: src/Dialogs.vala:785
+#: src/Dialogs.vala:825
 msgid "Remove Photo From Library"
 msgstr "Loại bỏ ảnh khỏi thư viện"
 
-#: src/Dialogs.vala:785
+#: src/Dialogs.vala:825
 msgid "Remove Photos From Library"
 msgstr "Loại bỏ ảnh khỏi thư viện"
 
-#: src/Dialogs.vala:805
+#: src/Dialogs.vala:853
 #, c-format
 msgid ""
 "\n"
@@ -4147,13 +4148,13 @@ msgstr[0] ""
 "\n"
 "Và %d cái khác."
 
-#: src/Dialogs.vala:831 src/Dialogs.vala:868
+#: src/Dialogs.vala:892 src/Dialogs.vala:929
 msgid "Tags (separated by commas):"
 msgstr "Thẻ (ngăn cách bằng dấu phẩy):"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:946
+#: src/Dialogs.vala:1007
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -4161,28 +4162,28 @@ msgstr ""
 "Shotwell có thể chép ảnh vào thư mục thư viện hay nhập chúng mà không cần "
 "sao chép."
 
-#: src/Dialogs.vala:951
+#: src/Dialogs.vala:1012
 msgid "Co_py Photos"
 msgstr "_Chép ảnh"
 
-#: src/Dialogs.vala:952
+#: src/Dialogs.vala:1013
 msgid "_Import in Place"
 msgstr "_Nhập vào từ Chỗ"
 
-#: src/Dialogs.vala:953
+#: src/Dialogs.vala:1014
 msgid "Import to Library"
 msgstr "Nhập vào thư viện"
 
-#: src/Dialogs.vala:963
+#: src/Dialogs.vala:1032
 msgid "Remove From Library"
 msgstr "Loại khỏi thư viện"
 
-#: src/Dialogs.vala:964
+#: src/Dialogs.vala:1033
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Loại bỏ ảnh khỏi thư viện"
 
-#: src/Dialogs.vala:978
+#: src/Dialogs.vala:1047
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -4200,7 +4201,7 @@ msgstr[0] ""
 "\n"
 "Hành động này không thể hoàn lại được."
 
-#: src/Dialogs.vala:982
+#: src/Dialogs.vala:1051
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4218,7 +4219,7 @@ msgstr[0] ""
 "\n"
 "Hành động này không thể hoàn lại được."
 
-#: src/Dialogs.vala:986
+#: src/Dialogs.vala:1055
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4236,7 +4237,7 @@ msgstr[0] ""
 "\n"
 "Hành động này không thể hoàn lại được."
 
-#: src/Dialogs.vala:1018
+#: src/Dialogs.vala:1087
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4245,13 +4246,13 @@ msgid_plural ""
 msgstr[0] "Không thể chuyển %d ảnh/phim vào Thùng rác. Xóa những tập tin này?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1035
+#: src/Dialogs.vala:1104
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Không thể xóa %d ảnh/phim."
 
-#: src/dialogs/WelcomeDialog.vala:35
+#: src/dialogs/WelcomeDialog.vala:36
 msgid "Welcome!"
 msgstr "Chào mừng!"
 
@@ -4305,17 +4306,17 @@ msgstr "Rộng"
 msgid "Height"
 msgstr "Cao"
 
-#: src/direct/DirectPhotoPage.vala:99
+#: src/direct/DirectPhotoPage.vala:100
 #, c-format
 msgid "%s does not exist."
 msgstr "%s không tồn tại."
 
-#: src/direct/DirectPhotoPage.vala:101
+#: src/direct/DirectPhotoPage.vala:102
 #, c-format
 msgid "%s is not a file."
 msgstr "%s không phải là tập tin."
 
-#: src/direct/DirectPhotoPage.vala:103
+#: src/direct/DirectPhotoPage.vala:104
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -4324,30 +4325,30 @@ msgstr ""
 "%s không hỗ trợ định dạng tập tin\n"
 "%s."
 
-#: src/direct/DirectPhotoPage.vala:120
+#: src/direct/DirectPhotoPage.vala:121
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "Không mở ảnh %s. Tiếc quá."
 
-#: src/direct/DirectPhotoPage.vala:323
+#: src/direct/DirectPhotoPage.vala:324
 msgid "_Save a Copy"
 msgstr "_Lưu một bản sao"
 
-#: src/direct/DirectPhotoPage.vala:326
+#: src/direct/DirectPhotoPage.vala:327
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Không lưu các thay đổi của %s?"
 
-#: src/direct/DirectPhotoPage.vala:327
+#: src/direct/DirectPhotoPage.vala:328
 msgid "Close _without Saving"
 msgstr "Đóng mà _không lưu"
 
-#: src/direct/DirectPhotoPage.vala:360
+#: src/direct/DirectPhotoPage.vala:364
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Gặp lỗi khi ghi vào “%s”: %s"
 
-#: src/direct/DirectPhotoPage.vala:390 src/direct/DirectPhotoPage.vala:411
+#: src/direct/DirectPhotoPage.vala:396 src/direct/DirectPhotoPage.vala:417
 msgid "Save As"
 msgstr "Lưu mới"
 
@@ -4361,213 +4362,15 @@ msgstr "Không thể theo dõi %s: Không phải một thư mục (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Các ảnh không thể được xuất từ thư mục này."
 
-#: src/editing_tools/EditingTools.vala:651
-msgid "Return to current photo dimensions"
-msgstr "Trở lại kích thước ảnh hiện tại"
-
-#: src/editing_tools/EditingTools.vala:654
-msgid "Set the crop for this photo"
-msgstr "Cắt ảnh"
-
-#: src/editing_tools/EditingTools.vala:666
-msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr "Chốt hình chữ nhật cắt giữa hướng thẳng đứng và ngang"
-
-#: src/editing_tools/EditingTools.vala:739
-msgid "Unconstrained"
-msgstr "Không bắt buộc"
-
-#: src/editing_tools/EditingTools.vala:740
-msgid "Square"
-msgstr "Vuông"
-
-#: src/editing_tools/EditingTools.vala:741
-msgid "Screen"
-msgstr "Màn hình"
-
-#: src/editing_tools/EditingTools.vala:743
-#: src/editing_tools/EditingTools.vala:746
-#: src/editing_tools/EditingTools.vala:756
-#: src/editing_tools/EditingTools.vala:766
-msgid "-"
-msgstr "-"
-
-#: src/editing_tools/EditingTools.vala:744
-msgid "SD Video (4 ∶ 3)"
-msgstr "Phim SD (4 ∶ 3)"
-
-#: src/editing_tools/EditingTools.vala:745
-msgid "HD Video (16 ∶ 9)"
-msgstr "Phim HD (16 ∶ 9)"
-
-#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
-msgid "Wallet (2 × 3 in.)"
-msgstr "Ví (2 × 3 in.)"
-
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
-msgid "Notecard (3 × 5 in.)"
-msgstr "Tờ ghi chú (3 × 5 in.)"
-
-#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
-msgid "4 × 6 in."
-msgstr "4 × 6 in."
-
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
-msgid "5 × 7 in."
-msgstr "5 × 7 in."
-
-#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
-msgid "8 × 10 in."
-msgstr "8 × 10 in."
-
-#: src/editing_tools/EditingTools.vala:752
-msgid "Letter (8.5 × 11 in.)"
-msgstr "Thư (8.5 × 11 in.)"
-
-#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
-msgid "11 × 14 in."
-msgstr "11 × 14 in."
-
-#: src/editing_tools/EditingTools.vala:754
-msgid "Tabloid (11 × 17 in.)"
-msgstr "Báo lá cải (11 × 17 in.)"
-
-#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
-msgid "16 × 20 in."
-msgstr "16 × 20 in."
-
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
-msgid "Metric Wallet (9 × 13 cm)"
-msgstr "Ví hệ mét (9 × 13 cm)"
-
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
-msgid "Postcard (10 × 15 cm)"
-msgstr "Bưu thiếp (10 × 15 cm)"
-
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
-msgid "13 × 18 cm"
-msgstr "13 × 18 cm"
-
-#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
-msgid "18 × 24 cm"
-msgstr "18 × 24 cm"
-
-#: src/editing_tools/EditingTools.vala:761
-msgid "A4 (210 × 297 mm)"
-msgstr "A4 (210 × 297 mm)"
-
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
-msgid "20 × 30 cm"
-msgstr "20 × 30 cm"
-
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
-msgid "24 × 40 cm"
-msgstr "24 × 40 cm"
-
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
-msgid "30 × 40 cm"
-msgstr "30 × 40 cm"
-
-#: src/editing_tools/EditingTools.vala:765
-msgid "A3 (297 × 420 mm)"
-msgstr "A3 (297 × 420 mm)"
-
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:407
-msgid "Size:"
-msgstr "Kích thước:"
-
-#: src/editing_tools/EditingTools.vala:1873
-msgid "Close the red-eye tool"
-msgstr "Đóng công cụ chống mắt đỏ"
-
-#: src/editing_tools/EditingTools.vala:1876
-msgid "Remove any red-eye effects in the selected region"
-msgstr "Xóa bỏ bất kỳ hiệu ứng mắt đỏ trong vùng đã chọn"
-
-#: src/editing_tools/EditingTools.vala:2210
-#: src/editing_tools/StraightenTool.vala:102
-msgid "_Reset"
-msgstr "Đặ_t lại"
-
-#. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:448
-#: src/Properties.vala:452 src/Properties.vala:459
-msgid "Exposure:"
-msgstr "Phơi sáng:"
-
-#: src/editing_tools/EditingTools.vala:2233
-msgid "Contrast:"
-msgstr "Tương phản:"
-
-#: src/editing_tools/EditingTools.vala:2242
-msgid "Saturation:"
-msgstr "Độ bão hòa:"
-
-# <http://en.wikipedia.org/wiki/Tints_and_shades>
-#: src/editing_tools/EditingTools.vala:2251
-msgid "Tint:"
-msgstr "Thêm sáng:"
-
-#: src/editing_tools/EditingTools.vala:2261
-msgid "Temperature:"
-msgstr "Nhiệt độ:"
-
-#: src/editing_tools/EditingTools.vala:2270
-msgid "Shadows:"
-msgstr "Bóng:"
-
-#. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
-#. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2281
-msgid "Highlights:"
-msgstr "Tô sáng:"
-
-#: src/editing_tools/EditingTools.vala:2338
-msgid "Reset Colors"
-msgstr "Đặt lại màu"
-
-#: src/editing_tools/EditingTools.vala:2338
-msgid "Reset all color adjustments to original"
-msgstr "Đặt lại mọi chỉnh sửa màu thành nguyên gốc"
-
-#: src/editing_tools/EditingTools.vala:2697
-msgid "Temperature"
-msgstr "Nhiệt độ"
-
-# <http://en.wikipedia.org/wiki/Tints_and_shades>
-#: src/editing_tools/EditingTools.vala:2709
-msgid "Tint"
-msgstr "Thêm sáng"
-
-#: src/editing_tools/EditingTools.vala:2721
-msgid "Contrast"
-msgstr "Độ tương phản"
-
-#: src/editing_tools/EditingTools.vala:2735
-msgid "Saturation"
-msgstr "Độ bão hòa"
-
-#: src/editing_tools/EditingTools.vala:2748
-msgid "Exposure"
-msgstr "Phơi sáng"
-
-#: src/editing_tools/EditingTools.vala:2761
-msgid "Shadows"
-msgstr "Bóng"
-
-#: src/editing_tools/EditingTools.vala:2774
-msgid "Highlights"
-msgstr "Tô sáng"
-
-#: src/editing_tools/EditingTools.vala:2784
-msgid "Contrast Expansion"
-msgstr "Khai triển Tương phản"
-
 #: src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "Góc:"
 
-#: src/events/EventPage.vala:129
+#: src/editing_tools/StraightenTool.vala:102
+msgid "_Reset"
+msgstr "Đặ_t lại"
+
+#: src/events/EventPage.vala:131
 msgid "No Event"
 msgstr "Không có sự kiện"
 
@@ -4579,29 +4382,21 @@ msgstr "Sự kiện"
 msgid "Browse through your events"
 msgstr "Duyệt qua các sự kiện của bạn"
 
-#: src/events/EventsDirectoryPage.vala:149
+#: src/events/EventsDirectoryPage.vala:147
 msgid "No events"
 msgstr "Không có sự kiện nào"
 
-#: src/events/EventsDirectoryPage.vala:153
+#: src/events/EventsDirectoryPage.vala:151
 msgid "No events found"
 msgstr "Không tìm thấy sự kiện nào"
 
-#: src/events/EventsDirectoryPage.vala:227
+#: src/events/EventsDirectoryPage.vala:230
 msgid "All Events"
 msgstr "Mọi sự kiện"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
 msgstr "Không ngày tháng"
-
-#: src/events/EventsDirectoryPage.vala:242
-msgid "%Y"
-msgstr "%Y"
-
-#: src/events/EventsDirectoryPage.vala:243
-msgid "%B"
-msgstr "%B"
 
 #. if no name, pretty up the start time
 #: src/Event.vala:748
@@ -4609,41 +4404,41 @@ msgstr "%B"
 msgid "Event %s"
 msgstr "Sự kiện %s"
 
-#: src/Exporter.vala:236 src/Exporter.vala:291
+#: src/Exporter.vala:237 src/Exporter.vala:292
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Không thể tạo tập tin tạm cho %s: %s"
 
-#: src/Exporter.vala:328
+#: src/Exporter.vala:329
 msgid "Exporting"
 msgstr "Đang xuất"
 
-#: src/Exporter.vala:346
+#: src/Exporter.vala:347
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Tập tin %s đã tồn tại. Thay thế?"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "_Skip"
 msgstr "_Bỏ qua"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Rename"
 msgstr "Đổi tên"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Rename All"
 msgstr "Đổi tên tất cả"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "_Replace"
 msgstr "T_hay thế"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Replace _All"
 msgstr "Thay thế _tất cả"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Export"
 msgstr "Xuất"
 
@@ -4659,55 +4454,51 @@ msgstr "Phát hiện khuôn mặt trên ảnh này"
 msgid "Cancel face detection"
 msgstr "Thôi dò tìm khuôn mặt"
 
-#: src/faces/FacesTool.vala:145
+#: src/faces/FacesTool.vala:144
 msgid "Close the Faces tool without saving changes"
 msgstr "Đóng công cụ Khuôn mặt mà không lưu thay đổi"
 
-#: src/faces/FacesTool.vala:152 src/faces/FacesTool.vala:186
+#: src/faces/FacesTool.vala:148 src/faces/FacesTool.vala:182
 msgid "Click and drag to tag a face"
 msgstr "Bấm và kéo để đánh thẻ khuôn mặt"
 
-#: src/faces/FacesTool.vala:181
+#: src/faces/FacesTool.vala:177
 #, c-format
 msgid "Click to edit face “%s”"
 msgstr "Bấm để sửa Khuôn mặt “%s”"
 
-#: src/faces/FacesTool.vala:190
+#: src/faces/FacesTool.vala:186
 msgid "Stop dragging to add your face and name it."
 msgstr "Dừng kéo để thêm khuôn mặt của bạn và đặt tên cho khuôn mặt đó."
 
-#: src/faces/FacesTool.vala:194
+#: src/faces/FacesTool.vala:190
 msgid "Type a name for this face, then press Enter"
 msgstr "Nhập tên cho khuôn mặt này, rồi nhấn Enter"
 
-#: src/faces/FacesTool.vala:198
+#: src/faces/FacesTool.vala:194
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "Di chuyển hoặc sửa đổi hình dạng khuôn mặt hoặc tên và nhấn Enter"
 
-#: src/faces/FacesTool.vala:202
+#: src/faces/FacesTool.vala:198
 msgid "Detecting faces"
 msgstr "Phát hiện khuôn mặt"
 
-#: src/faces/FacesTool.vala:213
+#: src/faces/FacesTool.vala:209
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr ""
 "Nếu bạn không đặt tên của những khuôn mặt chưa biết, chúng sẽ không được lưu."
 
-#: src/faces/FacesTool.vala:234
+#: src/faces/FacesTool.vala:230
 msgid "Save changes and close the Faces tool"
 msgstr "Lưu thay đổi và đóng công cụ Khuôn mặt"
 
-#: src/faces/FacesTool.vala:236
+#: src/faces/FacesTool.vala:232
 msgid "No changes to save"
 msgstr "Không có ghì để lưu cả"
 
-#: src/faces/FacesTool.vala:951
+#: src/faces/FacesTool.vala:963
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Lỗi khi cố gắng tạo tiến trình phát hiện khuôn mặt:\n"
-
-#: src/folders/FoldersBranch.vala:144
-msgid "Folders"
-msgstr "Thư mục"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Browse the library’s folder structure"
@@ -4726,8 +4517,8 @@ msgstr "Duyệt lịch sử nhập của thư viện"
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1123
-#: src/SearchFilter.vala:1124
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:991
+#: src/SearchFilter.vala:992
 msgid "Flagged"
 msgstr "Được đánh dấu"
 
@@ -4735,11 +4526,11 @@ msgstr "Được đánh dấu"
 msgid "Importing…"
 msgstr "Nhập ảnh…"
 
-#: src/library/ImportQueuePage.vala:129
+#: src/library/ImportQueuePage.vala:111
 msgid "Preparing to import…"
 msgstr "Chuẩn bị nhập…"
 
-#: src/library/ImportQueuePage.vala:156
+#: src/library/ImportQueuePage.vala:134
 #, c-format
 msgid "Imported %s"
 msgstr "Đã nhập %s"
@@ -4748,19 +4539,19 @@ msgstr "Đã nhập %s"
 msgid "Last Import"
 msgstr "Lần nhập gần nhất"
 
-#: src/library/LibraryBranch.vala:30
+#: src/library/LibraryBranch.vala:34
 msgid "Organize and browse your photos"
 msgstr "Tổ chức và duyệt ảnh của bạn"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "Nhập từ thư mục"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "Đệ quy vào bên trong thư mục con"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:576
 msgid "Emptying Trash…"
 msgstr "Đang đổ rác…"
 
@@ -4780,19 +4571,19 @@ msgstr ""
 msgid "Photos cannot be imported from this directory."
 msgstr "Không thể nhập ảnh từ thư mục này."
 
-#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
+#: src/library/LibraryWindow.vala:1000 src/library/LibraryWindow.vala:1011
 msgid "Updating library…"
 msgstr "Đang cập nhật thư viện…"
 
-#: src/library/LibraryWindow.vala:1012
+#: src/library/LibraryWindow.vala:1017
 msgid "Preparing to auto-import photos…"
 msgstr "Đang chuẩn bị tự động nhập ảnh…"
 
-#: src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1022
 msgid "Auto-importing photos…"
 msgstr "Đang tự động nhập ảnh…"
 
-#: src/library/LibraryWindow.vala:1025
+#: src/library/LibraryWindow.vala:1030
 msgid "Writing metadata to files…"
 msgstr "Đang ghi siêu dữ liệu vào tập tin…"
 
@@ -4800,7 +4591,7 @@ msgstr "Đang ghi siêu dữ liệu vào tập tin…"
 msgid "Missing Files"
 msgstr "Tập tin bị thiếu"
 
-#: src/library/OfflinePage.vala:110
+#: src/library/OfflinePage.vala:112
 msgid "Deleting…"
 msgstr "Đang xóa…"
 
@@ -4859,69 +4650,64 @@ msgstr "Gặp lỗi chưa biết khi thẩm tra cơ sở dữ liệu của Shotw
 msgid "Loading Shotwell"
 msgstr "Đang tải Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:344
 msgid "Path to Shotwell’s private data"
 msgstr "Đường dẫn đến dữ liệu riêng của Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:344
 msgid "DIRECTORY"
 msgstr "THƯ_MỤC"
 
-#: src/main.vala:348
+#: src/main.vala:345
 msgid "Do not monitor library directory at runtime for changes"
-msgstr "Đừng theo dõi thư mục thư viện lúc chạy cho thay đổi"
+msgstr "Đừng theo dõi thay đổi trong thư mục thư viện lúc chạy"
 
-#: src/main.vala:349
+#: src/main.vala:346
 msgid "Don’t display startup progress meter"
 msgstr "Đừng hiển thị thanh đo diễn biến khởi động"
 
-#: src/main.vala:350
+#: src/main.vala:347
 msgid "Show the application’s version"
 msgstr "Hiển thị phiên bản của ứng dụng"
 
-#: src/main.vala:351
+#: src/main.vala:348
 msgid "Start the application in fullscreen mode"
 msgstr "Khởi chạy ứng dụng trong chế độ toàn màn hình"
 
-#: src/main.vala:352
+#: src/main.vala:349
 msgid "Print the metadata of the image file"
 msgstr "In siêu dữ liệu của tập tin ảnh"
 
-#: src/main.vala:353
+#: src/main.vala:350
 msgid "Name for a custom profile"
 msgstr "Tên hồ sơ tự chọn"
 
-#: src/main.vala:353
+#: src/main.vala:350
 msgid "PROFILE"
 msgstr "[HỒ_SƠ]"
 
-#: src/main.vala:354
+#: src/main.vala:351
 msgid "Start with a browser of available profiles"
 msgstr "Khởi động với một trình duyệt của các hồ sơ sẵn có"
 
-#: src/main.vala:355
+#: src/main.vala:352
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Nếu HỒ SƠ đưa ra với --profile không tồn tại thì tạo mới nó"
 
-#: src/main.vala:356
+#: src/main.vala:353
 msgid "Show available profiles"
 msgstr "Hiện các hồ sơ sẵn có"
 
-#. init GTK (valac has already called g_threads_init())
-#: src/main.vala:387
-msgid "[FILE]"
-msgstr "[TẬP_TIN]"
-
-#: src/main.vala:392
+#: src/main.vala:400
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Chạy “%s --help” để xem danh sách đầy đủ các tùy chọn dòng lệnh.\n"
 
-#: src/main.vala:399
+#: src/main.vala:407
 msgid "Choose Shotwell's profile"
 msgstr "Chọn hồ sơ của Shotwell"
 
-#: src/main.vala:420
+#: src/main.vala:434
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Hồ sơ %s không tồn tại. Ý bạn cũng muốn chuyển --create?"
@@ -4940,11 +4726,11 @@ msgstr ""
 msgid "Unable to process monitoring updates: %s"
 msgstr "Không thể xử lý các cập nhật theo dõi: %s"
 
-#: src/MediaPage.vala:76
+#: src/MediaPage.vala:75
 msgid "Adjust the size of the thumbnails"
 msgstr "Chỉnh cỡ của ảnh thu nhỏ"
 
-#: src/MediaPage.vala:416
+#: src/MediaPage.vala:402
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4954,31 +4740,31 @@ msgstr ""
 "%s"
 
 #. previous button
-#: src/PhotoPage.vala:546
+#: src/PhotoPage.vala:539
 msgid "Previous photo"
 msgstr "Ảnh trước"
 
 #. next button
-#: src/PhotoPage.vala:552
+#: src/PhotoPage.vala:545
 msgid "Next photo"
 msgstr "Ảnh sau"
 
-#: src/PhotoPage.vala:1858
+#: src/PhotoPage.vala:1795
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Không thấy tập tin ảnh nguồn: %s"
 
-#: src/PhotoPage.vala:2891
+#: src/PhotoPage.vala:2839
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Loại khỏi thư viện"
 
-#: src/PhotoPage.vala:2892
+#: src/PhotoPage.vala:2840
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Loại bỏ ảnh khỏi thư viện"
 
-#: src/PhotoPage.vala:3036
+#: src/PhotoPage.vala:2984
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Không thể xuất %s: %s"
@@ -4990,6 +4776,10 @@ msgstr "AVIF"
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
+
+#: src/photos/HeifSupport.vala:30
+msgid "HEIF"
+msgstr "HEIF"
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
@@ -5019,6 +4809,10 @@ msgstr "Cao (%d%%)"
 msgid "Maximum (%d%%)"
 msgstr "Tối đa (%d%%)"
 
+#: src/photos/JpegXLSupport.vala:30
+msgid "JPEGXL"
+msgstr "JPEGXL"
+
 #: src/photos/PngSupport.vala:30
 msgid "PNG"
 msgstr "PNG"
@@ -5031,31 +4825,36 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3811
+#. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
+#: src/Photo.vala:3812
 msgid "modified"
 msgstr "đã sửa"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:121
+#: src/plugins/ManifestWidget.vala:155
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Quản lý tài khoản người dùng cho %s"
 
-#: src/plugins/ManifestWidget.vala:134
+#: src/plugins/ManifestWidget.vala:180
 msgid "Authors"
 msgstr "Tác giả"
 
-#: src/plugins/ManifestWidget.vala:144
+#: src/plugins/ManifestWidget.vala:190
 msgid "Version"
 msgstr "Phiên bản"
 
-#: src/plugins/ManifestWidget.vala:154
+#: src/plugins/ManifestWidget.vala:200
 msgid "License"
 msgstr "Giấy phép"
 
-#: src/plugins/ManifestWidget.vala:166
+#: src/plugins/ManifestWidget.vala:212
 msgid "Website"
 msgstr "Trang thông tin điện tử"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 hoặc mới hơn"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -5085,15 +4884,71 @@ msgstr "16 ảnh mỗi trang"
 msgid "32 images per page"
 msgstr "32 ảnh mỗi trang"
 
-#: src/Printing.vala:851
+#: src/Printing.vala:794
+msgid "Wallet (2 × 3 in.)"
+msgstr "Ví (2 × 3 in.)"
+
+#: src/Printing.vala:797
+msgid "Notecard (3 × 5 in.)"
+msgstr "Tờ ghi chú (3 × 5 in.)"
+
+#: src/Printing.vala:800
+msgid "4 × 6 in."
+msgstr "4 × 6 in."
+
+#: src/Printing.vala:803
+msgid "5 × 7 in."
+msgstr "5 × 7 in."
+
+#: src/Printing.vala:806
+msgid "8 × 10 in."
+msgstr "8 × 10 in."
+
+#: src/Printing.vala:809
+msgid "11 × 14 in."
+msgstr "11 × 14 in."
+
+#: src/Printing.vala:812
+msgid "16 × 20 in."
+msgstr "16 × 20 in."
+
+#: src/Printing.vala:818
+msgid "Metric Wallet (9 × 13 cm)"
+msgstr "Ví hệ mét (9 × 13 cm)"
+
+#: src/Printing.vala:821
+msgid "Postcard (10 × 15 cm)"
+msgstr "Bưu thiếp (10 × 15 cm)"
+
+#: src/Printing.vala:824
+msgid "13 × 18 cm"
+msgstr "13 × 18 cm"
+
+#: src/Printing.vala:827
+msgid "18 × 24 cm"
+msgstr "18 × 24 cm"
+
+#: src/Printing.vala:830
+msgid "20 × 30 cm"
+msgstr "20 × 30 cm"
+
+#: src/Printing.vala:833
+msgid "24 × 40 cm"
+msgstr "24 × 40 cm"
+
+#: src/Printing.vala:836
+msgid "30 × 40 cm"
+msgstr "30 × 40 cm"
+
+#: src/Printing.vala:853
 msgid "Image Settings"
 msgstr "Cài đặt ảnh"
 
-#: src/Printing.vala:864
+#: src/Printing.vala:866
 msgid "Printing…"
 msgstr "Đang in…"
 
-#: src/Printing.vala:884 src/Printing.vala:1087
+#: src/Printing.vala:886 src/Printing.vala:1089
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5108,54 +4963,54 @@ msgstr ""
 msgid "Create"
 msgstr "Tạo"
 
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:266
 msgid "Create new Profile"
 msgstr "Tạo Hồ sơ mới"
 
-#: src/ProfileBrowser.vala:35
+#: src/ProfileBrowser.vala:38
 msgid "Name"
 msgstr "Tên"
 
-#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+#: src/ProfileBrowser.vala:52 src/ProfileBrowser.vala:181
 msgid "Library Folder"
 msgstr "Thư mục Thư viện"
 
-#: src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:71
 msgid "Choose Library Folder"
 msgstr "Chọn Thư mục Thư viện"
 
-#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+#: src/ProfileBrowser.vala:83 src/ProfileBrowser.vala:193
 msgid "Data Folder"
 msgstr "Thư mục Dữ liệu"
 
-#: src/ProfileBrowser.vala:92
+#: src/ProfileBrowser.vala:103
 msgid "Choose Data Folder"
 msgstr "Chọn thư mục Dữ liệu"
 
-#: src/ProfileBrowser.vala:135
+#: src/ProfileBrowser.vala:147
 msgid "This is the currently active profile"
 msgstr "Đây là hồ sơ hiện đang kích hoạt"
 
-#: src/ProfileBrowser.vala:191
+#: src/ProfileBrowser.vala:207
 msgid "Remove Profile"
 msgstr "Xóa bỏ Hồ sơ"
 
-#: src/ProfileBrowser.vala:193
+#: src/ProfileBrowser.vala:209
 msgid "Remove this profile"
 msgstr "Xóa bỏ hồ sơ này"
 
-#: src/ProfileBrowser.vala:205
+#: src/ProfileBrowser.vala:221
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "Xóa bỏ hồ sơ “%s”"
 
-#: src/ProfileBrowser.vala:206
+#: src/ProfileBrowser.vala:222
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
 msgstr "Không có tùy chọn nào sẽ gỡ bỏ bất kỳ ảnh liên kết đến hồ sơ này"
 
-#: src/ProfileBrowser.vala:207
+#: src/ProfileBrowser.vala:223
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -5164,11 +5019,11 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:225
 msgid "Remove profile and files"
 msgstr "Xóa bỏ hồ sơ và các tập tin"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:225
 msgid "Remove profile only"
 msgstr "Chỉ xóa bỏ hồ sơ thôi"
 
@@ -5176,131 +5031,140 @@ msgstr "Chỉ xóa bỏ hồ sơ thôi"
 msgid "System Profile"
 msgstr "Hồ sơ hệ thống"
 
-#: src/Properties.vala:102
+#: src/Properties.vala:101
 msgid "Today"
 msgstr "Hôm nay"
 
-#: src/Properties.vala:104
+#: src/Properties.vala:103
 msgid "Yesterday"
 msgstr "Hôm qua"
 
-#: src/Properties.vala:355
+#: src/Properties.vala:358
 msgid "Items:"
 msgstr "Các mục:"
 
-#: src/Properties.vala:358
+#: src/Properties.vala:361
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d sự kiện"
 
-#: src/Properties.vala:365
+#: src/Properties.vala:368
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d ảnh"
 
-#: src/Properties.vala:367
+#: src/Properties.vala:370
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d phim"
 
 #. display only one date if start and end are the same
-#: src/Properties.vala:389
+#: src/Properties.vala:392
 msgid "Date:"
 msgstr "Ngày:"
 
 #. display only one time if start and end are the same
-#: src/Properties.vala:393
+#: src/Properties.vala:396
 msgid "Time:"
 msgstr "Giờ:"
 
 #. display time range
 #. display date range
-#: src/Properties.vala:396 src/Properties.vala:401
+#: src/Properties.vala:399 src/Properties.vala:404
 msgid "From:"
 msgstr "Từ:"
 
-#: src/Properties.vala:397 src/Properties.vala:402
+#: src/Properties.vala:400 src/Properties.vala:405
 msgid "To:"
 msgstr "Đến:"
 
-#: src/Properties.vala:416
+#: src/Properties.vala:410
+msgid "Size:"
+msgstr "Kích thước:"
+
+#: src/Properties.vala:419
 msgid "Duration:"
 msgstr "Thời lượng:"
 
-#: src/Properties.vala:416
+#: src/Properties.vala:419
 #, c-format
 msgid "%.1f seconds"
 msgstr "%.1f giây"
 
-#: src/Properties.vala:420
+#: src/Properties.vala:423
 msgid "Developer:"
 msgstr "Trình hiển thị ảnh:"
 
+#. fit both on the top line, emit and move on
+#: src/Properties.vala:451 src/Properties.vala:455 src/Properties.vala:462
+msgid "Exposure:"
+msgstr "Phơi sáng:"
+
 #. nothing special to be done for now for Events
-#: src/Properties.vala:598
+#: src/Properties.vala:601
 msgid "Location:"
 msgstr "Vị trí:"
 
-#: src/Properties.vala:601
+#: src/Properties.vala:604
 msgid "File size:"
 msgstr "Dung lượng tập tin:"
 
-#: src/Properties.vala:605
+#: src/Properties.vala:608
 msgid "Current Development:"
 msgstr "Sự phát triển hiện tại:"
 
-#: src/Properties.vala:607
+#: src/Properties.vala:610
 msgid "Original dimensions:"
 msgstr "Kích thước gốc:"
 
-#: src/Properties.vala:610
+#: src/Properties.vala:613
 msgid "Camera make:"
 msgstr "Nhà sản xuất máy ảnh:"
 
-#: src/Properties.vala:613
+#: src/Properties.vala:616
 msgid "Camera model:"
 msgstr "Mô hình máy ảnh:"
 
-#: src/Properties.vala:616
+#: src/Properties.vala:619
 msgid "Flash:"
 msgstr "Đèn nháy:"
 
-#: src/Properties.vala:618
+#: src/Properties.vala:621
 msgid "Focal length:"
 msgstr "Chiều dài lấy nét:"
 
-#: src/Properties.vala:621
+#: src/Properties.vala:624
 msgid "Exposure date:"
 msgstr "Ngày phơi sáng:"
 
-#: src/Properties.vala:624
-msgid "Exposure time:"
-msgstr "Giờ phơi sáng:"
-
 #: src/Properties.vala:627
+msgid "Exposure time:"
+msgstr "Thời gian phơi sáng:"
+
+#: src/Properties.vala:630
 msgid "Exposure bias:"
 msgstr "Độ lệch phơi sáng:"
 
-#: src/Properties.vala:636
+#: src/Properties.vala:639
 msgid "GPS latitude:"
 msgstr "Vĩ độ GPS:"
 
-#: src/Properties.vala:639
+#: src/Properties.vala:642
 msgid "GPS longitude:"
 msgstr "Kinh độ GPS:"
 
-#: src/Properties.vala:642
+#: src/Properties.vala:645
 msgid "Artist:"
 msgstr "Nghệ sĩ:"
 
-#: src/Properties.vala:644
+#: src/Properties.vala:647
 msgid "Copyright:"
 msgstr "Bản quyền:"
 
-#: src/Properties.vala:646
+#: src/Properties.vala:649
 msgid "Software:"
 msgstr "Phần mềm:"
 
@@ -5348,11 +5212,11 @@ msgstr "Xuất bản phim và ảnh _lên"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:285
+#: src/publishing/PublishingUI.vala:283
 msgid "Unable to publish"
 msgstr "Không thể xuất bản"
 
-#: src/publishing/PublishingUI.vala:286
+#: src/publishing/PublishingUI.vala:284
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5393,517 +5257,518 @@ msgstr[0] "Ảnh đã chọn được xuất bản thành công."
 msgid "The selected photos/videos were successfully published."
 msgstr "Ảnh/Phim đã chọn được xuất bản thành công."
 
-#: src/Resources.vala:107
+#: src/Resources.vala:108
 msgid "Rotate Right"
 msgstr "Xoay phải"
 
-#: src/Resources.vala:112
+#: src/Resources.vala:113
 msgid "Rotate Left"
 msgstr "Xoay trái"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:114
 msgid "Rotate the photos left"
 msgstr "Xoay ảnh sang trái"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:117
 msgid "Flip Horizontally"
 msgstr "Lật ngang"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:120
 msgid "Flip Vertically"
 msgstr "Lật dọc"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:123
 msgid "_Apply"
 msgstr "Á_p dụng"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:127
 msgid "_Forward"
 msgstr "Chuyển t_iếp"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:130
 msgid "Leave _Fullscreen"
 msgstr "Thoát _Toàn màn hình"
 
-#: src/Resources.vala:131
+#: src/Resources.vala:132
 msgid "_Next"
 msgstr "_Kế"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:136
 msgid "_Previous"
 msgstr "T_rước"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:139
 msgid "_Refresh"
 msgstr "Cậ_p nhật"
 
-#: src/Resources.vala:140
+#: src/Resources.vala:141
 msgid "_Revert"
 msgstr "_Hoàn nguyên"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:143
 msgid "Save _As"
 msgstr "Lư_u dạng"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:144
 msgid "Sort _Ascending"
 msgstr "Sắp xếp _tăng dần"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:145
 msgid "Sort _Descending"
 msgstr "Sắp xếp _giảm dần"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:146
 msgid "_Stop"
 msgstr "_Dừng"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:147
 msgid "_Undelete"
 msgstr "_Phục hồi xóa"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:148
 msgid "_Normal Size"
 msgstr "Cỡ _thường"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:149
 msgid "Best _Fit"
 msgstr "_Vừa khít nhất"
 
-#: src/Resources.vala:157
+#: src/Resources.vala:158
 msgid "Copy Color Adjustments"
 msgstr "Chép chỉnh sửa màu"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:159
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Chép chỉnh sửa màu đã áp dụng cho ảnh"
 
-#: src/Resources.vala:161
+#: src/Resources.vala:162
 msgid "Paste Color Adjustments"
 msgstr "Dán chỉnh sửa màu"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:163
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Áp dụng phần chỉnh sửa màu đã chép cho ảnh đã chọn"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:166
 msgid "Crop"
 msgstr "Cắt"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:167
 msgid "Crop the photo’s size"
 msgstr "Xén cho ảnh nhỏ bớt"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:170
 msgid "Straighten"
 msgstr "Vuốt thẳng"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:171
 msgid "Straighten the photo"
 msgstr "Vuốt thẳng ảnh"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:174
 msgid "Red-eye"
 msgstr "Giảm mắt đỏ"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:175
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Giảm hay khử bỏ hiệu ứng mắt đỏ trong ảnh"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:178
 msgid "Adjust"
 msgstr "Điều chỉnh"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:179
 msgid "Adjust the photo’s color and tone"
 msgstr "Điều chỉnh màu và tông của ảnh"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:182
 msgid "Revert to Original"
 msgstr "Hoàn nguyên về nguyên bản"
 
-#: src/Resources.vala:183
+#: src/Resources.vala:184
 msgid "Revert External E_dits"
 msgstr "Hoàn nguyên các _sửa chữa bên ngoài"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:185
 msgid "Revert to the master photo"
 msgstr "Hoàn nguyên lại ảnh chính"
 
-#: src/Resources.vala:187
+#: src/Resources.vala:188
 msgid "Set selected image to be the new desktop background"
 msgstr "Đặt ảnh đã chọn làm nền mới cho màn hình máy tính"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:189
 msgid "Set as _Desktop Slideshow…"
 msgstr "Đặt làm trình _diễn trên màn hình nền…"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:192
 msgid "Undo"
 msgstr "Hủy thao tác"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:195
 msgid "Redo"
 msgstr "Hoàn lại"
 
-#: src/Resources.vala:200
+#: src/Resources.vala:201
 msgid "Make Key Photo for Event"
 msgstr "Tạo ảnh khóa cho sự kiện"
 
-#: src/Resources.vala:203
+#: src/Resources.vala:204
 msgid "New Event"
 msgstr "Sự kiện mới"
 
-#: src/Resources.vala:205
+#: src/Resources.vala:206
 msgid "Move Photos"
 msgstr "Di chuyển ảnh"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:207
 msgid "Move photos to an event"
 msgstr "Chuyển ảnh sang một sự kiện"
 
-#: src/Resources.vala:209
+#: src/Resources.vala:210
 msgid "Merge"
 msgstr "Hòa trộn"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:211
 msgid "Combine events into a single event"
 msgstr "Hòa các sự kiện thành một"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:214
 msgid "Set Rating"
 msgstr "Đánh giá"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:215
 msgid "Change the rating of your photo"
 msgstr "Đổi mức đánh giá của ảnh"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:218
 msgid "Increase Rating"
 msgstr "Tăng đánh giá"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:221
 msgid "Decrease Rating"
 msgstr "Giảm đánh giá"
 
-#: src/Resources.vala:223
+#: src/Resources.vala:224
 msgid "Unrated"
 msgstr "Chưa đánh giá"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:225
 msgid "Rate Unrated"
 msgstr "Đánh giá chưa đánh giá"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:226
 msgid "Setting as unrated"
 msgstr "Đặt là chưa đánh giá"
 
-#: src/Resources.vala:226
+#: src/Resources.vala:227
 msgid "Remove any ratings"
 msgstr "Loại bỏ mọi đánh giá"
 
-#: src/Resources.vala:229
+#: src/Resources.vala:230
 msgid "Rejected"
 msgstr "Loại bỏ"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:231
 msgid "Rate Rejected"
 msgstr "Đánh giá là bị loại"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:232
 msgid "Setting as rejected"
 msgstr "Đặt thành loại bỏ"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:233
 msgid "Set rating to rejected"
 msgstr "Đặt đánh giá thành bị loại bỏ"
 
-#: src/Resources.vala:235
+#: src/Resources.vala:236
 msgid "Rejected Only"
 msgstr "Chỉ loại bỏ"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:237
 msgid "Show only rejected photos"
 msgstr "Chỉ hiển thị những ảnh loại bỏ"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:240
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Hiển thị mọi ảnh, bao gồm cả những ảnh đánh giá là loại bỏ"
 
 #. Button tooltip
-#: src/Resources.vala:243
+#: src/Resources.vala:244
 msgid "Show all photos"
 msgstr "Hiện tất cả ảnh"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:247
 msgid "Display each photo’s rating"
 msgstr "Hiển thị đánh giá của từng ảnh"
 
-#: src/Resources.vala:249
+#: src/Resources.vala:250
 msgid "Filter Photos"
 msgstr "Lọc ảnh"
 
-#: src/Resources.vala:250
+#: src/Resources.vala:251
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Giới hạn số lượng ảnh được hiển thị dựa trên một bộ lọc"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:254
 msgid "Duplicate"
 msgstr "Nhân đôi"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:255
 msgid "Make a duplicate of the photo"
 msgstr "Tạo một bản sao của ảnh"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:259
 msgid "_Print…"
 msgstr "_In…"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:261
 msgid "Pu_blish…"
 msgstr "Xuất _bản…"
 
 #. Button label
-#: src/Resources.vala:266
+#: src/Resources.vala:267
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Sửa tựa đề"
 
 #. Button label
-#: src/Resources.vala:270
+#: src/Resources.vala:271
 msgid "Edit Comment"
 msgstr "Sửa chú thích"
 
-#: src/Resources.vala:276
+#: src/Resources.vala:277
 msgid "Adjust Date and Time"
 msgstr "Chỉnh ngày và giờ"
 
 #. Dialog title
-#: src/Resources.vala:281
+#: src/Resources.vala:282
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Thêm thẻ"
 
-#: src/Resources.vala:292
+#: src/Resources.vala:293
 msgid "_Find…"
 msgstr "Tìm _kiếm…"
 
-#: src/Resources.vala:296
+#: src/Resources.vala:297
 msgid "_Flag"
 msgstr "Gắn _cờ"
 
-#: src/Resources.vala:298
+#: src/Resources.vala:299
 msgid "Un_flag"
 msgstr "Bỏ _cờ"
 
-#: src/Resources.vala:302
+#: src/Resources.vala:303
 msgid "Mark faces of people in the photo"
 msgstr "Đánh dấu Khuôn mặt của những người trong ảnh"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:304
 msgid "Modify Faces"
 msgstr "Chỉnh sửa Khuôn mặt"
 
-#: src/Resources.vala:304
+#: src/Resources.vala:305
 msgid "Delete Face"
 msgstr "Xóa Khuôn mặt"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:311
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Không thể khởi chạy trình biên soạn: %s"
 
-#: src/Resources.vala:315
+#: src/Resources.vala:316
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Thêm thẻ “%s”"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:318
+#: src/Resources.vala:319
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Thêm thẻ “%s” và “%s”"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:323
+#: src/Resources.vala:324
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Thêm thẻ"
 
-#: src/Resources.vala:328
+#: src/Resources.vala:329
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "_Xóa thẻ “%s”"
 
-#: src/Resources.vala:332
+#: src/Resources.vala:333
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Xóa thẻ “%s”"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:336
 msgid "Delete Tag"
 msgstr "Xóa thẻ"
 
-#: src/Resources.vala:341
+#: src/Resources.vala:342
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Đổ_i tên thẻ “%s”…"
 
-#: src/Resources.vala:345
+#: src/Resources.vala:346
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Đổi tên thẻ “%s” thành “%s”"
 
-#: src/Resources.vala:351
+#: src/Resources.vala:352
 msgid "Modify Tags"
 msgstr "Chỉnh sửa thẻ"
 
-#: src/Resources.vala:354
+#: src/Resources.vala:355
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Đánh thẻ ảnh thành “%s”"
 
-#: src/Resources.vala:360
+#: src/Resources.vala:361
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Đánh thẻ ảnh đã chọn thành “%s”"
 
-#: src/Resources.vala:366
+#: src/Resources.vala:367
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Xóa bỏ thẻ “%s” khỏi Ả_nh"
 
-#: src/Resources.vala:372
+#: src/Resources.vala:373
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Xóa bỏ thẻ “%s” khỏi Ảnh"
 
-#: src/Resources.vala:378
+#: src/Resources.vala:379
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Không thể đổi tên thẻ thành “%s” bởi vì thẻ này đã có rồi."
 
-#: src/Resources.vala:382
+#: src/Resources.vala:383
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Không thể đổi tên tìm kiếm thành “%s” bởi vì nó đã có rồi."
 
+#. separator
 #. Saved search button
-#: src/Resources.vala:385 src/SearchFilter.vala:1145
+#: src/Resources.vala:386 src/SearchFilter.vala:1009
 msgid "Saved Search"
 msgstr "Tìm kiếm đã lưu"
 
-#: src/Resources.vala:387
+#: src/Resources.vala:388
 msgid "Delete Search"
 msgstr "Xóa tìm kiếm"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:395
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Đổi tên tìm kiếm “%s” sang “%s”"
 
-#: src/Resources.vala:398
+#: src/Resources.vala:399
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Xóa tìm kiếm “%s”"
 
-#: src/Resources.vala:402
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Không thể đổi tên Khuôn mặt thành “%s” bởi vì Khuôn mặt này đã có rồi."
 
-#: src/Resources.vala:406
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Xóa bỏ Mặt “%s” khỏi Ả_nh"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Xóa bỏ Mặt “%s” khỏi Ảnh"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:417 src/Resources.vala:422
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "_Dạy Khuôn mặt “%s” từ Ảnh"
 
-#: src/Resources.vala:430
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Đổi tê_n Mặt “%s”…"
 
-#: src/Resources.vala:434
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Đổi tê_n Mặt “%s” thành “%s”"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Xóa Khuôn mặt “%s”"
 
-#: src/Resources.vala:442
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Xóa Khuôn mặt “%s”"
 
-#: src/Resources.vala:671
+#: src/Resources.vala:675
 #, c-format
 msgid "Rate %s"
 msgstr "Đánh giá %s"
 
-#: src/Resources.vala:672
+#: src/Resources.vala:676
 #, c-format
 msgid "Set rating to %s"
 msgstr "Đặt mức đánh giá thành %s"
 
-#: src/Resources.vala:673
+#: src/Resources.vala:677
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Đang đặt mức đánh giá thành %s"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:679
 #, c-format
 msgid "Display %s"
 msgstr "Hiển thị %s"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:680
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Chỉ hiện ảnh với mức đánh giá %s"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:681
 #, c-format
 msgid "%s or Better"
 msgstr "%s hay cao hơn"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:682
 #, c-format
 msgid "Display %s or Better"
 msgstr "Hiển thị %s hoặc hơn"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:683
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Chỉ hiện ảnh với mức đánh giá %s hoặc cao hơn"
 
-#: src/Resources.vala:777
+#: src/Resources.vala:781
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Mở thư mục chứa ảnh đã chọn trong bộ quản lý tập tin"
 
-#: src/Resources.vala:780
+#: src/Resources.vala:784
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Không thể mở ứng dụng duyệt tập tin: %s"
 
-#: src/Resources.vala:788
+#: src/Resources.vala:792
 msgid "Select all items"
 msgstr "Chọn tất cả các mục"
 
@@ -5916,14 +5781,14 @@ msgstr "Chọn tất cả các mục"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:850
+#: src/Resources.vala:851
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:855
+#: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -5931,7 +5796,7 @@ msgstr "%a %d %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:860
+#: src/Resources.vala:861
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5939,7 +5804,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:865
+#: src/Resources.vala:866
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -5947,7 +5812,7 @@ msgstr "%a %d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:870
+#: src/Resources.vala:871
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
@@ -5957,115 +5822,115 @@ msgid "Slideshow"
 msgstr "Trình chiếu"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:167
 msgid "contains"
 msgstr "có chứa"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:169
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is exactly"
 msgstr "đúng bằng"
 
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:169
 msgid "starts with"
 msgstr "bắt đầu bằng"
 
-#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:170
 msgid "ends with"
 msgstr "kết thúc với"
 
-#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:171
 msgid "does not contain"
 msgstr "không chứa"
 
-#: src/searches/SavedSearchDialog.vala:173
-#: src/searches/SavedSearchDialog.vala:504
+#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:503
 msgid "is not set"
 msgstr "chưa được đặt"
 
-#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:173
 msgid "is set"
 msgstr "được đặt"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:248
-#: src/searches/SavedSearchDialog.vala:379
-#: src/searches/SavedSearchDialog.vala:444
+#: src/searches/SavedSearchDialog.vala:247
+#: src/searches/SavedSearchDialog.vala:378
+#: src/searches/SavedSearchDialog.vala:443
 msgid "is"
 msgstr "là"
 
-#: src/searches/SavedSearchDialog.vala:249
+#: src/searches/SavedSearchDialog.vala:248
 msgid "is not"
 msgstr "không là"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:255
+#: src/searches/SavedSearchDialog.vala:254
 msgid "any photo"
 msgstr "mọi ảnh"
 
-#: src/searches/SavedSearchDialog.vala:256
+#: src/searches/SavedSearchDialog.vala:255
 msgid "a raw photo"
 msgstr "ảnh thô"
 
-#: src/searches/SavedSearchDialog.vala:257
+#: src/searches/SavedSearchDialog.vala:256
 msgid "a video"
 msgstr "một phim"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:310
 msgid "has"
 msgstr "có"
 
-#: src/searches/SavedSearchDialog.vala:312
+#: src/searches/SavedSearchDialog.vala:311
 msgid "has no"
 msgstr "không có"
 
-#: src/searches/SavedSearchDialog.vala:317
+#: src/searches/SavedSearchDialog.vala:316
 msgid "modifications"
 msgstr "sửa đổi"
 
-#: src/searches/SavedSearchDialog.vala:318
+#: src/searches/SavedSearchDialog.vala:317
 msgid "internal modifications"
 msgstr "sửa đổi bên trong"
 
-#: src/searches/SavedSearchDialog.vala:319
+#: src/searches/SavedSearchDialog.vala:318
 msgid "external modifications"
 msgstr "sửa đổi bên ngoài"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:372
 msgid "flagged"
 msgstr "đánh thẻ"
 
-#: src/searches/SavedSearchDialog.vala:374
+#: src/searches/SavedSearchDialog.vala:373
 msgid "not flagged"
 msgstr "không được đánh thẻ"
 
-#: src/searches/SavedSearchDialog.vala:437
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and higher"
 msgstr "và cao hơn"
 
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:437
 msgid "only"
 msgstr "chỉ"
 
-#: src/searches/SavedSearchDialog.vala:439
+#: src/searches/SavedSearchDialog.vala:438
 msgid "and lower"
 msgstr "và thấp hơn"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is after"
 msgstr "sau"
 
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is before"
 msgstr "trước"
 
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is between"
 msgstr "giữa"
 
-#: src/searches/SavedSearchDialog.vala:516
+#: src/searches/SavedSearchDialog.vala:515
 msgid "and"
 msgstr "và"
 
@@ -6109,8 +5974,8 @@ msgstr "Trạng thái cờ"
 msgid "Photo state"
 msgstr "Trạng thái ảnh"
 
-#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:851
-#: src/SearchFilter.vala:1135
+#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:860
+#: src/SearchFilter.vala:1002
 msgid "Rating"
 msgstr "Đánh giá"
 
@@ -6118,35 +5983,35 @@ msgstr "Đánh giá"
 msgid "Date"
 msgstr "Ngày"
 
-#: src/searches/SearchesBranch.vala:68
+#: src/searches/SearchesBranch.vala:67
 msgid "Saved Searches"
 msgstr "Tìm kiếm đã lưu"
 
-#: src/searches/SearchesBranch.vala:68
+#: src/searches/SearchesBranch.vala:67
 msgid "Organize your saved searches"
 msgstr "Tổ chức các tìm kiếm đã lưu của bạn"
 
-#: src/SearchFilter.vala:835
+#: src/SearchFilter.vala:844
 msgid "★+ Rating"
 msgstr "Đánh giá ★+"
 
-#: src/SearchFilter.vala:838
+#: src/SearchFilter.vala:847
 msgid "★★+ Rating"
 msgstr "Đánh giá ★★+"
 
-#: src/SearchFilter.vala:841
+#: src/SearchFilter.vala:850
 msgid "★★★+ Rating"
 msgstr "Đánh giá ★★★+"
 
-#: src/SearchFilter.vala:844
+#: src/SearchFilter.vala:853
 msgid "★★★★+ Rating"
 msgstr "Đánh giá ★★★★+"
 
-#: src/SearchFilter.vala:848
+#: src/SearchFilter.vala:857
 msgid "★★★★★+ Rating"
 msgstr "Đánh giá ★★★★★+"
 
-#: src/SearchFilter.vala:1085
+#: src/SearchFilter.vala:952
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Gặp lỗi khi tải UI thanh tìm kiếm: %s"
@@ -6156,24 +6021,24 @@ msgstr "Gặp lỗi khi tải UI thanh tìm kiếm: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1094
+#: src/SearchFilter.vala:962
 msgid "Close"
 msgstr "Đóng"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1100
+#: src/SearchFilter.vala:969
 msgid "Type"
 msgstr "Kiểu"
 
-#: src/SearchFilter.vala:1107
+#: src/SearchFilter.vala:976
 msgid "Videos"
 msgstr "Phim"
 
-#: src/SearchFilter.vala:1110
+#: src/SearchFilter.vala:979
 msgid "RAW Photos"
 msgstr "Ảnh RAW"
 
-#: src/SearchFilter.vala:1146
+#: src/SearchFilter.vala:1010
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Dùng một tìm kiếm đã lưu để lọc các mục tin trong bộ trình bày hiện tại"
@@ -6188,11 +6053,11 @@ msgstr "Trở lại"
 msgid "Go to the previous photo"
 msgstr "Đến ảnh trước"
 
-#: src/SlideshowPage.vala:143 src/SlideshowPage.vala:250
+#: src/SlideshowPage.vala:143 src/SlideshowPage.vala:249
 msgid "Pause"
 msgstr "Tạm dừng"
 
-#: src/SlideshowPage.vala:145 src/SlideshowPage.vala:251
+#: src/SlideshowPage.vala:145 src/SlideshowPage.vala:250
 msgid "Pause the slideshow"
 msgstr "Tạm dừng trình chiếu"
 
@@ -6209,15 +6074,15 @@ msgid "Change slideshow settings"
 msgstr "Đổi cài đặt trình chiếu"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:214
+#: src/SlideshowPage.vala:213
 msgid "All photo source files are missing."
 msgstr "Thiếu tất cả tập tin ảnh nguồn."
 
-#: src/SlideshowPage.vala:246
+#: src/SlideshowPage.vala:245
 msgid "Play"
 msgstr "Phát"
 
-#: src/SlideshowPage.vala:247
+#: src/SlideshowPage.vala:246
 msgid "Continue the slideshow"
 msgstr "Tiếp tục trình chiếu"
 
@@ -6233,22 +6098,138 @@ msgstr "(Không có)"
 msgid "Random"
 msgstr "Ngẫu nhiên"
 
-#: src/tags/TagsBranch.vala:131
+#: src/tags/TagsBranch.vala:130
 msgid "Tags"
 msgstr "Thẻ"
 
-#: src/tags/TagsBranch.vala:131
+#: src/tags/TagsBranch.vala:130
 msgid "Organize and browse your photo’s tags"
 msgstr "Tổ chức và duyệt các thẻ của ảnh của bạn"
 
 #: src/Tag.vala:832
 msgid "untitled"
-msgstr "chưa có tên"
+msgstr "chưa_đặt_tên"
 
 #. multiple videos
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Xuất phim"
+
+#~ msgid "Import From _Application…"
+#~ msgstr "Nhập từ ứng _dụng…"
+
+#~ msgid "Pin Toolbar"
+#~ msgstr "Cố định thanh công cụ"
+
+#~ msgid "Pin the toolbar open"
+#~ msgstr "Cố định thanh công cụ"
+
+#~ msgid "Leave fullscreen"
+#~ msgstr "Thoát chế độ toàn màn hình"
+
+#~ msgid "Return to current photo dimensions"
+#~ msgstr "Trở lại kích thước ảnh hiện tại"
+
+#~ msgid "Set the crop for this photo"
+#~ msgstr "Cắt ảnh"
+
+#~ msgid "Pivot the crop rectangle between portrait and landscape orientations"
+#~ msgstr "Chốt hình chữ nhật cắt giữa hướng thẳng đứng và ngang"
+
+#~ msgid "Unconstrained"
+#~ msgstr "Không bắt buộc"
+
+#~ msgid "Square"
+#~ msgstr "Vuông"
+
+#~ msgid "Screen"
+#~ msgstr "Màn hình"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "SD Video (4 ∶ 3)"
+#~ msgstr "Phim SD (4 ∶ 3)"
+
+#~ msgid "HD Video (16 ∶ 9)"
+#~ msgstr "Phim HD (16 ∶ 9)"
+
+#~ msgid "Letter (8.5 × 11 in.)"
+#~ msgstr "Thư (8.5 × 11 in.)"
+
+#~ msgid "Tabloid (11 × 17 in.)"
+#~ msgstr "Báo lá cải (11 × 17 in.)"
+
+#~ msgid "A4 (210 × 297 mm)"
+#~ msgstr "A4 (210 × 297 mm)"
+
+#~ msgid "A3 (297 × 420 mm)"
+#~ msgstr "A3 (297 × 420 mm)"
+
+#~ msgid "Close the red-eye tool"
+#~ msgstr "Đóng công cụ chống mắt đỏ"
+
+#~ msgid "Remove any red-eye effects in the selected region"
+#~ msgstr "Xóa bỏ bất kỳ hiệu ứng mắt đỏ trong vùng đã chọn"
+
+#~ msgid "Contrast:"
+#~ msgstr "Tương phản:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Độ bão hòa:"
+
+# <http://en.wikipedia.org/wiki/Tints_and_shades>
+#~ msgid "Tint:"
+#~ msgstr "Thêm sáng:"
+
+#~ msgid "Temperature:"
+#~ msgstr "Nhiệt độ:"
+
+#~ msgid "Shadows:"
+#~ msgstr "Bóng:"
+
+#~ msgid "Highlights:"
+#~ msgstr "Tô sáng:"
+
+#~ msgid "Reset Colors"
+#~ msgstr "Đặt lại màu"
+
+#~ msgid "Reset all color adjustments to original"
+#~ msgstr "Đặt lại mọi chỉnh sửa màu thành nguyên gốc"
+
+#~ msgid "Temperature"
+#~ msgstr "Nhiệt độ"
+
+# <http://en.wikipedia.org/wiki/Tints_and_shades>
+#~ msgid "Tint"
+#~ msgstr "Thêm sáng"
+
+#~ msgid "Contrast"
+#~ msgstr "Độ tương phản"
+
+#~ msgid "Saturation"
+#~ msgstr "Độ bão hòa"
+
+#~ msgid "Exposure"
+#~ msgstr "Phơi sáng"
+
+#~ msgid "Shadows"
+#~ msgstr "Bóng"
+
+#~ msgid "Highlights"
+#~ msgstr "Tô sáng"
+
+#~ msgid "Contrast Expansion"
+#~ msgstr "Khai triển Tương phản"
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "%B"
+#~ msgstr "%B"
+
+#~ msgid "[FILE]"
+#~ msgstr "[TẬP_TIN]"
 
 #~ msgid "authentication token"
 #~ msgstr "thẻ xác thực"
