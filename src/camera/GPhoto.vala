@@ -92,21 +92,9 @@ namespace GPhoto {
         }
     }
 
-    // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=716252
-    // https://bugzilla.redhat.com/show_bug.cgi?id=585676
-    // https://sourceforge.net/tracker/?func=detail&aid=3000198&group_id=8874&atid=108874
-    public const int MAX_FILENAME_LENGTH = 63;
-    public const int MAX_BASEDIR_LENGTH = 255;
-    
     public bool get_info(Context context, Camera camera, string folder, string filename,
         out CameraFileInfo info) throws Error {
-        if (folder.length > MAX_BASEDIR_LENGTH || filename.length > MAX_FILENAME_LENGTH) {
-            info = {};
-            
-            return false;
-        }
-        
+
         Result res = camera.get_file_info(folder, filename, out info, context);
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file information for %s/%s: %s",

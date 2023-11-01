@@ -1319,10 +1319,7 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
-        if (folder.length > GPhoto.MAX_BASEDIR_LENGTH)
-            return null;
-        
+    public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {        
         string basedir = get_fs_basedir(camera, fsid);
         if (basedir == null) {
             debug("Unable to find base directory for %s fsid %d", camera_name, fsid);
