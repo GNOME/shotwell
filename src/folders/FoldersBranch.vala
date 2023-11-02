@@ -168,11 +168,15 @@ public class Folders.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.ExpandableE
     
     public SidebarEntry(File dir) {
         this.dir = dir;
-        collation = dir.get_path().collate_key_for_filename();
+        collation = to_string().collate_key_for_filename();
     }
     
     public override string get_sidebar_name() {
-        return dir.get_basename();
+        try {
+            return dir.query_info(FileAttribute.STANDARD_DISPLAY_NAME, FileQueryInfoFlags.NONE, null).get_display_name();
+        } catch (Error err) {
+            return this.to_string();
+        }
     }
     
     public override string? get_sidebar_icon() {
@@ -180,7 +184,7 @@ public class Folders.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.ExpandableE
     }
     
     public override string to_string() {
-        return dir.get_path();
+        return Filename.display_name(dir.get_path());
     }
     
     public bool expand_on_select() {

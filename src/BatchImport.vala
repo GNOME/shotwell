@@ -1508,7 +1508,13 @@ private class WorkSniffer : BackgroundImportJob {
             FileToPrepare file_a = (FileToPrepare) a;
             FileToPrepare file_b = (FileToPrepare) b;
             string sa = file_a.get_path();
+            if (!sa.validate()) {
+                sa = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+            }            
             string sb = file_b.get_path();
+            if (!sb.validate()) {
+                sb = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+            }
             return utf8_cs_compare(sa, sb);
         });
         
