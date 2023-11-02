@@ -2,7 +2,7 @@
 
 This project is a template to build a low key (in terms of product branding) OS component website in the likes of [Pipewire](https://pipewire.org/), [Tracker](https://tracker.gnome.org), [Toolbx](https://containertoolbx.org/), [Desktop Portal](https://flatpak.github.io/xdg-desktop-portal/) and [Fleet Commander](https://fleet-commander.org/).
 
-Some other unrealized projects using the template: [Pango](https://jimmac.pages.gitlab.gnome.org/pango.gnome.org/), [Silverblue](https://jimmac.github.io/silverblue.fedoraproject.org/), [Flatpak](https://jimmac.github.io/flatpak-org/).
+Some other unrealized projects using the template: [Pango](https://jimmac.pages.gitlab.gnome.org/pango.gnome.org/), [Silverblue](https://jimmac.github.io/silverblue.fedoraproject.org/), [Flatpak](https://jimmac.github.io/flatpak-org/) and [Polkit](https://jimmac.gitlab.io/polkit.freedesktop.org/).
 
 The top level goal was to make it a nicer looking, spam-free alternative to a wiki:
 
