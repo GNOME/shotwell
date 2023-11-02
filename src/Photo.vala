@@ -4838,7 +4838,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         assert(source_id.has_prefix(Photo.TYPENAME));
         string numeric_only = source_id.substring(Photo.TYPENAME.length, -1);
         
-        return fetch_by_numeric_id(parse_int64(numeric_only, 16));
+        return fetch_by_numeric_id(int64.parse(numeric_only, 16));
     }
 
     public override Gee.Collection<string> get_event_source_ids(EventID event_id){

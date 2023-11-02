@@ -596,7 +596,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         string[] components = source_id.split("-");
         assert(components.length == 2);
         
-        return fetch_by_numeric_id(parse_int64(components[1], 16));
+        return fetch_by_numeric_id(int64.parse(components[1], 16));
     }
 
     public abstract Gee.Collection<string> get_event_source_ids(EventID event_id);

@@ -235,7 +235,7 @@ public class TagTable : DatabaseTable {
             // a typename followed by an identifying number (e.g., "video-022354").
             if (token[0].isdigit()) {
                 // this is a legacy entry
-                result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(parse_int64(token, 10))));
+                result.add(PhotoID.upgrade_photo_id_to_source_id(PhotoID(int64.parse(token, 10))));
             } else if (token[0].isalpha()) {
                 // this is a modern entry
                 result.add(token);
