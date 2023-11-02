@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-extern int64 g_ascii_strtoll(string str, out char *endptr, uint num_base);
-
 public const int DEFAULT_USER_TEXT_INPUT_LENGTH = 1024;
 
 public inline bool is_string_empty(string? s) {
@@ -171,10 +169,6 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options,
     
     // otherwise, return normally.
     return prepped;
-}
-
-public int64 parse_int64(string str, int num_base) {
-    return g_ascii_strtoll(str, null, num_base);
 }
 
 namespace String {
