@@ -46,13 +46,13 @@ private abstract class Properties : Gtk.Box {
         } else {
             Gtk.Label info_label = new Gtk.Label("");
             if (!is_string_empty(info_text)) {
-                info_label.set_tooltip_markup(info_text);
+                info_label.set_tooltip_text(info_text);
             }
 
             if (href == null) {
-                info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
+                info_label.set_text(is_string_empty(info_text) ? "" : info_text);
             } else {
-                info_label.set_markup("<a href=\"%s\">%s</a>".printf(href, info_text));
+                info_label.set_markup("<a href=\"%s\">%s</a>".printf(href, Markup.escape_text(info_text)));
             }
             info_label.set_ellipsize(Pango.EllipsizeMode.END);
             info_label.halign = Gtk.Align.START;
@@ -534,8 +534,8 @@ private class ExtendedProperties : Properties {
 
         if (source is MediaSource) {
             MediaSource media = (MediaSource) source;
-            file_path = media.get_master_file().get_path();
-            development_path = media.get_file().get_path();
+            file_path = Filename.display_name(media.get_master_file().get_path());
+            development_path = Filename.display_name(media.get_file().get_path());
             filesize = media.get_master_filesize();
 
             // as of right now, all extended properties other than filesize, filepath & comment aren't
