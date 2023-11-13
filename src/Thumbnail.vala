@@ -194,6 +194,13 @@ public class Thumbnail : MediaSourceItem {
     public static int64 filename_ascending_comparator(void *a, void *b) {
         string path_a = ((Thumbnail *) a)->media.get_file().get_basename().down();
         string path_b = ((Thumbnail *) b)->media.get_file().get_basename().down();
+        if (!path_a.validate()) {
+            path_a = Uri.escape_string(path_a, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+        }
+
+        if (!path_b.validate()) {
+            path_b = Uri.escape_string(path_b, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+        }
 
         int64 result = strcmp(path_a.collate_key_for_filename(), path_b.collate_key_for_filename());
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
