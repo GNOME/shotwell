@@ -54,6 +54,17 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.3" date="2023-11-16" urgency="medium" type="stable">
+          <description>
+              <ul>
+                  <li>Fixes a small memory leak</li>
+                  <li>Fixes an issue with long filenames when importing from cameras</li>
+                  <li>Prevents crashing on invalid filename encodings</li>
+                  <li>Fixes an issue with fullscreen being put on the wrong monitor</li>
+                  <li>Fixes a crash in the viewer when shutting down</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.2" date="2023-05-09" urgency="medium" type="stable">
           <description>
               <ul>

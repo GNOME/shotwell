@@ -1,3 +1,38 @@
+Shotwell 0.32.3 (stable) - 16 Nov 2023
+ * Fix asking twice on closing viewer with modified image
+ * Do not try to reload photo on shutdown
+ * Do not abort if new thumbnail size does not exist
+ * Open fullscreen windows on correct monitor
+ * Do not show toolbar if mouse is on another monitor
+ * Do not leak zoom buffers
+ * Remove length limit for GPhoto import
+ * Be more robust against invalid UTF-8 filenames
+ * Drop some old work-arounds
+
+Bugs fixed in this release:
+ - https://bugs.launchpad.net/bugs/1988490
+ - https://gitlab.gnome.org/GNOME/Initiatives/-/issues/35
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/232
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5063
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5069
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5069
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5071
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5074
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5078
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Martin <miles@filmsi.net>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Andika Triwidada <atriwidada@gnome.org>
+
+Added/updated translations:
+ - id.po, courtesy of Andika Triwidada
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - hu.po, courtesy of Balázs Úr
+ - sl.po, courtesy of Martin Srebotnjak
+
 Shotwell 0.32.2 (stable) - 22 Jul 2023
  * Fix using wrong data folder when starting profile through browser
  * Fix sendto in flatpak environment
