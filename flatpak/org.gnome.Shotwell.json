@@ -108,7 +108,7 @@
                 "--disable-docs"
             ]
         },
-        {···
+        {
             "name" : "inih",
             "buildsystem" : "meson",
             "sources" : [
