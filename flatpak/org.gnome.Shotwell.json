@@ -26,6 +26,8 @@
         "--talk-name=org.freedesktop.FileManager1",
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfs",
+        "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.freedesktop.secrets"
     ],
     "cleanup" : [
@@ -78,27 +80,6 @@
             ]
         },
         {
-            "name": "libportal",
-            "buildsystem": "meson",
-            "builddir": true,
-            "config-opts": [
-                 "--libdir=/app/lib",
-                "--buildtype=debugoptimized",
-                "-Dbackend-gtk3=disabled",
-                "-Dbackend-gtk4=enabled",
-                "-Dbackend-qt5=disabled",
-                "-Ddocs=false",
-                "-Dtests=false"
-            ],
-            "sources" : [
-                {
-                    "type": "git",
-                    "url": "https://github.com/flatpak/libportal.git",
-                    "branch": "main"
-                }
-            ]
-        },
-        {
             "name" : "libusb",
             "sources" : [
                 {
@@ -121,9 +102,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.bz2/download",
-                    "sha256" : "ee61a1dac6ad5cf711d114e06b90a6d431961a6e7ec59f4b757a7cd77b1c0fb4",
-                    "dest-filename" : "libgphoto2-2.5.30.tar.bz2"
+                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.31/libgphoto2-2.5.31.tar.xz",
+                    "sha256" : "8fc7bf40f979459509b87dd4ff1aae9b6c1c2b4724d37db576081eec15406ace"
                 }
             ],
             "config-opts" : [
@@ -132,24 +112,13 @@
             ]
         },
         {
-            "name": "libraw",
-            "config-opts": [ "--disable-examples", "--disable-static" ],
-            "cleanup": [ "/share/doc" ],
-            "sources": [
+            "name" : "inih",
+            "buildsystem" : "meson",
+            "sources" : [
                 {
-                    "type": "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.21.1.tar.gz",
-                    "sha256" : "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
-                },
-                {
-                    "type": "patch",
-                    "path": "patches/libraw-pkgconfig.patch"
-                },
-                {
-                    "type": "shell",
-                    "commands": [
-                        "autoreconf -fiv"
-                    ]
+                    "type": "git",
+                    "url" : "https://github.com/benhoyt/inih",
+                    "commit" : "9cecf0643da0846e77f64d10a126d9f48b9e05e8"
                 }
             ]
         },
@@ -167,11 +136,11 @@
                 "-DEXIV2_BUILD_UNIT_TESTS=OFF",
                 "-DEXIV2_ENABLE_BMFF=ON"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/Exiv2/exiv2/",
-                    "branch" : "0.27-maintenance"
+                    "type": "archive",
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz",
+                    "sha256" : "3078651f995cb6313b1041f07f4dd1bf0e9e4d394d6e2adc6e92ad0b621291fa"
                 }
             ]
         },
@@ -199,6 +168,49 @@
             ]
         },
         {
+            "name": "libraw",
+            "config-opts": [ "--disable-examples", "--disable-static" ],
+            "cleanup": [ "/share/doc" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url" : "https://www.libraw.org/data/LibRaw-0.21.1.tar.gz",
+                    "sha256" : "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/libraw-pkgconfig.patch"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "autoreconf -fiv"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "libportal",
+            "buildsystem": "meson",
+            "builddir": true,
+            "config-opts": [
+                 "--libdir=/app/lib",
+                "--buildtype=debugoptimized",
+                "-Dbackend-gtk3=disabled",
+                "-Dbackend-gtk4=enabled",
+                "-Dbackend-qt5=disabled",
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/flatpak/libportal/releases/download/0.7.1/libportal-0.7.1.tar.xz",
+                    "sha256" : "297b90b263fad22190a26b8c7e8ea938fe6b18fb936265e588927179920d3805"
+                }
+            ]
+        },
+        {
             "name": "de256",
             "buildsystem": "cmake-ninja",
             "config-opts" : [
@@ -209,10 +221,9 @@
             ],
             "sources" : [
                 {
-                    "type": "git",
-                    "url" : "https://github.com/strukturag/libde265.git",
-                    "tag" : "v1.0.11",
-                    "commit" : "e255f0571a46935955deef15808e52b18043788c"
+                    "type": "archive",
+                    "url" : "https://github.com/strukturag/libde265/releases/download/v1.0.12/libde265-1.0.12.tar.gz",
+                    "sha256" : "62185ea2182e68cf68bba20cc6eb4c287407b509cf0a827d7ddb75614db77b5c"
                 }
             ]
         },
@@ -233,10 +244,9 @@
             ],
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/strukturag/libheif",
-                    "tag" : "v1.15.2",
-                    "commit" : "516ef5522680c7cb62768a34ecb24f3b165ec8b4"
+                    "type" : "archive",
+                    "url" : "https://github.com/strukturag/libheif/releases/download/v1.17.3/libheif-1.17.3.tar.gz",
+                    "sha256" : "8d5b6292e7931324f81f871f250ecbb9f874aa3c66b4f6f35ceb0bf3163b53ea"
                 }
             ],
             "post-install" :  [
