@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-06-04 13:26+0000\n"
-"PO-Revision-Date: 2023-06-11 23:09+0300\n"
+"POT-Creation-Date: 2023-11-16 19:47+0000\n"
+"PO-Revision-Date: 2023-11-17 18:40+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-POOTLE-MTIME: 1427298590.000000\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -328,7 +328,7 @@ msgstr "Tam ekranda araç çubuğunu sabitle ya da sabitleme"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:166
 msgid "prefer GTK+’s dark theme"
-msgstr "GTK+ʼnın karanlık temasını yeğle"
+msgstr "GTK+ʼnın koyu temasını yeğle"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:167
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
@@ -1155,7 +1155,7 @@ msgstr ""
 "Eğer Satranç Tahtası slayt gösterisi geçiş eklentisi etkinse doğru, değilse "
 "yanlış"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:8
+#: data/org.gnome.Shotwell.appdata.xml.in:9
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:347
@@ -1163,11 +1163,11 @@ msgstr ""
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.appdata.xml.in:10
 msgid "Digital photo organizer"
 msgstr "Dijital fotoğraf yöneticisi"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:11
+#: data/org.gnome.Shotwell.appdata.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1184,7 +1184,7 @@ msgstr ""
 "ana fotoğraflarınızı başkalaştırmaz, hataları düzeltmeyi ve denemeyi "
 "kolaylaştırır."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:18
+#: data/org.gnome.Shotwell.appdata.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1192,7 +1192,7 @@ msgstr ""
 "Hazır olduğunda; Shotwell fotoğraflarınızı Facebook, Flickr, Google "
 "Fotoğraflar gibi daha çok web hizmetine yükleyebilir."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:22
+#: data/org.gnome.Shotwell.appdata.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell; JPG, PNG, TIFF ve değişik RAW dosya biçimlerini destekler."
 
@@ -1403,8 +1403,10 @@ msgstr "Bul"
 msgid "_File"
 msgstr "_Dosya"
 
+#. Check if we can write the target format
+#. TODO: Check if we can actually write to the file
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
-#: src/direct/DirectPhotoPage.vala:320 src/Resources.vala:142
+#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
 msgid "_Save"
 msgstr "_Kaydet"
 
@@ -1807,7 +1809,7 @@ msgid "_Log in"
 msgstr "_Oturum aç"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/slideshow_settings.ui:182
-#: data/ui/textentrydialog.ui:43 src/AppWindow.vala:214 src/AppWindow.vala:235
+#: data/ui/textentrydialog.ui:43 src/AppWindow.vala:215 src/AppWindow.vala:236
 #: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:792
@@ -2035,7 +2037,7 @@ msgid "of the following:"
 msgstr "eşleştir:"
 
 #: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:221
+#: src/ProfileBrowser.vala:225
 msgid "Cancel"
 msgstr "İptal"
 
@@ -2216,8 +2218,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2248,8 +2250,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2301,6 +2303,7 @@ msgstr "Kullanıcı adı ve/veya parola geçersiz. Lütfen yeniden deneyin"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
+#, c-format
 msgid "Invalid User Name or Password"
 msgstr "Geçersiz Kullanıcı Adı veya Parola"
 
@@ -2314,7 +2317,7 @@ msgstr "Kullanıcı arayüzü yüklenemedi: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Shotwell ev sayfasınnı ziyaret et"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:291
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:292
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2354,11 +2357,11 @@ msgstr "⚫ Bu web sitesinin kimliği işlenemedi. Bozulmuş olabilir."
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted "
-"organization that issued it."
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
 msgstr ""
-"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından "
-"iptal edilmiş."
+"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından iptal "
+"edilmiş."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:267
@@ -2406,7 +2409,7 @@ msgstr "_Çıkış"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52
-#: src/CollectionPage.vala:72 src/PhotoPage.vala:2438
+#: src/CollectionPage.vala:72 src/PhotoPage.vala:2445
 msgid "_Publish"
 msgstr "_Yayımla"
 
@@ -2686,6 +2689,7 @@ msgstr ""
 "girdiğiniz URL’yi denetleyin"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+#, c-format
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
@@ -2872,7 +2876,7 @@ msgstr "%s dizini yazılabilir yapılamıyor"
 msgid "Could not make directory %s writable: %s"
 msgstr "%s dizini yazılabilir yapılamıyor: %s"
 
-#: src/AppWindow.vala:263
+#: src/AppWindow.vala:264
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2885,21 +2889,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:288
+#: src/AppWindow.vala:289
 msgid "Visit the Shotwell web site"
 msgstr "Shotwell web sitesini ziyaret et"
 
-#: src/AppWindow.vala:301
+#: src/AppWindow.vala:302
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Yardım görüntülenemiyor: %s"
 
-#: src/AppWindow.vala:309
+#: src/AppWindow.vala:310
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Hata veri tabanına yönlendirme başarısız: %s"
 
-#: src/AppWindow.vala:317
+#: src/AppWindow.vala:318
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "SSS gösterilemiyor: %s"
@@ -2981,6 +2985,7 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:309 src/Properties.vala:242
+#, c-format
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -3062,49 +3067,49 @@ msgstr "İçe aktarım başlıyor, lütfen bekleyin…"
 msgid "Fetching photo information"
 msgstr "Fotoğraf bilgisi alınıyor"
 
-#: src/camera/ImportPage.vala:1520
+#: src/camera/ImportPage.vala:1517
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s için ön izleme alınıyor"
 
-#: src/camera/ImportPage.vala:1625
+#: src/camera/ImportPage.vala:1622
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera kilitlenemedi: %s"
 
-#: src/camera/ImportPage.vala:1714
+#: src/camera/ImportPage.vala:1711
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Bu %d fotoğraf kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1717
+#: src/camera/ImportPage.vala:1714
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Bu %d video kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1720
+#: src/camera/ImportPage.vala:1717
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Bu %d fotoğraf/video kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1720
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Bu %d dosya kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1731 src/Dialogs.vala:752
+#: src/camera/ImportPage.vala:1728 src/Dialogs.vala:752
 msgid "_Keep"
 msgstr "_Koru"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1748
 msgid "Removing photos/videos from camera"
 msgstr "Fotoğraflar/Videolar kameradan kaldırılıyor"
 
-#: src/camera/ImportPage.vala:1755
+#: src/camera/ImportPage.vala:1752
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3118,13 +3123,13 @@ msgstr "Resim/Video Yok"
 msgid "No photos/videos found which match the current filter"
 msgstr "Geçerli süzgeçle eşleşen video/fotoğraf yok"
 
-#: src/CollectionPage.vala:70 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2433 src/Resources.vala:137
+#: src/CollectionPage.vala:70 src/direct/DirectPhotoPage.vala:86
+#: src/PhotoPage.vala:2440 src/Resources.vala:137
 msgid "_Print"
 msgstr "_Yazdır"
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2443 src/Resources.vala:187
+#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:91
+#: src/PhotoPage.vala:2450 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "_Masaüstü Arkapılan olarak ayarla"
 
@@ -3581,6 +3586,7 @@ msgstr "_Üst veriyi dışa aktar:"
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:113 src/dialogs/Preferences.vala:117
+#, c-format
 msgid "(Help)"
 msgstr "(Yardım)"
 
@@ -3683,7 +3689,7 @@ msgstr[0] "Bu işlem “%s” yüzünü %d fotoğraftan kaldıracak. Sürdürül
 msgid "Export Video"
 msgstr "Video Ihracatı"
 
-#: src/Dialogs.vala:77 src/PhotoPage.vala:2964
+#: src/Dialogs.vala:77 src/PhotoPage.vala:2971
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Fotoğrafı Dışa Aktar"
@@ -4249,16 +4255,19 @@ msgid "Welcome!"
 msgstr "Hoş Geldiniz!"
 
 #: src/dialogs/WelcomeDialog.vala:42
+#, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Shotwell’e Hoş Geldiniz!"
 
 #: src/dialogs/WelcomeDialog.vala:47
+#, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Başlangıç olarak, fotoğraflarınızı şu yöntemlerden birini kullanarak içe "
 "aktarabilirsiniz:"
 
 #: src/dialogs/WelcomeDialog.vala:65
+#, c-format
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Dosya menüsünden “Dizinden İçe Aktar”ı seçererek"
 
@@ -4301,17 +4310,17 @@ msgstr "Genişlik"
 msgid "Height"
 msgstr "Yükseklik"
 
-#: src/direct/DirectPhotoPage.vala:99
+#: src/direct/DirectPhotoPage.vala:100
 #, c-format
 msgid "%s does not exist."
 msgstr "%s bulunamadı."
 
-#: src/direct/DirectPhotoPage.vala:101
+#: src/direct/DirectPhotoPage.vala:102
 #, c-format
 msgid "%s is not a file."
 msgstr "%s bir dosya değil."
 
-#: src/direct/DirectPhotoPage.vala:103
+#: src/direct/DirectPhotoPage.vala:104
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -4320,30 +4329,30 @@ msgstr ""
 "%s şu dosya biçimini desteklemiyor:\n"
 "%s."
 
-#: src/direct/DirectPhotoPage.vala:120
+#: src/direct/DirectPhotoPage.vala:121
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "%s fotoğrafı açılamıyor. Üzgünüm."
 
-#: src/direct/DirectPhotoPage.vala:320
+#: src/direct/DirectPhotoPage.vala:324
 msgid "_Save a Copy"
 msgstr "Bir Kopya _Kaydet"
 
-#: src/direct/DirectPhotoPage.vala:323
+#: src/direct/DirectPhotoPage.vala:327
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "%s dosyasındaki değişiklikler kaybedilsin mi?"
 
-#: src/direct/DirectPhotoPage.vala:324
+#: src/direct/DirectPhotoPage.vala:328
 msgid "Close _without Saving"
 msgstr "_Kaydetmeden Kapat"
 
-#: src/direct/DirectPhotoPage.vala:357
+#: src/direct/DirectPhotoPage.vala:364
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "%s dosyasına kaydedilirken hata: %s"
 
-#: src/direct/DirectPhotoPage.vala:387 src/direct/DirectPhotoPage.vala:408
+#: src/direct/DirectPhotoPage.vala:396 src/direct/DirectPhotoPage.vala:417
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
@@ -4735,31 +4744,31 @@ msgid ""
 msgstr "Shotwell seçili videoyu oynatamadı: %s"
 
 #. previous button
-#: src/PhotoPage.vala:539
+#: src/PhotoPage.vala:546
 msgid "Previous photo"
 msgstr "Önceki fotoğraf"
 
 #. next button
-#: src/PhotoPage.vala:545
+#: src/PhotoPage.vala:552
 msgid "Next photo"
 msgstr "Sonraki fotoğraf"
 
-#: src/PhotoPage.vala:1795
+#: src/PhotoPage.vala:1802
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Fotoğraf kaynağı bulunamadı: %s"
 
-#: src/PhotoPage.vala:2839
+#: src/PhotoPage.vala:2846
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Kitaplıktan Kaldır"
 
-#: src/PhotoPage.vala:2840
+#: src/PhotoPage.vala:2847
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Fotoğraf Kitaplıktan Kaldırılıyor"
 
-#: src/PhotoPage.vala:2984
+#: src/PhotoPage.vala:2991
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Dışa aktarılamadı %s: %s"
@@ -4820,7 +4829,8 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3811
+#. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
+#: src/Photo.vala:3812
 msgid "modified"
 msgstr "değiştirilmiş"
 
@@ -4957,7 +4967,7 @@ msgstr ""
 msgid "Create"
 msgstr "Oluştur"
 
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:262
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:266
 msgid "Create new Profile"
 msgstr "Yeni profil oluştur"
 
@@ -4973,7 +4983,7 @@ msgstr "Kitaplık Klasörü"
 msgid "Choose Library Folder"
 msgstr "Kitaplık Klasörü Seç"
 
-#: src/ProfileBrowser.vala:83 src/ProfileBrowser.vala:191
+#: src/ProfileBrowser.vala:83 src/ProfileBrowser.vala:193
 msgid "Data Folder"
 msgstr "Veri Klasörü"
 
@@ -4985,20 +4995,20 @@ msgstr "Veri Klasörü Seç"
 msgid "This is the currently active profile"
 msgstr "Şu anda etkin olan profildir"
 
-#: src/ProfileBrowser.vala:203
+#: src/ProfileBrowser.vala:207
 msgid "Remove Profile"
 msgstr "Profili Kaldır"
 
-#: src/ProfileBrowser.vala:205
+#: src/ProfileBrowser.vala:209
 msgid "Remove this profile"
 msgstr "Bu profili kaldır"
 
-#: src/ProfileBrowser.vala:217
+#: src/ProfileBrowser.vala:221
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "“%s” profilini kaldır"
 
-#: src/ProfileBrowser.vala:218
+#: src/ProfileBrowser.vala:222
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
@@ -5006,7 +5016,7 @@ msgstr ""
 "Seçeneklerin hiçbiri bu profille ilişkili resimlerin hiçbirini "
 "kaldırmayacaktır"
 
-#: src/ProfileBrowser.vala:219
+#: src/ProfileBrowser.vala:223
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -5015,11 +5025,11 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:221
+#: src/ProfileBrowser.vala:225
 msgid "Remove profile and files"
 msgstr "Profili ve dosyaları kaldır"
 
-#: src/ProfileBrowser.vala:221
+#: src/ProfileBrowser.vala:225
 msgid "Remove profile only"
 msgstr "Yalnızca profili kaldır"
 
@@ -5786,9 +5796,10 @@ msgstr "%d %b %Y %a"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:856
+#, c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%d %b %a"
+msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -5802,9 +5813,10 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:866
+#, c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%d %b %a"
+msgstr "%a %b %d"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
