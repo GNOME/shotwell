@@ -89,6 +89,7 @@ public enum ConfigurableProperty {
     SLIDESHOW_TRANSITION_DELAY,
     SLIDESHOW_TRANSITION_EFFECT_ID,
     SLIDESHOW_SHOW_TITLE,
+    SLIDESHOW_SHUFFLE,
     USE_24_HOUR_TIME,
     USE_LOWERCASE_FILENAMES,
     
@@ -303,6 +304,9 @@ public enum ConfigurableProperty {
             
             case SLIDESHOW_SHOW_TITLE:
                 return "SLIDESHOW_SHOW_TITLE";
+                
+            case SLIDESHOW_SHUFFLE:
+                return "SLIDESHOW_SHUFFLE";
                 
             case USE_24_HOUR_TIME:
                 return "USE_24_HOUR_TIME";
@@ -1776,6 +1780,27 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_slideshow_show_title(bool show_title) {
         try {
             get_engine().set_bool_property(ConfigurableProperty.SLIDESHOW_SHOW_TITLE, show_title);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+    
+    //
+    // Slideshow shuffle
+    //
+    public virtual bool get_slideshow_shuffle() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.SLIDESHOW_SHUFFLE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            
+            return false;
+        }
+    }
+    
+    public virtual void set_slideshow_shuffle(bool shuffle) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.SLIDESHOW_SHUFFLE, shuffle);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

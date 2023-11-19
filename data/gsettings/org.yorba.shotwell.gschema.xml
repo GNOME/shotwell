@@ -204,6 +204,12 @@
         <summary>Show title</summary>
         <description>Whether to show the title of a photo during the slideshow</description>
     </key>
+
+    <key name="shuffle" type="b">
+        <default>false</default>
+        <summary>Shuffle</summary>
+        <description>Whether to shuffle the order of photos during the slideshow</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.window" path="/org/yorba/shotwell/preferences/window/">
