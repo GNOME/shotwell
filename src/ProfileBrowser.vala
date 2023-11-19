@@ -137,7 +137,7 @@ namespace Shotwell {
             append(revealer);
                 
             var label = new Gtk.Label(null);
-            label.set_markup("<span weight=\"bold\">%s</span>".printf(profile.name));
+            label.set_markup("<span weight=\"bold\">%s</span>".printf(Markup.escape_text(profile.name)));
             label.halign = Gtk.Align.START;
             content.prepend(label);
 
