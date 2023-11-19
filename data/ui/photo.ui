@@ -187,11 +187,9 @@
         <item>
           <attribute name="label" translatable="yes">_Previous Photo</attribute>
           <attribute name="action">win.PrevPhoto</attribute>
-          <attribute name="accel">Left</attribute>
         </item>
         <item>
           <attribute name="label" translatable="yes">_Next Photo</attribute>
-          <attribute name="accel">Right</attribute>
           <attribute name="action">win.NextPhoto</attribute>
         </item>
       </section>
