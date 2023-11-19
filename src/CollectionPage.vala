@@ -260,7 +260,10 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("NewEvent", has_selected);
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
-        set_action_sensitive("Slideshow", page_has_photos && (!primary_is_video));
+
+        // Allow starting slideshow even if first selected item is a video. Otherwise the
+        // behavior is quite confusing, it will start if you do not select anything and just skipt the video
+        set_action_sensitive("Slideshow", page_has_photos);
         set_action_sensitive("Print", (!selection_has_videos) && has_selected);
         set_action_sensitive("Publish", has_selected);
         
