@@ -140,7 +140,7 @@ class SlideshowPage : SinglePhotoPage {
         transitions = a.to_array();
         
         current = (start == null) 
-            ? (Photo) ((DataView) this.controller.get_at(0)).get_source() : start;
+            ? (Photo) this.controller.get_first_photo().get_source() : start;
         
         update_transition_effect();
         

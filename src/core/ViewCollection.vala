@@ -767,6 +767,23 @@ public class ViewCollection : DataCollection {
         // _something_...
         return get_first();
     }
+    
+    public virtual DataView? get_first_photo() {
+        if (get_count() < 1)
+            return null;
+            
+        DataView dv = get_first();
+        int num_views = get_count();
+        
+        while ((dv != null) && (index_of(dv) < (num_views))) {
+            if (dv.get_source() is PhotoSource)
+                return dv;
+            else
+                dv = get_next(dv);
+        }
+        
+        return null;
+    }
 
     public virtual DataView? get_last() {
         return (get_count() > 0) ? (DataView?) get_at(get_count() - 1) : null;
