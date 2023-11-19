@@ -15,6 +15,22 @@ public class MultiTextEntryDialog : Gtk.Dialog {
 
     public MultiTextEntryDialog() {
         Object (use_header_bar: Resources.use_header_bar());
+
+        var controller = new Gtk.EventControllerKey();
+        controller.key_pressed.connect((val, code, state) => {
+            if (!(Gdk.ModifierType.CONTROL_MASK in state)) {
+                return false;
+            }
+
+            if (val != Gdk.Key.Return && val != Gdk.Key.KP_Enter) {
+                return false;
+            }
+
+            response(Gtk.ResponseType.OK);
+
+            return true;
+        });
+        entry.add_controller(controller);
     }
 
     public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {
