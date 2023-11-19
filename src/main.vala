@@ -405,6 +405,8 @@ void main(string[] args) {
         return;
     }
 
+    typeof(DismissableTextView).ensure();
+
     if (CommandlineOptions.browse_profiles) {
         var window = new Gtk.Dialog();
         window.set_title (_("Choose Shotwell's profile"));

@@ -5,16 +5,36 @@
  * See the COPYING file in this distribution.
  */
 
+ class DismissableTextView : Gtk.TextView {
+    public signal void edit_done();
+
+    public override bool key_press_event(Gdk.EventKey ev) {
+        if (!(Gdk.ModifierType.CONTROL_MASK in ev.state)) {
+            return base.key_press_event(ev);
+        }
+
+        if (Gdk.keyval_name(ev.keyval) == "KP_Enter" ||
+            Gdk.keyval_name(ev.keyval) == "Return") {
+            edit_done();
+            return true;
+        }
+
+        return base.key_press_event(ev);
+    }
+ }
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/multitextentrydialog.ui")]
 public class MultiTextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);
 
     private unowned OnModifyValidateType on_modify_validate;
     [GtkChild]
-    private unowned Gtk.TextView entry;
+    private unowned DismissableTextView entry;
 
     public MultiTextEntryDialog() {
         Object (use_header_bar: Resources.use_header_bar());
+
+        entry.edit_done.connect(() => {response(Gtk.ResponseType.OK);});
     }
 
     public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {
