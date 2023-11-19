@@ -146,7 +146,7 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">3</property>
-                        <property name="width">3</property>
+                        <property name="width">4</property>
                       </packing>
                     </child>
                     <child>
@@ -160,9 +160,9 @@
                         <property name="draw_indicator">True</property>
                       </object>
                       <packing>
-                        <property name="left_attach">3</property>
-                        <property name="top_attach">3</property>
-                        <property name="width">1</property>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                        <property name="width">4</property>
                       </packing>
                     </child>
                     <child>
