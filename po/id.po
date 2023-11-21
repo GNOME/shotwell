@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-04-12 18:51+0000\n"
-"PO-Revision-Date: 2023-04-18 10:25+0700\n"
+"POT-Creation-Date: 2023-11-19 17:53+0000\n"
+"PO-Revision-Date: 2023-11-21 14:25+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -27,10 +27,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:432
 msgid "OAuth Access Phase Token"
 msgstr "Token Fasa Akses OAuth"
 
@@ -39,7 +39,7 @@ msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Token otorisasi untuk pengguna Tumblr yang sedang masuk, bila ada"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token Secret"
 msgstr "Rahasia Token Fasa Akses OAuth"
 
@@ -52,19 +52,19 @@ msgstr ""
 "otorisasi bagi pengguna Tumblr yang sedang masuk, bila ada"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:440
-#: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#: data/gsettings/org.gnome.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:444
+#: data/gsettings/org.gnome.shotwell.gschema.xml:502
+#: data/gsettings/org.gnome.shotwell.gschema.xml:564
 msgid "username"
 msgstr "nama pengguna"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:441
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Nama pengguna dari pengguna Flickr yang sedang masuk, bila ada"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476
 msgid "default size"
 msgstr "ukuran bawaan"
 
@@ -585,72 +585,72 @@ msgstr "penyunting raw eksternal"
 msgid "External application used to edit RAW photos"
 msgstr "Aplikasi eksternal untuk menyunting foto RAW"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:369
-#: data/gsettings/org.gnome.shotwell.gschema.xml:370
+#: data/gsettings/org.gnome.shotwell.gschema.xml:373
+#: data/gsettings/org.gnome.shotwell.gschema.xml:374
 msgid "Setting in export dialog: how to trim images"
 msgstr "Pengaturan dalam dialog ekspor: bagaimana memangkas citra"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:375
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379
 msgid "export metadata"
 msgstr "ekspor metadata"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:376
+#: data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Pengaturan dalam dialog ekspor: opsi untuk mengekspor metadata"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:381
+#: data/gsettings/org.gnome.shotwell.gschema.xml:385
 msgid "format setting, special value"
 msgstr "pengaturan format, nilai khusus"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:382
+#: data/gsettings/org.gnome.shotwell.gschema.xml:386
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Pengaturan dalam dialog ekspor: pengaturan format, nilai khusus"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:387
+#: data/gsettings/org.gnome.shotwell.gschema.xml:391
 msgid "format setting, type value"
 msgstr "pengaturan format, nilai tipe"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:388
+#: data/gsettings/org.gnome.shotwell.gschema.xml:392
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Pengaturan dalam dialog ekspor: pengaturan format, nilai tipe"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:393
+#: data/gsettings/org.gnome.shotwell.gschema.xml:397
 msgid "JPEG quality option"
 msgstr "Opsi kualitas JPEG"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:394
+#: data/gsettings/org.gnome.shotwell.gschema.xml:398
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Pengaturan dalam dialog ekspor: opsi kualitas jpeg"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:399
+#: data/gsettings/org.gnome.shotwell.gschema.xml:403
 msgid "maximal size of image"
 msgstr "ukuran maksimum citra"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:400
+#: data/gsettings/org.gnome.shotwell.gschema.xml:404
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Pengaturan dalam dialog ekspor: ukuran maksimum citra"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:407
+#: data/gsettings/org.gnome.shotwell.gschema.xml:411
 msgid "last used publishing service"
 msgstr "layanan penerbitan yang terakhir digunakan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:408
-#: data/gsettings/org.gnome.shotwell.gschema.xml:414
+#: data/gsettings/org.gnome.shotwell.gschema.xml:412
+#: data/gsettings/org.gnome.shotwell.gschema.xml:418
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "Suatu kode numerik yang mewakili layanan yang terakhir dipakai untuk "
 "mempublikasikan foto"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:413
+#: data/gsettings/org.gnome.shotwell.gschema.xml:417
 msgid "default publishing service"
 msgstr "layanan penerbitan bawaan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:429
+#: data/gsettings/org.gnome.shotwell.gschema.xml:433
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Token otorisasi untuk pengguna Flickr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:435
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -658,21 +658,21 @@ msgstr ""
 "Rahasia kriptografis yang dipakai untuk menandatangani permintaan atas token "
 "otorisasi bagi pengguna Flickr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:450
 msgid "default size code"
 msgstr "kode ukuran baku"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:447
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Kode numerik yang mewakili ukuran foto baku yang dipublikasikan ke Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default visibility"
 msgstr "visibilitas bawaan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:453
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -680,14 +680,14 @@ msgstr ""
 "Kode numerik yang mewakili kenampakan baku bagi foto yang dipublikasikan ke "
 "Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:458
-#: data/gsettings/org.gnome.shotwell.gschema.xml:484
-#: data/gsettings/org.gnome.shotwell.gschema.xml:534
-#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:462
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488
+#: data/gsettings/org.gnome.shotwell.gschema.xml:538
+#: data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "remove sensitive info from uploads"
 msgstr "hilangkan informasi senitif dari unggahan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:459
+#: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
@@ -695,12 +695,12 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Flickr mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#: data/gsettings/org.gnome.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:470
+#: data/gsettings/org.gnome.shotwell.gschema.xml:608
 msgid "refresh token"
 msgstr "segarkan token"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:467
+#: data/gsettings/org.gnome.shotwell.gschema.xml:471
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -708,7 +708,7 @@ msgstr ""
 "Token OAuth yang dipakai untuk menyegarkan sesi Google Photos bagi pengguna "
 "yang sedang masuk, bila ada"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:473
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -716,17 +716,17 @@ msgstr ""
 "Kode numerik yang mewakili ukuran foto baku yang diunggah ke Album Google "
 "Photos"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478
-#: data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:482
+#: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "last album"
 msgstr "album terakhir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:479
-#: data/gsettings/org.gnome.shotwell.gschema.xml:579
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Nama dari album terakhir tempat pengguna mempublikasi foto, bila ada"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:485
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -734,55 +734,55 @@ msgstr ""
 "Apakah citra yang diunggah ke Google Photos mesti dihapus terlebih dahulu "
 "metadatanya"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+#: data/gsettings/org.gnome.shotwell.gschema.xml:496
 msgid "Piwigo URL"
 msgstr "URL Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:493
+#: data/gsettings/org.gnome.shotwell.gschema.xml:497
 msgid "URL of the Piwigo server"
 msgstr "URL dari peladen Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:499
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "Piwigo username, if logged in"
 msgstr "Nama pengguna Piwigo, bila masuk"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+#: data/gsettings/org.gnome.shotwell.gschema.xml:508
 msgid "password"
 msgstr "kata sandi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:505
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "Piwigo password, if logged in"
 msgstr "Kata sandi Piwigo, bila masuk"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+#: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "remember password"
 msgstr "ingat Sandi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:511
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "If true, remember the Piwigo password"
 msgstr "Jika bernilai true, maka akan mengingat kata sandi Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:516
+#: data/gsettings/org.gnome.shotwell.gschema.xml:520
 msgid "last category"
 msgstr "kategori terakhir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:517
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "The last selected Piwigo category"
 msgstr "Kategori Piwigio yang terakhir dipilih"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+#: data/gsettings/org.gnome.shotwell.gschema.xml:526
 msgid "last permission level"
 msgstr "tingkatan hak akses yang terakhir digunakan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:523
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "The last chosen Piwigo permission level"
 msgstr "Tingkatan hak akses Piwigio yang terakhir dipilih"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:528
+#: data/gsettings/org.gnome.shotwell.gschema.xml:532
 msgid "last photo size"
 msgstr "ukuran foto terakhir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:529
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -790,7 +790,7 @@ msgstr ""
 "Kode numerik yang mewakili pratata ukuran foto terakhir yang dipakai ketika "
 "mempublikasikan ke Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:535
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
@@ -798,14 +798,14 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Piwigo mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:544
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "bila judul diatur dan komentar kosong, pakai judul sebagai komentar untuk "
 "diunggah ke Piwigio"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:541
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -813,11 +813,11 @@ msgstr ""
 "Apakah citra yang sedang diunggap ke Piwigo komentarnya mesti disalin dari "
 "judul bila judul terisi dan komentar kosong"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:550
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "jangan unggah tanda ketika mengunggah ke Piwigio"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:547
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -825,11 +825,11 @@ msgstr ""
 "Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
 "tagnya, sehingga tag-tag ini tidak akan muncul pada peladen Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "jangan unggah peringkat ketika mengunggah ke Piwigio"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:553
+#: data/gsettings/org.gnome.shotwell.gschema.xml:557
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -837,27 +837,27 @@ msgstr ""
 "Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
 "ratingnya, sehingga rating ini tidak akan muncul pada peladen Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:561
+#: data/gsettings/org.gnome.shotwell.gschema.xml:565
 msgid "Gallery3 username"
 msgstr "Nama pengguna Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "API key"
 msgstr "Kunci API"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:567
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 API key"
 msgstr "Kunci API Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:576
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:573
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "Gallery3 site URL"
 msgstr "URL situs Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:585
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -865,19 +865,19 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Gallery3 mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "scaling constraint of uploaded picture"
 msgstr "kendala pengaturan skala dari gambar yang diunggah"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:591
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "ID kendala pengaturan skala dari gambar yang diunggah"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "pixels of the major axis uploaded picture"
 msgstr "piksel sumbu mayor dari gambar yang diunggah"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:597
+#: data/gsettings/org.gnome.shotwell.gschema.xml:601
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -885,7 +885,7 @@ msgstr ""
 "Piksel dari sumbu mayor gambar yang akan diunggah; hanya dipakai bila "
 "scaling-constraint-id adalah nilai yang sesuai"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:605
+#: data/gsettings/org.gnome.shotwell.gschema.xml:609
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -893,22 +893,22 @@ msgstr ""
 "Token OAuth yang dipakai untuk menyegarkan sesi YouTube bagi pengguna yang "
 "sedang masuk, bila ada"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:616
 msgid "last used import service"
 msgstr "layanan impor yang terakhir digunakan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:613
+#: data/gsettings/org.gnome.shotwell.gschema.xml:617
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Suatu kode numerik yang mewakili layanan yang terakhir dipakai sebagai "
 "sumber impor foto"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:620
+#: data/gsettings/org.gnome.shotwell.gschema.xml:624
 msgid "content layout mode"
 msgstr "mode tata letak isi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:621
+#: data/gsettings/org.gnome.shotwell.gschema.xml:625
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -916,35 +916,35 @@ msgstr ""
 "Kode numerik yang menjelaskan bagaimana foto disusun pada halaman saat "
 "pencetakan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:626
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid "content ppi"
 msgstr "ppi isi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:627
+#: data/gsettings/org.gnome.shotwell.gschema.xml:631
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Angka piksel per inci (ppi) yang dikirim ke pencetak selama pencetakan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:632
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content width"
 msgstr "lebar konten"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:637
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Lebar dari emulsi yang dicetak pada halaman ketika mencetak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:638
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "content height"
 msgstr "tinggi konten"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:643
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Tinggi dari emulsi yang dicetak pada halaman ketika mencetak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:644
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "content units"
 msgstr "satuan isi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:649
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -952,11 +952,11 @@ msgstr ""
 "Kode numerik yang mewakili satuan pengukuran (inci atau sentimeter) yang "
 "dipakai ketika mencetak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:650
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid "images per page code"
 msgstr "gambar per kode halaman"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:655
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -964,22 +964,22 @@ msgstr ""
 "Kode numerik yang mewakili mode cacah citra per halaman yang kini dipakai "
 "ketika mencetak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:656
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "size selection"
 msgstr "pemilihan ukuran"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:661
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Indeks dari ukuran cetak saat ini dalam daftar terpradefinisi dari ukuran-"
 "ukuran standar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:662
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "match aspect ratio"
 msgstr "cocok rasio aspek"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:667
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -987,188 +987,190 @@ msgstr ""
 "Menentukan apakah ukuran cetak ubahan mesti cocok dengan rasio aspek dari "
 "foto asli"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:668
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "print titles"
 msgstr "cetak judul"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:673
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr ""
 "True bila judul foto mesti dicetak ketika foto dicetak, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:674
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "titles font"
 msgstr "fonta judul"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:679
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Nama fonta yang dipakai untuk judul foto ketika mereka dicetak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:686
+#: data/gsettings/org.gnome.shotwell.gschema.xml:690
 msgid "enable flickr publishing plugin"
 msgstr "aktifkan pengaya penerbitan flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:687
+#: data/gsettings/org.gnome.shotwell.gschema.xml:691
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Flickr difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:692
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
+#: data/gsettings/org.gnome.shotwell.gschema.xml:702
 msgid "enable Google Photos publishing plugin"
 msgstr "aktifkan pengaya penerbitan Google Photos"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:693
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+#: data/gsettings/org.gnome.shotwell.gschema.xml:703
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya publikasi Google Photos difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:698
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable youtube publishing plugin"
 msgstr "aktifkan pengaya penerbitan youtube"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi YouTube difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:704
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "enable piwigo publishing plugin"
 msgstr "aktifkan pengaya penerbitan piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Piwigo difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:710
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable tumblr publishing plugin"
 msgstr "aktifkan pengaya penerbitan tumblr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Tumblr difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:716
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable gallery3 publishing plugin"
 msgstr "aktifkan pengaya penerbitan gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Gallery3 difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:722
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable slideshow crumble transition"
 msgstr "aktifkan transisi rontok pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:723
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Rontok difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:728
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable slideshow fade transition"
 msgstr "aktifkan transisi memudar pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Memudar difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:734
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow slide transition"
 msgstr "aktifkan transisi geser pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:735
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Geser difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:740
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow clock transition"
 msgstr "aktifkan transisi jam pada pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "True bila pengaya transisi salindia Jam difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:746
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow circle transition"
 msgstr "aktifkan transisi lingkaran pada pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:747
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:752
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circles transition"
 msgstr "aktifkan transisi lingkaran pertunjukan salindia"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:758
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow blinds transition"
 msgstr "aktifkan transisi tirai jajar pada tampilan slide"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Tirai Jajar difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:764
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow squares transition"
 msgstr "aktifkan transisi bujur sangkar pada tampilan slide"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Bujur Sangkar difungsikan, false bila "
 "tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:770
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow stripes transition"
 msgstr "aktifkan transisi bergaris pada tampilan slide"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Garis-garis difungsikan, false bila tidak"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:776
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow chess transition"
 msgstr "aktifkan transisi papan catur pada tampilan slide"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Papan Catur difungsikan, false bila tidak"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:8
+#: data/org.gnome.Shotwell.appdata.xml.in:9
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
 #: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
+#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:349
 #: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.appdata.xml.in:10
 msgid "Digital photo organizer"
 msgstr "Pengorganisasi foto digital"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:11
+#: data/org.gnome.Shotwell.appdata.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1185,7 +1187,7 @@ msgstr ""
 "desktruktif Shotwell tidak mengubah foto asli Anda, sehingga aman untuk "
 "bereksperimen dan memperbaiki kesalahan."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:18
+#: data/org.gnome.Shotwell.appdata.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1193,7 +1195,7 @@ msgstr ""
 "Ketika telah siap, Shotwell dapat mengunggah foto Anda ke berbagai layanan "
 "web, seperti Flickr, Google Photos, dan lebih banyak lagi."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:22
+#: data/org.gnome.Shotwell.appdata.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell mendukung JPEG, PNG, TIFF, dan varietas berkas berformat RAW "
@@ -1240,99 +1242,99 @@ msgid "Photo Viewer"
 msgstr "Penampil Foto"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:227
+#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:225
 #: src/CollectionPage.vala:119 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "Taja_mkan"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:254
+#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:252
 #: src/CollectionPage.vala:120 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "K_embalikan ke Asal"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
-#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:379
+#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:377
 #: data/ui/tags.ui:390 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "_Tambah Tag…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
 #: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:384 data/ui/tags.ui:395 src/Resources.vala:351
+#: data/ui/photo.ui:382 data/ui/tags.ui:395 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "U_bah Tag…"
 
 #: data/ui/collection.ui:33 data/ui/event.ui:281 data/ui/event.ui:472
 #: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:272 data/ui/tags.ui:281
+#: data/ui/photo.ui:270 data/ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "Jungki_tkan Bendera"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
 #: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:277 data/ui/tags.ui:286 src/Resources.vala:213
+#: data/ui/photo.ui:275 data/ui/tags.ui:286 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "_Atur Rating"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
 #: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:305 data/ui/tags.ui:314 src/Resources.vala:223
+#: data/ui/photo.ui:303 data/ui/tags.ui:314 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "_Tanpa Rating"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
 #: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/photo.ui:308 data/ui/tags.ui:319 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "_Ditolak"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
 #: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:317 data/ui/tags.ui:326 src/Resources.vala:217
+#: data/ui/photo.ui:315 data/ui/tags.ui:326 src/Resources.vala:217
 msgid "_Increase"
 msgstr "_Naik"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
 #: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:220
+#: data/ui/photo.ui:320 data/ui/tags.ui:331 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "_Turun"
 
 #: data/ui/collection.ui:82 data/ui/event.ui:353 data/ui/event.ui:521
 #: data/ui/faces.ui:353 data/ui/media.ui:353 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:348 data/ui/tags.ui:353
+#: data/ui/photo.ui:346 data/ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Developer"
 
 #: data/ui/collection.ui:90 data/ui/event.ui:361 data/ui/event.ui:529
 #: data/ui/faces.ui:361 data/ui/media.ui:361 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:356 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
+#: data/ui/photo.ui:354 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
 #: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Kamera"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
 #: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:331 data/ui/tags.ui:340 src/Resources.vala:265
+#: data/ui/photo.ui:329 data/ui/tags.ui:340 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "Sun_ting Judul…"
 
 #: data/ui/collection.ui:103 data/ui/events_directory.ui:144
 #: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
 #: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:336 data/ui/tags.ui:345
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:334 data/ui/tags.ui:345
 #: src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "Sunting _Komentar…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:365 src/CollectionPage.vala:143 src/Resources.vala:286
+#: data/ui/photo.ui:363 src/CollectionPage.vala:143 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "Buka Oleh Penyunting E_ksternal"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:370 src/CollectionPage.vala:146 src/Resources.vala:288
+#: data/ui/photo.ui:368 src/CollectionPage.vala:146 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "Buka Dengan Penyunting RA_W"
 
@@ -1405,8 +1407,10 @@ msgstr "Cari"
 msgid "_File"
 msgstr "_Berkas"
 
+#. Check if we can write the target format
+#. TODO: Check if we can actually write to the file
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:142
+#: src/direct/DirectPhotoPage.vala:327 src/Resources.vala:142
 msgid "_Save"
 msgstr "_Simpan"
 
@@ -1486,52 +1490,52 @@ msgstr "_Foto"
 msgid "_Previous Photo"
 msgstr "Foto Se_belumnya"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:197
+#: data/ui/direct.ui:106 data/ui/photo.ui:196
 msgid "_Next Photo"
 msgstr "Foto B_erikutnya"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:204 src/CollectionPage.vala:110
+#: data/ui/direct.ui:113 data/ui/photo.ui:202 src/CollectionPage.vala:110
 #: src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "Puta_r Kanan"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:209 src/CollectionPage.vala:113
+#: data/ui/direct.ui:118 data/ui/photo.ui:207 src/CollectionPage.vala:113
 #: src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "Putar _Kiri"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:214 src/CollectionPage.vala:116
+#: data/ui/direct.ui:123 data/ui/photo.ui:212 src/CollectionPage.vala:116
 #: src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "Balik hori_zontal"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:218 src/CollectionPage.vala:117
+#: data/ui/direct.ui:127 data/ui/photo.ui:216 src/CollectionPage.vala:117
 #: src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "Balik Verti_kal"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:224
+#: data/ui/direct.ui:133 data/ui/photo.ui:222
 msgid "T_ools"
 msgstr "P_eralatan"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:232 src/Resources.vala:165
+#: data/ui/direct.ui:141 data/ui/photo.ui:230 src/Resources.vala:165
 msgid "_Crop"
 msgstr "_Pangkas"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:237
+#: data/ui/direct.ui:146 data/ui/photo.ui:235
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
 msgstr "_Luruskan"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:242 src/Resources.vala:173
+#: data/ui/direct.ui:151 data/ui/photo.ui:240 src/Resources.vala:173
 msgid "_Red-eye"
 msgstr "Mata-me_rah"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:247 src/Resources.vala:177
+#: data/ui/direct.ui:156 data/ui/photo.ui:245 src/Resources.vala:177
 msgid "_Adjust"
 msgstr "_Atur"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:341 src/Resources.vala:276
+#: data/ui/direct.ui:169 data/ui/photo.ui:339 src/Resources.vala:276
 msgid "_Adjust Date and Time…"
 msgstr "_Atur Jam dan Tanggal…"
 
@@ -1540,7 +1544,7 @@ msgstr "_Atur Jam dan Tanggal…"
 #: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
 #: data/ui/import_queue.ui:68 data/ui/import.ui:183 data/ui/import.ui:186
 #: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
-#: data/ui/offline.ui:183 data/ui/photo.ui:391 data/ui/photo.ui:394
+#: data/ui/offline.ui:183 data/ui/photo.ui:389 data/ui/photo.ui:392
 #: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
 #: data/ui/trash.ui:192 src/Resources.vala:129
 msgid "_Help"
@@ -1548,21 +1552,21 @@ msgstr "Ba_ntuan"
 
 #: data/ui/direct.ui:184 data/ui/events_directory.ui:158 data/ui/event.ui:428
 #: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
-#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:399
+#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:397
 #: data/ui/tags.ui:430 data/ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "_Pertanyaan Sering Ditanyakan"
 
 #: data/ui/direct.ui:188 data/ui/events_directory.ui:162 data/ui/event.ui:432
 #: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:195
-#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:403
+#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:401
 #: data/ui/tags.ui:434 data/ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "Lapo_r Masalah…"
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
+#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:407
 #: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:122
 msgid "_About"
 msgstr "Tent_ang"
@@ -1703,7 +1707,7 @@ msgstr "_Judul"
 
 #: data/ui/event.ui:139 data/ui/event.ui:404 data/ui/faces.ui:139
 #: data/ui/faces.ui:387 data/ui/media.ui:139 data/ui/media.ui:387
-#: data/ui/photo.ui:376 data/ui/tags.ui:139 data/ui/tags.ui:387
+#: data/ui/photo.ui:374 data/ui/tags.ui:139 data/ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "Tan_da"
 
@@ -1814,11 +1818,11 @@ msgid "_Log in"
 msgstr "_Log masuk"
 
 #: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
-#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
+#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:517 src/AppWindow.vala:538
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
-#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:68
+#: src/Dialogs.vala:783 src/Exporter.vala:349 src/ProfileBrowser.vala:68
 #: src/ProfileBrowser.vala:100 src/publishing/PublishingUI.vala:174
 #: src/publishing/PublishingUI.vala:403 src/Resources.vala:124
 msgid "_Cancel"
@@ -1847,11 +1851,11 @@ msgstr "_Kirim Ke…"
 msgid "S_lideshow"
 msgstr "Sa_lindia"
 
-#: data/ui/photo.ui:260 src/CollectionPage.vala:122 src/Resources.vala:157
+#: data/ui/photo.ui:258 src/CollectionPage.vala:122 src/Resources.vala:157
 msgid "_Copy Color Adjustments"
 msgstr "Salin Penyetelan _Warna"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:125 src/Resources.vala:161
+#: data/ui/photo.ui:263 src/CollectionPage.vala:125 src/Resources.vala:161
 msgid "_Paste Color Adjustments"
 msgstr "Tem_pel Penyetelan Warna"
 
@@ -2020,7 +2024,7 @@ msgid "Search"
 msgstr "Pencarian"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:217
+#: src/ProfileBrowser.vala:221
 msgid "Cancel"
 msgstr "Batal"
 
@@ -2310,6 +2314,7 @@ msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+#, c-format
 msgid "Invalid User Name or Password"
 msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
 
@@ -2323,7 +2328,7 @@ msgstr "Tidak dapat membuka UI: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Kunjungi laman serambi Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:588
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:592
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2336,7 +2341,7 @@ msgstr ""
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
 "Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021, 2023.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.\"n"
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -2424,7 +2429,7 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2488
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
 msgid "_Publish"
 msgstr "_Terbitkan"
 
@@ -2704,6 +2709,7 @@ msgstr ""
 "URL yang kamu masukkan"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
+#, c-format
 msgid "Invalid URL"
 msgstr "URL tidak sah"
 
@@ -2863,39 +2869,39 @@ msgstr "Gagal membuat direktori data %s: %s"
 msgid "Pictures"
 msgstr "Foto"
 
-#: src/AppDirs.vala:205
+#: src/AppDirs.vala:211
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Gagal membuat direktori temporer %s: %s"
 
-#: src/AppDirs.vala:222 src/AppDirs.vala:253
+#: src/AppDirs.vala:229 src/AppDirs.vala:260
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Gagal membuat direktori data %s: %s"
 
-#: src/AppDirs.vala:235
+#: src/AppDirs.vala:242
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Tidak bisa membuat direktori %s dapat ditulisi"
 
-#: src/AppDirs.vala:238
+#: src/AppDirs.vala:245
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Tidak bisa membuat direktori %s dapat ditulisi: %s"
 
-#: src/AppWindow.vala:47
+#: src/AppWindow.vala:52
 msgid "Pin Toolbar"
 msgstr "Semat Batang Alat"
 
-#: src/AppWindow.vala:48
+#: src/AppWindow.vala:53
 msgid "Pin the toolbar open"
 msgstr "Sematkan batang alat terbuka"
 
-#: src/AppWindow.vala:53
+#: src/AppWindow.vala:58
 msgid "Leave fullscreen"
 msgstr "Tinggalkan layar penuh"
 
-#: src/AppWindow.vala:560
+#: src/AppWindow.vala:564
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2908,21 +2914,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:585
+#: src/AppWindow.vala:589
 msgid "Visit the Shotwell web site"
 msgstr "Kunjungi situs web Shotwell"
 
-#: src/AppWindow.vala:598
+#: src/AppWindow.vala:602
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Pedoman penggunaan tidak dapat ditampilkan: %s"
 
-#: src/AppWindow.vala:606
+#: src/AppWindow.vala:610
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Gagal menavigasi basis data bug: %s"
 
-#: src/AppWindow.vala:614
+#: src/AppWindow.vala:618
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Gagal menampilkan FAQ: %s"
@@ -3004,6 +3010,7 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:307 src/Properties.vala:239
+#, c-format
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -3087,49 +3094,49 @@ msgstr "Mulai mengimpor, mohon tunggu…"
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1547
+#: src/camera/ImportPage.vala:1544
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1656
+#: src/camera/ImportPage.vala:1653
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1738
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1744
+#: src/camera/ImportPage.vala:1741
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1747
+#: src/camera/ImportPage.vala:1744
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1750
+#: src/camera/ImportPage.vala:1747
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1758 src/Dialogs.vala:727
+#: src/camera/ImportPage.vala:1755 src/Dialogs.vala:727
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1777
+#: src/camera/ImportPage.vala:1774
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1781
+#: src/camera/ImportPage.vala:1778
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3144,13 +3151,13 @@ msgstr "Tidak ada foto/video"
 msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
-#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2483 src/Resources.vala:137
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
+#: src/PhotoPage.vala:2490 src/Resources.vala:137
 msgid "_Print"
 msgstr "_Cetak"
 
-#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2493 src/Resources.vala:187
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
+#: src/PhotoPage.vala:2500 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Atur sebagai Latar _Destop"
 
@@ -3170,37 +3177,37 @@ msgstr "Atur Jam dan Tanggal…"
 msgid "_Play"
 msgstr "_Putar"
 
-#: src/CollectionPage.vala:410
+#: src/CollectionPage.vala:413
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Ekspor Foto/Video"
 
-#: src/CollectionPage.vala:412
+#: src/CollectionPage.vala:415
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Ekspor Foto"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:502 src/CollectionPage.vala:518
 msgid "Rotating"
 msgstr "Memutar"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:502 src/CollectionPage.vala:518
 msgid "Undoing Rotate"
 msgstr "Batalkan Pemutaran"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:527
 msgid "Flipping Horizontally"
 msgstr "Balikkan Horizontal"
 
-#: src/CollectionPage.vala:525
+#: src/CollectionPage.vala:528
 msgid "Undoing Flip Horizontally"
 msgstr "Batalkan Batal Horizontal"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:537
 msgid "Flipping Vertically"
 msgstr "Balikkan Vertikal"
 
-#: src/CollectionPage.vala:535
+#: src/CollectionPage.vala:538
 msgid "Undoing Flip Vertically"
 msgstr "Batalkan Balik Vertikal"
 
@@ -3604,6 +3611,7 @@ msgstr "Ekspor _metadata:"
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
+#, c-format
 msgid "(Help)"
 msgstr "(Bantuan)"
 
@@ -3698,7 +3706,7 @@ msgstr[0] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
 msgid "Export Video"
 msgstr "Ekspor Video"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3018
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Ekspor Foto"
@@ -4158,13 +4166,13 @@ msgstr[0] ""
 "\n"
 "Dan %d lainnya."
 
-#: src/Dialogs.vala:831 src/Dialogs.vala:868
+#: src/Dialogs.vala:835 src/Dialogs.vala:872
 msgid "Tags (separated by commas):"
 msgstr "Tanda (pisahkan dengan koma):"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:946
+#: src/Dialogs.vala:950
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -4172,28 +4180,28 @@ msgstr ""
 "Shotwell dapat menyalin foto ke dalam folder pustaka atau mengimpor mereka "
 "tanpa menyalin."
 
-#: src/Dialogs.vala:951
+#: src/Dialogs.vala:955
 msgid "Co_py Photos"
 msgstr "Sa_lin Foto"
 
-#: src/Dialogs.vala:952
+#: src/Dialogs.vala:956
 msgid "_Import in Place"
 msgstr "_Impor di Lokasi"
 
-#: src/Dialogs.vala:953
+#: src/Dialogs.vala:957
 msgid "Import to Library"
 msgstr "Impor ke Album"
 
-#: src/Dialogs.vala:963
+#: src/Dialogs.vala:967
 msgid "Remove From Library"
 msgstr "Hapus Dari Album"
 
-#: src/Dialogs.vala:964
+#: src/Dialogs.vala:968
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Menghapus Foto Dari Album"
 
-#: src/Dialogs.vala:978
+#: src/Dialogs.vala:982
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -4211,7 +4219,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:982
+#: src/Dialogs.vala:986
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4229,7 +4237,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:986
+#: src/Dialogs.vala:990
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4247,7 +4255,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:1018
+#: src/Dialogs.vala:1022
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4258,7 +4266,7 @@ msgstr[0] ""
 "berkas ini?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1035
+#: src/Dialogs.vala:1039
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4269,14 +4277,17 @@ msgid "Welcome!"
 msgstr "Selamat Datang!"
 
 #: src/dialogs/WelcomeDialog.vala:42
+#, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Selamat Datang di Shotwell!"
 
 #: src/dialogs/WelcomeDialog.vala:47
+#, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr "Silakan memulai dengan mengimpor foto melalui cara berikut:"
 
 #: src/dialogs/WelcomeDialog.vala:65
+#, c-format
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Pilih \"Impor Dari Folder\" dari menu Berkas"
 
@@ -4318,17 +4329,17 @@ msgstr "Lebar"
 msgid "Height"
 msgstr "Tinggi"
 
-#: src/direct/DirectPhotoPage.vala:99
+#: src/direct/DirectPhotoPage.vala:100
 #, c-format
 msgid "%s does not exist."
 msgstr "%s tidak ada."
 
-#: src/direct/DirectPhotoPage.vala:101
+#: src/direct/DirectPhotoPage.vala:102
 #, c-format
 msgid "%s is not a file."
 msgstr "%s bukan berkas."
 
-#: src/direct/DirectPhotoPage.vala:103
+#: src/direct/DirectPhotoPage.vala:104
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -4337,30 +4348,30 @@ msgstr ""
 "%s tidak dapat mendukung berkas jenis\n"
 "%s."
 
-#: src/direct/DirectPhotoPage.vala:120
+#: src/direct/DirectPhotoPage.vala:121
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "Tidak bisa membuka foto %s. Maaf."
 
-#: src/direct/DirectPhotoPage.vala:323
+#: src/direct/DirectPhotoPage.vala:327
 msgid "_Save a Copy"
 msgstr "Buat _Salinan"
 
-#: src/direct/DirectPhotoPage.vala:326
+#: src/direct/DirectPhotoPage.vala:330
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Jangan simpan perubahan pada %s?"
 
-#: src/direct/DirectPhotoPage.vala:327
+#: src/direct/DirectPhotoPage.vala:331
 msgid "Close _without Saving"
 msgstr "Tutup _tanpa menyimpan"
 
-#: src/direct/DirectPhotoPage.vala:360
+#: src/direct/DirectPhotoPage.vala:367
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Ada kesalahan saat menyimpan ke %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:390 src/direct/DirectPhotoPage.vala:411
+#: src/direct/DirectPhotoPage.vala:399 src/direct/DirectPhotoPage.vala:420
 msgid "Save As"
 msgstr "Simpan Sebagai"
 
@@ -4612,41 +4623,41 @@ msgstr "Tidak bertanggal"
 msgid "Event %s"
 msgstr "Rangkaian %s"
 
-#: src/Exporter.vala:236 src/Exporter.vala:291
+#: src/Exporter.vala:237 src/Exporter.vala:292
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Gagal membuat berkas temporer untuk %s: %s"
 
-#: src/Exporter.vala:328
+#: src/Exporter.vala:329
 msgid "Exporting"
 msgstr "Mengekspor"
 
-#: src/Exporter.vala:346
+#: src/Exporter.vala:347
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Berkas %s sudah ada. Timpa?"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "_Skip"
 msgstr "_Lewati"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Rename"
 msgstr "Ubah Nama"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Rename All"
 msgstr "Ubah Nama Semua"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "_Replace"
 msgstr "_Timpa"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Replace _All"
 msgstr "Timpa Semu_a"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:349
 msgid "Export"
 msgstr "Ekspor"
 
@@ -4924,11 +4935,11 @@ msgstr ""
 "Jalankan \"%s --help\" untuk melihat daftar lengkap opsi baris perintah yang "
 "tersedia.\n"
 
-#: src/main.vala:410
+#: src/main.vala:412
 msgid "Choose Shotwell's profile"
 msgstr "Pilih profil Shotwell"
 
-#: src/main.vala:431
+#: src/main.vala:438
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -4963,31 +4974,31 @@ msgstr ""
 "%s"
 
 #. previous button
-#: src/PhotoPage.vala:546
+#: src/PhotoPage.vala:553
 msgid "Previous photo"
 msgstr "Foto sebelumnya"
 
 #. next button
-#: src/PhotoPage.vala:552
+#: src/PhotoPage.vala:559
 msgid "Next photo"
 msgstr "Foto berikutnya"
 
-#: src/PhotoPage.vala:1860
+#: src/PhotoPage.vala:1867
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Sumber foto asli hilang: %s"
 
-#: src/PhotoPage.vala:2893
+#: src/PhotoPage.vala:2900
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Hapus Dari Album"
 
-#: src/PhotoPage.vala:2894
+#: src/PhotoPage.vala:2901
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Menghapus Foto Dari Album"
 
-#: src/PhotoPage.vala:3038
+#: src/PhotoPage.vala:3045
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Proses ekspor %s gagal: %s"
@@ -5048,7 +5059,8 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3811
+#. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
+#: src/Photo.vala:3812
 msgid "modified"
 msgstr "berubah"
 
@@ -5145,7 +5157,7 @@ msgstr "Folder Pustaka"
 msgid "Choose Library Folder"
 msgstr "Pilih Folder Pustaka"
 
-#: src/ProfileBrowser.vala:80 src/ProfileBrowser.vala:187
+#: src/ProfileBrowser.vala:80 src/ProfileBrowser.vala:189
 msgid "Data Folder"
 msgstr "Folder Data"
 
@@ -5157,20 +5169,20 @@ msgstr "Pilih Folder Data"
 msgid "This is the currently active profile"
 msgstr "Ini adalah profil yang saat ini aktif"
 
-#: src/ProfileBrowser.vala:199
+#: src/ProfileBrowser.vala:203
 msgid "Remove Profile"
 msgstr "Hapus Profil"
 
-#: src/ProfileBrowser.vala:201
+#: src/ProfileBrowser.vala:205
 msgid "Remove this profile"
 msgstr "Hapus profil ini"
 
-#: src/ProfileBrowser.vala:213
+#: src/ProfileBrowser.vala:217
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "Hapus profil \"%s\""
 
-#: src/ProfileBrowser.vala:214
+#: src/ProfileBrowser.vala:218
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
@@ -5178,7 +5190,7 @@ msgstr ""
 "Tidak ada opsi yang akan menghapus gambar apa pun yang terkait dengan profil "
 "ini"
 
-#: src/ProfileBrowser.vala:215
+#: src/ProfileBrowser.vala:219
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -5187,11 +5199,11 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:217
+#: src/ProfileBrowser.vala:221
 msgid "Remove profile and files"
 msgstr "Hapus profil dan berkas"
 
-#: src/ProfileBrowser.vala:217
+#: src/ProfileBrowser.vala:221
 msgid "Remove profile only"
 msgstr "Hapus profil saja"
 
@@ -5948,9 +5960,10 @@ msgstr "%a %d %b, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:856
+#, c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a %d %b"
+msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -5964,9 +5977,10 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:866
+#, c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a %d %b"
+msgstr "%a %b %d"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
