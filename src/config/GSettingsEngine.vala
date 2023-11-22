@@ -101,7 +101,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_SHOW_TITLE] = SLIDESHOW_PREFS_SCHEMA_NAME;
-        schema_names[ConfigurableProperty.SLIDESHOW_SHUFFLE] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.USE_24_HOUR_TIME] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = FILES_PREFS_SCHEMA_NAME;
         
@@ -176,7 +175,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = "transition-delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = "transition-effect-id";
         key_names[ConfigurableProperty.SLIDESHOW_SHOW_TITLE] = "show-title";
-        key_names[ConfigurableProperty.SLIDESHOW_SHUFFLE] = "shuffle";
         key_names[ConfigurableProperty.USE_24_HOUR_TIME] = "use-24-hour-time";
         key_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = "use-lowercase-filenames";
     }
