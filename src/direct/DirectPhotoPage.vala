@@ -411,11 +411,16 @@ public class DirectPhotoPage : EditingHostPage {
         string[] output_format_extensions =
             effective_export_format.get_properties().get_known_extensions();
         Gtk.FileFilter output_format_filter = new Gtk.FileFilter();
+        output_format_filter.set_filter_name(_("Supported image formats"));
         foreach(string extension in output_format_extensions) {
             string uppercase_extension = extension.up();
             output_format_filter.add_pattern("*." + extension);
             output_format_filter.add_pattern("*." + uppercase_extension);
         }
+
+        Gtk.FileFilter all_files = new Gtk.FileFilter();
+        all_files.add_pattern("*");
+        all_files.set_filter_name(_("All files"));
 
         var save_as_dialog = new Gtk.FileChooserNative(_("Save As"), 
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.OK_LABEL, Resources.CANCEL_LABEL);
@@ -423,6 +428,7 @@ public class DirectPhotoPage : EditingHostPage {
         save_as_dialog.set_current_name(filename);
         save_as_dialog.set_current_folder(current_save_dir.get_path());
         save_as_dialog.add_filter(output_format_filter);
+        save_as_dialog.add_filter(all_files);
         save_as_dialog.set_do_overwrite_confirmation(true);
         save_as_dialog.set_local_only(false);
         
