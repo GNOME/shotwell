@@ -254,7 +254,7 @@ public abstract class AppWindow : PageWindow {
         var content = (Gtk.Box)dialog.get_message_area();
         var c = new Gtk.CheckButton.with_label("Apply conflict resolution to all other conflicts");
         c.show();
-        content.pack_end(c);
+        content.append(c);
         dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
         
         int response = Gtk.ResponseType.CANCEL;//dialog.run();
