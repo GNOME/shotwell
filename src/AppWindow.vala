@@ -246,14 +246,21 @@ public abstract class AppWindow : PageWindow {
     }
     
 	public static int export_overwrite_or_replace_question(string message,
-		string alt1, string alt2, string alt3, string alt4, string alt5, string alt6,
+		string alt1, string alt2, string alt4, string alt6,
         string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        dialog.add_buttons(alt1, 1, alt2, 2, alt3, 3, alt4, 4, alt5, 5, alt6, 6);
+        var content = (Gtk.Box)dialog.get_message_area();
+        var c = new Gtk.CheckButton.with_label("Apply conflict resolution to all other conflicts");
+        c.show();
+        content.pack_end(c);
+        dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
         
         int response = Gtk.ResponseType.CANCEL;//dialog.run();
+        if (c.get_active()) {
+            response |= 0x80;
+        }
         
         dialog.destroy();
         
