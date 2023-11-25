@@ -28,6 +28,7 @@ public class DragAndDropHandler {
     private Gtk.Widget event_source;
     private File? drag_destination = null;
     private ExporterUI exporter = null;
+    private Gdk.DragAction action = Gdk.DragAction.COPY;
 
     public DragAndDropHandler(Page page) {
         this.page = page;
@@ -47,7 +48,7 @@ public class DragAndDropHandler {
 
         // register what's available on this DnD Source
         Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES,
-            Gdk.DragAction.COPY);
+            Gdk.DragAction.COPY | Gdk.DragAction.MOVE);
 
         // attach to the event source's DnD signals, not the Page's, which is a NO_WINDOW widget
         // and does not emit them
@@ -100,6 +101,8 @@ public class DragAndDropHandler {
         if (page == null || page.get_view().get_selected_count() == 0)
             return;
 
+        action = context.get_suggested_action();
+
         switch (target_type) {
             case TargetType.XDS:
                 // Fetch the XDS property that has been set with the destination path
@@ -147,7 +150,7 @@ public class DragAndDropHandler {
             return;
         }
 
-        debug("Exporting to %s", drag_destination.get_path());
+        debug("Exporting to %s, mode %s", drag_destination.get_path(),  action == Gdk.DragAction.COPY ? "current" : "unmodified"); 
 
         // drag-and-drop export doesn't pop up an export dialog, so use what are likely the
         // most common export settings (the current -- or "working" -- file format, with
@@ -155,7 +158,8 @@ public class DragAndDropHandler {
         if (drag_destination.get_path() != null) {
             exporter = new ExporterUI(new Exporter(
                 (Gee.Collection<Photo>) page.get_view().get_selected_sources(),
-                drag_destination, Scaling.for_original(), ExportFormatParameters.current()));
+                drag_destination, Scaling.for_original(), action == Gdk.DragAction.COPY ? ExportFormatParameters.current() 
+                                                                                        : ExportFormatParameters.unmodified()));
             exporter.export(on_export_completed);
         } else {
             AppWindow.error_message(_("Photos cannot be exported to this directory."));
