@@ -682,23 +682,27 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_count() == 0)
             return;
         
-        // use first selected photo, else use first photo
-        Gee.List<DataSource>? sources = (get_view().get_selected_count() > 0)
-            ? get_view().get_selected_sources_of_type(typeof(LibraryPhoto))
-            : get_view().get_sources_of_type(typeof(LibraryPhoto));
-        if (sources == null || sources.size == 0)
-            return;
-        
-        Thumbnail? thumbnail = (Thumbnail?) get_view().get_view_for_source(sources[0]);
-        if (thumbnail == null)
-            return;
-        
-        LibraryPhoto? photo = thumbnail.get_media_source() as LibraryPhoto;
-        if (photo == null)
-            return;
-        
-        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
-            photo));
+        // check selection for valid starting photo, otherwise start at beginning of collection
+        if (get_view().get_selected_count() > 0) {
+            Gee.List<DataSource>? sources = 
+                get_view().get_selected_sources_of_type(typeof(LibraryPhoto));
+            if (sources == null || sources.size == 0)
+                return;
+            
+            Thumbnail? thumbnail = (Thumbnail?) get_view().get_view_for_source(sources[0]);
+            if (thumbnail == null)
+                return;
+            
+            LibraryPhoto? photo = thumbnail.get_media_source() as LibraryPhoto;
+            if (photo == null)
+                return;
+            
+            AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, 
+                get_view(), photo));
+        } else {
+            AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global,
+                get_view()));
+        }
     }
     
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {

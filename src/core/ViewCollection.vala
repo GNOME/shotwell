@@ -298,6 +298,33 @@ public class ViewCollection : DataCollection {
         add_many(copy_view);
     }
     
+    // for use in shuffled slideshow
+    public ViewCollection shuffled_copy(Photo? start = null) {
+        ViewCollection shuffled = new ViewCollection("shuffled copy of " + to_string());
+        
+        Gee.Collection<DataObject> data = get_all();
+        Gee.ArrayList<DataObject> data_copy = new Gee.ArrayList<DataObject>();
+        foreach (DataObject object in data) {
+            DataView view = (DataView) object;
+            if (view.get_source() is PhotoSource && 
+                (start == null || view.get_source() != start)) {
+                    data_copy.add(new PhotoView((PhotoSource) ((DataView) object).get_source()));
+            }
+        }
+        
+        for (int ctr = data_copy.size - 1; ctr > 0; ctr--) {
+            int rand = GLib.Random.int_range(0, ctr + 1);
+            DataObject temp = data_copy.get(rand);
+            data_copy.set(rand, data_copy.get(ctr));
+            data_copy.set(ctr, temp);
+        }
+        
+        if (start != null)
+            shuffled.add(new PhotoView(start));
+        shuffled.add_many(data_copy);
+        return shuffled;
+    }
+    
     public bool is_view_filter_installed(ViewFilter f) {
         return filters.contains(f);
     }
@@ -740,12 +767,30 @@ public class ViewCollection : DataCollection {
         // _something_...
         return get_first();
     }
+    
+    public virtual DataView? get_first_photo() {
+        if (get_count() < 1)
+            return null;
+            
+        DataView dv = get_first();
+        int num_views = get_count();
+        
+        while ((dv != null) && (index_of(dv) < (num_views))) {
+            if (dv.get_source() is PhotoSource)
+                return dv;
+            else
+                dv = get_next(dv);
+        }
+        
+        return null;
+    }
 
     public virtual DataView? get_last() {
         return (get_count() > 0) ? (DataView?) get_at(get_count() - 1) : null;
     }
     
-    public virtual DataView? get_next(DataView view) {
+    public virtual DataView? get_next(DataView view, out bool? wrapped = null) {
+        wrapped = false;
         if (get_count() == 0)
             return null;
         
@@ -754,8 +799,10 @@ public class ViewCollection : DataCollection {
             return null;
         
         index++;
-        if (index >= get_count())
+        if (index >= get_count()) {
             index = 0;
+            wrapped = true;
+        }
         
         return (DataView?) get_at(index);
     }

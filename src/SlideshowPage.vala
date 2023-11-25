@@ -9,6 +9,7 @@ class SlideshowPage : SinglePhotoPage {
     private const int CHECK_ADVANCE_MSEC = 250;
     
     private SourceCollection sources;
+    private ViewCollection controller_source;
     private ViewCollection controller;
     private Photo current;
     private Gtk.ToolButton play_pause_button;
@@ -17,6 +18,7 @@ class SlideshowPage : SinglePhotoPage {
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
+    private bool shuffled;
     private string[] transitions;
 
     private Screensaver screensaver;
@@ -39,6 +41,8 @@ class SlideshowPage : SinglePhotoPage {
         unowned Gtk.Adjustment transition_effect_adjustment;
         [GtkChild]
         unowned Gtk.CheckButton show_title_button;
+        [GtkChild]
+        unowned Gtk.CheckButton shuffle_button;
         
         public SettingsDialog() {
             Object (use_header_bar: Resources.use_header_bar());
@@ -78,6 +82,9 @@ class SlideshowPage : SinglePhotoPage {
             bool show_title = Config.Facade.get_instance().get_slideshow_show_title();
             show_title_button.active = show_title;
             
+            bool shuffle = Config.Facade.get_instance().get_slideshow_shuffle();
+            shuffle_button.active = shuffle;
+            
             on_transition_changed();
         }
         
@@ -111,13 +118,19 @@ class SlideshowPage : SinglePhotoPage {
         public bool get_show_title() {
             return show_title_button.active;
         }
+        
+        public bool get_shuffle() {
+            return shuffle_button.active;
+        }
     }
 
-    public SlideshowPage(SourceCollection sources, ViewCollection controller, Photo start) {
+    public SlideshowPage(SourceCollection sources, ViewCollection controller, Photo? start = null) {
         base(_("Slideshow"), true);
         
         this.sources = sources;
-        this.controller = controller;
+        controller_source = controller;
+        shuffled = Config.Facade.get_instance().get_slideshow_shuffle();
+        this.controller = shuffled ? controller.shuffled_copy(start) : controller;
         
         Gee.Collection<string> pluggables = TransitionEffectsManager.get_instance().get_effect_ids();
         Gee.ArrayList<string> a = new Gee.ArrayList<string>();
@@ -125,7 +138,9 @@ class SlideshowPage : SinglePhotoPage {
         a.remove(NullTransitionDescriptor.EFFECT_ID);
         a.remove(RandomEffectDescriptor.EFFECT_ID);
         transitions = a.to_array();
-        current = start;
+        
+        current = (start == null) 
+            ? (Photo) this.controller.get_first_photo().get_source() : start;
         
         update_transition_effect();
         
@@ -284,8 +299,13 @@ class SlideshowPage : SinglePhotoPage {
     protected override void on_next_photo() {
         DataView view = controller.get_view_for_source(current);
 
+        bool wrapped;
         Photo? next_photo = null;
-        DataView? start_view = controller.get_next(view);
+        DataView? start_view = controller.get_next(view, out wrapped);
+        if (wrapped && shuffled) {
+            controller = controller_source.shuffled_copy();
+            start_view = controller.get_first();
+        }
         DataView? next_view = start_view;
 
         while (next_view != null) {
@@ -294,7 +314,11 @@ class SlideshowPage : SinglePhotoPage {
                 break;
             }
 
-            next_view = controller.get_next(next_view);
+            next_view = controller.get_next(next_view, out wrapped);
+            if (wrapped && shuffled) {
+                controller = controller_source.shuffled_copy();
+                start_view = controller.get_first();
+            }
             
             if (next_view == start_view) {
                 warning("on_next( ): can't advance to next photo: collection has only videos");
@@ -369,6 +393,7 @@ class SlideshowPage : SinglePhotoPage {
         playing = false;
         hide_toolbar();
         suspend_cursor_hiding();
+        bool old_shuffled = Config.Facade.get_instance().get_slideshow_shuffle();
         
         if (settings_dialog.run() == Gtk.ResponseType.OK) {
             // sync with the config setting so it will persist
@@ -378,8 +403,16 @@ class SlideshowPage : SinglePhotoPage {
             Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
             Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
             
+            shuffled = settings_dialog.get_shuffle();
+            Config.Facade.get_instance().set_slideshow_shuffle(shuffled);
+            
             update_transition_effect();
         }
+        
+        if (old_shuffled && !shuffled)
+            controller = controller_source;
+        else if (!old_shuffled && shuffled)
+            controller = controller_source.shuffled_copy(current);
         
         settings_dialog.destroy();
         restore_cursor_hiding();
