@@ -230,6 +230,7 @@ public abstract class CollectionPage : MediaPage {
                 primary_is_video = true;
 
         bool selection_has_videos = selection_has_video();
+        bool selection_has_photos = selection_has_photo();
         bool page_has_photos = page_has_photo();
         
         // don't allow duplication of the selection if it contains a video -- videos are huge and
@@ -263,11 +264,11 @@ public abstract class CollectionPage : MediaPage {
 
         // Allow starting slideshow even if first selected item is a video. Otherwise the
         // behavior is quite confusing, it will start if you do not select anything and just skipt the video
-        set_action_sensitive("Slideshow", page_has_photos);
+        set_action_sensitive("Slideshow", (page_has_photos && !has_selected) || selection_has_photos);
         set_action_sensitive("Print", (!selection_has_videos) && has_selected);
         set_action_sensitive("Publish", has_selected);
         
-        set_action_sensitive("SetBackground", has_selected );
+        set_action_sensitive("SetBackground", has_selected && selection_has_photos);
         if (has_selected) {
             debug ("Setting action label for SetBackground...");
             var label = one_selected
