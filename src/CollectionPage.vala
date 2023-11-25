@@ -267,7 +267,7 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("Print", (!selection_has_videos) && has_selected);
         set_action_sensitive("Publish", has_selected);
         
-        set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
+        set_action_sensitive("SetBackground", has_selected );
         if (has_selected) {
             debug ("Setting action label for SetBackground...");
             var label = one_selected
