@@ -54,6 +54,7 @@ public class Exporter : Object {
     public enum Overwrite {
         YES,
         NO,
+        SKIP_ALL,
         CANCEL,
         REPLACE_ALL,
         RENAME,
@@ -270,6 +271,15 @@ public class Exporter : Object {
                             
                             return false;
                         
+                        case Overwrite.SKIP_ALL:
+                            completed_count = to_export.size;
+                            if (monitor != null) {
+                                if (!monitor(completed_count, to_export.size)) {
+                                    cancellable.cancel();
+                                    
+                                }
+                            }
+                            return false;
                         case Overwrite.NO:
                         default:
                             completed_count++;
@@ -346,30 +356,40 @@ public class ExporterUI {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
         int response = AppWindow.export_overwrite_or_replace_question(question, 
-            _("_Skip"), _("Rename"), _("Rename All"),_("_Replace"), _("Replace _All"), _("_Cancel"), _("Export"));
+            _("_Skip"), _("Rename"), _("_Replace"), _("_Cancel"), _("Export file conflict"));
         
         progress_dialog.set_modal(true);
 
+        var apply_all = (response & 0x80) != 0;
+        response &= 0x0f;
+
         switch (response) {
         case 2:
-            return Exporter.Overwrite.RENAME;
-            
-        case 3:
-            return Exporter.Overwrite.RENAME_ALL;
-            
+            if (apply_all) {
+                return Exporter.Overwrite.RENAME_ALL;
+            }
+            else {
+                return Exporter.Overwrite.RENAME;
+            }
         case 4:
-            return Exporter.Overwrite.YES;
-            
-        case 5:
-            return Exporter.Overwrite.REPLACE_ALL;
+            if (apply_all) {
+                return Exporter.Overwrite.REPLACE_ALL;
+            } else {
+                return Exporter.Overwrite.YES;
+            }
             
         case 6:
             return Exporter.Overwrite.CANCEL;
             
         case 1:
+            if (apply_all) {
+                return Exporter.Overwrite.SKIP_ALL;
+            } else {
+                return Exporter.Overwrite.NO;
+            }
         default:
             return Exporter.Overwrite.NO;
-        }
+    }
     }
     
     private bool on_export_failed(Exporter exporter, File file, int remaining, Error err) {
