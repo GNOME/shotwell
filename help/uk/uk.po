@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2023-04-05 19:24+0000\n"
-"PO-Revision-Date: 2023-04-06 20:35+0300\n"
+"POT-Creation-Date: 2023-11-25 19:35+0000\n"
+"PO-Revision-Date: 2023-11-26 22:03+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -36,18 +36,26 @@ msgstr "Експортування фотографій"
 
 #. (itstool) path: page/p
 #: C/share-export.page:14
+#| msgid ""
+#| "To export photos from Shotwell via drag and drop, drag the photos from "
+#| "Shotwell onto a file manager window or your desktop. The new files will "
+#| "be full-sized copies of the photos in your library."
 msgid ""
 "To export photos from Shotwell via drag and drop, drag the photos from "
 "Shotwell onto a file manager window or your desktop. The new files will be "
-"full-sized copies of the photos in your library."
+"full-sized copies of the photos in your library. To export the original "
+"file, hold <keyseq><key>Shift</key></keyseq> while dropping the photo to the "
+"file manager."
 msgstr ""
 "Щоб експортувати фотографії з Shotwell перетягуванням зі скиданням, "
 "перетягніть фотографі з вікна Shotwell до вікна програми для керування "
 "файлами або на стільницю. Нові файли будуть повнорозмірними копіями "
-"фотографій з вашої бібліотеки."
+"фотографій з вашої бібліотеки. Щоб експортувати дані до початкового файла,"
+" утримуйте натиснутою клавішу <keyseq><key>Shift</key></keyseq> під час"
+" скидання фотографії до вікна програми для керування файлами."
 
 #. (itstool) path: page/p
-#: C/share-export.page:18
+#: C/share-export.page:19
 msgid ""
 "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
 "gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
@@ -63,12 +71,12 @@ msgstr ""
 "допомогою якого ви зможете визначити декілька параметрів:"
 
 #. (itstool) path: item/p
-#: C/share-export.page:24
+#: C/share-export.page:25
 msgid "A format for export."
 msgstr "Формат для експортування."
 
 #. (itstool) path: item/p
-#: C/share-export.page:27
+#: C/share-export.page:28
 msgid ""
 "Choose <gui>Unmodified</gui> to export photos in their original format "
 "without any edits made in Shotwell. RAW photos will be exported in their "
@@ -79,7 +87,7 @@ msgstr ""
 "у початковому форматі RAW."
 
 #. (itstool) path: item/p
-#: C/share-export.page:29
+#: C/share-export.page:30
 msgid ""
 "Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
 "RAW photos will be exported in JPEG format if you have edited them in "
@@ -91,7 +99,7 @@ msgstr ""
 "редагування не виконувалося."
 
 #. (itstool) path: item/p
-#: C/share-export.page:31
+#: C/share-export.page:32
 msgid ""
 "Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
 "used for exporting. Any edits made in Shotwell will be included, and "
@@ -103,13 +111,13 @@ msgstr ""
 "фотографії до формату призначення."
 
 #. (itstool) path: item/p
-#: C/share-export.page:37
+#: C/share-export.page:38
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
 msgstr ""
 "Якість зображень для експортування (низька, середня, висока або максимальна)."
 
 #. (itstool) path: item/p
-#: C/share-export.page:38
+#: C/share-export.page:39
 msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
@@ -118,22 +126,22 @@ msgstr ""
 "у зменшенні масштабу) та бажаний розмір у пікселях."
 
 #. (itstool) path: item/title
-#: C/share-export.page:40
+#: C/share-export.page:41
 msgid "Original size"
 msgstr "Початковий розмір"
 
 #. (itstool) path: item/p
-#: C/share-export.page:40
+#: C/share-export.page:41
 msgid "Image will be exported without any scaling applied"
 msgstr "Зображення буде експортовано без застосування масштабування"
 
 #. (itstool) path: item/title
-#: C/share-export.page:41
+#: C/share-export.page:42
 msgid "Longest edge"
 msgstr "Найдовший край"
 
 #. (itstool) path: item/p
-#: C/share-export.page:41
+#: C/share-export.page:42
 msgid ""
 "Image will be exported by having its longest edge scaled to <gui>Pixels</"
 "gui> and the other according to the aspect ratio"
@@ -143,12 +151,12 @@ msgstr ""
 "відповідно до співвідношення розмірів"
 
 #. (itstool) path: item/title
-#: C/share-export.page:42
+#: C/share-export.page:43
 msgid "Width"
 msgstr "Ширина"
 
 #. (itstool) path: item/p
-#: C/share-export.page:42
+#: C/share-export.page:43
 msgid ""
 "The image width will have its width scaled to the given pixel size and its "
 "height according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -160,12 +168,12 @@ msgstr ""
 "орієнтацією."
 
 #. (itstool) path: item/title
-#: C/share-export.page:43
+#: C/share-export.page:44
 msgid "Height"
 msgstr "Висота"
 
 #. (itstool) path: item/p
-#: C/share-export.page:43
+#: C/share-export.page:44
 msgid ""
 "The image height will have its height scaled to the given pixel size and its "
 "width according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -177,7 +185,7 @@ msgstr ""
 "орієнтацією."
 
 #. (itstool) path: item/p
-#: C/share-export.page:46
+#: C/share-export.page:47
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -189,7 +197,7 @@ msgstr ""
 "геопозиціювання або якісь інші встановлені вами мітки."
 
 #. (itstool) path: page/p
-#: C/share-export.page:49
+#: C/share-export.page:50
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
@@ -3284,16 +3292,13 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/organize-face-tagging.page:35
-#| msgid ""
-#| "If reference images for images are defined, this will also try to match "
-#| "any found faces in the current image with known references."
 msgid ""
 "If reference images for faces are defined, this will also try to match any "
 "found faces in the current image with known references."
 msgstr ""
-"Якщо визначено еталонні зображення для облич, це надасть змогу "
-"спробувати встановити відповідність усіх виявлених облич на поточному "
-"зображенні із відомими еталонами."
+"Якщо визначено еталонні зображення для облич, це надасть змогу спробувати "
+"встановити відповідність усіх виявлених облич на поточному зображенні із "
+"відомими еталонами."
 
 #. (itstool) path: section/title
 #: C/organize-face-tagging.page:38
