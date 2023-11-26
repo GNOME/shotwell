@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-11-26 08:37+0000\n"
-"PO-Revision-Date: 2023-11-26 21:58+0200\n"
+"PO-Revision-Date: 2023-11-26 22:01+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -4886,10 +4886,9 @@ msgid "_Replace"
 msgstr "_Замінити"
 
 #: src/Exporter.vala:359
-#, fuzzy
 #| msgid "Export Video"
 msgid "Export file conflict"
-msgstr "Експортування відео"
+msgstr "Конфлікт під час експортування файла"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
