@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-11-22 21:09+0000\n"
-"PO-Revision-Date: 2023-11-23 19:36+0200\n"
+"POT-Creation-Date: 2023-11-26 08:37+0000\n"
+"PO-Revision-Date: 2023-11-26 21:58+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -26,7 +26,7 @@ msgstr ""
 "X-Generator: Lokalize 20.12.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:432
+#: data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
 msgstr "Ключ фази доступу OAuth"
 
@@ -37,7 +37,7 @@ msgstr ""
 "Ключ уповноваження для поточного сеансу у системі Tumblr, якщо такий існує"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:438
+#: data/gsettings/org.gnome.shotwell.gschema.xml:444
 msgid "OAuth Access Phase Token Secret"
 msgstr "Пароль до ключа фази доступу OAuth"
 
@@ -50,19 +50,19 @@ msgstr ""
 "ключа уповноваження для поточного сеансу у системі Tumblr, якщо такий існує"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:444
-#: data/gsettings/org.gnome.shotwell.gschema.xml:502
-#: data/gsettings/org.gnome.shotwell.gschema.xml:564
+#: data/gsettings/org.gnome.shotwell.gschema.xml:450
+#: data/gsettings/org.gnome.shotwell.gschema.xml:508
+#: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "username"
 msgstr "користувач"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:445
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Поточне ім’я користувача у системі Flickr, якщо є"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:476
+#: data/gsettings/org.gnome.shotwell.gschema.xml:482
 msgid "default size"
 msgstr "типовий розмір"
 
@@ -409,60 +409,72 @@ msgid "Whether to show the title of a photo during the slideshow"
 msgstr ""
 "Визначає, чи слід показувати заголовок фотографії під час показу слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:218
+#: data/gsettings/org.gnome.shotwell.gschema.xml:216
+#: data/ui/slideshow_settings.ui:92
+msgid "Shuffle"
+msgstr "Перемішати"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:217
+#| msgid "Whether to show the title of a photo during the slideshow"
+msgid "Whether to shuffle the order of photos during the slideshow"
+msgstr ""
+"Визначає, чи слід використовувати випадковий порядок фотографій під час"
+" показу слайдів"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "maximize library window"
 msgstr "максимізація вікна бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:219
+#: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "True if library application is maximized, false otherwise"
 msgstr "True, якщо вікно бібліотеки максимізовано; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:224
+#: data/gsettings/org.gnome.shotwell.gschema.xml:230
 msgid "width of library window"
 msgstr "ширина вікна бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:225
+#: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "The last recorded width of the library application window"
 msgstr "Останнє записане значення ширини вікна бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:230
+#: data/gsettings/org.gnome.shotwell.gschema.xml:236
 msgid "height of library window"
 msgstr "висота вікна бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:231
+#: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "The last recorded height of the library application window"
 msgstr "Останнє записане значення висоти вікна бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:236
+#: data/gsettings/org.gnome.shotwell.gschema.xml:242
 msgid "maximize direct-edit window"
 msgstr "максимізація вікна безпосереднього редагування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:237
+#: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr ""
 "True, якщо вікно безпосереднього редагування максимізовано; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:242
+#: data/gsettings/org.gnome.shotwell.gschema.xml:248
 msgid "width of direct-edit window"
 msgstr "ширина вікна безпосереднього редагування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:243
+#: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "The last recorded width of the direct-edit application window"
 msgstr "Остання записана ширина вікна програми безпосереднього редагування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:248
+#: data/gsettings/org.gnome.shotwell.gschema.xml:254
 msgid "height of direct-edit window"
 msgstr "висота вікна безпосереднього редагування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:249
+#: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "The last recorded height of the direct-edit application window"
 msgstr "Остання записана висота вікна програми безпосереднього редагування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:254
+#: data/gsettings/org.gnome.shotwell.gschema.xml:260
 msgid "sidebar divider position"
 msgstr "розташування роздільника бічної панелі"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:255
+#: data/gsettings/org.gnome.shotwell.gschema.xml:261
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -470,29 +482,29 @@ msgstr ""
 "Останнє записане розташування роздільника між бічною панеллю та областю "
 "перегляду у вікні бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:262
+#: data/gsettings/org.gnome.shotwell.gschema.xml:268
 msgid "import directory"
 msgstr "каталог імпортування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:263
+#: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid "Directory in which imported photo files are placed"
 msgstr "Каталог, у якому зберігатимуться імпортовані файли фотографій"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:268
+#: data/gsettings/org.gnome.shotwell.gschema.xml:274
 msgid "watch library directory for new files"
 msgstr "виявляти нові файли у каталозі бібліотеки"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:269
+#: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
 "Якщо true, файли, додані до каталогу бібліотеки, автоматично імпортуються"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:274
+#: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "write metadata to master files"
 msgstr "записувати метадані до початкових файлів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:275
+#: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -500,11 +512,11 @@ msgstr ""
 "Якщо true, зміни у метаданих (мітках, заголовках тощо) записуватимуться до "
 "основного файла фотографії"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:280
+#: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "use lowercase filenames"
 msgstr "використовувати назви файлів малими літерами"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:281
+#: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -512,11 +524,11 @@ msgstr ""
 "Якщо true, Shotwell перетворить усі літери назв файлів на літери нижнього "
 "регістру (малі) під час імпортування файлів фотографій"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:286
+#: data/gsettings/org.gnome.shotwell.gschema.xml:292
 msgid "directory pattern"
 msgstr "взірець для каталогів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:287
+#: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -524,11 +536,11 @@ msgstr ""
 "Рядок-код взірця найменування, який буде використано для назв каталогів під "
 "час імпортування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:292
+#: data/gsettings/org.gnome.shotwell.gschema.xml:298
 msgid "directory pattern custom"
 msgstr "нетиповий взірець каталогів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:293
+#: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -536,31 +548,31 @@ msgstr ""
 "Рядок-код нетипового взірця найменування, який буде використано для назв "
 "каталогів під час імпортування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:298
+#: data/gsettings/org.gnome.shotwell.gschema.xml:304
 msgid "RAW developer default"
 msgstr "типовий обробник RAW"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:299
+#: data/gsettings/org.gnome.shotwell.gschema.xml:305
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr ""
 "Типовий варіант проявника цифрових негативів, який використовуватиме Shotwell"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:306
+#: data/gsettings/org.gnome.shotwell.gschema.xml:312
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "Останній використаний пункт пропорцій обрізання у меню"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:307
+#: data/gsettings/org.gnome.shotwell.gschema.xml:313
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Числовий код, який відповідає останньому вибраному пункту меню обрізання "
 "фотографій, який було вибрано користувачем"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:311
+#: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr ""
 "Останній використаний чисельник нетипового дробу співвідношення розмірів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:312
+#: data/gsettings/org.gnome.shotwell.gschema.xml:318
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -568,12 +580,12 @@ msgstr ""
 "Додатне ціле число, що відповідає частині ширини у останньому введеному "
 "користувачем нетиповому співвідношенні розмірів для обрізання"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:316
+#: data/gsettings/org.gnome.shotwell.gschema.xml:322
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr ""
 "Останній використаний знаменник нетипового дробу співвідношення розмірів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:317
+#: data/gsettings/org.gnome.shotwell.gschema.xml:323
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -581,98 +593,98 @@ msgstr ""
 "Додатне ціле число, що відповідає частині висоти у останньому введеному "
 "користувачем нетиповому співвідношенні розмірів для обрізання"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:324
+#: data/gsettings/org.gnome.shotwell.gschema.xml:330
 msgid "external photo editor"
 msgstr "зовнішній фоторедактор"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:325
+#: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "External application used to edit photos"
 msgstr "Зовнішня програм, яку буде використано для редагування фотографій"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:330
+#: data/gsettings/org.gnome.shotwell.gschema.xml:336
 msgid "external raw editor"
 msgstr "зовнішній редактор негативів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:331
+#: data/gsettings/org.gnome.shotwell.gschema.xml:337
 msgid "External application used to edit RAW photos"
 msgstr ""
 "Зовнішня програм, яку буде використано для редагування цифрових негативів "
 "фотографій (RAW)"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:373
-#: data/gsettings/org.gnome.shotwell.gschema.xml:374
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379
+#: data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: how to trim images"
 msgstr "Параметр у діалоговому вікні експортування: як обрізати зображення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:379
+#: data/gsettings/org.gnome.shotwell.gschema.xml:385
 msgid "export metadata"
 msgstr "експортувати метадані"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:380
+#: data/gsettings/org.gnome.shotwell.gschema.xml:386
 msgid "Setting in export dialog: option to export metadata"
 msgstr ""
 "Параметр у діалоговому вікні експортування: параметр експортування метаданих"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:385
+#: data/gsettings/org.gnome.shotwell.gschema.xml:391
 msgid "format setting, special value"
 msgstr "параметр формату, спеціальне значення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:386
+#: data/gsettings/org.gnome.shotwell.gschema.xml:392
 msgid "Setting in export dialog: format setting, special value"
 msgstr ""
 "Параметр у діалоговому вікні експортування: параметр формату, спеціальне "
 "значення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:391
+#: data/gsettings/org.gnome.shotwell.gschema.xml:397
 msgid "format setting, type value"
 msgstr "параметр формату, значення типу"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:392
+#: data/gsettings/org.gnome.shotwell.gschema.xml:398
 msgid "Setting in export dialog: format setting, type value"
 msgstr ""
 "Параметр у діалоговому вікні експортування: параметр формату, значення типу"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:397
+#: data/gsettings/org.gnome.shotwell.gschema.xml:403
 msgid "JPEG quality option"
 msgstr "параметр якості JPEG"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:398
+#: data/gsettings/org.gnome.shotwell.gschema.xml:404
 msgid "Setting in export dialog: jpeg quality option"
 msgstr ""
 "Параметр у діалоговому вікні експортування: якість перетворення на jpeg"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:403
+#: data/gsettings/org.gnome.shotwell.gschema.xml:409
 msgid "maximal size of image"
 msgstr "максимальний розмір зображення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:404
+#: data/gsettings/org.gnome.shotwell.gschema.xml:410
 msgid "Setting in export dialog: maximal size of image"
 msgstr ""
 "Параметр у діалоговому вікні експортування: максимальний розмір зображення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:411
+#: data/gsettings/org.gnome.shotwell.gschema.xml:417
 msgid "last used publishing service"
 msgstr "остання використана служба оприлюднення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:412
 #: data/gsettings/org.gnome.shotwell.gschema.xml:418
+#: data/gsettings/org.gnome.shotwell.gschema.xml:424
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "Числовий код, що відповідає останній службі, на якій оприлюднювалися "
 "фотографії"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:417
+#: data/gsettings/org.gnome.shotwell.gschema.xml:423
 msgid "default publishing service"
 msgstr "типова служба оприлюднення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid ""
 "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "Ключ уповноваження для поточного сеансу у системі Flickr, якщо такий існує"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:439
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -680,22 +692,22 @@ msgstr ""
 "Криптографічний пароль, що використовується для підписування запитів щодо "
 "ключа уповноваження для поточного сеансу у системі Flickr, якщо такий існує"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:450
+#: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default size code"
 msgstr "код типового розміру"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Числовий код, що відповідає типовому розміру фотографій, які оприлюднюються "
 "на Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:456
+#: data/gsettings/org.gnome.shotwell.gschema.xml:462
 msgid "default visibility"
 msgstr "типова видимість"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:457
+#: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -703,26 +715,26 @@ msgstr ""
 "Числовий код, що відповідає типовому стану видимості фотографій, які "
 "оприлюднюються на Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:462
-#: data/gsettings/org.gnome.shotwell.gschema.xml:488
-#: data/gsettings/org.gnome.shotwell.gschema.xml:538
-#: data/gsettings/org.gnome.shotwell.gschema.xml:588
+#: data/gsettings/org.gnome.shotwell.gschema.xml:468
+#: data/gsettings/org.gnome.shotwell.gschema.xml:494
+#: data/gsettings/org.gnome.shotwell.gschema.xml:544
+#: data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "remove sensitive info from uploads"
 msgstr "вилучати конфіденційні дані з вивантаженого"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:463
+#: data/gsettings/org.gnome.shotwell.gschema.xml:469
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:470
-#: data/gsettings/org.gnome.shotwell.gschema.xml:608
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476
+#: data/gsettings/org.gnome.shotwell.gschema.xml:614
 msgid "refresh token"
 msgstr "ключ освіження"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -730,7 +742,7 @@ msgstr ""
 "Ключ OAuth, який використовується для оновлення сеансу Google Фото для "
 "поточного користувача у системі, якщо такий є"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:477
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -738,19 +750,19 @@ msgstr ""
 "Числовий код, що відповідає типовому розміру фотографій, які вивантажуються "
 "на Google Фото"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:482
-#: data/gsettings/org.gnome.shotwell.gschema.xml:582
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488
+#: data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "last album"
 msgstr "останній альбом"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:483
-#: data/gsettings/org.gnome.shotwell.gschema.xml:583
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
 "Назва останнього альбому, у якому користувач оприлюднював фотографії, якщо "
 "такий є"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:489
+#: data/gsettings/org.gnome.shotwell.gschema.xml:495
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -758,55 +770,55 @@ msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Google "
 "Фото"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:496
+#: data/gsettings/org.gnome.shotwell.gschema.xml:502
 msgid "Piwigo URL"
 msgstr "адреса Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:497
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "URL of the Piwigo server"
 msgstr "Адреса сервера Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:503
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "Piwigo username, if logged in"
 msgstr "Ім’я користувача Piwigo, якщо здійснено вхід"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:508
+#: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "password"
 msgstr "пароль"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:509
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "Piwigo password, if logged in"
 msgstr "Пароль до Piwigo, якщо здійснено вхід до системи"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:514
+#: data/gsettings/org.gnome.shotwell.gschema.xml:520
 msgid "remember password"
 msgstr "запам’ятати пароль"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:515
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "If true, remember the Piwigo password"
 msgstr "Якщо true, пам’ятати пароль до Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:520
+#: data/gsettings/org.gnome.shotwell.gschema.xml:526
 msgid "last category"
 msgstr "остання категорія"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:521
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "The last selected Piwigo category"
 msgstr "Остання вибрана категорія на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:526
+#: data/gsettings/org.gnome.shotwell.gschema.xml:532
 msgid "last permission level"
 msgstr "останній рівень доступу"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:527
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
 msgid "The last chosen Piwigo permission level"
 msgstr "Останній вибраний рівень доступу на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:532
+#: data/gsettings/org.gnome.shotwell.gschema.xml:538
 msgid "last photo size"
 msgstr "останній розмір фотографії"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:533
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -814,21 +826,21 @@ msgstr ""
 "Числовий код, який відповідає останньому вибраному шаблону розміру "
 "фотографій, що використовується для оприлюднення на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:539
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:544
+#: data/gsettings/org.gnome.shotwell.gschema.xml:550
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "якщо вказано заголовок і не вказано коментаря, використовувати заголовок як "
 "коментар для вивантажень на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:545
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -837,11 +849,11 @@ msgstr ""
 "Piwigo, на основі заголовка зображення, якщо заголовок встановлено, а "
 "коментар — ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:550
+#: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "не вивантажувати мітки під час вивантаження на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:551
+#: data/gsettings/org.gnome.shotwell.gschema.xml:557
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -849,11 +861,11 @@ msgstr ""
 "Визначає, чи слід вилучати мітки фотографій перед вивантаженням на Piwigo, "
 "так, щоб їх не можна було бачити на віддаленому сервері Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:556
+#: data/gsettings/org.gnome.shotwell.gschema.xml:562
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "не вивантажувати оцінки під час вивантаження на Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:557
+#: data/gsettings/org.gnome.shotwell.gschema.xml:563
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -861,27 +873,27 @@ msgstr ""
 "Визначає, чи слід вилучати оцінки фотографій перед вивантаженням на Piwigo, "
 "так, щоб їх не можна було бачити на віддаленому сервері Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:565
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 username"
 msgstr "ім’я користувача Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:570
+#: data/gsettings/org.gnome.shotwell.gschema.xml:576
 msgid "API key"
 msgstr "ключ API"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:571
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "Gallery3 API key"
 msgstr "Ключ до програмного інтерфейсу Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:576
+#: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "URL"
 msgstr "Адреса"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "Gallery3 site URL"
 msgstr "Адреса сайта Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -889,19 +901,19 @@ msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на "
 "Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:594
+#: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "scaling constraint of uploaded picture"
 msgstr "обмеження масштабування вивантажуваного зображення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:595
+#: data/gsettings/org.gnome.shotwell.gschema.xml:601
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Ідентифікатор обмеження розмірів для зображень, які вивантажують"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:600
+#: data/gsettings/org.gnome.shotwell.gschema.xml:606
 msgid "pixels of the major axis uploaded picture"
 msgstr "пікселі за великою віссю вивантажуваного зображення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:601
+#: data/gsettings/org.gnome.shotwell.gschema.xml:607
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -910,7 +922,7 @@ msgstr ""
 "використовується, лише якщо ідентифікатор обмежень масштабування має "
 "неприйнятне значення"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:609
+#: data/gsettings/org.gnome.shotwell.gschema.xml:615
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -918,21 +930,21 @@ msgstr ""
 "Ключ OAuth, який використовується для оновлення сеансу YouTube для поточного "
 "користувача у системі, якщо такий є"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:616
+#: data/gsettings/org.gnome.shotwell.gschema.xml:622
 msgid "last used import service"
 msgstr "остання використана служба імпортування"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:617
+#: data/gsettings/org.gnome.shotwell.gschema.xml:623
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Числовий код, що відповідає останній службі, з якої імпортувалися фотографії"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:624
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid "content layout mode"
 msgstr "режим компонування вмісту"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:625
+#: data/gsettings/org.gnome.shotwell.gschema.xml:631
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -940,38 +952,38 @@ msgstr ""
 "Числовий код, який описує, як слід розташовувати фотографії на сторінці під "
 "час друку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:630
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content ppi"
 msgstr "ppi даних"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:631
+#: data/gsettings/org.gnome.shotwell.gschema.xml:637
 msgid ""
 "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr ""
 "Кількість пікселів на дюйм (ppi) у даних, які буде надіслано на принтер під "
 "час друку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:636
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "content width"
 msgstr "ширина вмісту"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:637
+#: data/gsettings/org.gnome.shotwell.gschema.xml:643
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Ширина зони друку на сторінці"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:642
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "content height"
 msgstr "висота вмісту"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:643
+#: data/gsettings/org.gnome.shotwell.gschema.xml:649
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Висота зони друку на сторінці"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:648
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid "content units"
 msgstr "одиниці вмісту"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:649
+#: data/gsettings/org.gnome.shotwell.gschema.xml:655
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -979,11 +991,11 @@ msgstr ""
 "Числовий код, який відповідає одиниці виміру (дюймам або сантиметрам), яку "
 "буде використано під час друку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:654
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "images per page code"
 msgstr "код кількості зображень на сторінку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:655
+#: data/gsettings/org.gnome.shotwell.gschema.xml:661
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -991,22 +1003,22 @@ msgstr ""
 "Числовий код поточного вибраного режиму кількості фотографій на аркуші під "
 "час друку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:660
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "size selection"
 msgstr "вибір розміру"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:661
+#: data/gsettings/org.gnome.shotwell.gschema.xml:667
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Індекс поточного розміру для друку у попередньо визначеному списку "
 "стандартних розмірів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:666
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "match aspect ratio"
 msgstr "відповідність пропорцій"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:667
+#: data/gsettings/org.gnome.shotwell.gschema.xml:673
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1014,182 +1026,182 @@ msgstr ""
 "Визначає, чи мають нетипові розміри друку відповідати пропорціям початкової "
 "фотографії"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:672
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "print titles"
 msgstr "друк заголовків"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:673
+#: data/gsettings/org.gnome.shotwell.gschema.xml:679
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr ""
 "True, якщо слід друкувати заголовок разом із фотографією; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:678
+#: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "titles font"
 msgstr "шрифт заголовків"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:679
+#: data/gsettings/org.gnome.shotwell.gschema.xml:685
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr ""
 "Назва шрифту, яким слід скористатися для заголовків фотографій під час друку"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:690
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 msgid "enable flickr publishing plugin"
 msgstr "увімкнути додаток оприлюднення на flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:691
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Flickr увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 #: data/gsettings/org.gnome.shotwell.gschema.xml:702
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable Google Photos publishing plugin"
 msgstr "увімкнути додаток оприлюднення на Google Фото"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:697
 #: data/gsettings/org.gnome.shotwell.gschema.xml:703
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid ""
 "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо додаток оприлюднення на Google Фото увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "enable youtube publishing plugin"
 msgstr "увімкнути додаток оприлюднення на youtube"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на YouTube увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable piwigo publishing plugin"
 msgstr "увімкнути додаток оприлюднення на piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Piwigo увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:720
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable tumblr publishing plugin"
 msgstr "увімкнути додаток оприлюднення на tumblr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:721
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Tumblr увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:726
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable gallery3 publishing plugin"
 msgstr "увімкнути додаток оприлюднення на gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:727
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Gallery3 увімкнено; false, якщо ні"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:732
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable slideshow crumble transition"
 msgstr "увімкнути перехід з розпадом у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:733
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом розпаду у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:738
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow fade transition"
 msgstr "увімкнути перехід зі згасанням у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:739
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом згасання у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:744
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow slide transition"
 msgstr "увімкнути перехід з ковзанням у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:745
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом ковзання у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:750
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow clock transition"
 msgstr "увімкнути перехід з ефектом годинника у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:751
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом стрілки годинника у "
 "перегляді слайдів; false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:756
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circle transition"
 msgstr "увімкнути перехід з колами у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:757
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом кола у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:762
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow circles transition"
 msgstr "увімкнути перехід з колами у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:763
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом кіл у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:768
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow blinds transition"
 msgstr "увімкнути перехід з завісами у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:769
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом жалюзі у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:774
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow squares transition"
 msgstr "увімкнути перехід із квадратами у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:775
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом квадратів у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:780
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow stripes transition"
 msgstr "увімкнути перехід зі смугами у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:781
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом смуг у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:786
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow chess transition"
 msgstr "увімкнути перехід з шахівницею у показі слайдів"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:787
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1857,18 +1869,18 @@ msgstr "Імпортувати _всі"
 msgid "_Log in"
 msgstr "_Увійти"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/slideshow_settings.ui:182
+#: data/ui/multitextentrydialog.ui:38 data/ui/slideshow_settings.ui:194
 #: data/ui/textentrydialog.ui:43 src/AppWindow.vala:215 src/AppWindow.vala:236
 #: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:792
-#: src/Dialogs.vala:823 src/Exporter.vala:349 src/ProfileBrowser.vala:71
+#: src/Dialogs.vala:823 src/Exporter.vala:359 src/ProfileBrowser.vala:71
 #: src/ProfileBrowser.vala:103 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: data/ui/multitextentrydialog.ui:45 data/ui/slideshow_settings.ui:190
+#: data/ui/multitextentrydialog.ui:45 data/ui/slideshow_settings.ui:202
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
 #: src/ProfileBrowser.vala:71 src/ProfileBrowser.vala:103
 #: src/Resources.vala:133
@@ -2150,7 +2162,7 @@ msgstr "Створити показ слайдів у тлі стільниці"
 msgid "New _Tag…"
 msgstr "Створити _мітку…"
 
-#: data/ui/slideshow_settings.ui:19 src/SlideshowPage.vala:159
+#: data/ui/slideshow_settings.ui:19 src/SlideshowPage.vala:174
 msgid "Settings"
 msgstr "Параметри"
 
@@ -2178,7 +2190,7 @@ msgstr "Тривалість (у секундах) переходу між фо�
 msgid "Show t_itle"
 msgstr "Показати за_головок"
 
-#: data/ui/slideshow_settings.ui:146 data/ui/slideshow_settings.ui:155
+#: data/ui/slideshow_settings.ui:158 data/ui/slideshow_settings.ui:167
 msgid "seconds"
 msgstr "секунд"
 
@@ -2361,7 +2373,6 @@ msgstr ""
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
-#, c-format
 msgid "Invalid User Name or Password"
 msgstr "Некоректне ім’я користувача або пароль"
 
@@ -2375,7 +2386,7 @@ msgstr "Не вдалося завантажити інтерфейс: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:292
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:299
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
@@ -2760,7 +2771,6 @@ msgstr ""
 "Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
-#, c-format
 msgid "Invalid URL"
 msgstr "Некоректна адреса"
 
@@ -2948,7 +2958,7 @@ msgstr "Не вдалося зробити каталог %s придатним 
 msgid "Could not make directory %s writable: %s"
 msgstr "Не вдалося зробити каталог %s придатним до запису: %s"
 
-#: src/AppWindow.vala:264
+#: src/AppWindow.vala:271
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2961,21 +2971,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:289
+#: src/AppWindow.vala:296
 msgid "Visit the Shotwell web site"
 msgstr "Відвідати сайт Shotwell"
 
-#: src/AppWindow.vala:302
+#: src/AppWindow.vala:309
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Не вдалося показати довідку: %s"
 
-#: src/AppWindow.vala:310
+#: src/AppWindow.vala:317
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Не вдалося перейти до сторінки бази даних вад: %s"
 
-#: src/AppWindow.vala:318
+#: src/AppWindow.vala:325
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Не вдалося показати сторінку поширених питань: %s"
@@ -3057,7 +3067,6 @@ msgid "%s (%s)"
 msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:309 src/Properties.vala:242
-#, c-format
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -3250,7 +3259,7 @@ msgstr "Скоригувати дату і час…"
 msgid "_Play"
 msgstr "_Відтворити"
 
-#: src/CollectionPage.vala:403
+#: src/CollectionPage.vala:404
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Експортувати фотографії/відео"
@@ -3258,7 +3267,7 @@ msgstr[1] "Експортувати фотографії/відео"
 msgstr[2] "Експортувати фотографії/відео"
 msgstr[3] "Експортувати фотографію/відео"
 
-#: src/CollectionPage.vala:405
+#: src/CollectionPage.vala:406
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Експортувати фотографії"
@@ -3266,27 +3275,27 @@ msgstr[1] "Експортувати фотографії"
 msgstr[2] "Експортувати фотографії"
 msgstr[3] "Експортувати фотографію"
 
-#: src/CollectionPage.vala:492 src/CollectionPage.vala:508
+#: src/CollectionPage.vala:493 src/CollectionPage.vala:509
 msgid "Rotating"
 msgstr "Обертання"
 
-#: src/CollectionPage.vala:492 src/CollectionPage.vala:508
+#: src/CollectionPage.vala:493 src/CollectionPage.vala:509
 msgid "Undoing Rotate"
 msgstr "Скасування обертання"
 
-#: src/CollectionPage.vala:517
+#: src/CollectionPage.vala:518
 msgid "Flipping Horizontally"
 msgstr "Віддзеркалення горизонтально"
 
-#: src/CollectionPage.vala:518
+#: src/CollectionPage.vala:519
 msgid "Undoing Flip Horizontally"
 msgstr "Скасування горизонтального віддзеркалення"
 
-#: src/CollectionPage.vala:527
+#: src/CollectionPage.vala:528
 msgid "Flipping Vertically"
 msgstr "Віддзеркалити вертикально"
 
-#: src/CollectionPage.vala:528
+#: src/CollectionPage.vala:529
 msgid "Undoing Flip Vertically"
 msgstr "Скасування вертикального віддзеркалення"
 
@@ -3729,7 +3738,6 @@ msgstr "Експорт _метаданих:"
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:113 src/dialogs/Preferences.vala:117
-#, c-format
 msgid "(Help)"
 msgstr "(Довідка)"
 
@@ -4693,19 +4701,16 @@ msgid "Welcome!"
 msgstr "Вітаємо!"
 
 #: src/dialogs/WelcomeDialog.vala:42
-#, c-format
 msgid "Welcome to Shotwell!"
 msgstr "Вітаємо у Shotwell!"
 
 #: src/dialogs/WelcomeDialog.vala:47
-#, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Щоб розпочати користування програмою, імпортуйте фотографії у один з таких "
 "способів:"
 
 #: src/dialogs/WelcomeDialog.vala:65
-#, c-format
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Скористайтеся пунктом «Імпортувати з теки» з меню «Файл»"
 
@@ -4795,12 +4800,10 @@ msgid "Save As"
 msgstr "Зберегти як"
 
 #: src/direct/DirectPhotoPage.vala:411
-#| msgid "Unsupported file format"
 msgid "Supported image formats"
 msgstr "підтримувані формати файлів"
 
 #: src/direct/DirectPhotoPage.vala:420
-#| msgid "All Events"
 msgid "All files"
 msgstr "усі файли"
 
@@ -4856,43 +4859,37 @@ msgstr "Оновлено"
 msgid "Event %s"
 msgstr "Подія %s"
 
-#: src/Exporter.vala:237 src/Exporter.vala:292
+#: src/Exporter.vala:238 src/Exporter.vala:302
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Не вдалося створити файл тимчасових даних для %s: %s"
 
-#: src/Exporter.vala:329
+#: src/Exporter.vala:339
 msgid "Exporting"
 msgstr "Експортування"
 
-#: src/Exporter.vala:347
+#: src/Exporter.vala:357
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Файл з назвою %s вже існує. Замінити його?"
 
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "_Skip"
 msgstr "Пр_опустити"
 
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: src/Exporter.vala:349
-msgid "Rename All"
-msgstr "Перейменувати все"
-
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "_Replace"
 msgstr "_Замінити"
 
-#: src/Exporter.vala:349
-msgid "Replace _All"
-msgstr "Замінити вс_і"
-
-#: src/Exporter.vala:349
-msgid "Export"
-msgstr "Експорт"
+#: src/Exporter.vala:359
+#, fuzzy
+#| msgid "Export Video"
+msgid "Export file conflict"
+msgstr "Експортування відео"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -6293,7 +6290,6 @@ msgstr "%a %b %d %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:856
-#, c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6310,7 +6306,6 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:866
-#, c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6323,7 +6318,7 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d %Y"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:117
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:128
 msgid "Slideshow"
 msgstr "Перегляд слайдів"
 
@@ -6552,44 +6547,44 @@ msgstr ""
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:136
+#: src/SlideshowPage.vala:151
 msgid "Back"
 msgstr "Назад"
 
-#: src/SlideshowPage.vala:138
+#: src/SlideshowPage.vala:153
 msgid "Go to the previous photo"
 msgstr "Перейти до попередньої фотографії"
 
-#: src/SlideshowPage.vala:143 src/SlideshowPage.vala:249
+#: src/SlideshowPage.vala:158 src/SlideshowPage.vala:264
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/SlideshowPage.vala:145 src/SlideshowPage.vala:250
+#: src/SlideshowPage.vala:160 src/SlideshowPage.vala:265
 msgid "Pause the slideshow"
 msgstr "Призупинити показ слайдів"
 
-#: src/SlideshowPage.vala:150
+#: src/SlideshowPage.vala:165
 msgid "Next"
 msgstr "Далі"
 
-#: src/SlideshowPage.vala:152
+#: src/SlideshowPage.vala:167
 msgid "Go to the next photo"
 msgstr "Перейти до наступної фотографії"
 
-#: src/SlideshowPage.vala:160
+#: src/SlideshowPage.vala:175
 msgid "Change slideshow settings"
 msgstr "Змінити параметри показу слайдів"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:213
+#: src/SlideshowPage.vala:228
 msgid "All photo source files are missing."
 msgstr "Не виявлено всіх файлів джерел даних фотографій."
 
-#: src/SlideshowPage.vala:245
+#: src/SlideshowPage.vala:260
 msgid "Play"
 msgstr "Пуск"
 
-#: src/SlideshowPage.vala:246
+#: src/SlideshowPage.vala:261
 msgid "Continue the slideshow"
 msgstr "Продовжити показ слайдів"
 
@@ -6621,6 +6616,15 @@ msgstr "без назви"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "Rename All"
+#~ msgstr "Перейменувати все"
+
+#~ msgid "Replace _All"
+#~ msgstr "Замінити вс_і"
+
+#~ msgid "Export"
+#~ msgstr "Експорт"
 
 #~ msgid "Import From _Application…"
 #~ msgstr "Імпортувати з п_рограми…"
