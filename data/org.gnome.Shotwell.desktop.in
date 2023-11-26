@@ -15,3 +15,8 @@ Categories=Graphics;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
 X-GNOME-Gettext-Domain=shotwell
 X-GNOME-FullName=Shotwell Photo Manager
+Actions=profile-browser;
+
+[Desktop Action profile-browser]
+Name=Manage Different Profiles
+Exec=shotwell -b
