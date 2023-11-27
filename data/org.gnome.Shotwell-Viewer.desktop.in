@@ -3,7 +3,6 @@ Version=1.0
 Name=Shotwell Viewer
 GenericName=Photo Viewer
 Exec=shotwell %f
-# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=org.gnome.Shotwell
 Terminal=false
 NoDisplay=true
