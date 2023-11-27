@@ -17,5 +17,5 @@ X-GNOME-FullName=Shotwell Photo Manager
 Actions=profile-browser;
 
 [Desktop Action profile-browser]
-Name=Manage Different Profiles
+Name=Manage Different Profiles In Shotwell
 Exec=shotwell -b
