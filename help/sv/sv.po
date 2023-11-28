@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2023-04-05 19:24+0000\n"
-"PO-Revision-Date: 2023-04-06 18:03+0200\n"
+"POT-Creation-Date: 2023-11-25 19:35+0000\n"
+"PO-Revision-Date: 2023-11-25 21:41+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -40,14 +40,18 @@ msgstr "Exportera bilder"
 msgid ""
 "To export photos from Shotwell via drag and drop, drag the photos from "
 "Shotwell onto a file manager window or your desktop. The new files will be "
-"full-sized copies of the photos in your library."
+"full-sized copies of the photos in your library. To export the original "
+"file, hold <keyseq><key>Shift</key></keyseq> while dropping the photo to the "
+"file manager."
 msgstr ""
 "För att exportera bilder från Shotwell via dra-och-släpp, dra bilderna från "
 "Shotwell till ett filhanterarfönster eller ditt skrivbord. De nya filerna "
-"kommer att vara kopior av bilderna i ditt bibliotek."
+"kommer att vara kopior av bilderna i ditt bibliotek. För att exportera den "
+"ursprungliga filen håller du <keyseq><key>Skift</key></keyseq> samtidigt som "
+"du släpper bilden till filhanteraren."
 
 #. (itstool) path: page/p
-#: C/share-export.page:18
+#: C/share-export.page:19
 msgid ""
 "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
 "gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
@@ -62,12 +66,12 @@ msgstr ""
 "Ett fönster visas och låter dig göra följande val:"
 
 #. (itstool) path: item/p
-#: C/share-export.page:24
+#: C/share-export.page:25
 msgid "A format for export."
 msgstr "Ett format för export."
 
 #. (itstool) path: item/p
-#: C/share-export.page:27
+#: C/share-export.page:28
 msgid ""
 "Choose <gui>Unmodified</gui> to export photos in their original format "
 "without any edits made in Shotwell. RAW photos will be exported in their "
@@ -78,7 +82,7 @@ msgstr ""
 "kommer att exporteras i sitt ursprungliga RAW-format."
 
 #. (itstool) path: item/p
-#: C/share-export.page:29
+#: C/share-export.page:30
 msgid ""
 "Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
 "RAW photos will be exported in JPEG format if you have edited them in "
@@ -89,7 +93,7 @@ msgstr ""
 "dem i Shotwell, annars i sitt ursprungliga RAW-format."
 
 #. (itstool) path: item/p
-#: C/share-export.page:31
+#: C/share-export.page:32
 msgid ""
 "Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
 "used for exporting. Any edits made in Shotwell will be included, and "
@@ -100,12 +104,12 @@ msgstr ""
 "kommer att konvertera bilderna till målformatet."
 
 #. (itstool) path: item/p
-#: C/share-export.page:37
+#: C/share-export.page:38
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
 msgstr "Bildkvaliteten för export (låg, mellan, hög eller maximal)"
 
 #. (itstool) path: item/p
-#: C/share-export.page:38
+#: C/share-export.page:39
 msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
@@ -114,22 +118,22 @@ msgstr ""
 "ska skalas) och önskad bildpunktsstorlek."
 
 #. (itstool) path: item/title
-#: C/share-export.page:40
+#: C/share-export.page:41
 msgid "Original size"
 msgstr "Ursprungsstorlek"
 
 #. (itstool) path: item/p
-#: C/share-export.page:40
+#: C/share-export.page:41
 msgid "Image will be exported without any scaling applied"
 msgstr "Bilden kommer att exporteras utan att någon skalning tillämpas"
 
 #. (itstool) path: item/title
-#: C/share-export.page:41
+#: C/share-export.page:42
 msgid "Longest edge"
 msgstr "Längsta kanten"
 
 #. (itstool) path: item/p
-#: C/share-export.page:41
+#: C/share-export.page:42
 msgid ""
 "Image will be exported by having its longest edge scaled to <gui>Pixels</"
 "gui> and the other according to the aspect ratio"
@@ -138,12 +142,12 @@ msgstr ""
 "<gui>Bildpunkter</gui> och den andra enligt bildförhållandet"
 
 #. (itstool) path: item/title
-#: C/share-export.page:42
+#: C/share-export.page:43
 msgid "Width"
 msgstr "Bredd"
 
 #. (itstool) path: item/p
-#: C/share-export.page:42
+#: C/share-export.page:43
 msgid ""
 "The image width will have its width scaled to the given pixel size and its "
 "height according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -154,12 +158,12 @@ msgstr ""
 "kanten</gui> för liggande bilder."
 
 #. (itstool) path: item/title
-#: C/share-export.page:43
+#: C/share-export.page:44
 msgid "Height"
 msgstr "Höjd"
 
 #. (itstool) path: item/p
-#: C/share-export.page:43
+#: C/share-export.page:44
 msgid ""
 "The image height will have its height scaled to the given pixel size and its "
 "width according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -170,7 +174,7 @@ msgstr ""
 "gui> för stående bilder."
 
 #. (itstool) path: item/p
-#: C/share-export.page:46
+#: C/share-export.page:47
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -180,7 +184,7 @@ msgstr ""
 "din sekretess om du har platstaggar eller taggar ingen bör se."
 
 #. (itstool) path: page/p
-#: C/share-export.page:49
+#: C/share-export.page:50
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
