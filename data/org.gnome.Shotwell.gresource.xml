@@ -78,5 +78,7 @@
       <file>icons/slideshow-extension-point.png</file>
       <file>icons/hicolor/scalable/actions/straighten-symbolic.svg</file>
       <file>themes/org.gnome.Shotwell.css</file>
+      <!-- Misc stuff -->
+      <file>misc/canary.avif</file>
   </gresource>
 </gresources>
