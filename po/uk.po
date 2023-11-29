@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-11-26 08:37+0000\n"
-"PO-Revision-Date: 2023-11-26 22:01+0200\n"
+"POT-Creation-Date: 2023-11-29 16:34+0000\n"
+"PO-Revision-Date: 2023-11-29 22:49+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -415,11 +415,10 @@ msgid "Shuffle"
 msgstr "Перемішати"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:217
-#| msgid "Whether to show the title of a photo during the slideshow"
 msgid "Whether to shuffle the order of photos during the slideshow"
 msgstr ""
-"Визначає, чи слід використовувати випадковий порядок фотографій під час"
-" показу слайдів"
+"Визначає, чи слід використовувати випадковий порядок фотографій під час "
+"показу слайдів"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "maximize library window"
@@ -1258,8 +1257,7 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Розробники Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Впорядник фотографій"
 
@@ -1282,13 +1280,10 @@ msgstr ""
 "фотографія;фотографії;картинка;картинки;друк;надрукувати;оприлюднити;"
 "обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;півіґо;"
 
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-msgid "Shotwell Profile Browser"
-msgstr "Навігатор профілями Shotwell"
-
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
-msgid "Manage Different Profiles In Shotwell"
-msgstr "Керування різними профілями у Shotwell"
+#: data/org.gnome.Shotwell.desktop.in:21
+#| msgid "Manage Different Profiles In Shotwell"
+msgid "Manage Different Profiles"
+msgstr "Керування різними профілями"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -4886,7 +4881,6 @@ msgid "_Replace"
 msgstr "_Замінити"
 
 #: src/Exporter.vala:359
-#| msgid "Export Video"
 msgid "Export file conflict"
 msgstr "Конфлікт під час експортування файла"
 
@@ -6615,6 +6609,9 @@ msgstr "без назви"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "Shotwell Profile Browser"
+#~ msgstr "Навігатор профілями Shotwell"
 
 #~ msgid "Rename All"
 #~ msgstr "Перейменувати все"
