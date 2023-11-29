@@ -205,6 +205,67 @@ void library_exec(string[] mounts) {
         run_system_pictures_import();
     }
     
+    bool heif = false;
+    bool jxl = false;
+    bool png = false;
+    bool tiff = false;
+    bool avif = false;
+    bool bmp = false;
+    bool gif = false;
+
+    var formats = Gdk.Pixbuf.get_formats();
+    foreach (var format in formats) {
+        if ("image/heif" in format.get_mime_types()) {
+            heif = true;
+        }
+        if ("image/jxl" in format.get_mime_types()) {
+            jxl = true;
+        }
+        if ("image/png" in format.get_mime_types()) {
+            png = true;
+        }
+        if ("image/tiff" in format.get_mime_types()) {
+            tiff = true;
+        }
+        if ("image/avif" in format.get_mime_types()) {
+            avif = true;
+        }
+        if ("image/bmp" in format.get_mime_types()) {
+            bmp = true;
+        }
+        if ("image/gif" in format.get_mime_types()) {
+            gif = true;
+        }
+    }
+
+    bool can_read_bmff = false;
+    Bytes b = null;
+    try {
+        b = GLib.resources_lookup_data("/org/gnome/Shotwell/misc/canary.avif", GLib.ResourceLookupFlags.NONE);
+    } catch (Error err) {
+        error("Failed to look up mandatory resource: %s", err.message);
+    }
+
+    try {
+    var m = new GExiv2.Metadata();
+        m.open_buf(b.get_data());
+        can_read_bmff = true;
+    } catch (Error err) {
+        // Do nothing
+    }
+
+    debug("Supported codecs....");
+    debug("  WEBP   : yes, builtin");
+    debug("  RAW    : yes, builtin");
+    debug("  CR3    : %s", can_read_bmff ? "yes" : "no");
+    debug("  JPEG   : yes, gdk-pixbuf");
+    debug("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
+    debug("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
+    debug("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
+    debug("  JPEG-XL: %s, gdk-pixbuf", jxl ? "yes" : "no");
+    debug("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "yes" : "no");
+    debug("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "yes" : "no");
+    
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
     Application.get_instance().start();
