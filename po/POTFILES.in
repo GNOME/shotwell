@@ -4,7 +4,6 @@ data/gsettings/org.gnome.shotwell-extras.gschema.xml
 data/gsettings/org.gnome.shotwell.gschema.xml
 data/org.gnome.Shotwell.appdata.xml.in
 data/org.gnome.Shotwell.desktop.in
-data/org.gnome.Shotwell-Profile-Browser.desktop.in
 data/org.gnome.Shotwell-Viewer.desktop.in
 data/ui/collection.ui
 data/ui/direct_context.ui
