@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-11-25 10:13+0000\n"
-"PO-Revision-Date: 2023-11-25 11:16+0100\n"
+"POT-Creation-Date: 2023-11-26 08:40+0000\n"
+"PO-Revision-Date: 2023-11-26 10:24+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -31,7 +31,7 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:432
+#: data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
 msgstr "OAuth-token för åtkomstfas"
 
@@ -40,7 +40,7 @@ msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Autentiseringstoken för inloggad Tumblr-användare, om någon"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:438
+#: data/gsettings/org.gnome.shotwell.gschema.xml:444
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth-hemlighet för åtkomstfas"
 
@@ -53,19 +53,19 @@ msgstr ""
 "auktoriseringstoken för den inloggade Tumblr-användaren, om någon"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:444
-#: data/gsettings/org.gnome.shotwell.gschema.xml:502
-#: data/gsettings/org.gnome.shotwell.gschema.xml:564
+#: data/gsettings/org.gnome.shotwell.gschema.xml:450
+#: data/gsettings/org.gnome.shotwell.gschema.xml:508
+#: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "username"
 msgstr "användarnamn"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:445
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Användarnamnet för den inloggade Flickr-användaren, om någon"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:476
+#: data/gsettings/org.gnome.shotwell.gschema.xml:482
 msgid "default size"
 msgstr "standardstorlek"
 
@@ -390,59 +390,68 @@ msgstr "Visa titel"
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr "Huruvida titel för en bild ska visas under bildspelet"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:218
+#: data/gsettings/org.gnome.shotwell.gschema.xml:216
+#: data/ui/slideshow_settings.ui:154
+msgid "Shuffle"
+msgstr "Blanda"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:217
+msgid "Whether to shuffle the order of photos during the slideshow"
+msgstr "Huruvida bildordningen ska blandas under bildspelet"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "maximize library window"
 msgstr "maximera biblioteksfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:219
+#: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "True if library application is maximized, false otherwise"
 msgstr "True om biblioteksprogrammet är maximerat, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:224
+#: data/gsettings/org.gnome.shotwell.gschema.xml:230
 msgid "width of library window"
 msgstr "bredd på biblioteksfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:225
+#: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "The last recorded width of the library application window"
 msgstr "Den senast lagrade bredden på biblioteksprogrammets fönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:230
+#: data/gsettings/org.gnome.shotwell.gschema.xml:236
 msgid "height of library window"
 msgstr "höjden på biblioteksfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:231
+#: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "The last recorded height of the library application window"
 msgstr "Den senast lagrade höjden på biblioteksprogrammets fönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:236
+#: data/gsettings/org.gnome.shotwell.gschema.xml:242
 msgid "maximize direct-edit window"
 msgstr "maximera direktredigeringsfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:237
+#: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr "True om direktredigeringsprogrammet är maximerat, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:242
+#: data/gsettings/org.gnome.shotwell.gschema.xml:248
 msgid "width of direct-edit window"
 msgstr "bredd på direktredigeringsfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:243
+#: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "The last recorded width of the direct-edit application window"
 msgstr "Den senast lagrade bredden på direktredigeringsprogrammets fönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:248
+#: data/gsettings/org.gnome.shotwell.gschema.xml:254
 msgid "height of direct-edit window"
 msgstr "höjd på direktredigeringsfönstret"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:249
+#: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "The last recorded height of the direct-edit application window"
 msgstr "Den senast lagrade höjden på direktredigeringsprogrammets fönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:254
+#: data/gsettings/org.gnome.shotwell.gschema.xml:260
 msgid "sidebar divider position"
 msgstr "position på sidopanelens avdelare"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:255
+#: data/gsettings/org.gnome.shotwell.gschema.xml:261
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -450,28 +459,28 @@ msgstr ""
 "Den senast lagrade positionen på avdelaren mellan sidopanelen och vyn i "
 "biblioteksprogrammets fönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:262
+#: data/gsettings/org.gnome.shotwell.gschema.xml:268
 msgid "import directory"
 msgstr "importkatalog"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:263
+#: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid "Directory in which imported photo files are placed"
 msgstr "Katalog i vilken importerade bildfiler placeras"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:268
+#: data/gsettings/org.gnome.shotwell.gschema.xml:274
 msgid "watch library directory for new files"
 msgstr "bevaka bibliotekskatalogen efter nya filer"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:269
+#: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr "Om true importeras filer tillagda i bibliotekskatalogen automatiskt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:274
+#: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "write metadata to master files"
 msgstr "skriver metadata till huvudfiler"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:275
+#: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -479,11 +488,11 @@ msgstr ""
 "Om true skrivs ändringar i metadata (taggar, titlar och så vidare) till "
 "huvudbildfilen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:280
+#: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "use lowercase filenames"
 msgstr "använd filnamn i gemener"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:281
+#: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -491,11 +500,11 @@ msgstr ""
 "Om true kommer Shotwell att konvertera alla filnamn till gemener vid import "
 "av bildfiler"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:286
+#: data/gsettings/org.gnome.shotwell.gschema.xml:292
 msgid "directory pattern"
 msgstr "katalogmönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:287
+#: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -503,11 +512,11 @@ msgstr ""
 "En sträng med namnmönster som kommer att användas för att namnge "
 "bildkataloger vid import"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:292
+#: data/gsettings/org.gnome.shotwell.gschema.xml:298
 msgid "directory pattern custom"
 msgstr "anpassat katalogmönster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:293
+#: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -515,29 +524,29 @@ msgstr ""
 "En sträng med ett anpassat namnmönster som kommer att användas för att "
 "namnge bildkataloger vid import"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:298
+#: data/gsettings/org.gnome.shotwell.gschema.xml:304
 msgid "RAW developer default"
 msgstr "Standard-RAW-framkallare"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:299
+#: data/gsettings/org.gnome.shotwell.gschema.xml:305
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr "Standardalternativ för vilken RAW-framkallare Shotwell ska använda"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:306
+#: data/gsettings/org.gnome.shotwell.gschema.xml:312
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "Menyval för senast använda bildförhållande vid beskärning"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:307
+#: data/gsettings/org.gnome.shotwell.gschema.xml:313
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "En sifferkod representerande det senast använda beskärningsmenyvalet en "
 "användare gjorde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:311
+#: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr "Täljare för senast använda anpassade bildförhållande vid beskärning"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:312
+#: data/gsettings/org.gnome.shotwell.gschema.xml:318
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -545,11 +554,11 @@ msgstr ""
 "Ett nollskilt, positivt heltal motsvarande bredd-delen för det senast "
 "använda anpassade bildförhållandet för beskärning som användaren valde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:316
+#: data/gsettings/org.gnome.shotwell.gschema.xml:322
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr "Nämnare för senast använda anpassade bildförhållande vid beskärning"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:317
+#: data/gsettings/org.gnome.shotwell.gschema.xml:323
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -557,87 +566,87 @@ msgstr ""
 "Ett nollskilt, positivt heltal motsvarande höjddelen för det senast använda "
 "anpassade bildförhållandet för beskärning som användaren valde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:324
+#: data/gsettings/org.gnome.shotwell.gschema.xml:330
 msgid "external photo editor"
 msgstr "extern bildredigerare"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:325
+#: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "External application used to edit photos"
 msgstr "Externt program att använda för att redigera bilder"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:330
+#: data/gsettings/org.gnome.shotwell.gschema.xml:336
 msgid "external raw editor"
 msgstr "extern RAW-redigerare"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:331
+#: data/gsettings/org.gnome.shotwell.gschema.xml:337
 msgid "External application used to edit RAW photos"
 msgstr "Externt program att använda för att redigera RAW-bilder"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:373
-#: data/gsettings/org.gnome.shotwell.gschema.xml:374
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379
+#: data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: how to trim images"
 msgstr "Inställning i exportdialogen: hur bilder justeras"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:379
+#: data/gsettings/org.gnome.shotwell.gschema.xml:385
 msgid "export metadata"
 msgstr "exportera metadata"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:380
+#: data/gsettings/org.gnome.shotwell.gschema.xml:386
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Inställning i exportdialogen: exportalternativ för metadata"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:385
+#: data/gsettings/org.gnome.shotwell.gschema.xml:391
 msgid "format setting, special value"
 msgstr "formatinställning, specialvärde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:386
+#: data/gsettings/org.gnome.shotwell.gschema.xml:392
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Inställning i exportdialogen: formatinställning, specialvärde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:391
+#: data/gsettings/org.gnome.shotwell.gschema.xml:397
 msgid "format setting, type value"
 msgstr "formatinställning, typvärde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:392
+#: data/gsettings/org.gnome.shotwell.gschema.xml:398
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Inställning i exportdialogen: formatinställning, typvärde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:397
+#: data/gsettings/org.gnome.shotwell.gschema.xml:403
 msgid "JPEG quality option"
 msgstr "Alternativ för JPEG-kvalitet"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:398
+#: data/gsettings/org.gnome.shotwell.gschema.xml:404
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Inställning i exportdialogen: alternativ för jpeg-kvalitet"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:403
+#: data/gsettings/org.gnome.shotwell.gschema.xml:409
 msgid "maximal size of image"
 msgstr "maximal bildstorlek"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:404
+#: data/gsettings/org.gnome.shotwell.gschema.xml:410
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Inställning i exportdialogen: maximal bildstorlek"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:411
+#: data/gsettings/org.gnome.shotwell.gschema.xml:417
 msgid "last used publishing service"
 msgstr "senast använda publiceringstjänst"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:412
 #: data/gsettings/org.gnome.shotwell.gschema.xml:418
+#: data/gsettings/org.gnome.shotwell.gschema.xml:424
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "En sifferkod representerande senaste tjänsten till vilken bilder publicerades"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:417
+#: data/gsettings/org.gnome.shotwell.gschema.xml:423
 msgid "default publishing service"
 msgstr "standardtjänst för publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Autentiseringstoken för inloggad Flickr-användare, om någon"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:439
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -645,22 +654,22 @@ msgstr ""
 "Den kryptografiska hemligheten använd för att signera begäran mot "
 "auktoriseringstoken för den inloggade Flickr-användaren, om någon"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:450
+#: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default size code"
 msgstr "standardstorlekskod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "En sifferkod representerande standardstorleken för bilder publicerade till "
 "Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:456
+#: data/gsettings/org.gnome.shotwell.gschema.xml:462
 msgid "default visibility"
 msgstr "standardsynlighet"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:457
+#: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -668,25 +677,25 @@ msgstr ""
 "En sifferkod representerande standardsynlighet för bilder publicerade till "
 "Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:462
-#: data/gsettings/org.gnome.shotwell.gschema.xml:488
-#: data/gsettings/org.gnome.shotwell.gschema.xml:538
-#: data/gsettings/org.gnome.shotwell.gschema.xml:588
+#: data/gsettings/org.gnome.shotwell.gschema.xml:468
+#: data/gsettings/org.gnome.shotwell.gschema.xml:494
+#: data/gsettings/org.gnome.shotwell.gschema.xml:544
+#: data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "remove sensitive info from uploads"
 msgstr "ta bort känslig information från sändningar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:463
+#: data/gsettings/org.gnome.shotwell.gschema.xml:469
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr "Huruvida bilder uppskickade till Flickr ska rensas på metadata först"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:470
-#: data/gsettings/org.gnome.shotwell.gschema.xml:608
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476
+#: data/gsettings/org.gnome.shotwell.gschema.xml:614
 msgid "refresh token"
 msgstr "uppdatera token"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -694,7 +703,7 @@ msgstr ""
 "OAuth-token använd för att uppdatera Google Foto-sessionen för den inloggade "
 "användaren, om någon"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:477
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -702,72 +711,72 @@ msgstr ""
 "En sifferkod representerande standardstorleken för bilder uppskickade till "
 "Google Foto-album"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:482
-#: data/gsettings/org.gnome.shotwell.gschema.xml:582
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488
+#: data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "last album"
 msgstr "senaste album"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:483
-#: data/gsettings/org.gnome.shotwell.gschema.xml:583
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Namnet på senaste albumet användaren publicerade bilder till, om något"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:489
+#: data/gsettings/org.gnome.shotwell.gschema.xml:495
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr ""
 "Huruvida bilder som skickas upp till Google Foto ska rensas på metadata först"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:496
+#: data/gsettings/org.gnome.shotwell.gschema.xml:502
 msgid "Piwigo URL"
 msgstr "Piwigo-URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:497
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "URL of the Piwigo server"
 msgstr "URL till Piwigo-servern"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:503
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "Piwigo username, if logged in"
 msgstr "Piwigo-användarnamn om inloggad"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:508
+#: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "password"
 msgstr "lösenord"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:509
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "Piwigo password, if logged in"
 msgstr "Piwigo-lösenord om inloggad"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:514
+#: data/gsettings/org.gnome.shotwell.gschema.xml:520
 msgid "remember password"
 msgstr "kom ihåg lösenord"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:515
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "If true, remember the Piwigo password"
 msgstr "Om true, kom ihåg Piwigo-lösenordet"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:520
+#: data/gsettings/org.gnome.shotwell.gschema.xml:526
 msgid "last category"
 msgstr "senaste kategori"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:521
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "The last selected Piwigo category"
 msgstr "Senaste valda Piwigo-kategori"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:526
+#: data/gsettings/org.gnome.shotwell.gschema.xml:532
 msgid "last permission level"
 msgstr "senaste rättighetsnivå"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:527
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
 msgid "The last chosen Piwigo permission level"
 msgstr "Den senast valda Piwigo-rättighetsnivån"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:532
+#: data/gsettings/org.gnome.shotwell.gschema.xml:538
 msgid "last photo size"
 msgstr "senaste bildstorlek"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:533
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -775,20 +784,20 @@ msgstr ""
 "En sifferkod representerande den senaste förinställningen för bildstorlek "
 "använd vid publicering till Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:539
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr "Huruvida bilder uppskickade till Piwigo ska rensas på metadata först"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:544
+#: data/gsettings/org.gnome.shotwell.gschema.xml:550
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "om en titel är angiven men inte kommentaren, använd titeln som kommentar för "
 "sändningar till Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:545
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -796,11 +805,11 @@ msgstr ""
 "Huruvida bilder uppskickade till Piwigo ska ha sin kommentar satt från "
 "titeln om titel är angivet och kommentar tomt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:550
+#: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "skicka inte upp taggar vid sändning till Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:551
+#: data/gsettings/org.gnome.shotwell.gschema.xml:557
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -808,11 +817,11 @@ msgstr ""
 "Huruvida bilder som skickas upp till Piwigo ska rensas på taggar innan, så "
 "att dessa taggar inte dyker upp på fjärr-Piwigo-servern"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:556
+#: data/gsettings/org.gnome.shotwell.gschema.xml:562
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "skicka inte upp betyg vid sändning till Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:557
+#: data/gsettings/org.gnome.shotwell.gschema.xml:563
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -820,45 +829,45 @@ msgstr ""
 "Huruvida bilder som skickas upp till Piwigo ska rensas på betyg innan, så "
 "att dessa betyg inte dyker upp på fjärr-Piwigo-servern"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:565
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 username"
 msgstr "Gallery3-användarnamn"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:570
+#: data/gsettings/org.gnome.shotwell.gschema.xml:576
 msgid "API key"
 msgstr "API-nyckel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:571
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "Gallery3 API key"
 msgstr "Gallery3-API-nyckel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:576
+#: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "Gallery3 site URL"
 msgstr "Gallery3-webbplats-URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
 msgstr "Huruvida bilder uppskickade till Gallery3 ska rensas på metadata först"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:594
+#: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "scaling constraint of uploaded picture"
 msgstr "skalningsbegränsning för den uppskickade bilden"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:595
+#: data/gsettings/org.gnome.shotwell.gschema.xml:601
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Skalningsbegränsnings-ID för den uppskickade bilden"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:600
+#: data/gsettings/org.gnome.shotwell.gschema.xml:606
 msgid "pixels of the major axis uploaded picture"
 msgstr "bildpunkter för storaxeln på den uppskickade bilden"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:601
+#: data/gsettings/org.gnome.shotwell.gschema.xml:607
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -866,7 +875,7 @@ msgstr ""
 "Bildpunkterna för storaxeln för bilden att skickas upp; används endast om "
 "skalningsbegränsnings-ID är ett passande värde"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:609
+#: data/gsettings/org.gnome.shotwell.gschema.xml:615
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -874,55 +883,55 @@ msgstr ""
 "OAuth-token använd för att uppdatera YouTube-sessionen för den inloggade "
 "användaren, om någon"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:616
+#: data/gsettings/org.gnome.shotwell.gschema.xml:622
 msgid "last used import service"
 msgstr "senast använda importtjänst"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:617
+#: data/gsettings/org.gnome.shotwell.gschema.xml:623
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "En sifferkod representerande senaste tjänsten till vilken bilder importerades"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:624
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid "content layout mode"
 msgstr "layoutläge för innehåll"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:625
+#: data/gsettings/org.gnome.shotwell.gschema.xml:631
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr "En sifferkod som beskriver hur bilder läggs ut på sidan vid utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:630
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content ppi"
 msgstr "innehålls-ppi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:631
+#: data/gsettings/org.gnome.shotwell.gschema.xml:637
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Antalet bildpunkter per tum (ppi) skickat till skrivaren vid utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:636
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "content width"
 msgstr "innehållsbredd"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:637
+#: data/gsettings/org.gnome.shotwell.gschema.xml:643
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Bredden på den utskrivna emulsionen för sidan vid utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:642
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "content height"
 msgstr "innehållshöjd"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:643
+#: data/gsettings/org.gnome.shotwell.gschema.xml:649
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Höjden på den utskrivna emulsionen för sidan vid utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:648
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid "content units"
 msgstr "innehållenheter"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:649
+#: data/gsettings/org.gnome.shotwell.gschema.xml:655
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -930,11 +939,11 @@ msgstr ""
 "En sifferkod representerande mätningsenhet (tum eller centimeter) använd vid "
 "utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:654
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "images per page code"
 msgstr "bilder per sidkod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:655
+#: data/gsettings/org.gnome.shotwell.gschema.xml:661
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -942,22 +951,22 @@ msgstr ""
 "En sifferkod representerande aktuellt valda bilder per sidoläge använt vid "
 "utskrift"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:660
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "size selection"
 msgstr "storleksval"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:661
+#: data/gsettings/org.gnome.shotwell.gschema.xml:667
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Indexet för den aktuella utskriftsstorleken i en fördefinierad lista över "
 "standardstorlekar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:666
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "match aspect ratio"
 msgstr "matcha bildförhållande"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:667
+#: data/gsettings/org.gnome.shotwell.gschema.xml:673
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -965,185 +974,185 @@ msgstr ""
 "Avgör huruvida anpassade utskriftsstorlekar måste matcha bildförhållandet "
 "för originalbilden"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:672
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "print titles"
 msgstr "skriv ut titlar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:673
+#: data/gsettings/org.gnome.shotwell.gschema.xml:679
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr "True om en bildtitel ska skrivas ut när bilden skrivs ut, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:678
+#: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "titles font"
 msgstr "titeltypsnitt"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:679
+#: data/gsettings/org.gnome.shotwell.gschema.xml:685
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Namnet på typsnittet att använda för bildtitlar när de skrivs ut"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:690
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 msgid "enable flickr publishing plugin"
 msgstr "aktivera insticksmodulen för Flickr-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:691
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för Flickr-publicering är aktiverad, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 #: data/gsettings/org.gnome.shotwell.gschema.xml:702
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable Google Photos publishing plugin"
 msgstr "aktivera insticksmodulen för Google Foto-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:697
 #: data/gsettings/org.gnome.shotwell.gschema.xml:703
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för Google Foto-publicering är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "enable youtube publishing plugin"
 msgstr "aktivera insticksmodulen för YouTube-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för YouTube-publicering är aktiverad, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable piwigo publishing plugin"
 msgstr "aktivera insticksmodulen för Piwigo-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för Piwigo-publicering är aktiverad, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:720
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable tumblr publishing plugin"
 msgstr "aktivera insticksmodulen för Tumblr-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:721
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för Tumblr-publicering är aktiverad, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:726
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable gallery3 publishing plugin"
 msgstr "aktivera insticksmodulen för Gallery3-publicering"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:727
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen för Gallery3-publicering är aktiverad, annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:732
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable slideshow crumble transition"
 msgstr "aktivera söndersmulningsövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:733
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Smula sönder för bildspelsövergångar är aktiverad, "
 "annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:738
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow fade transition"
 msgstr "aktivera uttoningsövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:739
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Tona ut för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:744
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow slide transition"
 msgstr "aktivera glidövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:745
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Glid för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:750
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow clock transition"
 msgstr "aktivera klockövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:751
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Klocka för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:756
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circle transition"
 msgstr "aktivera cirkelövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:757
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Cirkel för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:762
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow circles transition"
 msgstr "aktivera övergång med cirklar för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:763
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Cirklar för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:768
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow blinds transition"
 msgstr "aktivera persiennövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:769
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Persienner för bildspelsövergångar är aktiverad, "
 "annars false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:774
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow squares transition"
 msgstr "aktivera rutövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:775
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Rutor för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:780
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow stripes transition"
 msgstr "aktivera randövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:781
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True om insticksmodulen Randig för bildspelsövergångar är aktiverad, annars "
 "false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:786
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow chess transition"
 msgstr "aktivera schackövergång för bildspel"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:787
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1814,7 +1823,7 @@ msgstr "_Logga in"
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
-#: src/Dialogs.vala:783 src/Exporter.vala:349 src/ProfileBrowser.vala:68
+#: src/Dialogs.vala:783 src/Exporter.vala:359 src/ProfileBrowser.vala:68
 #: src/ProfileBrowser.vala:100 src/publishing/PublishingUI.vala:174
 #: src/publishing/PublishingUI.vala:403 src/Resources.vala:124
 msgid "_Cancel"
@@ -2100,7 +2109,7 @@ msgstr "Hur länge varje bild ska visas på skrivbordsbakgrunden"
 msgid "New _Tag…"
 msgstr "_Ny tagg…"
 
-#: data/ui/slideshow_settings.ui:21 src/SlideshowPage.vala:159
+#: data/ui/slideshow_settings.ui:21 src/SlideshowPage.vala:174
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -2128,7 +2137,7 @@ msgstr "Tiden (i sekunder) som varje övergång visas mellan bilder"
 msgid "Show t_itle"
 msgstr "_Visa titel"
 
-#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
+#: data/ui/slideshow_settings.ui:237 data/ui/slideshow_settings.ui:248
 msgid "seconds"
 msgstr "sekunder"
 
@@ -2312,7 +2321,7 @@ msgstr "Kunde inte ladda användargränssnittet: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:592
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2885,7 +2894,7 @@ msgstr "Fäst verktygsfältet i öppet läge"
 msgid "Leave fullscreen"
 msgstr "Avsluta helskärmsläge"
 
-#: src/AppWindow.vala:564
+#: src/AppWindow.vala:571
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2898,21 +2907,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:589
+#: src/AppWindow.vala:596
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:602
+#: src/AppWindow.vala:609
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:610
+#: src/AppWindow.vala:617
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Det går inte att komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:618
+#: src/AppWindow.vala:625
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -3166,39 +3175,39 @@ msgstr "Justera datum och tid…"
 msgid "_Play"
 msgstr "_Spela"
 
-#: src/CollectionPage.vala:413
+#: src/CollectionPage.vala:414
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Exportera bild/film"
 msgstr[1] "Exportera bilder/filmer"
 
-#: src/CollectionPage.vala:415
+#: src/CollectionPage.vala:416
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Exportera bild"
 msgstr[1] "Exportera bilder"
 
-#: src/CollectionPage.vala:502 src/CollectionPage.vala:518
+#: src/CollectionPage.vala:503 src/CollectionPage.vala:519
 msgid "Rotating"
 msgstr "Roterar"
 
-#: src/CollectionPage.vala:502 src/CollectionPage.vala:518
+#: src/CollectionPage.vala:503 src/CollectionPage.vala:519
 msgid "Undoing Rotate"
 msgstr "Ångrar rotationen"
 
-#: src/CollectionPage.vala:527
+#: src/CollectionPage.vala:528
 msgid "Flipping Horizontally"
 msgstr "Vänder horisontellt"
 
-#: src/CollectionPage.vala:528
+#: src/CollectionPage.vala:529
 msgid "Undoing Flip Horizontally"
 msgstr "Ångrar horisontell vändning"
 
-#: src/CollectionPage.vala:537
+#: src/CollectionPage.vala:538
 msgid "Flipping Vertically"
 msgstr "Vänder vertikalt"
 
-#: src/CollectionPage.vala:538
+#: src/CollectionPage.vala:539
 msgid "Undoing Flip Vertically"
 msgstr "Ångrar vertikal vändning"
 
@@ -4477,7 +4486,7 @@ msgstr "Alla filer"
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Kunde inte övervaka %s: Det är inte en mapp (%s)"
 
-#: src/DragAndDropHandler.vala:161
+#: src/DragAndDropHandler.vala:165
 msgid "Photos cannot be exported to this directory."
 msgstr "Bilderna kan inte exporteras till denna mapp."
 
@@ -4719,43 +4728,35 @@ msgstr "Odaterade"
 msgid "Event %s"
 msgstr "Händelse %s"
 
-#: src/Exporter.vala:237 src/Exporter.vala:292
+#: src/Exporter.vala:238 src/Exporter.vala:302
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Kunde inte skapa en temporärfil för %s: %s"
 
-#: src/Exporter.vala:329
+#: src/Exporter.vala:339
 msgid "Exporting"
 msgstr "Exporterar"
 
-#: src/Exporter.vala:347
+#: src/Exporter.vala:357
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Filen %s finns redan. Vill du ersätta den?"
 
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "Rename"
 msgstr "Byt namn"
 
-#: src/Exporter.vala:349
-msgid "Rename All"
-msgstr "Byt namn på alla"
-
-#: src/Exporter.vala:349
+#: src/Exporter.vala:359
 msgid "_Replace"
 msgstr "_Ersätt"
 
-#: src/Exporter.vala:349
-msgid "Replace _All"
-msgstr "Ersätt _alla"
-
-#: src/Exporter.vala:349
-msgid "Export"
-msgstr "Exportera"
+#: src/Exporter.vala:359
+msgid "Export file conflict"
+msgstr "Konflikt vid filexport"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -6097,7 +6098,7 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:117
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:128
 msgid "Slideshow"
 msgstr "Bildspel"
 
@@ -6324,44 +6325,44 @@ msgstr "Använd en sparad sökning för att filtrera objekt i aktuell vy"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:136
+#: src/SlideshowPage.vala:151
 msgid "Back"
 msgstr "Bakåt"
 
-#: src/SlideshowPage.vala:138
+#: src/SlideshowPage.vala:153
 msgid "Go to the previous photo"
 msgstr "Gå till föregående bild"
 
-#: src/SlideshowPage.vala:143 src/SlideshowPage.vala:250
+#: src/SlideshowPage.vala:158 src/SlideshowPage.vala:265
 msgid "Pause"
 msgstr "Pausa"
 
-#: src/SlideshowPage.vala:145 src/SlideshowPage.vala:251
+#: src/SlideshowPage.vala:160 src/SlideshowPage.vala:266
 msgid "Pause the slideshow"
 msgstr "Pausa bildspelet"
 
-#: src/SlideshowPage.vala:150
+#: src/SlideshowPage.vala:165
 msgid "Next"
 msgstr "Nästa"
 
-#: src/SlideshowPage.vala:152
+#: src/SlideshowPage.vala:167
 msgid "Go to the next photo"
 msgstr "Gå till nästa bild"
 
-#: src/SlideshowPage.vala:160
+#: src/SlideshowPage.vala:175
 msgid "Change slideshow settings"
 msgstr "Ändra inställningar för bildspel"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:214
+#: src/SlideshowPage.vala:229
 msgid "All photo source files are missing."
 msgstr "Alla källbildfiler saknas."
 
-#: src/SlideshowPage.vala:246
+#: src/SlideshowPage.vala:261
 msgid "Play"
 msgstr "Spela upp"
 
-#: src/SlideshowPage.vala:247
+#: src/SlideshowPage.vala:262
 msgid "Continue the slideshow"
 msgstr "Fortsätt bildspelet"
 
@@ -6393,6 +6394,15 @@ msgstr "namnlös"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Exportera filmer"
+
+#~ msgid "Rename All"
+#~ msgstr "Byt namn på alla"
+
+#~ msgid "Replace _All"
+#~ msgstr "Ersätt _alla"
+
+#~ msgid "Export"
+#~ msgstr "Exportera"
 
 #~ msgid "%Y"
 #~ msgstr "%Y"
