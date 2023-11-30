@@ -262,7 +262,7 @@ void library_exec(string[] mounts) {
     debug("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
     debug("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
     debug("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
-    debug("  JPEG-XL: %s, gdk-pixbuf", jxl ? "yes" : "no");
+    debug("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "yes" : "no");
     debug("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "yes" : "no");
     debug("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "yes" : "no");
     
