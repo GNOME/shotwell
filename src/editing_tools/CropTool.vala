@@ -726,8 +726,8 @@ public class EditingTools.CropTool : EditingTool {
         // determine where the mouse down landed and store for future events
         in_manipulation = offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
         (int)Math.lround(y * Application.get_scale()));
-        last_grab_x = x -= scaled_pixbuf_pos.x;
-        last_grab_y = y -= scaled_pixbuf_pos.y;
+        last_grab_x = x - (int)Math.lround(scaled_pixbuf_pos.x / Application.get_scale());
+        last_grab_y = y - (int)Math.lround(scaled_pixbuf_pos.y / Application.get_scale());
 
         // repaint because the crop changes on a mouse down
         canvas.repaint();
