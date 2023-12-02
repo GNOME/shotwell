@@ -69,31 +69,27 @@ public async bool confirm_delete_face(Face face) {
 namespace ExportUI {
 private static File current_export_dir = null;
 
-public File? choose_file(string current_file_basename) {
+public async File? choose_file(string current_file_basename) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
 
     string file_chooser_title = VideoReader.is_supported_video_filename(current_file_basename) ?
         _("Export Video") : GLib.dpgettext2 (null, "Dialog Title", "Export Photo");
         
-    var chooser = new Gtk.FileChooserNative(file_chooser_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.SAVE_LABEL, Resources.CANCEL_LABEL);
-        try {
-            chooser.set_current_folder(current_export_dir);
-        } catch (Error error) {
-        }
-    chooser.set_current_name(current_file_basename);
-    
-    File file = null;
-    chooser.show();
-    int response = Gtk.ResponseType.OK;
-    if (response == Gtk.ResponseType.ACCEPT) {
-        file = chooser.get_file();
+    var chooser = new Gtk.FileDialog();
+    chooser.set_title(file_chooser_title);
+    chooser.set_initial_folder(current_export_dir);
+    chooser.set_initial_name(current_file_basename);
+
+    try {
+        var file = yield chooser.save(AppWindow.get_instance(), null);
         current_export_dir = file.get_parent();
+        return file;
+    } catch (Error error) {
+        critical("Failed to save: %s", error.message);
     }
-    chooser.destroy();
     
-    return file;
+    return null;
 }
 
 public File? choose_dir(string? user_title = null) {

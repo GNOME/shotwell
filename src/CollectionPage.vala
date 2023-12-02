@@ -380,6 +380,10 @@ public abstract class CollectionPage : MediaPage {
     }
 
     protected override void on_export() {
+        run_exporter.begin();
+    }
+
+    private async void run_exporter() {
         if (exporter != null)
             return;
         
@@ -414,15 +418,15 @@ public abstract class CollectionPage : MediaPage {
         // operation you'll also be exporting a small PNG for your blog). However, if the selection
         // contains any videos, then we set the parameters to the "Current" operating mode, since
         // videos can't be saved as PNGs (or any other specific photo format).
-        ExportFormatParameters export_params = (has_some_videos) ? ExportFormatParameters.current() :
+        ExportFormatParameters? export_params = (has_some_videos) ? ExportFormatParameters.current() :
             ExportFormatParameters.last();
 
-        int scale;
-        ScaleConstraint constraint;
-        if (!export_dialog.execute(out scale, out constraint, ref export_params))
+        export_params = yield export_dialog.execute(export_params);
+        if (export_params == null) {
             return;
+        }
         
-        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
+        Scaling scaling = Scaling.for_constraint(export_params.constraint, export_params.scale, false);
         
         // handle the single-photo case, which is treated like a Save As file operation
         if (export_list.size == 1) {
@@ -432,7 +436,7 @@ public abstract class CollectionPage : MediaPage {
                 break;
             }
             
-            File save_as =
+            File save_as = yield
                 ExportUI.choose_file(photo.get_export_basename_for_parameters(export_params));
             if (save_as == null)
                 return;

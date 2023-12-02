@@ -137,12 +137,16 @@ public void send_to(Gee.Collection<MediaSource> media) {
     int scale;
     ScaleConstraint constraint;
     ExportFormatParameters export_params = ExportFormatParameters.current();
-    if (!dialog.execute(out scale, out constraint, ref export_params))
-        return;
-    
-    send_to_exporter = new ExporterUI(new Exporter.for_temp_file(media,
-        Scaling.for_constraint(constraint, scale, false), export_params));
-    send_to_exporter.export(on_send_to_export_completed);
+    dialog.execute.begin(export_params, (obj, res) => {
+        var params = dialog.execute.end(res);
+        if (params == null) {
+            return;
+        }
+
+        send_to_exporter = new ExporterUI(new Exporter.for_temp_file(media,
+            Scaling.for_constraint(params.constraint, params.scale, false), params));
+        send_to_exporter.export(on_send_to_export_completed);
+    });       
 }
 
 private void on_send_to_export_completed(Exporter exporter, bool is_cancelled) {

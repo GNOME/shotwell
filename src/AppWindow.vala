@@ -206,7 +206,7 @@ public abstract class AppWindow : PageWindow {
         return response_id == Gtk.ResponseType.YES;
     }
 
-    public static Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,
+    public static async Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,
         string affirmative, string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
@@ -245,7 +245,7 @@ public abstract class AppWindow : PageWindow {
         return (Gtk.ResponseType) response;
     }
     
-	public static int export_overwrite_or_replace_question(string message,
+	public static async int export_overwrite_or_replace_question(string message,
 		string alt1, string alt2, string alt4, string alt6,
         string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
@@ -256,8 +256,16 @@ public abstract class AppWindow : PageWindow {
         c.show();
         content.append(c);
         dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
+
+        SourceFunc callback = export_overwrite_or_replace_question.callback;
+        int response = Gtk.ResponseType.CANCEL;
+        dialog.response.connect((r) => {
+            response = r;
+            dialog.hide();
+            callback();
+        });
+        yield;
         
-        int response = Gtk.ResponseType.CANCEL;//dialog.run();
         if (c.get_active()) {
             response |= 0x80;
         }

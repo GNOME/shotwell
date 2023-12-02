@@ -171,14 +171,13 @@ public class ExportDialog : Gtk.Dialog {
     // unlike other parameters, which should be persisted across dialog executions, the
     // format parameters must be set each time the dialog is executed -- this is why
     // it's passed qualified as ref and not as out
-    public bool execute(out int scale, out ScaleConstraint constraint,
-        ref ExportFormatParameters parameters) {
+    public async ExportFormatParameters? execute(ExportFormatParameters parameters) {
         show();
 
         // if the export format mode isn't set to last (i.e., don't use the persisted settings),
         // reset the scale constraint to original size
         if (parameters.mode != ExportFormatMode.LAST) {
-            current_constraint = constraint = ScaleConstraint.ORIGINAL;
+            current_constraint = parameters.constraint = ScaleConstraint.ORIGINAL;
             constraint_combo.set_active(0);
         }
 
@@ -191,16 +190,25 @@ public class ExportDialog : Gtk.Dialog {
         on_format_changed();
 
         bool ok = false; //(run() == Gtk.ResponseType.OK);
+        SourceFunc callback = execute.callback;
+        response.connect((r) => {
+            ok = r == Gtk.ResponseType.OK;
+            callback();
+        });
+        yield;
+        
+        destroy();
+
         if (ok) {
             int index = constraint_combo.get_active();
             assert(index >= 0);
-            constraint = CONSTRAINT_ARRAY[index];
-            current_constraint = constraint;
+            parameters.constraint = CONSTRAINT_ARRAY[index];
+            current_constraint = parameters.constraint;
 
-            scale = int.parse(pixels_entry.get_text());
-            if (constraint != ScaleConstraint.ORIGINAL)
-                assert(scale > 0);
-            current_scale = scale;
+            parameters.scale = int.parse(pixels_entry.get_text());
+            if (parameters.constraint != ScaleConstraint.ORIGINAL)
+                assert(parameters.scale > 0);
+            current_scale = parameters.scale;
 
             parameters.export_metadata = export_metadata.sensitive ? export_metadata.active : false;
 
@@ -223,14 +231,13 @@ public class ExportDialog : Gtk.Dialog {
             config.set_export_export_metadata(current_parameters.export_metadata); //export metadata
             config.set_export_constraint(current_constraint); //constraint
             config.set_export_scale(current_scale); //scale
+            return parameters;
         } else {
-            scale = 0;
-            constraint = ScaleConstraint.ORIGINAL;
+            parameters.scale = 0;
+            parameters.constraint = ScaleConstraint.ORIGINAL;
+
+            return null;
         }
-
-        destroy();
-
-        return ok;
     }
 
     private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {

@@ -323,9 +323,12 @@ public class DirectPhotoPage : EditingHostPage {
         // TODO: Check if we can actually write to the file
         string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
 
+        #if 0
         Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
             _("Lose changes to %s?").printf(photo.get_basename()), save_option,
             _("Close _without Saving"));
+            #endif
+            var response = Gtk.ResponseType.CANCEL;
 
         if (response == Gtk.ResponseType.YES)
             photo.remove_all_transformations(notify);
@@ -393,13 +396,18 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_save_as() {
+        save_as.begin();
+    }
+
+    private async void save_as() {
         ExportDialog export_dialog = new ExportDialog(_("Save As"));
         
-        int scale;
-        ScaleConstraint constraint;
-        ExportFormatParameters export_params = ExportFormatParameters.last();
-        if (!export_dialog.execute(out scale, out constraint, ref export_params))
+        ExportFormatParameters? export_params = ExportFormatParameters.last();
+
+        export_params = yield export_dialog.execute(export_params);
+        if (export_params == null) {
             return;
+        }
 
         string filename = get_photo().get_export_basename_for_parameters(export_params);
         PhotoFileFormat effective_export_format =
@@ -419,31 +427,33 @@ public class DirectPhotoPage : EditingHostPage {
         all_files.add_pattern("*");
         all_files.set_filter_name(_("All files"));
 
-        var save_as_dialog = new Gtk.FileChooserNative(_("Save As"), 
-            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.OK_LABEL, Resources.CANCEL_LABEL);
-        save_as_dialog.set_select_multiple(false);
-        save_as_dialog.set_current_name(filename);
+        var save_as_dialog = new Gtk.FileDialog();
+        save_as_dialog.set_accept_label(Resources.OK_LABEL);
+        var filters = new GLib.ListStore(typeof(Gtk.FileFilter));
+        filters.append(output_format_filter);
+        filters.append(all_files);
+        save_as_dialog.set_filters(filters);
+
+        save_as_dialog.set_initial_name(filename);
+        save_as_dialog.set_initial_folder(current_save_dir);
+
         try {
-        save_as_dialog.set_current_folder(current_save_dir);
-        } catch (Error error) {
-        }
-        save_as_dialog.add_filter(output_format_filter);
-        save_as_dialog.add_filter(all_files);
-        
-        int response = 0; //save_as_dialog.run();
-        if (response == Gtk.ResponseType.ACCEPT) {
+            var file = yield save_as_dialog.save(AppWindow.get_instance(), null);
+            if (file == null) {
+                return;
+            }
             // flag to prevent asking user about losing changes to the old file (since they'll be
             // loaded right into the new one)
             drop_if_dirty = true;
-            save(save_as_dialog.get_file(), scale, constraint, export_params.quality,
+            save(file, export_params.scale, export_params.constraint, export_params.quality,
                 effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED, 
                 export_params.export_metadata);
             drop_if_dirty = false;
 
-            current_save_dir = save_as_dialog.get_current_folder();
+            current_save_dir = file.get_parent();
+        } catch (Error error) {
+            critical("Failed: %s", error.message);
         }
-        
-        save_as_dialog.destroy();
     }
     
     private void on_send_to() {

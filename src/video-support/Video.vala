@@ -151,6 +151,8 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
                 break;
             }
 
+            // FIXME
+            #if 0
             File save_as = ExportUI.choose_file(video.get_basename());
             if (save_as == null)
                 return null;
@@ -163,6 +165,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
                 AppWindow.get_instance().set_normal_cursor();
                 export_error_dialog(save_as, false);
             }
+            #endif
 
             return null;
         }

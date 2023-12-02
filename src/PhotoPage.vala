@@ -2965,23 +2965,28 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_export() {
+        do_export.begin();
+    }
+    
+    private async void do_export() {
         if (!has_photo())
             return;
         
         ExportDialog export_dialog = new ExportDialog(GLib.dpgettext2(null, "Dialog Title", "Export Photo"));
         
-        int scale;
-        ScaleConstraint constraint;
-        ExportFormatParameters export_params = ExportFormatParameters.last();
-        if (!export_dialog.execute(out scale, out constraint, ref export_params))
+        ExportFormatParameters? export_params = ExportFormatParameters.last();
+        export_params = yield export_dialog.execute(export_params);
+        if (export_params == null) {
             return;
+        }
         
         File save_as =
-            ExportUI.choose_file(get_photo().get_export_basename_for_parameters(export_params));
+            yield ExportUI.choose_file(get_photo().get_export_basename_for_parameters(export_params));
+
         if (save_as == null)
             return;
         
-        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
+        Scaling scaling = Scaling.for_constraint(export_params.constraint, export_params.scale, false);
         
         try {
             get_photo().export(save_as, scaling, export_params.quality,

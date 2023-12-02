@@ -16,6 +16,8 @@ public struct ExportFormatParameters {
     public PhotoFileFormat specified_format;
     public Jpeg.Quality quality;
     public bool export_metadata;
+    public int scale;
+    public ScaleConstraint constraint;
     
     private ExportFormatParameters(ExportFormatMode mode, PhotoFileFormat specified_format,
         Jpeg.Quality quality) {
@@ -23,6 +25,8 @@ public struct ExportFormatParameters {
         this.specified_format = specified_format;
         this.quality = quality;
         this.export_metadata = true;
+        this.scale = 0;
+        this.constraint = ScaleConstraint.ORIGINAL;
     }
     
     public static ExportFormatParameters current() {
@@ -355,8 +359,11 @@ public class ExporterUI {
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
+        #if 0
         int response = AppWindow.export_overwrite_or_replace_question(question, 
             _("_Skip"), _("Rename"), _("_Replace"), _("_Cancel"), _("Export file conflict"));
+            #endif
+        int response = Gtk.ResponseType.CANCEL;
         
         progress_dialog.set_modal(true);
 
