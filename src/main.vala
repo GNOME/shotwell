@@ -247,24 +247,24 @@ void library_exec(string[] mounts) {
     }
 
     try {
-    var m = new GExiv2.Metadata();
+        var m = new GExiv2.Metadata();
         m.open_buf(b.get_data());
         can_read_bmff = true;
     } catch (Error err) {
         // Do nothing
     }
 
-    debug("Supported codecs....");
-    debug("  WEBP   : yes, builtin");
-    debug("  RAW    : yes, builtin");
-    debug("  CR3    : %s", can_read_bmff ? "yes" : "no");
-    debug("  JPEG   : yes, gdk-pixbuf");
-    debug("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
-    debug("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
-    debug("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
-    debug("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "yes" : "no");
-    debug("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "yes" : "no");
-    debug("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "yes" : "no");
+    message("Supported codecs....");
+    message("  WEBP   : yes, builtin");
+    message("  RAW    : yes, builtin");
+    message("  CR3    : %s", can_read_bmff ? "yes" : "no");
+    message("  JPEG   : yes, gdk-pixbuf");
+    message("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
+    message("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
+    message("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
+    message("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "yes" : "no");
+    message("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "yes" : "no");
+    message("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "yes" : "no");
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
