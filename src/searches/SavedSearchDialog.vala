@@ -483,8 +483,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         private const string DATE_FORMAT = "%x";
         private Gtk.Box box;
         private Gtk.ComboBoxText context;
-        private Gtk.Button label_one;
-        private Gtk.Button label_two;
+        private Gtk.MenuButton label_one;
+        private Gtk.MenuButton label_two;
         private Gtk.Calendar cal_one;
         private Gtk.Calendar cal_two;
         private Gtk.Label and;
@@ -507,10 +507,17 @@ public class SavedSearchDialog : Gtk.Dialog {
             cal_one = new Gtk.Calendar();
             cal_two = new Gtk.Calendar();
             
-            label_one = new Gtk.Button();
-            label_one.clicked.connect(on_one_clicked);
-            label_two = new Gtk.Button();
-            label_two.clicked.connect(on_two_clicked);
+            label_one = new Gtk.MenuButton();
+            var popover = new Gtk.Popover();
+            label_one.set_popover(popover);
+            popover.set_child(cal_one);
+            cal_one.day_selected.connect(() => { update_date_labels();});
+
+            label_two = new Gtk.MenuButton();
+            popover = new Gtk.Popover();
+            label_two.set_popover(popover);
+            popover.set_child(cal_two);
+            cal_two.day_selected.connect(() => { update_date_labels();});
             
             and = new Gtk.Label(_("and"));
             
@@ -601,38 +608,6 @@ public class SavedSearchDialog : Gtk.Dialog {
             update_date_labels();
         }
         
-        private void popup_calendar(Gtk.Calendar cal) {
-            int orig_day = cal.day;
-            int orig_month = cal.month;
-            int orig_year = cal.year;
-            Gtk.Dialog d = new Gtk.Dialog.with_buttons(null, null, 
-                Gtk.DialogFlags.MODAL, Resources.CANCEL_LABEL, Gtk.ResponseType.REJECT, 
-                Resources.OK_LABEL, Gtk.ResponseType.ACCEPT);
-            d.set_modal(true);
-            d.set_resizable(false);
-            d.set_decorated(false);
-            ((Gtk.Box) d.get_content_area()).append(cal);
-            ulong id_1 = cal.day_selected.connect(()=>{update_date_labels();});
-            d.show();
-            int res = 0; //d.run();
-            if (res != Gtk.ResponseType.ACCEPT) {
-                // User hit cancel, restore original date.
-                cal.day = orig_day;
-                cal.month = orig_month;
-                cal.year = orig_year;
-            }
-            cal.disconnect(id_1);
-            d.destroy();
-            update_date_labels();
-        }
-        
-        private void on_one_clicked() {
-            popup_calendar(cal_one);
-        }
-        
-        private void on_two_clicked() {
-            popup_calendar(cal_two);
-        }
     }
     
     [GtkChild]
