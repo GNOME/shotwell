@@ -723,11 +723,13 @@ public class EditingTools.CropTool : EditingTool {
         // scaled_crop is not maintained relative to photo's position on canvas
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pixbuf_pos.x, scaled_pixbuf_pos.y);
 
+        var xmul = (int)Math.lround(x * Application.get_scale());
+        var ymul = (int)Math.lround(y * Application.get_scale());
+
         // determine where the mouse down landed and store for future events
-        in_manipulation = offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
-        (int)Math.lround(y * Application.get_scale()));
-        last_grab_x = x - (int)Math.lround(scaled_pixbuf_pos.x / Application.get_scale());
-        last_grab_y = y - (int)Math.lround(scaled_pixbuf_pos.y / Application.get_scale());
+        in_manipulation = offset_scaled_crop.approx_location(xmul, ymul);
+        last_grab_x = xmul - scaled_pixbuf_pos.x;
+        last_grab_y = ymul - scaled_pixbuf_pos.y;
 
         // repaint because the crop changes on a mouse down
         canvas.repaint();
