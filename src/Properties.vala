@@ -50,7 +50,7 @@ private abstract class Properties : Gtk.Box {
             }
 
             if (href == null) {
-                info_label.set_text(is_string_empty(info_text) ? "" : info_text);
+                info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
             } else {
                 info_label.set_markup("<a href=\"%s\">%s</a>".printf(href, Markup.escape_text(info_text)));
             }
@@ -596,7 +596,7 @@ private class ExtendedProperties : Properties {
             // nothing special to be done for now for Events
         } else {
             add_line(_("Location:"), (file_path != "" && file_path != null) ?
-                file_path.replace("&", "&amp;") : NO_VALUE);
+                Markup.escape_text(file_path) : NO_VALUE);
 
             add_line(_("File size:"), (filesize > 0) ?
                 format_size((int64) filesize) : NO_VALUE);
