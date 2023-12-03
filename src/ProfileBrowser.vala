@@ -2,6 +2,32 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 namespace Shotwell {
+    // Simple button that shows a folder chooser when clicked
+    class FolderButton : Gtk.Button {
+        public File folder {get; set; default = null;}
+        public string title {get; construct; default = null;}
+
+        public FolderButton(File folder, string title) {
+            Object(hexpand: false, vexpand: false, halign : Gtk.Align.FILL, icon_name: "folder-symbolic", folder: folder, title: title);
+        }
+
+        public override void clicked() {
+            var dialog = new Gtk.FileDialog();
+            dialog.set_accept_label(_("_OK"));
+            dialog.set_initial_folder(folder);
+            dialog.set_modal(true);
+            dialog.set_title(title);
+            var window = (Gtk.Window)get_ancestor(typeof(Gtk.Window));
+            dialog.select_folder.begin(window, null, (obj, res) => {
+                try {
+                    folder = dialog.select_folder.end(res);
+                } catch (Error error) {
+                    debug("Failed to chose folder: %s", error.message);
+                }
+            });
+        }
+    }
+
     class ProfileEditor : Gtk.Dialog {
         public string profile_name {get; set;}
         public string id{get; default = Uuid.string_random();}
@@ -19,7 +45,7 @@ namespace Shotwell {
 
             add_buttons(_("Create"), Gtk.ResponseType.OK, _("Cancel"), Gtk.ResponseType.CANCEL, null);
             var create_button = get_widget_for_response(Gtk.ResponseType.OK);
-            create_button.get_style_context().add_class("suggested-action");
+            create_button.add_css_class("suggested-action");
             create_button.sensitive = false;
             set_title(_("Create new Profile"));
 
@@ -36,7 +62,7 @@ namespace Shotwell {
             grid.set_row_spacing(12);
             grid.set_column_spacing(12);
             var label = new Gtk.Label(_("Name"));
-            label.get_style_context().add_class("dim-label");
+            label.add_css_class("dim-label");
             label.halign = Gtk.Align.END;
             grid.attach(label, 0, 0, 1, 1);
 
@@ -50,7 +76,7 @@ namespace Shotwell {
             grid.attach(entry, 1, 0, 2, 1);
 
             label = new Gtk.Label(_("Library Folder"));
-            label.get_style_context().add_class("dim-label");
+            label.add_css_class("dim-label");
             label.halign = Gtk.Align.END;
             grid.attach(label, 0, 1, 1, 1);
 
@@ -63,25 +89,18 @@ namespace Shotwell {
                 return true;
             });
 
-            var button = new Gtk.Button.from_icon_name("folder-symbolic");
-            button.hexpand = false;
-            button.vexpand = false;
-            button.halign = Gtk.Align.FILL;
-            button.clicked.connect(() => {
-                var dialog = new Gtk.FileChooserNative(_("Choose Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
-                dialog.set_current_folder(File.new_for_commandline_arg (library_folder));
-                var result = Gtk.ResponseType.OK; //dialog.run();
-                dialog.hide();
-                if (result == Gtk.ResponseType.ACCEPT) {
-                    library_folder = dialog.get_current_folder().get_path();
-                }
-                dialog.destroy();
-            });
+            var button = new FolderButton(File.new_for_commandline_arg (library_folder), _("Choose Library Folder"));
+            button.bind_property("folder", this, "library-folder", GLib.BindingFlags.DEFAULT, (binding, from, ref to) => {
+                var file = (File)from.get_object();
+                to = file.get_path();
+
+                return true;
+            }, null);
             grid.attach(button, 2, 1, 1, 1);
 
 
             label = new Gtk.Label(_("Data Folder"));
-            label.get_style_context().add_class("dim-label");
+            label.add_css_class("dim-label");
             label.halign = Gtk.Align.END;
             grid.attach(label, 0, 2, 1, 1);
 
@@ -95,21 +114,13 @@ namespace Shotwell {
             });
             grid.attach(entry, 1, 2, 1, 1);
 
-            button = new Gtk.Button.from_icon_name("folder-symbolic");
-            button.hexpand = false;
-            button.vexpand = false;
-            button.halign = Gtk.Align.FILL;
-            button.clicked.connect(() => {
-                var dialog = new Gtk.FileChooserNative(_("Choose Data Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
-                dialog.set_current_folder(File.new_for_commandline_arg(data_folder));
-                var result = Gtk.ResponseType.OK; //dialog.run();
-                dialog.hide();
-                if (result == Gtk.ResponseType.ACCEPT) {
-                    data_folder = dialog.get_current_folder().get_path();
-                }
-                dialog.destroy();
-            });
+            button = new FolderButton(File.new_for_commandline_arg (data_folder), _("Choose Data Folder"));
+            button.bind_property("folder", this, "data-folder", GLib.BindingFlags.DEFAULT, (binding, from, ref to) => {
+                var file = (File)from.get_object();
+                to = file.get_path();
 
+                return true;
+            }, null);
             grid.attach(button, 2, 2, 1, 1);
 
             get_content_area().append(grid);
@@ -128,17 +139,19 @@ namespace Shotwell {
     
         public override void constructed() {
             base.constructed();
+
             var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            content.vexpand = true;
+            content.vexpand = false;
             append(content);
     
             var revealer = new Gtk.Revealer();
-            revealer.margin_top = 6;
+            revealer.margin_top = 0;
             append(revealer);
                 
             var label = new Gtk.Label(null);
             label.set_markup("<span weight=\"bold\">%s</span>".printf(Markup.escape_text(profile.name)));
             label.halign = Gtk.Align.START;
+            label.hexpand = true;
             content.prepend(label);
 
             Gtk.Image image;
@@ -149,11 +162,11 @@ namespace Shotwell {
             } else {
                 image = new Gtk.Image();
             }
-            content.prepend(image);
+            content.append(image);
 
             var button = new Gtk.ToggleButton();
-            button.get_style_context().add_class("flat");
-            content.prepend(button);
+            button.add_css_class("flat");
+            content.append(button);
             button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
             image = new Gtk.Image.from_icon_name("go-down-symbolic");
             button.set_child(image);
@@ -205,7 +218,7 @@ namespace Shotwell {
             
             if (profile.id != Profile.SYSTEM && !profile.active) {
                 var remove_button = new Gtk.Button.with_label(_("Remove Profile"));
-                remove_button.get_style_context().add_class("destructive-action");
+                remove_button.add_css_class("destructive-action");
                 remove_button.set_tooltip_text(_("Remove this profile"));
                 remove_button.hexpand = false;
                 remove_button.halign = Gtk.Align.END;
@@ -256,7 +269,7 @@ namespace Shotwell {
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
                 profile_activated(profile);
             });
-            list_box.get_style_context().add_class("rich-list");
+            list_box.add_css_class("rich-list");
             list_box.hexpand = true;
             list_box.vexpand = true;
             scrollable.set_child (list_box);
@@ -268,14 +281,15 @@ namespace Shotwell {
             button.clicked.connect(() => {
                 var editor = new ProfileEditor();
                 editor.set_transient_for((Gtk.Window)get_ancestor(typeof(Gtk.Window)));
-                //var result = editor.run();
-                var result = Gtk.ResponseType.CANCEL;
-                editor.hide();
-                if (result == Gtk.ResponseType.OK) {
-                    debug("Request to add new profile: %s %s %s %s", editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
-                    ProfileManager.get_instance().add_profile(editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
-                }
-                editor.destroy();
+                editor.set_modal(true);
+                editor.response.connect((d, response) => {
+                    if (response == Gtk.ResponseType.OK) {
+                        debug("Request to add new profile: %s %s %s %s", editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
+                        ProfileManager.get_instance().add_profile(editor.id, editor.profile_name, editor.library_folder, editor.data_folder);    
+                    }
+                    editor.destroy();
+                });
+                editor.show();
             });
             append(scrollable);
             show();

@@ -403,9 +403,13 @@ void main(string[] args) {
     }
 
     if (CommandlineOptions.browse_profiles) {
-        var window = new Gtk.Dialog();
+        var window = new Gtk.Window();
+        window.set_icon_name("shotwell");
         window.set_title (_("Choose Shotwell's profile"));
+        bool profile_selected = false;
+
         var browser = new Shotwell.ProfileBrowser();
+        var loop = new MainLoop(null, false);
         browser.profile_activated.connect((profile) => {
             if (profile.id != Shotwell.Profile.SYSTEM) {
                 CommandlineOptions.profile = profile.name;
@@ -413,15 +417,19 @@ void main(string[] args) {
             } else {
                 CommandlineOptions.profile = null;
             }
-            window.response(Gtk.ResponseType.OK);
+            window.destroy();
+            profile_selected = true;
+            loop.quit();
         });
-        window.get_content_area().append(browser);
+        window.close_request.connect(() => {loop.quit(); return false;});
+        window.set_child(browser);
         window.set_size_request(430, 560);
 
-        var response = Gtk.ResponseType.OK; //window.run();
-        window.destroy();
+        window.show();
+        loop.run();
+
         // Anything else than selecting an entry in the list will stop shotwell from starting
-        if (response != Gtk.ResponseType.OK) {
+        if (!profile_selected) {
             return;
         }
     }
