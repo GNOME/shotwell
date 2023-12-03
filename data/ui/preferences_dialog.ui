@@ -38,7 +38,8 @@
                         <property name="row-spacing">4</property>
                         <property name="column-spacing">8</property>
                         <child>
-                      <object class="GtkButton" id="library_dir_button">
+                      <object class="ShotwellFolderButton" id="library_dir_button">
+                        <property name="title">Select Library Folder"</property>
                         <child>
                           <object class="GtkBox">
                             <property name="orientation">horizontal</property>

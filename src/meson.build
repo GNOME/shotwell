@@ -34,6 +34,7 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
 subdir('metadata')
 subdir('publishing')
 subdir('video-support')
+subdir('widgets')
 
 executable(
     'shotwell',
@@ -273,7 +274,8 @@ executable(
         shotwell_deps,
         sw_publishing_gui,
         metadata,
-        metadata_handling
+        metadata_handling,
+        widgets
     ],
     vala_args : [
         '--pkg', 'libgphoto2',
@@ -285,7 +287,7 @@ executable(
         'org.gnome.Shotwell.gresource.xml')
     ],
     link_with: [
-        sw_graphics_processor
+        sw_graphics_processor,
     ],
     install : true
 )

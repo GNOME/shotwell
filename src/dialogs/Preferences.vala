@@ -16,6 +16,8 @@ public class PreferencesDialog : Gtk.Dialog {
         public string? pattern;
     }
 
+    public string library_folder {get; set; }
+
     private static PreferencesDialog preferences_dialog;
 
     [GtkChild]
@@ -28,7 +30,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     [GtkChild]
-    private unowned Gtk.Button library_dir_button;
+    private unowned Shotwell.FolderButton library_dir_button;
     [GtkChild]
     private unowned Gtk.Label library_dir_text;
     [GtkChild]
@@ -38,7 +40,6 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Label dir_pattern_example;
     private bool allow_closing = false;
-    private string? lib_dir = null;
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
@@ -99,7 +100,15 @@ public class PreferencesDialog : Gtk.Dialog {
             break;
         }
 
-        library_dir_button.clicked.connect(on_library_button_clicked);
+        library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
+            var file = (File)from.get_object();
+            to = file.get_path();
+
+            return true;
+        }, null);
+
+        // First set the initial folder, then connect the property
+        library_dir_button.folder = AppDirs.get_import_dir();
 
         // Ticket #3162 - Move dir pattern blurb into Gnome help.
         // Because specifying a particular snippet of the help requires
@@ -294,8 +303,8 @@ public class PreferencesDialog : Gtk.Dialog {
         Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
         Config.Facade.get_instance().set_commit_metadata_to_masters(write_metadata.active);
 
-        if (lib_dir != null)
-            AppDirs.set_import_dir(lib_dir);
+        if (library_dir_button.folder != null)
+            AppDirs.set_import_dir(library_dir_button.folder);
 
         PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
         if (null == pf.pattern) {
@@ -401,28 +410,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
     private void on_default_raw_developer_changed() {
         Config.Facade.get_instance().set_default_raw_developer(raw_developer_from_combo());
-    }
-
-    private void on_library_button_clicked() {
-        var file_chooser = new Gtk.FileChooserNative(_("Select Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, null, null);
-        var filter = new Gtk.FileFilter();
-        filter.name = _("Folders");
-        filter.add_mime_type ("inode/directory");
-        file_chooser.add_filter(filter);
-        try {
-            file_chooser.set_current_folder(AppDirs.get_import_dir());
-        } catch (Error error) {
-            debug("Failed to set current import dir to file chooser: %s", error.message);
-        }
-        file_chooser.set_modal (true);
-        file_chooser.show ();
-        file_chooser.response.connect ((foo, response) => {
-            print(foo.get_type().name());
-            var path = file_chooser.get_file().get_path();
-            AppDirs.set_import_dir(path);
-            library_dir_text.set_label (path);
-            file_chooser.destroy();
-        });
     }
 
     private void add_to_dir_formats(string name, string? pattern) {

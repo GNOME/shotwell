@@ -186,8 +186,8 @@ class AppDirs {
         return file.has_prefix(import_dir) || file.equal(import_dir);
     }
 
-    public static void set_import_dir(string path) {
-        Config.Facade.get_instance().set_import_dir(path);
+    public static void set_import_dir(File file) {
+        Config.Facade.get_instance().set_import_dir(file.get_path());
     }
     
     public static File get_exec_dir() {
