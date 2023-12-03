@@ -765,16 +765,26 @@ public class LibraryWindow : AppWindow {
         }
         
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
+        Gee.ArrayList<string> rejected = new Gee.ArrayList<string>();
         foreach (string uri in uris) {
             File file_or_dir = File.new_for_uri(uri);
+
             if (file_or_dir.get_path() == null) {
-                // TODO: Specify which directory/file.
-                AppWindow.error_message(_("Photos cannot be imported from this directory."));
-                
+                rejected.add(uri);
                 continue;
             }
 
             jobs.add(new FileImportJob(file_or_dir, copy_to_library, recurse));
+        }
+
+        if (rejected.size > 0) {
+            // TODO: Specify which directory/file.
+            //var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
+            var message = _("Photos cannot be imported from this directory.");
+            foreach (var uri in rejected) {
+                message += uri;
+            }
+            AppWindow.error_message(message);
         }
         
         if (jobs.size > 0) {
