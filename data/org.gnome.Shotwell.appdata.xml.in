@@ -54,6 +54,16 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.4" date="2023-12-02" urgency="medium" type="stable">
+          <description>
+              <ul>
+                  <li>Fixes various crashes and other oddities related to cropping</li>
+                  <li>Fixes crashes if filenames are not UTF-8</li>
+                  <li>Fixes metadata reading from videos</li>
+                  <li>Adds an option to randomly shuffle the images in a slidesohw</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.3" date="2023-11-16" urgency="medium" type="stable">
           <description>
               <ul>

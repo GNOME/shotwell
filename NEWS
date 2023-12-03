@@ -1,3 +1,58 @@
+Shotwell 0.32.4 (stable) - 02 Dec 2023
+ * Fix left/right navigation in slideshow
+ * Fix slideshow not starting if video is the first selected item
+ * Make Ctrl-Enter close the description editor
+ * Fix a crash in crop and redeye tool
+ * Basic Support for MPO files
+ * Escape the text in profile browser
+ * Add support for shuffled slideshows
+ * Add missing name for filter in Save As dialog
+ * Add Shift-Drop for export of original file
+ * Simplified export conflict resolution dialog
+ * Allow setting wallpaper slideshows even if videos are selected
+ * Fix video meta-data reading
+ * Make profile browser an action in main launcher
+ * Add dump of available image codecs and meta-data support
+ * Fix showing the original photo with shift if photo was modified externally
+ * Fix a crash when moving crop area on scaled displays
+ * Fix crop area jumping on scaled displays 
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5085
+ - https://bugzilla.gnome.org/show_bug.cgi?id=793552
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/2531
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4906
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4998
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5008
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5035
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5066
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5067
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5068
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5079
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5083
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5084
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/77
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Ian Harding <iharding01@proton.me>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Artur S0 <arturios05@bk.ru>
+ - Will Thompson <will@willthompson.co.uk>
+ - Ekaterine Papava <papava.e@gtu.ge>
+
+Added/updated translations:
+ - id.po, courtesy of Kukuh Syafaat
+ - ka.po, courtesy of Ekaterine Papava
+ - ru.po, courtesy of Artur So
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.32.3 (stable) - 16 Nov 2023
  * Fix asking twice on closing viewer with modified image
  * Do not try to reload photo on shutdown
