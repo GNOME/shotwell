@@ -36,10 +36,11 @@ public class ExportDialog : Gtk.Dialog {
     private bool in_insert = false;
 
     public ExportDialog(string title) {
-        Object (use_header_bar: Resources.use_header_bar());
+        Object (title: title, use_header_bar: Resources.use_header_bar(), resizable: false);
 
-        this.title = title;
-        resizable = false;
+        set_transient_for(AppWindow.get_instance());
+        set_modal(true);
+
 
         //get information about the export settings out of our config backend
         Config.Facade config = Config.Facade.get_instance();
@@ -120,6 +121,7 @@ public class ExportDialog : Gtk.Dialog {
             quality_combo.sensitive = false;
         }
 
+        ok_button.add_css_class("suggested-action");
         ok_button.grab_focus();
     }
 
