@@ -399,75 +399,74 @@ public abstract class CollectionPage : MediaPage {
         // if we don't have any photos, then everything is a video, so skip displaying the Export
         // dialog and go right to the video export operation
         if (!has_some_photos) {
-            exporter = Video.export_many((Gee.Collection<Video>) export_list, on_export_completed);
-            return;
-        }
+            exporter = yield Video.export_many((Gee.Collection<Video>) export_list);
+        } else {
 
-        string title = null;
-        if (has_some_videos)
-            title = ngettext("Export Photo/Video", "Export Photos/Videos", export_list.size);
-        else
-            title = ngettext("Export Photo", "Export Photos", export_list.size);
-        ExportDialog export_dialog = new ExportDialog(title);
+            string title = null;
+            if (has_some_videos)
+                title = ngettext("Export Photo/Video", "Export Photos/Videos", export_list.size);
+            else
+                title = ngettext("Export Photo", "Export Photos", export_list.size);
+            ExportDialog export_dialog = new ExportDialog(title);
 
-        // Setting up the parameters object requires a bit of thinking about what the user wants.
-        // If the selection contains only photos, then we do what we've done in previous versions
-        // of Shotwell -- we use whatever settings the user selected on his last export operation
-        // (the thinking here being that if you've been exporting small PNGs for your blog
-        // for the last n export operations, then it's likely that for your (n + 1)-th export
-        // operation you'll also be exporting a small PNG for your blog). However, if the selection
-        // contains any videos, then we set the parameters to the "Current" operating mode, since
-        // videos can't be saved as PNGs (or any other specific photo format).
-        ExportFormatParameters? export_params = (has_some_videos) ? ExportFormatParameters.current() :
-            ExportFormatParameters.last();
+            // Setting up the parameters object requires a bit of thinking about what the user wants.
+            // If the selection contains only photos, then we do what we've done in previous versions
+            // of Shotwell -- we use whatever settings the user selected on his last export operation
+            // (the thinking here being that if you've been exporting small PNGs for your blog
+            // for the last n export operations, then it's likely that for your (n + 1)-th export
+            // operation you'll also be exporting a small PNG for your blog). However, if the selection
+            // contains any videos, then we set the parameters to the "Current" operating mode, since
+            // videos can't be saved as PNGs (or any other specific photo format).
+            ExportFormatParameters? export_params = (has_some_videos) ? ExportFormatParameters.current() :
+                ExportFormatParameters.last();
 
-        export_params = yield export_dialog.execute(export_params);
-        if (export_params == null) {
-            return;
-        }
-        
-        Scaling scaling = Scaling.for_constraint(export_params.constraint, export_params.scale, false);
-        
-        // handle the single-photo case, which is treated like a Save As file operation
-        if (export_list.size == 1) {
-            LibraryPhoto photo = null;
-            foreach (LibraryPhoto p in (Gee.Collection<LibraryPhoto>) export_list) {
-                photo = p;
-                break;
+            export_params = yield export_dialog.execute(export_params);
+            if (export_params == null) {
+                return;
             }
             
-            File save_as = yield
-                ExportUI.choose_file(photo.get_export_basename_for_parameters(export_params));
-            if (save_as == null)
+            Scaling scaling = Scaling.for_constraint(export_params.constraint, export_params.scale, false);
+            
+            // handle the single-photo case, which is treated like a Save As file operation
+            if (export_list.size == 1) {
+                LibraryPhoto photo = null;
+                foreach (LibraryPhoto p in (Gee.Collection<LibraryPhoto>) export_list) {
+                    photo = p;
+                    break;
+                }
+                
+                File save_as = yield
+                    ExportUI.choose_file(photo.get_export_basename_for_parameters(export_params));
+                if (save_as == null)
+                    return;
+                
+                try {
+                    AppWindow.get_instance().set_busy_cursor();
+                    photo.export(save_as, scaling, export_params.quality,
+                        photo.get_export_format_for_parameters(export_params), export_params.mode ==
+                        ExportFormatMode.UNMODIFIED, export_params.export_metadata);
+                    AppWindow.get_instance().set_normal_cursor();
+                } catch (Error err) {
+                    AppWindow.get_instance().set_normal_cursor();
+                    export_error_dialog(save_as, false);
+                }
+                
+                return;
+            }
+
+            // multiple photos or videos
+            File export_dir = yield ExportUI.choose_dir(title);
+            if (export_dir == null)
                 return;
             
-            try {
-                AppWindow.get_instance().set_busy_cursor();
-                photo.export(save_as, scaling, export_params.quality,
-                    photo.get_export_format_for_parameters(export_params), export_params.mode ==
-                    ExportFormatMode.UNMODIFIED, export_params.export_metadata);
-                AppWindow.get_instance().set_normal_cursor();
-            } catch (Error err) {
-                AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
-            }
-            
-            return;
+            exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params));
         }
+        if (exporter != null) {
+            yield exporter.export();
+            exporter = null;
+        }
+    }
 
-        // multiple photos or videos
-        File export_dir = yield ExportUI.choose_dir(title);
-        if (export_dir == null)
-            return;
-        
-        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params));
-        exporter.export(on_export_completed);
-    }
-    
-    private void on_export_completed() {
-        exporter = null;
-    }
-    
     private bool can_revert_selected() {
         foreach (DataSource source in get_view().get_selected_sources()) {
             LibraryPhoto? photo = source as LibraryPhoto;
@@ -675,9 +674,8 @@ public abstract class CollectionPage : MediaPage {
                 bool desktop, screensaver;
                 if (dialog.execute.end(res, out delay, out desktop, out screensaver)) {
                     AppWindow.get_instance().set_busy_cursor();
-                    DesktopIntegration.set_background_slideshow(photos, delay,
-                        DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver);
-                    AppWindow.get_instance().set_normal_cursor();
+                    DesktopIntegration.set_background_slideshow.begin(photos, delay,
+                        DESKTOP_SLIDESHOW_TRANSITION_SEC, desktop, screensaver, () => {AppWindow.get_instance().set_normal_cursor();});
                 }
             });
         }

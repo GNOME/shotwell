@@ -259,6 +259,8 @@ public abstract class AppWindow : PageWindow {
 
         SourceFunc callback = export_overwrite_or_replace_question.callback;
         int response = Gtk.ResponseType.CANCEL;
+        dialog.show();
+        dialog.set_modal(true);
         dialog.response.connect((r) => {
             response = r;
             dialog.hide();

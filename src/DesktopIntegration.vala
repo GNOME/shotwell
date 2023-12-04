@@ -119,40 +119,36 @@ public async void files_send_to(File[] files) {
     AppWindow.get_instance().set_normal_cursor();
 }
 
-public void send_to(Gee.Collection<MediaSource> media) {
+public async void send_to(Gee.Collection<MediaSource> media) {
     if (media.size == 0 || send_to_exporter != null)
         return;
     
-    ExportDialog dialog = new ExportDialog(_("Send To"));
-
     // determine the mix of media in the export collection -- if it contains only
     // videos then we can use the Video.export_many( ) fast path and not have to
     // worry about ExportFormatParameters or the Export... dialog
     if (MediaSourceCollection.has_video(media) && !MediaSourceCollection.has_photo(media)) {
-        send_to_exporter = Video.export_many((Gee.Collection<Video>) media,
-            on_send_to_export_completed, true);
-        return;
-    }
+        send_to_exporter = yield Video.export_many((Gee.Collection<Video>) media, true);
+    } else {
+        ExportDialog dialog = new ExportDialog(_("Send To"));
     
-    int scale;
-    ScaleConstraint constraint;
-    ExportFormatParameters export_params = ExportFormatParameters.current();
-    dialog.execute.begin(export_params, (obj, res) => {
-        var params = dialog.execute.end(res);
-        if (params == null) {
+        ExportFormatParameters? export_params = ExportFormatParameters.current();
+        export_params = yield dialog.execute(export_params);    
+        if (export_params == null) {
             return;
         }
 
         send_to_exporter = new ExporterUI(new Exporter.for_temp_file(media,
-            Scaling.for_constraint(params.constraint, params.scale, false), params));
-        send_to_exporter.export(on_send_to_export_completed);
-    });       
-}
-
-private void on_send_to_export_completed(Exporter exporter, bool is_cancelled) {
-    if (!is_cancelled)
-        files_send_to.begin(exporter.get_exported_files());
+            Scaling.for_constraint(export_params.constraint, export_params.scale, false), export_params));
+    }
     
+    // Video.export_many will return null on error or if there is just one single video to be exported
+    if (send_to_exporter == null) {
+        return;
+    }
+
+    if (!yield send_to_exporter.export()) {
+        yield files_send_to(send_to_exporter.get_exporter().get_exported_files());
+    }
     send_to_exporter = null;
 }
 
@@ -264,7 +260,7 @@ private class BackgroundSlideshowXMLBuilder {
     }
 }
 
-public void set_background_slideshow(Gee.Collection<Photo> photos, double duration, double transition,
+public async void set_background_slideshow(Gee.Collection<Photo> photos, double duration, double transition,
         bool desktop_background, bool screensaver) {
     if (desktop_slideshow_exporter != null)
         return;
@@ -289,10 +285,8 @@ public void set_background_slideshow(Gee.Collection<Photo> photos, double durati
         Scaling.to_fill_screen(AppWindow.get_instance()), ExportFormatParameters.current(),
         true);
     desktop_slideshow_exporter = new ExporterUI(exporter);
-    desktop_slideshow_exporter.export(on_desktop_slideshow_exported);
-}
+    bool is_cancelled = yield desktop_slideshow_exporter.export();
 
-private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled) {
     desktop_slideshow_exporter = null;
     
     if (is_cancelled)

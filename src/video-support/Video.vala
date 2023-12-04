@@ -130,17 +130,14 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public static void terminate() {
     }
 
-    public static ExporterUI? export_many(Gee.Collection<Video> videos, Exporter.CompletionCallback done,
-        bool export_in_place = false) {
+    public static async ExporterUI? export_many(Gee.Collection<Video> videos, bool export_in_place = false) {
         if (videos.size == 0)
             return null;
 
         // in place export is relatively easy -- provide a fast, separate code path for it
         if (export_in_place) {
-             ExporterUI temp_exporter = new ExporterUI(new Exporter.for_temp_file(videos,
+             return new ExporterUI(new Exporter.for_temp_file(videos,
                 Scaling.for_original(), ExportFormatParameters.unmodified()));
-             temp_exporter.export(done);
-             return temp_exporter;
         }
 
         // one video
@@ -152,8 +149,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             }
 
             // FIXME
-            #if 0
-            File save_as = ExportUI.choose_file(video.get_basename());
+            var save_as = yield ExportUI.choose_file(video.get_basename());
             if (save_as == null)
                 return null;
 
@@ -165,24 +161,16 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
                 AppWindow.get_instance().set_normal_cursor();
                 export_error_dialog(save_as, false);
             }
-            #endif
 
             return null;
         }
-
-        // multiple videos
-        // FIXME
-        #if 0
-        File export_dir = ExportUI.choose_dir(_("Export Videos"));
+        
+        var export_dir = yield ExportUI.choose_dir(_("Export Videos"));
         if (export_dir == null)
             return null;
-        #endif
 
-        ExporterUI exporter = new ExporterUI(new Exporter(videos, export_dir,
+        return new ExporterUI(new Exporter(videos, export_dir,
             Scaling.for_original(), ExportFormatParameters.unmodified()));
-        exporter.export(done);
-
-        return exporter;
     }
 
     protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {

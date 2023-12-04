@@ -54,20 +54,21 @@ public struct ExportFormatParameters {
     }
 }
 
+public enum ConflictResolution {
+    YES,
+    NO,
+    SKIP_ALL,
+    CANCEL,
+    REPLACE_ALL,
+    RENAME,
+    RENAME_ALL,
+}
+
+public interface ExportCallbacks : Object {    
+    public abstract async ConflictResolution resolve_conflict(Exporter exporter, File file);
+}
+
 public class Exporter : Object {
-    public enum Overwrite {
-        YES,
-        NO,
-        SKIP_ALL,
-        CANCEL,
-        REPLACE_ALL,
-        RENAME,
-        RENAME_ALL,
-    }
-    
-    public delegate void CompletionCallback(Exporter exporter, bool is_cancelled);
-    
-    public delegate Overwrite OverwriteCallback(Exporter exporter, File file);
     
     public delegate bool ExportFailedCallback(Exporter exporter, File file, int remaining, 
         Error err);
@@ -117,16 +118,17 @@ public class Exporter : Object {
     private Scaling scaling;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(1, 4), false);
-    private unowned CompletionCallback? completion_callback = null;
     private unowned ExportFailedCallback? error_callback = null;
-    private unowned OverwriteCallback? overwrite_callback = null;
+    private unowned ExportCallbacks? export_callbacks = null;
     private unowned ProgressMonitor? monitor = null;
     private Cancellable cancellable;
     private bool replace_all = false;
     private bool rename_all = false;
     private bool aborted = false;
     private ExportFormatParameters export_params;
-    private static File? USE_TEMPORARY_EXPORT_FOLDER = null; 
+    private static File? USE_TEMPORARY_EXPORT_FOLDER = null;
+    private bool cancelled = false;
+    private SourceFunc export_callback;
 
     public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
         ExportFormatParameters export_params, bool auto_replace_all = false) {
@@ -146,16 +148,20 @@ public class Exporter : Object {
     }
 
     // This should be called only once; the object does not reset its internal state when completed.
-    public void export(CompletionCallback completion_callback, ExportFailedCallback error_callback,
-        OverwriteCallback overwrite_callback, Cancellable? cancellable, ProgressMonitor? monitor) {
-        this.completion_callback = completion_callback;
+    public async bool export(ExportCallbacks callbacks, ExportFailedCallback error_callback, Cancellable? cancellable, ProgressMonitor? monitor) {
+        this.export_callbacks = callbacks;
+        this.export_callback = export.callback;
+
         this.error_callback = error_callback;
-        this.overwrite_callback = overwrite_callback;
         this.monitor = monitor;
         this.cancellable = cancellable ?? new Cancellable();
-        
-        if (!process_queue())
-            export_completed(true);
+
+        // If we have anything scheduled for export, wait for that to complete.
+        if (yield process_queue()) {
+            yield;
+        }
+
+        return cancelled;
     }
     
     private void on_exported(BackgroundJob j) {
@@ -187,20 +193,23 @@ public class Exporter : Object {
             }
         }
         
-        if (completed)
-            export_completed(false);
+        if (completed) {
+            export_callback();
+        }
     }
     
     private void on_export_cancelled(BackgroundJob j) {
-        if (++completed_count == to_export.size)
-            export_completed(true);
+        if (++completed_count == to_export.size) {
+            cancelled = true;
+            export_callback();
+        }
     }
     
     public File[] get_exported_files() {
         return exported_files;
     }
     
-    private bool process_queue() {
+    private async bool process_queue() {
         int submitted = 0;
         Gee.HashSet<string> used = new Gee.HashSet<string>();
         foreach (MediaSource source in to_export) {
@@ -252,30 +261,30 @@ public class Exporter : Object {
                     if (rename_all) {
                         rename = true;
                     } else {
-                        switch (overwrite_callback(this, dest)) {
-                        case Overwrite.YES:
+                        switch (yield export_callbacks.resolve_conflict(this, dest)) {
+                        case ConflictResolution.YES:
                             // continue
                             break;
                         
-                        case Overwrite.REPLACE_ALL:
+                        case ConflictResolution.REPLACE_ALL:
                             replace_all = true;
                             break;
 
-                        case Overwrite.RENAME:
+                        case ConflictResolution.RENAME:
                             rename = true;
                             break;
 
-                        case Overwrite.RENAME_ALL:
+                        case ConflictResolution.RENAME_ALL:
                             rename = true;
                             rename_all = true;
                             break;
 
-                        case Overwrite.CANCEL:
+                        case ConflictResolution.CANCEL:
                             cancellable.cancel();
                             
                             return false;
                         
-                        case Overwrite.SKIP_ALL:
+                        case ConflictResolution.SKIP_ALL:
                             completed_count = to_export.size;
                             if (monitor != null) {
                                 if (!monitor(completed_count, to_export.size)) {
@@ -284,7 +293,7 @@ public class Exporter : Object {
                                 }
                             }
                             return false;
-                        case Overwrite.NO:
+                        case ConflictResolution.NO:
                         default:
                             completed_count++;
                             if (monitor != null) {
@@ -319,51 +328,46 @@ public class Exporter : Object {
         
         return submitted > 0;
     }
-    
-    private void export_completed(bool is_cancelled) {
-        completion_callback(this, is_cancelled);
-    }
 }
 
-public class ExporterUI {
+public class ExporterUI : ExportCallbacks, Object {
     private Exporter exporter;
     private Cancellable cancellable = new Cancellable();
     private ProgressDialog? progress_dialog = null;
-    private unowned Exporter.CompletionCallback? completion_callback = null;
     
     public ExporterUI(Exporter exporter) {
         this.exporter = exporter;
     }
+
+    public Exporter get_exporter() {
+        return exporter;
+    }
     
-    public void export(Exporter.CompletionCallback completion_callback) {
-        this.completion_callback = completion_callback;
-        
+    public async bool export() {
         AppWindow.get_instance().set_busy_cursor();
         
         progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting"), cancellable);
-        exporter.export(on_export_completed, on_export_failed, on_export_overwrite, cancellable,
+        progress_dialog.show();
+
+        var is_cancelled = yield exporter.export(this, on_export_failed, cancellable,
             progress_dialog.monitor);
-    }
-    
-    private void on_export_completed(Exporter exporter, bool is_cancelled) {
+
         if (progress_dialog != null) {
             progress_dialog.close();
             progress_dialog = null;
         }
         
         AppWindow.get_instance().set_normal_cursor();
-        
-        completion_callback(exporter, is_cancelled);
+
+        return is_cancelled;
     }
     
-    private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
+    public async ConflictResolution resolve_conflict(Exporter exporter, File file) {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
-        #if 0
-        int response = AppWindow.export_overwrite_or_replace_question(question, 
+
+        int response = yield AppWindow.export_overwrite_or_replace_question(question, 
             _("_Skip"), _("Rename"), _("_Replace"), _("_Cancel"), _("Export file conflict"));
-            #endif
-        int response = Gtk.ResponseType.CANCEL;
         
         progress_dialog.set_modal(true);
 
@@ -373,30 +377,30 @@ public class ExporterUI {
         switch (response) {
         case 2:
             if (apply_all) {
-                return Exporter.Overwrite.RENAME_ALL;
+                return ConflictResolution.RENAME_ALL;
             }
             else {
-                return Exporter.Overwrite.RENAME;
+                return ConflictResolution.RENAME;
             }
         case 4:
             if (apply_all) {
-                return Exporter.Overwrite.REPLACE_ALL;
+                return ConflictResolution.REPLACE_ALL;
             } else {
-                return Exporter.Overwrite.YES;
+                return ConflictResolution.YES;
             }
             
         case 6:
-            return Exporter.Overwrite.CANCEL;
+            return ConflictResolution.CANCEL;
             
         case 1:
             if (apply_all) {
-                return Exporter.Overwrite.SKIP_ALL;
+                return ConflictResolution.SKIP_ALL;
             } else {
-                return Exporter.Overwrite.NO;
+                return ConflictResolution.NO;
             }
         default:
-            return Exporter.Overwrite.NO;
-    }
+            return ConflictResolution.NO;
+        }
     }
     
     private bool on_export_failed(Exporter exporter, File file, int remaining, Error err) {
