@@ -92,29 +92,26 @@ public async File? choose_file(string current_file_basename) {
     return null;
 }
 
-public File? choose_dir(string? user_title = null) {
+public async File? choose_dir(string? user_title = null) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
 
     if (user_title == null)
         user_title = _("Export Photos");
 
-    var chooser = new Gtk.FileChooserNative(user_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
+    var chooser = new Gtk.FileDialog();
+    chooser.set_title(user_title);
+    chooser.set_initial_folder(current_export_dir);
+
     try {
-        chooser.set_current_folder(current_export_dir);
+        var file = yield chooser.select_folder(AppWindow.get_instance(), null);
+        current_export_dir = file;
+        return file;
     } catch (Error error) {
+        critical("Failed to save: %s", error.message);
     }
     
-    File dir = null;
-    int response = Gtk.ResponseType.CANCEL;
-    if (response == Gtk.ResponseType.ACCEPT) {
-        current_export_dir = chooser.get_file ();
-    }
-    
-    chooser.destroy();
-    
-    return dir;
+    return null;
 }
 }
 

@@ -456,7 +456,7 @@ public abstract class CollectionPage : MediaPage {
         }
 
         // multiple photos or videos
-        File export_dir = ExportUI.choose_dir(title);
+        File export_dir = yield ExportUI.choose_dir(title);
         if (export_dir == null)
             return;
         

@@ -171,9 +171,12 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
 
         // multiple videos
+        // FIXME
+        #if 0
         File export_dir = ExportUI.choose_dir(_("Export Videos"));
         if (export_dir == null)
             return null;
+        #endif
 
         ExporterUI exporter = new ExporterUI(new Exporter(videos, export_dir,
             Scaling.for_original(), ExportFormatParameters.unmodified()));
