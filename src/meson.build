@@ -33,6 +33,7 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
 
 subdir('metadata')
 subdir('publishing')
+subdir('threads')
 subdir('video-support')
 subdir('widgets')
 
@@ -47,10 +48,6 @@ executable(
         'util/string.vala',
         'util/system.vala',
         'util/ui.vala',
-        'threads/Threads.vala',
-        'threads/Workers.vala',
-        'threads/BackgroundJob.vala',
-        'threads/Semaphore.vala',
         'db/Db.vala',
         'db/DatabaseTable.vala',
         'db/PhotoTable.vala',
@@ -190,7 +187,6 @@ executable(
         'SinglePhotoPage.vala',
         'CheckerboardPage.vala',
         'PageMessagePane.vala',
-        'SortedList.vala',
         'Dimensions.vala',
         'Box.vala',
         'Photo.vala',
@@ -275,7 +271,8 @@ executable(
         sw_publishing_gui,
         metadata,
         metadata_handling,
-        widgets
+        widgets,
+        async
     ],
     vala_args : [
         '--pkg', 'libgphoto2',
