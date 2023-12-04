@@ -18,7 +18,6 @@ public class Workers {
     private ThreadPool<void *> thread_pool;
     private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
     private EventSemaphore empty_event = new EventSemaphore();
-    private int enqueued = 0;
     
     public Workers(uint max_threads, bool exclusive) {
         if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
@@ -51,10 +50,7 @@ public class Workers {
     public void enqueue(BackgroundJob job) {
         empty_event.reset();
         
-        lock (queue) {
-            queue.push_sorted(job, BackgroundJob.priority_compare_func);
-            enqueued++;
-        }
+        queue.push_sorted(job, BackgroundJob.priority_compare_func);
         
         try {
             thread_pool.add(job);
@@ -76,21 +72,19 @@ public class Workers {
     
     // Returns the number of BackgroundJobs on the queue, not including active jobs.
     public int get_pending_job_count() {
-        lock (queue) {
-            return enqueued;
-        }
+        return queue.length();
     }
     
     private void thread_start(void *ignored) {
         BackgroundJob? job;
         bool empty;
-        lock (queue) {
-            job = queue.try_pop();
-            assert(job != null);
+
+        queue.lock();
+        job = queue.try_pop_unlocked();
+        assert(job != null);
             
-            assert(enqueued > 0);
-            empty = (--enqueued == 0);
-        }
+        empty = queue.length_unlocked() == 0;
+        queue.unlock();
         
         if (!job.is_cancelled())
             job.execute();
