@@ -42,7 +42,7 @@ public class Application {
             // attempt to be unique.  We don't request any command-line handling
             // here because this is processed elsewhere, and we don't need to handle
             // command lines from remote instances, since we don't care about them.
-            system_app = new Gtk.Application("org.gnome.Shotwell-direct", GLib.ApplicationFlags.HANDLES_OPEN |
+            system_app = new Gtk.Application("org.gnome.Shotwell-Viewer", GLib.ApplicationFlags.HANDLES_OPEN |
                 GLib.ApplicationFlags.NON_UNIQUE);
         } else {
             // we've been invoked in library mode; set up for uniqueness and handling
