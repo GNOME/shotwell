@@ -323,12 +323,9 @@ public class DirectPhotoPage : EditingHostPage {
         // Check if we can write the target format
         bool is_writeable = get_photo().get_file_format().can_write();
         
-        // TODO: Check if we can actually write to the file
-        string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
-
-        Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
-            _("Lose changes to %s?").printf(photo.get_basename()), save_option,
-            _("Close _without Saving"));
+        Gtk.ResponseType response = AppWindow.affirm_cancel_question(
+            _("“%s” has unsaved changes. If you quit now, these changes will be lost.").printf(photo.get_basename()),
+            _("Discard changes"));
 
         if (response == Gtk.ResponseType.YES)
             photo.remove_all_transformations(notify);

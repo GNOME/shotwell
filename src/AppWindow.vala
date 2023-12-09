@@ -535,8 +535,7 @@ public abstract class AppWindow : PageWindow {
         dialog.set_markup(message);
         dialog.use_markup = true;
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        dialog.add_buttons(affirmative, Gtk.ResponseType.YES, _("_Cancel"),
-            Gtk.ResponseType.CANCEL);
+        dialog.add_buttons( _("_Cancel"), Gtk.ResponseType.CANCEL, affirmative, Gtk.ResponseType.YES);
         
         int response = dialog.run();
         
