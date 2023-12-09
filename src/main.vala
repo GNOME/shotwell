@@ -373,7 +373,6 @@ void editing_exec(string filename, bool fullscreen) {
     
     DirectWindow direct_window = new DirectWindow(initial_file);
     direct_window.show_all();
-    direct_window.maximize();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
 
