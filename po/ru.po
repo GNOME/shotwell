@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-11-25 21:26+0000\n"
-"PO-Revision-Date: 2023-11-26 16:32+0300\n"
+"POT-Creation-Date: 2023-11-29 16:34+0000\n"
+"PO-Revision-Date: 2023-11-29 19:38+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -1273,8 +1273,7 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Разработчики Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Менеджер фотографий"
 
@@ -1296,13 +1295,9 @@ msgstr ""
 "организация;фотография;фотографии;фото;картинка;картинки;печать;публикация;"
 "вращение;поделиться;метки;видео;"
 
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-msgid "Shotwell Profile Browser"
-msgstr "Браузер профилей Shotwell"
-
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
-msgid "Manage Different Profiles In Shotwell"
-msgstr "Управление различными профилями в Shotwell"
+#: data/org.gnome.Shotwell.desktop.in:21
+msgid "Manage Different Profiles"
+msgstr "Управление различными профилями"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -6456,6 +6451,9 @@ msgstr "безымянный"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Экспортировать видео"
+
+#~ msgid "Shotwell Profile Browser"
+#~ msgstr "Браузер профилей Shotwell"
 
 #~ msgid "Rename All"
 #~ msgstr "Переименовать все"
