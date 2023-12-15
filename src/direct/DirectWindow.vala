@@ -44,7 +44,7 @@ public class DirectWindow : AppWindow {
     }
     
     public void update_title(File file, bool modified) {
-        title = "%s%s (%s) - %s".printf((modified) ? "*" : "", file.get_basename(),
+        title = "%s%s (%s) - %s".printf((modified) ? "•" : "", file.get_basename(),
             get_display_pathname(file.get_parent()), Resources.APP_TITLE);
     }
     
