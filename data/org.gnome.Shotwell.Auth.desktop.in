@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Shotwell Authentication helper
+Exec=@libexecdir@/shotwell/shotwell-authenticator %u
+Icon=org.gnome.Shotwell
+Terminal=false
+NoDisplay=true
+Type=Application
+MimeType=x-scheme-handler/shotwell-oauth2;x-scheme-handler/com.googleusercontent.apps.534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67;
