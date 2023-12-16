@@ -171,9 +171,15 @@ public class PixbufCache : Object {
     // signal is fired.
     public void prefetch(Photo photo, 
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
-        if (!photo.get_actual_file().query_exists(null))
+        try {
+            var info = photo.get_actual_file().query_info("time:*", GLib.FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            if (coarsify_date_time(info.get_modification_date_time()) != photo.get_master_photo_row().timestamp) {
+                decache(photo);
+            }
+        } catch (Error error) {
             decache(photo);
-        
+        }
+
         if (!force && cache.has_key(photo)) {
             prioritize(photo);
             
