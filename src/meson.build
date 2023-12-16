@@ -18,6 +18,16 @@ processor = executable('shotwell-graphics-processor',
                        link_with: sw_graphics_processor)
 
 shotwell_libs = [sw_graphics_processor]
+executable('shotwell-authenticator',
+  [
+    'authenticator.vala'
+  ],
+  dependencies: [gio],
+  include_directories: config_incdir,
+  install: true,
+  install_dir : join_paths(get_option('libexecdir'), 'shotwell')
+)
+
 
 face_sources = (['faces/FacesBranch.vala',
                      'faces/FacePage.vala',

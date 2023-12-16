@@ -18,86 +18,26 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string SERVICE_DISCLAIMER = "<b>This product uses the Flickr API but is not endorsed or certified by SmugMug, Inc.</b>";
 
     internal class AuthenticationRequestTransaction : Publishing.RESTSupport.OAuth1.Transaction {
-        public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session) {
+        public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session, string cookie) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
-            add_argument("oauth_callback", "shotwell-auth://local-callback");
+            add_argument("oauth_callback", "shotwell-oauth2://localhost?sw_auth_cookie=%s".printf(cookie));
         }
     }
 
     internal class AccessTokenFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
-        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string user_verifier) {
+        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string user_verifier, string cookie) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);
             add_argument("oauth_token", session.get_request_phase_token());
-            add_argument("oauth_callback", "shotwell-auth://local-callback");
-        }
-    }
-
-    internal class WebAuthenticationPane : Common.WebAuthenticationPane {
-        private string? auth_code = null;
-        private const string LOGIN_URI = "https://www.flickr.com/services/oauth/authorize?oauth_token=%s&perms=write";
-
-        public signal void authorized(string auth_code);
-        public signal void error();
-
-        public WebAuthenticationPane(string token) {
-            Object(login_uri : LOGIN_URI.printf(token));
-        }
-
-        public override void constructed() {
-            base.constructed();
-
-            var ctx = WebKit.WebContext.get_default();
-            ctx.register_uri_scheme("shotwell-auth", this.on_shotwell_auth_request_cb);
-
-            var mgr = ctx.get_security_manager();
-            mgr.register_uri_scheme_as_secure("shotwell-auth");
-            mgr.register_uri_scheme_as_cors_enabled("shotwell-auth");
-        }
-
-        public override void on_page_load() {
-            if (this.load_error != null) {
-                this.error();
-
-                return;
-            }
-
-            try {
-                var uri = GLib.Uri.parse(get_view().get_uri(), GLib.UriFlags.NONE);
-                if (uri.get_scheme() == "shotwell-auth" && this.auth_code == null) {
-                    var form_data = Soup.Form.decode (uri.get_query());
-                    this.auth_code = form_data.lookup("oauth_verifier");
-                }
-            } catch (Error err) {
-                this.error();
-
-                return;
-            }
-
-            if (this.auth_code != null) {
-                this.authorized(this.auth_code);
-            }
-        }
-
-        private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
-            try {
-                var uri = GLib.Uri.parse(request.get_uri(), GLib.UriFlags.NONE);
-                var form_data = Soup.Form.decode (uri.get_query());
-                this.auth_code = form_data.lookup("oauth_verifier");
-            } catch (Error err) {
-                debug ("Failed to parse URI %s: %s", request.get_uri(), err.message);
-            }
-
-            var response = "";
-            var mins = new MemoryInputStream.from_data(response.data);
-            request.finish(mins, -1, "text/plain");
+            add_argument("oauth_callback", "shotwell-oauth2://localhost?sw_auth_cookie=%s".printf(cookie));
         }
     }
 
     internal class Flickr : Publishing.Authenticator.Shotwell.OAuth1.Authenticator {
-        private WebAuthenticationPane pane;
+        private Common.ExternalWebPane pane;
+        private string auth_cookie = Uuid.string_random();
 
         public Flickr(Spit.Publishing.PluginHost host) {
             base("Flickr", API_KEY, API_SECRET, host);
@@ -147,7 +87,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             host.set_service_locked(true);
             host.install_static_message_pane(_("Preparing for login…"));
 
-            AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session);
+            AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session, auth_cookie);
             try {
                 yield txn.execute_async();
                 debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
@@ -185,22 +125,33 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
             session.set_request_phase_credentials(token, token_secret);
 
-            do_web_authentication(token);
+            do_web_authentication.begin(token);
         }
 
-        private void do_web_authentication(string token) {
-            pane = new WebAuthenticationPane(token);
-            host.install_dialog_pane(pane);
-            pane.authorized.connect((pin) => { this.do_verify_pin.begin(pin); });
-            pane.error.connect(this.on_web_login_error);
-        }
+        private class AuthCallback : Spit.Publishing.AuthenticatedCallback, Object {
+            public signal void auth(GLib.HashTable<string, string> params);
 
-        private void on_web_login_error() {
-            if (pane.load_error != null) {
-                host.post_error(pane.load_error);
-                return;
+            public void authenticated(GLib.HashTable<string, string> params) {
+                auth(params);
             }
-            host.post_error(new Spit.Publishing.PublishingError.PROTOCOL_ERROR(_("Flickr authorization failed")));
+        }
+
+        private async void do_web_authentication(string token) {
+            var uri = "https://www.flickr.com/services/oauth/authorize?oauth_token=%s&perms=write".printf(token);
+            pane = new Common.ExternalWebPane(uri);
+            host.install_dialog_pane(pane);
+            var auth_callback = new AuthCallback();
+            string? web_auth_code = null;
+            auth_callback.auth.connect((prm) => {
+                if ("oauth_verifier" in prm) {
+                    web_auth_code = prm["oauth_verifier"];
+                }
+                do_web_authentication.callback();
+            });
+            host.register_auth_callback(auth_cookie, auth_callback);
+            yield;
+            host.unregister_auth_callback(auth_cookie);
+            yield do_verify_pin(web_auth_code);
         }
 
         private async void do_verify_pin(string pin) {
@@ -209,7 +160,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             host.set_service_locked(true);
             host.install_static_message_pane(_("Verifying authorization…"));
 
-            AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session, pin);
+            AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session, pin, auth_cookie);
 
             try {
                 yield txn.execute_async();
