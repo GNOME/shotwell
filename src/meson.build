@@ -17,6 +17,16 @@ executable('shotwell-graphics-processor',
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
 
+executable('shotwell-authenticator',
+  [
+    'authenticator.vala'
+  ],
+  dependencies: [gio],
+  include_directories: config_incdir,
+  install: true,
+  install_dir : join_paths(get_option('libexecdir'), 'shotwell')
+)
+
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin]
