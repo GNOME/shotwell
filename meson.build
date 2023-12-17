@@ -50,6 +50,7 @@ version = declare_dependency(sources : version_h, include_directories : include_
 
 gtk = dependency('gtk4', version : '>= 4.4')
 gio = dependency('gio-2.0', version: '>= 2.40')
+gobject = dependency('gobject-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
 webkit = [dependency('webkitgtk-6.0', version: '>= 2.26'), dependency('javascriptcoregtk-6.0')]

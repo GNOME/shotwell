@@ -7,7 +7,7 @@
 
 public class BackgroundJobBatch : SortedList<BackgroundJob> {
     public BackgroundJobBatch() {
-        base (BackgroundJob.priority_comparator);
+        base ((CompareDataFunc)BackgroundJob.priority_compare_func);
     }
 }
 

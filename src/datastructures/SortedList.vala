@@ -4,13 +4,11 @@
  * See the COPYING file in this distribution.
  */
 
-public delegate int64 Comparator(void *a, void *b);
-
 public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Collection<G> {
     private Gee.ArrayList<G> list;
-    private unowned Comparator? cmp;
+    private unowned CompareDataFunc<G>? cmp;
     
-    public SortedList(Comparator? cmp = null) {
+    public SortedList(CompareDataFunc<G>? cmp = null) {
         this.list = new Gee.ArrayList<G>();
         this.cmp = cmp;
     }
@@ -215,7 +213,7 @@ public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Co
         return list.to_array();
     }
     
-    public void resort(Comparator new_cmp) {
+    public void resort(CompareDataFunc<G> new_cmp) {
         cmp = new_cmp;
         
         merge_sort();

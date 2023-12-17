@@ -29,15 +29,15 @@ public delegate bool ComparatorPredicate(DataObject object, Alteration alteratio
 public class DataSet {
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
-    private unowned Comparator user_comparator = null;
+    private unowned CompareFunc<DataObject> user_comparator = null;
     private unowned ComparatorPredicate? comparator_predicate = null;
     
     public DataSet() {
         reset_comparator();
     }
     
-    private int64 order_added_comparator(void *a, void *b) {
-        return ((DataObject *) a)->internal_get_ordinal() - ((DataObject *) b)->internal_get_ordinal();
+    private static int order_added_comparator(DataObject a, DataObject b) {
+        return (int)(a.internal_get_ordinal() - b.internal_get_ordinal()).clamp(-1, 1);
     }
     
     private bool order_added_predicate(DataObject object, Alteration alteration) {
@@ -45,13 +45,13 @@ public class DataSet {
         return false;
     }
     
-    private int64 comparator_wrapper(void *a, void *b) {
+    private int comparator_wrapper(DataObject a, DataObject b) {
         if (a == b)
             return 0;
         
         // use the order-added comparator if the user's compare returns equal, to stabilize the
         // sort
-        int64 result = 0;
+        int result = 0;
         
         if (user_comparator != null)
             result = user_comparator(a, b);
@@ -75,10 +75,10 @@ public class DataSet {
     public void reset_comparator() {
         user_comparator = null;
         comparator_predicate = order_added_predicate;
-        list.resort(order_added_comparator);
+        list.resort(comparator_wrapper);
     }
     
-    public unowned Comparator get_comparator() {
+    public unowned CompareFunc<DataObject> get_comparator() {
         return user_comparator;
     }
     
@@ -86,7 +86,7 @@ public class DataSet {
         return comparator_predicate;
     }
     
-    public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate) {
+    public void set_comparator(CompareFunc<DataObject> user_comparator, ComparatorPredicate? comparator_predicate) {
         this.user_comparator = user_comparator;
         this.comparator_predicate = comparator_predicate;
         list.resort(comparator_wrapper);

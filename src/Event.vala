@@ -300,9 +300,9 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     public static void terminate() {
     }
 
-    private static int64 view_comparator(void *a, void *b) {
-        var time_a = ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time();
-        var time_b = ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time();
+    private static int view_comparator(DataObject a, DataObject b) {
+        var time_a = ((MediaSource) ((ThumbnailView) a).get_source()).get_exposure_time();
+        var time_b = ((MediaSource) ((ThumbnailView) b).get_source()).get_exposure_time();
 
         return nullsafe_date_time_comperator(time_a, time_b);
     }

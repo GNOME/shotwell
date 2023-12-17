@@ -472,10 +472,9 @@ private void data_import_reporter(ImportManifest manifest, BatchImportRoll impor
     }
 }
 
-private int64 import_job_comparator(void *a, void *b) {
-
-    return nullsafe_date_time_comperator(((DataImportJob *) a)->get_exposure_time(),
-        ((DataImportJob *) b)->get_exposure_time());
+private int import_job_comparator(DataImportJob a, DataImportJob b) {
+    return nullsafe_date_time_comperator(a.get_exposure_time(),
+        b.get_exposure_time());
 }
 
 }

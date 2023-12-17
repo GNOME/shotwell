@@ -219,7 +219,7 @@ public class DataCollection {
         return true;
     }
     
-    public unowned Comparator get_comparator() {
+    public unowned CompareFunc<DataObject> get_comparator() {
         return dataset.get_comparator();
     }
     
@@ -227,7 +227,7 @@ public class DataCollection {
         return dataset.get_comparator_predicate();
     }
     
-    public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
+    public virtual void set_comparator(CompareFunc<DataObject> comparator, ComparatorPredicate? predicate) {
         dataset.set_comparator(comparator, predicate);
         notify_ordering_changed();
     }

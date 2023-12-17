@@ -879,7 +879,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     void set_view_comparator(int sort_by, bool ascending) {
-        Comparator comparator;
+        CompareFunc<DataObject> comparator;
         ComparatorPredicate predicate;
         
         switch (sort_by) {

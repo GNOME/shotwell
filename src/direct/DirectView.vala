@@ -40,11 +40,11 @@ private class DirectViewCollection : ViewCollection {
         monitor_source_collection(DirectPhoto.global, new DirectViewManager(), null);
     }
     
-    private static int64 filename_comparator(void *a, void *b) {
-        DirectView *aview = (DirectView *) a;
-        DirectView *bview = (DirectView *) b;
+    private static int filename_comparator(DataObject a, DataObject b) {
+        var aview = (DirectView) a;
+        var bview = (DirectView) b;
         
-        return strcmp(aview->get_collate_key(), bview->get_collate_key());
+        return strcmp(aview.get_collate_key(), bview.get_collate_key());
     }
 }
 

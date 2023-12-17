@@ -85,18 +85,18 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         return alteration.has_detail("metadata", "time");
     }
     
-    private static int64 event_ascending_comparator(void *a, void *b) {
-        DateTime start_a = ((EventDirectoryItem *) a)->event.get_start_time();
-        DateTime start_b = ((EventDirectoryItem *) b)->event.get_start_time();
+    private static int event_ascending_comparator(DataObject a, DataObject b) {
+        DateTime start_a = ((EventDirectoryItem) a).event.get_start_time();
+        DateTime start_b = ((EventDirectoryItem) b).event.get_start_time();
         
         return start_a.compare(start_b);
     }
     
-    private static int64 event_descending_comparator(void *a, void *b) {
+    private static int event_descending_comparator(DataObject a, DataObject b) {
         return event_ascending_comparator(b, a);
     }
     
-    private static Comparator get_event_comparator(bool ascending) {
+    private static CompareFunc<DataObject> get_event_comparator(bool ascending) {
         if (ascending)
             return event_ascending_comparator;
         else

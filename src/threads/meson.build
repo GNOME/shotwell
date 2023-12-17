@@ -5,11 +5,10 @@ libasync = static_library(
         'Workers.vala',
         'BackgroundJob.vala',
         'Semaphore.vala',
-        'SortedList.vala',
   ],
   vala_header: 'shotwell-async.h',
   vala_vapi: 'shotwell-async.vapi',
-  dependencies: [gio, gee],
+  dependencies: [gio, gee, datastructures],
   include_directories: config_incdir,
   install: false
 )

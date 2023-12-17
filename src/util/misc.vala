@@ -44,16 +44,6 @@ public int uint64_compare(uint64? a, uint64? b) {
         return 0;
 }
 
-public delegate bool ValueEqualFunc(Value a, Value b);
-
-public bool bool_value_equals(Value a, Value b) {
-    return (bool) a == (bool) b;
-}
-
-public bool int_value_equals(Value a, Value b) {
-    return (int) a == (int) b;
-}
-
 public ulong now_ms() {
     return (ulong) (GLib.get_real_time() / 1000);
 }

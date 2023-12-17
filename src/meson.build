@@ -31,6 +31,8 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo,
                  portal]
 
+subdir('datastructures')
+subdir('core')
 subdir('metadata')
 subdir('publishing')
 subdir('threads')
@@ -115,17 +117,11 @@ executable(
         'direct/DirectPhoto.vala',
         'direct/DirectPhotoPage.vala',
         'direct/DirectView.vala',
-        'core/Core.vala',
-        'core/DataCollection.vala',
-        'core/DataSet.vala',
-        'core/util.vala',
         'core/SourceCollection.vala',
         'core/SourceHoldingTank.vala',
         'core/DatabaseSourceCollection.vala',
         'core/ContainerSourceCollection.vala',
         'core/ViewCollection.vala',
-        'core/DataObject.vala',
-        'core/Alteration.vala',
         'core/DataSource.vala',
         'core/DataSourceTypes.vala',
         'core/DataView.vala',
@@ -213,7 +209,6 @@ executable(
         'Tombstone.vala',
         'MetadataWriter.vala',
         'Application.vala',
-        'TimedQueue.vala',
         'MediaPage.vala',
         'MediaDataRepresentation.vala',
         'DesktopIntegration.vala',
@@ -272,7 +267,9 @@ executable(
         metadata,
         metadata_handling,
         widgets,
-        async
+        datastructures,
+        async,
+        core
     ],
     vala_args : [
         '--pkg', 'libgphoto2',

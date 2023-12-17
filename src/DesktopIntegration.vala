@@ -42,8 +42,8 @@ public AppInfo? get_default_app_for_mime_types(string[] mime_types,
 }
 
 // compare the app names, case insensitive
-public static int64 app_info_comparator(void *a, void *b) {
-    return ((AppInfo) a).get_name().down().collate(((AppInfo) b).get_name().down());
+public static int app_info_comparator(AppInfo a, AppInfo b) {
+    return a.get_name().down().collate(b.get_name().down());
 }
 
 public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {

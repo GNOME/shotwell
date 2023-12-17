@@ -679,7 +679,7 @@ public class ViewCollection : DataCollection {
         base.items_altered(map);
     }
     
-    public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
+    public override void set_comparator(CompareFunc<DataObject> comparator, ComparatorPredicate? predicate) {
         selected.set_comparator(comparator, predicate);
         if (visible != null)
             visible.set_comparator(comparator, predicate);

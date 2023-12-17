@@ -190,7 +190,7 @@ public bool null_progress_monitor(uint64 count, uint64 total) {
     return true;
 }
 
-public static int64 nullsafe_date_time_comperator(DateTime? time_a, DateTime? time_b) {
+public static int nullsafe_date_time_comperator(DateTime? time_a, DateTime? time_b) {
     if (time_a == null && time_b == null) return 0;
 
     if (time_a == null && time_b != null) return -1;
@@ -210,3 +210,15 @@ public DateTime? coarsify_date_time(DateTime? dt) {
 
     return dt.add(-dt.get_microsecond());
 }
+
+public delegate bool ValueEqualFunc(Value a, Value b);
+
+public bool bool_value_equals(Value a, Value b) {
+    return (bool) a == (bool) b;
+}
+
+public bool int_value_equals(Value a, Value b) {
+    return (int) a == (int) b;
+}
+
+

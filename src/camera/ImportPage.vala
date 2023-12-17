@@ -826,17 +826,17 @@ public class ImportPage : CheckerboardPage {
         return _("No new photos/videos found on camera");
     }
 
-    private static int64 preview_comparator(void *a, void *b) {
-        return nullsafe_date_time_comperator(((ImportPreview *) a)->get_import_source().get_exposure_time(),
-        ((ImportPreview *) b)->get_import_source().get_exposure_time());
+    private static int preview_comparator(DataObject a, DataObject b) {
+        return nullsafe_date_time_comperator(((ImportPreview)a).get_import_source().get_exposure_time(),
+            ((ImportPreview)b).get_import_source().get_exposure_time());
     }
     
     private static bool preview_comparator_predicate(DataObject object, Alteration alteration) {
         return alteration.has_detail("metadata", "exposure-time");
     }
     
-    private int64 import_job_comparator(void *a, void *b) {
-        return nullsafe_date_time_comperator(((CameraImportJob *) a)->get_exposure_time(), ((CameraImportJob *) b)->get_exposure_time());
+    private int import_job_comparator(CameraImportJob a, CameraImportJob b) {
+        return nullsafe_date_time_comperator(a.get_exposure_time(), b.get_exposure_time());
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
