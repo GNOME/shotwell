@@ -56,6 +56,7 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
 
         login_identity_label.set_text(_("Posting media as %s").printf(parameters.account.display_name()));
         publish_button.clicked.connect(on_publish_clicked);
+        logout_button.clicked.connect(on_logout_clicked);
 
         this.parameters = parameters;
     }
@@ -80,6 +81,10 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
         parameters.cw = cw.get_text();
         parameters.alt_text = alt_text.get_text();
         publish();
+    }
+
+    private void on_logout_clicked() {
+        logout();
     }
 }
 
@@ -203,6 +208,7 @@ public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Obj
 
         var pane = new Options(this.parameters);
         pane.publish.connect(do_publish);
+        pane.logout.connect(do_logout);
         host.install_dialog_pane(pane);
     }
 
@@ -216,6 +222,17 @@ public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Obj
         yield txn.execute_async();
     }
     
+    private async void do_logout() {
+        debug("ACTION: loggin user out, deauthenticating session, and erasing stored credentials");
+
+        if (authenticator.can_logout()) {
+            authenticator.logout();
+        }
+
+        running = false;
+
+        start();
+    }
 
     /**
      * Event triggered when upload progresses and the status needs to be updated.
