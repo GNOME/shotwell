@@ -580,7 +580,7 @@ internal class Account : Object, Spit.Publishing.Account {
             });
 
             host.install_dialog_pane(web_auth_pane);
-            
+            web_auth_pane.browser_toggled.connect(() => { host.install_login_wait_pane();});
             yield;
 
             if (web_auth_pane.load_error != null) {
