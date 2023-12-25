@@ -12,7 +12,7 @@ sw_graphics_processor = static_library('shotwell-graphics-processor',
                vala_args : '--disable-assert',
                install : false)
 
-processor = executable('shotwell-graphics-processor',
+executable('shotwell-graphics-processor',
                        ['graphics-processor.vala'],
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
@@ -20,8 +20,6 @@ processor = executable('shotwell-graphics-processor',
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin]
-
-shotwell_libs = [sw_graphics_processor]
 
 face_sources = (['faces/FacesBranch.vala',
                      'faces/FacePage.vala',
