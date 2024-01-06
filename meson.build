@@ -3,6 +3,16 @@ project('shotwell', ['vala', 'c'],
         meson_version : '>= 0.59.0',
         default_options : ['buildtype=debugoptimized'])
 
+# Check for the required vala version
+vala = meson.get_compiler('vala')
+# 0.56.5 is necessary for webkitgtk-6.0
+vala_version_required = '>= 0.56.5'
+vala_version_found = vala.version()
+
+if not vala_version_found.version_compare(vala_version_required)
+    error('Found Vala version @0@, need @1@'.format(vala_version_found, vala_version_required))
+endif
+
 so_version = '0.33'
 
 gnome = import('gnome')
