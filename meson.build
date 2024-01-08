@@ -58,7 +58,7 @@ endif
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
-gtk = dependency('gtk4', version : '>= 4.4')
+gtk = dependency('gtk4', version : '>= 4.10')
 gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
