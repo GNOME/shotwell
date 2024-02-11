@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-02-02 16:15+0000\n"
-"PO-Revision-Date: 2023-02-05 01:03+0800\n"
+"POT-Creation-Date: 2024-01-06 16:21+0000\n"
+"PO-Revision-Date: 2024-02-11 23:19+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
@@ -23,10 +23,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
 msgstr "OAuth 存取階段代符"
 
@@ -35,7 +35,7 @@ msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "目前登入的 Tumblr 使用者授權代符，若有的話"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:444
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth 存取階段代符暗記"
 
@@ -46,19 +46,19 @@ msgid ""
 msgstr "簽署目前登入之 Tumblr 使用者授權代符請求用的密碼學暗記，若有的話"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:440
-#: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#: data/gsettings/org.gnome.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:450
+#: data/gsettings/org.gnome.shotwell.gschema.xml:508
+#: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "username"
 msgstr "username"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:441
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "目前登入 Flickr 的使用者名稱，若有的話"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:482
 msgid "default size"
 msgstr "預設大小"
 
@@ -364,384 +364,393 @@ msgstr "顯示標題"
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr "是否要在投影片秀中顯示相片的標題"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:218
+#: data/gsettings/org.gnome.shotwell.gschema.xml:216
+#: data/ui/slideshow_settings.ui:92
+msgid "Shuffle"
+msgstr "隨機"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:217
+msgid "Whether to shuffle the order of photos during the slideshow"
+msgstr "是否要在投影片秀中隨機排序相片"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "maximize library window"
 msgstr "最大化珍藏館視窗"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:219
+#: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "True if library application is maximized, false otherwise"
 msgstr "若珍藏館應用程式要最大化則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:224
+#: data/gsettings/org.gnome.shotwell.gschema.xml:230
 msgid "width of library window"
 msgstr "珍藏館視窗寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:225
+#: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "The last recorded width of the library application window"
 msgstr "珍藏館應用程式視窗上次紀錄的寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:230
+#: data/gsettings/org.gnome.shotwell.gschema.xml:236
 msgid "height of library window"
 msgstr "珍藏館視窗寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:231
+#: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "The last recorded height of the library application window"
 msgstr "珍藏館應用程式視窗上次紀錄的高度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:236
+#: data/gsettings/org.gnome.shotwell.gschema.xml:242
 msgid "maximize direct-edit window"
 msgstr "最大化直接編輯視窗"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:237
+#: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr "若直接編輯應用程式要最大化則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:242
+#: data/gsettings/org.gnome.shotwell.gschema.xml:248
 msgid "width of direct-edit window"
 msgstr "直接編輯視窗的寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:243
+#: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "The last recorded width of the direct-edit application window"
 msgstr "直接編輯應用程式視窗上次紀錄的寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:248
+#: data/gsettings/org.gnome.shotwell.gschema.xml:254
 msgid "height of direct-edit window"
 msgstr "直接編輯視窗的高度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:249
+#: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "The last recorded height of the direct-edit application window"
 msgstr "直接編輯應用程式視窗上次紀錄的高度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:254
+#: data/gsettings/org.gnome.shotwell.gschema.xml:260
 msgid "sidebar divider position"
 msgstr "側邊欄分割棒位置"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:255
+#: data/gsettings/org.gnome.shotwell.gschema.xml:261
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
 msgstr "珍藏館視窗中上次紀錄的側邊欄和檢視區之間的分割棒位置"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:262
+#: data/gsettings/org.gnome.shotwell.gschema.xml:268
 msgid "import directory"
 msgstr "匯入目錄"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:263
+#: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid "Directory in which imported photo files are placed"
 msgstr "匯入相片檔案的所在目錄"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:268
+#: data/gsettings/org.gnome.shotwell.gschema.xml:274
 msgid "watch library directory for new files"
 msgstr "監視珍藏館目錄是否有新檔案"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:269
+#: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr "若為真，加入珍藏館目錄中的檔案會自動匯入"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:274
+#: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "write metadata to master files"
 msgstr "寫入中介資料至主檔案"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:275
+#: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
 msgstr "若為真，中介資料（標記、標題等）之修改會寫入主相片檔案中"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:280
+#: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "use lowercase filenames"
 msgstr "使用小寫檔名"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:281
+#: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr "若為真，Shotwell 會在匯入相片檔案時將所有檔名轉為小寫"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:286
+#: data/gsettings/org.gnome.shotwell.gschema.xml:292
 msgid "directory pattern"
 msgstr "目錄樣式"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:287
+#: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
 msgstr "命名樣式的編碼字串，用來命名匯入時的相片目錄"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:292
+#: data/gsettings/org.gnome.shotwell.gschema.xml:298
 msgid "directory pattern custom"
 msgstr "目錄樣式自訂"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:293
+#: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
 msgstr "命名樣式的自訂編碼字串，用來命名匯入時的相片目錄"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:298
+#: data/gsettings/org.gnome.shotwell.gschema.xml:304
 msgid "RAW developer default"
 msgstr "RAW 顯影器預設值"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:299
+#: data/gsettings/org.gnome.shotwell.gschema.xml:305
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr "Shotwell 會使用的 RAW 顯影器預設選項"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:306
+#: data/gsettings/org.gnome.shotwell.gschema.xml:312
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "最近使用的裁切寬長比選項"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:307
+#: data/gsettings/org.gnome.shotwell.gschema.xml:313
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr "代表使用者上次裁切選項的數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:311
+#: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr "最近使用的裁切自訂寬長比分子"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:312
+#: data/gsettings/org.gnome.shotwell.gschema.xml:318
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
 msgstr "非零、正整數，代表上次使用者輸入的自訂裁切比寬度部分"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:316
+#: data/gsettings/org.gnome.shotwell.gschema.xml:322
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr "最近使用的裁切自訂寬長比分母"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:317
+#: data/gsettings/org.gnome.shotwell.gschema.xml:323
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
 msgstr "非零、正整數，代表上次使用者輸入的自訂裁切比高度部分"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:324
+#: data/gsettings/org.gnome.shotwell.gschema.xml:330
 msgid "external photo editor"
 msgstr "外部相片編輯器"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:325
+#: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "External application used to edit photos"
 msgstr "用來編輯相片的外部應用程式"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:330
+#: data/gsettings/org.gnome.shotwell.gschema.xml:336
 msgid "external raw editor"
 msgstr "外部 RAW 編輯器"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:331
+#: data/gsettings/org.gnome.shotwell.gschema.xml:337
 msgid "External application used to edit RAW photos"
 msgstr "用來編輯 RAW 相片的外部應用程式"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:369
-#: data/gsettings/org.gnome.shotwell.gschema.xml:370
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379
+#: data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: how to trim images"
 msgstr "匯出對話盒中的設定：修剪影像的方法"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:375
+#: data/gsettings/org.gnome.shotwell.gschema.xml:385
 msgid "export metadata"
 msgstr "匯出中介資料"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:376
+#: data/gsettings/org.gnome.shotwell.gschema.xml:386
 msgid "Setting in export dialog: option to export metadata"
 msgstr "匯出對話盒中的設定：匯出中介資料的選項"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:381
+#: data/gsettings/org.gnome.shotwell.gschema.xml:391
 msgid "format setting, special value"
 msgstr "格式設定，特殊值"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:382
+#: data/gsettings/org.gnome.shotwell.gschema.xml:392
 msgid "Setting in export dialog: format setting, special value"
 msgstr "匯出對話盒中的設定：格式設定，特殊值"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:387
+#: data/gsettings/org.gnome.shotwell.gschema.xml:397
 msgid "format setting, type value"
 msgstr "格式設定，類型值"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:388
+#: data/gsettings/org.gnome.shotwell.gschema.xml:398
 msgid "Setting in export dialog: format setting, type value"
 msgstr "匯出對話盒中的設定：格式設定，類型值"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:393
+#: data/gsettings/org.gnome.shotwell.gschema.xml:403
 msgid "JPEG quality option"
 msgstr "JPEG 品質選項"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:394
+#: data/gsettings/org.gnome.shotwell.gschema.xml:404
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "匯出對話盒中的設定：匯出中介資料的選項"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:399
+#: data/gsettings/org.gnome.shotwell.gschema.xml:409
 msgid "maximal size of image"
 msgstr "最大影像大小"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:400
+#: data/gsettings/org.gnome.shotwell.gschema.xml:410
 msgid "Setting in export dialog: maximal size of image"
 msgstr "匯出對話盒中的設定：影像的最大大小"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:407
+#: data/gsettings/org.gnome.shotwell.gschema.xml:417
 msgid "last used publishing service"
 msgstr "上次使用的發布服務"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:408
-#: data/gsettings/org.gnome.shotwell.gschema.xml:414
+#: data/gsettings/org.gnome.shotwell.gschema.xml:418
+#: data/gsettings/org.gnome.shotwell.gschema.xml:424
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr "代表上次發布相片的服務數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:413
+#: data/gsettings/org.gnome.shotwell.gschema.xml:423
 msgid "default publishing service"
 msgstr "預設發布服務"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:429
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "目前登入的 Flickr 使用者授權代符，若有的話"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:435
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr "簽署目前登入之 Flickr 使用者授權代符請求用的密碼學暗記，若有的話"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default size code"
 msgstr "預設大小碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:447
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr "代表發布至 Flickr 的相片預設大小數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:462
 msgid "default visibility"
 msgstr "預設可見性"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:453
+#: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr "代表發布至 Flickr 的相片預設可見性數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:458
-#: data/gsettings/org.gnome.shotwell.gschema.xml:484
-#: data/gsettings/org.gnome.shotwell.gschema.xml:534
-#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:468
+#: data/gsettings/org.gnome.shotwell.gschema.xml:494
+#: data/gsettings/org.gnome.shotwell.gschema.xml:544
+#: data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "remove sensitive info from uploads"
 msgstr "移除上傳內容中的敏感資訊"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:459
+#: data/gsettings/org.gnome.shotwell.gschema.xml:469
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr "是否應該先移除影像的中介資料再上傳至 Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#: data/gsettings/org.gnome.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476
+#: data/gsettings/org.gnome.shotwell.gschema.xml:614
 msgid "refresh token"
 msgstr "重整代符"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:467
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
 msgstr "用來重整目前登入使用者的 YouTube 工作階段 OAuth 代符，若有的話"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:473
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
 msgstr "代表發布至 Google 相簿的相片預設大小數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478
-#: data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488
+#: data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "last album"
 msgstr "上次相簿"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:479
-#: data/gsettings/org.gnome.shotwell.gschema.xml:579
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "The name of the last album the user published photos to, if any"
 msgstr "使用者上次發布相片時的相簿名稱，若有的話"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:485
+#: data/gsettings/org.gnome.shotwell.gschema.xml:495
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr "是否應該先移除影像的中介資料再上傳至 Google 相簿"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+#: data/gsettings/org.gnome.shotwell.gschema.xml:502
 msgid "Piwigo URL"
 msgstr "Piwigo 網址"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:493
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "URL of the Piwigo server"
 msgstr "Piwigo 伺服器的網址"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:499
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "Piwigo username, if logged in"
 msgstr "Piwigo 使用者名稱，若有登入"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+#: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "password"
 msgstr "密碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:505
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "Piwigo password, if logged in"
 msgstr "Piwigo 密碼，若有登入"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+#: data/gsettings/org.gnome.shotwell.gschema.xml:520
 msgid "remember password"
 msgstr "記住密碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:511
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "If true, remember the Piwigo password"
 msgstr "若為真，則記住 Piwigo 密碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:516
+#: data/gsettings/org.gnome.shotwell.gschema.xml:526
 msgid "last category"
 msgstr "上個類別"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:517
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "The last selected Piwigo category"
 msgstr "上次選取的 Piwigo 類別"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+#: data/gsettings/org.gnome.shotwell.gschema.xml:532
 msgid "last permission level"
 msgstr "上次權限層級"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:523
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
 msgid "The last chosen Piwigo permission level"
 msgstr "上次選擇的 Piwigo 權限層級"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:528
+#: data/gsettings/org.gnome.shotwell.gschema.xml:538
 msgid "last photo size"
 msgstr "上次相片大小"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:529
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
 msgstr "代表發布至 Piwigo 時使用的上次相片大小預先設定數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:535
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr "是否應該先移除影像的中介資料再上傳至 Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:550
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr "如果有設定標題但未設定評註，則使用標題作為上傳至 Piwigo 時的評註"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:541
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
 "上傳影像至 Piwigo 時，是否在有設定標題但未設定評註的狀況下，將其標題設為評註"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "上傳至 Piwigo 時不要上傳標記"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:547
+#: data/gsettings/org.gnome.shotwell.gschema.xml:557
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -749,11 +758,11 @@ msgstr ""
 "上傳影像至 Piwigo 時，是否要先將影像的標記移除，這樣一來那些標記就不會出現在"
 "遠端 Piwigo 伺服器上"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:562
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "上傳至 Piwigo 時不要上傳評等"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:553
+#: data/gsettings/org.gnome.shotwell.gschema.xml:563
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -761,308 +770,310 @@ msgstr ""
 "上傳影像至 Piwigo 時，是否要先將影像的評等移除，這樣一來那些評等就不會出現在"
 "遠端 Piwigo 伺服器上"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:561
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 username"
 msgstr "Gallery3 使用者名稱"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:576
 msgid "API key"
 msgstr "API 金鑰"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:567
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "Gallery3 API key"
 msgstr "Gallery3 API 金鑰"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "URL"
 msgstr "網址"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:573
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "Gallery3 site URL"
 msgstr "Gallery3 網站 URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:585
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
 msgstr "是否應該先移除影像的中介資料再上傳至 Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "scaling constraint of uploaded picture"
 msgstr "上傳圖片的縮放約束"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:591
+#: data/gsettings/org.gnome.shotwell.gschema.xml:601
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "上傳圖片的縮放約束 ID"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:606
 msgid "pixels of the major axis uploaded picture"
 msgstr "上傳的相片主軸像素數"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:597
+#: data/gsettings/org.gnome.shotwell.gschema.xml:607
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr "上傳圖片的主軸像素；只在縮放約束 id 為適當數值時使用"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:605
+#: data/gsettings/org.gnome.shotwell.gschema.xml:615
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
 msgstr "用來重整目前登入使用者的 YouTube 工作階段 OAuth 代符，若有的話"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:622
 msgid "last used import service"
 msgstr "上次使用的匯入服務"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:613
+#: data/gsettings/org.gnome.shotwell.gschema.xml:623
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr "代表上次匯入相片的服務數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:620
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid "content layout mode"
 msgstr "內容版面配置模式"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:621
+#: data/gsettings/org.gnome.shotwell.gschema.xml:631
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr "描述相片在列印頁面中如何編排的版面配置數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:626
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content ppi"
 msgstr "內容 ppi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:627
+#: data/gsettings/org.gnome.shotwell.gschema.xml:637
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "列印時傳送給印表機的每英吋像素數"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:632
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "content width"
 msgstr "內容寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:643
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "列印時頁面中列印乳劑的寬度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:638
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "content height"
 msgstr "內容高度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:649
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "列印時頁面中列印乳劑的高度"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:644
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid "content units"
 msgstr "內容單位"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:655
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr "代表列印時量測單位（英吋或公分）的數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:650
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "images per page code"
 msgstr "每頁相片數"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:661
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr "代表目前列印時每頁所選影像數模式的數字碼"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:656
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "size selection"
 msgstr "大小選擇"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:667
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr "預先定義的標準大小清單中的目前列印大小索引"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:662
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "match aspect ratio"
 msgstr "符合寬高比"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:673
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr "判斷自訂的列印大小是否必須符合原始相片的寬高比"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:668
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "print titles"
 msgstr "列印標題"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:679
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr "若相片的標題應該在列印相片時一同列印出來則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:674
+#: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "titles font"
 msgstr "標題字型"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:685
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "列印相片標題時採用的字型名稱"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:686
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 msgid "enable flickr publishing plugin"
 msgstr "啟用 flickr 發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:687
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 Flickr 發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:692
+#: data/gsettings/org.gnome.shotwell.gschema.xml:702
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable Google Photos publishing plugin"
 msgstr "啟用 Google 相簿發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:693
+#: data/gsettings/org.gnome.shotwell.gschema.xml:703
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 Google 相簿發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:698
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "enable youtube publishing plugin"
 msgstr "啟用 youtube 發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 YouTube 發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:704
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable piwigo publishing plugin"
 msgstr "啟用 piwigo 發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 Piwigo 發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:710
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable tumblr publishing plugin"
 msgstr "啟用 tumblr 發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 Tumblr 發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:716
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable gallery3 publishing plugin"
 msgstr "啟用 gallery3 發布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "若有啟用 Gallery3 發布插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:722
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable slideshow crumble transition"
-msgstr "啟用崩解投影秀轉場"
+msgstr "啟用崩解投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:723
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用崩解投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:728
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow fade transition"
-msgstr "啟用淡化投影秀轉場"
+msgstr "啟用淡化投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用淡化投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:734
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow slide transition"
-msgstr "啟用滑過投影秀轉場"
+msgstr "啟用滑過投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:735
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用滑過投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:740
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow clock transition"
-msgstr "啟用時鐘投影秀轉場"
+msgstr "啟用時鐘投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用時鐘投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:746
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circle transition"
-msgstr "啟用圓點投影秀轉場"
+msgstr "啟用圓點投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:747
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用圓點投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:752
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow circles transition"
-msgstr "啟用圓點投影秀轉場"
+msgstr "啟用圓點投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用圓點投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:758
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow blinds transition"
-msgstr "啟用百葉窗投影秀轉場"
+msgstr "啟用百葉窗投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用百葉窗投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:764
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow squares transition"
-msgstr "啟用方塊投影秀轉場"
+msgstr "啟用方塊投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用方塊投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:770
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow stripes transition"
-msgstr "啟用條帶投影秀轉場"
+msgstr "啟用條帶投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr "若有啟用條帶投影片秀轉場插件則為真，否則為假"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:776
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow chess transition"
-msgstr "啟用棋盤投影秀轉場"
+msgstr "啟用棋盤投影片秀轉場"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr "若有啟用棋盤投影片秀轉場插件則為真，否則為假"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
+#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
+#: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
+#: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.appdata.xml.in:10
 msgid "Digital photo organizer"
 msgstr "數位相片整理"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:11
+#: data/org.gnome.Shotwell.appdata.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1076,7 +1087,7 @@ msgstr ""
 "能，例如裁切、紅眼校正、色彩調整、拉直等。Shotwell 的非破壞性相片編輯器不會更"
 "動您的原本相片，讓您輕鬆試驗並修正錯誤。"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:18
+#: data/org.gnome.Shotwell.appdata.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1084,7 +1095,7 @@ msgstr ""
 "當準備就緒後，Shotwell 可以將您的相片上傳至各種網路服務，例如 Flickr、Google "
 "相片……等。"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:22
+#: data/org.gnome.Shotwell.appdata.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell 支援 JPEG、PNG、TIFF、和多種 RAW 檔案格式。"
 
@@ -1092,8 +1103,7 @@ msgstr "Shotwell 支援 JPEG、PNG、TIFF、和多種 RAW 檔案格式。"
 msgid "The Shotwell developers"
 msgstr "Shotwell 開發者群"
 
-#: data/org.gnome.Shotwell.desktop.in:5
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "相片管理員"
 
@@ -1114,13 +1124,9 @@ msgstr ""
 "剪;補強;匯出;藝廊;畫廊;圖庫;影像;照片;相片;匯入;整理;統整;整理;圖片;攝影;寫"
 "真;發佈;發布;發表;旋轉;分享;標記;標籤;視訊;影片;"
 
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-msgid "Shotwell Profile Browser"
-msgstr "Shotwell 個人檔案瀏覽器"
-
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
-msgid "Manage Different Profiles In Shotwell"
-msgstr "管理 Shotwell 的不同個人檔案"
+#: data/org.gnome.Shotwell.desktop.in:21
+msgid "Manage Different Profiles"
+msgstr "管理不同的個人設定檔"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -1130,174 +1136,176 @@ msgstr "Shotwell 檢視器"
 msgid "Photo Viewer"
 msgstr "相片檢視器"
 
-#: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:227
-#: src/CollectionPage.vala:119 src/Resources.vala:152
+#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136
+#: data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221
+#: src/CollectionPage.vala:109 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "補強(_E)"
 
-#: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:254
-#: src/CollectionPage.vala:120 src/Resources.vala:180
+#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163
+#: data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248
+#: src/CollectionPage.vala:110 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "還原至原始(_V)"
 
-#: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
-#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:379
-#: data/ui/tags.ui:390 src/Resources.vala:278
+#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454
+#: data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373
+#: data/ui/tags.ui:386 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "加入標記(_T)…"
 
-#: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
-#: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:384 data/ui/tags.ui:395 src/Resources.vala:350
+#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459
+#: data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22
+#: data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "修改標記(_Y)…"
 
-#: data/ui/collection.ui:33 data/ui/event.ui:281 data/ui/event.ui:472
-#: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:272 data/ui/tags.ui:281
+#: data/ui/collection.ui:32 data/ui/event.ui:277 data/ui/event.ui:468
+#: data/ui/faces.ui:277 data/ui/media.ui:277 data/ui/photo_context.ui:30
+#: data/ui/photo.ui:266 data/ui/tags.ui:277
 msgid "Toggle _Flag"
 msgstr "切換旗幟(_F)"
 
-#: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
-#: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:277 data/ui/tags.ui:286 src/Resources.vala:212
+#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474
+#: data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35
+#: data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "設定評等(_S)"
 
-#: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
-#: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:305 data/ui/tags.ui:314 src/Resources.vala:222
+#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497
+#: data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63
+#: data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "無評等(_U)"
 
-#: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
-#: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:228
+#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501
+#: data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68
+#: data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "退絕(_R)"
 
-#: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
-#: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:317 data/ui/tags.ui:326 src/Resources.vala:216
+#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507
+#: data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75
+#: data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
 msgid "_Increase"
 msgstr "增加(_I)"
 
-#: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
-#: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:219
+#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511
+#: data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80
+#: data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "降低(_D)"
 
-#: data/ui/collection.ui:82 data/ui/event.ui:353 data/ui/event.ui:521
-#: data/ui/faces.ui:353 data/ui/media.ui:353 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:348 data/ui/tags.ui:353
+#: data/ui/collection.ui:81 data/ui/event.ui:349 data/ui/event.ui:517
+#: data/ui/faces.ui:349 data/ui/media.ui:349 data/ui/photo_context.ui:88
+#: data/ui/photo.ui:342 data/ui/tags.ui:349
 msgid "_Developer"
 msgstr "顯影器(_D)"
 
-#: data/ui/collection.ui:90 data/ui/event.ui:361 data/ui/event.ui:529
-#: data/ui/faces.ui:361 data/ui/media.ui:361 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:356 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
+#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525
+#: data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96
+#: data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "相機"
 
-#: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
-#: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:331 data/ui/tags.ui:340 src/Resources.vala:264
+#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533
+#: data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105
+#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "編輯標題(_T)…"
 
-#: data/ui/collection.ui:103 data/ui/events_directory.ui:144
-#: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
-#: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:336 data/ui/tags.ui:345
-#: src/Resources.vala:268
+#: data/ui/collection.ui:102 data/ui/events_directory.ui:140
+#: data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394
+#: data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341
+#: src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "編輯評註(_C)…"
 
-#: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:365 src/CollectionPage.vala:143 src/Resources.vala:285
+#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115
+#: data/ui/photo.ui:359 src/CollectionPage.vala:133 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "以外部編輯器開啟(_X)"
 
-#: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:370 src/CollectionPage.vala:146 src/Resources.vala:287
+#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120
+#: data/ui/photo.ui:364 src/CollectionPage.vala:136 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "以 RA_W 編輯器開啟"
 
-#: data/ui/collection.ui:119 data/ui/event.ui:387 data/ui/event.ui:558
-#: data/ui/faces.ui:381 data/ui/media.ui:381 data/ui/photo_context.ui:126
-#: data/ui/tags.ui:381
+#: data/ui/collection.ui:118 data/ui/event.ui:383 data/ui/event.ui:554
+#: data/ui/faces.ui:377 data/ui/media.ui:377 data/ui/photo_context.ui:126
+#: data/ui/tags.ui:377
 msgid "View Eve_nt for Photo"
 msgstr "檢視相片的事件(_N)"
 
-#: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
-#: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
-#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
-#: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
-#: src/Resources.vala:776
+#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30
+#: data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23
+#: data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224
+#: src/Resources.vala:780
 msgid "Show in File Mana_ger"
 msgstr "以檔案管理員開啟(_G)"
 
-#: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
-#: data/ui/event.ui:567 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:289
+#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23
+#: data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:73
+#: src/Resources.vala:290
 msgid "Send _To…"
 msgstr "傳送至(_T)…"
 
-#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
-#: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:785
+#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569
+#: data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141
+#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:789
 msgid "_Move to Trash"
 msgstr "移至垃圾桶(_M)"
 
-#: data/ui/collection.ui:148 src/Resources.vala:108
+#: data/ui/collection.ui:147 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "將相片向右旋轉 (按下 Ctrl 鍵以向左旋轉)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
+#: data/ui/collection.ui:149 src/Resources.vala:107 src/Resources.vala:112
 msgid "Rotate"
 msgstr "旋轉"
 
-#: data/ui/collection.ui:164 src/Resources.vala:154
+#: data/ui/collection.ui:157 src/Resources.vala:155
 msgid "Automatically improve the photo’s appearance"
 msgstr "自動改善相片外觀"
 
-#: data/ui/collection.ui:167 src/Resources.vala:153
+#: data/ui/collection.ui:159 src/Resources.vala:154
 msgid "Enhance"
 msgstr "補強"
 
-#: data/ui/collection.ui:189 src/Resources.vala:262
+#: data/ui/collection.ui:173 src/Resources.vala:263
 msgid "Publish to various websites"
 msgstr "發布至各個網站"
 
-#: data/ui/collection.ui:192
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:261
+#: data/ui/collection.ui:175
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+#: src/Resources.vala:262
 msgid "Publish"
 msgstr "發布"
 
-#: data/ui/collection.ui:214 data/ui/offline.ui:236 data/ui/trash.ui:309
-#: src/Resources.vala:294
+#: data/ui/collection.ui:189 data/ui/offline.ui:232 data/ui/trash.ui:302
+#: src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "輸入出現在影像的名稱內或標記上的文字來尋找影像"
 
-#: data/ui/collection.ui:217 data/ui/offline.ui:239 data/ui/trash.ui:312
-#: src/Resources.vala:293
+#: data/ui/collection.ui:191 data/ui/offline.ui:235 data/ui/trash.ui:295
+#: src/Resources.vala:294
 msgid "Find"
 msgstr "尋找"
 
 #: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
 #: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
 #: data/ui/media.ui:5 data/ui/offline.ui:5 data/ui/photo.ui:5 data/ui/tags.ui:5
-#: data/ui/trash.ui:5
+#: data/ui/trash.ui:6
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
+#. Check if we can write the target format
+#. TODO: Check if we can actually write to the file
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
+#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
 msgid "_Save"
 msgstr "儲存(_S)"
 
@@ -1305,386 +1313,379 @@ msgstr "儲存(_S)"
 msgid "Save _As…"
 msgstr "另存為(_A)…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
-#: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
-#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
+#: data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29
+#: data/ui/media.ui:36 data/ui/offline.ui:21 data/ui/photo.ui:46
+#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
 msgstr "退出(_Q)"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
-#: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
-#: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:125
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
+#: data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43
+#: data/ui/offline.ui:28 data/ui/photo.ui:53 data/ui/tags.ui:43
+#: data/ui/trash.ui:34 src/Resources.vala:126
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
-#: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
-#: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:190
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
+#: data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46
+#: data/ui/offline.ui:31 data/ui/photo.ui:56 data/ui/tags.ui:46
+#: data/ui/trash.ui:37 src/Resources.vala:191
 msgid "_Undo"
 msgstr "復原(_U)"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
-#: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
-#: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:193
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51
+#: data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51
+#: data/ui/offline.ui:36 data/ui/photo.ui:61 data/ui/tags.ui:51
+#: data/ui/trash.ui:42 src/Resources.vala:194
 msgid "_Redo"
 msgstr "取消復原(_R)"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
-#: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
-#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:97
-#: data/ui/tags.ui:99 data/ui/trash.ui:87
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95
+#: data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70
+#: data/ui/media.ui:95 data/ui/offline.ui:74 data/ui/photo.ui:93
+#: data/ui/tags.ui:95 data/ui/trash.ui:84
 msgid "_View"
 msgstr "檢視(_V)"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:125 data/ui/photo.ui:175
-#: src/Resources.vala:127
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171
+#: src/Resources.vala:128
 msgid "Fulls_creen"
 msgstr "全螢幕(_C)"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:260 data/ui/faces.ui:260
-#: data/ui/media.ui:260 data/ui/photo.ui:146 data/ui/tags.ui:260
-#: src/Resources.vala:149
+#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256
+#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
+#: src/Resources.vala:150
 msgid "Zoom _In"
 msgstr "拉近(_I)"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:265 data/ui/faces.ui:265
-#: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:150
+#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261
+#: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
+#: src/Resources.vala:151
 msgid "Zoom _Out"
 msgstr "拉遠(_O)"
 
-#: data/ui/direct.ui:81 data/ui/photo.ui:158
+#: data/ui/direct.ui:81 data/ui/photo.ui:154
 msgid "Fit to _Page"
 msgstr "使其適合頁面(_P)"
 
-#: data/ui/direct.ui:86 data/ui/photo.ui:163
+#: data/ui/direct.ui:86 data/ui/photo.ui:159
 msgid "Zoom _100%"
 msgstr "拉至 _100%"
 
-#: data/ui/direct.ui:91 data/ui/photo.ui:168
+#: data/ui/direct.ui:91 data/ui/photo.ui:164
 msgid "Zoom _200%"
 msgstr "拉至 _200%"
 
-#: data/ui/direct.ui:98 data/ui/photo.ui:189
+#: data/ui/direct.ui:98 data/ui/photo.ui:185
 msgid "_Photo"
 msgstr "相片(_P)"
 
-#: data/ui/direct.ui:101 data/ui/photo.ui:192
+#: data/ui/direct.ui:101 data/ui/photo.ui:188
 msgid "_Previous Photo"
 msgstr "上一張相片(_P)"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:197
+#: data/ui/direct.ui:106 data/ui/photo.ui:192
 msgid "_Next Photo"
 msgstr "下一張相片(_N)"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:204 src/CollectionPage.vala:110
-#: src/Resources.vala:105
+#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:100
+#: src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "向右旋轉(_R)"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:209 src/CollectionPage.vala:113
-#: src/Resources.vala:110
+#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:103
+#: src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "向左旋轉(_L)"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:214 src/CollectionPage.vala:116
-#: src/Resources.vala:115
+#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:106
+#: src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "水平翻轉(_Z)"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:218 src/CollectionPage.vala:117
-#: src/Resources.vala:118
+#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:107
+#: src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "垂直翻轉(_C)"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:224
+#: data/ui/direct.ui:133 data/ui/photo.ui:218
 msgid "T_ools"
 msgstr "工具(_O)"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:232 src/Resources.vala:164
+#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:165
 msgid "_Crop"
 msgstr "裁切(_C)"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:237
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
+#: data/ui/direct.ui:146 data/ui/photo.ui:231
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
 msgstr "拉直(_S)"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:242 src/Resources.vala:172
+#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:173
 msgid "_Red-eye"
 msgstr "紅眼(_R)"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:247 src/Resources.vala:176
+#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:177
 msgid "_Adjust"
 msgstr "調整(_A)"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:341 src/Resources.vala:275
+#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:276
 msgid "_Adjust Date and Time…"
 msgstr "調整日期與時間(_A)…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:150
-#: data/ui/events_directory.ui:153 data/ui/event.ui:420 data/ui/event.ui:423
-#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
-#: data/ui/import_queue.ui:68 data/ui/import.ui:183 data/ui/import.ui:186
-#: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
-#: data/ui/offline.ui:183 data/ui/photo.ui:391 data/ui/photo.ui:394
-#: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
-#: data/ui/trash.ui:192 src/Resources.vala:128
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146
+#: data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419
+#: data/ui/faces.ui:426 data/ui/faces.ui:429 data/ui/import_queue.ui:61
+#: data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182
+#: data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:176
+#: data/ui/offline.ui:179 data/ui/photo.ui:385 data/ui/photo.ui:388
+#: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186
+#: data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
 msgstr "求助(_H)"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:158 data/ui/event.ui:428
-#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
-#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:399
-#: data/ui/tags.ui:430 data/ui/trash.ui:197
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424
+#: data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187
+#: data/ui/media.ui:407 data/ui/offline.ui:184 data/ui/photo.ui:393
+#: data/ui/tags.ui:426 data/ui/trash.ui:194
 msgid "_Frequently Asked Questions"
 msgstr "常見問答集(_F)"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:162 data/ui/event.ui:432
-#: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:195
-#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:403
-#: data/ui/tags.ui:434 data/ui/trash.ui:201
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428
+#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
+#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:397
+#: data/ui/tags.ui:430 data/ui/trash.ui:198
 msgid "_Report a Problem…"
 msgstr "回報問題(_R)…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
-#: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
-#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434
+#: data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197
+#: data/ui/media.ui:417 data/ui/offline.ui:194 data/ui/photo.ui:403
+#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
 msgid "_About"
 msgstr "關於(_A)"
 
 #: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
 #: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
-#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:8
+#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:9
 msgid "_Import From Folder…"
 msgstr "從資料夾匯入(_I)…"
 
-#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13
-#: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
-#: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
-#: data/ui/trash.ui:13
-msgid "Import From _Application…"
-msgstr "從應用程式匯入(_A)…"
-
-#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
-#: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
-#: data/ui/offline.ui:19 data/ui/photo.ui:44 data/ui/tags.ui:34
-#: data/ui/trash.ui:24 data/ui/trash.ui:234 data/ui/trash.ui:242
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30
+#: data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30
+#: data/ui/offline.ui:15 data/ui/photo.ui:40 data/ui/tags.ui:30
+#: data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
 msgid "Empty T_rash"
 msgstr "清空垃圾桶(_R)"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
-#: data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47
-#: data/ui/tags.ui:62 data/ui/trash.ui:52
+#: data/ui/events_directory.ui:43 data/ui/event.ui:58 data/ui/faces.ui:58
+#: data/ui/import.ui:51 data/ui/media.ui:58 data/ui/offline.ui:43
+#: data/ui/tags.ui:58 data/ui/trash.ui:49
 msgid "_Find"
 msgstr "尋找(_F)"
 
-#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
-#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:72
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
+#: data/ui/media.ui:62 data/ui/offline.ui:47 data/ui/photo.ui:68
 #: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
-#: data/ui/tags.ui:66 data/ui/trash.ui:56
+#: data/ui/tags.ui:62 data/ui/trash.ui:53
 msgid "Ne_w Saved Search…"
 msgstr "新的儲存搜尋(_W)…"
 
-#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
-#: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:787
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82
+#: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:61
+#: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:791
 msgid "Select _All"
 msgstr "全選(_A)"
 
-#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
-#: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
-#: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:134 src/Resources.vala:283
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89
+#: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:68
+#: data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
+#: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "偏好設定(_P)"
 
-#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
-#: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
-#: data/ui/offline.ui:81 data/ui/photo.ui:100 data/ui/tags.ui:102
-#: data/ui/trash.ui:90
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98
+#: data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98
+#: data/ui/offline.ui:77 data/ui/photo.ui:96 data/ui/tags.ui:98
+#: data/ui/trash.ui:87
 msgid "_Basic Information"
 msgstr "基本資訊(_B)"
 
-#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
-#: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
-#: data/ui/photo.ui:105 data/ui/tags.ui:107 data/ui/trash.ui:95
+#: data/ui/events_directory.ui:75 data/ui/event.ui:103 data/ui/faces.ui:103
+#: data/ui/import.ui:78 data/ui/media.ui:103 data/ui/offline.ui:82
+#: data/ui/photo.ui:101 data/ui/tags.ui:103 data/ui/trash.ui:92
 msgid "E_xtended Information"
 msgstr "擴充資訊(_X)"
 
-#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112
-#: data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91
-#: data/ui/tags.ui:112 data/ui/trash.ui:100
+#: data/ui/events_directory.ui:80 data/ui/event.ui:108 data/ui/faces.ui:108
+#: data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:87
+#: data/ui/tags.ui:108 data/ui/trash.ui:97
 msgid "_Search Bar"
 msgstr "搜尋列(_S)"
 
-#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
-#: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
-#: data/ui/photo.ui:110 data/ui/tags.ui:117 data/ui/trash.ui:105
+#: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:113
+#: data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:92
+#: data/ui/photo.ui:106 data/ui/tags.ui:113 data/ui/trash.ui:102
 msgid "S_idebar"
 msgstr "側邊欄(_I)"
 
-#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
-#: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
-#: data/ui/photo.ui:115 data/ui/tags.ui:122 data/ui/trash.ui:110
+#: data/ui/events_directory.ui:90 data/ui/event.ui:118 data/ui/faces.ui:118
+#: data/ui/import.ui:93 data/ui/media.ui:118 data/ui/offline.ui:97
+#: data/ui/photo.ui:111 data/ui/tags.ui:118 data/ui/trash.ui:107
 msgid "T_oolbar"
 msgstr "工具列(_O)"
 
-#: data/ui/events_directory.ui:101 data/ui/event.ui:134 data/ui/faces.ui:134
-#: data/ui/media.ui:134 data/ui/tags.ui:134
+#: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:130
+#: data/ui/media.ui:130 data/ui/tags.ui:130
 msgid "_Comments"
 msgstr "評註(_C)"
 
-#: data/ui/events_directory.ui:108 data/ui/event.ui:243 data/ui/faces.ui:243
-#: data/ui/import_queue.ui:48 data/ui/import.ui:166 data/ui/media.ui:243
-#: data/ui/offline.ui:163 data/ui/photo.ui:129 data/ui/tags.ui:243
-#: data/ui/trash.ui:172
+#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239
+#: data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239
+#: data/ui/offline.ui:159 data/ui/photo.ui:125 data/ui/tags.ui:239
+#: data/ui/trash.ui:169
 msgid "Sort _Events"
 msgstr "排序事件(_E)"
 
-#: data/ui/events_directory.ui:111 data/ui/event.ui:231 data/ui/event.ui:246
-#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
-#: data/ui/import.ui:169 data/ui/media.ui:231 data/ui/media.ui:246
-#: data/ui/offline.ui:166 data/ui/photo.ui:132 data/ui/tags.ui:231
-#: data/ui/tags.ui:246 data/ui/trash.ui:175
+#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242
+#: data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47
+#: data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
+#: data/ui/offline.ui:162 data/ui/photo.ui:128 data/ui/tags.ui:227
+#: data/ui/tags.ui:242 data/ui/trash.ui:172
 msgid "_Ascending"
 msgstr "遞增(_A)"
 
-#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/faces.ui:236
-#: data/ui/import_queue.ui:56 data/ui/media.ui:236 data/ui/offline.ui:171
-#: data/ui/tags.ui:236 data/ui/trash.ui:180
+#: data/ui/events_directory.ui:112 data/ui/event.ui:232 data/ui/faces.ui:232
+#: data/ui/import_queue.ui:52 data/ui/media.ui:232 data/ui/offline.ui:167
+#: data/ui/tags.ui:232 data/ui/trash.ui:177
 msgid "D_escending"
 msgstr "遞減(_E)"
 
-#: data/ui/events_directory.ui:132 data/ui/event.ui:379 data/ui/faces.ui:373
-#: data/ui/media.ui:373 data/ui/tags.ui:373
+#: data/ui/events_directory.ui:128 data/ui/event.ui:375 data/ui/faces.ui:369
+#: data/ui/media.ui:369 data/ui/tags.ui:369
 msgid "Even_ts"
 msgstr "事件(_T)"
 
-#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
-#: src/Resources.vala:208
+#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173
+#: src/Resources.vala:209
 msgid "_Merge Events"
 msgstr "合併事件(_M)"
 
-#: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
-#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:196
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
+#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
 msgid "Re_name Event…"
 msgstr "重新命名事件(_N)…"
 
-#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
+#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13
+#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
 msgid "_Export…"
 msgstr "匯出(_E)…"
 
-#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
-#: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:783
+#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70
+#: data/ui/offline.ui:54 data/ui/offline.ui:203 data/ui/offline.ui:220
+#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:787
 msgid "R_emove From Library"
 msgstr "從珍藏館移除(_E)"
 
-#: data/ui/event.ui:129 data/ui/faces.ui:129 data/ui/import.ui:104
-#: data/ui/media.ui:129 data/ui/tags.ui:129
+#: data/ui/event.ui:125 data/ui/faces.ui:125 data/ui/import.ui:100
+#: data/ui/media.ui:125 data/ui/tags.ui:125
 msgid "_Titles"
 msgstr "標題(_T)"
 
-#: data/ui/event.ui:139 data/ui/event.ui:404 data/ui/faces.ui:139
-#: data/ui/faces.ui:387 data/ui/media.ui:139 data/ui/media.ui:387
-#: data/ui/photo.ui:376 data/ui/tags.ui:139 data/ui/tags.ui:387
+#: data/ui/event.ui:135 data/ui/event.ui:400 data/ui/faces.ui:135
+#: data/ui/faces.ui:383 data/ui/media.ui:135 data/ui/media.ui:383
+#: data/ui/photo.ui:370 data/ui/tags.ui:135 data/ui/tags.ui:383
 msgid "Ta_gs"
 msgstr "標記(_G)"
 
-#: data/ui/event.ui:144 data/ui/faces.ui:144 data/ui/media.ui:144
-#: data/ui/photo.ui:122 data/ui/tags.ui:144 src/Resources.vala:245
+#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140
+#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
 msgid "_Ratings"
 msgstr "評等(_R)"
 
-#: data/ui/event.ui:151 data/ui/faces.ui:151 data/ui/import.ui:111
-#: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
-#: data/ui/trash.ui:117 src/Resources.vala:248
+#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107
+#: data/ui/media.ui:147 data/ui/offline.ui:104 data/ui/tags.ui:147
+#: data/ui/trash.ui:114 src/Resources.vala:249
 msgid "_Filter Photos"
 msgstr "過濾相片(_F)"
 
-#: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
-#: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:241
+#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140
+#: data/ui/media.ui:180 data/ui/offline.ui:137 data/ui/search_bar.ui:18
+#: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "全部相片(_A)"
 
-#: data/ui/event.ui:190 data/ui/faces.ui:190 data/ui/import.ui:150
-#: data/ui/media.ui:190 data/ui/offline.ui:147 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:238
+#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146
+#: data/ui/media.ui:186 data/ui/offline.ui:143 data/ui/search_bar.ui:12
+#: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "全部 + 退絕(_R)"
 
-#: data/ui/event.ui:196 data/ui/faces.ui:196 data/ui/import.ui:156
-#: data/ui/media.ui:196 data/ui/offline.ui:153 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:234
+#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152
+#: data/ui/media.ui:192 data/ui/offline.ui:149 data/ui/search_bar.ui:6
+#: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "只有退絕(_O)"
 
-#: data/ui/event.ui:206 data/ui/faces.ui:206 data/ui/media.ui:206
-#: data/ui/tags.ui:206
+#: data/ui/event.ui:202 data/ui/faces.ui:202 data/ui/media.ui:202
+#: data/ui/tags.ui:202
 msgid "Sort _Photos"
 msgstr "排序相片(_P)"
 
-#: data/ui/event.ui:209 data/ui/faces.ui:209 data/ui/media.ui:209
-#: data/ui/tags.ui:209
+#: data/ui/event.ui:205 data/ui/faces.ui:205 data/ui/media.ui:205
+#: data/ui/tags.ui:205
 msgid "By _Title"
 msgstr "依標題(_T)"
 
-#: data/ui/event.ui:214 data/ui/faces.ui:214 data/ui/media.ui:214
-#: data/ui/tags.ui:214
+#: data/ui/event.ui:210 data/ui/faces.ui:210 data/ui/media.ui:210
+#: data/ui/tags.ui:210
 msgid "By _Filename"
 msgstr "依檔名(_F)"
 
-#: data/ui/event.ui:219 data/ui/faces.ui:219 data/ui/media.ui:219
-#: data/ui/tags.ui:219
+#: data/ui/event.ui:215 data/ui/faces.ui:215 data/ui/media.ui:215
+#: data/ui/tags.ui:215
 msgid "By Exposure _Date"
 msgstr "依拍攝日期(_D)"
 
-#: data/ui/event.ui:224 data/ui/faces.ui:224 data/ui/media.ui:224
-#: data/ui/tags.ui:224
+#: data/ui/event.ui:220 data/ui/faces.ui:220 data/ui/media.ui:220
+#: data/ui/tags.ui:220
 msgid "By _Rating"
 msgstr "依評等(_R)"
 
-#: data/ui/event.ui:251 data/ui/faces.ui:251 data/ui/import.ui:174
-#: data/ui/media.ui:251 data/ui/photo.ui:137 data/ui/tags.ui:251
+#: data/ui/event.ui:247 data/ui/faces.ui:247 data/ui/import.ui:170
+#: data/ui/media.ui:247 data/ui/photo.ui:133 data/ui/tags.ui:247
 msgid "_Descending"
 msgstr "遞減(_D)"
 
-#: data/ui/event.ui:275 data/ui/faces.ui:275 data/ui/media.ui:275
-#: data/ui/tags.ui:275
+#: data/ui/event.ui:271 data/ui/faces.ui:271 data/ui/media.ui:271
+#: data/ui/tags.ui:271
 msgid "_Photos"
 msgstr "相片(_P)"
 
-#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:199
+#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:200
 msgid "Make _Key Photo for Event"
 msgstr "作為事件的代表性相片(_K)"
 
-#: data/ui/event.ui:382 data/ui/faces.ui:376 data/ui/media.ui:376
-#: data/ui/tags.ui:376 src/Resources.vala:202
+#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372
+#: data/ui/tags.ui:372 src/Resources.vala:203
 msgid "_New Event"
 msgstr "新事件(_N)"
 
-#: data/ui/event.ui:592 src/Resources.vala:272
+#: data/ui/event.ui:588 src/Resources.vala:273
 msgid "Edit Event _Comment…"
 msgstr "編輯事件評註(_C)…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:300
-#: src/Resources.vala:301
+#: data/ui/faces.ui:399 src/faces/FacesBranch.vala:87 src/Resources.vala:301
+#: src/Resources.vala:302
 msgid "Faces"
 msgstr "臉部"
 
-#: data/ui/faces.ui:465
+#: data/ui/faces.ui:461
 msgid "Rename…"
 msgstr "重新命名…"
 
-#: data/ui/faces.ui:469 src/library/TrashPage.vala:114
+#: data/ui/faces.ui:465 src/library/TrashPage.vala:114
 msgid "Delete"
 msgstr "刪除"
 
@@ -1692,370 +1693,372 @@ msgstr "刪除"
 msgid "_Stop Import"
 msgstr "停止匯入(_S)"
 
-#: data/ui/import.ui:13 data/ui/import.ui:210 src/camera/ImportPage.vala:801
+#. Import selected
+#: data/ui/import.ui:13 data/ui/import.ui:206 src/camera/ImportPage.vala:783
 msgid "Import _Selected"
 msgstr "匯入所選(_S)"
 
-#: data/ui/import.ui:17 data/ui/import.ui:214 src/camera/ImportPage.vala:811
+#. Import all
+#: data/ui/import.ui:17 data/ui/import.ui:210 src/camera/ImportPage.vala:791
 msgid "Import _All"
 msgstr "匯入全部(_A)"
 
-#: data/ui/login_welcome_pane_widget.ui:35
+#: data/ui/login_welcome_pane_widget.ui:22
 msgid "_Log in"
 msgstr "登入(_L)"
 
-#: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
-#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/data_imports/DataImportsUI.vala:302
-#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
-#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: data/ui/multitextentrydialog.ui:38 data/ui/slideshow_settings.ui:194
+#: data/ui/textentrydialog.ui:43 src/AppWindow.vala:215 src/AppWindow.vala:236
+#: src/data_imports/DataImportsUI.vala:310
+#: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
+#: src/Dialogs.vala:819 src/Exporter.vala:364
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
-#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
+#: data/ui/multitextentrydialog.ui:45 data/ui/slideshow_settings.ui:202
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: src/Resources.vala:133
 msgid "_OK"
 msgstr "確定(_O)"
 
-#: data/ui/offline.ui:221 src/Resources.vala:771
+#: data/ui/offline.ui:217 src/Resources.vala:775
 msgid "Remove the selected photos from the library"
 msgstr "從珍藏館移除所選的相片"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:279
+#: data/ui/photo_context.ui:17 src/Resources.vala:280
 msgid "_Add Tags…"
 msgstr "加入標記(_A)…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:290
+#: data/ui/photo_context.ui:135 src/Resources.vala:291
 msgid "Send T_o…"
 msgstr "傳送至(_O)…"
 
-#: data/ui/photo.ui:182 src/CollectionPage.vala:102
+#: data/ui/photo.ui:178 src/CollectionPage.vala:92
 msgid "S_lideshow"
-msgstr "投影秀(_L)"
+msgstr "投影片秀(_L)"
 
-#: data/ui/photo.ui:260 src/CollectionPage.vala:122 src/Resources.vala:156
+#: data/ui/photo.ui:254 src/CollectionPage.vala:112 src/Resources.vala:157
 msgid "_Copy Color Adjustments"
 msgstr "複製色彩調整(_C)"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:125 src/Resources.vala:160
+#: data/ui/photo.ui:259 src/CollectionPage.vala:115 src/Resources.vala:161
 msgid "_Paste Color Adjustments"
 msgstr "貼上色彩調整(_P)"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:31 src/library/LibraryBranch.vala:34
+#: src/library/LibraryBranch.vala:133
+msgid "Library"
+msgstr "珍藏館"
+
+#: data/ui/preferences_dialog.ui:81 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "珍藏館位置"
 
-#: data/ui/preferences_dialog.ui:118
+#: data/ui/preferences_dialog.ui:95
 msgid "_Import photos to:"
 msgstr "匯入相片至(_I)："
 
-#: data/ui/preferences_dialog.ui:129
+#: data/ui/preferences_dialog.ui:106
 msgid "_Watch library directory for new files"
 msgstr "監視珍藏館目錄是否有新檔案(_W)"
 
-#: data/ui/preferences_dialog.ui:151
+#: data/ui/preferences_dialog.ui:123
 msgid "Importing"
 msgstr "匯入"
 
-#: data/ui/preferences_dialog.ui:167
+#: data/ui/preferences_dialog.ui:137
 msgid "_Directory structure:"
 msgstr "目錄結構(_D)："
 
-#: data/ui/preferences_dialog.ui:181
+#: data/ui/preferences_dialog.ui:149
 msgid "Example:"
 msgstr "範例："
 
-#: data/ui/preferences_dialog.ui:190
+#: data/ui/preferences_dialog.ui:158
 msgid "R_ename imported files to lowercase"
 msgstr "將匯入的檔案重新命名為小寫(_E)"
 
-#: data/ui/preferences_dialog.ui:211
+#: data/ui/preferences_dialog.ui:174
 msgid "Metadata"
 msgstr "中介資料"
 
-#: data/ui/preferences_dialog.ui:224
+#: data/ui/preferences_dialog.ui:187
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "寫入標記、標題與其它中介資料至相片檔案(_M)"
 
-#: data/ui/preferences_dialog.ui:245
+#: data/ui/preferences_dialog.ui:203
 msgid "RAW Developer"
 msgstr "RAW 顯影器"
 
-#: data/ui/preferences_dialog.ui:261
+#: data/ui/preferences_dialog.ui:217
 msgid "De_fault:"
 msgstr "預設(_F)："
 
-#: data/ui/preferences_dialog.ui:314
+#: data/ui/preferences_dialog.ui:261
 msgid "_Pattern:"
 msgstr "樣式(_P)："
 
-#: data/ui/preferences_dialog.ui:350
+#: data/ui/preferences_dialog.ui:284
 msgid "Checkered"
 msgstr "棋盤格狀"
 
-#: data/ui/preferences_dialog.ui:370
+#: data/ui/preferences_dialog.ui:293
 msgid "Solid color"
 msgstr "單一色彩"
 
-#: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:308 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "無"
 
-#: data/ui/preferences_dialog.ui:430
+#: data/ui/preferences_dialog.ui:321
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "當查看透明圖片時，其將會在這個背景下繪製。"
 
-#: data/ui/preferences_dialog.ui:433
+#: data/ui/preferences_dialog.ui:324
 msgid "Transparent Background:"
 msgstr "透明背景："
 
-#: data/ui/preferences_dialog.ui:445
+#: data/ui/preferences_dialog.ui:334
 msgid "Use dark theme"
 msgstr "使用暗色主題"
 
-#: data/ui/preferences_dialog.ui:470
+#: data/ui/preferences_dialog.ui:356
 msgid "Display"
 msgstr "顯示"
 
-#: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:127
-msgid "Library"
-msgstr "珍藏館"
-
-#: data/ui/preferences_dialog.ui:553 src/library/LibraryBranch.vala:97
-#: src/SearchFilter.vala:1104
-msgid "Photos"
-msgstr "相片"
-
-#: data/ui/preferences_dialog.ui:596 src/photos/RawSupport.vala:136
-msgid "RAW"
-msgstr "RAW"
-
-#: data/ui/preferences_dialog.ui:626
+#: data/ui/preferences_dialog.ui:419
 msgid "External Editors"
 msgstr "外部編輯器"
 
-#: data/ui/preferences_dialog.ui:647
+#: data/ui/preferences_dialog.ui:434 src/library/LibraryBranch.vala:103
+#: src/SearchFilter.vala:973
+msgid "Photos"
+msgstr "相片"
+
+#: data/ui/preferences_dialog.ui:460 src/photos/RawSupport.vala:136
+msgid "RAW"
+msgstr "RAW"
+
+#: data/ui/preferences_dialog.ui:481
 msgid "Plugins"
 msgstr "插件"
 
-#: data/ui/preferences_dialog.ui:668
+#: data/ui/preferences_dialog.ui:501
 msgid "Profiles"
-msgstr "個人檔案"
+msgstr "個人設定檔"
 
-#: data/ui/preferences_dialog.ui:692
+#: data/ui/preferences_dialog.ui:528
 msgid "Shotwell Preferences"
 msgstr "Shotwell 偏好設定"
 
-#: data/ui/printing_widget.ui:18
+#: data/ui/printing_widget.ui:13
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>列印的影像大小</b>"
 
-#: data/ui/printing_widget.ui:38
+#: data/ui/printing_widget.ui:26
 msgid "Use a _standard size:"
 msgstr "使用標準大小(_S)："
 
-#: data/ui/printing_widget.ui:65
+#: data/ui/printing_widget.ui:48
 msgid "Use a c_ustom size:"
 msgstr "使用自訂大小(_C)："
 
 #. Abbrevation for "inch"
-#: data/ui/printing_widget.ui:128
+#: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "英吋"
 
 #. Abbrevation for "centimeters"
-#: data/ui/printing_widget.ui:129
+#: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "公分"
 
-#: data/ui/printing_widget.ui:146
+#: data/ui/printing_widget.ui:98
 msgid "_Match photo aspect ratio"
 msgstr "符合相片寬高比(_M)"
 
-#: data/ui/printing_widget.ui:161
+#: data/ui/printing_widget.ui:110
 msgid "_Autosize:"
 msgstr "自動大小(_A)："
 
-#: data/ui/printing_widget.ui:202
+#: data/ui/printing_widget.ui:138
 msgid "<b>Titles</b>"
 msgstr "<b>標題</b>"
 
-#: data/ui/printing_widget.ui:219
+#: data/ui/printing_widget.ui:148
 msgid "Print image _title"
 msgstr "列印影像標題(_T)"
 
-#: data/ui/printing_widget.ui:262
+#: data/ui/printing_widget.ui:170
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>畫素解析度</b>"
 
-#: data/ui/printing_widget.ui:282
+#: data/ui/printing_widget.ui:181
 msgid "_Output photo at:"
 msgstr "輸出相片於(_O)："
 
-#: data/ui/printing_widget.ui:316
+#: data/ui/printing_widget.ui:200
 msgid "pixels per inch"
 msgstr "每英吋畫素"
 
-#: data/ui/saved_search_dialog.ui:8
+#: data/ui/saved_search_dialog.ui:5
 msgid "Search"
 msgstr "搜尋"
 
-#: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:209
-msgid "Cancel"
-msgstr "取消"
-
-#: data/ui/saved_search_dialog.ui:39
-msgid "OK"
-msgstr "確定"
-
-#: data/ui/saved_search_dialog.ui:77
+#: data/ui/saved_search_dialog.ui:29
 msgid "_Name of search:"
 msgstr "搜尋的名稱(_N)："
 
-#: data/ui/saved_search_dialog.ui:122
+#: data/ui/saved_search_dialog.ui:55
 msgid "_Match"
 msgstr "比對(_M)"
 
-#: data/ui/saved_search_dialog.ui:139
+#: data/ui/saved_search_dialog.ui:66
 msgid "any"
 msgstr "任何"
 
-#: data/ui/saved_search_dialog.ui:140
+#: data/ui/saved_search_dialog.ui:67
 msgid "all"
 msgstr "全部"
 
-#: data/ui/saved_search_dialog.ui:141
+#: data/ui/saved_search_dialog.ui:68
 msgid "none"
 msgstr "無"
 
-#: data/ui/saved_search_dialog.ui:155
+#: data/ui/saved_search_dialog.ui:74
 msgid "of the following:"
 msgstr "的下列條件："
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:391
+#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
+#: src/ProfileBrowser.vala:212
+msgid "Cancel"
+msgstr "取消"
+
+#: data/ui/saved_search_dialog.ui:137
+msgid "OK"
+msgstr "確定"
+
+#: data/ui/savedsearch.ui:6 src/Resources.vala:392
 msgid "Re_name…"
 msgstr "重新命名(_N)…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:390
+#: data/ui/savedsearch.ui:10 src/Resources.vala:391
 msgid "_Edit…"
 msgstr "編輯(_E)…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
-#: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:728
-#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
-#: src/Resources.vala:389 src/Resources.vala:769
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60
+#: data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
+#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
+#: src/Resources.vala:390 src/Resources.vala:773
 msgid "_Delete"
 msgstr "刪除(_D)"
 
-#: data/ui/set_background_dialog.ui:9
+#: data/ui/set_background_dialog.ui:6
 msgid "Set as Desktop Background"
 msgstr "設為桌面背景"
 
-#: data/ui/set_background_dialog.ui:69
-#: data/ui/set_background_slideshow_dialog.ui:132
+#: data/ui/set_background_dialog.ui:16
+#: data/ui/set_background_slideshow_dialog.ui:49
 msgid "Use for Desktop"
 msgstr "用於桌面"
 
-#: data/ui/set_background_dialog.ui:86
-#: data/ui/set_background_slideshow_dialog.ui:149
+#: data/ui/set_background_dialog.ui:25
+#: data/ui/set_background_slideshow_dialog.ui:58
 msgid "Use for Lock Screen"
 msgstr "用於鎖定畫面"
 
-#: data/ui/set_background_slideshow_dialog.ui:16
+#: data/ui/set_background_slideshow_dialog.ui:13
 msgid "Set as Desktop Slideshow"
-msgstr "設為桌面投影秀"
+msgstr "設為桌面投影片秀"
 
-#: data/ui/set_background_slideshow_dialog.ui:54
-msgid "Generate desktop background slideshow"
-msgstr "製作桌面背景投影秀"
-
-#: data/ui/set_background_slideshow_dialog.ui:80
+#: data/ui/set_background_slideshow_dialog.ui:23
 msgid "Show each photo for"
 msgstr "顯示每張相片"
 
-#: data/ui/set_background_slideshow_dialog.ui:92
+#: data/ui/set_background_slideshow_dialog.ui:28
 msgid "period of time"
 msgstr "期間"
 
-#: data/ui/set_background_slideshow_dialog.ui:114
+#: data/ui/set_background_slideshow_dialog.ui:39
 msgid "How long each photo is shown on the desktop background"
 msgstr "每張相片要顯示為桌面背景多久"
+
+#: data/ui/set_background_slideshow_dialog.ui:86
+msgid "Generate desktop background slideshow"
+msgstr "製作桌面背景投影片秀"
 
 #: data/ui/sidebar_default_context.ui:11 data/ui/tag_sidebar_context.ui:6
 msgid "New _Tag…"
 msgstr "新增標記(_T)…"
 
-#: data/ui/slideshow_settings.ui:21 src/SlideshowPage.vala:159
+#: data/ui/slideshow_settings.ui:19 src/SlideshowPage.vala:174
 msgid "Settings"
 msgstr "設定值"
 
-#: data/ui/slideshow_settings.ui:98
+#: data/ui/slideshow_settings.ui:43
 msgid "_Duration:"
 msgstr "時間(_D)："
 
-#: data/ui/slideshow_settings.ui:99
+#: data/ui/slideshow_settings.ui:44
 msgid "The time (in seconds) to show each photo"
 msgstr "每張相片顯示的時間（秒）"
 
-#: data/ui/slideshow_settings.ui:113
+#: data/ui/slideshow_settings.ui:56
 msgid "_Transition effect:"
 msgstr "轉場效果(_T)："
 
-#: data/ui/slideshow_settings.ui:127
+#: data/ui/slideshow_settings.ui:68
 msgid "Transition d_uration:"
 msgstr "轉場時間(_D)："
 
-#: data/ui/slideshow_settings.ui:128
+#: data/ui/slideshow_settings.ui:69
 msgid "The time (in seconds) to show each transition between photos"
 msgstr "在相片之間顯示轉場的時間（秒）"
 
-#: data/ui/slideshow_settings.ui:138
+#: data/ui/slideshow_settings.ui:79
 msgid "Show t_itle"
 msgstr "顯示標題(_I)"
 
-#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
+#: data/ui/slideshow_settings.ui:158 data/ui/slideshow_settings.ui:167
 msgid "seconds"
 msgstr "秒"
 
-#: data/ui/tags.ui:450 src/Resources.vala:130 src/Resources.vala:338
+#: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
 msgid "_New"
 msgstr "新增(_N)"
 
-#: data/ui/tags.ui:456 src/Resources.vala:306 src/Resources.vala:348
+#: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
 msgid "_Rename…"
 msgstr "重新命名(_R)…"
 
-#: data/ui/textentrydialog.ui:66
+#: data/ui/textentrydialog.ui:20
 msgid "label"
 msgstr "標籤"
 
-#: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
-#: src/Resources.vala:773
+#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263
+#: src/Resources.vala:777
 msgid "_Restore"
 msgstr "還原(_R)"
 
-#: data/ui/trash.ui:255 src/Resources.vala:770
+#: data/ui/trash.ui:252 src/Resources.vala:774
 msgid "Remove the selected photos from the trash"
 msgstr "從垃圾桶移除所選的相片"
 
-#: data/ui/trash.ui:270 src/Resources.vala:774
+#: data/ui/trash.ui:261 src/Resources.vala:778
 msgid "Move the selected photos back into the library"
 msgstr "將所選的相片移回珍藏館"
 
-#: data/ui/trash.ui:285
+#: data/ui/trash.ui:270
 msgid "Delete all photos in the trash"
 msgstr "刪除垃圾桶中的所有相片"
 
-#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:576
 msgid "Empty Trash"
 msgstr "清空垃圾桶"
 
@@ -2071,29 +2074,13 @@ msgstr ""
 "點按「登入」來從您的網路瀏覽器中登入 Flickr。您必須授權 Shotwell Connect 連結"
 "您的 Flickr 帳號。"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:148
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
 msgid "Preparing for login…"
 msgstr "正在準備登入…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
-msgid "Flickr authorization failed"
-msgstr "Flickr 授權失敗"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
 msgid "Verifying authorization…"
 msgstr "正在驗證授權…"
-
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:173
-msgid ""
-"You have already logged in and out of a Google service during this Shotwell "
-"session.\n"
-"\n"
-"To continue publishing to Google services, quit and restart Shotwell, then "
-"try publishing again."
-msgstr ""
-"您已在 Shotwell 工作階段中登入並登出 Google 服務。\n"
-"\n"
-"若要繼續發布至 Google 服務，請先退出 Shotwell 並重新啟動，接著再重試發布。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
@@ -2163,17 +2150,17 @@ msgstr ""
 "看。至於 Google 自身的隱私政策，請參照 <a href=\"https://policies.google.com/"
 "privacy\">https://policies.google.com/privacy</a>"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
 msgstr "電子郵件位址(_E)"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
 msgid "_Password"
 msgstr "密碼(_P)"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
 msgid "Log in"
 msgstr "登入"
 
@@ -2182,30 +2169,30 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "請輸入與您 Tumblr 帳戶相關聯的使用者名稱與密碼。"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
 msgid "Username and/or password invalid. Please try again"
 msgstr "使用者名稱與/或密碼無效。請重試"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:52
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
 msgid "Invalid User Name or Password"
 msgstr "無效的使用者名稱或密碼"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:462
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:68
+#: plugins/shotwell-publishing/TumblrPublishing.vala:461
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "無法載入使用者介面：%s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "造訪 Shotwell 網頁"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:307
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
-"Cheng-Chia Tseng <pswo10680@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2017, "
-"2020, 2023.\n"
+"Cheng-Chia Tseng <pswo10680@gmail.com>, 2011-2015, 2017, 2020, 2023-2024.\n"
 "pan93412 <pan93412@gmail.com>, 2018."
 
 #. Possible error message when a site presents a bad certificate.
@@ -2255,41 +2242,40 @@ msgid ""
 msgstr "⚫ 這個網站的識別身份有效日期在未來。請檢查您電腦的日期是否正確。"
 
 #: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:567
+#: plugins/shotwell-publishing/TumblrPublishing.vala:560
 #: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "發布所需的某暫存檔無法使用"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
 msgid "Photo _size"
 msgstr "相片大小(_S)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr "上傳前先移除地理位置、相機、以及其他可供辨識的資訊(_R)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
 msgid "_Logout"
 msgstr "登出(_L)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52
+#: src/CollectionPage.vala:72 src/PhotoPage.vala:2445
 msgid "_Publish"
 msgstr "發布(_P)"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
-#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
@@ -2341,7 +2327,7 @@ msgid "Photos and videos _visible to"
 msgstr "誰能看見這些相片與視訊(_V)"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Everyone"
 msgstr "任何人"
 
@@ -2362,34 +2348,34 @@ msgid "Just me"
 msgstr "只有我"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:641
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 #: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 x 375 畫素"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:642
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 #: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 x 768 畫素"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:643
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1318
 msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 畫素"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:644
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1319
 msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 畫素"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:645
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "原始大小"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:44
 msgid ""
 "Shotwell can only publish into albums that it created by itself, so this "
 "list might be empty despite the fact that you already have albums in your "
@@ -2398,20 +2384,20 @@ msgstr ""
 "Shotwell 僅可以發布到它自己建立的相簿之中，所以即便您在 Google 相簿帳號中擁有"
 "其他相簿，也可能顯示空白"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
 msgid "Photo _size preset"
 msgstr "相片大小預先設定(_S)"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:88
 msgid "An existing album"
 msgstr "現有的相簿"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:99
 msgid "A new album named"
 msgstr "新相簿名為"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1196
 msgid "Shotwell Connect"
 msgstr "Shotwell 連線"
 
@@ -2432,7 +2418,6 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 x 1536 畫素)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/EditingTools.vala:742
 msgid "Original Size"
 msgstr "原始比例"
 
@@ -2447,7 +2432,7 @@ msgid "Videos will appear in:"
 msgstr "視訊將顯現於："
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:15
 msgid "Photos will appear in:"
 msgstr "相片將顯現於："
 
@@ -2461,55 +2446,55 @@ msgstr "預設相簿"
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "Copyright 2019 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:44
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:30
 msgid "_URL of your Piwigo photo library"
 msgstr "您 Piwigo 相片庫的網址(_U)"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:94
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:75
 msgid "User _name"
 msgstr "使用者名稱(_N)"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:109
 msgid "Remember Password"
 msgstr "記住密碼"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:25
 msgid "An _existing category"
 msgstr "現有的類別(_E)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:84
 msgid "A _new album named"
 msgstr "新相簿名為(_N)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:109
 msgid "within category"
 msgstr "類別為"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:120
 msgid "Album comment"
 msgstr "相簿評註"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:130
 msgid "Photos will be _visible by"
 msgstr "相片可被誰看見(_V)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
 msgid "Photo size"
 msgstr "相片大小"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr "如果有設定標題但未設定評註，則使用標題作為評註(_I)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid "_Do no upload tags"
 msgstr "不要上傳標記(_D)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
 msgid "_Do not upload ratings"
 msgstr "不要上傳評等(_D)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:271
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:196
 msgid "Logout"
 msgstr "登出"
 
@@ -2533,12 +2518,12 @@ msgstr ""
 "這看起來不像真正的 %s。攻擊者可能試圖竊取、或修改前往此網站或來自此網站的資訊"
 "（例如：私人訊息、信用卡資訊、或密碼等）。"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s 的憑證"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1089
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2546,41 +2531,41 @@ msgstr ""
 "輸入您 Piwigo 相片珍藏館的網址，以及與該珍藏館相關聯的 Piwigo 帳戶其使用者名"
 "稱、密碼。"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr "Shotwell 無法聯絡您的 Piwigo 相片珍藏館。請驗證您輸入的網址是否正確"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid URL"
 msgstr "無效的網址"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins, Family, Friends, Contacts"
 msgstr "管理員、家人、朋友、聯絡人"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 msgid "Admins, Family, Friends"
 msgstr "管理員、家人、朋友"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
 msgid "Admins, Family"
 msgstr "管理員、家人"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
 msgid "Admins"
 msgstr "管理員"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:15
 msgid "This connection is not secure"
 msgstr "此連線並不安全"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:50
 msgid "Show the certificate…"
 msgstr "顯示憑證…"
 
-#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:57
 msgid "I understand, please _proceed."
 msgstr "我瞭解，請繼續(_P)。"
 
@@ -2588,7 +2573,7 @@ msgstr "我瞭解，請繼續(_P)。"
 msgid "Core Publishing Services"
 msgstr "核心發布服務"
 
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:28
 msgid "Blogs"
 msgstr "網誌"
 
@@ -2605,7 +2590,7 @@ msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr "TumblrPublisher: start( )：無法啟動；此發布器不能重新啟動。"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:444
+#: plugins/shotwell-publishing/TumblrPublishing.vala:443
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2614,9 +2599,18 @@ msgstr ""
 "您正以 %s 的身份登入 Tumblr。\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:25
 msgid "Video privacy _setting"
 msgstr "視訊隱私設定值(_S)"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27
+#| msgid "Copyright 2016 Software Freedom Conservancy Inc."
+msgid ""
+"Copyright 2016 Software Freedom Conservancy Inc.\n"
+"Copyright 2022 Jens Georg <mail@jensge.org>"
+msgstr ""
+"Copyright 2016 Software Freedom Conservancy Inc.\n"
+"Copyright 2022 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
@@ -2671,14 +2665,15 @@ msgstr "淡化"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
-msgstr "核心投影秀轉場"
+msgstr "核心投影片秀轉場"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
-"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
-"Inc."
+"Copyright 2010 Maxim Kartashev\n"
+"Copyright 2016 Software Freedom Conservancy Inc."
 msgstr ""
-"著作權 2010 Maxim Kartashev，著作權 2016 Software Freedom Conservancy Inc."
+"Copyright 2010 Maxim Kartashev\n"
+"Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2707,39 +2702,27 @@ msgstr "無法建立資料目錄 %s：%s"
 msgid "Pictures"
 msgstr "圖片"
 
-#: src/AppDirs.vala:205
+#: src/AppDirs.vala:211
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "無法建立暫時目錄 %s：%s"
 
-#: src/AppDirs.vala:222 src/AppDirs.vala:253
+#: src/AppDirs.vala:229 src/AppDirs.vala:260
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "無法建立資料子目錄 %s：%s"
 
-#: src/AppDirs.vala:235
+#: src/AppDirs.vala:242
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "無法使 %s 資料夾可供寫入"
 
-#: src/AppDirs.vala:238
+#: src/AppDirs.vala:245
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "無法使 %s 資料夾可供寫入：%s"
 
-#: src/AppWindow.vala:47
-msgid "Pin Toolbar"
-msgstr "釘住工具列"
-
-#: src/AppWindow.vala:48
-msgid "Pin the toolbar open"
-msgstr "開啟釘住工具列功能"
-
-#: src/AppWindow.vala:53
-msgid "Leave fullscreen"
-msgstr "離開全螢幕"
-
-#: src/AppWindow.vala:560
+#: src/AppWindow.vala:279
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2751,21 +2734,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:304
 msgid "Visit the Shotwell web site"
 msgstr "造訪 Shotwell 網頁"
 
-#: src/AppWindow.vala:592
+#: src/AppWindow.vala:317
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "無法顯示幫助：%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:325
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "無法瀏覽臭蟲資料庫：%s"
 
-#: src/AppWindow.vala:608
+#: src/AppWindow.vala:333
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "無法顯示 FAQ：%s"
@@ -2846,48 +2829,48 @@ msgstr "列出所有探查到的相機裝置"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/camera/ImportPage.vala:307 src/Properties.vala:239
+#: src/camera/ImportPage.vala:309 src/Properties.vala:242
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:466
+#: src/camera/ImportPage.vala:468
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr "無法卸載相機。請從檔案管理員內嘗試卸載該相機。"
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:761
+#: src/camera/ImportPage.vala:759
 msgid "Hide photos already imported"
 msgstr "隱藏已經匯入的相片"
 
-#: src/camera/ImportPage.vala:762
+#: src/camera/ImportPage.vala:760
 msgid "Only display photos that have not been imported"
 msgstr "只顯示尚未匯入的相片"
 
-#: src/camera/ImportPage.vala:839
+#: src/camera/ImportPage.vala:822
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "相機似乎空白。找不到要匯入的相片/視訊"
 
-#: src/camera/ImportPage.vala:843
+#: src/camera/ImportPage.vala:826
 msgid "No new photos/videos found on camera"
 msgstr "相機上找不到新相片/視訊"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:996
+#: src/camera/ImportPage.vala:979
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
 msgstr "Shotwell 需要從檔案系統卸載相機才能存取它。要繼續嗎？"
 
-#: src/camera/ImportPage.vala:1002
+#: src/camera/ImportPage.vala:985
 msgid "_Unmount"
 msgstr "卸載(_U)"
 
-#: src/camera/ImportPage.vala:1007
+#: src/camera/ImportPage.vala:990
 msgid "Please unmount the camera."
 msgstr "請卸載該相機。"
 
-#: src/camera/ImportPage.vala:1012
+#: src/camera/ImportPage.vala:997
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2896,11 +2879,11 @@ msgstr ""
 "相機已被另一個應用程式鎖住。Shotwell 只能在相機沒被鎖住的情況下存取它。請關閉"
 "任何其它正在使用該相機的應用程式並重試。"
 
-#: src/camera/ImportPage.vala:1022
+#: src/camera/ImportPage.vala:1007
 msgid "Please close any other application using the camera."
 msgstr "請關閉任何其它正在使用相機的應用程式。"
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1014
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2909,135 +2892,135 @@ msgstr ""
 "無法從相機擷取預覽：\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1031
 msgid "Unmounting…"
 msgstr "正在卸載…"
 
-#: src/camera/ImportPage.vala:1137
+#: src/camera/ImportPage.vala:1124
 msgid "Connecting to camera, please wait…"
 msgstr "正在連接相機，請稍候…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1156
 msgid "Starting import, please wait…"
 msgstr "正開始匯入，請稍候…"
 
-#: src/camera/ImportPage.vala:1175
+#: src/camera/ImportPage.vala:1162
 msgid "Fetching photo information"
 msgstr "正在擷取相片資訊"
 
-#: src/camera/ImportPage.vala:1543
+#: src/camera/ImportPage.vala:1517
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "正在為 %s 擷取預覽"
 
-#: src/camera/ImportPage.vala:1652
+#: src/camera/ImportPage.vala:1622
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "無法鎖住相機：%s"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1711
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "要從相機刪除這 %d 張相片嗎？"
 
-#: src/camera/ImportPage.vala:1740
+#: src/camera/ImportPage.vala:1714
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "要從相機刪除這 %d 份視訊嗎？"
 
-#: src/camera/ImportPage.vala:1743
+#: src/camera/ImportPage.vala:1717
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "要從相機刪除這 %d 份相片/視訊嗎？"
 
-#: src/camera/ImportPage.vala:1746
+#: src/camera/ImportPage.vala:1720
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "要從相機刪除這 %d 份檔案嗎？"
 
-#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:727
+#: src/camera/ImportPage.vala:1728 src/Dialogs.vala:748
 msgid "_Keep"
 msgstr "保留(_K)"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1748
 msgid "Removing photos/videos from camera"
 msgstr "正在從相機移除相片/視訊"
 
-#: src/camera/ImportPage.vala:1777
+#: src/camera/ImportPage.vala:1752
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "由於錯誤發生，無法從相機刪除 %d 份相片/視訊。"
 
-#: src/CheckerboardPage.vala:131
+#: src/CheckerboardPage.vala:130
 msgid "No photos/videos"
 msgstr "無相片/視訊"
 
-#: src/CheckerboardPage.vala:135
+#: src/CheckerboardPage.vala:134
 msgid "No photos/videos found which match the current filter"
 msgstr "根據目前的過濾器找不到符合的相片/視訊"
 
-#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2481 src/Resources.vala:136
+#: src/CollectionPage.vala:70 src/direct/DirectPhotoPage.vala:86
+#: src/PhotoPage.vala:2440 src/Resources.vala:137
 msgid "_Print"
 msgstr "列印(_P)"
 
-#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2491 src/Resources.vala:186
+#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:91
+#: src/PhotoPage.vala:2450 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "設為桌面背景(_D)"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:252
+#: src/CollectionPage.vala:82 src/Resources.vala:253
 msgid "_Duplicate"
 msgstr "再製(_D)"
 
-#: src/CollectionPage.vala:100
+#: src/CollectionPage.vala:90
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: src/CollectionPage.vala:135
+#: src/CollectionPage.vala:125
 msgid "Adjust Date and Time…"
 msgstr "調整日期與時間…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:133
+#: src/CollectionPage.vala:139 src/Resources.vala:134
 msgid "_Play"
 msgstr "播放(_P)"
 
-#: src/CollectionPage.vala:410
+#: src/CollectionPage.vala:408
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "匯出相片/視訊"
 
-#: src/CollectionPage.vala:412
+#: src/CollectionPage.vala:410
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "匯出相片"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:497 src/CollectionPage.vala:513
 msgid "Rotating"
 msgstr "正在旋轉"
 
-#: src/CollectionPage.vala:499 src/CollectionPage.vala:515
+#: src/CollectionPage.vala:497 src/CollectionPage.vala:513
 msgid "Undoing Rotate"
 msgstr "正在復原旋轉"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:522
 msgid "Flipping Horizontally"
 msgstr "正在水平翻轉"
 
-#: src/CollectionPage.vala:525
+#: src/CollectionPage.vala:523
 msgid "Undoing Flip Horizontally"
 msgstr "正在復原水平翻轉"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:532
 msgid "Flipping Vertically"
 msgstr "正在垂直翻轉"
 
-#: src/CollectionPage.vala:535
+#: src/CollectionPage.vala:533
 msgid "Undoing Flip Vertically"
 msgstr "正在復原垂直翻轉"
 
@@ -3139,75 +3122,75 @@ msgstr "正在調整日期與時間"
 msgid "Undoing Date and Time Adjustment"
 msgstr "正在復原日期與時間調整"
 
-#: src/Commands.vala:1415
+#: src/Commands.vala:1429
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "下列原始相片無法調整。"
 
-#: src/Commands.vala:1417 src/Commands.vala:1441
+#: src/Commands.vala:1431 src/Commands.vala:1448
 msgid "Time Adjustment Error"
 msgstr "時間調整發生錯誤"
 
-#: src/Commands.vala:1439
+#: src/Commands.vala:1446
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] "下列相片檔案的時間調整無法復原。"
 
-#: src/Commands.vala:1653 src/Commands.vala:1676
+#: src/Commands.vala:1660 src/Commands.vala:1683
 msgid "Create Tag"
 msgstr "建立標記"
 
-#: src/Commands.vala:1711
+#: src/Commands.vala:1718
 #, c-format
 msgid "Move Tag “%s”"
 msgstr "移動「%s」標記"
 
-#: src/Commands.vala:2361
+#: src/Commands.vala:2368
 msgid "Move Photos to Trash"
 msgstr "將相片移至垃圾桶"
 
-#: src/Commands.vala:2361
+#: src/Commands.vala:2368
 msgid "Restore Photos from Trash"
 msgstr "從垃圾桶還原檔案"
 
-#: src/Commands.vala:2362
+#: src/Commands.vala:2369
 msgid "Move the photos to the Shotwell trash"
 msgstr "將相片移至 Shotwell 垃圾桶"
 
-#: src/Commands.vala:2362
+#: src/Commands.vala:2369
 msgid "Restore the photos back to the Shotwell library"
 msgstr "將相片還原至 Shotwell 珍藏館"
 
-#: src/Commands.vala:2381
+#: src/Commands.vala:2388
 msgid "Moving Photos to Trash"
 msgstr "正在將相片移至垃圾桶"
 
-#: src/Commands.vala:2381
+#: src/Commands.vala:2388
 msgid "Restoring Photos From Trash"
 msgstr "正在從垃圾桶還原相片"
 
-#: src/Commands.vala:2467
+#: src/Commands.vala:2474
 msgid "Flag selected photos"
 msgstr "將所選相片加上旗幟"
 
-#: src/Commands.vala:2468
+#: src/Commands.vala:2475
 msgid "Unflag selected photos"
 msgstr "移除所選相片的旗幟"
 
-#: src/Commands.vala:2469
+#: src/Commands.vala:2476
 msgid "Flagging selected photos"
 msgstr "正為所選相片加上旗幟"
 
-#: src/Commands.vala:2470
+#: src/Commands.vala:2477
 msgid "Unflagging selected photos"
 msgstr "正為所選相片移除旗幟"
 
-#: src/Commands.vala:2477
+#: src/Commands.vala:2484
 msgid "Flag"
 msgstr "加上旗幟"
 
-#: src/Commands.vala:2477
+#: src/Commands.vala:2484
 msgid "Unflag"
 msgstr "移除旗幟"
 
@@ -3242,22 +3225,23 @@ msgstr ""
 "過「偏好設定」對話盒中啟用。"
 
 #: src/data_imports/DataImportsUI.vala:100
-msgid "Database file:"
-msgstr "資料庫檔案："
+#: src/data_imports/DataImportsUI.vala:102
+msgid "Database file"
+msgstr "資料庫檔案"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:759
 msgid "_Import"
 msgstr "匯入(_I)"
 
-#: src/data_imports/DataImportsUI.vala:219
+#: src/data_imports/DataImportsUI.vala:229
 msgid "Import From Application"
 msgstr "從應用程式匯入"
 
-#: src/data_imports/DataImportsUI.vala:220
+#: src/data_imports/DataImportsUI.vala:230
 msgid "Import media _from:"
 msgstr "從何處匯入媒體(_F)："
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
+#: src/data_imports/DataImportsUI.vala:423 src/publishing/PublishingUI.vala:396
 msgid "_Close"
 msgstr "關閉(_C)"
 
@@ -3314,59 +3298,59 @@ msgstr "無法傳送檔案 %s，%s"
 msgid "Send To"
 msgstr "傳送到"
 
-#: src/DesktopIntegration.vala:171
+#: src/DesktopIntegration.vala:175
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "無法將背景匯出至 %s：%s"
 
-#: src/DesktopIntegration.vala:309
+#: src/DesktopIntegration.vala:313
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "無法預備桌面投影秀：%s"
+msgstr "無法預備桌面投影片秀：%s"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:78
+#: src/dialogs/AdjustDateTimeDialog.vala:81
 msgid "AM"
 msgstr "上午"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:79
+#: src/dialogs/AdjustDateTimeDialog.vala:82
 msgid "PM"
 msgstr "下午"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:80
+#: src/dialogs/AdjustDateTimeDialog.vala:83
 msgid "24 Hr"
 msgstr "24 時制"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:95
+#: src/dialogs/AdjustDateTimeDialog.vala:98
 msgid "_Shift photos/videos by the same amount"
 msgstr "以相同的量挪動相片/視訊(_S)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:100
+#: src/dialogs/AdjustDateTimeDialog.vala:103
 msgid "Set _all photos/videos to this time"
 msgstr "將全部相片/視訊設定為本時間(_A)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:106
+#: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "修改原始相片檔案(_M)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:110
+#: src/dialogs/AdjustDateTimeDialog.vala:114
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "修改原始檔案(_M)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:220
+#: src/dialogs/AdjustDateTimeDialog.vala:233
 msgid "Original: "
 msgstr "原始："
 
-#: src/dialogs/AdjustDateTimeDialog.vala:221
+#: src/dialogs/AdjustDateTimeDialog.vala:234
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y/%m/%d %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:222
+#: src/dialogs/AdjustDateTimeDialog.vala:235
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y/%m/%d %p %I:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:305
+#: src/dialogs/AdjustDateTimeDialog.vala:327
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3375,7 +3359,7 @@ msgstr ""
 "曝光時間將往後挪動\n"
 "%d %s、%d %s、%d %s、%d %s。"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:328
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3384,22 +3368,22 @@ msgstr ""
 "曝光時間將往前挪動\n"
 "%d %s、%d %s、%d %s、%d %s。"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:308
+#: src/dialogs/AdjustDateTimeDialog.vala:330
 msgid "day"
 msgid_plural "days"
 msgstr[0] "天"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:331
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "小時"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:332
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分鐘"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:333
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "秒"
@@ -3416,62 +3400,62 @@ msgid "Current"
 msgstr "目前"
 
 #. layout controls
-#: src/dialogs/ExportDialog.vala:90
+#: src/dialogs/ExportDialog.vala:91
 msgid "_Format:"
 msgstr "格式(_F)："
 
-#: src/dialogs/ExportDialog.vala:93
+#: src/dialogs/ExportDialog.vala:94
 msgid "_Quality:"
 msgstr "品質(_Q)："
 
-#: src/dialogs/ExportDialog.vala:96
+#: src/dialogs/ExportDialog.vala:97
 msgid "_Scaling constraint:"
 msgstr "縮放限制(_S)："
 
-#: src/dialogs/ExportDialog.vala:99
+#: src/dialogs/ExportDialog.vala:100
 msgid "_Pixels:"
 msgstr "畫素(_P)："
 
-#: src/dialogs/ExportDialog.vala:103
+#: src/dialogs/ExportDialog.vala:104
 msgid "Export _metadata:"
 msgstr "匯出中介資料(_M)："
 
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
+#: src/dialogs/Preferences.vala:122 src/dialogs/Preferences.vala:126
 msgid "(Help)"
 msgstr "(幫助)"
 
-#: src/dialogs/Preferences.vala:116
+#: src/dialogs/Preferences.vala:130
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "年%s月%s日"
 
-#: src/dialogs/Preferences.vala:118
+#: src/dialogs/Preferences.vala:132
 #, c-format
 msgid "Year%sMonth"
 msgstr "年%s月"
 
-#: src/dialogs/Preferences.vala:120
+#: src/dialogs/Preferences.vala:134
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "年%s月-日"
 
-#: src/dialogs/Preferences.vala:122
+#: src/dialogs/Preferences.vala:136
 msgid "Year-Month-Day"
 msgstr "年-月-日"
 
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
+#: src/dialogs/Preferences.vala:137
 msgid "Custom"
 msgstr "自訂"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:353
+#: src/dialogs/Preferences.vala:355
 msgid "Invalid pattern"
 msgstr "無效的樣式"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/ProgressDialog.vala:89
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -3522,22 +3506,22 @@ msgstr[0] "切換顯影器將取消所有您在 Shotwell 中對此相片中所�
 msgid "_Switch Developer"
 msgstr "切換顯影器(_S)"
 
-#: src/Dialogs.vala:52
+#: src/Dialogs.vala:59
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "這將會從 %2$d 張圖片中移除臉部「%1$s」。要繼續嗎？"
 
-#: src/Dialogs.vala:70
+#: src/Dialogs.vala:77
 msgid "Export Video"
 msgstr "匯出視訊"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3016
+#: src/Dialogs.vala:77 src/PhotoPage.vala:2975
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "匯出相片"
 
-#: src/Dialogs.vala:94
+#: src/Dialogs.vala:100
 msgid "Export Photos"
 msgstr "匯出相片"
 
@@ -3546,14 +3530,14 @@ msgstr "匯出相片"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:121
+#: src/Dialogs.vala:129
 #, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr "因為您尚未獲取寫入 %s 的授權，Shotwell 無法建立檔案以供此相片編輯。"
 
-#: src/Dialogs.vala:130
+#: src/Dialogs.vala:138
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -3561,7 +3545,7 @@ msgstr ""
 "由於檔案錯誤，無法匯出下列相片。\n"
 "\n"
 
-#: src/Dialogs.vala:136
+#: src/Dialogs.vala:144
 msgid ""
 "\n"
 "\n"
@@ -3571,34 +3555,34 @@ msgstr ""
 "\n"
 "您想要繼續匯出嗎？"
 
-#: src/Dialogs.vala:137
+#: src/Dialogs.vala:145
 msgid "Con_tinue"
 msgstr "繼續(_T)"
 
-#: src/Dialogs.vala:147
+#: src/Dialogs.vala:155
 msgid "Save Details…"
 msgstr "儲存細節…"
 
-#: src/Dialogs.vala:148
+#: src/Dialogs.vala:156
 msgid "Save Details"
 msgstr "儲存細節"
 
-#: src/Dialogs.vala:163
+#: src/Dialogs.vala:171
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(還有 %d 項)\n"
 
-#: src/Dialogs.vala:216
+#: src/Dialogs.vala:224
 msgid "Import Results Report"
 msgstr "匯入成果報告"
 
-#: src/Dialogs.vala:220
+#: src/Dialogs.vala:228
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "試圖匯入 %d 份檔案。"
 
-#: src/Dialogs.vala:223
+#: src/Dialogs.vala:231
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3607,37 +3591,37 @@ msgstr[0] "其中有 %d 份檔案已成功匯入。"
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:235
+#: src/Dialogs.vala:243
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "重複的相片/視訊並未匯入："
 
-#: src/Dialogs.vala:239
+#: src/Dialogs.vala:247
 msgid "duplicates existing media item"
 msgstr "媒體項目與既有媒體重複"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:250
+#: src/Dialogs.vala:258
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "相片/視訊因相機錯誤而未匯入："
 
-#: src/Dialogs.vala:253 src/Dialogs.vala:268 src/Dialogs.vala:283
-#: src/Dialogs.vala:299 src/Dialogs.vala:314 src/Dialogs.vala:328
+#: src/Dialogs.vala:261 src/Dialogs.vala:276 src/Dialogs.vala:291
+#: src/Dialogs.vala:307 src/Dialogs.vala:322 src/Dialogs.vala:336
 msgid "error message:"
 msgstr "錯誤訊息："
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:264
+#: src/Dialogs.vala:272
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr "檔案因無法辨別為相片或視訊而未匯入："
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:279
+#: src/Dialogs.vala:287
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3646,13 +3630,13 @@ msgstr "相片/視訊因格式非 Shotwell 所能認識而未匯入："
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:294
+#: src/Dialogs.vala:302
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr "相片/視訊因 Shotwell 無法將它們複製到珍藏館中而未匯入："
 
-#: src/Dialogs.vala:298
+#: src/Dialogs.vala:306
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3664,61 +3648,61 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:310
+#: src/Dialogs.vala:318
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "相片/視訊因檔案損毀而未匯入："
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:325
+#: src/Dialogs.vala:333
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "相片/視訊因其他原因而未匯入："
 
-#: src/Dialogs.vala:345
+#: src/Dialogs.vala:353
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "%d 份相片複本未被匯入：\n"
 
-#: src/Dialogs.vala:348
+#: src/Dialogs.vala:356
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d 份視訊複本未被匯入：\n"
 
-#: src/Dialogs.vala:351
+#: src/Dialogs.vala:359
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d 份相片/視訊複本未被匯入：\n"
 
-#: src/Dialogs.vala:365
+#: src/Dialogs.vala:373
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "由於檔案或硬體錯誤，%d 張相片匯入失敗：\n"
 
-#: src/Dialogs.vala:368
+#: src/Dialogs.vala:376
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] "由於檔案或硬體錯誤，%d 份視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:371
+#: src/Dialogs.vala:379
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] "由於檔案或硬體錯誤，%d 份相片/視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:374
+#: src/Dialogs.vala:382
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] "由於檔案或硬體錯誤，%d 份檔案未能匯入：\n"
 
-#: src/Dialogs.vala:388
+#: src/Dialogs.vala:396
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3727,7 +3711,7 @@ msgid_plural ""
 "writable:\n"
 msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:391
+#: src/Dialogs.vala:399
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3736,7 +3720,7 @@ msgid_plural ""
 "writable:\n"
 msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:394
+#: src/Dialogs.vala:402
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3746,7 +3730,7 @@ msgid_plural ""
 "writable:\n"
 msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份相片/視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:397
+#: src/Dialogs.vala:405
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3755,49 +3739,49 @@ msgid_plural ""
 "writable:\n"
 msgstr[0] "因為相片珍藏館資料夾無法寫入，%d 份檔案未能匯入：\n"
 
-#: src/Dialogs.vala:411
+#: src/Dialogs.vala:419
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "由於相機錯誤，%d 張相片匯入失敗：\n"
 
-#: src/Dialogs.vala:414
+#: src/Dialogs.vala:422
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "由於相機錯誤，%d 份視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:417
+#: src/Dialogs.vala:425
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] "由於相機錯誤，%d 份相片/視訊匯入失敗：\n"
 
-#: src/Dialogs.vala:420
+#: src/Dialogs.vala:428
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "%d 份檔案因相機錯誤而未能匯入：\n"
 
-#: src/Dialogs.vala:434
+#: src/Dialogs.vala:442
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "%d 張相片因相片損毀而未能匯入：\n"
 
-#: src/Dialogs.vala:437
+#: src/Dialogs.vala:445
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "%d 份視訊因視訊損毀而未能匯入：\n"
 
-#: src/Dialogs.vala:440
+#: src/Dialogs.vala:448
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "%d 份相片/視訊因損毀而未能匯入：\n"
 
-#: src/Dialogs.vala:443
+#: src/Dialogs.vala:451
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3807,7 +3791,7 @@ msgstr[0] "%d 份檔案因損毀而未能匯入：\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:460
+#: src/Dialogs.vala:468
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3815,49 +3799,49 @@ msgstr[0] "已略過 %d 張未支援相片：\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:475
+#: src/Dialogs.vala:483
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "已略過 %d 份非影像檔案。\n"
 
-#: src/Dialogs.vala:486
+#: src/Dialogs.vala:494
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "由於使用者取消，已略過 %d 張相片：\n"
 
-#: src/Dialogs.vala:489
+#: src/Dialogs.vala:497
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "由於使用者取消，已略過 %d 份視訊：\n"
 
-#: src/Dialogs.vala:492
+#: src/Dialogs.vala:500
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "由於使用者取消，已略過 %d 份相片/視訊：\n"
 
-#: src/Dialogs.vala:495
+#: src/Dialogs.vala:503
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "%d 檔案已略過，因為使用者取消：\n"
 
-#: src/Dialogs.vala:509
+#: src/Dialogs.vala:517
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "已成功匯入 %d 張相片。\n"
 
-#: src/Dialogs.vala:512
+#: src/Dialogs.vala:520
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "已成功匯入 %d 份視訊。\n"
 
-#: src/Dialogs.vala:515
+#: src/Dialogs.vala:523
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -3865,96 +3849,96 @@ msgstr[0] "已成功匯入 %d 份相片/視訊。\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:531
+#: src/Dialogs.vala:539
 msgid "No photos or videos imported.\n"
 msgstr "沒有匯入相片或視訊。\n"
 
-#: src/Dialogs.vala:538 src/Dialogs.vala:557
+#: src/Dialogs.vala:544
 msgid "Import Complete"
 msgstr "完成匯入"
 
-#: src/Dialogs.vala:657 src/Resources.vala:197
+#: src/Dialogs.vala:671 src/Resources.vala:198
 msgid "Rename Event"
 msgstr "重新命名事件"
 
-#: src/Dialogs.vala:657
+#: src/Dialogs.vala:671
 msgid "Name:"
 msgstr "名稱："
 
 #. Dialog title
-#: src/Dialogs.vala:668
+#: src/Dialogs.vala:682
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "編輯標題"
 
-#: src/Dialogs.vala:669 src/Properties.vala:352
+#: src/Dialogs.vala:683 src/Properties.vala:355
 msgid "Title:"
 msgstr "標題："
 
 #. Dialog title
-#: src/Dialogs.vala:685 src/Resources.vala:273
+#: src/Dialogs.vala:699 src/Resources.vala:274
 msgid "Edit Event Comment"
 msgstr "編輯事件評註"
 
-#: src/Dialogs.vala:686
+#: src/Dialogs.vala:700
 msgid "Edit Photo/Video Comment"
 msgstr "編輯相片/視訊評註"
 
-#: src/Dialogs.vala:687 src/Properties.vala:650
+#: src/Dialogs.vala:701 src/Properties.vala:653
 msgid "Comment:"
 msgstr "評註："
 
-#: src/Dialogs.vala:703
+#: src/Dialogs.vala:717
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "移除並將檔案移至垃圾桶(_T)"
 
-#: src/Dialogs.vala:707
+#: src/Dialogs.vala:722
 msgid "_Remove From Library"
 msgstr "從珍藏館移除(_R)"
 
-#: src/Dialogs.vala:750
+#: src/Dialogs.vala:778
 msgid "Revert External Edit?"
 msgstr "是否還原外部編輯？"
 
-#: src/Dialogs.vala:750
+#: src/Dialogs.vala:778
 msgid "Revert External Edits?"
 msgstr "要還原外部編輯嗎？"
 
-#: src/Dialogs.vala:752
+#: src/Dialogs.vala:780
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] "這會破壞 %d 份外部檔案已做的所有變更。要繼續嗎？"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:784
 msgid "Re_vert External Edit"
 msgstr "還原外部編輯(_V)"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:784
 msgid "Re_vert External Edits"
 msgstr "還原外部編輯(_V)"
 
-#: src/Dialogs.vala:777
+#: src/Dialogs.vala:813
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "這會從珍藏館移除 %d 張相片。要繼續嗎？"
 
-#: src/Dialogs.vala:784 src/Resources.vala:139
+#: src/Dialogs.vala:820 src/Resources.vala:140
 msgid "_Remove"
 msgstr "移除(_R)"
 
-#: src/Dialogs.vala:785
+#: src/Dialogs.vala:821
 msgid "Remove Photo From Library"
 msgstr "從珍藏館移除相片"
 
-#: src/Dialogs.vala:785
+#: src/Dialogs.vala:821
 msgid "Remove Photos From Library"
 msgstr "從珍藏館移除相片"
 
-#: src/Dialogs.vala:805
+#: src/Dialogs.vala:849
 #, c-format
 msgid ""
 "\n"
@@ -3969,40 +3953,40 @@ msgstr[0] ""
 "\n"
 "與其它 %d 項。"
 
-#: src/Dialogs.vala:831 src/Dialogs.vala:868
+#: src/Dialogs.vala:888 src/Dialogs.vala:925
 msgid "Tags (separated by commas):"
 msgstr "標記 (以半形逗號 \",\" 隔開)："
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:946
+#: src/Dialogs.vala:1003
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr "Shotwell 可以複製相片至您的珍藏館，或是直接將它們匯入而不必複製。"
 
-#: src/Dialogs.vala:951
+#: src/Dialogs.vala:1008
 msgid "Co_py Photos"
 msgstr "複製相片(_P)"
 
-#: src/Dialogs.vala:952
+#: src/Dialogs.vala:1009
 msgid "_Import in Place"
 msgstr "匯入位置(_I)"
 
-#: src/Dialogs.vala:953
+#: src/Dialogs.vala:1010
 msgid "Import to Library"
 msgstr "匯入至珍藏館"
 
-#: src/Dialogs.vala:963
+#: src/Dialogs.vala:1028
 msgid "Remove From Library"
 msgstr "從珍藏館移除"
 
-#: src/Dialogs.vala:964
+#: src/Dialogs.vala:1029
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "正在從珍藏館移除相片"
 
-#: src/Dialogs.vala:978
+#: src/Dialogs.vala:1043
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -4020,7 +4004,7 @@ msgstr[0] ""
 "\n"
 "這個動作無法還原。"
 
-#: src/Dialogs.vala:982
+#: src/Dialogs.vala:1047
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4038,7 +4022,7 @@ msgstr[0] ""
 "\n"
 "這個動作無法還原。"
 
-#: src/Dialogs.vala:986
+#: src/Dialogs.vala:1051
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4056,7 +4040,7 @@ msgstr[0] ""
 "\n"
 "這個動作無法還原。"
 
-#: src/Dialogs.vala:1018
+#: src/Dialogs.vala:1083
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4065,13 +4049,13 @@ msgid_plural ""
 msgstr[0] "%d 份相片/視訊無法移至您的桌面垃圾桶。要刪除這些檔案嗎？"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1035
+#: src/Dialogs.vala:1100
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "%d 份相片/視訊無法刪除。"
 
-#: src/dialogs/WelcomeDialog.vala:35
+#: src/dialogs/WelcomeDialog.vala:36
 msgid "Welcome!"
 msgstr "歡迎！"
 
@@ -4125,17 +4109,17 @@ msgstr "寬度"
 msgid "Height"
 msgstr "高度"
 
-#: src/direct/DirectPhotoPage.vala:99
+#: src/direct/DirectPhotoPage.vala:100
 #, c-format
 msgid "%s does not exist."
 msgstr "%s 不存在。"
 
-#: src/direct/DirectPhotoPage.vala:101
+#: src/direct/DirectPhotoPage.vala:102
 #, c-format
 msgid "%s is not a file."
 msgstr "%s 不是檔案。"
 
-#: src/direct/DirectPhotoPage.vala:103
+#: src/direct/DirectPhotoPage.vala:104
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -4144,32 +4128,40 @@ msgstr ""
 "%s 不支援檔案格式\n"
 "%s。"
 
-#: src/direct/DirectPhotoPage.vala:120
+#: src/direct/DirectPhotoPage.vala:121
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "無法列印相片 %s。抱歉。"
 
-#: src/direct/DirectPhotoPage.vala:323
+#: src/direct/DirectPhotoPage.vala:324
 msgid "_Save a Copy"
 msgstr "儲存複本(_S)"
 
-#: src/direct/DirectPhotoPage.vala:326
+#: src/direct/DirectPhotoPage.vala:328
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "放棄對 %s 所作出的變更？"
 
-#: src/direct/DirectPhotoPage.vala:327
+#: src/direct/DirectPhotoPage.vala:329
 msgid "Close _without Saving"
 msgstr "關閉而不儲存(_W)"
 
-#: src/direct/DirectPhotoPage.vala:360
+#: src/direct/DirectPhotoPage.vala:367
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "當儲存至 %s 時發生錯誤：%s"
 
-#: src/direct/DirectPhotoPage.vala:390 src/direct/DirectPhotoPage.vala:411
+#: src/direct/DirectPhotoPage.vala:403
 msgid "Save As"
 msgstr "另存新檔"
+
+#: src/direct/DirectPhotoPage.vala:419
+msgid "Supported image formats"
+msgstr "支援的影像格式"
+
+#: src/direct/DirectPhotoPage.vala:428
+msgid "All files"
+msgstr "所有檔案"
 
 #. verify this is a directory
 #: src/DirectoryMonitor.vala:891
@@ -4181,211 +4173,15 @@ msgstr "無法監視 %s：非目錄 (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "無法匯出相片至此目錄。"
 
-#: src/editing_tools/EditingTools.vala:651
-msgid "Return to current photo dimensions"
-msgstr "返回目前相片維度"
-
-#: src/editing_tools/EditingTools.vala:654
-msgid "Set the crop for this photo"
-msgstr "為此相片設定裁切"
-
-#: src/editing_tools/EditingTools.vala:666
-msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr "在肖像與風景方向之間旋轉裁切矩形"
-
-#: src/editing_tools/EditingTools.vala:739
-msgid "Unconstrained"
-msgstr "未限制"
-
-#: src/editing_tools/EditingTools.vala:740
-msgid "Square"
-msgstr "方形"
-
-#: src/editing_tools/EditingTools.vala:741
-msgid "Screen"
-msgstr "螢幕畫面"
-
-#: src/editing_tools/EditingTools.vala:743
-#: src/editing_tools/EditingTools.vala:746
-#: src/editing_tools/EditingTools.vala:756
-#: src/editing_tools/EditingTools.vala:766
-msgid "-"
-msgstr "-"
-
-#: src/editing_tools/EditingTools.vala:744
-msgid "SD Video (4 ∶ 3)"
-msgstr "SD 視訊 (4 : 3)"
-
-#: src/editing_tools/EditingTools.vala:745
-msgid "HD Video (16 ∶ 9)"
-msgstr "HD 視訊 (16 : 9)"
-
-#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
-msgid "Wallet (2 × 3 in.)"
-msgstr "皮夾 (2 x 3 英吋)"
-
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
-msgid "Notecard (3 × 5 in.)"
-msgstr "短柬 (3 x 5 英吋)"
-
-#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
-msgid "4 × 6 in."
-msgstr "4 x 6 英吋"
-
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
-msgid "5 × 7 in."
-msgstr "5 x 7 英吋"
-
-#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
-msgid "8 × 10 in."
-msgstr "8 x 10 英吋"
-
-#: src/editing_tools/EditingTools.vala:752
-msgid "Letter (8.5 × 11 in.)"
-msgstr "信紙 (8.5 x 11 英吋)"
-
-#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
-msgid "11 × 14 in."
-msgstr "11 x 14 英吋"
-
-#: src/editing_tools/EditingTools.vala:754
-msgid "Tabloid (11 × 17 in.)"
-msgstr "小報紙 (11 x 17 英吋)"
-
-#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
-msgid "16 × 20 in."
-msgstr "16 x 20 英吋"
-
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
-msgid "Metric Wallet (9 × 13 cm)"
-msgstr "公制皮夾 (9 x 13 公分)"
-
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
-msgid "Postcard (10 × 15 cm)"
-msgstr "明信片 (10 x 15 公分)"
-
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
-msgid "13 × 18 cm"
-msgstr "13 x 18 公分"
-
-#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
-msgid "18 × 24 cm"
-msgstr "18 x 24 公分"
-
-#: src/editing_tools/EditingTools.vala:761
-msgid "A4 (210 × 297 mm)"
-msgstr "A4 (210 x 297 公釐)"
-
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
-msgid "20 × 30 cm"
-msgstr "20 x 30 公分"
-
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
-msgid "24 × 40 cm"
-msgstr "24 x 40 公分"
-
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
-msgid "30 × 40 cm"
-msgstr "30 x 40 公分"
-
-#: src/editing_tools/EditingTools.vala:765
-msgid "A3 (297 × 420 mm)"
-msgstr "A3 (297 x 420 公釐)"
-
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:407
-msgid "Size:"
-msgstr "大小："
-
-#: src/editing_tools/EditingTools.vala:1873
-msgid "Close the red-eye tool"
-msgstr "關閉紅眼工具"
-
-#: src/editing_tools/EditingTools.vala:1876
-msgid "Remove any red-eye effects in the selected region"
-msgstr "移除所選區域內的紅眼效應"
-
-#: src/editing_tools/EditingTools.vala:2210
-#: src/editing_tools/StraightenTool.vala:102
-msgid "_Reset"
-msgstr "重設(_R)"
-
-#. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:448
-#: src/Properties.vala:452 src/Properties.vala:459
-msgid "Exposure:"
-msgstr "曝光："
-
-#: src/editing_tools/EditingTools.vala:2233
-msgid "Contrast:"
-msgstr "對比："
-
-#: src/editing_tools/EditingTools.vala:2242
-msgid "Saturation:"
-msgstr "飽和："
-
-#: src/editing_tools/EditingTools.vala:2251
-msgid "Tint:"
-msgstr "色相："
-
-#: src/editing_tools/EditingTools.vala:2261
-msgid "Temperature:"
-msgstr "色溫："
-
-#: src/editing_tools/EditingTools.vala:2270
-msgid "Shadows:"
-msgstr "陰影："
-
-#. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
-#. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2281
-msgid "Highlights:"
-msgstr "高亮："
-
-#: src/editing_tools/EditingTools.vala:2338
-msgid "Reset Colors"
-msgstr "重設色彩"
-
-#: src/editing_tools/EditingTools.vala:2338
-msgid "Reset all color adjustments to original"
-msgstr "重設所有色彩調整為原始狀態"
-
-#: src/editing_tools/EditingTools.vala:2697
-msgid "Temperature"
-msgstr "色溫"
-
-#: src/editing_tools/EditingTools.vala:2709
-msgid "Tint"
-msgstr "色相"
-
-#: src/editing_tools/EditingTools.vala:2721
-msgid "Contrast"
-msgstr "對比"
-
-#: src/editing_tools/EditingTools.vala:2735
-msgid "Saturation"
-msgstr "飽和"
-
-#: src/editing_tools/EditingTools.vala:2748
-msgid "Exposure"
-msgstr "曝光"
-
-#: src/editing_tools/EditingTools.vala:2761
-msgid "Shadows"
-msgstr "陰影"
-
-#: src/editing_tools/EditingTools.vala:2774
-msgid "Highlights"
-msgstr "高亮"
-
-#: src/editing_tools/EditingTools.vala:2784
-msgid "Contrast Expansion"
-msgstr "對比擴展"
-
 #: src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "角度："
 
-#: src/events/EventPage.vala:129
+#: src/editing_tools/StraightenTool.vala:102
+msgid "_Reset"
+msgstr "重設(_R)"
+
+#: src/events/EventPage.vala:131
 msgid "No Event"
 msgstr "無事件"
 
@@ -4397,29 +4193,21 @@ msgstr "事件"
 msgid "Browse through your events"
 msgstr "瀏覽您經歷的事件"
 
-#: src/events/EventsDirectoryPage.vala:149
+#: src/events/EventsDirectoryPage.vala:147
 msgid "No events"
 msgstr "無事件"
 
-#: src/events/EventsDirectoryPage.vala:153
+#: src/events/EventsDirectoryPage.vala:151
 msgid "No events found"
 msgstr "找不到事件"
 
-#: src/events/EventsDirectoryPage.vala:227
+#: src/events/EventsDirectoryPage.vala:230
 msgid "All Events"
 msgstr "所有事件"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:244
 msgid "Undated"
 msgstr "未限定日期"
-
-#: src/events/EventsDirectoryPage.vala:242
-msgid "%Y"
-msgstr "%Y年"
-
-#: src/events/EventsDirectoryPage.vala:243
-msgid "%B"
-msgstr "%b"
 
 #. if no name, pretty up the start time
 #: src/Event.vala:748
@@ -4427,43 +4215,35 @@ msgstr "%b"
 msgid "Event %s"
 msgstr "事件 %s"
 
-#: src/Exporter.vala:236 src/Exporter.vala:291
+#: src/Exporter.vala:242 src/Exporter.vala:306
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "無法為 %s 建立暫時檔案：%s"
 
-#: src/Exporter.vala:328
+#: src/Exporter.vala:343
 msgid "Exporting"
 msgstr "正在匯出"
 
-#: src/Exporter.vala:346
+#: src/Exporter.vala:361
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "檔案 %s 已經存在。要取代嗎？"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:364
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: src/Exporter.vala:348
+#: src/Exporter.vala:364
 msgid "Rename"
 msgstr "重新命名"
 
-#: src/Exporter.vala:348
-msgid "Rename All"
-msgstr "全部重新命名"
-
-#: src/Exporter.vala:348
+#: src/Exporter.vala:364
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: src/Exporter.vala:348
-msgid "Replace _All"
-msgstr "全部取代(_A)"
-
-#: src/Exporter.vala:348
-msgid "Export"
-msgstr "匯出"
+#: src/Exporter.vala:364
+msgid "Export file conflict"
+msgstr "匯出檔案衝除"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -4477,48 +4257,48 @@ msgstr "偵測此相片上的臉部"
 msgid "Cancel face detection"
 msgstr "取消臉部偵測"
 
-#: src/faces/FacesTool.vala:145
+#: src/faces/FacesTool.vala:144
 msgid "Close the Faces tool without saving changes"
 msgstr "關閉臉部工具，而不儲存變更"
 
-#: src/faces/FacesTool.vala:152 src/faces/FacesTool.vala:186
+#: src/faces/FacesTool.vala:148 src/faces/FacesTool.vala:182
 msgid "Click and drag to tag a face"
 msgstr "點按並拖曳以標記臉部"
 
-#: src/faces/FacesTool.vala:181
+#: src/faces/FacesTool.vala:177
 #, c-format
 msgid "Click to edit face “%s”"
 msgstr "點按以編輯「%s」臉部"
 
-#: src/faces/FacesTool.vala:190
+#: src/faces/FacesTool.vala:186
 msgid "Stop dragging to add your face and name it."
 msgstr "停止拖曳，改增加您的臉部並命名它。"
 
-#: src/faces/FacesTool.vala:194
+#: src/faces/FacesTool.vala:190
 msgid "Type a name for this face, then press Enter"
 msgstr "輸入此臉部的名稱，然後按下 Enter"
 
-#: src/faces/FacesTool.vala:198
+#: src/faces/FacesTool.vala:194
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "拖曳或修改臉部的外形或名稱，並按下 Enter"
 
-#: src/faces/FacesTool.vala:202
+#: src/faces/FacesTool.vala:198
 msgid "Detecting faces"
 msgstr "偵測臉部"
 
-#: src/faces/FacesTool.vala:213
+#: src/faces/FacesTool.vala:209
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr "如果您不設定未知臉部的名稱，它們將不能儲存。"
 
-#: src/faces/FacesTool.vala:234
+#: src/faces/FacesTool.vala:230
 msgid "Save changes and close the Faces tool"
 msgstr "儲存變更，並關閉臉部工具"
 
-#: src/faces/FacesTool.vala:236
+#: src/faces/FacesTool.vala:232
 msgid "No changes to save"
 msgstr "沒有要儲存的變更"
 
-#: src/faces/FacesTool.vala:951
+#: src/faces/FacesTool.vala:963
 msgid "Error trying to spawn face detection program:\n"
 msgstr "嘗試生成臉部偵測程式時錯誤：\n"
 
@@ -4543,8 +4323,8 @@ msgstr "瀏覽珍藏館的匯入紀錄"
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1123
-#: src/SearchFilter.vala:1124
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:991
+#: src/SearchFilter.vala:992
 msgid "Flagged"
 msgstr "已加上旗幟"
 
@@ -4552,11 +4332,11 @@ msgstr "已加上旗幟"
 msgid "Importing…"
 msgstr "正在匯入…"
 
-#: src/library/ImportQueuePage.vala:129
+#: src/library/ImportQueuePage.vala:111
 msgid "Preparing to import…"
 msgstr "正在準備匯入…"
 
-#: src/library/ImportQueuePage.vala:156
+#: src/library/ImportQueuePage.vala:134
 #, c-format
 msgid "Imported %s"
 msgstr "已匯入 %s"
@@ -4565,19 +4345,19 @@ msgstr "已匯入 %s"
 msgid "Last Import"
 msgstr "上次匯入"
 
-#: src/library/LibraryBranch.vala:30
+#: src/library/LibraryBranch.vala:34
 msgid "Organize and browse your photos"
 msgstr "整理並瀏覽您的相片"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "從資料夾匯入"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "遞迴進入子資料夾"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:576
 msgid "Emptying Trash…"
 msgstr "正在清空垃圾桶…"
 
@@ -4597,19 +4377,19 @@ msgstr ""
 msgid "Photos cannot be imported from this directory."
 msgstr "相片無法從此目錄匯入。"
 
-#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
+#: src/library/LibraryWindow.vala:1000 src/library/LibraryWindow.vala:1011
 msgid "Updating library…"
 msgstr "正在更新珍藏館…"
 
-#: src/library/LibraryWindow.vala:1012
+#: src/library/LibraryWindow.vala:1017
 msgid "Preparing to auto-import photos…"
 msgstr "正在準備自動匯入相片…"
 
-#: src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1022
 msgid "Auto-importing photos…"
 msgstr "正在自動匯入相片…"
 
-#: src/library/LibraryWindow.vala:1025
+#: src/library/LibraryWindow.vala:1030
 msgid "Writing metadata to files…"
 msgstr "正在將中介資料寫入檔案中…"
 
@@ -4617,7 +4397,7 @@ msgstr "正在將中介資料寫入檔案中…"
 msgid "Missing Files"
 msgstr "遺失的檔案"
 
-#: src/library/OfflinePage.vala:110
+#: src/library/OfflinePage.vala:112
 msgid "Deleting…"
 msgstr "正在刪除…"
 
@@ -4674,72 +4454,67 @@ msgstr "試圖驗證 Shotwell 資料庫時發生未知錯誤：%s"
 msgid "Loading Shotwell"
 msgstr "正載入 Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:343
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell 的私人資料路徑"
 
-#: src/main.vala:347
+#: src/main.vala:343
 msgid "DIRECTORY"
 msgstr "目錄"
 
-#: src/main.vala:348
+#: src/main.vala:344
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "執行時期不要監視珍藏館目錄是否有變動"
 
-#: src/main.vala:349
+#: src/main.vala:345
 msgid "Don’t display startup progress meter"
 msgstr "不要顯示初始啟動時的進度條"
 
-#: src/main.vala:350
+#: src/main.vala:346
 msgid "Show the application’s version"
 msgstr "顯示應用程式的版本"
 
-#: src/main.vala:351
+#: src/main.vala:347
 msgid "Start the application in fullscreen mode"
 msgstr "以全螢幕模式啟動應用程式"
 
-#: src/main.vala:352
+#: src/main.vala:348
 msgid "Print the metadata of the image file"
 msgstr "列印影像檔的中介資料"
 
-#: src/main.vala:353
+#: src/main.vala:349
 msgid "Name for a custom profile"
-msgstr "自訂描述檔的名稱"
+msgstr "自訂個人設定檔的名稱"
 
-#: src/main.vala:353
+#: src/main.vala:349
 msgid "PROFILE"
 msgstr "PROFILE"
 
-#: src/main.vala:354
+#: src/main.vala:350
 msgid "Start with a browser of available profiles"
-msgstr "以可用的個人檔案瀏覽器作開始"
+msgstr "以可用的個人設定檔瀏覽器作開始"
 
-#: src/main.vala:355
+#: src/main.vala:351
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "如果 --profile 所給定的 PROFILE 不存在，則建立它"
 
-#: src/main.vala:356
+#: src/main.vala:352
 msgid "Show available profiles"
-msgstr "顯示可用的個人檔案"
+msgstr "顯示可用的個人設定檔"
 
-#. init GTK (valac has already called g_threads_init())
-#: src/main.vala:387
-msgid "[FILE]"
-msgstr "[FILE]"
-
-#: src/main.vala:392
+#: src/main.vala:401
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "執行「%s --help」來查看可用命令列選項的完整清單。\n"
 
-#: src/main.vala:399
+#: src/main.vala:409
 msgid "Choose Shotwell's profile"
-msgstr "選擇 Shotwell 的個人檔案"
+msgstr "選擇 Shotwell 的個人設定檔"
 
-#: src/main.vala:420
+#: src/main.vala:443
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
-msgstr "不存在描述檔 %s。您的意思是也要通過 --create 建立嗎？"
+msgstr "不存在個人設定檔 %s。您的意思是也要通過 --create 建立嗎？"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -4754,11 +4529,11 @@ msgstr "將圖片拖曳到地圖上，可對地理位置標記鎖定地圖或解
 msgid "Unable to process monitoring updates: %s"
 msgstr "無法處理監視更新：%s"
 
-#: src/MediaPage.vala:76
+#: src/MediaPage.vala:75
 msgid "Adjust the size of the thumbnails"
 msgstr "調整縮圖大小"
 
-#: src/MediaPage.vala:416
+#: src/MediaPage.vala:402
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4777,22 +4552,22 @@ msgstr "上一張相片"
 msgid "Next photo"
 msgstr "下一張相片"
 
-#: src/PhotoPage.vala:1858
+#: src/PhotoPage.vala:1802
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "相片來源檔案遺失：%s"
 
-#: src/PhotoPage.vala:2891
+#: src/PhotoPage.vala:2846
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "從珍藏館移除"
 
-#: src/PhotoPage.vala:2892
+#: src/PhotoPage.vala:2847
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "正從珍藏館移除相片"
 
-#: src/PhotoPage.vala:3036
+#: src/PhotoPage.vala:2996
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "無法匯出 %s：%s"
@@ -4804,6 +4579,10 @@ msgstr "AVIF"
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
+
+#: src/photos/HeifSupport.vala:30
+msgid "HEIF"
+msgstr "HEIF"
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
@@ -4833,6 +4612,11 @@ msgstr "高 (%d%%)"
 msgid "Maximum (%d%%)"
 msgstr "最佳 (%d%%)"
 
+#: src/photos/JpegXLSupport.vala:30
+#| msgid "JPEG"
+msgid "JPEGXL"
+msgstr "JPEGXL"
+
 #: src/photos/PngSupport.vala:30
 msgid "PNG"
 msgstr "PNG"
@@ -4845,31 +4629,36 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3811
+#. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
+#: src/Photo.vala:3812
 msgid "modified"
 msgstr "已修改"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:121
+#: src/plugins/ManifestWidget.vala:155
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "管理 %s 的帳號"
 
-#: src/plugins/ManifestWidget.vala:134
+#: src/plugins/ManifestWidget.vala:180
 msgid "Authors"
 msgstr "作者"
 
-#: src/plugins/ManifestWidget.vala:144
+#: src/plugins/ManifestWidget.vala:190
 msgid "Version"
 msgstr "版本"
 
-#: src/plugins/ManifestWidget.vala:154
+#: src/plugins/ManifestWidget.vala:200
 msgid "License"
 msgstr "授權條款"
 
-#: src/plugins/ManifestWidget.vala:166
+#: src/plugins/ManifestWidget.vala:212
 msgid "Website"
 msgstr "網站"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 或後續版本"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -4899,15 +4688,71 @@ msgstr "每頁 16 張影像"
 msgid "32 images per page"
 msgstr "每頁 32 張影像"
 
-#: src/Printing.vala:851
+#: src/Printing.vala:794
+msgid "Wallet (2 × 3 in.)"
+msgstr "皮夾 (2 x 3 英吋)"
+
+#: src/Printing.vala:797
+msgid "Notecard (3 × 5 in.)"
+msgstr "短柬 (3 x 5 英吋)"
+
+#: src/Printing.vala:800
+msgid "4 × 6 in."
+msgstr "4 x 6 英吋"
+
+#: src/Printing.vala:803
+msgid "5 × 7 in."
+msgstr "5 x 7 英吋"
+
+#: src/Printing.vala:806
+msgid "8 × 10 in."
+msgstr "8 x 10 英吋"
+
+#: src/Printing.vala:809
+msgid "11 × 14 in."
+msgstr "11 x 14 英吋"
+
+#: src/Printing.vala:812
+msgid "16 × 20 in."
+msgstr "16 x 20 英吋"
+
+#: src/Printing.vala:818
+msgid "Metric Wallet (9 × 13 cm)"
+msgstr "公制皮夾 (9 x 13 公分)"
+
+#: src/Printing.vala:821
+msgid "Postcard (10 × 15 cm)"
+msgstr "明信片 (10 x 15 公分)"
+
+#: src/Printing.vala:824
+msgid "13 × 18 cm"
+msgstr "13 x 18 公分"
+
+#: src/Printing.vala:827
+msgid "18 × 24 cm"
+msgstr "18 x 24 公分"
+
+#: src/Printing.vala:830
+msgid "20 × 30 cm"
+msgstr "20 x 30 公分"
+
+#: src/Printing.vala:833
+msgid "24 × 40 cm"
+msgstr "24 x 40 公分"
+
+#: src/Printing.vala:836
+msgid "30 × 40 cm"
+msgstr "30 x 40 公分"
+
+#: src/Printing.vala:853
 msgid "Image Settings"
 msgstr "影像設定值"
 
-#: src/Printing.vala:864
+#: src/Printing.vala:866
 msgid "Printing…"
 msgstr "正在列印…"
 
-#: src/Printing.vala:884 src/Printing.vala:1087
+#: src/Printing.vala:886 src/Printing.vala:1089
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -4922,54 +4767,54 @@ msgstr ""
 msgid "Create"
 msgstr "建立"
 
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:253
 msgid "Create new Profile"
-msgstr "建立新的個人檔案"
+msgstr "建立新的個人設定檔"
 
-#: src/ProfileBrowser.vala:35
+#: src/ProfileBrowser.vala:38
 msgid "Name"
 msgstr "名稱"
 
-#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+#: src/ProfileBrowser.vala:52 src/ProfileBrowser.vala:168
 msgid "Library Folder"
 msgstr "珍藏館資料夾"
 
-#: src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:66
 msgid "Choose Library Folder"
 msgstr "選擇珍藏館資料夾"
 
-#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:180
 msgid "Data Folder"
 msgstr "資料的資料夾"
 
-#: src/ProfileBrowser.vala:92
+#: src/ProfileBrowser.vala:91
 msgid "Choose Data Folder"
 msgstr "選擇資料的資料夾"
 
-#: src/ProfileBrowser.vala:135
+#: src/ProfileBrowser.vala:134
 msgid "This is the currently active profile"
-msgstr "這是目前使用中的個人檔案"
+msgstr "這是目前使用中的個人設定檔"
 
-#: src/ProfileBrowser.vala:191
+#: src/ProfileBrowser.vala:194
 msgid "Remove Profile"
-msgstr "移除個人檔案"
+msgstr "移除個人設定檔"
 
-#: src/ProfileBrowser.vala:193
+#: src/ProfileBrowser.vala:196
 msgid "Remove this profile"
-msgstr "移除這個個人檔案"
+msgstr "移除這個個人設定檔"
 
-#: src/ProfileBrowser.vala:205
+#: src/ProfileBrowser.vala:208
 #, c-format
 msgid "Remove profile “%s”"
-msgstr "移除「%s」個人檔案"
+msgstr "移除「%s」個人設定檔"
 
-#: src/ProfileBrowser.vala:206
+#: src/ProfileBrowser.vala:209
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
-msgstr "這些選項皆不會移除與此個人檔案相關的任何影像"
+msgstr "這些選項皆不會移除與此個人設定檔相關的任何影像"
 
-#: src/ProfileBrowser.vala:207
+#: src/ProfileBrowser.vala:210
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -4978,143 +4823,152 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:212
 msgid "Remove profile and files"
-msgstr "移除個人檔案與檔案"
+msgstr "移除個人設定檔與檔案"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:212
 msgid "Remove profile only"
-msgstr "僅移除個人檔案"
+msgstr "僅移除個人設定檔"
 
 #: src/Profiles.vala:32
 msgid "System Profile"
-msgstr "系統個人檔案"
+msgstr "系統個人設定檔"
 
-#: src/Properties.vala:102
+#: src/Properties.vala:101
 msgid "Today"
 msgstr "今天"
 
-#: src/Properties.vala:104
+#: src/Properties.vala:103
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/Properties.vala:355
+#: src/Properties.vala:358
 msgid "Items:"
 msgstr "項目："
 
-#: src/Properties.vala:358
+#: src/Properties.vala:361
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d 個事件"
 
-#: src/Properties.vala:365
+#: src/Properties.vala:368
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d 張相片"
 
-#: src/Properties.vala:367
+#: src/Properties.vala:370
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d 份視訊"
 
 #. display only one date if start and end are the same
-#: src/Properties.vala:389
+#: src/Properties.vala:392
 msgid "Date:"
 msgstr "日期："
 
 #. display only one time if start and end are the same
-#: src/Properties.vala:393
+#: src/Properties.vala:396
 msgid "Time:"
 msgstr "時間："
 
 #. display time range
 #. display date range
-#: src/Properties.vala:396 src/Properties.vala:401
+#: src/Properties.vala:399 src/Properties.vala:404
 msgid "From:"
 msgstr "從："
 
-#: src/Properties.vala:397 src/Properties.vala:402
+#: src/Properties.vala:400 src/Properties.vala:405
 msgid "To:"
 msgstr "到："
 
-#: src/Properties.vala:416
+#: src/Properties.vala:410
+msgid "Size:"
+msgstr "大小："
+
+#: src/Properties.vala:419
 msgid "Duration:"
 msgstr "時間："
 
-#: src/Properties.vala:416
+#: src/Properties.vala:419
 #, c-format
 msgid "%.1f seconds"
 msgstr "%.1f 秒"
 
-#: src/Properties.vala:420
+#: src/Properties.vala:423
 msgid "Developer:"
 msgstr "顯影器："
 
+#. fit both on the top line, emit and move on
+#: src/Properties.vala:451 src/Properties.vala:455 src/Properties.vala:462
+msgid "Exposure:"
+msgstr "曝光："
+
 #. nothing special to be done for now for Events
-#: src/Properties.vala:598
+#: src/Properties.vala:601
 msgid "Location:"
 msgstr "位置："
 
-#: src/Properties.vala:601
+#: src/Properties.vala:604
 msgid "File size:"
 msgstr "檔案大小："
 
-#: src/Properties.vala:605
+#: src/Properties.vala:608
 msgid "Current Development:"
 msgstr "目前顯影："
 
-#: src/Properties.vala:607
+#: src/Properties.vala:610
 msgid "Original dimensions:"
 msgstr "原始維度："
 
-#: src/Properties.vala:610
+#: src/Properties.vala:613
 msgid "Camera make:"
 msgstr "相機製造商："
 
-#: src/Properties.vala:613
+#: src/Properties.vala:616
 msgid "Camera model:"
 msgstr "相機型號："
 
-#: src/Properties.vala:616
+#: src/Properties.vala:619
 msgid "Flash:"
 msgstr "閃光："
 
-#: src/Properties.vala:618
+#: src/Properties.vala:621
 msgid "Focal length:"
 msgstr "焦距："
 
-#: src/Properties.vala:621
+#: src/Properties.vala:624
 msgid "Exposure date:"
 msgstr "曝光日期："
 
-#: src/Properties.vala:624
+#: src/Properties.vala:627
 msgid "Exposure time:"
 msgstr "曝光時間："
 
-#: src/Properties.vala:627
+#: src/Properties.vala:630
 msgid "Exposure bias:"
 msgstr "曝光補償："
 
-#: src/Properties.vala:636
+#: src/Properties.vala:639
 msgid "GPS latitude:"
 msgstr "GPS 緯度："
 
-#: src/Properties.vala:639
+#: src/Properties.vala:642
 msgid "GPS longitude:"
 msgstr "GPS 經度："
 
-#: src/Properties.vala:642
+#: src/Properties.vala:645
 msgid "Artist:"
 msgstr "藝人："
 
-#: src/Properties.vala:644
+#: src/Properties.vala:647
 msgid "Copyright:"
 msgstr "著作權："
 
-#: src/Properties.vala:646
+#: src/Properties.vala:649
 msgid "Software:"
 msgstr "軟體："
 
@@ -5127,12 +4981,12 @@ msgstr "正在準備上傳"
 msgid "Uploading %d of %d"
 msgstr "正在上傳 %d/%d"
 
-#: src/publishing/PublishingPluginHost.vala:85
+#: src/publishing/PublishingPluginHost.vala:93
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "因為遭遇錯誤而無法繼續發布至 %s："
 
-#: src/publishing/PublishingPluginHost.vala:88
+#: src/publishing/PublishingPluginHost.vala:96
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "若要嘗試發布至其它服務，請從上方選單選擇。"
 
@@ -5162,11 +5016,11 @@ msgstr "將相片與視訊發布至(_T)"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:285
+#: src/publishing/PublishingUI.vala:283
 msgid "Unable to publish"
 msgstr "無法發布"
 
-#: src/publishing/PublishingUI.vala:286
+#: src/publishing/PublishingUI.vala:284
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5205,517 +5059,518 @@ msgstr[0] "所選的相片已成功發布。"
 msgid "The selected photos/videos were successfully published."
 msgstr "所選的相片/視訊已經成功發布。"
 
-#: src/Resources.vala:107
+#: src/Resources.vala:108
 msgid "Rotate Right"
 msgstr "向右旋轉"
 
-#: src/Resources.vala:112
+#: src/Resources.vala:113
 msgid "Rotate Left"
 msgstr "向左旋轉"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:114
 msgid "Rotate the photos left"
 msgstr "將相片向左旋轉"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:117
 msgid "Flip Horizontally"
 msgstr "水平翻轉"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:120
 msgid "Flip Vertically"
 msgstr "垂直翻轉"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:123
 msgid "_Apply"
 msgstr "套用(_A)"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:127
 msgid "_Forward"
 msgstr "前進(_F)"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:130
 msgid "Leave _Fullscreen"
 msgstr "離開全螢幕(_F)"
 
-#: src/Resources.vala:131
+#: src/Resources.vala:132
 msgid "_Next"
 msgstr "下一張(_N)"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:136
 msgid "_Previous"
 msgstr "上一張(_P)"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:139
 msgid "_Refresh"
 msgstr "重新整理(_R)"
 
-#: src/Resources.vala:140
+#: src/Resources.vala:141
 msgid "_Revert"
 msgstr "還原(_R)"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:143
 msgid "Save _As"
 msgstr "另存新檔(_A)"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:144
 msgid "Sort _Ascending"
 msgstr "遞增排序(_A)"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:145
 msgid "Sort _Descending"
 msgstr "遞減排序(_E)"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:146
 msgid "_Stop"
 msgstr "停止(_S)"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:147
 msgid "_Undelete"
 msgstr "取消刪除(_U)"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:148
 msgid "_Normal Size"
 msgstr "正常大小(_N)"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:149
 msgid "Best _Fit"
 msgstr "自動調整(_F)"
 
-#: src/Resources.vala:157
+#: src/Resources.vala:158
 msgid "Copy Color Adjustments"
 msgstr "複製色彩調整"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:159
 msgid "Copy the color adjustments applied to the photo"
 msgstr "複製套用至該相片的色彩調整"
 
-#: src/Resources.vala:161
+#: src/Resources.vala:162
 msgid "Paste Color Adjustments"
 msgstr "貼上色彩調整"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:163
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "將複製的色彩調整套用至所選的相片上"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:166
 msgid "Crop"
 msgstr "裁切"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:167
 msgid "Crop the photo’s size"
 msgstr "裁切相片大小"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:170
 msgid "Straighten"
 msgstr "拉直"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:171
 msgid "Straighten the photo"
 msgstr "拉直相片"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:174
 msgid "Red-eye"
 msgstr "紅眼"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:175
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "減少或消除相片中的紅眼效應"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:178
 msgid "Adjust"
 msgstr "調整"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:179
 msgid "Adjust the photo’s color and tone"
 msgstr "調整相片的色彩與色調"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:182
 msgid "Revert to Original"
 msgstr "還原至原始"
 
-#: src/Resources.vala:183
+#: src/Resources.vala:184
 msgid "Revert External E_dits"
 msgstr "還原外部編輯(_D)"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:185
 msgid "Revert to the master photo"
 msgstr "還原至主相片"
 
-#: src/Resources.vala:187
+#: src/Resources.vala:188
 msgid "Set selected image to be the new desktop background"
 msgstr "將所選的影像設為新的桌面背景"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:189
 msgid "Set as _Desktop Slideshow…"
-msgstr "設為桌面投影秀(_D)…"
+msgstr "設為桌面投影片秀(_D)…"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:192
 msgid "Undo"
 msgstr "復原"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:195
 msgid "Redo"
 msgstr "取消復原"
 
-#: src/Resources.vala:200
+#: src/Resources.vala:201
 msgid "Make Key Photo for Event"
 msgstr "作為事件的代表性相片"
 
-#: src/Resources.vala:203
+#: src/Resources.vala:204
 msgid "New Event"
 msgstr "新事件"
 
-#: src/Resources.vala:205
+#: src/Resources.vala:206
 msgid "Move Photos"
 msgstr "移動相片"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:207
 msgid "Move photos to an event"
 msgstr "移動相片至某事件"
 
-#: src/Resources.vala:209
+#: src/Resources.vala:210
 msgid "Merge"
 msgstr "合併"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:211
 msgid "Combine events into a single event"
 msgstr "合併多事件為單一事件"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:214
 msgid "Set Rating"
 msgstr "設定評等"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:215
 msgid "Change the rating of your photo"
 msgstr "變更您相片的評等"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:218
 msgid "Increase Rating"
 msgstr "增加評等"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:221
 msgid "Decrease Rating"
 msgstr "降低評等"
 
-#: src/Resources.vala:223
+#: src/Resources.vala:224
 msgid "Unrated"
 msgstr "未評等"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:225
 msgid "Rate Unrated"
 msgstr "無評等"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:226
 msgid "Setting as unrated"
 msgstr "設定為無評等"
 
-#: src/Resources.vala:226
+#: src/Resources.vala:227
 msgid "Remove any ratings"
 msgstr "移除任何評等"
 
-#: src/Resources.vala:229
+#: src/Resources.vala:230
 msgid "Rejected"
 msgstr "退絕"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:231
 msgid "Rate Rejected"
 msgstr "評等退絕"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:232
 msgid "Setting as rejected"
 msgstr "設定為退絕"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:233
 msgid "Set rating to rejected"
 msgstr "將評等設為退絕"
 
-#: src/Resources.vala:235
+#: src/Resources.vala:236
 msgid "Rejected Only"
 msgstr "只有退絕"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:237
 msgid "Show only rejected photos"
 msgstr "只顯示退絕的相片"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:240
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "顯示全部相片，包括退絕相片"
 
 #. Button tooltip
-#: src/Resources.vala:243
+#: src/Resources.vala:244
 msgid "Show all photos"
 msgstr "顯示全部相片"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:247
 msgid "Display each photo’s rating"
 msgstr "顯示每張相片的評等"
 
-#: src/Resources.vala:249
+#: src/Resources.vala:250
 msgid "Filter Photos"
 msgstr "過濾相片"
 
-#: src/Resources.vala:250
+#: src/Resources.vala:251
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "限制過濾條件所顯示的相片數目"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:254
 msgid "Duplicate"
 msgstr "再製"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:255
 msgid "Make a duplicate of the photo"
 msgstr "製作相片的複本"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:259
 msgid "_Print…"
 msgstr "列印(_P)…"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:261
 msgid "Pu_blish…"
 msgstr "發布(_B)…"
 
 #. Button label
-#: src/Resources.vala:266
+#: src/Resources.vala:267
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "編輯標題"
 
 #. Button label
-#: src/Resources.vala:270
+#: src/Resources.vala:271
 msgid "Edit Comment"
 msgstr "編輯評註"
 
-#: src/Resources.vala:276
+#: src/Resources.vala:277
 msgid "Adjust Date and Time"
 msgstr "調整日期與時間"
 
 #. Dialog title
-#: src/Resources.vala:281
+#: src/Resources.vala:282
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "加入標記"
 
-#: src/Resources.vala:292
+#: src/Resources.vala:293
 msgid "_Find…"
 msgstr "尋找(_F)…"
 
-#: src/Resources.vala:296
+#: src/Resources.vala:297
 msgid "_Flag"
 msgstr "加上旗幟(_F)"
 
-#: src/Resources.vala:298
+#: src/Resources.vala:299
 msgid "Un_flag"
 msgstr "移除旗幟(_F)"
 
-#: src/Resources.vala:302
+#: src/Resources.vala:303
 msgid "Mark faces of people in the photo"
 msgstr "在圖片中標記人們的臉部"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:304
 msgid "Modify Faces"
 msgstr "修改臉部"
 
-#: src/Resources.vala:304
+#: src/Resources.vala:305
 msgid "Delete Face"
 msgstr "刪除臉部"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:311
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "無法開啟編輯器：%s"
 
-#: src/Resources.vala:315
+#: src/Resources.vala:316
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "加入「%s」標記"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:318
+#: src/Resources.vala:319
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "加入「%s」與「%s」標記"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:323
+#: src/Resources.vala:324
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "加入標記"
 
-#: src/Resources.vala:328
+#: src/Resources.vala:329
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "刪除「%s」標記(_D)"
 
-#: src/Resources.vala:332
+#: src/Resources.vala:333
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "刪除「%s」標記"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:336
 msgid "Delete Tag"
 msgstr "刪除標記"
 
-#: src/Resources.vala:341
+#: src/Resources.vala:342
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "重新命名「%s」標記…"
 
-#: src/Resources.vala:345
+#: src/Resources.vala:346
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "重新將「%s」標記命名為「%s」"
 
-#: src/Resources.vala:351
+#: src/Resources.vala:352
 msgid "Modify Tags"
 msgstr "修改標記"
 
-#: src/Resources.vala:354
+#: src/Resources.vala:355
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "將相片加上「%s」標記"
 
-#: src/Resources.vala:360
+#: src/Resources.vala:361
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "將所選相片加上「%s」標記"
 
-#: src/Resources.vala:366
+#: src/Resources.vala:367
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "從相片移除「%s」標記(_P)"
 
-#: src/Resources.vala:372
+#: src/Resources.vala:373
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "從相片移除「%s」標記"
 
-#: src/Resources.vala:378
+#: src/Resources.vala:379
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "「%s」標記已經存在，故無法重新命名該標記。"
 
-#: src/Resources.vala:382
+#: src/Resources.vala:383
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "「%s」搜尋已經存在，故無法重新命名該搜尋。"
 
+#. separator
 #. Saved search button
-#: src/Resources.vala:385 src/SearchFilter.vala:1145
+#: src/Resources.vala:386 src/SearchFilter.vala:1009
 msgid "Saved Search"
 msgstr "儲存的搜尋"
 
-#: src/Resources.vala:387
+#: src/Resources.vala:388
 msgid "Delete Search"
 msgstr "刪除搜尋"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:395
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "重新將「%s」搜尋命名為「%s」"
 
-#: src/Resources.vala:398
+#: src/Resources.vala:399
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "刪除「%s」搜尋"
 
-#: src/Resources.vala:402
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "無法重新將臉部命名為「%s」，因為已經存在該人物。"
 
-#: src/Resources.vala:406
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "從相片中移除「%s」臉部(_P)"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "從相片移除「%s」臉部"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:417 src/Resources.vala:422
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "從相片訓練「%s」臉部(_T)"
 
-#: src/Resources.vala:430
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "重新命名「%s」臉部…"
 
-#: src/Resources.vala:434
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "重新將「%s」臉部命名為「%s」"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "刪除「%s」臉部(_D)"
 
-#: src/Resources.vala:442
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "刪除「%s」臉部"
 
-#: src/Resources.vala:671
+#: src/Resources.vala:675
 #, c-format
 msgid "Rate %s"
 msgstr "為 %s 評等"
 
-#: src/Resources.vala:672
+#: src/Resources.vala:676
 #, c-format
 msgid "Set rating to %s"
 msgstr "設定評等為 %s"
 
-#: src/Resources.vala:673
+#: src/Resources.vala:677
 #, c-format
 msgid "Setting rating to %s"
 msgstr "正在設定評等為 %s"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:679
 #, c-format
 msgid "Display %s"
 msgstr "顯示 %s"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:680
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "只顯示評等為 %s 的相片"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:681
 #, c-format
 msgid "%s or Better"
 msgstr "%s 或更高"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:682
 #, c-format
 msgid "Display %s or Better"
 msgstr "顯示 %s 或更高"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:683
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "只顯示評等為 %s 或更高的相片"
 
-#: src/Resources.vala:777
+#: src/Resources.vala:781
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "在檔案管理員內開啟所選的相片目錄"
 
-#: src/Resources.vala:780
+#: src/Resources.vala:784
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "無法於檔案管理員內開啟：%s"
 
-#: src/Resources.vala:788
+#: src/Resources.vala:792
 msgid "Select all items"
 msgstr "選取全部項目"
 
@@ -5728,14 +5583,14 @@ msgstr "選取全部項目"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:850
+#: src/Resources.vala:851
 msgid "%a %b %d, %Y"
 msgstr "%Y年%b%d日（%a）"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:855
+#: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%Y年%b%d日（%a）"
@@ -5743,7 +5598,7 @@ msgstr "%Y年%b%d日（%a）"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:860
+#: src/Resources.vala:861
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d日"
@@ -5751,7 +5606,7 @@ msgstr "%d日"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:865
+#: src/Resources.vala:866
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%Y年%b%d日（%a）"
@@ -5759,125 +5614,125 @@ msgstr "%Y年%b%d日（%a）"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:870
+#: src/Resources.vala:871
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%b%d日（%a）"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:117
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:128
 msgid "Slideshow"
-msgstr "投影秀"
+msgstr "投影片秀"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:167
 msgid "contains"
 msgstr "包含"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:169
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is exactly"
 msgstr "完全是"
 
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:169
 msgid "starts with"
 msgstr "開頭為"
 
-#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:170
 msgid "ends with"
 msgstr "結尾為"
 
-#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:171
 msgid "does not contain"
 msgstr "不包含"
 
-#: src/searches/SavedSearchDialog.vala:173
-#: src/searches/SavedSearchDialog.vala:504
+#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:503
 msgid "is not set"
 msgstr "未設定"
 
-#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:173
 msgid "is set"
 msgstr "有設定"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:248
-#: src/searches/SavedSearchDialog.vala:379
-#: src/searches/SavedSearchDialog.vala:444
+#: src/searches/SavedSearchDialog.vala:247
+#: src/searches/SavedSearchDialog.vala:378
+#: src/searches/SavedSearchDialog.vala:443
 msgid "is"
 msgstr "是"
 
-#: src/searches/SavedSearchDialog.vala:249
+#: src/searches/SavedSearchDialog.vala:248
 msgid "is not"
 msgstr "不是"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:255
+#: src/searches/SavedSearchDialog.vala:254
 msgid "any photo"
 msgstr "任意相片"
 
-#: src/searches/SavedSearchDialog.vala:256
+#: src/searches/SavedSearchDialog.vala:255
 msgid "a raw photo"
 msgstr "RAW 原生相片"
 
-#: src/searches/SavedSearchDialog.vala:257
+#: src/searches/SavedSearchDialog.vala:256
 msgid "a video"
 msgstr "視訊"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:310
 msgid "has"
 msgstr "有"
 
-#: src/searches/SavedSearchDialog.vala:312
+#: src/searches/SavedSearchDialog.vala:311
 msgid "has no"
 msgstr "沒有"
 
-#: src/searches/SavedSearchDialog.vala:317
+#: src/searches/SavedSearchDialog.vala:316
 msgid "modifications"
 msgstr "修改"
 
-#: src/searches/SavedSearchDialog.vala:318
+#: src/searches/SavedSearchDialog.vala:317
 msgid "internal modifications"
 msgstr "內部修改"
 
-#: src/searches/SavedSearchDialog.vala:319
+#: src/searches/SavedSearchDialog.vala:318
 msgid "external modifications"
 msgstr "外部修改"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:372
 msgid "flagged"
 msgstr "已加上旗幟"
 
-#: src/searches/SavedSearchDialog.vala:374
+#: src/searches/SavedSearchDialog.vala:373
 msgid "not flagged"
 msgstr "未加上旗幟"
 
-#: src/searches/SavedSearchDialog.vala:437
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and higher"
 msgstr "與更高"
 
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:437
 msgid "only"
 msgstr "只有"
 
-#: src/searches/SavedSearchDialog.vala:439
+#: src/searches/SavedSearchDialog.vala:438
 msgid "and lower"
 msgstr "與更低"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is after"
 msgstr "晚於"
 
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is before"
 msgstr "早於"
 
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is between"
 msgstr "介於"
 
-#: src/searches/SavedSearchDialog.vala:516
+#: src/searches/SavedSearchDialog.vala:522
 msgid "and"
 msgstr "與"
 
@@ -5921,8 +5776,8 @@ msgstr "旗幟狀態"
 msgid "Photo state"
 msgstr "相片狀態"
 
-#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:851
-#: src/SearchFilter.vala:1135
+#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:860
+#: src/SearchFilter.vala:1002
 msgid "Rating"
 msgstr "評等"
 
@@ -5930,35 +5785,35 @@ msgstr "評等"
 msgid "Date"
 msgstr "日期"
 
-#: src/searches/SearchesBranch.vala:68
+#: src/searches/SearchesBranch.vala:67
 msgid "Saved Searches"
 msgstr "儲存的搜尋"
 
-#: src/searches/SearchesBranch.vala:68
+#: src/searches/SearchesBranch.vala:67
 msgid "Organize your saved searches"
 msgstr "整理您儲存的搜尋"
 
-#: src/SearchFilter.vala:835
+#: src/SearchFilter.vala:844
 msgid "★+ Rating"
 msgstr "★+ 評等"
 
-#: src/SearchFilter.vala:838
+#: src/SearchFilter.vala:847
 msgid "★★+ Rating"
 msgstr "★★+ 評等"
 
-#: src/SearchFilter.vala:841
+#: src/SearchFilter.vala:850
 msgid "★★★+ Rating"
 msgstr "★★★+ 評等"
 
-#: src/SearchFilter.vala:844
+#: src/SearchFilter.vala:853
 msgid "★★★★+ Rating"
 msgstr "★★★★+ 評等"
 
-#: src/SearchFilter.vala:848
+#: src/SearchFilter.vala:857
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ 評等"
 
-#: src/SearchFilter.vala:1085
+#: src/SearchFilter.vala:952
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "載入搜尋列 UI 時發生錯誤：%s"
@@ -5968,73 +5823,73 @@ msgstr "載入搜尋列 UI 時發生錯誤：%s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1094
+#: src/SearchFilter.vala:962
 msgid "Close"
 msgstr "關閉"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1100
+#: src/SearchFilter.vala:969
 msgid "Type"
 msgstr "類型"
 
-#: src/SearchFilter.vala:1107
+#: src/SearchFilter.vala:976
 msgid "Videos"
 msgstr "視訊"
 
-#: src/SearchFilter.vala:1110
+#: src/SearchFilter.vala:979
 msgid "RAW Photos"
 msgstr "RAW 相片"
 
-#: src/SearchFilter.vala:1146
+#: src/SearchFilter.vala:1010
 msgid "Use a saved search to filter items in the current view"
 msgstr "使用儲存的搜尋來過濾目前檢視畫面中的項目"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:136
+#: src/SlideshowPage.vala:151
 msgid "Back"
 msgstr "返回"
 
-#: src/SlideshowPage.vala:138
+#: src/SlideshowPage.vala:153
 msgid "Go to the previous photo"
 msgstr "前往上一張相片"
 
-#: src/SlideshowPage.vala:143 src/SlideshowPage.vala:250
+#: src/SlideshowPage.vala:158 src/SlideshowPage.vala:264
 msgid "Pause"
 msgstr "暫停"
 
-#: src/SlideshowPage.vala:145 src/SlideshowPage.vala:251
+#: src/SlideshowPage.vala:160 src/SlideshowPage.vala:265
 msgid "Pause the slideshow"
-msgstr "暫停投影秀"
+msgstr "暫停投影片秀"
 
-#: src/SlideshowPage.vala:150
+#: src/SlideshowPage.vala:165
 msgid "Next"
 msgstr "下一張"
 
-#: src/SlideshowPage.vala:152
+#: src/SlideshowPage.vala:167
 msgid "Go to the next photo"
 msgstr "前往下一張相片"
 
-#: src/SlideshowPage.vala:160
+#: src/SlideshowPage.vala:175
 msgid "Change slideshow settings"
-msgstr "變更投影秀設定值"
+msgstr "變更投影片秀設定值"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:214
+#: src/SlideshowPage.vala:228
 msgid "All photo source files are missing."
 msgstr "遺失全部相片來源檔。"
 
-#: src/SlideshowPage.vala:246
+#: src/SlideshowPage.vala:260
 msgid "Play"
 msgstr "播放"
 
-#: src/SlideshowPage.vala:247
+#: src/SlideshowPage.vala:261
 msgid "Continue the slideshow"
-msgstr "繼續投影秀"
+msgstr "繼續投影片秀"
 
 #: src/slideshow/Slideshow.vala:22
 msgid "Slideshow Transitions"
-msgstr "投影秀轉場"
+msgstr "投影片秀轉場"
 
 #: src/slideshow/TransitionEffects.vala:98
 msgid "(None)"
@@ -6044,11 +5899,11 @@ msgstr "(無)"
 msgid "Random"
 msgstr "隨機"
 
-#: src/tags/TagsBranch.vala:131
+#: src/tags/TagsBranch.vala:130
 msgid "Tags"
 msgstr "標記"
 
-#: src/tags/TagsBranch.vala:131
+#: src/tags/TagsBranch.vala:130
 msgid "Organize and browse your photo’s tags"
 msgstr "整理並瀏覽您的相片標記"
 
@@ -6057,9 +5912,149 @@ msgid "untitled"
 msgstr "無標題"
 
 #. multiple videos
-#: src/video-support/Video.vala:171
+#: src/video-support/Video.vala:174
 msgid "Export Videos"
 msgstr "匯出視訊"
+
+#~ msgid "Shotwell Profile Browser"
+#~ msgstr "Shotwell 個人檔案瀏覽器"
+
+#~ msgid "Import From _Application…"
+#~ msgstr "從應用程式匯入(_A)…"
+
+#~ msgid "Flickr authorization failed"
+#~ msgstr "Flickr 授權失敗"
+
+#~ msgid ""
+#~ "You have already logged in and out of a Google service during this "
+#~ "Shotwell session.\n"
+#~ "\n"
+#~ "To continue publishing to Google services, quit and restart Shotwell, "
+#~ "then try publishing again."
+#~ msgstr ""
+#~ "您已在 Shotwell 工作階段中登入並登出 Google 服務。\n"
+#~ "\n"
+#~ "若要繼續發布至 Google 服務，請先退出 Shotwell 並重新啟動，接著再重試發布。"
+
+#~ msgid "Pin Toolbar"
+#~ msgstr "釘住工具列"
+
+#~ msgid "Pin the toolbar open"
+#~ msgstr "開啟釘住工具列功能"
+
+#~ msgid "Leave fullscreen"
+#~ msgstr "離開全螢幕"
+
+#~ msgid "Return to current photo dimensions"
+#~ msgstr "返回目前相片維度"
+
+#~ msgid "Set the crop for this photo"
+#~ msgstr "為此相片設定裁切"
+
+#~ msgid "Pivot the crop rectangle between portrait and landscape orientations"
+#~ msgstr "在肖像與風景方向之間旋轉裁切矩形"
+
+#~ msgid "Unconstrained"
+#~ msgstr "未限制"
+
+#~ msgid "Square"
+#~ msgstr "方形"
+
+#~ msgid "Screen"
+#~ msgstr "螢幕畫面"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "SD Video (4 ∶ 3)"
+#~ msgstr "SD 視訊 (4 : 3)"
+
+#~ msgid "HD Video (16 ∶ 9)"
+#~ msgstr "HD 視訊 (16 : 9)"
+
+#~ msgid "Letter (8.5 × 11 in.)"
+#~ msgstr "信紙 (8.5 x 11 英吋)"
+
+#~ msgid "Tabloid (11 × 17 in.)"
+#~ msgstr "小報紙 (11 x 17 英吋)"
+
+#~ msgid "A4 (210 × 297 mm)"
+#~ msgstr "A4 (210 x 297 公釐)"
+
+#~ msgid "A3 (297 × 420 mm)"
+#~ msgstr "A3 (297 x 420 公釐)"
+
+#~ msgid "Close the red-eye tool"
+#~ msgstr "關閉紅眼工具"
+
+#~ msgid "Remove any red-eye effects in the selected region"
+#~ msgstr "移除所選區域內的紅眼效應"
+
+#~ msgid "Contrast:"
+#~ msgstr "對比："
+
+#~ msgid "Saturation:"
+#~ msgstr "飽和："
+
+#~ msgid "Tint:"
+#~ msgstr "色相："
+
+#~ msgid "Temperature:"
+#~ msgstr "色溫："
+
+#~ msgid "Shadows:"
+#~ msgstr "陰影："
+
+#~ msgid "Highlights:"
+#~ msgstr "高亮："
+
+#~ msgid "Reset Colors"
+#~ msgstr "重設色彩"
+
+#~ msgid "Reset all color adjustments to original"
+#~ msgstr "重設所有色彩調整為原始狀態"
+
+#~ msgid "Temperature"
+#~ msgstr "色溫"
+
+#~ msgid "Tint"
+#~ msgstr "色相"
+
+#~ msgid "Contrast"
+#~ msgstr "對比"
+
+#~ msgid "Saturation"
+#~ msgstr "飽和"
+
+#~ msgid "Exposure"
+#~ msgstr "曝光"
+
+#~ msgid "Shadows"
+#~ msgstr "陰影"
+
+#~ msgid "Highlights"
+#~ msgstr "高亮"
+
+#~ msgid "Contrast Expansion"
+#~ msgstr "對比擴展"
+
+#~ msgid "%Y"
+#~ msgstr "%Y年"
+
+#~ msgid "%B"
+#~ msgstr "%b"
+
+#~ msgid "Rename All"
+#~ msgstr "全部重新命名"
+
+#~ msgid "Replace _All"
+#~ msgstr "全部取代(_A)"
+
+#~ msgid "Export"
+#~ msgstr "匯出"
+
+#~ msgid "[FILE]"
+#~ msgstr "[FILE]"
 
 #~ msgid "authentication token"
 #~ msgstr "核對代符"
