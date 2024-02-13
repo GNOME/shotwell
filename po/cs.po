@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-01-08 13:58+0000\n"
-"PO-Revision-Date: 2024-01-22 20:56+0100\n"
+"POT-Creation-Date: 2024-02-05 21:10+0000\n"
+"PO-Revision-Date: 2024-02-14 00:56+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -407,13 +407,11 @@ msgstr "Zda při promítání prezentace zobrazovat název fotografie."
 #: data/gsettings/org.gnome.shotwell.gschema.xml:216
 #: data/ui/slideshow_settings.ui:92
 msgid "Shuffle"
-msgstr ""
+msgstr "Zamíchat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:217
-#, fuzzy
-#| msgid "Whether to show the title of a photo during the slideshow"
 msgid "Whether to shuffle the order of photos during the slideshow"
-msgstr "Zda při promítání prezentace zobrazovat název fotografie."
+msgstr "Zda při promítání prezentace zamíchat pořadí fotografií."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "maximize library window"
