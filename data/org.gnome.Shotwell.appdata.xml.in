@@ -54,7 +54,7 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
-      <release version="0.32.5" date="2024-02-14" urgency="low" type="stable">
+      <release version="0.32.6" date="2024-02-14" urgency="low" type="stable">
           <description>
               <ul>
 		  <li>Fixes missing icons for the viewer</li>

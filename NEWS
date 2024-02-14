@@ -1,4 +1,7 @@
-Shotwell 0.32.5 (stable) - 14 Dev 2024
+Shotwell 0.32.6 (stable) - 14 Feb 2024
+ * Fix everything gone wrong with .5 -.-
+
+Shotwell 0.32.5 (stable) - 14 Feb 2024
  * Fix missing scalable application icon
  * Fix missing icon of viewer application in overview
  * Fix always maximizing the viewer window
