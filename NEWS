@@ -1,3 +1,28 @@
+Shotwell 0.32.5 (stable) - 14 Dev 2024
+ * Fix missing scalable application icon
+ * Fix missing icon of viewer application in overview
+ * Fix always maximizing the viewer window
+ * Remove internal web view for OAUTH flow
+ * Remove "Import from Application" menu item 
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5044
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5051
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5088
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Martin <miles@filmsi.net>
+ - Jürgen Benvenuti <jbenvenuti@gnome.org>
+ - Sergej A. <asvmail.as@gmail.com>
+
+Added/updated translations:
+ - ru.po, courtesy of Ser82-png
+ - de.po, courtesy of Jürgen Benvenuti
+ - lt.po, courtesy of Aurimas Černius
+ - sl.po, courtesy of Martin Srebotnjak
+
 Shotwell 0.32.4 (stable) - 02 Dec 2023
  * Fix left/right navigation in slideshow
  * Fix slideshow not starting if video is the first selected item

@@ -54,6 +54,15 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.5" date="2024-02-14" urgency="low" type="stable">
+          <description>
+              <ul>
+		  <li>Fixes missing icons for the viewer</li>
+		  <li>Fixes viewer being always full-screen</lI>
+		  <li>OAUTH authentication flow for web sharing is now done with user's browser</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.4" date="2023-12-02" urgency="medium" type="stable">
           <description>
               <ul>
