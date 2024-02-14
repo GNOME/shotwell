@@ -58,7 +58,7 @@
           <description>
               <ul>
 		  <li>Fixes missing icons for the viewer</li>
-		  <li>Fixes viewer being always full-screen</lI>
+		  <li>Fixes viewer being always full-screen</li>
 		  <li>OAUTH authentication flow for web sharing is now done with user's browser</li>
               </ul>
           </description>
