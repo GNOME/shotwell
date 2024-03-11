@@ -10,6 +10,7 @@
 public abstract class PageWindow : Gtk.ApplicationWindow {
     private Page current_page = null;
     private int busy_counter = 0;
+    private Spit.Publishing.Publishable[] publishables = null;
 
     protected virtual void switched_pages(Page? old_page, Page? new_page) {}
 
@@ -29,6 +30,51 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         var focus_controller = new Gtk.EventControllerFocus();
         focus_controller.enter.connect(focus_in_event);
         ((Gtk.Widget)this).add_controller(focus_controller);
+
+        // for drag and drop START
+        var drag_source = new Gtk.DragSource ();
+        drag_source.prepare.connect ((source_origin, x, y) => {
+            GLib.File[] filelist = new GLib.File[0];
+            publishables = new Spit.Publishing.Publishable[0];
+            Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) current_page.get_view().get_selected_sources();
+
+            var content_major_axis = -1;
+            var strip_metadata = false;
+            GLib.File? serialized_file = null; 
+
+            foreach (MediaSource media in media_sources) {
+                Spit.Publishing.Publishable publishable =
+                    new Publishing.Glue.MediaSourcePublishableWrapper(media);
+                try {
+                    global::Publishing.Glue.MediaSourcePublishableWrapper wrapper =
+                        (global::Publishing.Glue.MediaSourcePublishableWrapper) publishable;
+                    serialized_file = wrapper.serialize_for_publishing(content_major_axis, strip_metadata);
+                    if (serialized_file != null){
+                        publishables += publishable;
+                        filelist += serialized_file;
+                    } else {
+                        wrapper.clean_up();
+                    }
+                } catch (Spit.Publishing.PublishingError err) {
+                    return null;
+                }
+            }
+            var gdk_filelist = new Gdk.FileList.from_array(filelist);
+            Gdk.ContentProvider cp = new Gdk.ContentProvider.for_value(gdk_filelist);
+            return cp;
+        });
+        drag_source.drag_begin.connect ((source_origin, drag) => {
+        });
+        drag_source.drag_end.connect ((source_origin, drag, delete_data) => {
+            foreach (Spit.Publishing.Publishable publishable in publishables){
+                ((global::Publishing.Glue.MediaSourcePublishableWrapper) publishable).clean_up();
+            }
+        });
+        drag_source.drag_cancel.connect ((source_origin, drag, reason) => {
+            return false;
+        });
+        ((Gtk.Widget)this).add_controller(drag_source);
+        // for drag and drop END
     }
 
     private void synthesize_configure_event() {
