@@ -183,7 +183,13 @@ private class WebpSniffer : PhotoFileSniffer {
         if (calc_md5)
             detected.md5 = md5_checksum.get_string();
 
+        // We have never reached the header parsing state, but also didn't encounter any error
+        if (detected.file_format != PhotoFileFormat.WEBP) {
+            return null;
+        }
+        
         return detected;
+
     }
 }
 
