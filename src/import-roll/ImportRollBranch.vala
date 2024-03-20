@@ -1,7 +1,7 @@
 public class ImportRoll.Branch : Sidebar.Branch {
     private Gee.HashMap<int64?, ImportRoll.SidebarEntry> entries;
 
-    public class Branch() {
+    public Branch() {
         base (new ImportRoll.Root(),
               Sidebar.Branch.Options.HIDE_IF_EMPTY,
               ImportRoll.Branch.comparator);

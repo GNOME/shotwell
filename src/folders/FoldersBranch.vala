@@ -9,7 +9,7 @@ public class Folders.Branch : Sidebar.Branch {
         new Gee.HashMap<File, Folders.SidebarEntry>(file_hash, file_equal);
     private File home_dir;
     
-    public class Branch() {
+    public Branch() {
         base (new Folders.Root(),
               Sidebar.Branch.Options.STARTUP_OPEN_GROUPING
               | Sidebar.Branch.Options.HIDE_IF_EMPTY,
