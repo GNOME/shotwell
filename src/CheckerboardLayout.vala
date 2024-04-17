@@ -236,7 +236,7 @@ public class CheckerboardLayout : Gtk.Widget {
 
     public new void set_cursor(CheckerboardItem item) {
         Gee.HashSet<DataView> collection = new Gee.HashSet<DataView>();
-        if (cursor != null) {
+        if (current_cursor != null) {
             current_cursor.set_is_cursor(false);
             // Bug #732334, the cursor DataView might have disappeared when user drags a full screen Photo to another event
             if (view.contains(current_cursor)) {
@@ -1078,11 +1078,11 @@ public class CheckerboardLayout : Gtk.Widget {
         ctx.save();
         ctx.add_class("view");
         ctx.set_state (Gtk.StateFlags.NORMAL);
-        ctx.lookup_color("borders", out focus_color);
+        ctx.lookup_color("borders", out border_color);
         ctx.lookup_color("theme_fg_color", out unselected_color);
 
         ctx.set_state (Gtk.StateFlags.FOCUSED);
-        ctx.lookup_color("borders", out border_color);
+        ctx.lookup_color("borders", out focus_color);
 
         // Checked in GtkIconView - The selection is drawn using render_background
         ctx.set_state (Gtk.StateFlags.FOCUSED | Gtk.StateFlags.SELECTED);

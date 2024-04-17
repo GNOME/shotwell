@@ -529,17 +529,34 @@ public abstract class CheckerboardItem : ThumbnailView {
             shadow_rect.init(BORDER_WIDTH, BORDER_WIDTH, shadow_dim.width, shadow_dim.height);
             var rounded_rect = Gsk.RoundedRect();
             rounded_rect.init_from_rect(shadow_rect, 0);
-            snapshot.append_outset_shadow(rounded_rect, border_color, 0, 0, BORDER_WIDTH * 10, 10.0f);
+            snapshot.append_outset_shadow(rounded_rect, border_color, 5, 5, BORDER_WIDTH, 8.0f);
         }
 
         if (is_cursor) {
-            var shadow_rect = Graphene.Rect.alloc();
-            shadow_rect.init(0, 0, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
-            var cursor_rect = Gsk.RoundedRect();
-            cursor_rect.init_from_rect(shadow_rect, 0);
+            var shadow_rect = Graphene.Rect();
             var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
+            shadow_rect.init(-w, -w, pixbuf_dim.width + 2*w, pixbuf_dim.height + 2 * w);
+            var cursor_rect = Gsk.RoundedRect();
+            var rf = (0.25f * int.max(pixbuf_dim.width, pixbuf_dim.height)).clamp(2.0f, 100.0f);
+            var r = pixbuf_dim.minor_axis() / rf;
+
+            cursor_rect.init_from_rect(shadow_rect, r);
             float border[4] = {w, w, w, w};
             Gdk.RGBA c[4] = {(!)focus_color, (!)focus_color, (!)focus_color, (!)focus_color};
+            snapshot.append_border(cursor_rect, border, c);
+        }
+
+        if (is_selected()) {
+            var shadow_rect = Graphene.Rect();
+            var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
+            shadow_rect.init(-w, -w, pixbuf_dim.width + 2*w, pixbuf_dim.height + 2 * w);
+            var cursor_rect = Gsk.RoundedRect();
+            var rf = (0.25f * int.max(pixbuf_dim.width, pixbuf_dim.height)).clamp(2.0f, 100.0f);
+            var r = pixbuf_dim.minor_axis() / rf;
+
+            cursor_rect.init_from_rect(shadow_rect, r);
+            float border[4] = {w, w, w, w};
+            Gdk.RGBA c[4] = {(!)selected_color, (!)selected_color, (!)selected_color, (!)selected_color};
             snapshot.append_border(cursor_rect, border, c);
         }
 
@@ -548,7 +565,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         if (title != null && title_visible) {
             // get the layout sized so its width is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            title.allocation.x = 0;
+            title.allocation.x = BORDER_WIDTH;
             title.allocation.y = text_y;
             title.allocation.width = pixbuf_dim.width;
             title.allocation.height = title.get_height();
@@ -559,7 +576,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
 
         if (comment != null && comment_visible) {
-            comment.allocation.x = 0;
+            comment.allocation.x = BORDER_WIDTH;
             comment.allocation.y = text_y;
             comment.allocation.width = pixbuf_dim.width;
             comment.allocation.height = comment.get_height();
@@ -570,7 +587,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
 
         if (subtitle != null && subtitle_visible) {
-            subtitle.allocation.x = 0;
+            subtitle.allocation.x = BORDER_WIDTH;
             subtitle.allocation.y = text_y;
             subtitle.allocation.width = pixbuf_dim.width;
             subtitle.allocation.height = subtitle.get_height();
@@ -583,144 +600,58 @@ public abstract class CheckerboardItem : ThumbnailView {
 
         if (display_pixbuf != null) {
             snapshot.save();
+            var bounds = Graphene.Rect();
+            bounds.init(0, 0, pixbuf_dim.width, pixbuf_dim.height);
             var texture = Gdk.Texture.for_pixbuf(display_pixbuf);
-            texture.snapshot(snapshot, display_pixbuf.get_width(), display_pixbuf.get_height());
+            snapshot.append_texture(texture, bounds);
             snapshot.restore();
         }
-        
-        snapshot.restore();
 
-            #if 0
-        print(" 1 => %f %f %f %f\n", allocation.x + FRAME_WIDTH, allocation.y + FRAME_WIDTH, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
-        print(" 2 => %f %f %f %f\n", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-        // calc the top-left point of the pixbuf
-        Gdk.Point pixbuf_origin = Gdk.Point();
-        pixbuf_origin.x = BORDER_WIDTH;
-        pixbuf_origin.y = BORDER_WIDTH;
-        
-        ctx.set_line_width(FRAME_WIDTH);
-        ctx.set_source_rgba(selected_color.red, selected_color.green, selected_color.blue,
-            selected_color.alpha);
-
-        // draw shadow
-        if (border_color != null) {
-            ctx.save();
-            Dimensions shadow_dim = Dimensions();
-            shadow_dim.width = pixbuf_dim.width + BORDER_WIDTH;
-            shadow_dim.height = pixbuf_dim.height + BORDER_WIDTH;
-            paint_shadow(ctx, shadow_dim, pixbuf_origin, SHADOW_RADIUS, SHADOW_INITIAL_ALPHA);
-            ctx.restore();
-        }
-        
-        // draw a border for the cursor with the selection width and normal border color
-        if (is_cursor) {
-            ctx.save();
-            ctx.set_source_rgba(focus_color.red, focus_color.green, focus_color.blue,
-                    focus_color.alpha);
-            paint_border(ctx, pixbuf_dim, pixbuf_origin,
-                get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
-            ctx.restore();
-        }
-        
-        // draw selection border
-        if (is_selected()) {
-            // border thickness depends on the size of the thumbnail
-            ctx.save();
-            paint_border(ctx, pixbuf_dim, pixbuf_origin,
-                get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
-            ctx.restore();
-        }
-        
-        if (display_pixbuf != null) {
-            ctx.save();
-            ctx.set_source_rgba(bg_color.red, bg_color.green, bg_color.blue, bg_color.alpha);
-            paint_image(ctx, display_pixbuf, pixbuf_origin);
-            ctx.restore();
-        }
-        
-        // title and subtitles are LABEL_PADDING below bottom of pixbuf
-        int text_y = pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
-        if (title != null && title_visible) {
-            // get the layout sized so its width is no more than the pixbuf's
-            // resize the text width to be no more than the pixbuf's
-            title.allocation.x = 0;
-            title.allocation.y = text_y;
-            title.allocation.width = pixbuf_dim.width;
-            title.allocation.height = title.get_height();
-            style_context.render_layout(ctx, title.allocation.x, title.allocation.y,
-                    title.get_pango_layout(pixbuf_dim.width));
-
-            text_y += title.get_height() + LABEL_PADDING;
-        }
-
-        if (comment != null && comment_visible) {
-            comment.allocation.x = 0;
-            comment.allocation.y = text_y;
-            comment.allocation.width = pixbuf_dim.width;
-            comment.allocation.height = comment.get_height();
-            style_context.render_layout(ctx, comment.allocation.x, comment.allocation.y,
-                    comment.get_pango_layout(pixbuf_dim.width));
-
-            text_y += comment.get_height() + LABEL_PADDING;
-        }
-
-        if (subtitle != null && subtitle_visible) {
-            subtitle.allocation.x = 0;
-            subtitle.allocation.y = text_y;
-            subtitle.allocation.width = pixbuf_dim.width;
-            subtitle.allocation.height = subtitle.get_height();
-
-            style_context.render_layout(ctx, subtitle.allocation.x, subtitle.allocation.y,
-                    subtitle.get_pango_layout(pixbuf_dim.width));
-
-            // increment text_y if more text lines follow
-        }
-        
-        ctx.set_source_rgba(selected_color.red, selected_color.green, selected_color.blue,
-            selected_color.alpha);
-        
-        // draw trinkets last
-        Gdk.Pixbuf? trinket = get_bottom_left_trinket(TRINKET_SCALE);
+        var trinket = get_bottom_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            int x = pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset();
-            int y = pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() -
+            int x = TRINKET_PADDING + get_horizontal_trinket_offset();
+            int y = pixbuf_dim.height - trinket.get_height() -
                 TRINKET_PADDING;
-            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
-            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
-            ctx.fill();
+            var texture = Gdk.Texture.for_pixbuf(trinket);
+            var bounds = Graphene.Rect();
+            bounds.init(x, y, trinket.get_width(), trinket.get_height());
+            snapshot.append_texture(texture, bounds);
         }
         
         trinket = get_top_left_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            int x = pixbuf_origin.x + TRINKET_PADDING + get_horizontal_trinket_offset();
-            int y = pixbuf_origin.y + TRINKET_PADDING;
-            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
-            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
-            ctx.fill();
+            int x = TRINKET_PADDING + get_horizontal_trinket_offset();
+            int y = TRINKET_PADDING;
+            var texture = Gdk.Texture.for_pixbuf(trinket);
+            var bounds = Graphene.Rect();
+            bounds.init(x, y, trinket.get_width(), trinket.get_height());
+            snapshot.append_texture(texture, bounds);
         }
-        
+
         trinket = get_top_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            int x = pixbuf_origin.x + pixbuf_dim.width - trinket.width - 
+            int x = pixbuf_dim.width - trinket.width - 
                 get_horizontal_trinket_offset() - TRINKET_PADDING;
-            int y = pixbuf_origin.y + TRINKET_PADDING;
-            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
-            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
-            ctx.fill();
+            int y = TRINKET_PADDING;
+            var texture = Gdk.Texture.for_pixbuf(trinket);
+            var bounds = Graphene.Rect();
+            bounds.init(x, y, trinket.get_width(), trinket.get_height());
+            snapshot.append_texture(texture, bounds);
         }
         
         trinket = get_bottom_right_trinket(TRINKET_SCALE);
         if (trinket != null) {
-            int x = pixbuf_origin.x + pixbuf_dim.width - trinket.width - 
+            int x = pixbuf_dim.width - trinket.width - 
                 get_horizontal_trinket_offset() - TRINKET_PADDING;
-            int y = pixbuf_origin.y + pixbuf_dim.height - trinket.height - 
+            int y = pixbuf_dim.height - trinket.height - 
                 TRINKET_PADDING;
-            Gdk.cairo_set_source_pixbuf(ctx, trinket, x, y);
-            ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
-            ctx.fill();
+            var texture = Gdk.Texture.for_pixbuf(trinket);
+            var bounds = Graphene.Rect();
+            bounds.init(x, y, trinket.get_width(), trinket.get_height());
+            snapshot.append_texture(texture, bounds);
         }
-        ctx.restore();
-        #endif
+
+        snapshot.restore();
     }
     
     protected void set_horizontal_trinket_offset(int horizontal_trinket_offset) {
