@@ -178,31 +178,35 @@ class EventDirectoryItem : CheckerboardItem {
         set_paul_lynde(media);
     }
 
-    protected override void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin,
+    protected override void paint_shadow(Gtk.Snapshot snapshot, Gdk.RGBA color, Dimensions dimensions, Gdk.Point origin,
         int radius, float initial_alpha) {       
-        Dimensions altered = Dimensions(dimensions.width - 25, dimensions.height - 25);
-        base.paint_shadow(ctx, altered, origin, 36, initial_alpha);
+        base.paint_shadow(snapshot, color, dimensions, origin, 36, initial_alpha);
     }
     
-    protected override void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
+    protected override void paint_border(Gtk.Snapshot snapshot, Gdk.RGBA color, Dimensions object_dimensions,
         Gdk.Point object_origin, int border_width) {
         Dimensions dimensions = get_border_dimensions(object_dimensions, border_width);
         Gdk.Point origin = get_border_origin(object_origin, border_width);
 
-        draw_rounded_corners_filled(ctx, dimensions, origin, 6.0);
+        draw_rounded_corners_filled(snapshot, color, dimensions, origin, border_width, 6.0);
     }
 
-    protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
+    protected override void paint_image(Gtk.Snapshot snapshot, Gdk.Pixbuf pixbuf,
         Gdk.Point origin) {
         Dimensions dimensions = Dimensions.for_pixbuf(pixbuf);
 
-        if (pixbuf.get_has_alpha())
-            draw_rounded_corners_filled(ctx, dimensions, origin, 6.0);
+        if (pixbuf.get_has_alpha()) {
+            //draw_rounded_corners_filled(ctx, dimensions, origin, 6.0);
+            //FIXME: Clip rounded
+        }
 
         // use rounded corners on events
-        context_rounded_corners(ctx, dimensions, origin, 6.0);
-        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
-        ctx.paint();
+        context_rounded_corners(snapshot, dimensions, origin, 6.0);
+        var bounds = Graphene.Rect();
+        bounds.init(origin.x, origin.y, dimensions.width, dimensions.height);
+        var texture = Gdk.Texture.for_pixbuf(pixbuf);
+        snapshot.append_texture(texture, bounds);
+        snapshot.pop();
     }
 
     private void update_comment(bool init = false) {

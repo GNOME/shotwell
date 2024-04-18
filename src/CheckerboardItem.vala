@@ -425,71 +425,53 @@ public abstract class CheckerboardItem : ThumbnailView {
         return origin;
     }
 
-    protected virtual void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin, 
+    protected virtual void paint_shadow(Gtk.Snapshot snapshot, Gdk.RGBA border_color, Dimensions dimensions, Gdk.Point origin, 
         int radius, float initial_alpha) { 
         double rgb_all = 0.0;
-        
-        // top right corner
-        paint_shadow_in_corner(ctx, origin.x + dimensions.width, origin.y + radius, rgb_all, radius, 
-            initial_alpha, -0.5 * Math.PI, 0);
-        // bottom right corner
-        paint_shadow_in_corner(ctx, origin.x + dimensions.width, origin.y + dimensions.height, rgb_all, 
-            radius, initial_alpha, 0, 0.5 * Math.PI);
-        // bottom left corner
-        paint_shadow_in_corner(ctx, origin.x + radius, origin.y + dimensions.height, rgb_all, radius, 
-            initial_alpha, 0.5 * Math.PI, Math.PI);
 
-        // left right 
-        Cairo.Pattern lr = new Cairo.Pattern.linear(0, origin.y + dimensions.height, 
-            0, origin.y + dimensions.height + radius);
-        lr.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
-        lr.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0.0);
-        ctx.set_source(lr);
-        ctx.rectangle(origin.x + radius, origin.y + dimensions.height, dimensions.width - radius, radius);
-        ctx.fill();
-
-        // top down
-        Cairo.Pattern td = new Cairo.Pattern.linear(origin.x + dimensions.width, 
-            0, origin.x + dimensions.width + radius, 0);
-        td.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
-        td.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0.0);
-        ctx.set_source(td);
-        ctx.rectangle(origin.x + dimensions.width, origin.y + radius, 
-            radius, dimensions.height - radius);
-        ctx.fill();
+        var shadow_rect = Graphene.Rect.alloc();
+        shadow_rect.init(origin.x, origin.y, dimensions.width, dimensions.height);
+        var rounded_rect = Gsk.RoundedRect();
+        rounded_rect.init_from_rect(shadow_rect, radius);
+        snapshot.append_outset_shadow(rounded_rect, border_color, 5, 5, BORDER_WIDTH, 8.0f);
     }
 
-    protected void paint_shadow_in_corner(Cairo.Context ctx, int x, int y, 
-	double rgb_all, float radius, float initial_alpha, double arc1, double arc2) {
-        Cairo.Pattern p = new Cairo.Pattern.radial(x, y, 0, x, y, radius);
-        p.add_color_stop_rgba(0.0, rgb_all, rgb_all, rgb_all, initial_alpha);
-        p.add_color_stop_rgba(1.0, rgb_all, rgb_all, rgb_all, 0);
-        ctx.set_source(p);
-        ctx.move_to(x, y);
-        ctx.arc(x, y, radius, arc1, arc2);
-        ctx.close_path();
-        ctx.fill(); 
-    }
-
-    protected virtual void paint_border(Cairo.Context ctx, Dimensions object_dimensions,
+    protected virtual void paint_border(Gtk.Snapshot snapshot, Gdk.RGBA color, Dimensions object_dimensions,
         Gdk.Point object_origin, int border_width) {
         if (border_width == 1) {
-            ctx.rectangle(object_origin.x - border_width, object_origin.y - border_width,
+            print("Simple boarder\n");
+            var border_rect = Graphene.Rect();
+            border_rect.init(object_origin.x - border_width, object_origin.y - border_width,
                 object_dimensions.width + (border_width * 2),
                 object_dimensions.height + (border_width * 2));
-            ctx.fill();
+            var cursor_rect = Gsk.RoundedRect();
+            cursor_rect.init_from_rect(border_rect, 0.0f);
+            float border[4] = {border_width, border_width, border_width, border_width};
+            Gdk.RGBA c[4] = {(!)color, (!)color, (!)color, (!)color};
+            snapshot.append_border(cursor_rect, border, c);
         } else {
             Dimensions dimensions = get_border_dimensions(object_dimensions, border_width);
             Gdk.Point origin = get_border_origin(object_origin, border_width);
             
             // amount of rounding needed on corners varies by size of object
             double scale = int.max(object_dimensions.width, object_dimensions.height);
-            draw_rounded_corners_filled(ctx, dimensions, origin, 0.25 * scale);
+            draw_rounded_corners_filled(snapshot, color, dimensions, origin,  border_width, 0.25 * scale);
         }
     }
 
-    protected virtual void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
-        paint_pixmap_with_background(ctx, pixbuf, origin.x, origin.y);
+    protected virtual void paint_image(Gtk.Snapshot snapshot, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
+        var bounds = Graphene.Rect();
+        bounds.init(origin.x, origin.y, pixbuf_dim.width, pixbuf_dim.height);
+
+        if (pixbuf.get_has_alpha()) {
+            var ctx = snapshot.append_cairo(bounds);
+            ctx.set_source_surface(get_background_surface(), 0, 0);
+            ctx.get_source().set_extend(Cairo.Extend.REPEAT);
+            ctx.rectangle(0, 0, pixbuf.width, pixbuf.height);
+            ctx.fill();
+        }
+        var texture = Gdk.Texture.for_pixbuf(display_pixbuf);
+        snapshot.append_texture(texture, bounds);
     }
 
     private int get_selection_border_width(int scale) {
@@ -519,45 +501,26 @@ public abstract class CheckerboardItem : ThumbnailView {
             rect.init(allocation.x + FRAME_WIDTH, allocation.y + FRAME_WIDTH, pixbuf_dim.width + BORDER_WIDTH, pixbuf_dim.height + BORDER_WIDTH);
         snapshot.save();
         snapshot.translate(rect.origin);
+        var pixbuf_origin = Gdk.Point();
+        pixbuf_origin = {BORDER_WIDTH, BORDER_WIDTH};
 
         // draw shadow
         if (border_color != null) {
             Dimensions shadow_dim = Dimensions();
             shadow_dim.width = pixbuf_dim.width + BORDER_WIDTH;
             shadow_dim.height = pixbuf_dim.height + BORDER_WIDTH;
-            var shadow_rect = Graphene.Rect.alloc();
-            shadow_rect.init(BORDER_WIDTH, BORDER_WIDTH, shadow_dim.width, shadow_dim.height);
-            var rounded_rect = Gsk.RoundedRect();
-            rounded_rect.init_from_rect(shadow_rect, 0);
-            snapshot.append_outset_shadow(rounded_rect, border_color, 5, 5, BORDER_WIDTH, 8.0f);
+            paint_shadow(snapshot, border_color, shadow_dim, pixbuf_origin, SHADOW_RADIUS, SHADOW_INITIAL_ALPHA);
         }
 
         if (is_cursor) {
-            var shadow_rect = Graphene.Rect();
             var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
-            shadow_rect.init(-w, -w, pixbuf_dim.width + 2*w, pixbuf_dim.height + 2 * w);
-            var cursor_rect = Gsk.RoundedRect();
-            var rf = (0.25f * int.max(pixbuf_dim.width, pixbuf_dim.height)).clamp(2.0f, 100.0f);
-            var r = pixbuf_dim.minor_axis() / rf;
-
-            cursor_rect.init_from_rect(shadow_rect, r);
-            float border[4] = {w, w, w, w};
-            Gdk.RGBA c[4] = {(!)focus_color, (!)focus_color, (!)focus_color, (!)focus_color};
-            snapshot.append_border(cursor_rect, border, c);
+            paint_border(snapshot, focus_color, pixbuf_dim, pixbuf_origin, w);
         }
 
         if (is_selected()) {
             var shadow_rect = Graphene.Rect();
             var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
-            shadow_rect.init(-w, -w, pixbuf_dim.width + 2*w, pixbuf_dim.height + 2 * w);
-            var cursor_rect = Gsk.RoundedRect();
-            var rf = (0.25f * int.max(pixbuf_dim.width, pixbuf_dim.height)).clamp(2.0f, 100.0f);
-            var r = pixbuf_dim.minor_axis() / rf;
-
-            cursor_rect.init_from_rect(shadow_rect, r);
-            float border[4] = {w, w, w, w};
-            Gdk.RGBA c[4] = {(!)selected_color, (!)selected_color, (!)selected_color, (!)selected_color};
-            snapshot.append_border(cursor_rect, border, c);
+            paint_border(snapshot, selected_color, pixbuf_dim, pixbuf_origin, w);
         }
 
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
@@ -600,10 +563,7 @@ public abstract class CheckerboardItem : ThumbnailView {
 
         if (display_pixbuf != null) {
             snapshot.save();
-            var bounds = Graphene.Rect();
-            bounds.init(0, 0, pixbuf_dim.width, pixbuf_dim.height);
-            var texture = Gdk.Texture.for_pixbuf(display_pixbuf);
-            snapshot.append_texture(texture, bounds);
+            paint_image(snapshot, display_pixbuf, pixbuf_origin);
             snapshot.restore();
         }
 
