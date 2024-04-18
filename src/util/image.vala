@@ -343,7 +343,7 @@ private Cairo.Surface get_background_surface() {
         string color_b;
         var config = Config.Facade.get_instance();
 
-        var type = "checkered"; //config.get_transparent_background_type();
+        var type = config.get_transparent_background_type();
         switch (type) {
             case "checkered":
                 color_a = "#808080";
