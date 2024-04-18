@@ -1070,10 +1070,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         ctx.save();
         ctx.add_class("view");
         var val = ctx.get_property("border-color", Gtk.StateFlags.NORMAL);
-        focus_color = *(Gdk.RGBA*)val.get_boxed();
+        border_color = *(Gdk.RGBA*)val.get_boxed();
 
         val = ctx.get_property("border-color", Gtk.StateFlags.FOCUSED);
-        border_color = *(Gdk.RGBA*)val.get_boxed();
+        focus_color = *(Gdk.RGBA*)val.get_boxed();
 
         // Checked in GtkIconView - The selection is drawn using render_background
         val = ctx.get_property("background-color", Gtk.StateFlags.FOCUSED | Gtk.StateFlags.SELECTED);
