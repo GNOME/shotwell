@@ -1096,18 +1096,6 @@ public class CheckerboardLayout : Gtk.Widget {
         viewport_resized();
     }
 
-    /*
-    public override Gtk.SizeRequestMode get_request_mode() {
-        return Gtk.SizeRequestMode.HEIGHT_FOR_WIDTH;
-    }
-
-    public override void measure(Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline) {
-        base.measure(orientation, for_size, out minimum, out natural, out minimum_baseline, out natural_baseline);
-
-        print("%s %d, %d, %d, %d, %d\n", orientation.to_string(), for_size, minimum, natural, minimum_baseline, natural_baseline);
-    }
-    */
-    
     public override void snapshot(Gtk.Snapshot snapshot) {
         // Note: It's possible for draw to be called when in_view is false; this happens
         // when pages are switched prior to switched_to() being called, and some of the other
