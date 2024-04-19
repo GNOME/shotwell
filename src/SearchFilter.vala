@@ -616,6 +616,7 @@ public class SearchFilterActions {
     }
 }
 
+[GtkTemplate (ui="/org/gnome/Shotwell/ui/search_bar.ui")]
 public class SearchFilterToolbar : Gtk.Box {
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
@@ -626,399 +627,41 @@ public class SearchFilterToolbar : Gtk.Box {
     // filter_icon_plus_width is the width (in px) of the plus icon
     private const int FILTER_ICON_PLUS_WIDTH = 20;
     
-    private class LabelToolItem : Gtk.Box {
-        private Gtk.Label label;
-        
-        public LabelToolItem(string s, int left_padding = 0, int right_padding = 0) {
-            label = new Gtk.Label(s);
-            if (left_padding != 0 || right_padding != 0) {
-                label.halign = Gtk.Align.START;
-                label.valign = Gtk.Align.CENTER;
-                label.margin_start = left_padding;
-                label.margin_end = right_padding;
-            }
-            append (label);
-        }
-    }
-    
-    private class ToggleActionToolButton : Gtk.Box {
-        private Gtk.ToggleButton button;
-        private Gtk.Image image;
-        private Gtk.Label label;
-
-        public ToggleActionToolButton(string action) {
-            var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            image = new Gtk.Image();
-            label = new Gtk.Label(null);
-            content.prepend(image);
-            content.append(label);
-            image.set_visible(false);
-            label.set_visible(false);
-            button = new Gtk.ToggleButton();
-            button.set_can_focus(false);
-            button.set_action_name (action);
-            button.set_has_tooltip(true);
-            button.set_margin_start(2);
-            button.set_child(content);
-            
-            this.append (button);
-        }
-        
-        public void set_icon_name(string icon_name) {
-            if (button.get_label() != "" && button.get_label() != null) {
-                image.margin_end = 6;
-            }
-            image.set_from_icon_name(icon_name);
-            image.set_visible(true);
-        }
-
-        public void set_label(string label) {
-            this.label.set_text(label);
-            this.label.set_visible(true);
-        }
-
-    }
-    
-    // Ticket #3260 - Add a 'close' context menu to
-    // the searchbar.
-    // The close menu. Populated below in the constructor.
-    #if 0
-    private Gtk.Menu close_menu = new Gtk.Menu();
-    private Gtk.MenuItem close_item = new Gtk.MenuItem();
-    #endif
-
-    // Text search box.
-    protected class SearchBox : Gtk.Box {
-        private Gtk.Entry search_entry;
-        private TextAction action;
-        
-        public SearchBox(TextAction action) {
-            this.action = action;
-            search_entry = new Gtk.Entry();
-            
-            search_entry.width_chars = 23;
-            search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
-            var event = new Gtk.EventControllerKey();
-            search_entry.add_controller(event);
-            event.key_pressed.connect(on_escape_key);
-            append(search_entry);
-            
-            set_nullable_text(action.value);
-            
-            action.text_changed.connect(on_action_text_changed);
-            action.sensitivity_changed.connect(on_sensitivity_changed);
-            action.visibility_changed.connect(on_visibility_changed);
-            
-            search_entry.get_buffer().deleted_text.connect(on_entry_changed);
-            search_entry.get_buffer().inserted_text.connect(on_entry_changed);
-        }
-        
-        ~SearchBox() {
-            action.text_changed.disconnect(on_action_text_changed);
-            action.sensitivity_changed.disconnect(on_sensitivity_changed);
-            action.visibility_changed.disconnect(on_visibility_changed);
-            
-            search_entry.get_buffer().deleted_text.disconnect(on_entry_changed);
-            search_entry.get_buffer().inserted_text.disconnect(on_entry_changed);
-        }
-        
-        public void get_focus() {
-        }
-        
-
-        private bool on_escape_key(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) { 
-            if(Gdk.keyval_name(keyval) == "Escape")
-                action.clear();
-            
-           // Continue processing this event, since the 
-           // text entry functionality needs to see it too. 
-            return false; 
-        }
-        
-        private void on_action_text_changed(string? text) {
-            search_entry.get_buffer().deleted_text.disconnect(on_entry_changed);
-            search_entry.get_buffer().inserted_text.disconnect(on_entry_changed);
-            set_nullable_text(text);
-            search_entry.get_buffer().deleted_text.connect(on_entry_changed);
-            search_entry.get_buffer().inserted_text.connect(on_entry_changed);
-        }
-        
-        private void on_entry_changed() {
-            action.text_changed.disconnect(on_action_text_changed);
-            action.set_text(search_entry.get_text());
-            action.text_changed.connect(on_action_text_changed);
-        }
-        
-        private void on_sensitivity_changed(bool sensitive) {
-            this.sensitive = sensitive;
-        }
-        
-        private void on_visibility_changed(bool visible) {
-            ((Gtk.Widget) this).visible = visible;
-        }
-        
-        private void set_nullable_text(string? text) {
-            search_entry.set_text(text != null ? text : "");
-        }
-    }
-    
-    // Handles ratings filters.
-    protected class RatingFilterButton : Gtk.Box {
-        public Gtk.MenuButton button;
-
-        public RatingFilterButton(GLib.MenuModel model) {
-            button = new Gtk.MenuButton();
-
-            // TODO button.set_image (get_filter_icon(RatingFilter.UNRATED_OR_HIGHER));
-            button.set_can_focus(false);
-            button.set_margin_start(2);
-            button.set_menu_model (model);
-
-            set_homogeneous(false);
-
-            this.append(button);
-        }
-
-        private Gtk.Widget get_filter_icon(RatingFilter filter) {
-            Gtk.Widget? icon = null;
-
-            switch (filter) {
-                case RatingFilter.REJECTED_OR_HIGHER:
-                    var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-                    var image = new Gtk.Image.from_icon_name ("emblem-photos-symbolic");
-                    image.margin_end = 2;
-                    box.append(image);
-                    image = new Gtk.Image.from_icon_name ("window-close-symbolic");
-                    box.append(image);
-                    icon = box;
-                    icon.show();
-                break;
-                
-                case RatingFilter.REJECTED_ONLY:
-                    icon = new Gtk.Image.from_icon_name ("window-close-symbolic");
-                break;
-                
-                case RatingFilter.UNRATED_OR_HIGHER:
-                default:
-                    icon = new Gtk.Image.from_icon_name ("emblem-photos-symbolic");
-                break;
-            }
-
-            icon.margin_end = 6;
-
-            return icon;
-        }
-
-        private int get_filter_icon_size(RatingFilter filter) {
-            int icon_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
-            int icon_star_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
-            int icon_plus = (int) (FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
-            
-            switch (filter) {
-                case RatingFilter.ONE_OR_HIGHER:
-                    return icon_star_base + icon_plus;
-                case RatingFilter.TWO_OR_HIGHER:
-                    return icon_star_base * 2 + icon_plus;
-                case RatingFilter.THREE_OR_HIGHER:
-                    return icon_star_base * 3 + icon_plus;
-                case RatingFilter.FOUR_OR_HIGHER:
-                    return icon_star_base * 4 + icon_plus;
-                case RatingFilter.FIVE_OR_HIGHER:
-                case RatingFilter.FIVE_ONLY:
-                    return icon_star_base * 5;
-                case RatingFilter.REJECTED_OR_HIGHER:
-                    return Resources.ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE;
-                case RatingFilter.UNRATED_OR_HIGHER:
-                    return Resources.ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE;
-                case RatingFilter.REJECTED_ONLY:
-                    return icon_plus;
-                default:
-                    return icon_base;
-            }
-        }
-
-        public void set_filter_icon(RatingFilter filter) {
-            //button.set_always_show_image(true);
-            switch (filter) {
-            case RatingFilter.ONE_OR_HIGHER:
-                button.set_label (_("★+ Rating"));
-                break;
-            case RatingFilter.TWO_OR_HIGHER:
-                button.set_label (_("★★+ Rating"));
-                break;
-            case RatingFilter.THREE_OR_HIGHER:
-                button.set_label (_("★★★+ Rating"));
-                break;
-            case RatingFilter.FOUR_OR_HIGHER:
-                button.set_label (_("★★★★+ Rating"));
-                break;
-            case RatingFilter.FIVE_ONLY:
-            case RatingFilter.FIVE_OR_HIGHER:
-                button.set_label (_("★★★★★+ Rating"));
-                break;
-            default:
-                button.set_label (_("Rating"));
-                //button.set_image(get_filter_icon(filter));
-                break;
-            }
-
-            set_size_request(get_filter_button_size(filter), -1);
-            set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
-            set_has_tooltip(true);
-            show();
-        }
-
-        private int get_filter_button_size(RatingFilter filter) {
-            return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
-        }
-
-        public void set_label(string label) {
-            button.set_label(label);
-        }
-
-    }
-
-    protected class SavedSearchFilterButton : Gtk.Box {
-        public SavedSearchPopover filter_popup = null;
-        public Gtk.ToggleButton button;
-
-        public signal void clicked();
-
-        public SavedSearchFilterButton() {
-            button = new Gtk.ToggleButton();
-
-            Gtk.Image? image = new Gtk.Image.from_icon_name("edit-find-symbolic");
-            image.set_margin_end(6);
-            this.prepend (image);
-            button.set_can_focus(false);
-
-            button.clicked.connect(on_clicked);
-
-            restyle();
-
-            set_homogeneous(false);
-
-            this.append(button);
-        }
-
-        ~SavedSearchFilterButton() {
-            button.clicked.disconnect(on_clicked);
-        }
-
-        private void on_clicked() {
-            clicked();
-        }
-
-        public void set_active(bool active) {
-            button.set_active(active);
-        }
-
-        public void set_label(string label) {
-            button.set_label(label);
-        }
-
-        public void restyle() {
-			button.set_size_request(24, 24);
-        }
-    }
-
-    public Gtk.Builder builder = new Gtk.Builder ();
-    
     private SearchFilterActions actions;
     private SavedSearch saved_search = null;
-    private SearchBox search_box;
-    private RatingFilterButton rating_button;
-    private SavedSearchFilterButton saved_search_button = new SavedSearchFilterButton();
+
+    [GtkChild]
+    private unowned Gtk.SearchEntry search_box;
+    [GtkChild]
+    private unowned Gtk.MenuButton rating_button;
+    [GtkChild]
+    private unowned Gtk.Image rating_button_primary;
+    [GtkChild]
+    private unowned Gtk.Image rating_button_secondary;
+    [GtkChild]
+    private unowned Gtk.Label rating_button_label;
+
     private bool elide_showing_again = false;
     private SearchViewFilter? search_filter = null;
-    private LabelToolItem label_type;
-    private ToggleActionToolButton toolbtn_photos;
-    private ToggleActionToolButton toolbtn_videos;
-    private ToggleActionToolButton toolbtn_raw;
-    private ToggleActionToolButton toolbtn_flag;
+    [GtkChild]
+    private unowned Gtk.Label label_type;
+    [GtkChild]
+    private unowned Gtk.ToggleButton toolbtn_photos;
+    [GtkChild]
+    private unowned Gtk.ToggleButton toolbtn_videos;
+    [GtkChild]
+    private unowned Gtk.ToggleButton toolbtn_raw;
+    [GtkChild]
+    private unowned Gtk.ToggleButton toolbtn_flag;
+    [GtkChild]
+    private unowned Gtk.Image toolbtn_flag_icon;
+    [GtkChild]
+    private unowned Gtk.ToggleButton saved_search_button;
+    private SavedSearchPopover saved_search_popover;
     
     public SearchFilterToolbar(SearchFilterActions actions) {
         Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 6);
         this.actions = actions;
-        actions.media_context_changed.connect(on_media_context_changed);
-        search_box = new SearchBox(actions.text);
-        add_css_class("toolbar");
-        
-        set_name("search-filter-toolbar");
-        
-        try {
-            this.builder.add_from_resource (Resources.get_ui("search_bar.ui"));
-        } catch (Error err) {
-            AppWindow.panic(_("Error loading search bar UI: %s").printf(
-                err.message));
-        }
-        
-        // Ticket #3260 - Add a 'close' context menu to
-        // the searchbar.
-        // Prepare the close menu for use, but don't
-        // display it yet; we'll connect it to secondary
-        // click later on.
-        #if 0
-        close_item.set_label(_("Close"));
-        close_item.show();
-        close_item.activate.connect(on_context_menu_close_chosen);
-        close_menu.append(close_item);
-        #endif
-       
-        // Type label and toggles
-        label_type = new LabelToolItem(_("Type"), 10, 5);
-        append(label_type);
-        
-        toolbtn_photos = new ToggleActionToolButton("win.display.photos");
-        toolbtn_photos.set_tooltip_text (_("Photos"));
-        
-        toolbtn_videos = new ToggleActionToolButton("win.display.videos");
-        toolbtn_videos.set_tooltip_text(_("Videos"));
-        
-        toolbtn_raw = new ToggleActionToolButton("win.display.raw");
-        toolbtn_raw.set_tooltip_text(_("RAW Photos"));
-        
-        append(toolbtn_photos);
-        append(toolbtn_videos);
-        append(toolbtn_raw);
-        
-        // separator
-        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
-        
-        // Flagged button
-        
-        toolbtn_flag = new ToggleActionToolButton("win.display.flagged");
-        toolbtn_flag.set_label(_("Flagged"));
-        toolbtn_flag.set_tooltip_text(_("Flagged"));
-        
-        append(toolbtn_flag);
-        
-        // separator
-        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
-        
-        // Rating button
-        var model = this.builder.get_object ("popup-menu") as GLib.MenuModel;
-        rating_button = new RatingFilterButton (model);
-        rating_button.set_label(_("Rating"));
-        append(rating_button);
-        
-        // separator
-        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
-
-        // Saved search button
-		saved_search_button.set_label(_("Saved Search"));
-        saved_search_button.set_tooltip_text(_("Use a saved search to filter items in the current view"));
-        saved_search_button.clicked.connect(on_saved_search_button_clicked);
-        append(saved_search_button);
-
-        // separator
-        var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
-        separator.hexpand = true;
-        separator.halign = Gtk.Align.START;
-        append(separator);
-        
-        // Search box.
-        append(search_box);
 
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
@@ -1028,12 +671,25 @@ public class SearchFilterToolbar : Gtk.Box {
         actions.rating_changed.connect(on_rating_changed);
         actions.text_changed.connect(on_search_text_changed);
         actions.criteria_changed.connect(on_criteria_changed);
-        
-        // #3260 part II Hook up close menu.
-        //toolbar.popup_context_menu.connect(on_context_menu_requested);
-        
+                
         on_media_context_changed(actions.get_has_photos(), actions.get_has_videos(),
             actions.get_has_raw(), actions.get_has_flagged());
+        actions.media_context_changed.connect(on_media_context_changed);
+        search_box.search_changed.connect(() => {actions.text.set_text(search_box.get_text());});
+        var key_controller = new Gtk.EventControllerKey();
+        key_controller.key_pressed.connect((event, keyval, code, modifiers) => {
+            if (keyval == Gdk.Key.Escape) {
+                actions.text.clear();
+                search_box.freeze_notify();
+                search_box.set_text("");
+                search_box.thaw_notify();
+            }
+
+            return false;
+        });
+        search_box.add_controller(key_controller);
+
+        saved_search_button.clicked.connect(on_saved_search_button_clicked);
     }
     
     ~SearchFilterToolbar() {
@@ -1047,8 +703,6 @@ public class SearchFilterToolbar : Gtk.Box {
         actions.rating_changed.disconnect(on_rating_changed);
         actions.text_changed.disconnect(on_search_text_changed);
         actions.criteria_changed.disconnect(on_criteria_changed);
-        
-        //toolbar.popup_context_menu.disconnect(on_context_menu_requested); 
     }
     
     private void on_media_context_changed(bool has_photos, bool has_videos, bool has_raw,
@@ -1071,35 +725,11 @@ public class SearchFilterToolbar : Gtk.Box {
             toolbtn_raw.set_icon_name("filter-raw-disabled-symbolic");
 
         if (has_flagged)
-            toolbtn_flag.set_icon_name("filter-flagged-symbolic");
+            toolbtn_flag_icon.set_from_icon_name("filter-flagged-symbolic");
         else
-            toolbtn_flag.set_icon_name("filter-flagged-disabled-symbolic");
+            toolbtn_flag_icon.set_from_icon_name("filter-flagged-disabled-symbolic");
     }
-    
-    // Ticket #3260 part IV - display the context menu on secondary click
-    private bool on_context_menu_requested(int x, int y, int button) { 
-        //close_menu.popup_at_pointer(null);
-        return false;
-    }
-    
-    // Ticket #3260 part III - this runs whenever 'close'
-    // is chosen in the context menu.
-    private void on_context_menu_close_chosen() { 
-        AppWindow aw = LibraryWindow.get_app();        
         
-        // Try to obtain the action for toggling the searchbar.  If
-        // it's null, then we're probably in direct edit mode, and 
-        // shouldn't do anything anyway.
-        var action = aw.lookup_action ("CommonDisplaySearchbar") as
-            GLib.SimpleAction;
-        
-        // Could we find the appropriate action?
-        if(action != null) {
-            // Yes, hide the search bar.
-            action.change_state(false);
-        }
-    }
-    
     private void on_flagged_toggled() {
         update();
     }
@@ -1160,6 +790,49 @@ public class SearchFilterToolbar : Gtk.Box {
     public void unset_view_filter() {
         set_view_filter(new DisabledViewFilter());
     }
+
+    private void update_rating_button(RatingFilter filter) {
+        bool set_icon = false;
+        switch (filter) {
+            case RatingFilter.ONE_OR_HIGHER:
+                rating_button_label.set_label (_("★+ Rating"));
+                break;
+            case RatingFilter.TWO_OR_HIGHER:
+                rating_button_label.set_label (_("★★+ Rating"));
+                break;
+            case RatingFilter.THREE_OR_HIGHER:
+                rating_button_label.set_label (_("★★★+ Rating"));
+                break;
+            case RatingFilter.FOUR_OR_HIGHER:
+                rating_button_label.set_label (_("★★★★+ Rating"));
+                break;
+            case RatingFilter.FIVE_ONLY:
+            case RatingFilter.FIVE_OR_HIGHER:
+                rating_button_label.set_label (_("★★★★★+ Rating"));
+                break;
+            default:
+                rating_button_label.set_label (_("Rating"));
+                set_icon = true;
+                break;
+        }
+
+        if (set_icon) {
+            rating_button_secondary.set_visible(false);
+            switch (filter) {
+                case RatingFilter.REJECTED_OR_HIGHER:
+                    rating_button_primary.set_from_icon_name("emblem-photos-symbolic");
+                    rating_button_secondary.set_visible(true);
+                    break;
+                case RatingFilter.REJECTED_ONLY:
+                    rating_button_primary.set_from_icon_name("window-close-symbolic");
+                    break;
+                default:
+                    rating_button_primary.set_from_icon_name("emblem-photos-symbolic");
+                    break;
+            }
+        }
+        rating_button.set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
+    }
     
     // Forces an update of the search filter.
     public void update() {
@@ -1180,7 +853,8 @@ public class SearchFilterToolbar : Gtk.Box {
 
         var filter = (RatingFilter) int.parse (actions.rating.get_state ().get_string ());
         search_filter.set_rating_filter(filter);
-        rating_button.set_filter_icon(filter);
+        update_rating_button(filter);
+        //rating_button.set_icon_name(filter);
 
         search_filter.saved_search = saved_search;
         
@@ -1201,12 +875,6 @@ public class SearchFilterToolbar : Gtk.Box {
 
         saved_search_button.visible = ((criteria & SearchFilterCriteria.SAVEDSEARCH) != 0);
 
-        // Ticket #3290, part IV - ensure that the separators
-        // are shown and/or hidden as needed.
-        //sepr_mediatype_flagged.visible = (label_type.visible && toolbtn_flag.visible);
-
-        //sepr_flagged_rating.visible = ((label_type.visible && rating_button.visible) ||
-        //    (toolbtn_flag.visible && rating_button.visible));
 
         // Send update to view collection.
         search_filter.refresh();
@@ -1223,13 +891,13 @@ public class SearchFilterToolbar : Gtk.Box {
     }
 
     private void edit_dialog(SavedSearch search) {
-        saved_search_button.filter_popup.hide();
+        saved_search_popover.hide();
         SavedSearchDialog ssd = new SavedSearchDialog.edit_existing(search);
         ssd.show();
     }
 
     private void delete_dialog(SavedSearch search) {
-        saved_search_button.filter_popup.hide();
+        saved_search_popover.hide();
         Dialogs.confirm_delete_saved_search.begin(search, (source, res) => {
             if (Dialogs.confirm_delete_saved_search.end(res)) {
                 AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
@@ -1238,7 +906,7 @@ public class SearchFilterToolbar : Gtk.Box {
     }
 
     private void add_dialog() {
-        saved_search_button.filter_popup.hide();
+        saved_search_popover.hide();
         (new SavedSearchDialog()).show();
     }
 
@@ -1246,7 +914,7 @@ public class SearchFilterToolbar : Gtk.Box {
         // set_active emits clicked, so have a flag to not actually do anything
         elide_showing_again = true;
         saved_search_button.set_active(saved_search != null);
-        saved_search_button.filter_popup.hide();
+        saved_search_popover.hide();
     }
 
     
@@ -1257,26 +925,26 @@ public class SearchFilterToolbar : Gtk.Box {
             saved_search_button.set_active(false);
             disable_savedsearch();
         } else {
-            if (saved_search_button.filter_popup != null) {
-                saved_search_button.filter_popup.edit_clicked.disconnect(edit_dialog);
-                saved_search_button.filter_popup.search_activated.disconnect(on_savedsearch_selected);
-                saved_search_button.filter_popup.delete_clicked.disconnect(delete_dialog);
-                saved_search_button.filter_popup.add_clicked.disconnect(add_dialog);
-                saved_search_button.filter_popup.closed.disconnect(on_popover_closed);
+            if (saved_search_popover != null) {
+                saved_search_popover.edit_clicked.disconnect(edit_dialog);
+                saved_search_popover.search_activated.disconnect(on_savedsearch_selected);
+                saved_search_popover.delete_clicked.disconnect(delete_dialog);
+                saved_search_popover.add_clicked.disconnect(add_dialog);
+                saved_search_popover.closed.disconnect(on_popover_closed);
             }
-            saved_search_button.filter_popup = new SavedSearchPopover();
-            saved_search_button.filter_popup.popover.set_parent(saved_search_button);
-            saved_search_button.filter_popup.edit_clicked.connect(edit_dialog);
-            saved_search_button.filter_popup.search_activated.connect(on_savedsearch_selected);
-            saved_search_button.filter_popup.delete_clicked.connect(delete_dialog);
-            saved_search_button.filter_popup.add_clicked.connect(add_dialog);
-            saved_search_button.filter_popup.closed.connect(on_popover_closed);
-            saved_search_button.filter_popup.show_all();
+            saved_search_popover = new SavedSearchPopover();
+            saved_search_popover.popover.set_parent(saved_search_button);
+            saved_search_popover.edit_clicked.connect(edit_dialog);
+            saved_search_popover.search_activated.connect(on_savedsearch_selected);
+            saved_search_popover.delete_clicked.connect(delete_dialog);
+            saved_search_popover.add_clicked.connect(add_dialog);
+            saved_search_popover.closed.connect(on_popover_closed);
+            saved_search_popover.show_all();
         }
         elide_showing_again = false;
     }
 
     public void take_focus() {
-        search_box.get_focus();
+        search_box.grab_focus();
     }
 }

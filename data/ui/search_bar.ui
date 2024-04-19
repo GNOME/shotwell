@@ -1,6 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
-  <menu id='popup-menu'>
+  <template class="SearchFilterToolbar" parent="GtkBox">
+    <style>
+      <class name="toolbar" />
+    </style>
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <property name="name">search-filter-toolbar</property>
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <child>
+      <object class="GtkLabel" id="label_type">
+        <property name="margin-start">10</property>
+        <property name="margin-end">5</property>
+        <property name="valign">center</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Type</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="toolbtn_photos">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Photos</property>
+        <property name="action_name">win.display.photos</property>
+        <property name="can_focus">false</property>
+        <property name="icon_name">filter-photos-symbolic</property>
+      </object>
+    </child>    
+    <child>
+      <object class="GtkToggleButton" id="toolbtn_videos">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Videos</property>
+        <property name="action_name">win.display.videos</property>
+        <property name="can_focus">false</property>
+        <property name="icon_name">filter-videos-symbolic</property>
+      </object>
+    </child>    
+    <child>
+      <object class="GtkToggleButton" id="toolbtn_raw">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">RAW photos</property>
+        <property name="action_name">win.display.raw</property>
+        <property name="can_focus">false</property>
+        <property name="icon_name">filter-raw-symbolic</property>
+      </object>
+    </child>   
+    <child>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="visible" bind-source="toolbtn_flag" bind-property="visible" bind-flags="sync-create" />
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="toolbtn_flag">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Flagged</property>
+        <property name="action_name">win.display.flagged</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage" id="toolbtn_flag_icon">
+                <property name="halign">start</property>
+                <property name="icon_name">filter-flagged-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Flagged</property>
+              </object>
+            </child>
+          </object>        
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="visible" bind-source="rating_button" bind-property="visible" bind-flags="sync-create" />
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuButton" id="rating_button">
+        <property name="menu_model">rating_popup_menu</property>
+        <property name="can_focus">false</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage" id="rating_button_primary">
+                <property name="halign">start</property>
+                <property name="icon_name">filter-flagged-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage" id="rating_button_secondary">
+                <property name="halign">start</property>
+                <property name="icon_name">window-close-symbolic</property>
+                <property name="visible">false</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="rating_button_label">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Rating</property>
+              </object>
+            </child>
+          </object>        
+        </child>
+      </object>
+    </child>    
+    <child>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="visible" bind-source="saved_search_button" bind-property="visible" bind-flags="sync-create" />
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="saved_search_button">
+        <property name="can_focus">false</property>
+        <property name="tooltip_text" translatable="yes">Use a saved search to filter items in the current view</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Saved Search</property>
+              </object>
+            </child>
+          </object>        
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="hexpand">true</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSearchEntry" id="search_box">
+        <property name="placeholder_text" translatable="true">Type to filter in current view</property>
+        <property name="width-chars">32</property>
+      </object>
+    </child>
+  </template>
+  <!-- ########################################################################## -->
+  <menu id='rating_popup_menu'>
     <section>
       <item>
         <attribute name="label" translatable="yes">Rejected _Only</attribute>
