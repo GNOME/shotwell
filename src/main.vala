@@ -85,7 +85,7 @@ void library_exec(string[] mounts) {
             try {
                 alert.choose.end(result);
             } catch (Error err) {
-                warning("Failed to close dialog: %s", err.message());
+                warning("Failed to close dialog: %s", err.message);
             }
             loop.quit();
         });
