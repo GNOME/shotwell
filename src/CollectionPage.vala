@@ -712,9 +712,10 @@ public abstract class CollectionPage : MediaPage {
     
     protected override bool on_ctrl_pressed() {
         Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
+        Gtk.Image? rotate_icon = this.builder.get_object ("ToolRotateIcon") as Gtk.Image;
         if (rotate_button != null) {
             rotate_button.set_action_name ("win.RotateCounterclockwise");
-            rotate_button.set_icon_name (Resources.COUNTERCLOCKWISE);
+            rotate_icon.set_from_icon_name (Resources.COUNTERCLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CCW_TOOLTIP);
         }
 
@@ -723,9 +724,10 @@ public abstract class CollectionPage : MediaPage {
     
     protected override bool on_ctrl_released() {
         Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
-        if (rotate_button != null) {
+        Gtk.Image? rotate_icon = this.builder.get_object ("ToolRotateIcon") as Gtk.Image;
+        if (rotate_button != null && rotate_icon != null) {
             rotate_button.set_action_name ("win.RotateClockwise");
-            rotate_button.set_icon_name (Resources.CLOCKWISE);
+            rotate_icon.set_from_icon_name (Resources.CLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CW_TOOLTIP);
         }
 

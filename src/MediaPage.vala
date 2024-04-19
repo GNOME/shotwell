@@ -52,7 +52,7 @@ public abstract class MediaPage : CheckerboardPage {
         public signal void zoom_changed();
 
         public ZoomSliderAssembly() {
-            Object (orientation : Gtk.Orientation.HORIZONTAL, spacing : 9);
+            Object (orientation : Gtk.Orientation.HORIZONTAL, spacing : 9, halign: Gtk.Align.END, hexpand: true);
 
             Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
             var click = new Gtk.GestureClick();
