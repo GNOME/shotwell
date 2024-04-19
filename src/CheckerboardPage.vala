@@ -676,7 +676,7 @@ public abstract class CheckerboardPage : Page {
         // if there is no better starting point, simply select the first and exit
         // The right half of the or is related to Bug #732334, the cursor might be non-null and still not contained in
         // the view, if the user dragged a full screen Photo off screen
-        if (current_cursor == null && layout.get_cursor() == null || cursor != null && !get_view().contains(current_cursor)) {
+        if (current_cursor == null && layout.get_cursor() == null || current_cursor != null && !get_view().contains(current_cursor)) {
             CheckerboardItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
             anchor = item;

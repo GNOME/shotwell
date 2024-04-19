@@ -676,7 +676,7 @@ public abstract class MediaPage : CheckerboardPage {
     protected virtual void on_move_to_trash() {
         CheckerboardItem? restore_point = null;
 
-        if (cursor != null) {
+        if (current_cursor != null) {
             restore_point = get_view().get_next(current_cursor) as CheckerboardItem;
         }
 
