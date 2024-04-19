@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-12-24 10:54+0000\n"
+"POT-Creation-Date: 2024-04-19 21:41+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -1354,39 +1354,39 @@ msgstr "_Pošlji na …"
 msgid "_Move to Trash"
 msgstr "_Premakni v smeti"
 
-#: data/ui/collection.ui:147 src/Resources.vala:109
+#: data/ui/collection.ui:149 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Zavrti fotografije desno (s tipko CTRL zavrti v levo)"
 
-#: data/ui/collection.ui:149 src/Resources.vala:107 src/Resources.vala:112
+#: data/ui/collection.ui:167 src/Resources.vala:107 src/Resources.vala:112
 msgid "Rotate"
 msgstr "Zavrti"
 
-#: data/ui/collection.ui:157 src/Resources.vala:155
+#: data/ui/collection.ui:177 src/Resources.vala:155
 msgid "Automatically improve the photo’s appearance"
 msgstr "Samodejno izboljša videz fotografije"
 
-#: data/ui/collection.ui:159 src/Resources.vala:154
+#: data/ui/collection.ui:195 src/Resources.vala:154
 msgid "Enhance"
 msgstr "Izboljšaj"
 
-#: data/ui/collection.ui:173 src/Resources.vala:263
+#: data/ui/collection.ui:211 src/Resources.vala:263
 msgid "Publish to various websites"
 msgstr "Objavi na različnih spletnih straneh"
 
-#: data/ui/collection.ui:175
+#: data/ui/collection.ui:229
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
 #: src/Resources.vala:262
 msgid "Publish"
 msgstr "Objavi"
 
-#: data/ui/collection.ui:189 data/ui/offline.ui:232 data/ui/trash.ui:302
-#: src/Resources.vala:295
+#: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:232
+#: data/ui/trash.ui:302 src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Poišče sliko z vpisom besedila, ki se pojavi v imenu ali oznakah"
 
-#: data/ui/collection.ui:191 data/ui/offline.ui:235 data/ui/trash.ui:295
-#: src/Resources.vala:294
+#: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:235
+#: data/ui/trash.ui:295 src/Resources.vala:294
 msgid "Find"
 msgstr "Najdi"
 
@@ -1706,19 +1706,19 @@ msgid "_Filter Photos"
 msgstr "_Filtriraj fotografije"
 
 #: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140
-#: data/ui/media.ui:180 data/ui/offline.ui:137 data/ui/search_bar.ui:18
+#: data/ui/media.ui:180 data/ui/offline.ui:137 data/ui/search_bar.ui:185
 #: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "_Vse fotografije"
 
 #: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146
-#: data/ui/media.ui:186 data/ui/offline.ui:143 data/ui/search_bar.ui:12
+#: data/ui/media.ui:186 data/ui/offline.ui:143 data/ui/search_bar.ui:179
 #: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "Vse in _zavrnjene"
 
 #: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152
-#: data/ui/media.ui:192 data/ui/offline.ui:149 data/ui/search_bar.ui:6
+#: data/ui/media.ui:192 data/ui/offline.ui:149 data/ui/search_bar.ui:173
 #: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "_Le zavrnjeno"
@@ -1788,15 +1788,29 @@ msgstr "Izbriši"
 msgid "_Stop Import"
 msgstr "_Zaustavi uvoz"
 
-#. Import selected
-#: data/ui/import.ui:13 data/ui/import.ui:206 src/camera/ImportPage.vala:783
+#: data/ui/import.ui:13 data/ui/import.ui:206 data/ui/import.ui:295
 msgid "Import _Selected"
 msgstr "Uvozi _izbrane"
 
-#. Import all
-#: data/ui/import.ui:17 data/ui/import.ui:210 src/camera/ImportPage.vala:791
+#: data/ui/import.ui:17 data/ui/import.ui:210 data/ui/import.ui:325
 msgid "Import _All"
 msgstr "Uvozi _vse"
+
+#: data/ui/import.ui:225
+msgid "Only display photos that have not been imported"
+msgstr "Pokaži le fotografije, ki niso bile uvožene"
+
+#: data/ui/import.ui:226
+msgid "Hide photos already imported"
+msgstr "Skrij že uvožene fotografije"
+
+#: data/ui/import.ui:276
+msgid "Import the selected media files into the library"
+msgstr "Uvozi izbrane predstavnostne datoteke v knjižnico"
+
+#: data/ui/import.ui:306
+msgid "Import all media files into the library"
+msgstr "Uvozi vse predstavnostne datoteke v knjižnico"
 
 #: data/ui/login_welcome_pane_widget.ui:22
 msgid "_Log in"
@@ -1930,8 +1944,8 @@ msgstr "Zaslon"
 msgid "External Editors"
 msgstr "Zunanji urejevalniki"
 
-#: data/ui/preferences_dialog.ui:434 src/library/LibraryBranch.vala:103
-#: src/SearchFilter.vala:973
+#: data/ui/preferences_dialog.ui:434 data/ui/search_bar.ui:24
+#: src/library/LibraryBranch.vala:103
 msgid "Photos"
 msgstr "Fotografije"
 
@@ -2054,6 +2068,41 @@ msgstr "_Uredi …"
 msgid "_Delete"
 msgstr "_Izbriši"
 
+#: data/ui/search_bar.ui:18
+msgid "Type"
+msgstr "Vrsta"
+
+#: data/ui/search_bar.ui:33
+msgid "Videos"
+msgstr "Posnetki"
+
+#: data/ui/search_bar.ui:42
+msgid "RAW photos"
+msgstr "Slike RAW"
+
+#: data/ui/search_bar.ui:57 data/ui/search_bar.ui:75
+#: src/library/FlaggedPage.vala:8
+msgid "Flagged"
+msgstr "Označeno z zastavico"
+
+#: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
+#: src/SearchFilter.vala:814
+msgid "Rating"
+msgstr "Ocena"
+
+#: data/ui/search_bar.ui:131
+msgid "Use a saved search to filter items in the current view"
+msgstr ""
+"Uporabi shranjen iskalni niz za filtriranje predmetov trenutnega pogleda"
+
+#: data/ui/search_bar.ui:148 src/Resources.vala:386
+msgid "Saved Search"
+msgstr "Shranjena iskanja"
+
+#: data/ui/search_bar.ui:164
+msgid "Type to filter in current view"
+msgstr "Vnesite za filtriranje v trenutnem pogledu"
+
 #: data/ui/set_background_dialog.ui:6
 msgid "Set as Desktop Background"
 msgstr "Nastavi kot sliko ozadja"
@@ -2169,30 +2218,13 @@ msgstr ""
 "V brskalniku se prijavite v okolje Flickr. Med prijavo je treba overiti "
 "povezavo med programom Shotwell in računom Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:148
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
 msgid "Preparing for login…"
 msgstr "Poteka pripravljanje na prijavo …"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
-msgid "Flickr authorization failed"
-msgstr "Overitev uporabe okolja Flicker je spodletela"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
 msgid "Verifying authorization…"
 msgstr "Poteka overjanje računa …"
-
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:173
-msgid ""
-"You have already logged in and out of a Google service during this Shotwell "
-"session.\n"
-"\n"
-"To continue publishing to Google services, quit and restart Shotwell, then "
-"try publishing again."
-msgstr ""
-"Med ttrenutno sejo dela s programom Shotwell ste se že prijavili in tudi "
-"odjavili iz računa Google.\n"
-"Za nadaljevanje objavljanja preko storitev Google končajte in ponovno "
-"zaženite program in poskusite znova."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
@@ -2992,25 +3024,16 @@ msgstr ""
 "Fotoaparata ni mogoče odklopiti. Poskusite ga odklopiti v upravljalniku "
 "datotek."
 
-#. hide duplicates checkbox
-#: src/camera/ImportPage.vala:759
-msgid "Hide photos already imported"
-msgstr "Skrij že uvožene fotografije"
-
-#: src/camera/ImportPage.vala:760
-msgid "Only display photos that have not been imported"
-msgstr "Pokaži le fotografije, ki niso bile uvožene"
-
-#: src/camera/ImportPage.vala:822
+#: src/camera/ImportPage.vala:776
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Fotoaparat je videti prazen; ni slik ali posnetkov za uvoz"
 
-#: src/camera/ImportPage.vala:826
+#: src/camera/ImportPage.vala:780
 msgid "No new photos/videos found on camera"
 msgstr "Na napravi ni mogoče najti novih fotografij in posnetkov"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:979
+#: src/camera/ImportPage.vala:935
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3018,15 +3041,15 @@ msgstr ""
 "Za dostop do fotoaparata je treba napravo najprej odklopiti iz datotečnega "
 "sistema. Ali želite nadaljevati?"
 
-#: src/camera/ImportPage.vala:985
+#: src/camera/ImportPage.vala:941
 msgid "_Unmount"
 msgstr "_Odklopi"
 
-#: src/camera/ImportPage.vala:990
+#: src/camera/ImportPage.vala:946
 msgid "Please unmount the camera."
 msgstr "Odklopite fotoaparat."
 
-#: src/camera/ImportPage.vala:997
+#: src/camera/ImportPage.vala:953
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3036,11 +3059,11 @@ msgstr ""
 "lahko do naprave dostopa le, ko je ta za dostop odklenjena. Zaprite druge "
 "programe, ki uporabljajo izbrano napravo in poskusite znova."
 
-#: src/camera/ImportPage.vala:1007
+#: src/camera/ImportPage.vala:963
 msgid "Please close any other application using the camera."
 msgstr "Zaprite druge programe, ki uporabljajo fotoaparat."
 
-#: src/camera/ImportPage.vala:1014
+#: src/camera/ImportPage.vala:970
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3049,33 +3072,33 @@ msgstr ""
 "Iz fotoaparata ni mogoče pridobiti slik za predogled:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1031
+#: src/camera/ImportPage.vala:987
 msgid "Unmounting…"
 msgstr "Odklapljanje …"
 
-#: src/camera/ImportPage.vala:1124
+#: src/camera/ImportPage.vala:1080
 msgid "Connecting to camera, please wait…"
 msgstr "Poteka vzpostavljanje povezave s kamero …"
 
-#: src/camera/ImportPage.vala:1156
+#: src/camera/ImportPage.vala:1112
 msgid "Starting import, please wait…"
 msgstr "Poteka začenjanje uvoza …"
 
-#: src/camera/ImportPage.vala:1162
+#: src/camera/ImportPage.vala:1118
 msgid "Fetching photo information"
 msgstr "Pridobivanje podatkov o fotografiji"
 
-#: src/camera/ImportPage.vala:1517
+#: src/camera/ImportPage.vala:1473
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pridobivanje predogleda za %s"
 
-#: src/camera/ImportPage.vala:1622
+#: src/camera/ImportPage.vala:1580
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Fotoaparata ni mogoče zakleniti: %s"
 
-#: src/camera/ImportPage.vala:1711
+#: src/camera/ImportPage.vala:1669
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3084,7 +3107,7 @@ msgstr[1] "Ali želite izbrisati %d sliko iz fotoaparata?"
 msgstr[2] "Ali želite izbrisati %d  sliki iz fotoaparata?"
 msgstr[3] "Ali želite izbrisati %d slike iz fotoaparata?"
 
-#: src/camera/ImportPage.vala:1714
+#: src/camera/ImportPage.vala:1672
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3093,7 +3116,7 @@ msgstr[1] "Ali želite izbrisati %d posnetek iz fotoaparata?"
 msgstr[2] "Ali želite izbrisati %d posnetka iz fotoaparata?"
 msgstr[3] "Ali želite izbrisati %d posnetke iz fotoaparata?"
 
-#: src/camera/ImportPage.vala:1717
+#: src/camera/ImportPage.vala:1675
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3102,7 +3125,7 @@ msgstr[1] "Ali želite izbrisati %d sliko in posnetek iz fotoaparata?"
 msgstr[2] "Ali želite izbrisati %d sliki in posnetka iz fotoaparata?"
 msgstr[3] "Ali želite izbrisati %d slike in posnetke iz fotoaparata?"
 
-#: src/camera/ImportPage.vala:1720
+#: src/camera/ImportPage.vala:1678
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3111,15 +3134,15 @@ msgstr[1] "Ali želite izbrisati %d datoteko iz fotoaparata?"
 msgstr[2] "Ali želite izbrisati %d datoteki iz fotoaparata?"
 msgstr[3] "Ali želite izbrisati %d datoteke iz fotoaparata?"
 
-#: src/camera/ImportPage.vala:1728 src/Dialogs.vala:748
+#: src/camera/ImportPage.vala:1686 src/Dialogs.vala:748
 msgid "_Keep"
 msgstr "_Obdrži"
 
-#: src/camera/ImportPage.vala:1748
+#: src/camera/ImportPage.vala:1706
 msgid "Removing photos/videos from camera"
 msgstr "Odstranjevanje fotografij in posnetkov iz digitalnega fotoaparata"
 
-#: src/camera/ImportPage.vala:1752
+#: src/camera/ImportPage.vala:1710
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4832,11 +4855,6 @@ msgstr "Prebrskaj zgodovino uvažanja v zbirko"
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:991
-#: src/SearchFilter.vala:992
-msgid "Flagged"
-msgstr "Označeno z zastavico"
-
 #: src/library/ImportQueuePage.vala:8
 msgid "Importing…"
 msgstr "Poteka uvažanje …"
@@ -4963,68 +4981,72 @@ msgstr ""
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Med poskusom preverjanja podatkovne zbirke je prišlo do napake: %s"
 
-#: src/main.vala:110
+#: src/main.vala:81
+msgid "Unable to start Shotwell"
+msgstr "Programa Shotwell ni mogoče zagnati"
+
+#: src/main.vala:117
 msgid "Loading Shotwell"
 msgstr "Nalaganje programa"
 
-#: src/main.vala:343
+#: src/main.vala:350
 msgid "Path to Shotwell’s private data"
 msgstr "Pot do zasebnih podatkov programa"
 
-#: src/main.vala:343
+#: src/main.vala:350
 msgid "DIRECTORY"
 msgstr "MAPA"
 
-#: src/main.vala:344
+#: src/main.vala:351
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne spremljajte knjižnic v času izvajanja za spremembe"
 
-#: src/main.vala:345
+#: src/main.vala:352
 msgid "Don’t display startup progress meter"
 msgstr "Ne prikaži merilnika poteka zagona"
 
-#: src/main.vala:346
+#: src/main.vala:353
 msgid "Show the application’s version"
 msgstr "Pokaži različico programa"
 
-#: src/main.vala:347
+#: src/main.vala:354
 msgid "Start the application in fullscreen mode"
 msgstr "Zaženi program v celozaslonskem načinu"
 
-#: src/main.vala:348
+#: src/main.vala:355
 msgid "Print the metadata of the image file"
 msgstr "Natisni metapodatke slikovne datoteke"
 
-#: src/main.vala:349
+#: src/main.vala:356
 msgid "Name for a custom profile"
 msgstr "Naziv profila po meri"
 
-#: src/main.vala:349
+#: src/main.vala:356
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:350
+#: src/main.vala:357
 msgid "Start with a browser of available profiles"
 msgstr "Zaženi z brskalnikom razpoložljivih profilov"
 
-#: src/main.vala:351
+#: src/main.vala:358
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Če profil, podan z  zastavico --profile ne obstaja, ga ustvari"
 
-#: src/main.vala:352
+#: src/main.vala:359
 msgid "Show available profiles"
 msgstr "Prikaži razpoložljive profile"
 
-#: src/main.vala:401
+#: src/main.vala:408
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite ukaz »%s --help«.\n"
 
-#: src/main.vala:409
+#: src/main.vala:416
 msgid "Choose Shotwell's profile"
 msgstr "Izberite profil za Shotwell"
 
-#: src/main.vala:443
+#: src/main.vala:450
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5505,12 +5527,12 @@ msgstr "Pripravljanje fotografij za pošiljanje"
 msgid "Uploading %d of %d"
 msgstr "Pošiljanje fotografije %d od %d"
 
-#: src/publishing/PublishingPluginHost.vala:85
+#: src/publishing/PublishingPluginHost.vala:93
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "Objavljanja na %s ni mogoče nadaljevati zaradi napake:"
 
-#: src/publishing/PublishingPluginHost.vala:88
+#: src/publishing/PublishingPluginHost.vala:96
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "Poskusite objaviti na drugo storitev, ki jo izberete iz zgornjega menija."
@@ -6002,12 +6024,6 @@ msgstr "Oznake ni mogoče preimenovati v »%s«, ker ta že obstaja."
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Iskanja ni mogoče preimenovati v »%s«, ker ta naziv že obstaja."
 
-#. separator
-#. Saved search button
-#: src/Resources.vala:386 src/SearchFilter.vala:1009
-msgid "Saved Search"
-msgstr "Shranjena iskanja"
-
 #: src/Resources.vala:388
 msgid "Delete Search"
 msgstr "Izbriši iskanje"
@@ -6331,11 +6347,6 @@ msgstr "Stanje zastavice"
 msgid "Photo state"
 msgstr "Stanje fotografije"
 
-#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:860
-#: src/SearchFilter.vala:1002
-msgid "Rating"
-msgstr "Ocena"
-
 #: src/searches/SearchBoolean.vala:198
 msgid "Date"
 msgstr "Datum"
@@ -6349,57 +6360,25 @@ msgstr "Shranjena iskanja"
 msgid "Organize your saved searches"
 msgstr "Uredjanje shranjenih iskanj"
 
-#: src/SearchFilter.vala:844
+#: src/SearchFilter.vala:798
 msgid "★+ Rating"
 msgstr "★+ Ocena"
 
-#: src/SearchFilter.vala:847
+#: src/SearchFilter.vala:801
 msgid "★★+ Rating"
 msgstr "★★+ Ocena"
 
-#: src/SearchFilter.vala:850
+#: src/SearchFilter.vala:804
 msgid "★★★+ Rating"
 msgstr "★★★+ Ocena"
 
-#: src/SearchFilter.vala:853
+#: src/SearchFilter.vala:807
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Ocena"
 
-#: src/SearchFilter.vala:857
+#: src/SearchFilter.vala:811
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Ocena"
-
-#: src/SearchFilter.vala:952
-#, c-format
-msgid "Error loading search bar UI: %s"
-msgstr "Prišlo je do napake med nalaganjem vmesnika iskalne vrstice: %s"
-
-#. Ticket #3260 - Add a 'close' context menu to
-#. the searchbar.
-#. Prepare the close menu for use, but don't
-#. display it yet; we'll connect it to secondary
-#. click later on.
-#: src/SearchFilter.vala:962
-msgid "Close"
-msgstr "Zapri"
-
-#. Type label and toggles
-#: src/SearchFilter.vala:969
-msgid "Type"
-msgstr "Vrsta"
-
-#: src/SearchFilter.vala:976
-msgid "Videos"
-msgstr "Posnetki"
-
-#: src/SearchFilter.vala:979
-msgid "RAW Photos"
-msgstr "Slike RAW"
-
-#: src/SearchFilter.vala:1010
-msgid "Use a saved search to filter items in the current view"
-msgstr ""
-"Uporabi shranjen iskalni niz za filtriranje predmetov trenutnega pogleda"
 
 #. Set up toolbar
 #. add toolbar buttons
