@@ -78,11 +78,18 @@ void library_exec(string[] mounts) {
     Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
     
     if (errormsg != null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", errormsg);
-        dialog.title = Resources.APP_TITLE;
-        dialog.show(); //TODO dialog.run();
-        dialog.destroy();
+        var alert = new Gtk.AlertDialog("%s", _("Unable to start Shotwell"));
+        alert.set_detail(errormsg);
+        var loop = new MainLoop();
+        alert.choose.begin(null, null, (object, result) => {
+            try {
+                alert.choose.end(result);
+            } catch (Error err) {
+                warning("Failed to close dialog: %s", err.message());
+            }
+            loop.quit();
+        });
+        loop.run();
         
         DatabaseTable.terminate();
         
