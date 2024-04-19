@@ -684,7 +684,7 @@ public class ImportPage : CheckerboardPage {
     private SourceCollection import_sources = null;
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
-    private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
+    private Gtk.ProgressBar progress_bar;
     private DiscoveredCamera dcamera;
     private bool busy = false;
     private bool refreshed = false;
@@ -744,65 +744,19 @@ public class ImportPage : CheckerboardPage {
         
         init_item_context_menu("ImportContextMenu");
         init_page_context_menu("ImportContextMenu");
+        init_toolbar("ImportPageToolbar");
     }
     
     ~ImportPage() {
         LibraryPhoto.global.contents_altered.disconnect(on_media_added_removed);
         Video.global.contents_altered.disconnect(on_media_added_removed);
     }
-    
     public override Gtk.Box get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
-
-            // hide duplicates checkbox
-            hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
-            hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
-            hide_imported.toggled.connect(on_hide_imported);
-            hide_imported.sensitive = false;
-            hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
-            
-            toolbar.append(hide_imported);
-            
-            // progress bar in center of toolbar
-            progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
-            progress_bar.visible = false;
-            progress_bar.set_show_text(true);
-            
-            toolbar.append(progress_bar);
-            
-            // Find button
-            Gtk.ToggleButton find_button = new Gtk.ToggleButton();
-            find_button.set_icon_name("edit-find-symbolic");
-            find_button.set_action_name ("win.CommonDisplaySearchbar");
-            
-            toolbar.append(find_button);
-            
-            // Import selected
-            Gtk.Button import_selected_button = new Gtk.Button.from_icon_name(Resources.IMPORT);
-            import_selected_button.set_label(_("Import _Selected"));
-            import_selected_button.use_underline = true;
-            import_selected_button.set_action_name ("win.ImportSelected");
-            
-            toolbar.append(import_selected_button);
-            
-            // Import all
-            Gtk.Button import_all_button = new Gtk.Button.from_icon_name(Resources.IMPORT_ALL);
-            import_all_button.set_label(_("Import _All"));
-            import_all_button.use_underline = true;
-            import_all_button.set_action_name ("win.ImportAll");
-            
-            toolbar.append(import_all_button);
-
-            // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
-            // show_all queue so we have more control over its visibility
-            progress_bar.set_visible(true);
-            
-            update_toolbar_state();
-            
-            show();
+            progress_bar = (Gtk.ProgressBar)builder.get_object("ImportProgressBar");
         }
-        
+
         return toolbar;
     }
     
@@ -850,6 +804,7 @@ public class ImportPage : CheckerboardPage {
         { "ImportAll", on_import_all },
         // Toggle actions
         { "ViewTitle", on_action_toggle, null, "false", on_display_titles },
+        { "HideImported", on_action_toggle, null, "false", on_hide_imported }
     };
 
     protected override void add_actions (GLib.ActionMap map) {
@@ -858,6 +813,7 @@ public class ImportPage : CheckerboardPage {
         map.add_action_entries (entries, this);
 
         get_action ("ViewTitle").change_state (Config.Facade.get_instance ().get_display_photo_titles ());
+        get_action ("HideImported").change_state(Config.Facade.get_instance().get_hide_photos_already_imported());
     }
 
     protected override void remove_actions(GLib.ActionMap map) {
@@ -1599,13 +1555,15 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private void on_hide_imported() {
-        if (hide_imported.get_active())
+    private void on_hide_imported(GLib.SimpleAction action, Variant? value) {
+        var active = value.get_boolean();
+        if (active)
             get_view().install_view_filter(hide_imported_filter);
         else
             get_view().remove_view_filter(hide_imported_filter);
         
-        Config.Facade.get_instance().set_hide_photos_already_imported(hide_imported.get_active());
+        Config.Facade.get_instance().set_hide_photos_already_imported(active);
+        action.set_state(active);
     }
     
     private void on_import_selected() {

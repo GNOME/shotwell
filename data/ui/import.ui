@@ -212,4 +212,123 @@
       </item>
     </section>
   </menu>
+  <object class="GtkBox" id="ImportPageToolbar">
+    <style>
+      <class name="toolbar" />
+    </style>
+    <property name="can_focus">0</property>
+    <property name="hexpand">true</property>
+    <property name="spacing">4</property>
+    <child>
+      <object class="GtkCheckButton" id="HideImported">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Only display photos that have not been imported</property>
+        <property name="label" translatable="yes">Hide photos already imported</property>
+        <property name="action_name">win.HideImported</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="hexpand">true</property>
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkProgressBar" id="ImportProgressBar">
+            <property name="orientation">horizontal</property>
+            <property name="visible">false</property>
+            <property name="show-text">true</property>
+            <property name="hexpand">true</property>
+            <property name="halign">center</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="ToolFind">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
+        <property name="action_name">win.CommonDisplaySearchbar</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage" id="ToolFindIcon">
+                <property name="halign">start</property>
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="ToolFindLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Find</property>
+              </object>
+            </child>
+          </object>        
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="ImportSelected">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Import the selected media files into the library</property>
+        <property name="action_name">win.ImportSelected</property>
+        <property name="halign">end</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">image-x-generic-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Import _Selected</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="ImportAll">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="yes">Import all media files into the library</property>
+        <property name="action_name">win.ImportAll</property>
+        <property name="halign">end</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">filter-photos-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Import _All</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+  </object>
 </interface>
