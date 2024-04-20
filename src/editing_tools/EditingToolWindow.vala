@@ -1,4 +1,5 @@
 // SPDX-License-Identifier:LGPL-2.1-or-later
+
 public abstract class EditingTools.EditingToolWindow : Gtk.Window {
     private const int FRAME_BORDER = 6;
 

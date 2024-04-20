@@ -51,11 +51,6 @@ public class DirectPhotoPage : EditingHostPage {
         { "RotateCounterclockwise", on_rotate_counterclockwise },
         { "FlipHorizontally", on_flip_horizontally },
         { "FlipVertically", on_flip_vertically },
-        { "Enhance", on_enhance },
-        { "Crop", toggle_crop },
-        { "Straighten", toggle_straighten },
-        { "RedEye", toggle_redeye },
-        { "Adjust", toggle_adjust },
         { "Revert", on_revert },
         { "AdjustDateTime", on_adjust_date_time },
         { "SetBackground", on_set_background },
@@ -494,8 +489,9 @@ public class DirectPhotoPage : EditingHostPage {
         // started...), chain to the "enable-rotate" signal in the foreground thread, as it's
         // tied to UI elements
         Idle.add(() => {
-            enable_rotate(should_allow_rotation);
-            
+            set_action_sensitive("RotateClockwise", should_allow_rotation);
+            set_action_sensitive("RotateCounterclockwise", should_allow_rotation);
+                
             return false;
         });
     }

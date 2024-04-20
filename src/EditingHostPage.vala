@@ -1,372 +1,6 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- *
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
- */
-
-public class ZoomBuffer : Object {
-    private enum ObjectState {
-        SOURCE_NOT_LOADED,
-        SOURCE_LOAD_IN_PROGRESS,
-        SOURCE_NOT_TRANSFORMED,
-        TRANSFORMED_READY
-    }
-
-    private class IsoSourceFetchJob : BackgroundJob {
-        private Photo to_fetch;
-        
-        public Gdk.Pixbuf? fetched = null;
-
-        public IsoSourceFetchJob(ZoomBuffer owner, Photo to_fetch,
-            CompletionCallback completion_callback) {
-            base(owner, completion_callback);
-            
-            this.to_fetch = to_fetch;
-        }
-        
-        public override void execute() {
-            try {
-                fetched = to_fetch.get_pixbuf_with_options(Scaling.for_original(),
-                    Photo.Exception.ADJUST);
-            } catch (Error fetch_error) {
-                critical("IsoSourceFetchJob: execute( ): can't get pixbuf from backing photo");
-            }
-        }
-    }
-
-    // it's worth noting that there are two different kinds of transformation jobs (though this
-    // single class supports them both). There are "isomorphic" (or "iso") transformation jobs that
-    // operate over full-size pixbufs and are relatively long-running and then there are
-    // "demand" transformation jobs that occur over much smaller pixbufs as needed; these are
-    // relatively quick to run.
-    private class TransformationJob : BackgroundJob {
-        private Gdk.Pixbuf to_transform;
-        private PixelTransformer? transformer;
-        private Cancellable cancellable;
-        
-        public Gdk.Pixbuf transformed = null;
-
-        public TransformationJob(ZoomBuffer owner, Gdk.Pixbuf to_transform, PixelTransformer?
-            transformer, CompletionCallback completion_callback, Cancellable cancellable) {
-            base(owner, completion_callback, cancellable);
-
-            this.cancellable = cancellable;
-            this.to_transform = to_transform;
-            this.transformer = transformer;
-            this.transformed = to_transform.copy();
-        }
-        
-        public override void execute() {
-            if (transformer != null) {
-                transformer.transform_to_other_pixbuf(to_transform, transformed, cancellable);
-            }
-        }
-    }
-    
-    private const int MEGAPIXEL = 1048576;
-    private const int USE_REDUCED_THRESHOLD = (int) 2.0 * MEGAPIXEL;
-
-    private Gdk.Pixbuf iso_source_image = null;
-    private Gdk.Pixbuf? reduced_source_image = null;
-    private Gdk.Pixbuf iso_transformed_image = null;
-    private Gdk.Pixbuf? reduced_transformed_image = null;
-    private Gdk.Pixbuf preview_image = null;
-    private Photo backing_photo = null;
-    private ObjectState object_state = ObjectState.SOURCE_NOT_LOADED;
-    private Gdk.Pixbuf? demand_transform_cached_pixbuf = null;
-    private ZoomState demand_transform_zoom_state;
-    private TransformationJob? demand_transform_job = null; // only 1 demand transform job can be
-                                                            // active at a time
-    private Workers workers = null;
-    private unowned SinglePhotoPage parent_page;
-    private bool is_interactive_redraw_in_progress = false;
-
-    public ZoomBuffer(SinglePhotoPage parent_page, Photo backing_photo,
-        Gdk.Pixbuf preview_image) {
-        this.parent_page = parent_page;
-        this.parent_page.add_weak_pointer(&this.parent_page);
-        this.preview_image = preview_image;
-        this.backing_photo = backing_photo;
-        this.workers = new Workers(2, false);
-    }
-
-    ~ZoomBuffer() {
-        if (this.parent_page != null) {
-            this.parent_page.remove_weak_pointer(&this.parent_page);
-        }
-    }
-
-    private void on_iso_source_fetch_complete(BackgroundJob job) {
-        IsoSourceFetchJob fetch_job = (IsoSourceFetchJob) job;
-        if (fetch_job.fetched == null) {
-            critical("ZoomBuffer: iso_source_fetch_complete( ): fetch job has null image member");
-            return;
-        }
-
-        iso_source_image = fetch_job.fetched;
-        if ((iso_source_image.width * iso_source_image.height) > USE_REDUCED_THRESHOLD) {
-            reduced_source_image = iso_source_image.scale_simple(iso_source_image.width / 2,
-                iso_source_image.height / 2, Gdk.InterpType.BILINEAR);
-        }
-        object_state = ObjectState.SOURCE_NOT_TRANSFORMED;
-
-        if (!is_interactive_redraw_in_progress && parent_page != null)
-            parent_page.repaint();
-
-        BackgroundJob transformation_job = new TransformationJob(this, iso_source_image,
-            backing_photo.get_pixel_transformer(), on_iso_transformation_complete,
-            new Cancellable());
-        workers.enqueue(transformation_job);
-    }
-    
-    private void on_iso_transformation_complete(BackgroundJob job) {
-        TransformationJob transform_job = (TransformationJob) job;
-        if (transform_job.transformed == null) {
-            critical("ZoomBuffer: on_iso_transformation_complete( ): completed job has null " +
-                "image");
-            return;
-        }
-
-        iso_transformed_image = transform_job.transformed;
-        if ((iso_transformed_image.width * iso_transformed_image.height) > USE_REDUCED_THRESHOLD) {
-            reduced_transformed_image = iso_transformed_image.scale_simple(
-                iso_transformed_image.width / 2, iso_transformed_image.height / 2,
-                Gdk.InterpType.BILINEAR);
-        }
-        object_state = ObjectState.TRANSFORMED_READY;
-    }
-    
-    private void on_demand_transform_complete(BackgroundJob job) {
-        TransformationJob transform_job = (TransformationJob) job;
-        if (transform_job.transformed == null) {
-            critical("ZoomBuffer: on_demand_transform_complete( ): completed job has null " +
-                "image");
-            return;
-        }
-
-        demand_transform_cached_pixbuf = transform_job.transformed;
-        demand_transform_job = null;
-
-        if (parent_page != null) parent_page.repaint();
-    }
-
-    // passing a 'reduced_pixbuf' that has one-quarter the number of pixels as the 'iso_pixbuf' is
-    // optional, but including one can dramatically increase performance obtaining projection
-    // pixbufs at for ZoomStates with zoom factors less than 0.5
-    private Gdk.Pixbuf get_view_projection_pixbuf(ZoomState zoom_state, Gdk.Pixbuf iso_pixbuf,
-        Gdk.Pixbuf? reduced_pixbuf = null) {
-        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
-        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
-            iso_pixbuf);
-        Gdk.Pixbuf sample_source_pixbuf = iso_pixbuf;
-
-        if ((reduced_pixbuf != null) && (zoom_state.get_zoom_factor() < 0.5)) {
-            sample_source_pixbuf = reduced_pixbuf;
-            view_rect_proj.x /= 2;
-            view_rect_proj.y /= 2;
-            view_rect_proj.width /= 2;
-            view_rect_proj.height /= 2;
-        }
-
-        // On very small images, it's possible for these to
-        // be 0, and GTK doesn't like sampling a region 0 px
-        // across.
-        view_rect_proj.width = view_rect_proj.width.clamp(1, int.MAX);
-        view_rect_proj.height = view_rect_proj.height.clamp(1, int.MAX);
-
-        view_rect.width = view_rect.width.clamp(1, int.MAX);
-        view_rect.height = view_rect.height.clamp(1, int.MAX);
-
-        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(sample_source_pixbuf, view_rect_proj.x,
-            view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
-
-        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
-            Gdk.InterpType.BILINEAR);
-
-        assert(zoomed != null);
-
-        return zoomed;
-    }
-    
-    private Gdk.Pixbuf get_zoomed_image_source_not_transformed(ZoomState zoom_state) {
-        if (demand_transform_cached_pixbuf != null) {
-            if (zoom_state.equals(demand_transform_zoom_state)) {
-                // if a cached pixbuf from a previous on-demand transform operation exists and
-                // its zoom state is the same as the currently requested zoom state, then we
-                // don't need to do any work -- just return the cached copy
-                return demand_transform_cached_pixbuf;
-            } else if (zoom_state.get_zoom_factor() ==
-                       demand_transform_zoom_state.get_zoom_factor()) {
-                // if a cached pixbuf from a previous on-demand transform operation exists and
-                // its zoom state is different from the currently requested zoom state, then we
-                // can't just use the cached pixbuf as-is. However, we might be able to use *some*
-                // of the information in the previously cached pixbuf. Specifically, if the zoom
-                // state of the previously cached pixbuf is merely a translation of the currently
-                // requested zoom state (the zoom states are not equal but the zoom factors are the
-                // same), then all that has happened is that the user has panned the viewing
-                // window. So keep all the pixels from the cached pixbuf that are still on-screen
-                // in the current view.
-                Gdk.Rectangle curr_rect = zoom_state.get_viewing_rectangle_wrt_content();
-                Gdk.Rectangle pre_rect =
-                    demand_transform_zoom_state.get_viewing_rectangle_wrt_content();
-                Gdk.Rectangle transfer_src_rect = Gdk.Rectangle();
-                Gdk.Rectangle transfer_dest_rect = Gdk.Rectangle();
-                                 
-                transfer_src_rect.x = (curr_rect.x - pre_rect.x).clamp(0, pre_rect.width);
-                transfer_src_rect.y = (curr_rect.y - pre_rect.y).clamp(0, pre_rect.height);
-                int transfer_src_right = ((curr_rect.x + curr_rect.width) - pre_rect.width).clamp(0,
-                    pre_rect.width);
-                transfer_src_rect.width = transfer_src_right - transfer_src_rect.x;
-                int transfer_src_bottom = ((curr_rect.y + curr_rect.height) - pre_rect.width).clamp(
-                    0, pre_rect.height);
-                transfer_src_rect.height = transfer_src_bottom - transfer_src_rect.y;
-                
-                transfer_dest_rect.x = (pre_rect.x - curr_rect.x).clamp(0, curr_rect.width);
-                transfer_dest_rect.y = (pre_rect.y - curr_rect.y).clamp(0, curr_rect.height);
-                int transfer_dest_right = (transfer_dest_rect.x + transfer_src_rect.width).clamp(0,
-                    curr_rect.width);
-                transfer_dest_rect.width = transfer_dest_right - transfer_dest_rect.x;
-                int transfer_dest_bottom = (transfer_dest_rect.y + transfer_src_rect.height).clamp(0,
-                    curr_rect.height);
-                transfer_dest_rect.height = transfer_dest_bottom - transfer_dest_rect.y;
-
-                Gdk.Pixbuf composited_result = get_zoom_preview_image_internal(zoom_state);
-                demand_transform_cached_pixbuf.copy_area (transfer_src_rect.x,
-                    transfer_src_rect.y, transfer_dest_rect.width, transfer_dest_rect.height,
-                    composited_result, transfer_dest_rect.x, transfer_dest_rect.y);
-
-                return composited_result;
-            }
-        }
-
-        // ok -- the cached pixbuf didn't help us -- so check if there is a demand
-        // transformation background job currently in progress. if such a job is in progress,
-        // then check if it's for the same zoom state as the one requested here. If the
-        // zoom states are the same, then just return the preview image for now -- we won't
-        // get a crisper one until the background job completes. If the zoom states are not the
-        // same however, then cancel the existing background job and initiate a new one for the
-        // currently requested zoom state.
-        if (demand_transform_job != null) {
-            if (zoom_state.equals(demand_transform_zoom_state)) {
-                return get_zoom_preview_image_internal(zoom_state);
-            } else {
-                demand_transform_job.cancel();
-                demand_transform_job = null;
-
-                Gdk.Pixbuf zoomed = get_view_projection_pixbuf(zoom_state, iso_source_image,
-                    reduced_source_image);
-                
-                demand_transform_job = new TransformationJob(this, zoomed,
-                    backing_photo.get_pixel_transformer(), on_demand_transform_complete,
-                    new Cancellable());
-                demand_transform_zoom_state = zoom_state;
-                workers.enqueue(demand_transform_job);
-                
-                return get_zoom_preview_image_internal(zoom_state);
-            }
-        }
-        
-        // if no on-demand background transform job is in progress at all, then start one
-        if (demand_transform_job == null) {
-            Gdk.Pixbuf zoomed = get_view_projection_pixbuf(zoom_state, iso_source_image,
-                reduced_source_image);
-            
-            demand_transform_job = new TransformationJob(this, zoomed,
-                backing_photo.get_pixel_transformer(), on_demand_transform_complete,
-                new Cancellable());
-
-            demand_transform_zoom_state = zoom_state;
-            
-            workers.enqueue(demand_transform_job);
-            
-            return get_zoom_preview_image_internal(zoom_state);
-        }
-        
-        // execution should never reach this point -- the various nested conditionals above should
-        // account for every possible case that can occur when the ZoomBuffer is in the
-        // SOURCE-NOT-TRANSFORMED state. So if execution does reach this point, print a critical
-        // warning to the console and just zoom using the preview image (the preview image, since
-        // it's managed by the SinglePhotoPage that created us, is assumed to be good).
-        critical("ZoomBuffer: get_zoomed_image( ): in SOURCE-NOT-TRANSFORMED but can't transform " +
-            "on-screen projection on-demand; using preview image");
-        return get_zoom_preview_image_internal(zoom_state);
-    }
-
-    public Gdk.Pixbuf get_zoom_preview_image_internal(ZoomState zoom_state) {
-        if (object_state == ObjectState.SOURCE_NOT_LOADED) {
-            BackgroundJob iso_source_fetch_job = new IsoSourceFetchJob(this, backing_photo,
-                on_iso_source_fetch_complete);
-            workers.enqueue(iso_source_fetch_job);
-
-            object_state = ObjectState.SOURCE_LOAD_IN_PROGRESS;
-        }
-        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
-        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
-            preview_image);
-
-        view_rect_proj.width = view_rect_proj.width.clamp(1, int.MAX);   
-        view_rect_proj.height = view_rect_proj.height.clamp(1, int.MAX);   
-
-        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(preview_image,
-            view_rect_proj.x, view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
-
-        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
-            Gdk.InterpType.BILINEAR);
-       
-        return zoomed;
-    }
-
-    public Photo get_backing_photo() {
-        return backing_photo;
-    }
-    
-    public void update_preview_image(Gdk.Pixbuf preview_image) {
-        this.preview_image = preview_image;
-    }
-    
-    // invoke with no arguments or with null to merely flush the cache or alternatively pass in a
-    // single zoom state argument to re-seed the cache for that zoom state after it's been flushed
-    public void flush_demand_cache(ZoomState? initial_zoom_state = null) {
-        demand_transform_cached_pixbuf = null;
-        if (initial_zoom_state != null)
-            get_zoomed_image(initial_zoom_state);
-    }
-
-    public Gdk.Pixbuf get_zoomed_image(ZoomState zoom_state) {
-        is_interactive_redraw_in_progress = false;
-        // if request is for a zoomed image with an interpolation factor of zero (i.e., no zooming
-        // needs to be performed since the zoom slider is all the way to the left), then just
-        // return the zoom preview image
-        if (zoom_state.get_interpolation_factor() == 0.0) {
-            return get_zoom_preview_image_internal(zoom_state);
-        }
-        
-        switch (object_state) {
-            case ObjectState.SOURCE_NOT_LOADED:
-            case ObjectState.SOURCE_LOAD_IN_PROGRESS:
-                return get_zoom_preview_image_internal(zoom_state);
-            
-            case ObjectState.SOURCE_NOT_TRANSFORMED:
-                return get_zoomed_image_source_not_transformed(zoom_state);
-            
-            case ObjectState.TRANSFORMED_READY:
-                // if an isomorphic, transformed pixbuf is ready, then just sample the projection of
-                // current viewing window from it and return that.
-                return get_view_projection_pixbuf(zoom_state, iso_transformed_image,
-                    reduced_transformed_image);
-            
-            default:
-                critical("ZoomBuffer: get_zoomed_image( ): object is an inconsistent state");
-                return get_zoom_preview_image_internal(zoom_state);
-        }
-    }
-
-    public Gdk.Pixbuf get_zoom_preview_image(ZoomState zoom_state) {
-        is_interactive_redraw_in_progress = true;
-
-        return get_zoom_preview_image_internal(zoom_state);
-    }
-}
+// SPDX-LicenseIdentifier: LGPL-2.1-or-later
+// SPDX-FileCopyrightText: Copyright 2016 Software Freedom Conservancy Inc.
+// SPDX-FileCopryrightText: 2024 Jens Georg <mail@jensge.org>
 
 public abstract class EditingHostPage : SinglePhotoPage {
     public const int TRINKET_SCALE = 20;
@@ -398,7 +32,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ViewCollection? parent_view = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
-    private Gtk.Button rotate_button = null;
+    private Gtk.ToggleButton rotate_button = null;
+    private Gtk.Image rotate_button_icon = null;
+    private Gtk.Label rotate_button_label = null;
     private Gtk.ToggleButton crop_button = null;
     private Gtk.ToggleButton redeye_button = null;
     private Gtk.ToggleButton adjust_button = null;
@@ -409,7 +45,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
     private Gtk.Button next_button = new Gtk.Button.with_label(Resources.NEXT_LABEL);
     private EditingTools.EditingTool current_tool = null;
-    private Gtk.ToggleButton current_editing_toggle = null;
+    private GLib.SimpleAction current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private bool photo_missing = false;
     private PixbufCache cache = null;
@@ -424,6 +60,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ZoomBuffer? zoom_buffer = null;
     private Gee.HashMap<string, int> last_locations = new Gee.HashMap<string, int>();
     
+    private const GLib.ActionEntry[] entries = {
+        { "Crop", on_action_toggle, null, "false", on_crop_toggled },
+        { "Straighten", on_action_toggle, null, "false", on_straighten_toggled },
+        { "RedEye", on_action_toggle, null, "false", on_redeye_toggled },
+        { "Adjust", on_action_toggle, null, "false", on_adjust_toggled },
+        { "Enhance", on_enhance_clicked },
+    };
+
     protected EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
         
@@ -442,6 +86,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         scrolled.notify["default-width"].connect(on_viewport_resized);
         scrolled.notify["maximized"].connect(on_viewport_resized);
         
+        init_toolbar("EditingHostToolbar");
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        add_controller(key);
+
+        #if 0
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         var toolbar = get_toolbar();
         
@@ -553,10 +203,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         next_button.set_icon_name("go-next-symbolic");
         next_button.clicked.connect(on_next_photo);
         toolbar.append(next_button);
-
-        var key = new Gtk.EventControllerKey();
-        key.key_pressed.connect(key_press_event);
-        add_controller(key);
+#endif
     }
     
     ~EditingHostPage() {
@@ -566,6 +213,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_view().ordering_changed.disconnect(on_view_contents_ordering_altered);
     }
     
+    protected override void add_actions(GLib.ActionMap map) {
+        base.add_actions(map);
+
+        map.add_action_entries(entries, this);
+    }
+
     private void on_zoom_slider_value_changed() {
         ZoomState new_zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
 
@@ -770,9 +423,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void set_photo(Photo photo) {
+        #if 0
         zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        #endif
         
         photo_changing(photo);
         DataView view = get_view().get_view_for_source(photo);
@@ -798,10 +453,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         rebuild_caches("realize");
     }
+
+    public override Gtk.Box get_toolbar() {
+        var tb = base.get_toolbar();
+        // Here the builder is finally available
+        rotate_button = (Gtk.ToggleButton)builder.get_object("RotateButton");
+        rotate_button_icon = (Gtk.Image)builder.get_object("RotateButtonIcon");
+        rotate_button_label = (Gtk.Label)builder.get_object("RotateButtonLabel");
+        zoom_slider = (Gtk.Scale)builder.get_object("ZoomSlider");
+        insert_faces_button();
+
+        return tb;
+    }
     
     public override void switched_to() {
         base.switched_to();
         
+
         rebuild_caches("switched_to");
         
         // check if the photo altered while away
@@ -1040,16 +708,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected virtual void update_ui(bool missing) {
-        bool sensitivity = !missing;
-
-        rotate_button.sensitive = sensitivity;
-        crop_button.sensitive = sensitivity;
-        straighten_button.sensitive = sensitivity;
-        redeye_button.sensitive = sensitivity;
-        adjust_button.sensitive = sensitivity;
-        enhance_button.sensitive = sensitivity;
-        zoom_slider.sensitive = sensitivity;
-
         //deactivate_tool();
     }
     
@@ -1409,7 +1067,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
             // untoggle tool button (usually done after deactivate, but tool never deactivated)
             assert(current_editing_toggle != null);
-            current_editing_toggle.active = false;
+            current_editing_toggle.change_state(false);
            
             return;
         }
@@ -1982,11 +1640,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     protected override bool on_ctrl_pressed() {
-        rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
+        rotate_button_icon.set_from_icon_name(Resources.COUNTERCLOCKWISE);
+        rotate_button_label.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
-        rotate_button.clicked.disconnect(on_rotate_clockwise);
-        rotate_button.clicked.connect(on_rotate_counterclockwise);
+        rotate_button.set_action_name("win.RotateCounterClockwise");
         
         if (current_tool == null)
             swap_out_original();
@@ -1995,11 +1652,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override bool on_ctrl_released() {
-        rotate_button.set_icon_name(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        rotate_button_icon.set_from_icon_name(Resources.CLOCKWISE);
+        rotate_button_label.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked.disconnect(on_rotate_counterclockwise);
-        rotate_button.clicked.connect(on_rotate_clockwise);
+        rotate_button.set_action_name("win.RotateClockwise");
 
         if (current_tool == null && get_shift_pressed() && !get_alt_pressed())
             swap_in_original();
@@ -2007,10 +1663,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_ctrl_released();
     }
     
-    protected void on_tool_button_toggled(Gtk.ToggleButton toggle, EditingTools.EditingTool.Factory factory) {
+    protected void on_tool_button_toggled(GLib.SimpleAction action, EditingTools.EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is
         // a deactivate, deactivate the current tool and exit
-        bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
+        bool deactivating_only = (!action.get_state().get_boolean() && current_editing_toggle == action);
         deactivate_tool();
         
         if (deactivating_only) {
@@ -2020,7 +1676,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         suspend_cursor_hiding();
 
-        current_editing_toggle = toggle;
+        current_editing_toggle = action;
         
         // create the tool, hook its signals, and activate
         EditingTools.EditingTool tool = factory();
@@ -2036,13 +1692,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void on_tool_activated() {
         assert(current_editing_toggle != null);
         zoom_slider.set_sensitive(false);
-        current_editing_toggle.active = true;
+        current_editing_toggle.change_state(false);
     }
     
     private void on_tool_deactivated() {
         assert(current_editing_toggle != null);
         zoom_slider.set_sensitive(true);
-        current_editing_toggle.active = false;
+        current_editing_toggle.change_state(false);
     }
     
     private void on_tool_applied(Command? command, Gdk.Pixbuf? new_pixbuf, Dimensions new_max_dim,
@@ -2078,27 +1734,35 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.set_active(!adjust_button.get_active());
     }
 
-    private void on_straighten_toggled() {
-        on_tool_button_toggled(straighten_button, EditingTools.StraightenTool.factory);
+    private void on_straighten_toggled(GLib.SimpleAction action, Variant? value) {
+        action.set_state(value);
+
+        on_tool_button_toggled(action, EditingTools.StraightenTool.factory);
     }
     
-    private void on_crop_toggled() {
-        on_tool_button_toggled(crop_button, EditingTools.CropTool.factory);
+    private void on_crop_toggled(GLib.SimpleAction action, Variant? value) {
+        action.set_state(value);
+
+        on_tool_button_toggled(action, EditingTools.CropTool.factory);
     }
 
-    private void on_redeye_toggled() {
-        on_tool_button_toggled(redeye_button, EditingTools.RedeyeTool.factory);
+    private void on_redeye_toggled(GLib.SimpleAction action, Variant? value) {
+        action.set_state(value);
+
+        on_tool_button_toggled(action, EditingTools.RedeyeTool.factory);
     }
     
-    private void on_adjust_toggled() {
-        on_tool_button_toggled(adjust_button, EditingTools.AdjustTool.factory);
+    private void on_adjust_toggled(GLib.SimpleAction action, Variant? value) {
+        action.set_state(value);
+
+        on_tool_button_toggled(action, EditingTools.AdjustTool.factory);
     }
     
     public bool is_enhance_available(Photo photo) {
         return !photo_missing;
     }
     
-    public void on_enhance() {
+    public void on_enhance_clicked() {
         // because running multiple tools at once is not currently supported, deactivate any current
         // tool; however, there is a special case of running enhancement while the AdjustTool is
         // open, so allow for that
@@ -2295,852 +1959,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // it in LibraryPhotoPage, since FacesTool must only be present in
     // LibraryMode, but it need to be called from constructor of EditingHostPage
     // to place it correctly in the toolbar.
-    protected virtual void insert_faces_button(Gtk.Box toolbar) {
+    protected virtual void insert_faces_button() {
         ;
-    }
-}
-
-//
-// LibraryPhotoPage
-//
-
-public class LibraryPhotoPage : EditingHostPage {
-
-    private class LibraryPhotoPageViewFilter : ViewFilter {
-        public override bool predicate (DataView view) {
-            return !((MediaSource) view.get_source()).is_trashed();
-        }
-    }
-
-    private Gtk.ToggleButton faces_button = null;
-    private CollectionPage? return_page = null;
-    private bool return_to_collection_on_release = false;
-    private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
-    
-    public LibraryPhotoPage() {
-        base(LibraryPhoto.global, "Photo");
-        
-        // monitor view to update UI elements
-        get_view().items_altered.connect(on_photos_altered);
-        
-        // watch for photos being destroyed or altered, either here or in other pages
-        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
-        LibraryPhoto.global.items_altered.connect(on_metadata_altered);
-        
-        // watch for updates to the external app settings
-        Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
-        
-        // Filter out trashed files.
-        get_view().install_view_filter(filter);
-        LibraryPhoto.global.items_unlinking.connect(on_photo_unlinking);
-        LibraryPhoto.global.items_relinked.connect(on_photo_relinked);
-    }
-    
-    ~LibraryPhotoPage() {
-        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
-        LibraryPhoto.global.items_altered.disconnect(on_metadata_altered);
-        Config.Facade.get_instance().external_app_changed.disconnect(on_external_app_changed);
-    }
-    
-    public bool not_trashed_view_filter(DataView view) {
-        return !((MediaSource) view.get_source()).is_trashed();
-    }
-    
-    private void on_photo_unlinking(Gee.Collection<DataSource> unlinking) {
-        filter.refresh();
-    }
-    
-    private void on_photo_relinked(Gee.Collection<DataSource> relinked) {
-        filter.refresh();
-    }
-    
-    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-        base.init_collect_ui_filenames(ui_filenames);
-        
-        ui_filenames.add("photo_context.ui");
-        ui_filenames.add("photo.ui");
-    }
-
-    private const GLib.ActionEntry[] entries = {
-        { "Export", on_export },
-        { "Print", on_print },
-        { "Publish", on_publish },
-        { "RemoveFromLibrary", on_remove_from_library },
-        { "MoveToTrash", on_move_to_trash },
-        { "PrevPhoto", on_previous_photo },
-        { "NextPhoto", on_next_photo },
-        { "RotateClockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", on_rotate_counterclockwise },
-        { "FlipHorizontally", on_flip_horizontally },
-        { "FlipVertically", on_flip_vertically },
-        { "Enhance", on_enhance },
-        { "CopyColorAdjustments", on_copy_adjustments },
-        { "PasteColorAdjustments", on_paste_adjustments },
-        { "Crop", toggle_crop },
-        { "Straighten", toggle_straighten },
-        { "RedEye", toggle_redeye },
-        { "Adjust", toggle_adjust },
-        { "Revert", on_revert },
-        { "EditTitle", on_edit_title },
-        { "EditComment", on_edit_comment },
-        { "AdjustDateTime", on_adjust_date_time },
-        { "ExternalEdit", on_external_edit },
-        { "ExternalEditRAW", on_external_edit_raw },
-        { "SendTo", on_send_to },
-        { "SetBackground", on_set_background },
-        { "Flag", on_flag_unflag },
-        { "IncreaseRating", on_increase_rating },
-        { "DecreaseRating", on_decrease_rating },
-        { "RateRejected", on_rate_rejected },
-        { "RateUnrated", on_rate_unrated },
-        { "RateOne", on_rate_one },
-        { "RateTwo", on_rate_two },
-        { "RateThree", on_rate_three },
-        { "RateFour", on_rate_four },
-        { "RateFive", on_rate_five },
-        { "IncreaseSize", on_increase_size },
-        { "DecreaseSize", on_decrease_size },
-        { "ZoomFit", snap_zoom_to_min },
-        { "Zoom100", snap_zoom_to_isomorphic },
-        { "Zoom200", snap_zoom_to_max },
-        { "AddTags", on_add_tags },
-        { "ModifyTags", on_modify_tags },
-        { "Slideshow", on_slideshow },
-
-        // Toggle actions
-        { "ViewRatings", on_action_toggle, null, "false", on_display_ratings },
-
-        // Radio actions
-    };
-
-    protected override void add_actions (GLib.ActionMap map) {
-        base.add_actions (map);
-
-        map.add_action_entries (entries, this);
-        ((GLib.SimpleAction) get_action ("ViewRatings")).change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
-        var d = Config.Facade.get_instance().get_default_raw_developer();
-        var action = new GLib.SimpleAction.stateful("RawDeveloper",
-                GLib.VariantType.STRING, d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
-        action.change_state.connect(on_raw_developer_changed);
-        action.set_enabled(true);
-        map.add_action(action);
-    }
-
-    protected override void remove_actions(GLib.ActionMap map) {
-        base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
-    }
-
-    protected override InjectionGroup[] init_collect_injection_groups() {
-        InjectionGroup[] groups = base.init_collect_injection_groups();
-
-        InjectionGroup print_group = new InjectionGroup("PrintPlaceholder");
-        print_group.add_menu_item(_("_Print"), "Print", "<Primary>p");
-        
-        groups += print_group;
-        
-        InjectionGroup publish_group = new InjectionGroup("PublishPlaceholder");
-        publish_group.add_menu_item(_("_Publish"), "Publish", "<Primary><Shift>p");
-        
-        groups += publish_group;
-        
-        InjectionGroup bg_group = new InjectionGroup("SetBackgroundPlaceholder");
-        bg_group.add_menu_item(_("Set as _Desktop Background"), "SetBackground", "<Primary>b");
-        
-        groups += bg_group;
-        
-        return groups;
-    }
-    
-    private void on_display_ratings(GLib.SimpleAction action, Variant? value) {
-        bool display = value.get_boolean ();
-        
-        set_display_ratings(display);
-        
-        Config.Facade.get_instance().set_display_photo_ratings(display);
-        action.set_state (value);
-    }
-
-
-    private void set_display_ratings(bool display) {
-        var action = get_action("ViewRatings") as GLib.SimpleAction;
-        if (action != null)
-            action.set_enabled(display);
-    }
-    
-    protected override void update_actions(int selected_count, int count) {
-        bool multiple = get_view().get_count() > 1;
-        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-        
-        set_action_sensitive("ExternalEdit",
-            has_photo() && Config.Facade.get_instance().get_external_photo_app() != "");
-        
-        set_action_sensitive("Revert", has_photo() ?
-            (get_photo().has_transformations() || get_photo().has_editable()) : false);
-        
-        if (has_photo() && !get_photo_missing()) {
-            update_rating_menu_item_sensitivity();
-            update_development_menu_item_sensitivity();
-        }
-        
-        set_action_sensitive("SetBackground", has_photo());
-        
-        set_action_sensitive("CopyColorAdjustments", (has_photo() && get_photo().has_color_adjustments()));
-        set_action_sensitive("PasteColorAdjustments", PixelTransformationBundle.has_copied_color_adjustments());
-        
-        set_action_sensitive("PrevPhoto", multiple);
-        set_action_sensitive("NextPhoto", multiple);
-        set_action_sensitive("RotateClockwise", rotate_possible);
-        set_action_sensitive("RotateCounterclockwise", rotate_possible);
-        set_action_sensitive("FlipHorizontally", rotate_possible);
-        set_action_sensitive("FlipVertically", rotate_possible);
-
-        if (has_photo()) {
-            set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
-            set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
-                Scaling.for_original()));
-        }
-                 
-        update_flag_action();
-        
-        set_action_sensitive("ExternalEditRAW",
-            is_raw && Config.Facade.get_instance().get_external_raw_app() != "");
-        
-        base.update_actions(selected_count, count);
-    }
-    
-    private void on_photos_altered() {
-        set_action_sensitive("Revert", has_photo() ?
-            (get_photo().has_transformations() || get_photo().has_editable()) : false);
-        update_flag_action();
-    }
-    
-    private void on_raw_developer_changed(GLib.SimpleAction action,
-                                          Variant? value) {
-        RawDeveloper developer = RawDeveloper.SHOTWELL;
-
-        switch (value.get_string ()) {
-            case "Shotwell":
-                developer = RawDeveloper.SHOTWELL;
-                break;
-            case "Camera":
-                developer = RawDeveloper.CAMERA;
-                break;
-            default:
-                break;
-        }
-
-        developer_changed(developer);
-
-        action.set_state (value);
-    }
-    
-    void switch_developer(RawDeveloper rd) {
-        var command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
-        get_command_manager().execute(command);
-
-        update_development_menu_item_sensitivity();
-    }
-
-    protected virtual void developer_changed(RawDeveloper rd) {
-        if (get_view().get_selected_count() != 1)
-            return;
-        
-        Photo? photo = get_view().get_selected().get(0).get_source() as Photo;
-        if (photo == null || rd.is_equivalent(photo.get_raw_developer()))
-            return;
-        
-        // Check if any photo has edits
-        // Display warning only when edits could be destroyed
-        if (!photo.has_transformations()) {
-            switch_developer(rd);
-        } else {
-            Dialogs.confirm_warn_developer_changed.begin(1, (source, res) => {
-                if (Dialogs.confirm_warn_developer_changed.end(res)) {
-                    switch_developer(rd);
-                }
-            });
-        }
-    }
-    
-    private void update_flag_action() {
-        set_action_sensitive ("Flag", has_photo());
-    }
-    
-    // Displays a photo from a specific CollectionPage.  When the user exits this view,
-    // they will be sent back to the return_page. The optional view parameters is for using
-    // a ViewCollection other than the one inside return_page; this is necessary if the 
-    // view and return_page have different filters.
-    public void display_for_collection(CollectionPage return_page, Photo photo, 
-        ViewCollection? view = null) {
-        this.return_page = return_page;
-        //return_page.destroy.connect(on_page_destroyed);
-        //TODO
-        
-        display_copy_of(view != null ? view : return_page.get_view(), photo);
-    }
-    
-    public void on_page_destroyed() {
-        // The parent page was removed, so drop the reference to the page and
-        // its view collection.
-        return_page = null;
-        unset_view_collection();
-    }
-    
-    public CollectionPage? get_controller_page() {
-        return return_page;
-    }
-
-    public override void switched_to() {
-        // since LibraryPhotoPages often rest in the background, their stored photo can be deleted by 
-        // another page. this checks to make sure a display photo has been established before the
-        // switched_to call.
-        assert(get_photo() != null);
-        
-        base.switched_to();
-        
-        update_zoom_menu_item_sensitivity();
-        update_rating_menu_item_sensitivity();
-        
-        set_display_ratings(Config.Facade.get_instance().get_display_photo_ratings());
-    }
-
-
-    public override void switching_from() {
-        base.switching_from();
-        foreach (var entry in entries) {
-            AppWindow.get_instance().remove_action(entry.name);
-        }
-    }
-    
-    protected override Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
-        if (!has_photo() || !Config.Facade.get_instance().get_display_photo_ratings())
-            return null;
-        
-        return Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), scale);
-    }
-    
-    protected override Gdk.Pixbuf? get_top_right_trinket(int scale) {
-        if (!has_photo() || !((LibraryPhoto) get_photo()).is_flagged())
-            return null;
-        
-        return Resources.get_flagged_trinket(scale);
-    }
-    
-    private void on_slideshow() {
-        LibraryPhoto? photo = (LibraryPhoto?) get_photo();
-        if (photo == null)
-            return;
-        
-        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
-            photo));
-    }
-    
-    private void update_zoom_menu_item_sensitivity() {
-        set_action_sensitive("IncreaseSize", !get_zoom_state().is_max() && !get_photo_missing());
-        set_action_sensitive("DecreaseSize", !get_zoom_state().is_default() && !get_photo_missing());
-    }
-
-    protected override void on_increase_size() {
-        base.on_increase_size();
-        
-        update_zoom_menu_item_sensitivity();
-    }
-    
-    protected override void on_decrease_size() {
-        base.on_decrease_size();
-
-        update_zoom_menu_item_sensitivity();
-    }
-
-    protected override void update_ui(bool missing) {
-        bool sensitivity = !missing;
-        
-        set_action_sensitive("SendTo", sensitivity);
-        set_action_sensitive("Publish", sensitivity);
-        set_action_sensitive("Print", sensitivity);
-        set_action_sensitive("CommonJumpToFile", sensitivity);
-        
-        set_action_sensitive("CommonUndo", sensitivity);
-        set_action_sensitive("CommonRedo", sensitivity);
-        
-        set_action_sensitive("IncreaseSize", sensitivity);
-        set_action_sensitive("DecreaseSize", sensitivity);
-        set_action_sensitive("ZoomFit", sensitivity);
-        set_action_sensitive("Zoom100", sensitivity);
-        set_action_sensitive("Zoom200", sensitivity);
-        set_action_sensitive("Slideshow", sensitivity);
-        
-        set_action_sensitive("RotateClockwise", sensitivity);
-        set_action_sensitive("RotateCounterclockwise", sensitivity);
-        set_action_sensitive("FlipHorizontally", sensitivity);
-        set_action_sensitive("FlipVertically", sensitivity);
-        set_action_sensitive("Enhance", sensitivity);
-        set_action_sensitive("Crop", sensitivity);
-        set_action_sensitive("RedEye", sensitivity);
-        set_action_sensitive("Adjust", sensitivity);
-        set_action_sensitive("EditTitle", sensitivity);
-        set_action_sensitive("AdjustDateTime", sensitivity);
-        set_action_sensitive("ExternalEdit", sensitivity);
-        set_action_sensitive("ExternalEditRAW", sensitivity);
-        set_action_sensitive("Revert", sensitivity);
-        
-        set_action_sensitive("Rate", sensitivity);
-        set_action_sensitive("Flag", sensitivity);
-        set_action_sensitive("AddTags", sensitivity);
-        set_action_sensitive("ModifyTags", sensitivity);
-        
-        set_action_sensitive("SetBackground", sensitivity);
-        
-        base.update_ui(missing);
-    }
-    
-    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
-        if (missing)
-            ((LibraryPhoto) photo).mark_offline();
-        else
-            ((LibraryPhoto) photo).mark_online();
-        
-        base.notify_photo_backing_missing(photo, missing);
-    }
-    
-    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-        if (base.key_press_event(event, keyval, keycode, modifiers))
-            return true;
-
-        bool handled = true;
-        string? format = null;
-        switch (Gdk.keyval_name(keyval)) {
-            case "Escape":
-            case "Return":
-            case "KP_Enter":
-                if (!(get_container() is FullscreenWindow))
-                    return_to_collection();
-            break;
-            
-            case "Delete":
-                // although bound as an accelerator in the menu, accelerators are currently
-                // unavailable in fullscreen mode (a variant of #324), so we do this manually
-                // here
-                activate_action("win.MoveToTrash", format);
-            break;
-
-            case "period":
-            case "greater":
-                activate_action("win.IncreaseRating", format);
-            break;
-            
-            case "comma":
-            case "less":
-                activate_action("win.DecreaseRating", format);
-            break;
-
-            case "KP_1":
-                activate_action("win.RateOne", format);
-            break;
-            
-            case "KP_2":
-                activate_action("win.RateTwo", format);
-            break;
-
-            case "KP_3":
-                activate_action("win.RateThree", format);
-            break;
-        
-            case "KP_4":
-                activate_action("win.RateFour", format);
-            break;
-
-            case "KP_5":
-                activate_action("win.RateFive", format);
-            break;
-
-            case "KP_0":
-                activate_action("win.RateUnrated", format);
-            break;
-
-            case "KP_9":
-                activate_action("win.RateRejected", format);
-            break;
-            
-            case "bracketright":
-                activate_action("win.RotateClockwise", format);
-            break;
-            
-            case "bracketleft":
-                activate_action("win.RotateCounterclockwise", format);
-            break;
-            
-            case "slash":
-                activate_action("win.Flag", format);
-            break;
-            
-            default:
-                handled = false;
-            break;
-        }
-        
-        return handled;
-    }
-
-    protected override bool on_double_click(Gtk.EventController event, double x, double y) {
-        FullscreenWindow? fs = get_container() as FullscreenWindow;
-        if (fs == null)
-            return_to_collection_on_release = true;
-        else
-            fs.close();
-        
-        return true;
-    }
-    
-    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
-        if (return_to_collection_on_release) {
-            return_to_collection_on_release = false;
-            return_to_collection();
-            
-            return true;
-        }
-        
-        return base.on_left_released(event, press, x, y);
-    }
-
-    private Gtk.PopoverMenu context_menu;
-
-    private Gtk.PopoverMenu get_context_menu() {
-        if (context_menu == null) {
-            context_menu = get_popover_menu_from_builder (this.builder, "PhotoContextMenu", this);
-        }
-
-        return this.context_menu;
-    }
-    
-    protected override bool on_context_buttonpress(Gtk.EventController event, double x, double y) {
-        popup_context_menu(get_context_menu(), x, y);
-
-        return true;
-    }
-
-    protected override bool on_context_keypress() {
-        //popup_context_menu(get_context_menu());
-        
-        return true;
-    }
-
-    private void return_to_collection() {
-        // Return to the previous page if it exists.
-        if (null != return_page)
-            LibraryWindow.get_app().switch_to_page(return_page);
-        else
-            LibraryWindow.get_app().switch_to_library_page();
-    }
-    
-    private void on_remove_from_library() {
-        LibraryPhoto photo = (LibraryPhoto) get_photo();
-        
-        Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        photos.add(photo);
-        
-        remove_from_app.begin(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
-            GLib.dpgettext2(null, "Dialog Title", "Removing Photo From Library"));
-    }
-    
-    private void on_move_to_trash() {        
-        if (!has_photo())
-            return;
-        
-        // Temporarily prevent the application from switching pages if we're viewing
-        // the current photo from within an Event page.  This is needed because the act of 
-        // trashing images from an Event causes it to be renamed, which causes it to change 
-        // positions in the sidebar, and the selection moves with it, causing the app to
-        // inappropriately switch to the Event page. 
-        if (return_page is EventPage) {
-            LibraryWindow.get_app().set_page_switching_enabled(false);
-        }
-        
-        LibraryPhoto photo = (LibraryPhoto) get_photo();
-        
-        Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        photos.add(photo);
-        
-        // move on to next photo before executing
-        on_next_photo();
-        
-        // this indicates there is only one photo in the controller, or about to be zero, so switch 
-        // to the library page, which is guaranteed to be there when this disappears
-        if (photo.equals(get_photo())) {
-            // If this is the last photo in an Event, then trashing it
-            // _should_ cause us to switch pages, so re-enable it here. 
-            LibraryWindow.get_app().set_page_switching_enabled(true);
-            
-            if (get_container() is FullscreenWindow)
-                ((FullscreenWindow) get_container()).close();
-
-            LibraryWindow.get_app().switch_to_library_page();
-        }
-
-        get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
-        LibraryWindow.get_app().set_page_switching_enabled(true);
-    }
-    
-    private void on_flag_unflag() {
-        if (has_photo()) {
-            var photo_list = new Gee.ArrayList<MediaSource>();
-            photo_list.add(get_photo());
-            get_command_manager().execute(new FlagUnflagCommand(photo_list,
-                !((LibraryPhoto) get_photo()).is_flagged()));
-        }
-    }
-    
-    private void on_photo_destroyed(DataSource source) {
-        on_photo_removed((LibraryPhoto) source);
-    }
-    
-    private void on_photo_removed(LibraryPhoto photo) {
-        // only interested in current photo
-        if (photo == null || !photo.equals(get_photo()))
-            return;
-        
-        // move on to the next one in the collection
-        on_next_photo();
-        
-        ViewCollection view = get_view();
-        view.remove_marked(view.mark(view.get_view_for_source(photo)));
-        if (photo.equals(get_photo())) {
-            // this indicates there is only one photo in the controller, or now zero, so switch 
-            // to the Photos page, which is guaranteed to be there
-            LibraryWindow.get_app().switch_to_library_page();
-        }
-    }
-
-    private void on_print() {
-        if (get_view().get_selected_count() > 0) {
-            PrintManager.get_instance().spool_photo(
-                (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
-        }
-    }
-
-    private void on_external_app_changed() {
-        set_action_sensitive("ExternalEdit", has_photo() && 
-            Config.Facade.get_instance().get_external_photo_app() != "");
-    }
-    
-    private void on_external_edit() {
-        if (!has_photo())
-            return;
-        
-        try {
-            AppWindow.get_instance().set_busy_cursor();
-            get_photo().open_with_external_editor();
-            AppWindow.get_instance().set_normal_cursor();
-        } catch (Error err) {
-            AppWindow.get_instance().set_normal_cursor();
-            open_external_editor_error_dialog(err, get_photo());
-        }
-
-    }
-
-    private void on_external_edit_raw() {
-        if (!has_photo())
-            return;
-        
-        if (get_photo().get_master_file_format() != PhotoFileFormat.RAW)
-            return;
-        
-        try {
-            AppWindow.get_instance().set_busy_cursor();
-            get_photo().open_with_raw_external_editor();
-            AppWindow.get_instance().set_normal_cursor();
-        } catch (Error err) {
-            AppWindow.get_instance().set_normal_cursor();
-            AppWindow.error_message(Resources.launch_editor_failed(err));
-        }
-    }
-    
-    private void on_send_to() {
-        if (has_photo())
-            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
-    }
-    
-    private void on_export() {
-        do_export.begin();
-    }
-    
-    private async void do_export() {
-        if (!has_photo())
-            return;
-        
-        ExportDialog export_dialog = new ExportDialog(GLib.dpgettext2(null, "Dialog Title", "Export Photo"));
-        
-        ExportFormatParameters? export_params = ExportFormatParameters.last();
-        export_params = yield export_dialog.execute(export_params);
-        if (export_params == null) {
-            return;
-        }
-        
-        File save_as =
-            yield ExportUI.choose_file(get_photo().get_export_basename_for_parameters(export_params));
-
-        if (save_as == null)
-            return;
-        
-        Scaling scaling = Scaling.for_constraint(export_params.constraint, export_params.scale, false);
-        
-        try {
-            get_photo().export(save_as, scaling, export_params.quality,
-                get_photo().get_export_format_for_parameters(export_params),
-                export_params.mode == ExportFormatMode.UNMODIFIED, export_params.export_metadata);
-        } catch (Error err) {
-            AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
-        }
-    }
-    
-    private void on_publish() {
-        if (get_view().get_count() > 0)
-            PublishingUI.PublishingDialog.go(
-                (Gee.Collection<MediaSource>) get_view().get_selected_sources());
-    }
-    
-    private void on_increase_rating() {
-        if (!has_photo() || get_photo_missing())
-            return;
-        
-        SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), true);
-        get_command_manager().execute(command);
-    
-        update_rating_menu_item_sensitivity();
-    }
-
-    private void on_decrease_rating() {
-        if (!has_photo() || get_photo_missing())
-            return;
-        
-        SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), false);
-        get_command_manager().execute(command);
-
-        update_rating_menu_item_sensitivity();
-    }
-
-    private void on_set_rating(Rating rating) {
-        if (!has_photo() || get_photo_missing())
-            return;
-        
-        SetRatingSingleCommand command = new SetRatingSingleCommand(get_photo(), rating);
-        get_command_manager().execute(command);
-        
-        update_rating_menu_item_sensitivity();
-    }
-
-    private void on_rate_rejected() {
-        on_set_rating(Rating.REJECTED);
-    }
-    
-    private void on_rate_unrated() {
-        on_set_rating(Rating.UNRATED);
-    }
-
-    private void on_rate_one() {
-        on_set_rating(Rating.ONE);
-    }
-
-    private void on_rate_two() {
-        on_set_rating(Rating.TWO);
-    }
-
-    private void on_rate_three() {
-        on_set_rating(Rating.THREE);
-    }
-
-    private void on_rate_four() {
-        on_set_rating(Rating.FOUR);
-    }
-
-    private void on_rate_five() {
-        on_set_rating(Rating.FIVE);
-    }
-
-    private void update_rating_menu_item_sensitivity() {
-        set_action_sensitive("RateRejected", get_photo().get_rating() != Rating.REJECTED);
-        set_action_sensitive("RateUnrated", get_photo().get_rating() != Rating.UNRATED);
-        set_action_sensitive("RateOne", get_photo().get_rating() != Rating.ONE);
-        set_action_sensitive("RateTwo", get_photo().get_rating() != Rating.TWO);
-        set_action_sensitive("RateThree", get_photo().get_rating() != Rating.THREE);
-        set_action_sensitive("RateFour", get_photo().get_rating() != Rating.FOUR);
-        set_action_sensitive("RateFive", get_photo().get_rating() != Rating.FIVE);
-        set_action_sensitive("IncreaseRating", get_photo().get_rating().can_increase());
-        set_action_sensitive("DecreaseRating", get_photo().get_rating().can_decrease());
-    }
-    
-    private void update_development_menu_item_sensitivity() {
-        PhotoFileFormat format = get_photo().get_master_file_format() ;
-        set_action_sensitive("RawDeveloper", format == PhotoFileFormat.RAW);
-        
-        if (format == PhotoFileFormat.RAW) {
-            // FIXME: Only enable radio actions that are actually possible..
-            // Set active developer in menu.
-            switch (get_photo().get_raw_developer()) {
-                case RawDeveloper.SHOTWELL:
-                    get_action ("RawDeveloper").change_state ("Shotwell");
-                    break;
-                
-                case RawDeveloper.CAMERA:
-                case RawDeveloper.EMBEDDED:
-                    get_action ("RawDeveloper").change_state ("Camera");
-                    break;
-                
-                default:
-                    assert_not_reached();
-            }
-        }
-    }
-
-    private void on_metadata_altered(Gee.Map<DataObject, Alteration> map) {
-        if (map.has_key(get_photo()) && map.get(get_photo()).has_subject("metadata"))
-            repaint();
-    }
-
-    private void on_add_tags() {
-        AddTagsDialog dialog = new AddTagsDialog();
-        dialog.execute.begin((source, res) => {
-            string[]? names = dialog.execute.end(res);
-            if (names != null) {
-                get_command_manager().execute(new AddTagsCommand(
-                    HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names), 
-                    (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
-            }
-            });
-    }
-
-    private void on_modify_tags() {
-        LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
-        
-        ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
-        dialog.execute.begin((source, res) => {
-            var new_tags = dialog.execute.end(res);
-            if (new_tags == null)
-                return;
-        
-            get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
-        });
-    }
-
-    private void on_faces_toggled() {
-        on_tool_button_toggled(faces_button, FacesTool.factory);
-    }
-    
-    protected void toggle_faces() {
-        faces_button.set_active(!faces_button.get_active());
-    }
-    
-    protected override void insert_faces_button(Gtk.Box toolbar) {
-        faces_button = new Gtk.ToggleButton();
-        faces_button.set_icon_name(Resources.ICON_FACES);
-        faces_button.set_label(Resources.FACES_LABEL);
-        faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
-        faces_button.toggled.connect(on_faces_toggled);
-        toolbar.append(faces_button);
     }
 }
 
