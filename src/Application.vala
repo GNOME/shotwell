@@ -309,8 +309,6 @@ public class Application {
         exiting_fired = true;
 
         exiting(false);
-
-        system_app.release();
     }
 
     // This will fire the exiting signal with panicked set to true, but only if exit() hasn't

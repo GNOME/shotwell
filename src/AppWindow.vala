@@ -136,9 +136,14 @@ public abstract class AppWindow : PageWindow {
         notify["maximized"].connect(on_maximized);
     }
 
+    private void on_quit_menu() {
+        close();
+        on_quit();
+    }
+
     private const GLib.ActionEntry[] common_actions = {
         { "CommonAbout", on_about },
-        { "CommonQuit", on_quit },
+        { "CommonQuit", on_quit_menu },
         { "CommonFullscreen", on_fullscreen },
         { "CommonHelpContents", on_help_contents },
         { "CommonHelpFAQ", on_help_faq },
