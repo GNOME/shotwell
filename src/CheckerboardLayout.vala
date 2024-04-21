@@ -1122,7 +1122,6 @@ public class CheckerboardLayout : Gtk.Widget {
         // we want switched_to() to be the final call in the process (indicating that the page is
         // now in place and should do its thing to update itself), have to be be prepared for
         // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
-        snapshot.render_background(get_style_context(), 0, 0, get_width(), get_height());
 
 #if TRACE_REFLOW
         debug("draw %s: %s", page_name, rectangle_to_string(visible_page));
