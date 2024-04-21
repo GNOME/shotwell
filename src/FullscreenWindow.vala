@@ -23,6 +23,8 @@ public class FullscreenWindow : PageWindow {
         base ();
 
         set_current_page(page);
+        set_child(overlay);
+        overlay.set_child(page);
 
         this.add_action_entries (entries, this);
         const string[] accels = { "F11", "Escape", null };
@@ -102,10 +104,7 @@ public class FullscreenWindow : PageWindow {
             page.set_cursor_hide_time(TOOLBAR_DISMISSAL_SEC / 1000);
             page.start_cursor_hiding();
     
-            toolbar.append(close_button);
-            
-            set_child(overlay);
-            overlay.set_child(page);
+            toolbar.append(close_button);            
             overlay.add_overlay (toolbar);
             // If toolbar is enabled in "normal" ui OR was pinned in
             // fullscreen, start off with toolbar invoked, as a clue for the
