@@ -15,196 +15,145 @@
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">1</property>
   </object>
-  <template class="SlideshowPageSettingsDialog" parent="GtkDialog">
-    <property name="title" translatable="yes">Settings</property>
-    <property name="modal">1</property>
+  <template class="SlideshowPageSettingsDialog" parent="GtkPopover">
     <child>
-      <placeholder/>
-    </child>
-    <child internal-child="content_area">
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+      <object class="GtkGrid" id="grid3">
+        <property name="row_spacing">4</property>
+        <property name="column_spacing">4</property>
         <child>
-          <object class="GtkBox" id="slideshow_settings_pane">
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkBox" id="dialog-vbox7">
-                <property name="margin-start">8</property>
-                <property name="margin-end">8</property>
-                <property name="spacing">2</property>
-                <child>
-                  <object class="GtkGrid" id="grid3">
-                    <property name="row_spacing">4</property>
-                    <property name="column_spacing">4</property>
-                    <child>
-                      <object class="GtkLabel" id="delay_label">
-                        <property name="halign">end</property>
-                        <property name="label" translatable="yes">_Duration:</property>
-                        <property name="tooltip-text" translatable="yes">The time (in seconds) to show each photo</property>
-                        <property name="use_underline">1</property>
-                        <property name="mnemonic_widget">delay_hscale</property>
-                        <layout>
-                          <property name="column">0</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="transition_effect_label">
-                        <property name="halign">end</property>
-                        <property name="label" translatable="yes">_Transition effect:</property>
-                        <property name="use_underline">1</property>
-                        <property name="mnemonic_widget">transition_effect_selector</property>
-                        <layout>
-                          <property name="column">0</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="transition_delay_label">
-                        <property name="halign">end</property>
-                        <property name="label" translatable="yes">Transition d_uration:</property>
-                        <property name="tooltip-text" translatable="yes">The time (in seconds) to show each transition between photos</property>
-                        <property name="use_underline">1</property>
-                        <layout>
-                          <property name="column">0</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="show_title_button">
-                        <property name="label" translatable="yes">Show t_itle</property>
-                        <property name="focusable">1</property>
-                        <property name="halign">start</property>
-                        <property name="use_underline">1</property>
-                        <layout>
-                          <property name="column">0</property>
-                          <property name="row">3</property>
-                          <property name="column-span">4</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="shuffle_button">
-                        <property name="label" translatable="yes">Shuffle</property>
-                        <property name="halign">start</property>
-                        <property name="use_underline">1</property>
-                      </object>
-                      <packing>
-                        <property name="column">0</property>
-                        <property name="row">4</property>
-                        <property name="column-span">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBoxText" id="transition_effect_selector">
-                        <layout>
-                          <property name="column">1</property>
-                          <property name="row">1</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkScale" id="delay_hscale">
-                        <property name="width_request">150</property>
-                        <property name="focusable">1</property>
-                        <property name="adjustment">delay_adjustment</property>
-                        <property name="fill_level">300</property>
-                        <layout>
-                          <property name="column">1</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkScale" id="transition_effect_hscale">
-                        <property name="focusable">1</property>
-                        <property name="adjustment">transition_effect_adjustment</property>
-                        <property name="fill_level">3</property>
-                        <layout>
-                          <property name="column">1</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSpinButton" id="delay_entry">
-                        <property name="focusable">1</property>
-                        <property name="adjustment">delay_adjustment</property>
-                        <property name="numeric">1</property>
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSpinButton" id="transition_effect_entry">
-                        <property name="focusable">1</property>
-                        <property name="adjustment">transition_effect_adjustment</property>
-                        <property name="digits">1</property>
-                        <property name="numeric">1</property>
-                        <layout>
-                          <property name="column">2</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="seconds_label_3">
-                        <property name="label" translatable="yes">seconds</property>
-                        <layout>
-                          <property name="column">3</property>
-                          <property name="row">0</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="seconds_label_4">
-                        <property name="label" translatable="yes">seconds</property>
-                        <layout>
-                          <property name="column">3</property>
-                          <property name="row">2</property>
-                        </layout>
-                      </object>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
+          <object class="GtkLabel" id="delay_label">
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">_Duration:</property>
+            <property name="tooltip-text" translatable="yes">The time (in seconds) to show each photo</property>
+            <property name="use_underline">1</property>
+            <property name="mnemonic_widget">delay_hscale</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
           </object>
         </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-6">button1</action-widget>
-      <action-widget response="-5" default="true">button2</action-widget>
-    </action-widgets>
-    <child type="action">
-      <object class="GtkButton" id="button1">
-        <property name="label" translatable="yes">_Cancel</property>
-        <property name="focusable">1</property>
-        <property name="receives_default">1</property>
-        <property name="use_underline">1</property>
-      </object>
-    </child>
-    <child type="action">
-      <object class="GtkButton" id="button2">
-        <property name="label" translatable="yes">_OK</property>
-        <property name="focusable">1</property>
-        <property name="use_underline">1</property>
-        <style>
-          <class name="default-action"/>
-        </style>
+        <child>
+          <object class="GtkLabel" id="transition_effect_label">
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">_Transition effect:</property>
+            <property name="use_underline">1</property>
+            <property name="mnemonic_widget">transition_effect_selector</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="transition_delay_label">
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Transition d_uration:</property>
+            <property name="tooltip-text" translatable="yes">The time (in seconds) to show each transition between photos</property>
+            <property name="use_underline">1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="show_title_button">
+            <property name="label" translatable="yes">Show t_itle</property>
+            <property name="focusable">1</property>
+            <property name="halign">start</property>
+            <property name="use_underline">1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">3</property>
+              <property name="column-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="shuffle_button">
+            <property name="label" translatable="yes">Shuffle</property>
+            <property name="halign">start</property>
+            <property name="use_underline">1</property>
+          <layout>
+            <property name="column">0</property>
+            <property name="row">4</property>
+            <property name="column-span">4</property>
+          </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="transition_effect_selector">
+            <layout>
+              <property name="column">1</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale" id="delay_hscale">
+            <property name="width_request">150</property>
+            <property name="focusable">1</property>
+            <property name="adjustment">delay_adjustment</property>
+            <property name="fill_level">300</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale" id="transition_effect_hscale">
+            <property name="focusable">1</property>
+            <property name="adjustment">transition_effect_adjustment</property>
+            <property name="fill_level">3</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="delay_entry">
+            <property name="focusable">1</property>
+            <property name="adjustment">delay_adjustment</property>
+            <property name="numeric">1</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="transition_effect_entry">
+            <property name="focusable">1</property>
+            <property name="adjustment">transition_effect_adjustment</property>
+            <property name="digits">1</property>
+            <property name="numeric">1</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="seconds_label_3">
+            <property name="label" translatable="yes">seconds</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="seconds_label_4">
+            <property name="label" translatable="yes">seconds</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
   </template>

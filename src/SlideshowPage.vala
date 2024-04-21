@@ -13,7 +13,8 @@ class SlideshowPage : SinglePhotoPage {
     private ViewCollection controller;
     private Photo current;
     private Gtk.Button play_pause_button;
-    private Gtk.Button settings_button;
+    private Gtk.MenuButton settings_button;
+    private SettingsDialog settings_dialog;
     private PixbufCache cache = null;
     private Timer timer = new Timer();
     private bool playing = true;
@@ -26,7 +27,7 @@ class SlideshowPage : SinglePhotoPage {
     public signal void hide_toolbar();
     
     [GtkTemplate (ui = "/org/gnome/Shotwell/ui/slideshow_settings.ui")]
-    private class SettingsDialog : Gtk.Dialog {
+    private class SettingsDialog : Gtk.Popover {
         [GtkChild]
         unowned Gtk.Adjustment delay_adjustment;
         [GtkChild]
@@ -45,11 +46,14 @@ class SlideshowPage : SinglePhotoPage {
         unowned Gtk.CheckButton shuffle_button;
         
         public SettingsDialog() {
-            Object (use_header_bar: Resources.use_header_bar());
+            Object ();
+            update_from_settings();
+        }
 
+        public void update_from_settings() {
             double delay = Config.Facade.get_instance().get_slideshow_delay();
 
-            set_transient_for(AppWindow.get_fullscreen());
+            //set_transient_for(AppWindow.get_fullscreen());
 
             delay_adjustment.value = delay;
 
@@ -169,11 +173,14 @@ class SlideshowPage : SinglePhotoPage {
         
         toolbar.append(next_button);
 
-        settings_button = new Gtk.Button();
+        settings_button = new Gtk.MenuButton();
         settings_button.set_icon_name("preferences-system-symbolic");
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
-        settings_button.clicked.connect(on_change_settings);
+        settings_dialog = new SettingsDialog();
+        settings_dialog.set_autohide(true);
+        settings_button.set_popover(settings_dialog);
+        settings_button.notify["active"].connect_after(on_change_settings);
         
         toolbar.append(settings_button);
 
@@ -381,42 +388,41 @@ class SlideshowPage : SinglePhotoPage {
         return handled;
     }
 
-    private void on_change_settings() {
-        SettingsDialog settings_dialog = new SettingsDialog();
-        settings_dialog.show();
-        settings_dialog.set_transient_for(get_container());
-        
-        bool slideshow_playing = playing;
-        playing = false;
-        hide_toolbar();
-        suspend_cursor_hiding();
-        bool old_shuffled = Config.Facade.get_instance().get_slideshow_shuffle();
-        settings_dialog.show();
-        settings_dialog.response.connect((source, res) => {
-            if (res == Gtk.ResponseType.OK) {
+    private bool slideshow_playing = false;
+    private bool old_shuffled = false;
 
-                // sync with the config setting so it will persist
-                Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
+    private void on_change_settings() {
+        var fsw = (FullscreenWindow) get_container();
+        if (settings_button.active) {
+            old_shuffled = shuffled;
+            slideshow_playing = playing;
+            playing = false;
+            //hide_toolbar();
+            suspend_cursor_hiding();
+            print("Disabling toolbar dismissaal\n");
+            fsw.disable_toolbar_dismissal();
+            settings_dialog.update_from_settings();
+        } else {
+            Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
                 
-                Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-                Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
-                Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
-                
+            Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
+            Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
+            Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
+            
             shuffled = settings_dialog.get_shuffle();
             Config.Facade.get_instance().set_slideshow_shuffle(shuffled);
-            
-                update_transition_effect();
         
-        if (old_shuffled && !shuffled)
-            controller = controller_source;
-        else if (!old_shuffled && shuffled)
-            controller = controller_source.shuffled_copy(current);
-                restore_cursor_hiding();
-                playing = slideshow_playing;
-                timer.start();    
-            }
-            settings_dialog.destroy();
-        });
+            update_transition_effect();
+    
+            if (old_shuffled && !shuffled)
+                controller = controller_source;
+            else if (!old_shuffled && shuffled)
+                controller = controller_source.shuffled_copy(current);
+            restore_cursor_hiding();
+            playing = slideshow_playing;
+            timer.start();    
+            fsw.update_toolbar_dismissal();
+        }
     }
     
     private void update_transition_effect() {
