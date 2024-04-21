@@ -58,12 +58,12 @@ public abstract class FaceShape : Object {
             erase();
         }
         
-        //face_window.popover.destroy();
+        face_window.popover.destroy();
         
-        //canvas.new_surface.disconnect(prepare_ctx);
+        canvas.new_surface.disconnect(prepare_ctx);
         
         // make sure the cursor isn't set to a modify indicator
-        //canvas.set_cursor("normal");
+        canvas.set_cursor("normal");
     }
 
     public static FaceShape from_serialized(EditingTools.PhotoCanvas canvas, string serialized)

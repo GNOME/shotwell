@@ -103,7 +103,7 @@ public class FacesTool : EditingTools.EditingTool {
             return;
         }
 
-        public bool edit_name() {
+        public void edit_name(Gtk.GestureClick gesture, int press, double x, double y) {
             set_default_view();
             face_tool_window_default_view();
             remove(label);
@@ -117,8 +117,6 @@ public class FacesTool : EditingTools.EditingTool {
             name_entry.grab_focus();
             ok_button.set_visible(true);
             cancel_button.set_visible(true);
-
-            return true;
         }
 
         public void set_default_view() {
@@ -300,6 +298,9 @@ public class FacesTool : EditingTools.EditingTool {
             focus.enter.connect(face_widget.on_enter_notify_event);
             focus.leave.connect(face_widget.on_leave_notify_event);
             face_widget.add_controller(focus);
+            var click = new Gtk.GestureClick();
+            click.pressed.connect(face_widget.edit_name);
+            face_widget.add_controller(click);
             //event_box.button_press_event.connect(face_widget.edit_name);
             face_widget.ok_button.clicked.connect(on_face_widget_ok_button_pressed);
             face_widget.face_tool_window_default_view.connect(all_face_widgets_default_view);
