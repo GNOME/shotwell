@@ -13,7 +13,6 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    private Gtk.ToggleButton faces_button = null;
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -817,18 +816,9 @@ public class LibraryPhotoPage : EditingHostPage {
             get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
         });
     }
-
-    private void on_faces_toggled() {
-        //on_tool_button_toggled(faces_button, FacesTool.factory);
-    }
-    
-    protected void toggle_faces() {
-        faces_button.set_active(!faces_button.get_active());
-    }
     
     protected override void insert_faces_button() {
         var faces_button = (Gtk.Button) builder.get_object("FacesButton");
-        print("Enabling faces button... %p\n", faces_button);
         if (faces_button != null) {
             faces_button.show();
         }

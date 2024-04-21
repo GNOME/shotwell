@@ -58,6 +58,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         { "Straighten", on_action_toggle, null, "false", on_straighten_toggled },
         { "RedEye", on_action_toggle, null, "false", on_redeye_toggled },
         { "Adjust", on_action_toggle, null, "false", on_adjust_toggled },
+        { "Faces", on_action_toggle, null, "false", on_faces_toggled },
         { "Enhance", on_enhance_clicked },
         { "PrevPhoto", on_previous_photo },
         { "NextPhoto", on_next_photo },
@@ -1588,7 +1589,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         on_tool_button_toggled(action, EditingTools.AdjustTool.factory);
     }
-    
+
+    private void on_faces_toggled(GLib.SimpleAction action, Variant? value) {
+        action.set_state(value);
+
+        on_tool_button_toggled(action, FacesTool.factory);
+    }
+
     public bool is_enhance_available(Photo photo) {
         return !photo_missing;
     }
