@@ -32,18 +32,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ViewCollection? parent_view = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
+
     private Gtk.ToggleButton rotate_button = null;
     private Gtk.Image rotate_button_icon = null;
     private Gtk.Label rotate_button_label = null;
-    private Gtk.ToggleButton crop_button = null;
-    private Gtk.ToggleButton redeye_button = null;
-    private Gtk.ToggleButton adjust_button = null;
-    private Gtk.ToggleButton straighten_button = null;
-    private Gtk.ToggleButton faces_button = null;
-    private Gtk.Button enhance_button = null;
+
     private Gtk.Scale zoom_slider = null;
-    private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
-    private Gtk.Button next_button = new Gtk.Button.with_label(Resources.NEXT_LABEL);
     private EditingTools.EditingTool current_tool = null;
     private GLib.SimpleAction current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
@@ -58,7 +52,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool is_pan_in_progress = false;
     private double saved_slider_val = 0.0;
     private ZoomBuffer? zoom_buffer = null;
-    private Gee.HashMap<string, int> last_locations = new Gee.HashMap<string, int>();
     
     private const GLib.ActionEntry[] entries = {
         { "Crop", on_action_toggle, null, "false", on_crop_toggled },
@@ -66,6 +59,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         { "RedEye", on_action_toggle, null, "false", on_redeye_toggled },
         { "Adjust", on_action_toggle, null, "false", on_adjust_toggled },
         { "Enhance", on_enhance_clicked },
+        { "PrevPhoto", on_previous_photo },
+        { "NextPhoto", on_next_photo },
     };
 
     protected EditingHostPage(SourceCollection sources, string name) {
@@ -91,119 +86,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         key.key_pressed.connect(key_press_event);
         add_controller(key);
 
-        #if 0
-        // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
-        var toolbar = get_toolbar();
-        
-        // rotate tool
-        rotate_button = new Gtk.Button.with_label(Resources.ROTATE_CW_LABEL);
-        rotate_button.set_icon_name(Resources.CLOCKWISE);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked.connect(on_rotate_clockwise);
-        toolbar.append(rotate_button);
-        #if 0
-        unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
-        Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
-        Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
-        #endif
-        
-        // crop tool
-        crop_button = new Gtk.ToggleButton ();
-        crop_button.set_icon_name("image-crop-symbolic");
-        crop_button.set_label(Resources.CROP_LABEL);
-        crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
-        crop_button.toggled.connect(on_crop_toggled);
-        toolbar.append(crop_button);
-
-        // straightening tool
-        straighten_button = new Gtk.ToggleButton ();
-        straighten_button.set_icon_name(Resources.STRAIGHTEN);
-        straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
-        straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
-        straighten_button.toggled.connect(on_straighten_toggled);
-        toolbar.append(straighten_button);
-
-        // redeye reduction tool
-        redeye_button = new Gtk.ToggleButton ();
-        redeye_button.set_icon_name("stock-eye-symbolic");
-        redeye_button.set_label(Resources.RED_EYE_LABEL);
-        redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
-        redeye_button.toggled.connect(on_redeye_toggled);
-        toolbar.append(redeye_button);
-        
-        // adjust tool
-        adjust_button = new Gtk.ToggleButton();
-        adjust_button.set_icon_name(Resources.ADJUST);
-        adjust_button.set_label(Resources.ADJUST_LABEL);
-        adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
-        adjust_button.toggled.connect(on_adjust_toggled);
-        toolbar.append(adjust_button);
-
-        // enhance tool
-        enhance_button = new Gtk.Button.with_label (Resources.ENHANCE_LABEL);
-        enhance_button.set_icon_name(Resources.ENHANCE);
-        enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
-        enhance_button.clicked.connect(on_enhance);
-        toolbar.append (enhance_button);
-        
-        // faces tool
-        insert_faces_button(toolbar);
-        faces_button = new Gtk.ToggleButton();
-        //face_button
-
-        // separator to force next/prev buttons to right side of toolbar
-        var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
-        separator.hexpand = true;
-        separator.halign = Gtk.Align.START;
-        toolbar.append(separator);
-        
-        Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        
-        Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
-        var click = new Gtk.GestureClick();
-        click.set_exclusive(true);
-        click.pressed.connect(() => {snap_zoom_to_min();});
-        zoom_out.add_controller(click);
-
-        //zoom_out.button_press_event.connect(on_zoom_out_pressed);
-
-        zoom_group.append(zoom_out);
-
-        // zoom slider
-        zoom_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
-        zoom_slider.set_draw_value(false);
-        zoom_slider.set_size_request(120, -1);
-        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
-        #if 0
-        zoom_slider.button_press_event.connect(on_zoom_slider_drag_begin);
-        zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
-        zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
-        #endif
-
-        zoom_group.append(zoom_slider);
-        
-        Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
-        click = new Gtk.GestureClick();
-        click.set_exclusive(true);
-        click.pressed.connect(() => {snap_zoom_to_max();});
-        zoom_in.add_controller(click);
-
-        zoom_group.append(zoom_in);
-
-        toolbar.append(zoom_group);
-
-        // previous button
-        prev_button.set_tooltip_text(_("Previous photo"));
-        prev_button.set_icon_name("go-previous-symbolic");
-        prev_button.clicked.connect(on_previous_photo);
-        toolbar.append(prev_button);
-        
-        // next button
-        next_button.set_tooltip_text(_("Next photo"));
-        next_button.set_icon_name("go-next-symbolic");
-        next_button.clicked.connect(on_next_photo);
-        toolbar.append(next_button);
-#endif
     }
     
     ~EditingHostPage() {
@@ -356,8 +238,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override bool on_mousewheel_up(Gtk.EventControllerScroll event) {
-        if (get_zoom_state().is_max() || !zoom_slider.get_sensitive())
+        if (get_zoom_state().is_max() || !zoom_slider.get_sensitive()) {
             return false;
+        }
 
         zoom_about_event_cursor_point(event, ZOOM_INCREMENT_SIZE);
         return true;
@@ -423,11 +306,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void set_photo(Photo photo) {
-        #if 0
-        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
-        zoom_slider.set_value(0.0);
-        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
-        #endif
+        if (zoom_slider != null) {
+            zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
+            zoom_slider.set_value(0.0);
+            zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        }
         
         photo_changing(photo);
         DataView view = get_view().get_view_for_source(photo);
@@ -461,6 +344,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button_icon = (Gtk.Image)builder.get_object("RotateButtonIcon");
         rotate_button_label = (Gtk.Label)builder.get_object("RotateButtonLabel");
         zoom_slider = (Gtk.Scale)builder.get_object("ZoomSlider");
+
+        // The enabled state was set way before we have access to the zoom_slider widget on
+        // initial creation. Just copy the state from one of the actions here.
+        zoom_slider.sensitive = get_action("Enhance").get_enabled();
         insert_faces_button();
 
         return tb;
@@ -526,10 +413,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             replace_photo((Photo) view.get_source());
             break;
         }
-    }
-
-    protected void enable_rotate(bool should_enable) {
-        rotate_button.set_sensitive(should_enable);
     }
 
     // This function should be called if the viewport has changed and the pixbuf cache needs to be
@@ -835,9 +718,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override void cancel_zoom() {
         base.cancel_zoom();
 
-        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
-        zoom_slider.set_value(0.0);
-        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        if (zoom_slider != null) {
+            zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
+            zoom_slider.set_value(0.0);
+            zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        }
 
         if (get_photo() != null)
             set_zoom_state(ZoomState(get_photo().get_dimensions(), get_surface_dim(), 0.0));
@@ -951,31 +836,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_pixbuf();
     }
     
-    protected override void update_actions(int selected_count, int count) {
-        bool multiple_photos = get_view().get_sources_of_type_count(typeof(Photo)) > 1;
-        
-        prev_button.sensitive = multiple_photos;
-        next_button.sensitive = multiple_photos;
-        
-        Photo? photo = get_photo();
-        Scaling scaling = get_canvas_scaling();
-        
-        rotate_button.sensitive = ((photo != null) && (!photo_missing) && photo.check_can_rotate()) ?
-            is_rotate_available(photo) : false;
-        crop_button.sensitive = ((photo != null) && (!photo_missing)) ?
-            EditingTools.CropTool.is_available(photo, scaling) : false;
-        redeye_button.sensitive = ((photo != null) && (!photo_missing)) ?
-            EditingTools.RedeyeTool.is_available(photo, scaling) : false;
-        adjust_button.sensitive = ((photo != null) && (!photo_missing)) ?
-            EditingTools.AdjustTool.is_available(photo, scaling) : false;
-        enhance_button.sensitive = ((photo != null) && (!photo_missing)) ?
-            is_enhance_available(photo) : false;
-        straighten_button.sensitive = ((photo != null) && (!photo_missing)) ?
-            EditingTools.StraightenTool.is_available(photo, scaling) : false;
-                    
-        base.update_actions(selected_count, count);
-    }
-    
     protected override bool on_shift_pressed() {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
         if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed() && has_photo())
@@ -1040,6 +900,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void activate_tool(EditingTools.EditingTool tool) {
+        var window = AppWindow.get_instance();
         // cancel any zoom -- we don't currently allow tools to be used when an image is zoomed,
         // though we may at some point in the future.
         save_zoom_state();
@@ -1067,7 +928,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
             // untoggle tool button (usually done after deactivate, but tool never deactivated)
             assert(current_editing_toggle != null);
-            current_editing_toggle.change_state(false);
+            if ((bool)current_editing_toggle.get_state()) {
+                current_editing_toggle.change_state(false);
+            }
            
             return;
         }
@@ -1097,17 +960,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
-
-        #if 0
-        // save the position of the tool
-        EditingTools.EditingToolWindow? tool_window = tool.get_tool_window();
-        if (tool_window != null && tool_window.has_user_moved()) {
-            int last_location_x, last_location_y;
-            tool_window.get_position(out last_location_x, out last_location_y);            
-            last_locations[tool.name + "_x"] = last_location_x;
-            last_locations[tool.name + "_y"] = last_location_y;
-        }
-        #endif
         
         // deactivate with the tool taken out of the hooks and
         // disconnect any signals we may have connected on activating
@@ -1643,8 +1495,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button_icon.set_from_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button_label.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
-        rotate_button.set_action_name("win.RotateCounterClockwise");
-        
+        rotate_button.set_action_name("win.RotateCounterclockwise");
+
         if (current_tool == null)
             swap_out_original();
 
@@ -1692,14 +1544,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void on_tool_activated() {
         assert(current_editing_toggle != null);
         zoom_slider.set_sensitive(false);
-        current_editing_toggle.change_state(false);
+        if (!(bool)current_editing_toggle.get_state()) {
+             current_editing_toggle.change_state(true);
+        }
     }
     
     private void on_tool_deactivated() {
         assert(current_editing_toggle != null);
         zoom_slider.set_sensitive(true);
-        current_editing_toggle.change_state(false);
-    }
+        if ((bool)current_editing_toggle.get_state()) {
+            current_editing_toggle.change_state(false);
+       }
+   }
     
     private void on_tool_applied(Command? command, Gdk.Pixbuf? new_pixbuf, Dimensions new_max_dim,
         bool needs_improvement) {
@@ -1716,22 +1572,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void on_tool_aborted() {
         deactivate_tool();
         set_photo_missing(true);
-    }
-
-    protected void toggle_crop() {
-        crop_button.set_active(!crop_button.get_active());
-    }
-
-    protected void toggle_straighten() {
-        straighten_button.set_active(!straighten_button.get_active());
-    }
-
-    protected void toggle_redeye() {
-        redeye_button.set_active(!redeye_button.get_active());
-    }
-    
-    protected void toggle_adjust() {
-        adjust_button.set_active(!adjust_button.get_active());
     }
 
     private void on_straighten_toggled(GLib.SimpleAction action, Variant? value) {
@@ -1815,70 +1655,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.set_transient_for(AppWindow.get_instance());
         tool_window.show();
         tool_window.present();
-        
-        #if 0
-        Gtk.Allocation tool_alloc;
-        tool_window.get_allocation(out tool_alloc);
-        int x, y;
-        
-        // Check if the last location of the adjust tool is stored.
-        if (last_locations.has_key(current_tool.name + "_x")) {
-            x = last_locations[current_tool.name + "_x"];
-            y = last_locations[current_tool.name + "_y"];
-        } else {
-            // No stored position
-            if (get_container() == AppWindow.get_instance()) {
-                
-                // Normal: position crop tool window centered on viewport/canvas at the bottom,
-                // straddling the canvas and the toolbar
-                int rx, ry;
-                get_container().get_window().get_root_origin(out rx, out ry);
-                
-                Gtk.Allocation viewport_allocation;
-                viewport.get_allocation(out viewport_allocation);
-                
-                int cx, cy, cwidth, cheight;
-                cx = viewport_allocation.x;
-                cy = viewport_allocation.y;
-                cwidth = viewport_allocation.width;
-                cheight = viewport_allocation.height;
-                
-                // it isn't clear why, but direct mode seems to want to position tool windows
-                // differently than library mode...
-                x = (this is DirectPhotoPage) ? (rx + cx + (cwidth / 2) - (tool_alloc.width / 2)) :
-                    (rx + cx + (cwidth / 2));
-                y = ry + cy + cheight - ((tool_alloc.height / 4) * 3);
-            } else {
-                assert(get_container() is FullscreenWindow);
-                
-                // Fullscreen: position crop tool window centered on screen at the bottom, just above the
-                // toolbar
-                Gtk.Allocation toolbar_alloc;
-                get_toolbar().get_allocation(out toolbar_alloc);
-                
-                var dimensions = Scaling.get_screen_dimensions(get_container());
-                x = dimensions.width;
-                y = dimensions.height - toolbar_alloc.height -
-                        tool_alloc.height - TOOL_WINDOW_SEPARATOR;
-                
-                // put larger adjust tool off to the side
-                if (current_tool is EditingTools.AdjustTool) {
-                    x = x * 3 / 4;
-                } else {
-                    x = (x - tool_alloc.width) / 2;
-                }
-            }
-        }
-        
-        // however, clamp the window so it's never off-screen initially
-        var dimensions = Scaling.get_screen_dimensions(get_container());
-        x = x.clamp(0, dimensions.width - tool_alloc.width);
-        y = y.clamp(0, dimensions.height - tool_alloc.height);
-        
-        tool_window.move(x, y);
-        tool_window.show();
-        tool_window.present();
-        #endif
     }
     
     protected override void on_next_photo() {

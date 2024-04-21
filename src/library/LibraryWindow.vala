@@ -86,8 +86,7 @@ public class LibraryWindow : AppWindow {
         }
 
         protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-            // We intentionally don't call the base class here since we don't want the
-            // top-level menu in photo.ui.
+            base.init_collect_ui_filenames(ui_filenames);
             ui_filenames.add("photo_context.ui");
         }
     }

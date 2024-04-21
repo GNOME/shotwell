@@ -319,11 +319,11 @@ public abstract class Page : Gtk.Box {
     }
     
     public virtual void switching_to_fullscreen(FullscreenWindow fsw) {
-        add_actions(fsw);
+        remove_actions(AppWindow.get_instance());
     }
     
     public virtual void returning_from_fullscreen(FullscreenWindow fsw) {
-        remove_actions(fsw);
+        add_actions(AppWindow.get_instance());
         switched_to();
     }
 

@@ -62,9 +62,7 @@ public class EventPage : CollectionPage {
 
     protected override void remove_actions(GLib.ActionMap map) {
         base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
+        map.remove_action_entries(entries);
     }
 
     protected override void init_actions(int selected_count, int count) {

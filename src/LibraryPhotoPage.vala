@@ -68,8 +68,6 @@ public class LibraryPhotoPage : EditingHostPage {
         { "Publish", on_publish },
         { "RemoveFromLibrary", on_remove_from_library },
         { "MoveToTrash", on_move_to_trash },
-        { "PrevPhoto", on_previous_photo },
-        { "NextPhoto", on_next_photo },
         { "RotateClockwise", on_rotate_clockwise },
         { "RotateCounterclockwise", on_rotate_counterclockwise },
         { "FlipHorizontally", on_flip_horizontally },
@@ -124,9 +122,7 @@ public class LibraryPhotoPage : EditingHostPage {
 
     protected override void remove_actions(GLib.ActionMap map) {
         base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
+        map.remove_action_entries(entries);
     }
 
     protected override InjectionGroup[] init_collect_injection_groups() {

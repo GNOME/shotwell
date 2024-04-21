@@ -25,43 +25,12 @@ public class FullscreenWindow : PageWindow {
         set_current_page(page);
 
         this.add_action_entries (entries, this);
-        const string[] accels = { "F11", null };
+        const string[] accels = { "F11", "Escape", null };
         Application.set_accels_for_action ("win.LeaveFullscreen", accels);
 
         // restore pin state
         is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
         
-        pin_button.set_icon_name("view-pin-symbolic");
-        pin_button.set_label(_("Pin Toolbar"));
-        pin_button.set_tooltip_text(_("Pin the toolbar open"));
-        pin_button.set_active(!is_toolbar_dismissal_enabled);
-        pin_button.clicked.connect(update_toolbar_dismissal);
-        
-        close_button.set_icon_name("view-restore-symbolic");
-        close_button.set_tooltip_text(_("Leave fullscreen"));
-        close_button.set_action_name ("win.LeaveFullscreen");
-        
-        toolbar = page.get_toolbar();
-        toolbar.valign = Gtk.Align.END;
-        toolbar.halign = Gtk.Align.CENTER;
-        toolbar.opacity = Resources.TRANSIENT_WINDOW_OPACITY;
-
-        if (page is SlideshowPage) {
-            // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
-            ((SlideshowPage) page).hide_toolbar.connect(hide_toolbar);
-        } else {
-            // only non-slideshow pages should have pin button
-            toolbar.append(pin_button);
-        }
-
-        page.set_cursor_hide_time(TOOLBAR_DISMISSAL_SEC / 1000);
-        page.start_cursor_hiding();
-
-        toolbar.append(close_button);
-        
-        set_child(overlay);
-        overlay.set_child(page);
-        overlay.add_overlay (toolbar);
 
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
@@ -90,19 +59,6 @@ public class FullscreenWindow : PageWindow {
         var key = new Gtk.EventControllerKey();
         key.key_pressed.connect(key_press_event);
         ((Gtk.Widget)this).add_controller(key);
-        
-        // If toolbar is enabled in "normal" ui OR was pinned in
-        // fullscreen, start off with toolbar invoked, as a clue for the
-        // user. Otherwise leave hidden unless activated by mouse over
-        if (Config.Facade.get_instance().get_display_toolbar() ||
-            !is_toolbar_dismissal_enabled) {
-            invoke_toolbar();
-        } else {
-            hide_toolbar();
-        }
-
-        // Toolbar steals keyboard focus from page, put it back again
-        page.grab_focus ();
     }
 
     public void disable_toolbar_dismissal() {
@@ -117,8 +73,52 @@ public class FullscreenWindow : PageWindow {
         bool result = base.configure_event(width, height);
         
         if (!switched_to) {
-            get_current_page().switched_to();
+            var page = get_current_page();
+            page.switched_to();
             switched_to = true;
+
+            pin_button.set_icon_name("view-pin-symbolic");
+            pin_button.set_tooltip_text(_("Pin the toolbar open"));
+            pin_button.set_active(!is_toolbar_dismissal_enabled);
+            pin_button.clicked.connect(update_toolbar_dismissal);
+            
+            close_button.set_icon_name("view-restore-symbolic");
+            close_button.set_tooltip_text(_("Leave fullscreen"));
+            close_button.set_action_name ("win.LeaveFullscreen");
+            
+            toolbar = page.get_toolbar();
+            toolbar.valign = Gtk.Align.END;
+            toolbar.halign = Gtk.Align.CENTER;
+            toolbar.opacity = Resources.TRANSIENT_WINDOW_OPACITY;
+    
+            if (page is SlideshowPage) {
+                // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
+                ((SlideshowPage) page).hide_toolbar.connect(hide_toolbar);
+            } else {
+                // only non-slideshow pages should have pin button
+                toolbar.append(pin_button);
+            }
+    
+            page.set_cursor_hide_time(TOOLBAR_DISMISSAL_SEC / 1000);
+            page.start_cursor_hiding();
+    
+            toolbar.append(close_button);
+            
+            set_child(overlay);
+            overlay.set_child(page);
+            overlay.add_overlay (toolbar);
+            // If toolbar is enabled in "normal" ui OR was pinned in
+            // fullscreen, start off with toolbar invoked, as a clue for the
+            // user. Otherwise leave hidden unless activated by mouse over
+            if (Config.Facade.get_instance().get_display_toolbar() ||
+                !is_toolbar_dismissal_enabled) {
+                invoke_toolbar();
+            } else {
+                hide_toolbar();
+            }
+
+            // Toolbar steals keyboard focus from page, put it back again
+            page.grab_focus ();
         }
         
         return result;

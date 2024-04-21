@@ -55,9 +55,7 @@ public class TagPage : CollectionPage {
 
     protected override void remove_actions(GLib.ActionMap map) {
         base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
+        map.remove_action_entries(entries);
     }
 
     private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {

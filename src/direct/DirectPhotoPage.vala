@@ -69,9 +69,7 @@ public class DirectPhotoPage : EditingHostPage {
 
     protected override void remove_actions(GLib.ActionMap map) {
         base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
+        map.remove_action_entries(entries);
     }
 
     protected override InjectionGroup[] init_collect_injection_groups() {

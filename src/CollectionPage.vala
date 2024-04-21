@@ -54,7 +54,6 @@ public abstract class CollectionPage : MediaPage {
 
             Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
             #if 0
-            is this even necessary?
             unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
@@ -168,15 +167,12 @@ public abstract class CollectionPage : MediaPage {
 
     protected override void add_actions (GLib.ActionMap map) {
         base.add_actions (map);
-
         map.add_action_entries (entries, this);
     }
 
     protected override void remove_actions(GLib.ActionMap map) {
         base.remove_actions(map);
-        foreach (var entry in entries) {
-            map.remove_action(entry.name);
-        }
+        map.remove_action_entries(entries);
     }
 
     protected override InjectionGroup[] init_collect_injection_groups() {
