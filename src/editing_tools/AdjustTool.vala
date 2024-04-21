@@ -708,15 +708,13 @@ public class EditingTools.AdjustTool : EditingTool {
         adjust_tool_window.highlights_slider.value_changed.disconnect(on_highlights_adjustment);
         adjust_tool_window.histogram_manipulator.nub_position_changed.disconnect(on_histogram_constraint);
 
-        #if 0
-        adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.exposure_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.contrast_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
-        adjust_tool_window.highlights_slider.button_press_event.disconnect(on_hscale_reset);
-        #endif
+        adjust_tool_window.saturation_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.exposure_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.contrast_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.tint_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.temperature_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.shadows_click.pressed.disconnect(on_hscale_reset);
+        adjust_tool_window.highlights_click.pressed.disconnect(on_hscale_reset);
     }
 
     public bool enhance() {
