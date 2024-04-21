@@ -211,10 +211,6 @@ public abstract class Page : Gtk.Box {
         motion = null;
         event_source.remove_controller (scroll);
         scroll = null;
-        
-    #if 0
-        
-        #endif
         event_source = null;
     }
     
@@ -605,8 +601,6 @@ public abstract class Page : Gtk.Box {
     protected virtual void update_actions(int selected_count, int count) {
     }
     
-    #if 0
-    #endif
     // Use this function rather than GDK or GTK's get_pointer, especially if called during a 
     // button-down mouse drag (i.e. a window grab).
     //
