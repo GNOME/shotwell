@@ -1218,15 +1218,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
 
 
-        #if 0
-        // if the user pressed the "0", "1" or "2" keys then handle the event as if were
-        // directed at the zoom slider ("0", "1" and "2" are hotkeys that jump to preset
-        // zoom levels
-        if (on_zoom_slider_key_press(event))
-            return true;
-
-        #endif
-        
         bool handled = true;
         string? format = null;
         
