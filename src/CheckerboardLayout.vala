@@ -5,6 +5,24 @@
  */
 
 public class CheckerboardLayout : Gtk.Widget {
+
+    private class RubberbandProxy : Gtk.Widget {
+        public RubberbandProxy(Gtk.Widget parent) {
+            Object();
+            set_parent(parent);
+        }
+
+        ~RubberbandProxy() {
+            unparent();
+        }
+
+        static construct {
+            set_css_name("rubberband");
+        }
+    }
+
+    private RubberbandProxy rubber_band;
+
     public const int TOP_PADDING = 16;
     public const int BOTTOM_PADDING = 16;
     public const int ROW_GUTTER_PADDING = 24;
@@ -63,6 +81,7 @@ public class CheckerboardLayout : Gtk.Widget {
     
     public CheckerboardLayout(ViewCollection view) {
         set_css_name("content-view");
+        rubber_band = new RubberbandProxy(this);
 
         this.view = view;
         
@@ -1122,21 +1141,6 @@ public class CheckerboardLayout : Gtk.Widget {
         draw_selection_band(snapshot);
     }
     
-    class RubberbandProxy : Gtk.Widget {
-        public RubberbandProxy(Gtk.Widget parent) {
-            Object();
-            set_parent(parent);
-        }
-
-        ~RubberbandProxy() {
-            unparent();
-        }
-
-        static construct {
-            set_css_name("rubberband");
-        }
-    }
-
     private void draw_selection_band(Gtk.Snapshot snapshot) {
         // no selection band, nothing to draw
         if (selection_band.width <= 1 || selection_band.height <= 1)
@@ -1150,18 +1154,9 @@ public class CheckerboardLayout : Gtk.Widget {
         Gdk.Rectangle visible_page = get_adjustment_page(hadjustment, vadjustment);
         Gdk.Rectangle visible_band = Gdk.Rectangle();
         visible_page.intersect(selection_band, out visible_band);
-        
-        var style = new RubberbandProxy(this).get_style_context();
 
-        style.save();
-        // pixelate selection rectangle interior
-        if (visible_band.width > 1 && visible_band.height > 1) {
-            snapshot.render_background(style, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
-        }
-        
-        // border
-        snapshot.render_frame(style, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
-        style.restore();
+        rubber_band.allocate_size(visible_band, -1);
+        snapshot_child(rubber_band, snapshot);
     }
     
     public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
