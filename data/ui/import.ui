@@ -17,10 +17,6 @@
           <attribute name="label" translatable="yes">Import _All</attribute>
           <attribute name="action">win.ImportAll</attribute>
         </item>
-        <item>
-          <attribute name="label" translatable="yes">Import From _Application…</attribute>
-          <attribute name="action">win.ExternalLibraryImport</attribute>
-        </item>
       </section>
       <section>
         <item>

@@ -5,72 +5,10 @@ namespace Publishing.Authenticator.Shotwell.Google {
     private const string OAUTH_CLIENT_ID = "534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67.apps.googleusercontent.com";
     private const string REVERSE_CLIENT_ID = "com.googleusercontent.apps.534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67";
     private const string OAUTH_CLIENT_SECRET = "pwpzZ7W1TCcD5uIfYCu8sM7x";
-    private const string OAUTH_CALLBACK_URI = REVERSE_CLIENT_ID + ":/auth-callback";
+    private const string OAUTH_CALLBACK_URI = REVERSE_CLIENT_ID + ":/localhost";
 
     private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
     private const string SCHEMA_KEY_ACCOUNTNAME = "accountname";
-
-    private class WebAuthenticationPane : Common.WebAuthenticationPane {
-        public static bool cache_dirty = false;
-        private string? auth_code = null;
-
-        public signal void error();
-
-        public override void constructed() {
-            base.constructed();
-
-            var ctx = WebKit.WebContext.get_default();
-            ctx.register_uri_scheme(REVERSE_CLIENT_ID, this.on_shotwell_auth_request_cb);
-        }
-
-        public override void on_page_load() {
-            if (this.load_error != null) {
-                this.error ();
-
-                return;
-            }
-
-            try {
-                var uri = GLib.Uri.parse(get_view().get_uri(), UriFlags.NONE);
-                if (uri.get_scheme() == REVERSE_CLIENT_ID && this.auth_code == null) {
-                    var form_data = Soup.Form.decode (uri.get_query());
-                    this.auth_code = form_data.lookup("code");
-                }
-            } catch (Error err) {
-                debug ("Failed to parse auth code from URI %s: %s", get_view().get_uri(),
-                    err.message);
-            }
-
-            if (this.auth_code != null) {
-                this.authorized(this.auth_code);
-            }
-        }
-
-        private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
-            try {
-                var uri = GLib.Uri.parse(request.get_uri(), GLib.UriFlags.NONE);
-                debug("URI: %s", request.get_uri());
-                var form_data = Soup.Form.decode (uri.get_query());
-                this.auth_code = form_data.lookup("code");
-            } catch (Error err) {
-                debug("Failed to parse request URI: %s", err.message);
-            }
-
-            var response = "";
-            var mins = new MemoryInputStream.from_data(response.data);
-            request.finish(mins, -1, "text/plain");
-        }
-
-        public signal void authorized(string auth_code);
-
-        public WebAuthenticationPane(string auth_sequence_start_url) {
-            Object (login_uri : auth_sequence_start_url);
-        }
-
-        public static bool is_cache_dirty() {
-            return cache_dirty;
-        }
-    }
 
     private class Session : Publishing.RESTSupport.Session {
         public string access_token = null;
@@ -132,7 +70,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
         private string accountname = "default";
         private Spit.Publishing.PluginHost host = null;
         private GLib.HashTable<string, Variant> params = null;
-        private WebAuthenticationPane web_auth_pane = null;
         private Session session = null;
         private string welcome_message = null;
         private Secret.Schema? schema = null;
@@ -166,14 +103,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 return;
             }
 
-            // FIXME: Find a way for a proper logout
-            if (WebAuthenticationPane.is_cache_dirty()) {
-                host.set_service_locked(false);
-
-                host.install_static_message_pane(_("You have already logged in and out of a Google service during this Shotwell session.\n\nTo continue publishing to Google services, quit and restart Shotwell, then try publishing again."));
-            } else {
-                this.do_show_service_welcome_pane();
-            }
+            this.do_show_service_welcome_pane();
         }
 
         public bool can_logout() {
@@ -202,8 +132,15 @@ namespace Publishing.Authenticator.Shotwell.Google {
         public void set_accountname(string accountname) {
             this.accountname = accountname;
         }
+        private class AuthCallback : Spit.Publishing.AuthenticatedCallback, Object {
+            public signal void auth(GLib.HashTable<string, string> params);
 
-        private void do_hosted_web_authentication() {
+            public void authenticated(GLib.HashTable<string, string> params) {
+                auth(params);
+            }
+        }
+
+        private async void do_hosted_web_authentication() {
             debug("ACTION: running OAuth authentication flow in hosted web pane.");
 
             string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
@@ -216,23 +153,26 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 "access_type=offline&" +
                 "approval_prompt=force";
 
-            web_auth_pane = new WebAuthenticationPane(user_authorization_url);
-            web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
-            web_auth_pane.error.connect(on_web_auth_pane_error);
+            var auth_callback = new AuthCallback();
+            string? web_auth_code = null;
+            auth_callback.auth.connect((prm) => {
+                if ("code" in prm) {
+                    web_auth_code = prm["code"];
+                }
+                do_hosted_web_authentication.callback();
+            });
+            host.register_auth_callback(REVERSE_CLIENT_ID, auth_callback);
+            try {
+                AppInfo.launch_default_for_uri(user_authorization_url, null);
+                host.install_login_wait_pane();
+                yield;
 
-            host.install_dialog_pane(web_auth_pane);
-        }
-
-        private void on_web_auth_pane_authorized(string auth_code) {
-            web_auth_pane.authorized.disconnect(on_web_auth_pane_authorized);
-
-            debug("EVENT: user authorized scope %s with auth_code %s", scope, auth_code);
-
-            do_get_access_tokens.begin(auth_code);
-        }
-
-        private void on_web_auth_pane_error() {
-            host.post_error(web_auth_pane.load_error);
+                yield do_get_access_tokens(web_auth_code);
+            } catch (Error err) {
+                host.post_error(err);
+            } finally {
+                host.unregister_auth_callback(REVERSE_CLIENT_ID);
+            }
         }
 
         private async void do_get_access_tokens(string auth_code) {
@@ -384,7 +324,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
             }
 
             this.authenticated();
-            web_auth_pane.clear();
         }
 
         private async void do_exchange_refresh_token_for_access_token() {
@@ -421,7 +360,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
                     Idle.add (() => { this.authenticate(); return false; });
                 }
 
-                web_auth_pane.clear();
                 host.post_error(err);
             }
         }
@@ -435,7 +373,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
         private void on_service_welcome_login() {
             debug("EVENT: user clicked 'Login' in welcome pane.");
 
-            this.do_hosted_web_authentication();
+            this.do_hosted_web_authentication.begin();
         }
     }
 }

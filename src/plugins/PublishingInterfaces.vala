@@ -92,6 +92,9 @@ public errordomain PublishingError {
     SSL_FAILED
 }
 
+public interface AuthenticatedCallback : Object {
+    public abstract void authenticated(HashTable<string, string> params);
+}
 /** 
  * Represents a connection to a publishing service.
  *
@@ -503,6 +506,10 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
      */
     public abstract Spit.Publishing.Publisher.MediaType get_publishable_media_type();
     
+
+    public abstract void register_auth_callback(string cookie, AuthenticatedCallback callback);
+    public abstract void unregister_auth_callback(string cookie);
+
     //
     // For future expansion.
     //

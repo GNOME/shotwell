@@ -12,7 +12,7 @@ authenticator_shotwell_resources = gnome.compile_resources('authenticator-resour
         source_dir : meson.project_source_root())
 
 authenticator_shotwell_deps = [gee, gtk, gio, soup, json_glib, sw_plugin,
-                               sw_plugin_common_dep, json_glib, xml, webkit, secret, gcr, gcr_ui]
+                               sw_plugin_common_dep, json_glib, xml, secret, gcr, gcr_ui]
 
 authenticator = library('shotwell-authenticator',
                         authenticator_shotwell_sources + authenticator_shotwell_resources,
