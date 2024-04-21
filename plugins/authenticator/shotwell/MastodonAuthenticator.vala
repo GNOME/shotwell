@@ -6,6 +6,8 @@ using Shotwell.Plugins;
 
 namespace Publishing.Authenticator.Shotwell.Mastodon {
 
+internal const string REDIRECT_URL = "shotwell-oauth2://localhost?sw_auth_cookie=%s";
+
     
 internal class Account : Object, Spit.Publishing.Account {
     public string instance;
@@ -37,11 +39,11 @@ internal class Account : Object, Spit.Publishing.Account {
              * 
              * @session: A Publishing.RESTSupport.Session used to communicate
              */
-            public GetClientId(Session session) {
+            public GetClientId(Session session, string cookie) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance));
 
                 add_argument("client_name", "Shotwell Connect");
-                add_argument("redirect_uris", "http://localhost/shotwell-auth");
+                add_argument("redirect_uris", REDIRECT_URL.printf(cookie));
                 // FIXME: Should write:media, write:statuses be enough?
                 add_argument("scopes", "read write");
                 add_argument("website", "https://shotwell-project.org");
@@ -61,12 +63,12 @@ internal class Account : Object, Spit.Publishing.Account {
              * @session: A Publishing.RESTSupport.Session used to communicate
              * @code: Result of the web authentication flow
              */
-             public GetAccessToken(Session session, string code) {
+             public GetAccessToken(Session session, string code, string cookie) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance));
 
                 add_argument("client_id", session.client_id);
                 add_argument("client_secret", session.client_secret);
-                add_argument("redirect_uri", "http://localhost/shotwell-auth");
+                add_argument("redirect_uri", REDIRECT_URL.printf(cookie));
                 add_argument("grant_type", "authorization_code");
                 add_argument("code", code);
                 add_argument("scope", "read write");
@@ -98,7 +100,7 @@ internal class Account : Object, Spit.Publishing.Account {
          * Transaction to introspect information about the instance, stuff
          * like supported server version, file formats, size and rate limits
          */
-         private class InstanceInfo : global::Publishing:RESTSupport.Transaction {
+         private class InstanceInfo : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/api/v1/instance";
 
             /**
@@ -239,43 +241,6 @@ internal class Account : Object, Spit.Publishing.Account {
                 USER_KEY_USERNAME_ID, Secret.SchemaAttributeType.STRING);
     }
 
-    /**
-     * UI panel for the Web authentication flow
-     */
-    private class WebAuthenticationPane : Common.WebAuthenticationPane {
-        private string? auth_code = null;
-
-        public signal void authorized(string auth_code);
-        public signal void error();
-
-        public WebAuthenticationPane(string auth_sequence_start_url, Session session) {
-            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate, allow_insecure: true);
-        }
-
-        public override void on_page_load() {
-            if (this.load_error != null) {
-                this.error ();
-
-                return;
-            }
-
-            try {
-                var uri = GLib.Uri.parse(get_view().get_uri(), UriFlags.NONE);
-                if ((uri.get_scheme() == "shotwell-auth://" || uri.get_path() == "/shotwell-auth") && this.auth_code == null) {
-                    var form_data = Soup.Form.decode (uri.get_query());
-                    this.auth_code = form_data.lookup("code");
-                }
-            } catch (Error err) {
-                debug ("Failed to parse auth code from URI %s: %s", get_view().get_uri(),
-                    err.message);
-            }
-
-            if (this.auth_code != null) {
-                this.authorized(this.auth_code);
-            }
-        }
-    }
-
     public class Mastodon : Spit.Publishing.Authenticator, Object {
         private Session session = null;
         private Secret.Schema? client_schema = null;
@@ -283,7 +248,8 @@ internal class Account : Object, Spit.Publishing.Account {
         private Spit.Publishing.PluginHost host;
         private HashTable<string, Variant> params;
         private Account account;
-        private WebAuthenticationPane web_auth_pane;
+        private Common.ExternalWebPane web_auth_pane;
+        private string auth_cookie = Uuid.string_random();
 
         public Mastodon(Spit.Publishing.PluginHost host) {
             this.host = host;
@@ -360,7 +326,7 @@ internal class Account : Object, Spit.Publishing.Account {
 
             session.instance = this.account.instance;
 
-            var txn = new Transactions.GetClientId(this.session);
+            var txn = new Transactions.GetClientId(this.session, auth_cookie);
 
             try {
                 yield txn.execute_async();
@@ -449,7 +415,7 @@ internal class Account : Object, Spit.Publishing.Account {
 
             host.install_login_wait_pane();
 
-            var tokens_txn = new Transactions.GetAccessToken(session, auth_code);
+            var tokens_txn = new Transactions.GetAccessToken(session, auth_code, auth_cookie);
 
             yield tokens_txn.execute_async();
             debug("EVENT: network transaction to exchange authorization code for access tokens " +
@@ -558,36 +524,40 @@ internal class Account : Object, Spit.Publishing.Account {
             yield do_get_client_id();
         }
 
+        private class AuthCallback : Spit.Publishing.AuthenticatedCallback, Object {
+            public signal void auth(GLib.HashTable<string, string> params);
+
+            public void authenticated(GLib.HashTable<string, string> params) {
+                auth(params);
+            }
+        }
+
         private async string run_web_auth_flow() throws Error {
             debug("ACTION: running OAuth authentication flow in hosted web pane.");
 
             string user_authorization_url = "https://" + this.account.instance + "/oauth/authorize?" +
                 "response_type=code&" +
                 "client_id=" + this.session.client_id + "&" +
-                "redirect_uri=" + GLib.Uri.escape_string("http://localhost/shotwell-auth", null) + "&" +
+                "redirect_uri=" + GLib.Uri.escape_string(REDIRECT_URL.printf(auth_cookie), null) + "&" +
                 "scope=read+write";
 
-            web_auth_pane = new WebAuthenticationPane(user_authorization_url, session);
-            string? received_auth_code = null;
-
-            web_auth_pane.authorized.connect((auth_code) =>{
-                received_auth_code = auth_code;
-                run_web_auth_flow.callback();
-            });
-
-            web_auth_pane.error.connect(() => {
-                run_web_auth_flow.callback();
-            });
-
+            web_auth_pane = new Common.ExternalWebPane(user_authorization_url);
             host.install_dialog_pane(web_auth_pane);
-            web_auth_pane.browser_toggled.connect(() => { host.install_login_wait_pane();});
+            var auth_callback = new AuthCallback();
+
+            string? web_auth_code = null;
+            auth_callback.auth.connect((prm) => {
+                if ("code" in prm) {
+                    web_auth_code = prm["code"];
+                }
+                run_web_auth_flow.callback();
+            });
+
+            host.register_auth_callback(auth_cookie, auth_callback);
             yield;
+            host.unregister_auth_callback(auth_cookie);
 
-            if (web_auth_pane.load_error != null) {
-                throw web_auth_pane.load_error;
-            }
-
-            return received_auth_code;
+            return web_auth_code;
         }
 
         /**
@@ -620,7 +590,6 @@ internal class Account : Object, Spit.Publishing.Account {
                 this.session.set_insecure();
                 this.session.accepted_certificate = web_auth_pane.accepted_certificate;
             }
-            web_auth_pane.clear();
 
             host.set_service_locked(true);
 
