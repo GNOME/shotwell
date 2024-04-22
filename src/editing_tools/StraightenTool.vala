@@ -100,6 +100,7 @@ public class StraightenTool : EditingTool {
         public Gtk.Button ok_button = new Gtk.Button.with_mnemonic(_("_Straighten"));
         public Gtk.Button cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
         public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
+        public Gtk.EventControllerKey key_controller;
 
         /**
          * Prepare straighten tool's window for use and initialize all its controls.
@@ -146,6 +147,8 @@ public class StraightenTool : EditingTool {
             reset_button.clicked.connect(on_reset_clicked);
 
             //set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
+            key_controller = new Gtk.EventControllerKey();
+            ((Gtk.Widget)this).add_controller(key_controller);
         }
 
         private void on_reset_clicked() {
@@ -403,14 +406,14 @@ public class StraightenTool : EditingTool {
     }
 
     private void bind_window_handlers() {
-        //window.key_press_event.connect(on_keypress);
+        window.key_controller.key_pressed.connect(on_keypress);
         window.ok_button.clicked.connect(on_ok_clicked);
         window.cancel_button.clicked.connect(notify_cancel);
         window.angle_slider.value_changed.connect(on_angle_changed);
     }
 
     private void unbind_window_handlers() {
-        //window.key_press_event.disconnect(on_keypress);
+        window.key_controller.key_pressed.disconnect(on_keypress);
         window.ok_button.clicked.disconnect(on_ok_clicked);
         window.cancel_button.clicked.disconnect(notify_cancel);
         window.angle_slider.value_changed.disconnect(on_angle_changed);
