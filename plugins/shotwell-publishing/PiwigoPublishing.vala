@@ -405,7 +405,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             debug("Failed to parse URL: %s", err.message);
         }
         host.set_service_locked (false);
-        var ssl_pane = new Shotwell.Plugins.Common.SslCertificatePane(trans, host_name);
+        var ssl_pane = new Shotwell.Plugins.Common.SslCertificatePane(trans, host, host_name);
         ssl_pane.proceed.connect (() => {
             debug ("SSL: User wants us to retry with broken certificate");
             this.session = new Session ();

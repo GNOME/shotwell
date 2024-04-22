@@ -417,7 +417,8 @@ public class PublishingDialog : Gtk.Dialog {
             debug("PublishingDialog: install_pane( ): a pane is already installed; removing it.");
 
             active_pane.on_pane_uninstalled();
-            central_area_layouter.remove(active_pane.get_widget());
+            active_pane.get_widget().unparent();
+            //central_area_layouter.remove(active_pane.get_widget());
         }
 
         central_area_layouter.prepend(pane.get_widget());
