@@ -27,16 +27,16 @@ namespace Shotwell.Plugins.Common {
             box.set_valign(Gtk.Align.CENTER);
             box.vexpand = true;
             var image = new Gtk.Image.from_icon_name ("web-browser-symbolic");
-            image.get_style_context().add_class("dim-label");
+            image.add_css_class("dim-label");
             image.set_pixel_size(128);
             box.append(image);
 
             var label = new Gtk.Label(_("Sign in with your browser to setup an account"));
-            label.get_style_context().add_class("heading");
+            label.add_css_class("heading");
             box.append(label);
             var button = new Gtk.Button.with_label (_("Continue"));
             button.set_halign(Gtk.Align.CENTER);
-            button.get_style_context().add_class ("suggested-action");
+            button.add_css_class("suggested-actoin");
             button.clicked.connect(() => {
                 AppInfo.launch_default_for_uri_async.begin(login_uri, null);
                 browser_toggled();
