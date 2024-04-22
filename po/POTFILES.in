@@ -8,6 +8,7 @@ data/org.gnome.Shotwell-Viewer.desktop.in
 data/ui/collection.ui
 data/ui/direct_context.ui
 data/ui/direct.ui
+data/ui/editing-toolbar.ui
 data/ui/events_directory.ui
 data/ui/event.ui
 data/ui/faces.ui
