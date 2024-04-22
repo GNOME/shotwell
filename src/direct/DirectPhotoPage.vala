@@ -263,7 +263,7 @@ public class DirectPhotoPage : EditingHostPage {
         bool revert_possible = has_photo() ? get_photo().has_transformations() 
             && !get_photo_missing() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = false; //has_photo() ? is_enhance_available(get_photo()) : false;
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
         
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
@@ -505,8 +505,7 @@ public class DirectFullscreenPhotoPage : DirectPhotoPage {
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-        // We intentionally avoid calling the base class implementation since we don't want
-        // direct.ui.
+        base.init_collect_ui_filenames(ui_filenames);
         ui_filenames.add("direct_context.ui");
     }
 }

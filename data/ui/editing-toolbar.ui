@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <object class="GtkBox" id="EditingHostToolbar">
+    <style>
+      <class name="toolbar" />
+    </style>
+    <property name="focusable">false</property>
+    <property name="hexpand">true</property>
+    <property name="spacing">4</property>
+    <child>
+      <object class="GtkToggleButton" id="RotateButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Rotate the photos right (press Ctrl to rotate left)</property>
+        <property name="action_name">win.RotateClockwise</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage" id="RotateButtonIcon">
+                <property name="halign">start</property>
+                <property name="icon_name">object-rotate-right-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="RotateButtonLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Rotate</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="CropButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Crop the photo’s size</property>
+        <property name="action_name">win.Crop</property>        
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">image-crop-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Crop</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="StraightenButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Straighten the photo</property>
+        <property name="action_name">win.Straighten</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">straighten-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Straighten</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>    
+    <child>
+      <object class="GtkToggleButton" id="RedEyeButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Reduce or eliminate any red-eye effects in the photo</property>
+        <property name="action_name">win.RedEye</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">stock-eye-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Red-eye</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="AdjustButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Adjust the photo’s color and tone</property>
+        <property name="action_name">win.Adjust</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">image-adjust-color-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Adjust</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="EnhanceButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Automatically improve the photo’s appearance</property>
+        <property name="action_name">win.Enhance</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">image-auto-adjust-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Enhance</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkToggleButton" id="FacesButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Mark faces of people in the photo</property>
+        <property name="visible">true</property>
+        <property name="action_name">win.Faces</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage">
+                <property name="halign">start</property>
+                <property name="icon_name">avatar-default-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Faces</property>
+                <property name="use-underline">true</property>
+              </object>
+            </child>
+          </object>
+        </child>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="hexpand">true</property>
+        <property name="halign">start</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon_name">image-zoom-out-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale" id="ZoomSlider">
+            <property name="orientation">horizontal</property>
+            <property name="draw_value">false</property>
+            <property name="width-request">120</property>
+            <property name="adjustment">
+              <object class="GtkAdjustment">
+                <property name="value">0.0</property>
+                <property name="lower">0.0</property>
+                <property name="upper">1.1</property>
+                <property name="step_increment">0.1</property>
+                <property name="page_increment">0.1</property>
+                <property name="page_size">0.1</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage">
+            <property name="icon_name">image-zoom-in-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="PreviousButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Go to the previous photo</property>
+        <property name="icon_name">go-previous-symbolic</property>
+        <property name="action_name">win.PrevPhoto</property>
+      </object>
+    </child>    
+    <child>
+      <object class="GtkButton" id="NextButton">
+        <property name="focusable">false</property>
+        <property name="tooltip_text" translatable="yes">Go to the next photo</property>
+        <property name="icon_name">go-next-symbolic</property>
+        <property name="action_name">win.NextPhoto</property>
+      </object>
+    </child>    
+  </object> 
+</interface>

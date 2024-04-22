@@ -86,7 +86,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         var key = new Gtk.EventControllerKey();
         key.key_pressed.connect(key_press_event);
         add_controller(key);
-
     }
     
     ~EditingHostPage() {
@@ -96,6 +95,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_view().ordering_changed.disconnect(on_view_contents_ordering_altered);
     }
     
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+    
+        ui_filenames.add("editing-toolbar.ui");
+    }
     protected override void add_actions(GLib.ActionMap map) {
         base.add_actions(map);
 
