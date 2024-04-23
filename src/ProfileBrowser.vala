@@ -140,10 +140,9 @@ namespace Shotwell {
 
             var button = new Gtk.ToggleButton();
             button.add_css_class("flat");
+            button.set_icon_name("go-down-symbolic");
             content.append(button);
             button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
-            image = new Gtk.Image.from_icon_name("go-down-symbolic");
-            button.set_child(image);
 
             // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
             // and that even is not yet initialized

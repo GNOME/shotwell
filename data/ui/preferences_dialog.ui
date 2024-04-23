@@ -493,15 +493,6 @@
                     <property name="child">
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
                       </object>
                     </property>
                   </object>

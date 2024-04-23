@@ -32,7 +32,7 @@ internal class DetailedRow : Gtk.Box {
         bind_property("icon-name", icon, "visible", BindingFlags.SYNC_CREATE, () => { 
             return icon_name != null;
         });
-        expand_details.bind_property("active", revealer, "reveal-child", BindingFlags.SYNC_CREATE);
+        expand_details.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
     }
 
     public void append_widget(Gtk.Widget widget) {
@@ -139,6 +139,7 @@ private class PluggableRow : DetailedRow {
 
 
         var plugin_enabled = new Gtk.Switch();
+        plugin_enabled.set_tooltip_text(_("Enable or disable the plugin"));
         plugin_enabled.halign = Gtk.Align.END;
         plugin_enabled.valign = Gtk.Align.CENTER;
         bind_property("enabled", plugin_enabled, "active", BindingFlags.SYNC_CREATE);
@@ -149,8 +150,8 @@ private class PluggableRow : DetailedRow {
         append_widget(plugin_enabled);
 
         if (pluggable is Spit.Publishing.Service) {
-            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic");
-            manage.get_style_context().add_class("flat");
+            var manage = new Gtk.Button.from_icon_name("go-next-symbolic");
+            manage.add_css_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
             append_widget(manage);
@@ -169,7 +170,7 @@ private class PluggableRow : DetailedRow {
         var info = pluggable.get_info();
 
         var grid = new Gtk.Grid();
-        grid.get_style_context().add_class("content");
+        grid.add_css_class("content");
         grid.set_row_spacing(12);
         grid.set_column_spacing(6);
 
@@ -178,7 +179,7 @@ private class PluggableRow : DetailedRow {
         label.halign = Gtk.Align.START;
         grid.attach(label, 0, 0, 2, 1);
         label = new Gtk.Label(_("Authors"));
-        label.get_style_context().add_class("dim-label");
+        label.add_css_class("dim-label");
         label.halign = Gtk.Align.END;
         label.margin_start = 12;
         grid.attach(label, 0, 1, 1, 1);
@@ -188,7 +189,7 @@ private class PluggableRow : DetailedRow {
         grid.attach(label, 1, 1, 1, 1);
 
         label = new Gtk.Label(_("Version"));
-        label.get_style_context().add_class("dim-label");
+        label.add_css_class("dim-label");
         label.halign = Gtk.Align.END;
         label.margin_start = 12;
         grid.attach(label, 0, 2, 1, 1);
@@ -198,27 +199,27 @@ private class PluggableRow : DetailedRow {
         grid.attach(label, 1, 2, 1, 1);
 
         label = new Gtk.Label(_("License"));
-        label.get_style_context().add_class("dim-label");
+        label.add_css_class("dim-label");
         label.halign = Gtk.Align.END;
         label.margin_start = 12;
         grid.attach(label, 0, 3, 1, 1);
         var link = new Gtk.LinkButton.with_label(info.license_url, info.license_blurp);
         link.halign = Gtk.Align.START;
         // remove the annoying padding around the link
-        link.get_style_context().remove_class("text-button");
-        link.get_style_context().add_class("shotwell-plain-link");
+        link.remove_css_class("text-button");
+        link.add_css_class("shotwell-plain-link");
         grid.attach(link, 1, 3, 1, 1);
 
         label = new Gtk.Label(_("Website"));
-        label.get_style_context().add_class("dim-label");
+        label.add_css_class("dim-label");
         label.halign = Gtk.Align.END;
         label.margin_start = 12;
         grid.attach(label, 0, 4, 1, 1);
         link = new Gtk.LinkButton.with_label(info.website_url, info.website_name);
         link.halign = Gtk.Align.START;
         // remove the annoying padding around the link
-        link.get_style_context().remove_class("text-button");
-        link.get_style_context().add_class("shotwell-plain-link");
+        link.remove_css_class("text-button");
+        link.add_css_class("shotwell-plain-link");
         grid.attach(link, 1, 4, 1, 1);
         
         set_detail_widget(grid);
@@ -235,13 +236,14 @@ private class ManifestListView : Gtk.Box {
         base.constructed();
 
         foreach (var extension_point in get_extension_points(compare_extension_point_names)) {
-            var label = new Gtk.Label(null);
-            label.set_markup("<span weight=\"bold\">%s</span>".printf(extension_point.name));
+            var label = new Gtk.Label(extension_point.name);
+            label.add_css_class("heading");
             label.halign = Gtk.Align.START;
             label.hexpand = true;
             append(label);
             var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
             var box = new Gtk.ListBox();
+            box.add_css_class("boxed-list");
             box.set_selection_mode(Gtk.SelectionMode.NONE);
             box.hexpand = true;
             box.margin_start = 12;
