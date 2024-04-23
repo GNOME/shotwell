@@ -122,8 +122,7 @@ namespace Shotwell {
             revealer.margin_top = 0;
             append(revealer);
                 
-            var label = new Gtk.Label(null);
-            label.set_markup("<span weight=\"bold\">%s</span>".printf(Markup.escape_text(profile.name)));
+            var label = new Gtk.Label(profile.name);
             label.halign = Gtk.Align.START;
             label.hexpand = true;
             content.prepend(label);
@@ -225,7 +224,7 @@ namespace Shotwell {
 
     class ProfileBrowser : Gtk.Box {
         public ProfileBrowser() {
-            Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true);
+            Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true, spacing: 12);
         }
 
         public signal void profile_activated(Profile profile);
@@ -242,12 +241,11 @@ namespace Shotwell {
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
                 profile_activated(profile);
             });
-            list_box.add_css_class("rich-list");
+            list_box.add_css_class("boxed-list");
             list_box.hexpand = true;
             list_box.vexpand = true;
             scrollable.set_child (list_box);
             list_box.bind_model(ProfileManager.get_instance(), on_widget_create);
-            list_box.set_header_func(on_header);
 
             var button = new Gtk.Button.with_label(_("Create new Profile"));
             prepend(button);
