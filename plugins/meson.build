@@ -2,7 +2,7 @@
 
 shotwell_common_resources = gnome.compile_resources('common-resource',
         'common/org.gnome.Shotwell.Publishing.Common.gresource.xml',
-        source_dir : meson.source_root())
+        source_dir : meson.project_source_root())
 
 sw_plugin_common = library('shotwell-plugin-common',
                           ['common/RESTSupport.vala',
