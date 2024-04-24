@@ -7,9 +7,6 @@
     "tags" : [
         "nightly"
     ],
-    "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.vala-nightly"
-    ],
     "desktop-file-name-prefix" : "(Nightly) ",
     "finish-args" : [
         "--filesystem=/media",
@@ -267,10 +264,6 @@
                 "-Dextra_pixbuf_loaders_path=/app/lib/gdk-pixbuf-2.0/2.10.0",
                 "-Dfatal_warnings=false"
             ],
-            "build-options" : {
-                "prepend-path" : "/usr/lib/sdk/vala-nightly/bin/",
-                "prepend-ld-library-path" : "/usr/lib/sdk/vala-nightly/lib"
-            },
             "sources" : [
                 {
                     "type" : "git",
