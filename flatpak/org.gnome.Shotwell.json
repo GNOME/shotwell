@@ -275,7 +275,7 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
-                    "branch" : "wip/gtk4"
+                    "branch" : "master"
                 }
             ]
         }
