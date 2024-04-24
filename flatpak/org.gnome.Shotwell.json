@@ -7,6 +7,13 @@
     "tags" : [
         "nightly"
     ],
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala-nightly"
+    ],
+    "build-options" : {
+        "prepend-path" : "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib"
+    },
     "desktop-file-name-prefix" : "(Nightly) ",
     "finish-args" : [
         "--filesystem=/media",
