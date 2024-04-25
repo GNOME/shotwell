@@ -505,7 +505,7 @@ public class LibraryWindow : AppWindow {
     async void do_file_import(ListModel files, bool recursive) {
         var result = yield copy_files_dialog();
         if (result != Gtk.ResponseType.CANCEL) {
-            dispatch_import_jobs(files, "folders",
+            yield dispatch_import_jobs(files, "folders",
                 result == Gtk.ResponseType.ACCEPT, recursive);
         }
     }
@@ -749,15 +749,22 @@ public class LibraryWindow : AppWindow {
         ImportUI.report_manifest.begin(manifest, true);
     }
     
-    private void dispatch_import_jobs(ListModel uris, string job_name, bool copy_to_library, bool recurse) {
+    private async void dispatch_import_jobs(ListModel uris, string job_name, bool copy_to_library, bool recurse) {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
-            Gtk.ResponseType response = AppWindow.affirm_cancel_question(
+            var dialog = new Gtk.AlertDialog(
                 _("Shotwell is configured to import photos to your home directory.\n" + 
                 "We recommend changing this in Edit %s Preferences.\n" + 
-                "Do you want to continue importing photos?").printf("▸"),
-                _("_Import"), _("Library Location"), AppWindow.get_instance());
+                "Do you want to continue importing photos?"), "▸");
+            dialog.set_buttons({_("_Import"), _("_Cancel")});
+            dialog.set_modal(true);
+            int result = -1;
+            try {
+                result = yield dialog.choose(AppWindow.get_instance(), null);
+            } catch (Error error) {
+                // Do nothing
+            }
             
-            if (response == Gtk.ResponseType.CANCEL)
+            if (result == -1 || result == 1)
                 return;
             
             notify_library_is_home_dir = false;
