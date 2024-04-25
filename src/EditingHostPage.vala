@@ -653,7 +653,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo_missing;
     }
 
-    protected virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
+    protected async virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return true;
     }
     
@@ -684,11 +684,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
 
         // only check if okay to replace if there's something to replace and someone's concerned
-        if (has_photo() && !new_photo.equals(get_photo()) && confirm_replace_photo != null) {
-            if (!confirm_replace_photo(get_photo(), new_photo))
-                return;
+        if (has_photo() && !new_photo.equals(get_photo())) {
+            confirm_replace_photo.begin(get_photo(), new_photo, (obj, res) => {
+                var result = confirm_replace_photo.end(res);
+                if (result) {
+                    replace_photo_continue(new_photo);
+                }
+            });
+        } else {
+            replace_photo_continue(new_photo);
         }
+    }
 
+    private void replace_photo_continue(Photo new_photo) {
         deactivate_tool();
         
         // swap out new photo and old photo and process change

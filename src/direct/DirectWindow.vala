@@ -75,11 +75,20 @@ public class DirectWindow : AppWindow {
         base.on_quit();
     }
     
+    private bool close_check_pending = false;
     public override bool close_request() {
-        if (!get_direct_page().check_quit())
-            return true;
+        if (!close_check_pending) {
+            close_check_pending = true;
+            get_direct_page().check_quit.begin((obj, res) =>{
+                close_check_pending = false;
+                var result = get_direct_page().check_quit.end(res);
+                if (result) {
+                    destroy();
+                }
+            });
+        }
 
-        return false;
+        return true;
     }
 
     public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
