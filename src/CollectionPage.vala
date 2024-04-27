@@ -395,7 +395,9 @@ public abstract class CollectionPage : MediaPage {
         // if we don't have any photos, then everything is a video, so skip displaying the Export
         // dialog and go right to the video export operation
         if (!has_some_photos) {
-            exporter = Video.export_many((Gee.Collection<Video>) export_list, on_export_completed);
+            exporter = yield Video.export_many((Gee.Collection<Video>) export_list);
+            exporter.export_completed.connect_after(on_export_completed);
+            exporter.export();
             return;
         }
 
@@ -454,12 +456,13 @@ public abstract class CollectionPage : MediaPage {
         }
 
         // multiple photos or videos
-        File export_dir = ExportUI.choose_dir(title);
+        File export_dir = yield ExportUI.choose_dir(title);
         if (export_dir == null)
             return;
         
-        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params));
-        exporter.export(on_export_completed);
+        exporter = new ExporterUI(export_list, export_dir, scaling, export_params);
+        exporter.export_completed.connect_after(on_export_completed);
+        exporter.export();
     }
     
     private void on_export_completed() {

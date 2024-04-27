@@ -652,7 +652,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_send_to() {
         if (has_photo())
-            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+            DesktopIntegration.send_to.begin((Gee.Collection<Photo>) get_view().get_selected_sources());
     }
     
     private void on_export() {

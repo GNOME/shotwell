@@ -211,10 +211,10 @@ public abstract class AppWindow : PageWindow {
 
         return response_id == Gtk.ResponseType.YES;
     }
-    
-    public static Gtk.ResponseType affirm_cancel_question(string message, string affirmative,
-        string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
+
+    public static async Gtk.ResponseType affirm_cancel_question(string message, string affirmative,
+        string? title = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         // Occasionally, with_markup doesn't actually enable markup...? Force the issue.
         dialog.set_markup(message);
@@ -223,29 +223,38 @@ public abstract class AppWindow : PageWindow {
         dialog.add_buttons(affirmative, Gtk.ResponseType.YES, _("_Cancel"),
             Gtk.ResponseType.CANCEL);
         
-        dialog.show();
-        //int response = dialog.run();
         int response = Gtk.ResponseType.OK;
+        
+        SourceFunc callback = affirm_cancel_question.callback;
+        dialog.show();
+        dialog.response.connect((r) => {
+            response = r;
+            dialog.hide();
+            callback();
+        });
+        yield;
         
         dialog.destroy();
         
-        return (Gtk.ResponseType) response;
+        return response;
     }
     
 	public static async int export_overwrite_or_replace_question(string message,
 		string alt1, string alt2, string alt4, string alt6,
-        string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
+        string? title = null) {
+        var dialog = new Gtk.MessageDialog(get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        dialog.set_transient_for(get_instance());
+        dialog.set_modal(true);
         var content = (Gtk.Box)dialog.get_message_area();
-        var c = new Gtk.CheckButton.with_label("Apply conflict resolution to all other conflicts");
-        c.show();
+        var c = new Gtk.CheckButton.with_label(_("Apply this conflict resolution to all further conflicts"));
         content.append(c);
         dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
 
         SourceFunc callback = export_overwrite_or_replace_question.callback;
         int response = Gtk.ResponseType.CANCEL;
+        dialog.show();
         dialog.response.connect((r) => {
             response = r;
             dialog.hide();
