@@ -546,7 +546,6 @@ public async bool report_manifest(ImportManifest manifest, bool show_dest_id,
     Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
     ImportUI.SAVE_RESULTS_RESPONSE_ID);
     save_results_button.set_visible(manifest.success.size < manifest.all.size);
-    Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
     dialog.set_transient_for(AppWindow.get_instance());
 
     if (question == null) {

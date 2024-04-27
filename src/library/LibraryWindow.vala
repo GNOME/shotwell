@@ -1064,7 +1064,7 @@ public class LibraryWindow : AppWindow {
         basic_properties.margin_end = 6;
 
         bottom_frame.set_child(basic_properties);
-        bottom_frame.get_style_context().remove_class("frame");
+        bottom_frame.remove_css_class("frame");
         
         // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
         // top two and the basic information pane

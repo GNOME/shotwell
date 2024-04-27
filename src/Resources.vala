@@ -571,28 +571,22 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     private Gdk.Pixbuf? get_icon_trinket(string icon_name, int scale) {
-        try {
-            var theme = Gtk.IconTheme.get_for_display(AppWindow.get_instance().get_display());
-            var paintable = theme.lookup_icon(icon_name, null, 1, scale * 2, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.PRELOAD);
+        var theme = Gtk.IconTheme.get_for_display(AppWindow.get_instance().get_display());
+        var paintable = theme.lookup_icon(icon_name, null, 1, scale * 2, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.PRELOAD);
 
-            var snapshot = new Gtk.Snapshot();
-            paintable.snapshot_symbolic(snapshot, scale * 2, scale * 2, {{0.8f, 0.8f, 0.8f, 1.0f}});
-            var node = snapshot.free_to_node();
-            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, scale * 2, scale * 2);
-            var ctx = new Cairo.Context(surface);
-            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
-            ctx.rectangle(0, 0, scale * 2, scale * 2);
-            ctx.fill();
-            ctx.move_to(0,0);
-            node.draw(ctx);
-            ctx.paint();
+        var snapshot = new Gtk.Snapshot();
+        paintable.snapshot_symbolic(snapshot, scale * 2, scale * 2, {{0.8f, 0.8f, 0.8f, 1.0f}});
+        var node = snapshot.free_to_node();
+        var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, scale * 2, scale * 2);
+        var ctx = new Cairo.Context(surface);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+        ctx.rectangle(0, 0, scale * 2, scale * 2);
+        ctx.fill();
+        ctx.move_to(0,0);
+        node.draw(ctx);
+        ctx.paint();
 
-            return Gdk.pixbuf_get_from_surface(surface, 0, 0, scale * 2, scale * 2);
-        } catch (Error err) {
-            critical ("%s", err.message);
-
-            return null;
-        }        
+        return Gdk.pixbuf_get_from_surface(surface, 0, 0, scale * 2, scale * 2);
     }
 
     public Gdk.Pixbuf? get_video_trinket(int scale) {

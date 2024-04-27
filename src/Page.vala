@@ -1001,27 +1001,6 @@ public abstract class Page : Gtk.Box {
         return true;
     }
 
-
-#if 0
-    protected void on_event_source_realize() {
-        assert(event_source.get_window() != null); // the realize event means the Widget has a window
-
-        if (event_source.get_window().get_cursor() != null) {
-            last_cursor = event_source.get_window().get_cursor().get_cursor_type();
-            return;
-        }
-
-        // no custom cursor defined, check parents
-        Gdk.Window? parent_window = event_source.get_window();
-        do {
-            parent_window = parent_window.get_parent();
-        } while (parent_window != null && parent_window.get_cursor() == null);
-        
-        if (parent_window != null)
-            last_cursor = parent_window.get_cursor().get_cursor_type();
-    }
-    #endif
-
     public void set_cursor_hide_time(int hide_time) {
         cursor_hide_msec = hide_time;
     }

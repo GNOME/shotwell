@@ -240,6 +240,7 @@ public class PublishingDialog : Gtk.Dialog {
         return filtered_services;
     }
 
+    // FIXME: This comment is no longer valid, I think.
     // Because of this bug: https://bugzilla.gnome.org/show_bug.cgi?id=717505, we use some
     // extreme measures. The bug occurs because, in some cases, when publishing is started
     // asynchronous network transactions are performed. The mechanism inside libsoup that we
@@ -250,7 +251,6 @@ public class PublishingDialog : Gtk.Dialog {
     // is never called re-entrantly. It just gets called twice back-to-back in quick
     // succession. So use a timer to do a short circuit return if this call to go( ) follows
     // immediately on the heels of another call to go( )
-    // FIXME: Port publising to async libsoup, then there is no nested main loop anymore.
     private static Timer since_last_start = null;
     private static bool elapsed_is_valid = false;
     public static void go(Gee.Collection<MediaSource> to_publish) {

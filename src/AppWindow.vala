@@ -18,7 +18,6 @@ public abstract class AppWindow : PageWindow {
     
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
-    private Gtk.ShortcutController shortcut_controller = new Gtk.ShortcutController();
 
     private Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.PopoverMenuBar menu_bar;

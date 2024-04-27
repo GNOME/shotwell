@@ -154,8 +154,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         key.key_pressed.connect(key_press_event);
         add_controller(key);
 
-        //popup_menu.connect(on_context_menu_keypress);
-        
         setup_default_context_menu();
         
         #if 0
@@ -812,21 +810,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         assert(rows.length() == 0 || rows.length() == 1);
         
         return rows.length() != 0 ? rows.nth_data(0) : null;
-    }
-    
-    private bool on_context_menu_keypress() {
-        GLib.List<Gtk.TreePath> rows = get_selection().get_selected_rows(null);
-        if (rows == null)
-            return false;
-        
-        Gtk.TreePath? path = rows.data;
-        if (path == null)
-            return false;
-        
-        scroll_to_cell(path, null, false, 0, 0);
-        
-        //return popup_context_menu(path);
-        return false;
     }
     
     private bool popup_context_menu(Gtk.TreePath path, double x, double y) {

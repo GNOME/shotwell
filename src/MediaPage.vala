@@ -710,7 +710,6 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-            print ("==============>\n ");
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(media_sources[0].get_comment());

@@ -269,15 +269,5 @@ namespace Shotwell {
         private Gtk.Widget on_widget_create(Object item) {
             return new ProfileRow((Profile) item);
         }
-
-        private void on_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
-            if (before == null || row.get_header() != null) {
-                return;
-            }
-
-            var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-            separator.show();
-            row.set_header(separator);
-        }
     }
 }

@@ -20,8 +20,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int left_nub_max = 255 - NUB_SIZE - 1;
     private int right_nub_min = NUB_SIZE + 1;
 
-    private static bool paths_setup = false;
-
     private RGBHistogram histogram = null;
     private int left_nub_position = 0;
     private int right_nub_position = 255;
