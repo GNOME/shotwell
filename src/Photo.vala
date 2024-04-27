@@ -3048,7 +3048,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             string center_key = "center%d".printf(i);
             string radius_key = "radius%d".printf(i);
 
-            //res[i].center = map.get_point(center_key, default_point);
+            res[i].center = map.get_point(center_key, default_point);
             assert(res[i].center.x != default_point.x);
             assert(res[i].center.y != default_point.y);
 
