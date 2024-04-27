@@ -15,7 +15,6 @@ public class DirectPhotoPage : EditingHostPage {
         base (DirectPhoto.global, file.get_basename());
         
         if (!check_editable_file(file)) {
-            Application.get_instance().panic();
             
             return;
         }
@@ -90,12 +89,12 @@ public class DirectPhotoPage : EditingHostPage {
     
     private static bool check_editable_file(File file) {
         if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
-            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
+            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()), AppWindow.get_instance(), true);
         else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
-            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()));
+            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()), AppWindow.get_instance(), true);
         else if (!PhotoFileFormat.is_file_supported(file))
             AppWindow.error_message(_("%s does not support the file format of\n%s.").printf(
-                Resources.APP_TITLE, file.get_path()));
+                Resources.APP_TITLE, file.get_path()), AppWindow.get_instance(), true);
         else
             return true;
         
@@ -111,7 +110,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (photo != null) {
             display_mirror_of(view_controller, photo);
         } else {
-            AppWindow.panic(_("Unable open photo %s. Sorry.").printf(initial_file.get_path()));
+            AppWindow.panic(_("Unable to open photo %s. Sorry.").printf(initial_file.get_path()));
         }
 
         initial_file = null;
@@ -464,7 +463,7 @@ public class DirectPhotoPage : EditingHostPage {
     
     private void on_send_to() {
         if (has_photo())
-            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+            DesktopIntegration.send_to.begin((Gee.Collection<Photo>) get_view().get_selected_sources());
     }
     
     protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {

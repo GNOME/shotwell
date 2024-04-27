@@ -168,11 +168,12 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
 
-    public static void error_message(string message, Gtk.Window? parent = null) {
-        error_message_with_title(Resources.APP_TITLE, message, parent);
+    public static void error_message(string message, Gtk.Window? parent = null, bool panic = false) {
+        Application.get_instance().set_panicking();
+        error_message_with_title(Resources.APP_TITLE, message, parent, true, panic);
     }
     
-    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true) {
+    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true, bool panic=false) {
         // Per the Gnome HIG (http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en),            
         // alert-style dialogs mustn't have titles; we use the title as the primary text, and the
         // existing message as the secondary text.
@@ -186,7 +187,7 @@ public abstract class AppWindow : PageWindow {
 
         dialog.use_markup = true;
         dialog.show();
-        dialog.response.connect(() => dialog.destroy());
+        dialog.response.connect(() => { dialog.destroy(); if (panic) Application.get_instance().panic();});
     }
     
     public static async bool negate_affirm_question(string message, string negative, string affirmative,
@@ -276,10 +277,10 @@ public abstract class AppWindow : PageWindow {
     }
 
     public static void panic(string msg) {
-        critical(msg);
-        error_message(msg);
-        
-        Application.get_instance().panic();
+        if (!Application.get_instance().is_panicking()) {
+            critical(msg);
+            error_message(msg, get_instance(), true);
+        }
     }
     
     public abstract string get_app_role();

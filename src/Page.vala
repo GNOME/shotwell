@@ -572,9 +572,8 @@ public abstract class Page : Gtk.Box {
             builder.add_from_resource(ui_resource);
             this.menubar_injected = false;
         } catch (Error err) {
-            AppWindow.error_message("Error loading UI resource %s: %s".printf(
+            AppWindow.panic("Error loading UI resource %s: %s".printf(
                 ui_resource, err.message));
-            Application.get_instance().panic();
         }
     }
     
