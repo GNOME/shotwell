@@ -93,6 +93,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         get_view().contents_altered.disconnect(on_view_contents_ordering_altered);
         get_view().ordering_changed.disconnect(on_view_contents_ordering_altered);
+        scrolled.notify["default-height"].disconnect(on_viewport_resized);
+        scrolled.notify["default-width"].disconnect(on_viewport_resized);
+        scrolled.notify["maximized"].disconnect(on_viewport_resized);
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
