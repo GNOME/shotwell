@@ -383,7 +383,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     private void on_send_to() {
-        DesktopIntegration.send_to((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+        DesktopIntegration.send_to.begin((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
     
     protected void on_play_video() {
