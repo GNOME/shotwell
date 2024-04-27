@@ -152,20 +152,24 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             }
 
             // FIXME
-            #if 0
-            File save_as = ExportUI.choose_file(video.get_basename());
-            if (save_as == null)
-                return null;
-
-            try {
-                AppWindow.get_instance().set_busy_cursor();
-                video.export(save_as);
-                AppWindow.get_instance().set_normal_cursor();
-            } catch (Error err) {
-                AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
-            }
-            #endif
+            ExportUI.choose_file.begin(video.get_basename(), (obj, res) => {
+                File save_as = null;
+                try {
+                    save_as = ExportUI.choose_file.end(res);
+                    if (save_as == null)
+                        return;
+    
+                    AppWindow.get_instance().set_busy_cursor();
+                    video.export(save_as);
+                    AppWindow.get_instance().set_normal_cursor();
+                } catch (Error err) {
+                    AppWindow.get_instance().set_normal_cursor();
+                    AppWindow.get_instance().set_normal_cursor();
+                    var message = _("Unable to export the following video due to a file error.\n\n") +
+                                save_as.get_path();
+                    AppWindow.error_message(message);
+                }
+            });
 
             return null;
         }

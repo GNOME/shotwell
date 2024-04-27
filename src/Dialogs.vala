@@ -86,7 +86,10 @@ public async File? choose_file(string current_file_basename) {
         current_export_dir = file.get_parent();
         return file;
     } catch (Error error) {
-        critical("Failed to save: %s", error.message);
+        // Do not log a critical if user just closed the dialog without saving
+        if (!(error is Gtk.DialogError.DISMISSED)) {
+            critical("Failed to save: %s", error.message);
+        }
     }
     
     return null;

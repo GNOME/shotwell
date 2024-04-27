@@ -445,7 +445,9 @@ public abstract class CollectionPage : MediaPage {
                 AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
                 AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
+                var message = _("Unable to export the following photo due to a file error.\n\n") +
+                            save_as.get_path();
+                AppWindow.error_message(message);
             }
             
             return;
