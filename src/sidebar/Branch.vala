@@ -7,6 +7,27 @@
 public delegate bool Locator<G>(G item);
 
 public class Sidebar.Branch : Object {
+    public string? label {
+        owned get {
+            print("%s\n", get_root().to_string());
+            return get_root().to_string();
+        }
+        private set {        
+        }
+    }
+
+    public string? icon_name {
+        owned get {
+            print("%s\n", get_root().get_sidebar_icon());
+            return get_root().get_sidebar_icon();
+        }
+        private set {
+        }
+    }
+
+
+
+
     [Flags]
     public enum Options {
         NONE = 0,

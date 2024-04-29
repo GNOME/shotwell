@@ -5,7 +5,6 @@
  */
 
 public class LibraryWindow : AppWindow {
-    public const int SIDEBAR_MIN_WIDTH = 120;
     public const int EXTENDED_INFO_MIN_WIDTH = 360;
     
     public static int PAGE_MIN_WIDTH {
@@ -1047,7 +1046,7 @@ public class LibraryWindow : AppWindow {
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow();
         scrolled_sidebar.vexpand = true;
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-        scrolled_sidebar.set_child(sidebar_tree);
+        scrolled_sidebar.set_child(sidebar_tree.get_view());
         
         background_progress_frame.set_child(background_progress_bar);
         background_progress_frame.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
@@ -1087,7 +1086,6 @@ public class LibraryWindow : AppWindow {
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.set_start_child(sidebar_paned);
-        sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.set_end_child(right_vbox);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
@@ -1358,10 +1356,12 @@ public class LibraryWindow : AppWindow {
     }
     
     public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        #if 0
         if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event, keyval, keycode, modifiers)
-            && event.forward(sidebar_tree)) {
+            && /* event.forward(sidebar_tree)*/) {
             return true;
         }
+        #endif
         
         if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
