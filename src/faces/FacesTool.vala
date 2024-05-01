@@ -540,6 +540,7 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         new_face_shape(x, y);
+        canvas.repaint();
     }
 
     public override void on_left_released(int x, int y) {
@@ -553,6 +554,7 @@ public class FacesTool : EditingTools.EditingTool {
             if (faces_tool_window.get_editing_phase() == EditingPhase.CREATING_DRAGGING)
                 faces_tool_window.set_editing_phase(EditingPhase.CREATING_EDITING);
         }
+        canvas.repaint();
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
@@ -605,6 +607,7 @@ public class FacesTool : EditingTools.EditingTool {
                 to_show.get_widget().activate_label();
             }
         } else editing_face_shape.on_motion(x, y, mask);
+        canvas.repaint();
     }
 
     public override bool on_leave_notify_event() {
@@ -659,6 +662,13 @@ public class FacesTool : EditingTools.EditingTool {
         // paint face shape last
         if (editing_face_shape != null)
             editing_face_shape.show();
+
+        foreach (var shape in face_shapes.values) {
+            if (shape.is_visible()) {
+                // Trigger repaint
+                shape.show();
+            }
+        }
     }
 
     private void new_face_shape(int x, int y) {
