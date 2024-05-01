@@ -159,6 +159,7 @@ public abstract class EditingTools.PhotoCanvas {
     // If these methods are not used, all painting to the drawable should be offet by
     // get_scaled_pixbuf_position().x and get_scaled_pixbuf_position().y
     public void paint_pixbuf(Gdk.Pixbuf pixbuf) {
+        #if 0
         default_ctx.save();
 
         // paint black background
@@ -169,6 +170,7 @@ public abstract class EditingTools.PhotoCanvas {
         // paint the actual image
         paint_pixmap_with_background(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
         default_ctx.restore();
+        #endif
     }
 
     // Paint a surface on top of the photo

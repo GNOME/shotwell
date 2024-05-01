@@ -362,39 +362,41 @@ public class FaceRectangle : FaceShape {
     }
     
     public override void update_face_window_position() {
-        AppWindow appWindow = AppWindow.get_instance();
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
 
         Gdk.Rectangle rect = Gdk.Rectangle();
         rect.x = box.left + scaled_pixbuf_pos.x;
         var scale = Application.get_scale();
-        var left = (int)Math.lround((scaled_pixbuf_pos.x + box.left) / scale);
-        var width = (int)Math.lround(box.get_width() / scale);
-        var top = (int)Math.lround((scaled_pixbuf_pos.y + box.bottom) / scale);
+        var left = (int)Math.lround((scaled_pixbuf_pos.x + box.left + (box.right - box.left) / 2.0) / scale);
+        var bottom = (int)Math.lround((scaled_pixbuf_pos.y + box.bottom) / scale);
 
-        face_window.popover.set_pointing_to({left, top, 1, 1});
+        face_window.popover.set_pointing_to({left, bottom, 1, 1});
     }
     
     protected override void paint() {
+        print("Paining box %s\n", box.to_string());
         // The box is in image coordinates. Need to scale down to device coordinates
+        wide_black_ctx.fill();
         canvas.draw_box(wide_black_ctx, box);
         canvas.draw_box(wide_white_ctx, box.get_reduced(1));
         canvas.draw_box(wide_white_ctx, box.get_reduced(2));
         
-        //canvas.invalidate_area(box);
+        canvas.invalidate_area(box);
+        //canvas.repaint();
         
+        paint_label();
         if (view_state == ViewState.CONTOUR_AND_LABEL) {
-            paint_label();
         }
     }
     
     protected override void erase() {
+        print("Erasing box %s\n", box.to_string());
         canvas.invalidate_area(box);
      
         if (label_box != null)
             erase_label();
 
-//        canvas.repaint();
+        canvas.repaint();
     }
     
     private void paint_label() {
@@ -716,20 +718,17 @@ public class FaceRectangle : FaceShape {
         Box new_box = Box(left, top, right, bottom);
         
         if (!box.equals(new_box)) {
-            canvas.invalidate_area(box);
+            erase();
             
             if (in_manipulation != BoxLocation.INSIDE)
                 check_resized_box(new_box);
             
             box = new_box;
             paint();
-            canvas.invalidate_area(new_box);
         }
         
         if (view_state == ViewState.CONTOUR_AND_POPOVER)
             update_face_window_position();
-
-            canvas.repaint();
         
         serialized = null;
         
@@ -823,6 +822,8 @@ public class FaceRectangle : FaceShape {
         last_grab_y = y -= scaled_pixbuf_pos.y;
         last_box = box;
         
+        canvas.repaint();
+
         return box.approx_location(x, y) != BoxLocation.OUTSIDE;
     }
     
@@ -864,7 +865,9 @@ public class FaceRectangle : FaceShape {
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
         Box offset_scaled_box = box.get_offset(scaled_pos.x, scaled_pos.y);
         
-        return offset_scaled_box.approx_location(x, y) != BoxLocation.OUTSIDE;
+        var result = offset_scaled_box.approx_location(x, y) != BoxLocation.OUTSIDE;
+       // print("mouse: %d %d -> box: %s\n", x, y, box.to_string());
+        return result;
     }
     
     public override double get_distance(int x, int y) {

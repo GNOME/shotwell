@@ -48,7 +48,7 @@ public class FacesTool : EditingTools.EditingTool {
             this.face_shape = fs;
             spacing = CONTROL_SPACING;
 
-            delete_button = new Gtk.Button.from_icon_name("user-trash");
+            delete_button = new Gtk.Button.from_icon_name("user-trash-symbolic");
             delete_button.set_use_underline(true);
 
             label = new Gtk.Label(face_shape.get_name());
@@ -106,7 +106,7 @@ public class FacesTool : EditingTools.EditingTool {
         public void edit_name(Gtk.GestureClick gesture, int press, double x, double y) {
             set_default_view();
             face_tool_window_default_view();
-            remove(label);
+/*             remove(label);
             remove(delete_button);
             append(name_entry);
             append(ok_button);
@@ -116,17 +116,17 @@ public class FacesTool : EditingTools.EditingTool {
             name_entry.set_text(face_shape.get_name());
             name_entry.grab_focus();
             ok_button.set_visible(true);
-            cancel_button.set_visible(true);
+            cancel_button.set_visible(true); */
         }
 
         public void set_default_view() {
             if (name_entry.get_visible() == true) {
-                remove(name_entry);
+/*                 remove(name_entry);
                 name_entry.set_visible(false);
                 remove(ok_button);
                 remove(cancel_button);
                 append(label);
-                append(delete_button);
+                append(delete_button); */
             }
             face_shape.set_view_state(FaceShape.ViewState.HIDE);
         }
@@ -623,12 +623,13 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         new_face_shape(x, y);
+        canvas.repaint();
     }
 
     public override void on_left_released(int x, int y) {
         var scale = Application.get_scale();
-        x = (int) Math.lround(x * scale);
-        y = (int) Math.lround(y * scale);
+        //x = (int) Math.lround(x * scale);
+        //y = (int) Math.lround(y * scale);
 
         if (editing_face_shape != null) {
             editing_face_shape.on_left_released(x, y);
@@ -641,6 +642,7 @@ public class FacesTool : EditingTools.EditingTool {
                 editing_face_shape.set_view_state(CONTOUR_AND_POPOVER);
             }
         }
+        canvas.repaint();
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
@@ -663,6 +665,7 @@ public class FacesTool : EditingTools.EditingTool {
                 // hiding faces are already erased.
                 // Also, we paint the FaceShape whose center is closer
                 // to the pointer.
+                //print("Pointer over %s!\n", face_shape.get_view_state().to_string());
                 if (cursor_is_over) {
                     switch (face_shape.get_view_state()) {
                         case FaceShape.ViewState.HIDE:
@@ -696,6 +699,8 @@ public class FacesTool : EditingTools.EditingTool {
             else
                 faces_tool_window.set_editing_phase(EditingPhase.CLICK_TO_EDIT, to_show);
         } else editing_face_shape.on_motion(x, y, mask);
+
+        canvas.repaint();
     }
 
     public override bool on_leave_notify_event() {
