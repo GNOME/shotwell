@@ -20,6 +20,13 @@ config_incdir = include_directories('.')
 vapi_incdir = include_directories('vapi')
 shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'builtin')
 
+cc = meson.get_compiler('c')
+disabled_warning_flags = []
+if cc.get_id() == 'gcc' or cc.get_id() == 'clang'
+  disabled_warning_flags = cc.get_supported_arguments(['-Wno-unused-but-set-variable', '-Wno-unused-variable'])
+endif
+
+
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
                      ['-include'], ['config.h'],
                      language : 'c')
