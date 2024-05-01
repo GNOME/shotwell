@@ -127,7 +127,6 @@ public abstract class FaceShape : Object {
         paint();
         
         if (editable) {
-            update_face_window_position();
             face_window.show();
             face_window.present();
             
@@ -173,7 +172,6 @@ public abstract class FaceShape : Object {
     }
     
     public abstract string serialize(bool geometry_only = false);
-    public abstract void update_face_window_position();
     public abstract void prepare_ctx(Cairo.Context ctx, Dimensions dim);
     public abstract void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled);
     public abstract void on_motion(int x, int y, Gdk.ModifierType mask);
@@ -307,31 +305,6 @@ public class FaceRectangle : FaceShape {
         }
         return new FaceRectangle(canvas, box.left + half_width, box.top + half_height,
             half_width, half_height, vec);
-    }
-    
-    public override void update_face_window_position() {
-        AppWindow appWindow = AppWindow.get_instance();
-        Gtk.Allocation face_window_alloc;
-        Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
-        int x = 0;
-        int y = 0;
-        
-        #if 0
-        if (canvas.get_container() == appWindow) {
-            appWindow.get_current_page().get_window().get_origin(out x, out y);
-        } else assert(canvas.get_container() is FullscreenWindow);
-        
-        face_window.get_allocation(out face_window_alloc);
-        
-        var scale = Application.get_scale();
-        var left = (int)Math.lround((scaled_pixbuf_pos.x + box.left) / scale);
-        var width = (int)Math.lround(box.get_width() / scale);
-        var top = (int)Math.lround((scaled_pixbuf_pos.y + box.bottom) / scale);
-        x += (left  + ((width - face_window_alloc.width) >> 1));
-        y += top + FACE_WINDOW_MARGIN;
-        
-        face_window.move(x, y);
-        #endif
     }
     
     protected override void paint() {
@@ -682,10 +655,7 @@ public class FaceRectangle : FaceShape {
             canvas.invalidate_area(new_box);
         }
         
-        if (is_editable())
-            update_face_window_position();
-
-            canvas.repaint();
+        canvas.repaint();
         
         serialized = null;
         
@@ -813,7 +783,6 @@ public class FaceRectangle : FaceShape {
         
         // rescale back to new size
         box = new_box.get_scaled_similar(uncropped_dim, new_dim);
-        update_face_window_position();
     }
     
     public override bool cursor_is_over(int x, int y) {

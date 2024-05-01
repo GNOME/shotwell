@@ -916,7 +916,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void activate_tool(EditingTools.EditingTool tool) {
-        var window = AppWindow.get_instance();
         // cancel any zoom -- we don't currently allow tools to be used when an image is zoomed,
         // though we may at some point in the future.
         save_zoom_state();

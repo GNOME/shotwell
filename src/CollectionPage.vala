@@ -52,8 +52,8 @@ public abstract class CollectionPage : MediaPage {
             connect_slider(zoom_slider_assembly);
             get_toolbar().append(zoom_slider_assembly);
 
-            Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
             #if 0
+            Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
             unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);

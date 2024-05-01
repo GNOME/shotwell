@@ -947,17 +947,16 @@ public abstract class Page : Gtk.Box {
     }
 
     private bool on_mousewheel_internal(Gtk.EventControllerScroll event, double dx, double dy) {
-                    if (dy < 0)
+        if (dy < 0) {
             return on_mousewheel_up(event);
-                    else if (dy > 0)
+        } else if (dy > 0) {
             return on_mousewheel_down(event);
-                    else if (dx < 0)
+        } else if (dx < 0) {
             return on_mousewheel_left(event);
-                    else if (dx > 0)
+        } else if (dx > 0) {
             return on_mousewheel_right(event);
-        else
-                        return false;
-            return false;
+        }
+        return false;
     }
     
     protected virtual bool on_mousewheel_up(Gtk.EventControllerScroll event) {
