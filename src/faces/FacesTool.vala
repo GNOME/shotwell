@@ -751,6 +751,12 @@ public class FacesTool : EditingTools.EditingTool {
         // paint face shape last
         if (editing_face_shape != null)
             editing_face_shape.show();
+
+        foreach (var face_shape in face_shapes.values) {
+            if (face_shape.get_view_state() != FaceShape.ViewState.HIDE) {
+                face_shape.show();
+            }
+        }
     }
 
     private void new_face_shape(int x, int y) {

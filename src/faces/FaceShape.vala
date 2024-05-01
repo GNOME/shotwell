@@ -143,8 +143,8 @@ public abstract class FaceShape : Object {
         if (view_state == ViewState.CONTOUR_AND_POPOVER) {
             //[TODO] see better
             update_face_window_position();
-            face_window.popover.set_visible(true);
-            face_window.popover.popup();
+            //face_window.popover.set_visible(true);
+            //face_window.popover.popup();
         } else if (view_state != ViewState.HIDE) {
             view_state = ViewState.CONTOUR;
         }
@@ -170,7 +170,7 @@ public abstract class FaceShape : Object {
             // remove label
         } else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
             // remove popover
-            face_window.popover.set_visible(false);
+            //face_window.popover.set_visible(false);
             set_entry_name(get_name());
         }
 
@@ -190,8 +190,8 @@ public abstract class FaceShape : Object {
             // pop popover
             face_widget.face_tool_window_default_view();
             update_face_window_position();
-            face_window.popover.set_visible(true);
-            face_window.popover.popup();
+            //face_window.popover.set_visible(true);
+            //face_window.popover.popup();
             get_widget().activate_label();
         }
         
@@ -834,8 +834,8 @@ public class FaceRectangle : FaceShape {
             return;
         }
         
-        if (view_state == ViewState.CONTOUR_AND_POPOVER)
-            face_window.popover.set_visible(true);
+        //if (view_state == ViewState.CONTOUR_AND_POPOVER)
+        //    face_window.popover.set_visible(true);
         
         // nothing to do if released outside of the face box
         if (in_manipulation == BoxLocation.OUTSIDE)
