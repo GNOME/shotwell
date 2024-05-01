@@ -15,7 +15,6 @@ public class DirectPhotoPage : EditingHostPage {
         base (DirectPhoto.global, file.get_basename());
         
         if (!check_editable_file(file)) {
-            Application.get_instance().panic();
             
             return;
         }
@@ -90,12 +89,12 @@ public class DirectPhotoPage : EditingHostPage {
     
     private static bool check_editable_file(File file) {
         if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
-            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
+            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()), AppWindow.get_instance(), true);
         else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
-            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()));
+            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()), AppWindow.get_instance(), true);
         else if (!PhotoFileFormat.is_file_supported(file))
             AppWindow.error_message(_("%s does not support the file format of\n%s.").printf(
-                Resources.APP_TITLE, file.get_path()));
+                Resources.APP_TITLE, file.get_path()), AppWindow.get_instance(), true);
         else
             return true;
         
@@ -111,7 +110,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (photo != null) {
             display_mirror_of(view_controller, photo);
         } else {
-            AppWindow.panic(_("Unable open photo %s. Sorry.").printf(initial_file.get_path()));
+            AppWindow.panic(_("Unable to open photo %s. Sorry.").printf(initial_file.get_path()));
         }
 
         initial_file = null;
@@ -263,7 +262,7 @@ public class DirectPhotoPage : EditingHostPage {
         bool revert_possible = has_photo() ? get_photo().has_transformations() 
             && !get_photo_missing() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = false; //has_photo() ? is_enhance_available(get_photo()) : false;
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
         
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
@@ -293,14 +292,16 @@ public class DirectPhotoPage : EditingHostPage {
         base.update_actions(selected_count, count);
     }
     
-    private bool check_ok_to_close_photo(Photo? photo, bool notify = true) {
+    private async bool check_ok_to_close_photo(Photo? photo, bool notify = true) {
         // Means we failed to load the photo for some reason. Do not block
         // shutdown
-        if (photo == null)
+        if (photo == null) {
             return true;
+        }
 
-        if (!photo.has_alterations())
+        if (!photo.has_alterations()) {
             return true;
+        }
         
         if (drop_if_dirty) {
             // need to remove transformations, or else they stick around in memory (reappearing
@@ -312,41 +313,52 @@ public class DirectPhotoPage : EditingHostPage {
 
         // Check if we can write the target format
         bool is_writeable = get_photo().get_file_format().can_write();
+        var file = photo.get_file();
+        try {
+           var info = yield file.query_info_async(FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE, Priority.DEFAULT, null);
+           is_writeable = is_writeable && info.get_attribute_boolean(FileAttribute.ACCESS_CAN_WRITE);
+        } catch (Error error) {
+            critical("Failed to get writeable status: %s", error.message);
+        }
         
-        // TODO: Check if we can actually write to the file
         string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
 
-        #if 0
-        Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
-            _("Lose changes to %s?").printf(photo.get_basename()), save_option,
-            _("Close _without Saving"));
-            #endif
-            var response = Gtk.ResponseType.CANCEL;
+        var dialog = new Gtk.AlertDialog(_("Lose changes to %s?"), photo.get_basename());
+        dialog.set_buttons({save_option, _("Close _without Saving")});
+        int result = -1;
+        try {
+            result = yield dialog.choose(AppWindow.get_instance(), null);
+        } catch (Error error) {
+            critical("Failed to get an answer from dialog: %s", error.message);
+        }
 
-        if (response == Gtk.ResponseType.YES)
-            photo.remove_all_transformations(notify);
-        else if (response == Gtk.ResponseType.NO) {
+        if (result == -1) {
+            in_shutdown = false;
+            return false;
+        }
+
+        if (result == 0) {
             if (is_writeable)
                 save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
                     get_photo().get_file_format());
             else
-                on_save_as();
-        } else if ((response == Gtk.ResponseType.CANCEL) || (response == Gtk.ResponseType.DELETE_EVENT) ||
-            (response == Gtk.ResponseType.CLOSE)) {
-            in_shutdown = false;
-            return false;
+                yield save_as();
+        }
+        
+        if (result == 1) {
+            photo.remove_all_transformations(notify);
         }
 
         return true;
     }
     
-    public bool check_quit() {
+    public async bool check_quit() {
         in_shutdown = true;
-        return check_ok_to_close_photo(get_photo(), false);
+        return yield check_ok_to_close_photo(get_photo(), false);
     }
     
-    protected override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
-        return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
+    protected async override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
+        return (old_photo != null) ? yield check_ok_to_close_photo(old_photo) : true;
     }
 
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
@@ -451,7 +463,7 @@ public class DirectPhotoPage : EditingHostPage {
     
     private void on_send_to() {
         if (has_photo())
-            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+            DesktopIntegration.send_to.begin((Gee.Collection<Photo>) get_view().get_selected_sources());
     }
     
     protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
@@ -505,8 +517,7 @@ public class DirectFullscreenPhotoPage : DirectPhotoPage {
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
-        // We intentionally avoid calling the base class implementation since we don't want
-        // direct.ui.
+        base.init_collect_ui_filenames(ui_filenames);
         ui_filenames.add("direct_context.ui");
     }
 }

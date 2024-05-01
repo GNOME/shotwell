@@ -122,8 +122,7 @@ namespace Shotwell {
             revealer.margin_top = 0;
             append(revealer);
                 
-            var label = new Gtk.Label(null);
-            label.set_markup("<span weight=\"bold\">%s</span>".printf(Markup.escape_text(profile.name)));
+            var label = new Gtk.Label(profile.name);
             label.halign = Gtk.Align.START;
             label.hexpand = true;
             content.prepend(label);
@@ -140,10 +139,9 @@ namespace Shotwell {
 
             var button = new Gtk.ToggleButton();
             button.add_css_class("flat");
+            button.set_icon_name("go-down-symbolic");
             content.append(button);
             button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
-            image = new Gtk.Image.from_icon_name("go-down-symbolic");
-            button.set_child(image);
 
             // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
             // and that even is not yet initialized
@@ -226,7 +224,7 @@ namespace Shotwell {
 
     class ProfileBrowser : Gtk.Box {
         public ProfileBrowser() {
-            Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true);
+            Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true, spacing: 12);
         }
 
         public signal void profile_activated(Profile profile);
@@ -243,12 +241,11 @@ namespace Shotwell {
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
                 profile_activated(profile);
             });
-            list_box.add_css_class("rich-list");
+            list_box.add_css_class("boxed-list");
             list_box.hexpand = true;
             list_box.vexpand = true;
             scrollable.set_child (list_box);
             list_box.bind_model(ProfileManager.get_instance(), on_widget_create);
-            list_box.set_header_func(on_header);
 
             var button = new Gtk.Button.with_label(_("Create new Profile"));
             prepend(button);
@@ -271,16 +268,6 @@ namespace Shotwell {
 
         private Gtk.Widget on_widget_create(Object item) {
             return new ProfileRow((Profile) item);
-        }
-
-        private void on_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
-            if (before == null || row.get_header() != null) {
-                return;
-            }
-
-            var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-            separator.show();
-            row.set_header(separator);
         }
     }
 }

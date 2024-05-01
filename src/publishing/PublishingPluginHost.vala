@@ -203,6 +203,10 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     public Publishable[] get_publishables() {
         return publishables;
     }
+
+    public Gtk.Window get_dialog() {
+        return dialog;
+    }
     
     public Spit.Publishing.ProgressCallback? serialize_publishables(int content_major_axis,
         bool strip_metadata = false) {

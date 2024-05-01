@@ -54,7 +54,7 @@ public struct ExportFormatParameters {
     }
 }
 
-public class Exporter : Object {
+public abstract class Exporter : Object {
     public enum Overwrite {
         YES,
         NO,
@@ -65,12 +65,9 @@ public class Exporter : Object {
         RENAME_ALL,
     }
     
-    public delegate void CompletionCallback(Exporter exporter, bool is_cancelled);
-    
-    public delegate Overwrite OverwriteCallback(Exporter exporter, File file);
-    
-    public delegate bool ExportFailedCallback(Exporter exporter, File file, int remaining, 
-        Error err);
+    public abstract async Overwrite overwrite(File file);
+    public abstract async bool failed(File file, int remaining, Error error);
+    public virtual signal void export_completed(bool was_cancelled) {}
     
     private class ExportJob : BackgroundJob {
         public MediaSource media;
@@ -117,9 +114,6 @@ public class Exporter : Object {
     private Scaling scaling;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(1, 4), false);
-    private unowned CompletionCallback? completion_callback = null;
-    private unowned ExportFailedCallback? error_callback = null;
-    private unowned OverwriteCallback? overwrite_callback = null;
     private unowned ProgressMonitor? monitor = null;
     private Cancellable cancellable;
     private bool replace_all = false;
@@ -128,7 +122,7 @@ public class Exporter : Object {
     private ExportFormatParameters export_params;
     private static File? USE_TEMPORARY_EXPORT_FOLDER = null; 
 
-    public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
+    protected Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
         ExportFormatParameters export_params, bool auto_replace_all = false) {
         this.to_export.add_all(to_export);
         this.dir = dir;
@@ -137,7 +131,7 @@ public class Exporter : Object {
         this.replace_all = auto_replace_all;
     }
        
-    public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
+    protected Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
         ExportFormatParameters export_params) {
         this.to_export.add_all(to_export);
         this.dir = USE_TEMPORARY_EXPORT_FOLDER;
@@ -146,18 +140,18 @@ public class Exporter : Object {
     }
 
     // This should be called only once; the object does not reset its internal state when completed.
-    public void export(CompletionCallback completion_callback, ExportFailedCallback error_callback,
-        OverwriteCallback overwrite_callback, Cancellable? cancellable, ProgressMonitor? monitor) {
-        this.completion_callback = completion_callback;
-        this.error_callback = error_callback;
-        this.overwrite_callback = overwrite_callback;
+    public void export(Cancellable? cancellable, ProgressMonitor? monitor) {
         this.monitor = monitor;
         this.cancellable = cancellable ?? new Cancellable();
         
-        if (!process_queue())
-            export_completed(true);
+        process_queue.begin((obj, res) => {
+            if (!process_queue.end(res)) {
+                export_completed(true);
+            }
+        });
     }
     
+    private bool user_decision_pending = false;
     private void on_exported(BackgroundJob j) {
         ExportJob job = (ExportJob) j;
         
@@ -167,18 +161,27 @@ public class Exporter : Object {
         // re-entered, decide now if this is the last job
         bool completed = completed_count == to_export.size;
         
-        if (!aborted && job.err != null) {
-            if (!error_callback(this, job.dest, to_export.size - completed_count, job.err)) {
-                aborted = true;
-                
-                if (!completed)
-                    return;
-            }
+        if (!aborted && !user_decision_pending && job.err != null && !(job.err is IOError.CANCELLED)) {
+            // Halt the thread pool. There could be still some tasks incoming that were scheduled before this call, though
+            workers.freeze();
+            user_decision_pending = true;
+            failed.begin(job.dest, to_export.size - completed_count, job.err, (obj, res) => {
+                var result = failed.end(res);
+                if (!result) {
+                    aborted = true;
+                    cancellable.cancel();
+                }
+                user_decision_pending = false;
+
+                // Continue the thread pool, depending on user decision they will be come in cancelled 
+                workers.thaw();
+            });
         }
         
-        if (!aborted && monitor != null) {
+        if (!aborted && !user_decision_pending && monitor != null) {
             if (!monitor(completed_count, to_export.size, false)) {
                 aborted = true;
+                cancellable.cancel();
                 
                 if (!completed)
                     return;
@@ -200,9 +203,10 @@ public class Exporter : Object {
         return exported_files;
     }
     
-    private bool process_queue() {
+    private async bool process_queue() {
         int submitted = 0;
         Gee.HashSet<string> used = new Gee.HashSet<string>();
+        var export_batch = new BackgroundJobBatch();
         foreach (MediaSource source in to_export) {
             File? use_source_file = null;
             PhotoFileFormat real_export_format = PhotoFileFormat.get_system_default_format();
@@ -252,7 +256,8 @@ public class Exporter : Object {
                     if (rename_all) {
                         rename = true;
                     } else {
-                        switch (overwrite_callback(this, dest)) {
+                        var should_overwrite = yield overwrite(dest);
+                        switch (should_overwrite) {
                         case Overwrite.YES:
                             // continue
                             break;
@@ -312,58 +317,43 @@ public class Exporter : Object {
             }
 
             used.add(dest.get_basename());
-            workers.enqueue(new ExportJob(this, source, dest, scaling, export_params.quality,
+            export_batch.add(new ExportJob(this, source, dest, scaling, export_params.quality,
                 real_export_format, cancellable, export_params.mode == ExportFormatMode.UNMODIFIED, export_params.export_metadata));
             submitted++;
         }
+
+        workers.enqueue_many(export_batch);
         
         return submitted > 0;
     }
-    
-    private void export_completed(bool is_cancelled) {
-        completion_callback(this, is_cancelled);
-    }
 }
 
-public class ExporterUI {
-    private Exporter exporter;
+public class ExporterUI : Exporter {
     private Cancellable cancellable = new Cancellable();
     private ProgressDialog? progress_dialog = null;
-    private unowned Exporter.CompletionCallback? completion_callback = null;
     
-    public ExporterUI(Exporter exporter) {
-        this.exporter = exporter;
+    public ExporterUI(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
+        ExportFormatParameters export_params, bool auto_replace_all = false) {
+            base(to_export, dir, scaling, export_params, auto_replace_all);
     }
     
-    public void export(Exporter.CompletionCallback completion_callback) {
-        this.completion_callback = completion_callback;
-        
+    public ExporterUI.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
+        ExportFormatParameters export_params) {
+        base.for_temp_file(to_export, scaling, export_params);
+    }
+
+    public new void export() {
         AppWindow.get_instance().set_busy_cursor();
         
         progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting"), cancellable);
-        exporter.export(on_export_completed, on_export_failed, on_export_overwrite, cancellable,
-            progress_dialog.monitor);
+        base.export(cancellable, progress_dialog.monitor);
     }
     
-    private void on_export_completed(Exporter exporter, bool is_cancelled) {
-        if (progress_dialog != null) {
-            progress_dialog.close();
-            progress_dialog = null;
-        }
-        
-        AppWindow.get_instance().set_normal_cursor();
-        
-        completion_callback(exporter, is_cancelled);
-    }
-    
-    private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
+    public override async Overwrite overwrite(File file) {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
-        #if 0
-        int response = AppWindow.export_overwrite_or_replace_question(question, 
+        int response = yield AppWindow.export_overwrite_or_replace_question(question, 
             _("_Skip"), _("Rename"), _("_Replace"), _("_Cancel"), _("Export file conflict"));
-            #endif
-        int response = Gtk.ResponseType.CANCEL;
         
         progress_dialog.set_modal(true);
 
@@ -396,10 +386,24 @@ public class ExporterUI {
             }
         default:
             return Exporter.Overwrite.NO;
+        }
     }
+
+    public override async bool failed(File file, int remaining, Error error) {
+        progress_dialog.set_modal(false);
+        var result = yield export_error_dialog(file, remaining > 0);
+        if (progress_dialog != null) {
+            progress_dialog.set_modal(true);
+        }
+        return result != Gtk.ResponseType.CANCEL;
     }
-    
-    private bool on_export_failed(Exporter exporter, File file, int remaining, Error err) {
-        return export_error_dialog(file, remaining > 0) != Gtk.ResponseType.CANCEL;
+
+    public override void export_completed(bool is_cancelled) {
+        if (progress_dialog != null) {
+            progress_dialog.close();
+            progress_dialog = null;
+        }
+        
+        AppWindow.get_instance().set_normal_cursor();
     }
 }

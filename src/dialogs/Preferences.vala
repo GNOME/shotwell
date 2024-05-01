@@ -101,8 +101,11 @@ public class PreferencesDialog : Gtk.Dialog {
         }
 
         library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-            var file = (File)from.get_object();
-            to = file.get_path();
+            var src = from.get_object();
+            if (src != null) {
+                var file = (File)src;
+                to = file.get_path();
+            }
 
             return true;
         }, null);

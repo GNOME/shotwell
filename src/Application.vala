@@ -77,6 +77,15 @@ public class Application {
     private Gtk.Application system_app = null;
     private int system_app_run_retval = 0;
     private bool direct;
+    private bool in_panic = false;
+
+    public void set_panicking() {
+        in_panic = true;
+    }
+
+    public bool is_panicking() {
+        return in_panic;
+    }
 
     public virtual signal void starting() {
     }

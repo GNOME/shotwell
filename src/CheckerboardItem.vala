@@ -427,9 +427,8 @@ public abstract class CheckerboardItem : ThumbnailView {
 
     protected virtual void paint_shadow(Gtk.Snapshot snapshot, Gdk.RGBA border_color, Dimensions dimensions, Gdk.Point origin, 
         int radius, float initial_alpha) { 
-        double rgb_all = 0.0;
 
-        var shadow_rect = Graphene.Rect.alloc();
+        var shadow_rect = Graphene.Rect();
         shadow_rect.init(origin.x, origin.y, dimensions.width, dimensions.height);
         var rounded_rect = Gsk.RoundedRect();
         rounded_rect.init_from_rect(shadow_rect, radius);
@@ -518,7 +517,6 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
 
         if (is_selected()) {
-            var shadow_rect = Graphene.Rect();
             var w = get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height));
             paint_border(snapshot, selected_color, pixbuf_dim, pixbuf_origin, w);
         }

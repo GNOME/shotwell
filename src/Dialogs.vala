@@ -86,37 +86,38 @@ public async File? choose_file(string current_file_basename) {
         current_export_dir = file.get_parent();
         return file;
     } catch (Error error) {
-        critical("Failed to save: %s", error.message);
+        // Do not log a critical if user just closed the dialog without saving
+        if (!(error is Gtk.DialogError.DISMISSED)) {
+            critical("Failed to save: %s", error.message);
+        }
     }
     
     return null;
 }
 
-public File? choose_dir(string? user_title = null) {
+public async File? choose_dir(string? user_title = null) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
 
     if (user_title == null)
         user_title = _("Export Photos");
 
-    var chooser = new Gtk.FileChooserNative(user_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
+    var chooser = new Gtk.FileDialog();
+    chooser.set_title(user_title);
+    chooser.set_initial_folder(current_export_dir);
     try {
-        chooser.set_current_folder(current_export_dir);
+        current_export_dir = yield chooser.select_folder(AppWindow.get_instance(), null);
+        return current_export_dir;
     } catch (Error error) {
+        // Do not log a critical if user just closed the dialog without saving
+        if (!(error is Gtk.DialogError.DISMISSED)) {
+            critical("Failed to select folder: %s", error.message);
+        }
     }
-    
-    File dir = null;
-    int response = Gtk.ResponseType.CANCEL;
-    if (response == Gtk.ResponseType.ACCEPT) {
-        current_export_dir = chooser.get_file ();
-    }
-    
-    chooser.destroy();
-    
-    return dir;
+
+    return null;
 }
-}
+} // namespace ExportUI
 
 // Ticket #3023
 // Attempt to replace the system error with something friendlier
@@ -134,7 +135,7 @@ public void open_external_editor_error_dialog(Error err, Photo photo) {
     }         
 }
 
-public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
+public async Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
     string message = _("Unable to export the following photo due to a file error.\n\n") +
         dest.get_path();
 
@@ -142,7 +143,7 @@ public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
 
     if (photos_remaining) {
         message += _("\n\nWould you like to continue exporting?");
-        response = AppWindow.affirm_cancel_question(message, _("Con_tinue"));
+        response = yield AppWindow.affirm_cancel_question(message, _("Con_tinue"));
     } else {
         AppWindow.error_message(message);
     }
@@ -545,7 +546,6 @@ public async bool report_manifest(ImportManifest manifest, bool show_dest_id,
     Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
     ImportUI.SAVE_RESULTS_RESPONSE_ID);
     save_results_button.set_visible(manifest.success.size < manifest.all.size);
-    Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
     dialog.set_transient_for(AppWindow.get_instance());
 
     if (question == null) {

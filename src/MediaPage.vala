@@ -383,7 +383,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     private void on_send_to() {
-        DesktopIntegration.send_to((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+        DesktopIntegration.send_to.begin((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
     
     protected void on_play_video() {
@@ -710,7 +710,6 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-            print ("==============>\n ");
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(media_sources[0].get_comment());

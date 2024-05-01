@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
+  <requires lib="gtk" version="4.0"/>
   <menu id="MenuBar">
     <submenu>
       <attribute name="label" translatable="yes">_File</attribute>
@@ -206,40 +207,46 @@
       </item>
     </section>
   </menu>
-  <object class="GtkToolbar" id="OfflineToolbar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="toolbar_style">both-horiz</property>
+  <object class="GtkBox" id="OfflineToolbar">
+    <property name="css-classes">toolbar</property>
+    <property name="can_focus">0</property>
     <child>
-      <object class="GtkToolButton" id="ToolRemoveFromLibrary">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Remove the selected photos from the library</property>
-        <property name="is_important">True</property>
+      <object class="GtkButton" id="ToolRemoveFromLibrary">
+        <property name="can_focus">0</property>
+        <property name="tooltip_text" translatable="1">Remove the selected photos from the library</property>
         <property name="action_name">win.RemoveFromLibrary</property>
-        <property name="label" translatable="yes">R_emove From Library</property>
-        <property name="use_underline">True</property>
+        <property name="label" translatable="1">R_emove From Library</property>
+        <property name="use_underline">1</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolFind">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkToggleButton" id="ToolFind">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.CommonDisplaySearchbar</property>
-        <property name="label" translatable="yes">Find</property>
-        <property name="use_underline">True</property>
-        <property name="icon_name">edit-find-symbolic</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <property name="margin-top">4</property>
+            <property name="margin-bottom">4</property>
+            <property name="margin-start">4</property>
+            <property name="margin-end">4</property>
+            <child>
+              <object class="GtkImage" id="ToolFindIcon">
+                <property name="halign">start</property>
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="ToolFindLabel">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Find</property>
+              </object>
+            </child>
+          </object>        
+        </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
+
     </child>
   </object>
 </interface>

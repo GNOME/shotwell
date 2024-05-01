@@ -73,7 +73,7 @@ def cert_gen(
 # for testing publishing in offline-situations
 
 class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
-    _REPLY_TEMPLATE = b'<?xml version="1.0"?><piwigo stat="ok">%s</piwigo>'
+    _REPLY_TEMPLATE = b'<?xml version="1.0"?><rsp stat="ok">%s</rsp>'
 
     def reply_ok(self, content=b''):
         self.send_response(200)
@@ -122,7 +122,7 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
             self.reply_ok()
             return
         elif method == 'pwg.session.getStatus':
-            self.reply_ok()
+            self.reply_ok(b'<username>SomeRandomDude</username>')
             return
         elif method == 'pwg.categories.getList':
             self.reply_ok(b'<categories></categories>')

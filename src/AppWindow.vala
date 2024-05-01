@@ -18,7 +18,6 @@ public abstract class AppWindow : PageWindow {
     
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
-    private Gtk.ShortcutController shortcut_controller = new Gtk.ShortcutController();
 
     private Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.PopoverMenuBar menu_bar;
@@ -169,11 +168,12 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
 
-    public static void error_message(string message, Gtk.Window? parent = null) {
-        error_message_with_title(Resources.APP_TITLE, message, parent);
+    public static void error_message(string message, Gtk.Window? parent = null, bool panic = false) {
+        Application.get_instance().set_panicking();
+        error_message_with_title(Resources.APP_TITLE, message, parent, true, panic);
     }
     
-    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true) {
+    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true, bool panic=false) {
         // Per the Gnome HIG (http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en),            
         // alert-style dialogs mustn't have titles; we use the title as the primary text, and the
         // existing message as the secondary text.
@@ -183,10 +183,11 @@ public abstract class AppWindow : PageWindow {
         // Occasionally, with_markup doesn't actually do anything, but set_markup always works.
         dialog.set_markup(build_alert_body_text(title, message, should_escape));
         dialog.set_transient_for(parent != null ? parent : get_instance());
+        dialog.set_modal(true);
 
         dialog.use_markup = true;
         dialog.show();
-        dialog.response.connect(() => dialog.destroy());
+        dialog.response.connect(() => { dialog.destroy(); if (panic) Application.get_instance().panic();});
     }
     
     public static async bool negate_affirm_question(string message, string negative, string affirmative,
@@ -211,28 +212,9 @@ public abstract class AppWindow : PageWindow {
         return response_id == Gtk.ResponseType.YES;
     }
 
-    public static async Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,
-        string affirmative, string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
-
-        dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES,
-            _("_Cancel"), Gtk.ResponseType.CANCEL);
-        
-        // Occasionally, with_markup doesn't actually enable markup, but set_markup always works.
-        dialog.set_markup(build_alert_body_text(title, message));
-        dialog.use_markup = true;
-
-        int response = 0; //dialog.run();
-        
-        dialog.destroy();
-        
-        return (Gtk.ResponseType) response;
-    }
-    
-    public static Gtk.ResponseType affirm_cancel_question(string message, string affirmative,
-        string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
+    public static async Gtk.ResponseType affirm_cancel_question(string message, string affirmative,
+        string? title = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         // Occasionally, with_markup doesn't actually enable markup...? Force the issue.
         dialog.set_markup(message);
@@ -241,29 +223,38 @@ public abstract class AppWindow : PageWindow {
         dialog.add_buttons(affirmative, Gtk.ResponseType.YES, _("_Cancel"),
             Gtk.ResponseType.CANCEL);
         
-        dialog.show();
-        //int response = dialog.run();
         int response = Gtk.ResponseType.OK;
+        
+        SourceFunc callback = affirm_cancel_question.callback;
+        dialog.show();
+        dialog.response.connect((r) => {
+            response = r;
+            dialog.hide();
+            callback();
+        });
+        yield;
         
         dialog.destroy();
         
-        return (Gtk.ResponseType) response;
+        return response;
     }
     
 	public static async int export_overwrite_or_replace_question(string message,
 		string alt1, string alt2, string alt4, string alt6,
-        string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
+        string? title = null) {
+        var dialog = new Gtk.MessageDialog(get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        dialog.set_transient_for(get_instance());
+        dialog.set_modal(true);
         var content = (Gtk.Box)dialog.get_message_area();
-        var c = new Gtk.CheckButton.with_label("Apply conflict resolution to all other conflicts");
-        c.show();
+        var c = new Gtk.CheckButton.with_label(_("Apply this conflict resolution to all further conflicts"));
         content.append(c);
         dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
 
         SourceFunc callback = export_overwrite_or_replace_question.callback;
         int response = Gtk.ResponseType.CANCEL;
+        dialog.show();
         dialog.response.connect((r) => {
             response = r;
             dialog.hide();
@@ -286,10 +277,10 @@ public abstract class AppWindow : PageWindow {
     }
 
     public static void panic(string msg) {
-        critical(msg);
-        error_message(msg);
-        
-        Application.get_instance().panic();
+        if (!Application.get_instance().is_panicking()) {
+            critical(msg);
+            error_message(msg, get_instance(), true);
+        }
     }
     
     public abstract string get_app_role();

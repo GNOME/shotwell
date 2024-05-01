@@ -510,6 +510,8 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
     public abstract void register_auth_callback(string cookie, AuthenticatedCallback callback);
     public abstract void unregister_auth_callback(string cookie);
 
+    public abstract Gtk.Window get_dialog();
+
     //
     // For future expansion.
     //

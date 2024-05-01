@@ -395,7 +395,9 @@ public abstract class CollectionPage : MediaPage {
         // if we don't have any photos, then everything is a video, so skip displaying the Export
         // dialog and go right to the video export operation
         if (!has_some_photos) {
-            exporter = Video.export_many((Gee.Collection<Video>) export_list, on_export_completed);
+            exporter = yield Video.export_many((Gee.Collection<Video>) export_list);
+            exporter.export_completed.connect_after(on_export_completed);
+            exporter.export();
             return;
         }
 
@@ -445,19 +447,22 @@ public abstract class CollectionPage : MediaPage {
                 AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
                 AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
+                var message = _("Unable to export the following photo due to a file error.\n\n") +
+                            save_as.get_path();
+                AppWindow.error_message(message);
             }
             
             return;
         }
 
         // multiple photos or videos
-        File export_dir = ExportUI.choose_dir(title);
+        File export_dir = yield ExportUI.choose_dir(title);
         if (export_dir == null)
             return;
         
-        exporter = new ExporterUI(new Exporter(export_list, export_dir, scaling, export_params));
-        exporter.export(on_export_completed);
+        exporter = new ExporterUI(export_list, export_dir, scaling, export_params);
+        exporter.export_completed.connect_after(on_export_completed);
+        exporter.export();
     }
     
     private void on_export_completed() {

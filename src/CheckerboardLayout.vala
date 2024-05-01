@@ -131,11 +131,6 @@ public class CheckerboardLayout : Gtk.Widget {
         
         if (vadjustment != null)
             vadjustment.value_changed.disconnect(on_viewport_shifted);
-        
-        #if 0
-        if (parent != null)
-            parent.size_allocate.disconnect(on_viewport_resized);
-            #endif
 
         Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
     }
@@ -149,7 +144,6 @@ public class CheckerboardLayout : Gtk.Widget {
         vadjustment.value_changed.connect(on_viewport_shifted);
         
         // monitor parent's size changes for a similar reason
-        //parent.resized.connect(on_viewport_resized);
     }
     
     // This method allows for some optimizations to occur in reflow() by using the known max.

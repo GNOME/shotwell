@@ -3,11 +3,13 @@
 data/gsettings/org.gnome.shotwell-extras.gschema.xml
 data/gsettings/org.gnome.shotwell.gschema.xml
 data/org.gnome.Shotwell.appdata.xml.in
+data/org.gnome.Shotwell.Auth.desktop.in
 data/org.gnome.Shotwell.desktop.in
 data/org.gnome.Shotwell-Viewer.desktop.in
 data/ui/collection.ui
 data/ui/direct_context.ui
 data/ui/direct.ui
+data/ui/editing-toolbar.ui
 data/ui/events_directory.ui
 data/ui/event.ui
 data/ui/faces.ui
@@ -40,6 +42,9 @@ plugins/authenticator/shotwell/tumblr_authentication_pane.ui
 plugins/authenticator/shotwell/TumblrAuthenticator.vala
 plugins/common/Resources.vala
 plugins/common/RESTSupport.vala
+plugins/common/ssl_certificate_pane.ui
+plugins/common/SSLCertificatePane.vala
+plugins/common/WebAuthenticationPane.vala
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
@@ -49,7 +54,6 @@ plugins/shotwell-publishing/PhotosService.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
-plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui
 plugins/shotwell-publishing/shotwell-publishing.vala
 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui
 plugins/shotwell-publishing/TumblrPublishing.vala
@@ -92,7 +96,11 @@ src/Dimensions.vala
 src/direct/DirectPhotoPage.vala
 src/DirectoryMonitor.vala
 src/DragAndDropHandler.vala
+src/EditingHostPage.vala
+src/editing_tools/AdjustTool.vala
+src/editing_tools/CropTool.vala
 src/editing_tools/EditingTools.vala
+src/editing_tools/RedeyeTool.vala
 src/editing_tools/StraightenTool.vala
 src/events/EventPage.vala
 src/events/EventsBranch.vala
@@ -102,6 +110,7 @@ src/Exporter.vala
 src/faces/FacesBranch.vala
 src/faces/FacesTool.vala
 src/folders/FoldersBranch.vala
+src/FullscreenWindow.vala
 src/import-roll/ImportRollBranch.vala
 src/library/BackgroundProgressBar.vala
 src/library/FlaggedPage.vala
@@ -110,16 +119,16 @@ src/library/LastImportPage.vala
 src/library/LibraryBranch.vala
 src/library/LibraryWindow.vala
 src/library/OfflinePage.vala
+src/LibraryPhotoPage.vala
 src/library/TrashPage.vala
 src/main.vala
 src/MapWidget.vala
 src/MediaMonitor.vala
 src/MediaPage.vala
-src/PhotoPage.vala
 src/photos/AvifSupport.vala
 src/photos/BmpSupport.vala
-src/photos/HeifSupport.vala
 src/photos/GifSupport.vala
+src/photos/HeifSupport.vala
 src/photos/JfifSupport.vala
 src/photos/JpegXLSupport.vala
 src/photos/PngSupport.vala
@@ -150,3 +159,4 @@ src/slideshow/TransitionEffects.vala
 src/tags/TagsBranch.vala
 src/Tag.vala
 src/video-support/Video.vala
+src/widgets/FolderButton.vala

@@ -18,10 +18,12 @@ public class Workers {
     private ThreadPool<void *> thread_pool;
     private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
     private EventSemaphore empty_event = new EventSemaphore();
+    private uint max_threads;
     
     public Workers(uint max_threads, bool exclusive) {
         if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
             max_threads = 1;
+        this.max_threads = max_threads;
         
         // event starts as set because queue is empty
         empty_event.notify();
@@ -75,6 +77,22 @@ public class Workers {
         return queue.length();
     }
     
+    public void freeze() {
+        try {
+            thread_pool.set_max_threads(0);
+        } catch (Error error) {
+            critical("Failed to freeze thread pool: %s", error.message);
+        }
+    }
+
+    public void thaw() {
+        try {
+            thread_pool.set_max_threads((int)this.max_threads);
+        } catch (Error error) {
+            critical("Failed to freeze thread pool: %s", error.message);
+        }
+    }
+
     private void thread_start(void *ignored) {
         BackgroundJob? job;
         bool empty;

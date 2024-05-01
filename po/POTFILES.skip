@@ -1,14 +1,13 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-data/org.gnome.Shotwell.appdata.xml.in
-data/org.gnome.Shotwell.desktop.in
-data/org.gnome.Shotwell-Viewer.desktop.in
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.c
 plugins/authenticator/shotwell/GoogleAuthenticator.c
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.c
 plugins/authenticator/shotwell/TumblrAuthenticator.c
 plugins/common/Resources.c
 plugins/common/RESTSupport.c
+plugins/common/SSLCertificatePane.c
+plugins/common/WebAuthenticationPane.c
 plugins/shotwell-publishing-extras/GalleryConnector.c
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.c
 plugins/shotwell-publishing/FlickrPublishing.c
@@ -46,19 +45,23 @@ src/data_imports/DataImports.c
 src/data_imports/DataImportsPluginHost.c
 src/data_imports/DataImportsUI.c
 src/db/DatabaseTable.c
+src/DesktopIntegration.c
 src/dialogs/AdjustDateTimeDialog.c
+src/Dialogs.c
 src/dialogs/ExportDialog.c
 src/dialogs/Preferences.c
 src/dialogs/ProgressDialog.c
 src/dialogs/SetBackgroundSlideshow.c
 src/dialogs/WelcomeDialog.c
-src/DesktopIntegration.c
-src/Dialogs.c
 src/Dimensions.c
 src/direct/DirectPhotoPage.c
 src/DirectoryMonitor.c
 src/DragAndDropHandler.c
+src/EditingHostPage.c
+src/editing_tools/AdjustTool.c
+src/editing_tools/CropTool.c
 src/editing_tools/EditingTools.c
+src/editing_tools/RedeyeTool.c
 src/editing_tools/StraightenTool.c
 src/Event.c
 src/events/EventDirectoryItem.c
@@ -69,6 +72,7 @@ src/Exporter.c
 src/faces/FacesBranch.c
 src/faces/FacesTool.c
 src/folders/FoldersBranch.c
+src/FullscreenWindow.c
 src/import-roll/ImportRollBranch.c
 src/library/BackgroundProgressBar.c
 src/library/FlaggedPage.c
@@ -77,6 +81,7 @@ src/library/LastImportPage.c
 src/library/LibraryBranch.c
 src/library/LibraryWindow.c
 src/library/OfflinePage.c
+src/LibraryPhotoPage.c
 src/library/TrashPage.c
 src/main.c
 src/MapWidget.c
@@ -85,7 +90,6 @@ src/MediaPage.c
 src/Page.c
 src/PageMessagePane.c
 src/Photo.c
-src/PhotoPage.c
 src/photos/BmpSupport.c
 src/photos/GifSupport.c
 src/photos/JfifSupport.c
@@ -96,9 +100,9 @@ src/photos/WebPSupport.c
 src/plugins/ManifestWidget.c
 src/plugins/SpitInterfaces.c
 src/Printing.c
-src/Properties.c
 src/ProfileBrowser.c
 src/Profiles.c
+src/Properties.c
 src/publishing/Publishing.c
 src/publishing/PublishingPluginHost.c
 src/publishing/PublishingUI.c
@@ -117,3 +121,6 @@ src/slideshow/TransitionEffects.c
 src/Tag.c
 src/tags/TagsBranch.c
 src/video-support/Video.c
+src/widgets/FolderButton.c
+test/jfif/Dimensions.vala
+test/jfif/JfifSupport.vala

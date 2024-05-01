@@ -86,7 +86,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         var key = new Gtk.EventControllerKey();
         key.key_pressed.connect(key_press_event);
         add_controller(key);
-
     }
     
     ~EditingHostPage() {
@@ -94,8 +93,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         get_view().contents_altered.disconnect(on_view_contents_ordering_altered);
         get_view().ordering_changed.disconnect(on_view_contents_ordering_altered);
+        scrolled.notify["default-height"].disconnect(on_viewport_resized);
+        scrolled.notify["default-width"].disconnect(on_viewport_resized);
+        scrolled.notify["maximized"].disconnect(on_viewport_resized);
     }
     
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+    
+        ui_filenames.add("editing-toolbar.ui");
+    }
     protected override void add_actions(GLib.ActionMap map) {
         base.add_actions(map);
 
@@ -649,7 +656,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo_missing;
     }
 
-    protected virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
+    protected async virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return true;
     }
     
@@ -680,11 +687,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
 
         // only check if okay to replace if there's something to replace and someone's concerned
-        if (has_photo() && !new_photo.equals(get_photo()) && confirm_replace_photo != null) {
-            if (!confirm_replace_photo(get_photo(), new_photo))
-                return;
+        if (has_photo() && !new_photo.equals(get_photo())) {
+            confirm_replace_photo.begin(get_photo(), new_photo, (obj, res) => {
+                var result = confirm_replace_photo.end(res);
+                if (result) {
+                    replace_photo_continue(new_photo);
+                }
+            });
+        } else {
+            replace_photo_continue(new_photo);
         }
+    }
 
+    private void replace_photo_continue(Photo new_photo) {
         deactivate_tool();
         
         // swap out new photo and old photo and process change

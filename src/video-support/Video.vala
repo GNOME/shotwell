@@ -130,54 +130,51 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public static void terminate() {
     }
 
-    public static ExporterUI? export_many(Gee.Collection<Video> videos, Exporter.CompletionCallback done,
-        bool export_in_place = false) {
+    public static async ExporterUI? export_many(Gee.Collection<Video> videos, bool export_in_place = false) {
         if (videos.size == 0)
             return null;
 
         // in place export is relatively easy -- provide a fast, separate code path for it
         if (export_in_place) {
-             ExporterUI temp_exporter = new ExporterUI(new Exporter.for_temp_file(videos,
-                Scaling.for_original(), ExportFormatParameters.unmodified()));
-             temp_exporter.export(done);
+             ExporterUI temp_exporter = new ExporterUI.for_temp_file(videos,
+                Scaling.for_original(), ExportFormatParameters.unmodified());
              return temp_exporter;
         }
 
         // one video
         if (videos.size == 1) {
             Video video = null;
+            // We only have a Gee.Collection here, so we have to iterate it
             foreach (Video v in videos) {
                 video = v;
                 break;
             }
 
-            // FIXME
-            #if 0
-            File save_as = ExportUI.choose_file(video.get_basename());
+            var save_as = yield  ExportUI.choose_file(video.get_basename());
             if (save_as == null)
                 return null;
-
             try {
+
                 AppWindow.get_instance().set_busy_cursor();
                 video.export(save_as);
                 AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
                 AppWindow.get_instance().set_normal_cursor();
-                export_error_dialog(save_as, false);
+                var message = _("Unable to export the following video due to a file error.\n\n") +
+                            save_as.get_path();
+                AppWindow.error_message(message);
             }
-            #endif
-
+    
             return null;
         }
 
         // multiple videos
-        File export_dir = ExportUI.choose_dir(_("Export Videos"));
+        var export_dir = yield ExportUI.choose_dir(_("Export Videos"));
         if (export_dir == null)
             return null;
 
-        ExporterUI exporter = new ExporterUI(new Exporter(videos, export_dir,
-            Scaling.for_original(), ExportFormatParameters.unmodified()));
-        exporter.export(done);
+        ExporterUI exporter = new ExporterUI(videos, export_dir,
+            Scaling.for_original(), ExportFormatParameters.unmodified());
 
         return exporter;
     }
