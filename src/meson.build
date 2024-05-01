@@ -298,6 +298,7 @@ executable(
         join_paths(meson.project_source_root(), 'data',
         'org.gnome.Shotwell.gresource.xml')
     ],
+    c_args : disabled_warning_flags,
     link_with: [
         sw_graphics_processor,
     ],
