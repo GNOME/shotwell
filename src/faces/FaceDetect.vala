@@ -34,7 +34,7 @@ public struct FaceRect {
 
 [DBus (name = "org.gnome.Shotwell.Faces1")]
 public interface FaceDetectInterface : DBusProxy {
-    public abstract FaceRect[] detect_faces(string inputName, string cascadeName, double scale, bool infer)
+    public abstract async FaceRect[] detect_faces(string inputName, string cascadeName, double scale, bool infer, Cancellable? cancellable)
         throws IOError, DBusError;
     public abstract bool load_net(string netFile)
         throws IOError, DBusError;
