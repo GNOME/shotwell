@@ -197,27 +197,25 @@ namespace Shotwell {
                 grid.attach(remove_button, 1, 2, 1, 1);
 
                 remove_button.clicked.connect(() => {
-                    var flags = Gtk.DialogFlags.DESTROY_WITH_PARENT | Gtk.DialogFlags.MODAL;
-                    if (Resources.use_header_bar() == 1) {
-                        flags |= Gtk.DialogFlags.USE_HEADER_BAR;
-                    }
-
-                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_root(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
-                    var title = _("Remove profile “%s”").printf(profile.name);
-                    var subtitle = _("None of the options will remove any of the images associated with this profile");
-                    d.set_markup(_("<b><span size=\"larger\">%s</span></b>\n<span weight=\"light\">%s</span>").printf(title, subtitle));
-
-                    d.add_buttons(_("Remove profile and files"), Gtk.ResponseType.OK, _("Remove profile only"), Gtk.ResponseType.ACCEPT, _("Cancel"), Gtk.ResponseType.CANCEL);
-                    d.get_widget_for_response(Gtk.ResponseType.OK).add_css_class("destructive-action");
-                    d.set_transient_for((Gtk.Window)remove_button.get_root());
-                    d.set_modal(true);
-                    d.response.connect((response) => {
-                        if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
-                            ProfileManager.get_instance().remove(profile.id, response == Gtk.ResponseType.OK);
-                        }    
-                        d.destroy();
-                    });
+                    remove_profile.begin();
                 });
+            }
+        }
+
+        async void remove_profile() {
+            var d = new Gtk.AlertDialog(_("Remove profile “%s”"), profile.name);
+            d.set_detail(_("None of the options will remove any of the images associated with this profile"));
+            d.set_buttons({_("Remove profile and files"), _("Remove profile only"), _("Cancel")});
+            d.set_cancel_button(2);
+
+            d.set_modal(true);
+            try {
+                var response = yield d.choose((Gtk.Window)get_root(), null);
+                if (response == 0 || response == 1) {
+                    ProfileManager.get_instance().remove(profile.id, response == 1);
+                }
+            } catch (Error error) {
+
             }
         }
     }
