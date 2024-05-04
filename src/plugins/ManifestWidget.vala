@@ -236,12 +236,17 @@ private class ManifestListView : Gtk.Box {
         base.constructed();
 
         foreach (var extension_point in get_extension_points(compare_extension_point_names)) {
+            var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
+            if (pluggables.size == 0) {
+                continue;
+            }
+
             var label = new Gtk.Label(extension_point.name);
             label.add_css_class("heading");
             label.halign = Gtk.Align.START;
             label.hexpand = true;
             append(label);
-            var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
+
             var box = new Gtk.ListBox();
             box.add_css_class("boxed-list");
             box.set_selection_mode(Gtk.SelectionMode.NONE);
