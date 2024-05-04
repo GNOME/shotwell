@@ -212,7 +212,7 @@ namespace Shotwell {
             try {
                 var response = yield d.choose((Gtk.Window)get_root(), null);
                 if (response == 0 || response == 1) {
-                    ProfileManager.get_instance().remove(profile.id, response == 1);
+                    ProfileManager.get_instance().remove(profile.id, response == 0);
                 }
             } catch (Error error) {
 
