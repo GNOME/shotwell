@@ -3,5 +3,6 @@ namespace Shotwell.Widgets {
     /// so they can be used in Gtk.Builder
     public static void init() {
         typeof (Shotwell.FolderButton).ensure();
+        typeof (Shotwell.SettingsGroup).ensure();
     }
 }

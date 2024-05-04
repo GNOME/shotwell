@@ -228,27 +228,19 @@ namespace Shotwell {
         public signal void profile_activated(Profile profile);
 
         public override void constructed() {
-            var scrollable = new Gtk.ScrolledWindow();
-            scrollable.hexpand = true;
-            scrollable.vexpand = true;
-
-            var list_box = new Gtk.ListBox();
-            list_box.margin_start = 12;
-            list_box.margin_end = 12;
-            list_box.activate_on_single_click = false;
-            list_box.row_activated.connect((list_box, row) => {
+            var group = new Shotwell.SettingsGroup(_("Profiles"), null, true);
+            group.row_activated.connect((list_box, row) => {
                 var index = row.get_index();
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
                 profile_activated(profile);
             });
-            list_box.add_css_class("boxed-list");
-            list_box.hexpand = true;
-            list_box.vexpand = true;
-            scrollable.set_child (list_box);
-            list_box.bind_model(ProfileManager.get_instance(), on_widget_create);
 
-            var button = new Gtk.Button.with_label(_("Create new Profile"));
-            prepend(button);
+            group.bind_model(ProfileManager.get_instance(), on_widget_create);
+            var button = new Gtk.Button.from_icon_name("list-add-symbolic");
+            button.add_css_class("flat");
+            button.set_tooltip_text(_("Add a new profile"));
+            group.set_suffix(button);
+            
             button.clicked.connect(() => {
                 var editor = new ProfileEditor();
                 editor.set_transient_for((Gtk.Window)get_ancestor(typeof(Gtk.Window)));
@@ -262,7 +254,7 @@ namespace Shotwell {
                 });
                 editor.show();
             });
-            append(scrollable);
+            append(group);
             show();
         }
 

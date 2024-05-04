@@ -241,20 +241,8 @@ private class ManifestListView : Gtk.Box {
                 continue;
             }
 
-            var label = new Gtk.Label(extension_point.name);
-            label.add_css_class("heading");
-            label.halign = Gtk.Align.START;
-            label.hexpand = true;
-            append(label);
-
-            var box = new Gtk.ListBox();
-            box.add_css_class("boxed-list");
-            box.set_selection_mode(Gtk.SelectionMode.NONE);
-            box.hexpand = true;
-            box.margin_start = 12;
-            box.margin_end = 12;
-            box.margin_bottom = 12;
-            var added = 0;
+            int added = 0;
+            var group = new Shotwell.SettingsGroup(extension_point.name);
             foreach (var pluggable in pluggables) {
                 bool enabled;
 
@@ -264,11 +252,11 @@ private class ManifestListView : Gtk.Box {
                 var pluggable_row = new PluggableRow(pluggable, enabled);
 
                 added++;
-                box.insert(pluggable_row, -1);
+                group.add_row(pluggable_row);
             }
 
             if (added > 0) {
-                append(box);
+                append(group);
             }
         }
 
