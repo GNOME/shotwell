@@ -233,6 +233,8 @@ namespace Shotwell {
             scrollable.vexpand = true;
 
             var list_box = new Gtk.ListBox();
+            list_box.margin_start = 12;
+            list_box.margin_end = 12;
             list_box.activate_on_single_click = false;
             list_box.row_activated.connect((list_box, row) => {
                 var index = row.get_index();

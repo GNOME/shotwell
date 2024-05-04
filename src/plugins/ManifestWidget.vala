@@ -253,7 +253,7 @@ private class ManifestListView : Gtk.Box {
             box.hexpand = true;
             box.margin_start = 12;
             box.margin_end = 12;
-
+            box.margin_bottom = 12;
             var added = 0;
             foreach (var pluggable in pluggables) {
                 bool enabled;
