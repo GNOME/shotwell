@@ -30,6 +30,113 @@
                     <property name="name">library_stack</property>
                     <property name="title" translatable="1">Library</property>
                     <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                      <object class="ShotwellSettingsGroup">
+                        <property name="title">Display</property>
+                        <property name="subtitle">Settings related to any visual things</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="orientation">horizontal</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                                <property name="label" translatable="1">Use dark theme</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="switch_dark">
+                                <property name="focusable">1</property>
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="orientation">horizontal</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                                <property name="label" translatable="1">Transparent image Background</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkDropDown">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                        </child>
+                        <child>
+                      <object class="ShotwellSettingsGroup">
+                        <property name="title">Library</property>
+                        <property name="subtitle">Settings related to the library</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="orientation">horizontal</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                                <property name="label" translatable="1">Import location for photos</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ShotwellFolderButton" id="library_dir_button">
+                                <property name="halign">end</property>
+                                <child>
+                                  <object class="GtkLabel" id="library_dir_text">
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="orientation">horizontal</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                                <property name="label" translatable="1">Monitor library for new files</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="autoimport">
+                                <property name="focusable">1</property>
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                        </child>
+                      </object>
+                      <!--
                       <object class="GtkGrid" id="table1">
                         <property name="margin-start">64</property>
                         <property name="margin-end">64</property>
@@ -38,31 +145,31 @@
                         <property name="row-spacing">4</property>
                         <property name="column-spacing">8</property>
                         <child>
-                      <object class="ShotwellFolderButton" id="library_dir_button">
-                        <property name="title">Select Library Folder"</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">horizontal</property>
-                            <property name="spacing">6</property>
-                            <child type="start">
-                              <object class="GtkImage">
-                                <property name="icon-name">folder-symbolic</property>
-                                <property name="halign">start</property>
+                          <object class="ShotwellFolderButton" id="library_dir_button">
+                            <property name="title">Select Library Folder"</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">horizontal</property>
+                                <property name="spacing">6</property>
+                                <child type="start">
+                                  <object class="GtkImage">
+                                    <property name="icon-name">folder-symbolic</property>
+                                    <property name="halign">start</property>
+                                  </object>
+                                </child>
+                                <child type="end">
+                                  <object class="GtkLabel" id="library_dir_text">
+                                    <property name="halign">start</property>
+                                    <property name="hexpand">true</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
-                            <child type="end">
-                              <object class="GtkLabel" id="library_dir_text">
-                                <property name="halign">start</property>
-                                <property name="hexpand">true</property>
-                              </object>
-                            </child>
+                            <layout>
+                              <property name="column">1</property>
+                              <property name="row">4</property>
+                            </layout>
                           </object>
-                        </child>
-                        <layout>
-                          <property name="column">1</property>
-                          <property name="row">4</property>
-                        </layout>
-                      </object>
                         </child>
                         <child>
                           <object class="GtkComboBoxText" id="default_raw_developer_combo">
@@ -410,6 +517,7 @@
                           <placeholder/>
                         </child>
                       </object>
+                      -->
                     </property>
                   </object>
                 </child>
@@ -484,6 +592,16 @@
                             </property>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkListBoxRow">
+                            <property name="focusable">1</property>
+                            <property name="activatable">false</property>
+                            <property name="child">
+                              <object class="GtkBox">
+                              </object>
+                            </property>
+                          </object>
+                        </child>
                       </object>
                     </property>
                   </object>
@@ -536,13 +654,14 @@
             <style>
               <class name="title"/>
             </style>
-          </object>          
-          </property>
+          </object>
+        </property>
       </object>
     </child>
     <child internal-child="action_area">
     </child>
   </template>
+  <!--
   <object class="GtkSizeGroup">
     <property name="mode">vertical</property>
     <widgets>
@@ -565,4 +684,5 @@
       <widget name="raw_editor_label"/>
     </widgets>
   </object>
+  -->
 </interface>

@@ -40,3 +40,5 @@ configure_file(
 
 shotwell_resources = gnome.compile_resources('shotwell-resources',
         'org.gnome.Shotwell.gresource.xml')
+shotwell_widget_resources = gnome.compile_resources('shotwell-widget-resources',
+        'org.gnome.Shotwell.Widgets.gresource.xml')

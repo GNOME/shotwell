@@ -19,20 +19,23 @@ public class PreferencesDialog : Gtk.Dialog {
     public string library_folder {get; set; }
 
     private static PreferencesDialog preferences_dialog;
-
     [GtkChild]
     private unowned Gtk.Switch switch_dark;
+    [GtkChild]
+    private unowned Shotwell.FolderButton library_dir_button;
+    [GtkChild]
+    private unowned Gtk.Label library_dir_text;
 
+    [GtkChild]
+    private unowned Gtk.Switch autoimport;
+
+    #if 0
     [GtkChild]
     private unowned Gtk.ComboBox photo_editor_combo;
     [GtkChild]
     private unowned Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
-    [GtkChild]
-    private unowned Shotwell.FolderButton library_dir_button;
-    [GtkChild]
-    private unowned Gtk.Label library_dir_text;
     [GtkChild]
     private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
@@ -50,8 +53,6 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
     [GtkChild]
-    private unowned Gtk.CheckButton autoimport;
-    [GtkChild]
     private unowned Gtk.CheckButton write_metadata;
     [GtkChild]
     private unowned Gtk.Label pattern_help;
@@ -66,16 +67,16 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.ColorButton transparent_solid_color;
     [GtkChild]
     private unowned Gtk.CheckButton transparent_none_radio;
-
+#endif
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
 
         //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
+        #if 0
         close_request.connect(on_delete);
         response.connect(on_close);
         set_hide_on_close(true);
-
         transparent_checker_radio.toggled.connect(on_radio_changed);
         transparent_solid_radio.toggled.connect(on_radio_changed);
         transparent_none_radio.toggled.connect(on_radio_changed);
@@ -100,6 +101,7 @@ public class PreferencesDialog : Gtk.Dialog {
                 transparent_none_radio.active = true;
             break;
         }
+        #endif
 
         library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
             var src = from.get_object();
@@ -114,6 +116,7 @@ public class PreferencesDialog : Gtk.Dialog {
         // First set the initial folder, then connect the property
         library_dir_button.folder = AppDirs.get_import_dir();
 
+        #if 0
         // Ticket #3162 - Move dir pattern blurb into Gnome help.
         // Because specifying a particular snippet of the help requires
         // us to know where its located, we can't hardcode a URL anymore;
@@ -153,18 +156,19 @@ public class PreferencesDialog : Gtk.Dialog {
         photo_editor_combo.changed.connect(on_photo_editor_changed);
         raw_editor_combo.changed.connect(on_raw_editor_changed);
 
-        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
-
         write_metadata.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
 
         default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
         default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
+        #endif
+        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
         switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
         switch_dark.notify["active"].connect(on_theme_variant_changed);
     }
 
+    #if 0
     public void populate_preference_options() {
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(),
             Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
@@ -178,6 +182,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
+    #endif
 
     private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
         var config = Config.Facade.get_instance();
@@ -186,6 +191,7 @@ public class PreferencesDialog : Gtk.Dialog {
         Gtk.Settings.get_default().gtk_application_prefer_dark_theme = switch_dark.active;
     }
 
+    #if 0
     private void on_radio_changed() {
         var config = Config.Facade.get_instance();
 
@@ -288,12 +294,12 @@ public class PreferencesDialog : Gtk.Dialog {
 
         on_dir_pattern_combo_changed();
     }
-
+#endif
     public static void show_preferences() {
         if (preferences_dialog == null)
             preferences_dialog = new PreferencesDialog();
 
-        preferences_dialog.populate_preference_options();
+        //preferences_dialog.populate_preference_options();
         preferences_dialog.show();
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
@@ -301,6 +307,7 @@ public class PreferencesDialog : Gtk.Dialog {
         preferences_dialog.present();
     }
 
+    #if 0
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {
@@ -425,4 +432,5 @@ public class PreferencesDialog : Gtk.Dialog {
     private void on_lowercase_toggled() {
         Config.Facade.get_instance().set_use_lowercase_filenames(lowercase.get_active());
     }
+    #endif
 }

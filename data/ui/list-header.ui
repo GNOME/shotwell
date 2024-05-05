@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ShotwellListHeader" parent="GtkBox">
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <property name="hexpand">true</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="hexpand">true</property>
+        <property name="halign">start</property>
+        <child>
+          <object class="GtkLabel" id="title_label">
+            <property name="xalign">0</property>
+            <property name="vexpand">true</property>
+            <binding name="label">
+              <lookup name="title">ShotwellListHeader</lookup>
+            </binding>
+            <style>
+              <class name="heading"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="subtitle_label">
+            <property name="hexpand">true</property>
+            <property name="xalign">0</property>
+            <binding name="label">
+              <lookup name="subtitle">ShotwellListHeader</lookup>
+            </binding>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -37,7 +37,7 @@ private class GcrDetailsDialog : Gtk.Window {
 
         foreach (var section in certificate.get_interface_elements()) {
             var label = new Gtk.Label (section.get_label());
-            label.add_css_class("heading");
+            label.add_css_class("caption-heading");
             label.hexpand = true;
             label.halign = Gtk.Align.START;
             label.margin_start = 16;

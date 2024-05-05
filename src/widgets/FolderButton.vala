@@ -9,7 +9,6 @@ namespace Shotwell {
 
         public FolderButton(File folder, string title) {
             Object(hexpand: false, vexpand: false, halign : Gtk.Align.FILL, icon_name: "folder-symbolic", folder: folder, title: title);
-
         }
 
         public override void clicked() {
