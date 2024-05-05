@@ -1851,7 +1851,7 @@ private class PrepareFilesJob : BackgroundImportJob {
             warning("Unable to perform MD5 checksum on file %s: %s", file.get_path(),
                 err.message);
                 
-            return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
+            return ImportResult.FILE_ERROR;
         }
         
         // we only care about file extensions and metadata if we're importing a photo --
