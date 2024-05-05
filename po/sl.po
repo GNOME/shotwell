@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-04-29 14:50+0000\n"
+"POT-Creation-Date: 2024-05-05 11:18+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -1992,24 +1992,24 @@ msgstr "Zaslon"
 msgid "External Editors"
 msgstr "Zunanji urejevalniki"
 
-#: data/ui/preferences_dialog.ui:439 data/ui/search_bar.ui:24
+#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24
 #: src/library/LibraryBranch.vala:97
 msgid "Photos"
 msgstr "Fotografije"
 
-#: data/ui/preferences_dialog.ui:468 src/photos/RawSupport.vala:136
+#: data/ui/preferences_dialog.ui:470 src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:492
+#: data/ui/preferences_dialog.ui:494
 msgid "Plugins"
 msgstr "Vstavki"
 
-#: data/ui/preferences_dialog.ui:503
+#: data/ui/preferences_dialog.ui:505 src/ProfileBrowser.vala:231
 msgid "Profiles"
 msgstr "Profili"
 
-#: data/ui/preferences_dialog.ui:530
+#: data/ui/preferences_dialog.ui:532
 msgid "Shotwell Preferences"
 msgstr "Možnosti Shotwell"
 
@@ -2092,7 +2092,7 @@ msgid "of the following:"
 msgstr "s spodnjimi pravili:"
 
 #: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:210
+#: src/ProfileBrowser.vala:208
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -4762,7 +4762,7 @@ msgstr "Ni mogoče spremljati %s: to ni mapa (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografij ni mogoče izvoziti v to mapo."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1318
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Izvirna datoteka fotografije manjka: %s"
@@ -5089,7 +5089,7 @@ msgstr "Shrani spremembe in zapri orodje za določanje obrazov"
 msgid "No changes to save"
 msgstr "Ni sprememb za shranjevanje"
 
-#: src/faces/FacesTool.vala:963
+#: src/faces/FacesTool.vala:844
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Prišlo je do napake med začenjanjem programa za zaznavo obrazov:\n"
 
@@ -5504,7 +5504,7 @@ msgstr ""
 msgid "Create"
 msgstr "Ustvari"
 
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:250
+#: src/ProfileBrowser.vala:24
 msgid "Create new Profile"
 msgstr "Ustvari nov profil"
 
@@ -5552,21 +5552,16 @@ msgid ""
 msgstr "Nobena od možnosti ne bo odstranila slik, povezanih s tem profilom."
 
 #: src/ProfileBrowser.vala:208
-#, c-format
-msgid ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-msgstr ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-
-#: src/ProfileBrowser.vala:210
 msgid "Remove profile and files"
 msgstr "Odstrani profil in datoteke"
 
-#: src/ProfileBrowser.vala:210
+#: src/ProfileBrowser.vala:208
 msgid "Remove profile only"
 msgstr "Odstrani samo profil"
+
+#: src/ProfileBrowser.vala:241
+msgid "Add a new profile"
+msgstr "Dodajte nov profil"
 
 #: src/Profiles.vala:32
 msgid "System Profile"
@@ -6611,3 +6606,10 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Izvozi video"
+
+#~ msgid ""
+#~ "<b><span size=\"larger\">%s</span></b>\n"
+#~ "<span weight=\"light\">%s</span>"
+#~ msgstr ""
+#~ "<b><span size=\"larger\">%s</span></b>\n"
+#~ "<span weight=\"light\">%s</span>"
