@@ -571,9 +571,12 @@ void main(string[] args) {
     Application.init(!is_string_empty(filename));
     
     // set custom data directory if it's been supplied
-    if (CommandlineOptions.data_dir != null)
+    if (CommandlineOptions.data_dir != null) {
+        if (CommandlineOptions.profile == null) {
+            AppWindow.error_message("Using the --datadir option without passing --profile and --create is deprecated\n. Plesae migrate to a proper profile instead.");
+        }
         AppDirs.set_data_dir(CommandlineOptions.data_dir);
-    else
+    } else
         AppDirs.try_migrate_data();
     
     // Verify the private data directory before continuing
