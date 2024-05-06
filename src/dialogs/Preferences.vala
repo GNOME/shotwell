@@ -74,6 +74,7 @@ public class PreferencesDialog : Gtk.Dialog {
         set_transient_for(AppWindow.get_instance());
         close_request.connect(on_delete);
         response.connect(on_close);
+        set_hide_on_close(true);
 
         transparent_checker_radio.toggled.connect(on_radio_changed);
         transparent_solid_radio.toggled.connect(on_radio_changed);
