@@ -13,7 +13,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
     internal const string ENDPOINT_URL = "https://www.tumblr.com/";
     internal const string API_KEY = "NdXvXQuKVccOsCOj0H4k9HUJcbcjDBYSo2AkaHzXFECHGNuP9k";
     internal const string API_SECRET = "BN0Uoig0MwbeD27OgA0IwYlp3Uvonyfsrl9pf1cnnMj1QoEUvi";
-    internal const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged into Tumblr.\n\nClick Log in to log into Tublr in your Web browser. You will have to authorize Shotwell Connect to link to your Tumblr account.");
+    internal const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged into Tumblr.\n\nClick Log in to log into Tumblr in your Web browser. You will have to authorize Shotwell Connect to link to your Tumblr account.");
 
     internal class AuthenticationRequestTransaction : Publishing.RESTSupport.OAuth1.Transaction {
         public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session, string cookie) {
