@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-05 11:18+0000\n"
+"POT-Creation-Date: 2024-05-06 20:08+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -2263,10 +2263,12 @@ msgstr ""
 "povezavo med programom Shotwell in računom Flickr."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
 msgid "Preparing for login…"
 msgstr "Poteka pripravljanje na prijavo …"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
 msgid "Verifying authorization…"
 msgstr "Poteka overjanje računa …"
 
@@ -2356,25 +2358,17 @@ msgstr "_Geslo"
 msgid "Log in"
 msgstr "Prijava"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Vnesite uporabniško ime in geslo, povezavo z računom Tumblr."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
-msgid "Username and/or password invalid. Please try again"
-msgstr "Uporabniško ime in geslo nista veljavna. Poskusite znova."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
-msgid "Invalid User Name or Password"
-msgstr "Neveljavno uporabniško ime oziroma geslo"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:68
-#: plugins/shotwell-publishing/TumblrPublishing.vala:461
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Ni mogoče naložiti uporabniškega vmesnika: %s"
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
+msgid ""
+"You are not currently logged into Tumblr.\n"
+"\n"
+"Click Log in to log into Tumblr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Tumblr account."
+msgstr ""
+"Trenutno še niste prijavljeni v Tumblr.\n"
+"\n"
+"V brskalniku se prijavite v Tumblr. Med prijavo je treba overiti povezavo "
+"med programom Shotwell (Shotwell Connect) in računom Tumblr."
 
 # GNOME Application Name
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
@@ -2782,9 +2776,17 @@ msgid ""
 "entered"
 msgstr "Povezava z zbirko Piwigo ni mogoča. Preverite vnesen naslov URL."
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+msgid "Username and/or password invalid. Please try again"
+msgstr "Uporabniško ime in geslo nista veljavna. Poskusite znova."
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
 msgid "Invalid URL"
 msgstr "Neveljaven naslov URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+msgid "Invalid User Name or Password"
+msgstr "Neveljavno uporabniško ime oziroma geslo"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
 msgid "Admins, Family, Friends, Contacts"
@@ -2833,6 +2835,11 @@ msgid ""
 msgstr ""
 "V Tumblr ste prijavljeni kot %s.\n"
 "\n"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:461
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Ni mogoče naložiti uporabniškega vmesnika: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:25
 msgid "Video privacy _setting"
@@ -3728,35 +3735,35 @@ msgstr "Izvozi _metapodatke:"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:125 src/dialogs/Preferences.vala:129
+#: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
 msgid "(Help)"
 msgstr "(pomoč)"
 
-#: src/dialogs/Preferences.vala:133
+#: src/dialogs/Preferences.vala:134
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Leto%sMesec%sDan"
 
-#: src/dialogs/Preferences.vala:135
+#: src/dialogs/Preferences.vala:136
 #, c-format
 msgid "Year%sMonth"
 msgstr "Leto%sMesec"
 
-#: src/dialogs/Preferences.vala:137
+#: src/dialogs/Preferences.vala:138
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Leto%sMesec-Dan"
 
-#: src/dialogs/Preferences.vala:139
+#: src/dialogs/Preferences.vala:140
 msgid "Year-Month-Day"
 msgstr "Leto-Mesec-Dan"
 
-#: src/dialogs/Preferences.vala:140 src/editing_tools/CropTool.vala:203
+#: src/dialogs/Preferences.vala:141 src/editing_tools/CropTool.vala:203
 msgid "Custom"
 msgstr "Po meri"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:358
+#: src/dialogs/Preferences.vala:359
 msgid "Invalid pattern"
 msgstr "Neveljaven vzorec"
 
@@ -6606,10 +6613,3 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Izvozi video"
-
-#~ msgid ""
-#~ "<b><span size=\"larger\">%s</span></b>\n"
-#~ "<span weight=\"light\">%s</span>"
-#~ msgstr ""
-#~ "<b><span size=\"larger\">%s</span></b>\n"
-#~ "<span weight=\"light\">%s</span>"
