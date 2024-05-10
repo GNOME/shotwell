@@ -16,6 +16,12 @@
     <child name="export" schema="org.gnome.shotwell.preferences.export" />
 </schema>
 
+<enum id="org.gnome.shotwell.DesktopIntegrationStyleManagerStyle">
+    <value value="0" nick="light" />
+    <value value="1" nick="dark" />
+    <value value="2" nick="default" />
+</enum>
+
 <schema id="org.gnome.shotwell.preferences.ui">
     <key name="display-basic-properties" type="b">
         <default>true</default>
@@ -165,6 +171,12 @@
         <default>true</default>
         <summary>prefer GTK+’s dark theme</summary>
         <description>Whether to use the dark theme of GTK+ for Shotwell or not</description>
+    </key>
+
+    <key name="theme-variant" enum="org.gnome.shotwell.DesktopIntegrationStyleManagerStyle">
+        <default>'default'</default>
+        <summary>set the theme preference</summary>
+        <description>Whether to follow the system or fix the theme to light or dark</description>
     </key>
 
     <key name="transparent-background-type" type="s">

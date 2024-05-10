@@ -53,12 +53,14 @@ public class ManifestWidgetMediator : Gtk.Box {
     [GtkChild]
     private unowned Gtk.ScrolledWindow list_bin;
     
-    private ManifestListView list = new ManifestListView();
+    //private ManifestListView list = new ManifestListView();
     
     public ManifestWidgetMediator() {
         Object();
+    }
 
-        list_bin.set_child(list);
+    construct {
+        //list_bin.set_child(list);
     }    
 }
 
@@ -226,15 +228,16 @@ private class PluggableRow : DetailedRow {
     }
 }
 
-private class ManifestListView : Gtk.Box {
-    public ManifestListView() {
-        Object(orientation: Gtk.Orientation.VERTICAL, spacing: 6);
+public class ManifestListView : Gtk.Widget, Gtk.Buildable {
+    private Gtk.Box content = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+    public signal void row_selected(Spit.Pluggable? pluggable);
+
+    class construct {
+        set_layout_manager_type(typeof(Gtk.BinLayout));
     }
 
-    public signal void row_selected(Spit.Pluggable? pluggable);
-    public override void constructed() {
-        base.constructed();
-
+    construct {
+        content.set_parent(this);
         foreach (var extension_point in get_extension_points(compare_extension_point_names)) {
             var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
             if (pluggables.size == 0) {
@@ -256,11 +259,9 @@ private class ManifestListView : Gtk.Box {
             }
 
             if (added > 0) {
-                append(group);
+                content.append(group);
             }
         }
-
-        show();
     }
 } 
 

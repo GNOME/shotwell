@@ -8,6 +8,7 @@
 public class Shotwell.SettingsGroup : Gtk.Widget, Gtk.Buildable {
     public string? title { get; construct; }
     public string? subtitle { get; construct; }
+    public bool fixed_header { get; construct; default = false; }
 
     public signal void row_activated(SettingsGroup group, Gtk.ListBoxRow row);
 
@@ -19,7 +20,7 @@ public class Shotwell.SettingsGroup : Gtk.Widget, Gtk.Buildable {
     private unowned Shotwell.ListHeader header;
 
     public SettingsGroup(string? title, string? subtitle = null, bool fixed_header = false) {
-        Object(title: title, subtitle: subtitle);
+        Object(title: title, subtitle: subtitle, fixed_header: fixed_header);
     }
 
     class construct {
@@ -28,6 +29,14 @@ public class Shotwell.SettingsGroup : Gtk.Widget, Gtk.Buildable {
 
     construct {
         list_box.row_activated.connect(on_row_activated);
+        if (fixed_header) {
+            list_box.unparent();
+            var scrollable = new Gtk.ScrolledWindow();
+            scrollable.hexpand = true;
+            scrollable.vexpand = true;
+            scrollable.set_child(list_box);
+            content.append(scrollable);
+        }
     }
 
 
@@ -49,16 +58,13 @@ public class Shotwell.SettingsGroup : Gtk.Widget, Gtk.Buildable {
 
     public void add_child(Gtk.Builder builder, Object child, string? type) {
         if (content == null || !(child is Gtk.Widget)) {
-            print ("content? %p\n", content);
             base.add_child(builder, child, type);
             return;
         }
 
         if (type != null && type == "suffix") {
-            print("Adding suffix");
             set_suffix((Gtk.Widget)child);
         } else {
-            print("Adding row");
             add_row((Gtk.Widget)child);            
         }
     }

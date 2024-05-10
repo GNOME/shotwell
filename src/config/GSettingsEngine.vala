@@ -5,9 +5,9 @@
  */
 
 public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
-    private const string ROOT_SCHEMA_NAME = "org.gnome.shotwell";
-    private const string PREFS_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".preferences";
-    private const string UI_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".ui";
+    public const string ROOT_SCHEMA_NAME = "org.gnome.shotwell";
+    public const string PREFS_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".preferences";
+    public  const string UI_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".ui";
     private const string SLIDESHOW_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".slideshow";
     private const string WINDOW_PREFS_SCHEMA_NAME =  PREFS_SCHEMA_NAME + ".window";
     private const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
@@ -181,16 +181,21 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = "use-lowercase-filenames";
     }
 
+    public static Settings get_settings_for_current_profile(string schema) {
+        var profile = Shotwell.ProfileManager.get_instance().id();
+        if (schema.has_prefix (ROOT_SCHEMA_NAME)) {
+            var path = schema.replace(ROOT_SCHEMA_NAME, "");
+            path = "/org/gnome/shotwell/%s%s/".printf(profile == "" ? "" : "profiles/" + profile, path.replace(".", "/"));
+            path = path.replace("//", "/");
+            return new Settings.with_path (schema, path);
+        } else {
+            return new Settings(schema);
+        }
+    }
+
     private Settings get_settings(string schema) {
         if (!this.settings_cache.has_key(schema)) {
-            if (schema.has_prefix (ROOT_SCHEMA_NAME)) {
-                var path = schema.replace(ROOT_SCHEMA_NAME, "");
-                path = "/org/gnome/shotwell/%s%s/".printf(profile == "" ? "" : "profiles/" + profile, path.replace(".", "/"));
-                path = path.replace("//", "/");
-                this.settings_cache[schema] = new Settings.with_path (schema, path);
-            } else {
-                this.settings_cache[schema] = new Settings(schema);
-            }
+            this.settings_cache[schema] = GSettingsConfigurationEngine.get_settings_for_current_profile(schema);
         }
 
         return this.settings_cache[schema];

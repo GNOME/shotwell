@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
-  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtk" version="4.0" />
   <template class="PluginsManifestWidgetMediator" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="spacing">12</property>
@@ -11,7 +11,7 @@
         <property name="vexpand">1</property>
         <property name="hscrollbar-policy">never</property>
         <child>
-          <placeholder/>
+          <object class="PluginsManifestListView" />
         </child>
       </object>
     </child>

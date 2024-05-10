@@ -220,15 +220,21 @@ namespace Shotwell {
         }
     }
 
-    class ProfileBrowser : Gtk.Box {
-        public ProfileBrowser() {
-            Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true, spacing: 12);
-        }
+    class ProfileBrowser : Gtk.Widget, Gtk.Buildable {
+        private Gtk.Box content = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
 
         public signal void profile_activated(Profile profile);
 
-        public override void constructed() {
+        class construct {
+            set_layout_manager_type(typeof(Gtk.BinLayout));
+        }
+
+        construct {
+            content.set_parent(this);
+            content.vexpand = true;
+            content.hexpand = true;
             var group = new Shotwell.SettingsGroup(_("Profiles"), null, true);
+            group.vexpand = true;
             group.row_activated.connect((list_box, row) => {
                 var index = row.get_index();
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
@@ -254,8 +260,7 @@ namespace Shotwell {
                 });
                 editor.show();
             });
-            append(group);
-            show();
+            content.append(group);
         }
 
         private Gtk.Widget on_widget_create(Object item) {

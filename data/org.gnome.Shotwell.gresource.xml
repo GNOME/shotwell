@@ -39,6 +39,7 @@
       <file preprocess="xml-stripblanks">ui/editing-toolbar.ui</file>
       <file preprocess="xml-stripblanks">ui/list-header.ui</file>
       <file preprocess="xml-stripblanks">ui/settings-group.ui</file>
+      <file preprocess="xml-stripblanks">ui/preferences/library-page.ui</file>
       <!-- Map icons -->
       <file>icons/hicolor/scalable/actions/gps-marker-highlighted.svg</file>
       <file>icons/hicolor/scalable/actions/gps-marker-selected.svg</file>
@@ -73,6 +74,7 @@
       <file>icons/hicolor/scalable/actions/one-event-symbolic.svg</file>
       <file>icons/hicolor/scalable/actions/one-tag-symbolic.svg</file>
       <file>icons/hicolor/scalable/actions/stock-eye-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/info-outline-symbolic.svg</file>
       <file preprocess="xml-stripblanks" alias="icons/shotwell.svg">icons/hicolor/scalable/apps/org.gnome.Shotwell.svg</file>
       <file preprocess="xml-stripblanks" alias="icons/shotwell-symbolic.svg">icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg</file>
       <file>icons/shotwell-street.jpg</file>

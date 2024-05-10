@@ -5,6 +5,54 @@
  * See the COPYING file in this distribution.
  */
 
+public class BackgroundColorChooser : Gtk.Window {
+    
+}
+
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences/library-page.ui")]
+public class LibraryPreferencesPage : Gtk.Box {
+    [GtkChild]
+    private unowned Gtk.DropDown theme_variant;
+    [GtkChild]
+    private unowned Shotwell.FolderButton library_dir_button;
+    [GtkChild]
+    private unowned Gtk.Label library_dir_text;
+
+    [GtkChild]
+    private unowned Gtk.Switch autoimport;
+
+    [GtkChild]
+    private unowned Shotwell.SettingsGroup display_group;
+
+    construct {
+        library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
+            var src = from.get_object();
+            if (src != null) {
+                var file = (File)src;
+                to = file.get_path();
+            }
+
+            return true;
+        }, null);
+
+        display_group.row_activated.connect(on_row_activated);
+
+        // First set the initial folder, then connect the property
+        library_dir_button.folder = AppDirs.get_import_dir();
+
+        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
+        var style_manager = DesktopIntegration.get_style_manager();
+        style_manager.bind_property("requested_style", theme_variant, "selected", GLib.BindingFlags.BIDIRECTIONAL | GLib.BindingFlags.SYNC_CREATE);
+    }
+
+    private void on_row_activated(Shotwell.SettingsGroup group, Gtk.ListBoxRow row) {
+        var index = row.get_index();
+        if (index == 1) {
+            print("==> Show bloddy chooser\n");
+        }
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog.ui")]
 public class PreferencesDialog : Gtk.Dialog {
     private class PathFormat {
@@ -16,18 +64,18 @@ public class PreferencesDialog : Gtk.Dialog {
         public string? pattern;
     }
 
+    
+    [GtkChild]
+    private unowned Gtk.Stack preferences_stack;
+
     public string library_folder {get; set; }
 
     private static PreferencesDialog preferences_dialog;
-    [GtkChild]
-    private unowned Gtk.Switch switch_dark;
-    [GtkChild]
-    private unowned Shotwell.FolderButton library_dir_button;
-    [GtkChild]
-    private unowned Gtk.Label library_dir_text;
 
     [GtkChild]
-    private unowned Gtk.Switch autoimport;
+    private unowned Plugins.ManifestWidgetMediator plugins_mediator;
+    [GtkChild]
+    private unowned Shotwell.ProfileBrowser profile_browser;
 
     #if 0
     [GtkChild]
@@ -47,7 +95,6 @@ public class PreferencesDialog : Gtk.Dialog {
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
     private unowned Gtk.CheckButton lowercase;
-    private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
 
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
@@ -56,8 +103,6 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.CheckButton write_metadata;
     [GtkChild]
     private unowned Gtk.Label pattern_help;
-    [GtkChild]
-    private unowned Gtk.Stack preferences_stack;
 
     [GtkChild]
     private unowned Gtk.CheckButton transparent_checker_radio;
@@ -101,22 +146,7 @@ public class PreferencesDialog : Gtk.Dialog {
                 transparent_none_radio.active = true;
             break;
         }
-        #endif
 
-        library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-            var src = from.get_object();
-            if (src != null) {
-                var file = (File)src;
-                to = file.get_path();
-            }
-
-            return true;
-        }, null);
-
-        // First set the initial folder, then connect the property
-        library_dir_button.folder = AppDirs.get_import_dir();
-
-        #if 0
         // Ticket #3162 - Move dir pattern blurb into Gnome help.
         // Because specifying a particular snippet of the help requires
         // us to know where its located, we can't hardcode a URL anymore;
@@ -147,8 +177,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).append(plugins_mediator);
-        ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).append(new Shotwell.ProfileBrowser());
 
 
         populate_preference_options();
@@ -163,9 +191,6 @@ public class PreferencesDialog : Gtk.Dialog {
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
         #endif
-        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
-        switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
-        switch_dark.notify["active"].connect(on_theme_variant_changed);
     }
 
     #if 0
@@ -183,13 +208,6 @@ public class PreferencesDialog : Gtk.Dialog {
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
     #endif
-
-    private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
-        var config = Config.Facade.get_instance();
-        config.set_gtk_theme_variant(switch_dark.active);
-
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = switch_dark.active;
-    }
 
     #if 0
     private void on_radio_changed() {

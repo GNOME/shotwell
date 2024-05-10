@@ -7,6 +7,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="ShotwellListHeader" id="header">
+            <property name="valign">start</property>
             <binding name="title">
               <lookup name="title">ShotwellSettingsGroup</lookup>
             </binding>
@@ -18,6 +19,8 @@
         <child>
           <object class="GtkListBox" id="list_box">
             <property name="hexpand">true</property>
+            <property name="vexpand">true</property>
+            <property name="selection-mode">none</property>
             <style>
                 <class name="boxed-list" />
             </style>

@@ -4,6 +4,18 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+ // FIXME: Use libportal once a version containing Settings is released
+[DBus (name = "org.freedesktop.portal.Settings")]
+ public interface org.freedesktop.portal.Settings : Object {
+    public const string NAME = "org.freedesktop.portal.Desktop";
+    public const string PATH = "/org/freedesktop/portal/desktop";
+
+    public signal void setting_changed(string namespace, string key, Variant value);
+
+    public abstract Variant read(string namespace, string key) throws IOError, DBusError;
+ }
+
+
 namespace DesktopIntegration {
 
 private const string DESKTOP_SLIDESHOW_XML_FILENAME = "wallpaper.xml";
@@ -16,15 +28,91 @@ private double desktop_slideshow_duration = 0.0;
 
 private bool set_desktop_background = false;
 private bool set_screensaver = false;
+private StyleManager? style_manager = null;
 
 public void init() {
     if (init_count++ != 0)
         return;
+
+    style_manager = new StyleManager();
 }
 
 public void terminate() {
     if (--init_count == 0)
         return;
+    
+    style_manager = null;
+}
+
+public StyleManager? get_style_manager() {
+    return style_manager;
+}
+
+public class StyleManager : Object {
+    public enum Style {
+        LIGHT = 0U,
+        DARK = 1U,
+        DEFAULT = 2U,
+    }
+
+    private org.freedesktop.portal.Settings? global_settings = null;
+
+    public Style style { get; set; default = Style.DEFAULT; }
+
+    private Style _requested_style = Style.DEFAULT;
+    public Style requested_style  {
+        get {
+            return _requested_style;
+        }
+        set {
+            _requested_style = value;
+            bool prefer_dark = false;
+            switch (value) {
+                case Style.LIGHT:
+                    prefer_dark = false;
+                    break;
+                case Style.DARK:
+                    prefer_dark = true;
+                    break;
+                case Style.DEFAULT:
+                    prefer_dark = system_style == Style.DARK;
+                    break;            
+            }
+            Gtk.Settings.get_default().gtk_application_prefer_dark_theme = prefer_dark;
+        }
+    }
+
+    private Style system_style = Style.DEFAULT;
+    private Settings settings;
+
+    internal StyleManager() {
+        Object();
+
+        settings = GSettingsConfigurationEngine.get_settings_for_current_profile(GSettingsConfigurationEngine.UI_PREFS_SCHEMA_NAME);
+        settings.bind("theme-variant", this, "requested-style", SettingsBindFlags.DEFAULT);
+        
+        try {
+            global_settings = Bus.get_proxy_sync(BusType.SESSION, org.freedesktop.portal.Settings.NAME,
+                org.freedesktop.portal.Settings.PATH, GLib.DBusProxyFlags.NONE);
+            
+            var value = global_settings.read("org.freedesktop.appearance", "color-scheme");
+            on_system_settings_changed("org.freedesktop.appearance", "color-scheme", value.get_variant());
+            global_settings.setting_changed.connect(on_system_settings_changed);
+        } catch (Error e) {
+            message("No connection to settings portal, cannot follow system theme: %s", e.message);
+        }
+    }
+
+    private void on_system_settings_changed(string namespace, string key, Variant value) {
+        if (namespace != "org.freedesktop.appearance" || key != "color-scheme") {
+            return;
+        }
+
+        system_style = (Style) value.get_uint32();
+        if (requested_style == Style.DEFAULT) {
+            Gtk.Settings.get_default().gtk_application_prefer_dark_theme = system_style == Style.DARK;
+        }
+    }
 }
 
 public AppInfo? get_default_app_for_mime_types(string[] mime_types, 

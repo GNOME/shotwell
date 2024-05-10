@@ -73,9 +73,8 @@ void library_exec(string[] mounts) {
         break;
     }
 
-    // Need to set this before anything else, but _after_ setting the profile
-    var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
-    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
+    // Do this very early so we set up the style manager as soon as possible
+    DesktopIntegration.init();
     
     if (errormsg != null) {
         var alert = new Gtk.AlertDialog("%s", _("Unable to start Shotwell"));
@@ -159,7 +158,6 @@ void library_exec(string[] mounts) {
     Face.init(monitor);
     
     MetadataWriter.init();
-    DesktopIntegration.init();
     
     Application.get_instance().init_done();
     
