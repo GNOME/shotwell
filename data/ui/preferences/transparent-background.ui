@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0" />
+  <template class="TransparentBackgroundChooser" parent="GtkBox">
+    <property name="margin-start">64</property>
+    <property name="margin-end">64</property>
+    <property name="margin-top">32</property>
+    <property name="margin-bottom">32</property>
+    <child>
+      <object class="GtkListBox">
+        <style>
+          <class name="boxed-list" />
+        </style>
+        <child>
+          <object class="GtkBox">
+            <style>
+              <class name="header" />
+            </style>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkCheckButton" id="checkered_radio_button">
+                <property name="halign">start</property>
+                <property name="hexpand">false</property>                
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property name="label" translatable="1">Checkered</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <style>
+              <class name="header" />
+            </style>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkCheckButton" id="fixed_color_radio_button">
+                <property name="halign">start</property>
+                <property name="hexpand">false</property>                
+                <property name="valign">center</property>
+                <property name="group">checkered_radio_button</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property name="label" translatable="1">Solid color</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkColorDialogButton" id="fixed_color_dialog_button">
+                <property name="halign">end</property>
+                <property name="hexpand">false</property>
+                <property name="valign">center</property>
+                <property name="margin-start">12</property>
+                <property name="dialog"><object class="GtkColorDialog" /></property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <style>
+              <class name="header" />
+            </style>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkCheckButton" id="no_color_radio_button">
+                <property name="halign">start</property>
+                <property name="hexpand">false</property>                
+                <property name="valign">center</property>
+                <property name="group">checkered_radio_button</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property name="label" translatable="1">None</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

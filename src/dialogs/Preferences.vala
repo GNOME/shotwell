@@ -5,8 +5,37 @@
  * See the COPYING file in this distribution.
  */
 
-public class BackgroundColorChooser : Gtk.Window {
-    
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences/transparent-background.ui")]
+public class TransparentBackgroundChooser : Gtk.Box {
+    [GtkChild]
+    private unowned Gtk.CheckButton checkered_radio_button;
+
+    [GtkChild]
+    private unowned Gtk.CheckButton fixed_color_radio_button;
+
+    [GtkChild]
+    private unowned Gtk.CheckButton no_color_radio_button;
+
+    [GtkChild]
+    private unowned Gtk.ColorDialogButton fixed_color_dialog_button;
+
+    construct {
+        var settings = GSettingsConfigurationEngine.get_settings_for_current_profile(GSettingsConfigurationEngine.UI_PREFS_SCHEMA_NAME);
+        settings.bind_with_mapping("transparent-background-color", fixed_color_dialog_button, "rgba", SettingsBindFlags.DEFAULT,
+            (value, variant, user_data) => {
+                Gdk.RGBA? color = Gdk.RGBA();
+                color.parse(variant.get_string());
+
+                // FIXME: Why is the manual set_boxed needed
+                value.set_boxed((void*)color);
+        
+                return true;        
+            },
+            (from_value, expected_type, user_data) => {
+                var color = (Gdk.RGBA?) from_value.get_boxed();
+                return new Variant.string(color.to_string());        
+            }, null, null);
+    }
 }
 
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences/library-page.ui")]
@@ -48,7 +77,11 @@ public class LibraryPreferencesPage : Gtk.Box {
     private void on_row_activated(Shotwell.SettingsGroup group, Gtk.ListBoxRow row) {
         var index = row.get_index();
         if (index == 1) {
-            print("==> Show bloddy chooser\n");
+            var window = new Gtk.Window();
+            window.set_child(new TransparentBackgroundChooser());
+            window.set_transient_for((Gtk.Dialog)group.get_root());
+            window.set_modal(true);
+            window.show();
         }
     }
 }

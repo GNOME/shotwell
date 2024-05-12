@@ -99,6 +99,7 @@ public class CheckerboardLayout : Gtk.Widget {
         view.items_unselected.connect(on_items_selection_changed);
 
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
+        DesktopIntegration.get_style_manager().notify["requested-style"].connect(on_colors_changed);
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
@@ -133,6 +134,7 @@ public class CheckerboardLayout : Gtk.Widget {
             vadjustment.value_changed.disconnect(on_viewport_shifted);
 
         Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
+        DesktopIntegration.get_style_manager().notify["requested-style"].disconnect(on_colors_changed);
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {

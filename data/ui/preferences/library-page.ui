@@ -10,10 +10,9 @@
         <property name="margin-bottom">24</property>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -25,6 +24,7 @@
             <child>
               <object class="GtkDropDown" id="theme_variant">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
                 <property name="model">
                   <object class="GtkStringList">
                     <items>
@@ -40,10 +40,9 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -55,6 +54,7 @@
             <child>
               <object class="GtkImage">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
                 <property name="icon-name">go-next-symbolic</property>
               </object>
             </child>
@@ -68,10 +68,9 @@
         <property name="margin-bottom">24</property>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -83,6 +82,7 @@
             <child>
               <object class="ShotwellFolderButton" id="library_dir_button">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">horizontal</property>
@@ -107,10 +107,9 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -123,6 +122,7 @@
               <object class="GtkSwitch" id="autoimport">
                 <property name="focusable">1</property>
                 <property name="halign">end</property>
+                <property name="valign">center</property>
               </object>
             </child>
           </object>
@@ -135,10 +135,9 @@
         <property name="margin-bottom">24</property>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -150,6 +149,7 @@
             <child>
               <object class="GtkDropDown" id="folder_structure">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
                 <property name="model">
                   <object class="GtkStringList">
                     <items>
@@ -167,10 +167,9 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <property name="spacing">6</property>
             <child>
@@ -190,16 +189,16 @@
             <child>
               <object class="GtkEntry" id="folder_structure_entry">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
               </object>
             </child>            
           </object>
         </child>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -212,6 +211,7 @@
               <object class="GtkSwitch" id="rename_to_lowercase">
                 <property name="focusable">1</property>
                 <property name="halign">end</property>
+                <property name="valign">center</property>
               </object>
             </child>
           </object>
@@ -224,10 +224,9 @@
         <property name="margin-bottom">24</property>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <property name="spacing">24</property>
             <child>
@@ -241,16 +240,16 @@
               <object class="GtkSwitch" id="write_metadata">
                 <property name="focusable">1</property>
                 <property name="halign">end</property>
+                <property name="valign">center</property>
               </object>
             </child>
           </object>
         </child>
         <child>
           <object class="GtkBox">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <style>
+              <class name="header" />
+            </style>
             <property name="orientation">horizontal</property>
             <child>
               <object class="GtkLabel">
@@ -262,6 +261,7 @@
             <child>
               <object class="GtkDropDown" id="developer">
                 <property name="halign">end</property>
+                <property name="valign">center</property>
                 <property name="model">
                   <object class="GtkStringList">
                     <items>

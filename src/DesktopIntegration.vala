@@ -57,8 +57,6 @@ public class StyleManager : Object {
 
     private org.freedesktop.portal.Settings? global_settings = null;
 
-    public Style style { get; set; default = Style.DEFAULT; }
-
     private Style _requested_style = Style.DEFAULT;
     public Style requested_style  {
         get {

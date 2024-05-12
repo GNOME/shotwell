@@ -10,6 +10,9 @@
     <child>
       <object class="GtkBox" id="row_container">
         <property name="spacing">6</property>
+        <style>
+          <class name="header" />
+        </style>
         <child>
           <object class="GtkImage" id="icon" />
         </child>

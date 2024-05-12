@@ -39,24 +39,18 @@
                     <property name="name">external_editors</property>
                     <property name="title" translatable="1">External Editors</property>
                     <property name="child">
-                      <object class="GtkListBox">
-                        <property name="valign">start</property>
-                        <property name="selection-mode">none</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
-                        <style>
-                          <class name="boxed-list" />
-                        </style>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">24</property>
                         <child>
-                          <object class="GtkListBoxRow">
-                            <property name="focusable">1</property>
-                            <property name="activatable">false</property>
-                            <property name="child">
+                          <object class="ShotwellSettingsGroup">
+                            <property name="title">Photos</property>
+                            <property name="vexpand">false</property>
+                            <child>
                               <object class="GtkBox">
-                                <property name="margin-start">6</property>
-                                <property name="margin-end">6</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-bottom">6</property>
+                                <style>
+                                  <class name="header" />
+                                </style>
                                 <child>
                                   <object class="GtkLabel" id="photo_editor_label">
                                     <property name="label" translatable="1">Photos</property>
@@ -65,27 +59,21 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="photo_editor_combo">
+                                  <object class="GtkDropDown" id="photo_editor_combo">
                                     <property name="hexpand">true</property>
+                                    <property name="valign">center</property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
                                   </object>
                                 </child>
                               </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkListBoxRow">
-                            <property name="focusable">1</property>
-                            <property name="activatable">false</property>
-                            <property name="child">
+                            </child>
+                            <child>
                               <object class="GtkBox">
-                                <property name="margin-start">6</property>
-                                <property name="margin-end">6</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-bottom">6</property>
+                                <style>
+                                  <class name="header" />
+                                </style>
                                 <child>
                                   <object class="GtkLabel" id="raw_editor_label">
                                     <property name="label" translatable="1">RAW</property>
@@ -94,27 +82,47 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="raw_editor_combo">
+                                  <object class="GtkDropDown" id="raw_editor_combo">
                                     <property name="hexpand">true</property>
+                                    <property name="valign">center</property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
                                   </object>
                                 </child>
                               </object>
-                            </property>
+                            </child>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkListBoxRow">
-                            <property name="focusable">1</property>
-                            <property name="activatable">false</property>
-                            <property name="child">
+                          <object class="ShotwellSettingsGroup">
+                            <property name="title">Videos</property>
+                            <property name="vexpand">false</property>
+                            <child>
                               <object class="GtkBox">
+                                <style>
+                                  <class name="header" />
+                                </style>
+                                <child>
+                                  <object class="GtkLabel" id="video_player_label">
+                                    <property name="label" translatable="1">Player</property>
+                                    <property name="hexpand">true</property>
+                                    <property name="xalign">0.0</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkDropDown" id="video_player_combo">
+                                    <property name="hexpand">true</property>
+                                    <property name="valign">center</property>
+                                    <style>
+                                      <class name="flat"/>
+                                    </style>
+                                  </object>
+                                </child>
                               </object>
-                            </property>
+                            </child>
                           </object>
-                        </child>
+                        </child>                        
                       </object>
                     </property>
                   </object>
@@ -127,7 +135,7 @@
                       <object class="PluginsManifestWidgetMediator" id="plugins_mediator">
                         <property name="hexpand">true</property>
                         <property name="vexpand">true</property>
-                      </object>                        
+                      </object>
                     </property>
                   </object>
                 </child>
