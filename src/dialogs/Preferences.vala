@@ -86,6 +86,32 @@ public class LibraryPreferencesPage : Gtk.Box {
     }
 }
 
+public class AppInfoWrapper : Object {
+    public AppInfo info {get; construct; }
+
+    public Icon? icon {
+        get {
+            return info.get_icon();
+        }
+    }
+
+    public string name {
+        get {
+            return info.get_name();
+        }
+    }
+
+    public string executable {
+        get {
+            return info.get_executable();
+        }
+    }
+
+    public AppInfoWrapper(AppInfo info) {
+        Object(info: info);
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog.ui")]
 public class PreferencesDialog : Gtk.Dialog {
     private class PathFormat {
@@ -105,18 +131,17 @@ public class PreferencesDialog : Gtk.Dialog {
 
     private static PreferencesDialog preferences_dialog;
 
-    [GtkChild]
-    private unowned Plugins.ManifestWidgetMediator plugins_mediator;
-    [GtkChild]
-    private unowned Shotwell.ProfileBrowser profile_browser;
 
-    #if 0
     [GtkChild]
-    private unowned Gtk.ComboBox photo_editor_combo;
+    private unowned Gtk.DropDown photo_editor_combo;
+    
     [GtkChild]
-    private unowned Gtk.ComboBox raw_editor_combo;
+    private unowned Gtk.DropDown raw_editor_combo;
+
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
+
+    #if 0
     [GtkChild]
     private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
@@ -148,9 +173,13 @@ public class PreferencesDialog : Gtk.Dialog {
 #endif
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
+    }
 
+    construct {
         //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
+        populate_preference_options();
+
         #if 0
         close_request.connect(on_delete);
         response.connect(on_close);
@@ -212,7 +241,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
 
 
-        populate_preference_options();
 
         photo_editor_combo.changed.connect(on_photo_editor_changed);
         raw_editor_combo.changed.connect(on_raw_editor_changed);
@@ -226,7 +254,6 @@ public class PreferencesDialog : Gtk.Dialog {
         #endif
     }
 
-    #if 0
     public void populate_preference_options() {
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(),
             Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
@@ -234,13 +261,12 @@ public class PreferencesDialog : Gtk.Dialog {
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(),
             Config.Facade.get_instance().get_external_raw_app(), out external_raw_apps);
 
-        library_dir_text.set_label(AppDirs.get_import_dir().get_path());
+        //library_dir_text.set_label(AppDirs.get_import_dir().get_path());
 
-        setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
+        //setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
-        lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
+        //lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
-    #endif
 
     #if 0
     private void on_radio_changed() {
@@ -270,51 +296,27 @@ public class PreferencesDialog : Gtk.Dialog {
         }
         return true;
     }
+    #endif
 
-    private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,
+    private void populate_app_combo_box(Gtk.DropDown combo_box, string[] mime_types,
         string current_app_executable, out SortedList<AppInfo> external_apps) {
         // get list of all applications for the given mime types
         assert(mime_types.length != 0);
-        external_apps = DesktopIntegration.get_apps_for_mime_types(mime_types);
 
-        if (external_apps.size == 0)
-            return;
-
-        // populate application ComboBox with app names and icons
-        Gtk.CellRendererPixbuf pixbuf_renderer = new Gtk.CellRendererPixbuf();
-        Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
-        pixbuf_renderer.xpad = 6;
-        combo_box.clear();
-        combo_box.pack_start(pixbuf_renderer, false);
-        combo_box.pack_start(text_renderer, false);
-        combo_box.add_attribute(pixbuf_renderer, "gicon", 0);
-        combo_box.add_attribute(text_renderer, "text", 1);
-
-        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(GLib.Object), typeof(string));
-        Gtk.TreeIter iter;
-
-        int current_app = -1;
-
-        foreach (AppInfo app in external_apps) {
-            combo_store.append(out iter);
-
-            Icon? app_icon = app.get_icon();
-            if (app_icon != null)
-                combo_store.set (iter, 0, app_icon, 1, app.get_name());
-            else
-                combo_store.set (iter, 1, app.get_name());
-
-            if (app.get_commandline() == current_app_executable)
-                current_app = external_apps.index_of(app);
+        var model = new ListStore(typeof(AppInfoWrapper));
+        foreach (var info in DesktopIntegration.get_apps_for_mime_types(mime_types)) {
+            model.append(new AppInfoWrapper(info));
         }
-
+    
         // TODO: allow users to choose unlisted applications like Nautilus's "Open with -> Other Application..."
+        combo_box.set_model(model);
 
-        combo_box.set_model(combo_store);
-
+        #if 0
         if (current_app != -1)
             combo_box.set_active(current_app);
+            #endif
     }
+    #if 0
 
     private void setup_dir_pattern(Gtk.ComboBox combo_box, Gtk.Entry entry) {
         string? pattern = Config.Facade.get_instance().get_directory_pattern();

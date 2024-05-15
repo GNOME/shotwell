@@ -62,6 +62,9 @@
                                   <object class="GtkDropDown" id="photo_editor_combo">
                                     <property name="hexpand">true</property>
                                     <property name="valign">center</property>
+                                    <property name="expression">
+                                      <lookup name="name" type="AppInfoWrapper" />
+                                    </property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
@@ -85,6 +88,9 @@
                                   <object class="GtkDropDown" id="raw_editor_combo">
                                     <property name="hexpand">true</property>
                                     <property name="valign">center</property>
+                                    <property name="expression">
+                                      <lookup name="name" type="AppInfoWrapper" />
+                                    </property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
