@@ -62,8 +62,10 @@
                                   <object class="GtkDropDown" id="photo_editor_combo">
                                     <property name="hexpand">true</property>
                                     <property name="valign">center</property>
-                                    <property name="expression">
-                                      <lookup name="name" type="AppInfoWrapper" />
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory">
+                                        <property name="resource">/org/gnome/Shotwell/ui/app-dropdown-item.ui</property>
+                                      </object>
                                     </property>
                                     <style>
                                       <class name="flat"/>
@@ -88,8 +90,10 @@
                                   <object class="GtkDropDown" id="raw_editor_combo">
                                     <property name="hexpand">true</property>
                                     <property name="valign">center</property>
-                                    <property name="expression">
-                                      <lookup name="name" type="AppInfoWrapper" />
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory">
+                                        <property name="resource">/org/gnome/Shotwell/ui/app-dropdown-item.ui</property>
+                                      </object>
                                     </property>
                                     <style>
                                       <class name="flat"/>
@@ -120,6 +124,11 @@
                                   <object class="GtkDropDown" id="video_player_combo">
                                     <property name="hexpand">true</property>
                                     <property name="valign">center</property>
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory">
+                                        <property name="resource">/org/gnome/Shotwell/ui/app-dropdown-item.ui</property>
+                                      </object>
+                                    </property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
@@ -128,7 +137,7 @@
                               </object>
                             </child>
                           </object>
-                        </child>                        
+                        </child>
                       </object>
                     </property>
                   </object>

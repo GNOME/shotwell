@@ -138,6 +138,9 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.DropDown raw_editor_combo;
 
+    [GtkChild]
+    private unowned Gtk.DropDown video_player_combo;
+
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
 
