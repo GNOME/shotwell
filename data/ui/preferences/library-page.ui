@@ -52,6 +52,15 @@
               </object>
             </child>
             <child>
+              <object class="GtkLabel" id="transparent_background_label">
+                <property name="halign">end</property>
+                <property name="hexpand">true</property>
+                <style>
+                  <class name="dim-label" />
+                </style>
+              </object>
+            </child>
+            <child>
               <object class="GtkImage">
                 <property name="halign">end</property>
                 <property name="valign">center</property>

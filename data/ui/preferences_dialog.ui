@@ -3,6 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <template class="PreferencesDialog" parent="GtkDialog">
     <property name="destroy-with-parent">1</property>
+    <property name="hide-on-close">true</property>
     <child internal-child="content_area">
       <object class="GtkBox" id="dialog-vbox3">
         <property name="orientation">vertical</property>

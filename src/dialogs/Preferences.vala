@@ -35,6 +35,37 @@ public class TransparentBackgroundChooser : Gtk.Box {
                 var color = (Gdk.RGBA?) from_value.get_boxed();
                 return new Variant.string(color.to_string());        
             }, null, null);
+
+        switch (Config.Facade.get_instance().get_transparent_background_type()) {
+            case "checkered":
+                checkered_radio_button.active = true;
+                // Force synchronisation of sensitivity of color button
+            break;
+            case "solid":
+                fixed_color_radio_button.active = true;
+            break;
+            default:
+                no_color_radio_button.active = true;
+            break;
+        }
+
+        fixed_color_dialog_button.sensitive = fixed_color_radio_button.active;
+
+        checkered_radio_button.toggled.connect(on_radio_changed);
+        fixed_color_radio_button.toggled.connect(on_radio_changed);
+        no_color_radio_button.toggled.connect(on_radio_changed);
+    }
+
+    private void on_radio_changed() {
+        var config = Config.Facade.get_instance();
+
+        if (checkered_radio_button.active) {
+            config.set_transparent_background_type("checkered");
+        } else if (fixed_color_radio_button.active) {
+            config.set_transparent_background_type("solid");
+        } else if (no_color_radio_button.active) {
+            config.set_transparent_background_type("none");
+        }
     }
 }
 
@@ -53,7 +84,11 @@ public class LibraryPreferencesPage : Gtk.Box {
     [GtkChild]
     private unowned Shotwell.SettingsGroup display_group;
 
+    [GtkChild]
+    private unowned Gtk.Label transparent_background_label;
+
     construct {
+        var facade = Config.Facade.get_instance();
         library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
             var src = from.get_object();
             if (src != null) {
@@ -65,6 +100,8 @@ public class LibraryPreferencesPage : Gtk.Box {
         }, null);
 
         display_group.row_activated.connect(on_row_activated);
+        on_transparent_background_type_changed();
+        facade.transparent_background_type_changed.connect(on_transparent_background_type_changed);
 
         // First set the initial folder, then connect the property
         library_dir_button.folder = AppDirs.get_import_dir();
@@ -82,6 +119,20 @@ public class LibraryPreferencesPage : Gtk.Box {
             window.set_transient_for((Gtk.Dialog)group.get_root());
             window.set_modal(true);
             window.show();
+        }
+    }
+
+    void on_transparent_background_type_changed() {
+        switch (Config.Facade.get_instance().get_transparent_background_type()) {
+            case "checkered":
+                transparent_background_label.label = _("Checkered");
+                break;
+            case "solid":
+                transparent_background_label.label = _("Solid color");
+                break;
+            case "none":
+                transparent_background_label.label = _("No color");
+                break;
         }
     }
 }

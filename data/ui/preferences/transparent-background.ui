@@ -8,6 +8,7 @@
     <property name="margin-bottom">32</property>
     <child>
       <object class="GtkListBox">
+        <property name="selection-mode">none</property>
         <style>
           <class name="boxed-list" />
         </style>
@@ -61,6 +62,10 @@
                 <property name="valign">center</property>
                 <property name="margin-start">12</property>
                 <property name="dialog"><object class="GtkColorDialog" /></property>
+                <property name="sensitive"
+                          bind-source="fixed_color_radio_button"
+                          bind-property="active"
+                          bind-flags="sync-create" />
               </object>
             </child>
           </object>
