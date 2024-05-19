@@ -23,6 +23,8 @@
                 <property name="halign">start</property>
                 <property name="hexpand">false</property>                
                 <property name="valign">center</property>
+                <property name="action-name">preferences.transparent-background-type</property>
+                <property name="action-target">'checkered'</property>
               </object>
             </child>
             <child>
@@ -46,6 +48,8 @@
                 <property name="hexpand">false</property>                
                 <property name="valign">center</property>
                 <property name="group">checkered_radio_button</property>
+                <property name="action-name">preferences.transparent-background-type</property>
+                <property name="action-target">'solid'</property>
               </object>
             </child>
             <child>
@@ -82,6 +86,8 @@
                 <property name="hexpand">false</property>                
                 <property name="valign">center</property>
                 <property name="group">checkered_radio_button</property>
+                <property name="action-name">preferences.transparent-background-type</property>
+                <property name="action-target">'none'</property>
               </object>
             </child>
             <child>

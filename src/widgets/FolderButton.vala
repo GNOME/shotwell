@@ -4,7 +4,24 @@
 namespace Shotwell {
     // Simple button that shows a folder chooser when clicked
     public class FolderButton : Gtk.Button {
-        public File folder {get; set; default = null;}
+        private File _folder;
+        public File folder {
+            get {
+                return _folder;
+            }
+            set {
+                _folder = value;
+                this.notify_property("path");
+            }
+        }
+        public string path {
+            owned get {
+                return folder.get_path();
+            }
+            set {
+                folder = File.new_for_path(value);
+            }
+        }
         public string title {get; construct; default = null;}
 
         public FolderButton(File folder, string title) {

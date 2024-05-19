@@ -8,13 +8,7 @@
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences/transparent-background.ui")]
 public class TransparentBackgroundChooser : Gtk.Box {
     [GtkChild]
-    private unowned Gtk.CheckButton checkered_radio_button;
-
-    [GtkChild]
     private unowned Gtk.CheckButton fixed_color_radio_button;
-
-    [GtkChild]
-    private unowned Gtk.CheckButton no_color_radio_button;
 
     [GtkChild]
     private unowned Gtk.ColorDialogButton fixed_color_dialog_button;
@@ -36,36 +30,12 @@ public class TransparentBackgroundChooser : Gtk.Box {
                 return new Variant.string(color.to_string());        
             }, null, null);
 
-        switch (Config.Facade.get_instance().get_transparent_background_type()) {
-            case "checkered":
-                checkered_radio_button.active = true;
-                // Force synchronisation of sensitivity of color button
-            break;
-            case "solid":
-                fixed_color_radio_button.active = true;
-            break;
-            default:
-                no_color_radio_button.active = true;
-            break;
-        }
+        var group = new SimpleActionGroup();
+        var action = settings.create_action("transparent-background-type");
+        group.add_action(action);
+        insert_action_group("preferences", group);
 
         fixed_color_dialog_button.sensitive = fixed_color_radio_button.active;
-
-        checkered_radio_button.toggled.connect(on_radio_changed);
-        fixed_color_radio_button.toggled.connect(on_radio_changed);
-        no_color_radio_button.toggled.connect(on_radio_changed);
-    }
-
-    private void on_radio_changed() {
-        var config = Config.Facade.get_instance();
-
-        if (checkered_radio_button.active) {
-            config.set_transparent_background_type("checkered");
-        } else if (fixed_color_radio_button.active) {
-            config.set_transparent_background_type("solid");
-        } else if (no_color_radio_button.active) {
-            config.set_transparent_background_type("none");
-        }
     }
 }
 
@@ -100,11 +70,31 @@ public class LibraryPreferencesPage : Gtk.Box {
         }, null);
 
         display_group.row_activated.connect(on_row_activated);
-        on_transparent_background_type_changed();
-        facade.transparent_background_type_changed.connect(on_transparent_background_type_changed);
+
+        var settings = GSettingsConfigurationEngine.get_settings_for_current_profile(GSettingsConfigurationEngine.UI_PREFS_SCHEMA_NAME);
+        settings.bind_with_mapping("transparent-background-type", transparent_background_label, "label", SettingsBindFlags.GET, 
+            (value, variant, user_data) => {
+                var val = variant.get_string();
+                switch (val) {
+                    case "checkered":
+                        value.set_string(_("Checkered"));
+                    break;
+                    case "solid":
+                        value.set_string(_("Solid color"));
+                    break;
+                    case "none":
+                        value.set_string(_("No color"));
+                    break;
+                }
+
+                return true;
+            }, (from_value, expected_type, user_data) =>  { return new Variant.string(""); }, null, null);
+
 
         // First set the initial folder, then connect the property
         library_dir_button.folder = AppDirs.get_import_dir();
+        settings = GSettingsConfigurationEngine.get_settings_for_current_profile(GSettingsConfigurationEngine.FILES_PREFS_SCHEMA_NAME);
+        settings.bind ("import-dir", library_dir_button, "path", SettingsBindFlags.DEFAULT);
 
         autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
         var style_manager = DesktopIntegration.get_style_manager();
@@ -119,20 +109,6 @@ public class LibraryPreferencesPage : Gtk.Box {
             window.set_transient_for((Gtk.Dialog)group.get_root());
             window.set_modal(true);
             window.show();
-        }
-    }
-
-    void on_transparent_background_type_changed() {
-        switch (Config.Facade.get_instance().get_transparent_background_type()) {
-            case "checkered":
-                transparent_background_label.label = _("Checkered");
-                break;
-            case "solid":
-                transparent_background_label.label = _("Solid color");
-                break;
-            case "none":
-                transparent_background_label.label = _("No color");
-                break;
         }
     }
 }

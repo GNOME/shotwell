@@ -10,7 +10,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     public  const string UI_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".ui";
     private const string SLIDESHOW_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".slideshow";
     private const string WINDOW_PREFS_SCHEMA_NAME =  PREFS_SCHEMA_NAME + ".window";
-    private const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
+    public const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
     private const string EDITING_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".editing";
     private const string EXPORT_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".export";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";

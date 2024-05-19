@@ -187,14 +187,29 @@ namespace Shotwell {
             label.set_tooltip_text(profile.data_dir);
             label.set_selectable(true);
             grid.attach(label, 1, 1, 1, 1);
-            
+
+            if (profile.id != Profile.SYSTEM) {
+                label = new Gtk.Label(_("Profile UUID"));
+                label.add_css_class("dim-label");
+                label.halign = Gtk.Align.END;
+                label.margin_start = 12;
+                grid.attach(label, 0, 2, 1, 1);
+                label = new Gtk.Label(profile.id);
+                label.halign = Gtk.Align.START;
+                label.hexpand = true;
+                label.set_ellipsize(Pango.EllipsizeMode.END);
+                label.set_tooltip_text(profile.data_dir);
+                label.set_selectable(true);
+                grid.attach(label, 1, 2, 1, 1);
+            }
+
             if (profile.id != Profile.SYSTEM && !profile.active) {
                 var remove_button = new Gtk.Button.with_label(_("Remove Profile"));
                 remove_button.add_css_class("destructive-action");
                 remove_button.set_tooltip_text(_("Remove this profile"));
                 remove_button.hexpand = false;
                 remove_button.halign = Gtk.Align.END;
-                grid.attach(remove_button, 1, 2, 1, 1);
+                grid.attach(remove_button, 1, 3, 1, 1);
 
                 remove_button.clicked.connect(() => {
                     remove_profile.begin();

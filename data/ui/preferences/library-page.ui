@@ -92,6 +92,7 @@
               <object class="ShotwellFolderButton" id="library_dir_button">
                 <property name="halign">end</property>
                 <property name="valign">center</property>
+                <property name="title" translatable="1">Choose the import location for photos and videos</property>
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">horizontal</property>
