@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-11-25 21:24+0000\n"
-"PO-Revision-Date: 2023-11-26 16:34+0300\n"
+"POT-Creation-Date: 2024-05-15 15:59+0000\n"
+"PO-Revision-Date: 2024-05-17 10:54+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1226,9 +1226,9 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:349
-#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
+#: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:356
+#: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
+#: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1273,8 +1273,7 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Разработчики Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Менеджер фотографий"
 
@@ -1296,11 +1295,7 @@ msgstr ""
 "организация;фотография;фотографии;фото;картинка;картинки;печать;публикация;"
 "вращение;поделиться;метки;видео;"
 
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-msgid "Shotwell Profile Browser"
-msgstr "Браузер профилей Shotwell"
-
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:21
 msgid "Manage Different Profiles In Shotwell"
 msgstr "Управление различными профилями в Shotwell"
 
@@ -1313,125 +1308,125 @@ msgid "Photo Viewer"
 msgstr "Приложение просмотра фотографий"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:225
+#: data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221
 #: src/CollectionPage.vala:119 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "_Автокоррекция"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:252
+#: data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248
 #: src/CollectionPage.vala:120 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "Ве_рнуться к оригиналу"
 
-#: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
-#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:377
-#: data/ui/tags.ui:390 src/Resources.vala:279
+#: data/ui/collection.ui:19 data/ui/event.ui:403 data/ui/event.ui:454
+#: data/ui/faces.ui:390 data/ui/media.ui:386 data/ui/photo.ui:373
+#: data/ui/tags.ui:386 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "Добавить _метки…"
 
-#: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
-#: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:382 data/ui/tags.ui:395 src/Resources.vala:351
+#: data/ui/collection.ui:24 data/ui/event.ui:408 data/ui/event.ui:459
+#: data/ui/faces.ui:395 data/ui/media.ui:391 data/ui/photo_context.ui:22
+#: data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "Изменить _метки…"
 
-#: data/ui/collection.ui:33 data/ui/event.ui:281 data/ui/event.ui:472
-#: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:270 data/ui/tags.ui:281
+#: data/ui/collection.ui:33 data/ui/event.ui:277 data/ui/event.ui:468
+#: data/ui/faces.ui:281 data/ui/media.ui:277 data/ui/photo_context.ui:30
+#: data/ui/photo.ui:266 data/ui/tags.ui:277
 msgid "Toggle _Flag"
 msgstr "Установить или снять _отметку"
 
-#: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
-#: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:275 data/ui/tags.ui:286 src/Resources.vala:213
+#: data/ui/collection.ui:39 data/ui/event.ui:282 data/ui/event.ui:474
+#: data/ui/faces.ui:286 data/ui/media.ui:282 data/ui/photo_context.ui:35
+#: data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "_Оценить"
 
-#: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
-#: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:303 data/ui/tags.ui:314 src/Resources.vala:223
+#: data/ui/collection.ui:62 data/ui/event.ui:310 data/ui/event.ui:497
+#: data/ui/faces.ui:314 data/ui/media.ui:310 data/ui/photo_context.ui:63
+#: data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "_Без оценки"
 
-#: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
-#: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:308 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/collection.ui:66 data/ui/event.ui:315 data/ui/event.ui:501
+#: data/ui/faces.ui:319 data/ui/media.ui:315 data/ui/photo_context.ui:68
+#: data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "_Отклонённые"
 
-#: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
-#: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:315 data/ui/tags.ui:326 src/Resources.vala:217
+#: data/ui/collection.ui:72 data/ui/event.ui:322 data/ui/event.ui:507
+#: data/ui/faces.ui:326 data/ui/media.ui:322 data/ui/photo_context.ui:75
+#: data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
 msgid "_Increase"
 msgstr "По_высить"
 
-#: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
-#: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:320 data/ui/tags.ui:331 src/Resources.vala:220
+#: data/ui/collection.ui:76 data/ui/event.ui:327 data/ui/event.ui:511
+#: data/ui/faces.ui:331 data/ui/media.ui:327 data/ui/photo_context.ui:80
+#: data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "По_низить"
 
-#: data/ui/collection.ui:82 data/ui/event.ui:353 data/ui/event.ui:521
-#: data/ui/faces.ui:353 data/ui/media.ui:353 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:346 data/ui/tags.ui:353
+#: data/ui/collection.ui:82 data/ui/event.ui:349 data/ui/event.ui:517
+#: data/ui/faces.ui:353 data/ui/media.ui:349 data/ui/photo_context.ui:88
+#: data/ui/photo.ui:342 data/ui/tags.ui:349
 msgid "_Developer"
 msgstr "_Обработчик"
 
-#: data/ui/collection.ui:90 data/ui/event.ui:361 data/ui/event.ui:529
-#: data/ui/faces.ui:361 data/ui/media.ui:361 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:354 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
+#: data/ui/collection.ui:90 data/ui/event.ui:357 data/ui/event.ui:525
+#: data/ui/faces.ui:361 data/ui/media.ui:357 data/ui/photo_context.ui:96
+#: data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
 #: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Камера"
 
-#: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
-#: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:329 data/ui/tags.ui:340 src/Resources.vala:265
+#: data/ui/collection.ui:98 data/ui/event.ui:336 data/ui/event.ui:533
+#: data/ui/faces.ui:340 data/ui/media.ui:336 data/ui/photo_context.ui:105
+#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "Изменить _название…"
 
-#: data/ui/collection.ui:103 data/ui/events_directory.ui:144
-#: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
-#: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:334 data/ui/tags.ui:345
+#: data/ui/collection.ui:103 data/ui/events_directory.ui:140
+#: data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394
+#: data/ui/event.ui:538 data/ui/faces.ui:345 data/ui/media.ui:341
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341
 #: src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "Изменить _комментарий…"
 
-#: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:363 src/CollectionPage.vala:143 src/Resources.vala:286
+#: data/ui/collection.ui:108 data/ui/event.ui:543 data/ui/photo_context.ui:115
+#: data/ui/photo.ui:359 src/CollectionPage.vala:143 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "Открыть с помощью внешнего _редактора"
 
-#: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:368 src/CollectionPage.vala:146 src/Resources.vala:288
+#: data/ui/collection.ui:113 data/ui/event.ui:548 data/ui/photo_context.ui:120
+#: data/ui/photo.ui:364 src/CollectionPage.vala:146 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "Открыть с помощью редактора _RAW"
 
-#: data/ui/collection.ui:119 data/ui/event.ui:387 data/ui/event.ui:558
-#: data/ui/faces.ui:381 data/ui/media.ui:381 data/ui/photo_context.ui:126
-#: data/ui/tags.ui:381
+#: data/ui/collection.ui:119 data/ui/event.ui:383 data/ui/event.ui:554
+#: data/ui/faces.ui:381 data/ui/media.ui:377 data/ui/photo_context.ui:126
+#: data/ui/tags.ui:377
 msgid "View Eve_nt for Photo"
 msgstr "Показать _событие для фотографии"
 
 #: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
-#: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
-#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
-#: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
+#: data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:27
+#: data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
+#: data/ui/tags.ui:23 data/ui/trash.ui:15 data/ui/trash.ui:223
 #: src/Resources.vala:777
 msgid "Show in File Mana_ger"
 msgstr "Открыть в _файловом менеджере"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
-#: data/ui/event.ui:567 data/ui/photo.ui:30 src/CollectionPage.vala:83
+#: data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:83
 #: src/Resources.vala:290
 msgid "Send _To…"
 msgstr "Отправить_…"
 
-#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
-#: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:786
+#: data/ui/collection.ui:134 data/ui/event.ui:75 data/ui/event.ui:569
+#: data/ui/faces.ui:79 data/ui/media.ui:75 data/ui/photo_context.ui:141
+#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:786
 msgid "_Move to Trash"
 msgstr "_Переместить в корзину"
 
@@ -1461,13 +1456,13 @@ msgstr "Опубликовать на различных сайтах"
 msgid "Publish"
 msgstr "Опубликовать"
 
-#: data/ui/collection.ui:214 data/ui/offline.ui:236 data/ui/trash.ui:309
+#: data/ui/collection.ui:214 data/ui/offline.ui:232 data/ui/trash.ui:305
 #: src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Найти изображения по указанной строке из названий или меток изображений"
 
-#: data/ui/collection.ui:217 data/ui/offline.ui:239 data/ui/trash.ui:312
+#: data/ui/collection.ui:217 data/ui/offline.ui:235 data/ui/trash.ui:308
 #: src/Resources.vala:294
 msgid "Find"
 msgstr "Поиск"
@@ -1490,156 +1485,156 @@ msgstr "_Сохранить"
 msgid "Save _As…"
 msgstr "Сохранить _как…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
-#: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
-#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:138
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
+#: data/ui/faces.ui:40 data/ui/import_queue.ui:27 data/ui/import.ui:29
+#: data/ui/media.ui:36 data/ui/offline.ui:21 data/ui/photo.ui:46
+#: data/ui/tags.ui:36 data/ui/trash.ui:26 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Закрыть"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
-#: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
-#: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:126
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
+#: data/ui/faces.ui:47 data/ui/import.ui:36 data/ui/media.ui:43
+#: data/ui/offline.ui:28 data/ui/photo.ui:53 data/ui/tags.ui:43
+#: data/ui/trash.ui:33 src/Resources.vala:126
 msgid "_Edit"
 msgstr "_Правка"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
-#: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
-#: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:191
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
+#: data/ui/faces.ui:50 data/ui/import.ui:39 data/ui/media.ui:46
+#: data/ui/offline.ui:31 data/ui/photo.ui:56 data/ui/tags.ui:46
+#: data/ui/trash.ui:36 src/Resources.vala:191
 msgid "_Undo"
 msgstr "_Отменить"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
-#: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
-#: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:194
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51
+#: data/ui/faces.ui:55 data/ui/import.ui:44 data/ui/media.ui:51
+#: data/ui/offline.ui:36 data/ui/photo.ui:61 data/ui/tags.ui:51
+#: data/ui/trash.ui:41 src/Resources.vala:194
 msgid "_Redo"
 msgstr "_Вернуть"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
-#: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
-#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:97
-#: data/ui/tags.ui:99 data/ui/trash.ui:87
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95
+#: data/ui/faces.ui:99 data/ui/import_queue.ui:34 data/ui/import.ui:70
+#: data/ui/media.ui:95 data/ui/offline.ui:74 data/ui/photo.ui:93
+#: data/ui/tags.ui:95 data/ui/trash.ui:83
 msgid "_View"
 msgstr "_Вид"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:125 data/ui/photo.ui:175
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171
 #: src/Resources.vala:128
 msgid "Fulls_creen"
 msgstr "_Полноэкранный режим"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:260 data/ui/faces.ui:260
-#: data/ui/media.ui:260 data/ui/photo.ui:146 data/ui/tags.ui:260
+#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:260
+#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
 #: src/Resources.vala:150
 msgid "Zoom _In"
 msgstr "_Увеличить"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:265 data/ui/faces.ui:265
-#: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
+#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:265
+#: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
 #: src/Resources.vala:151
 msgid "Zoom _Out"
 msgstr "_Уменьшить"
 
-#: data/ui/direct.ui:81 data/ui/photo.ui:158
+#: data/ui/direct.ui:81 data/ui/photo.ui:154
 msgid "Fit to _Page"
 msgstr "На всю _страницу"
 
-#: data/ui/direct.ui:86 data/ui/photo.ui:163
+#: data/ui/direct.ui:86 data/ui/photo.ui:159
 msgid "Zoom _100%"
 msgstr "Масштаб _100%"
 
-#: data/ui/direct.ui:91 data/ui/photo.ui:168
+#: data/ui/direct.ui:91 data/ui/photo.ui:164
 msgid "Zoom _200%"
 msgstr "Увеличить на _200%"
 
-#: data/ui/direct.ui:98 data/ui/photo.ui:189
+#: data/ui/direct.ui:98 data/ui/photo.ui:185
 msgid "_Photo"
 msgstr "_Фото"
 
-#: data/ui/direct.ui:101 data/ui/photo.ui:192
+#: data/ui/direct.ui:101 data/ui/photo.ui:188
 msgid "_Previous Photo"
 msgstr "_Предыдущее фото"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:196
+#: data/ui/direct.ui:106 data/ui/photo.ui:192
 msgid "_Next Photo"
 msgstr "_Следующее фото"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:202 src/CollectionPage.vala:110
+#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:110
 #: src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "Повернуть в_право"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:207 src/CollectionPage.vala:113
+#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:113
 #: src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "Повернуть в_лево"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:212 src/CollectionPage.vala:116
+#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:116
 #: src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "Отразить по _горизонтали"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:216 src/CollectionPage.vala:117
+#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:117
 #: src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "Отразить по _вертикали"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:222
+#: data/ui/direct.ui:133 data/ui/photo.ui:218
 msgid "T_ools"
 msgstr "_Инструменты"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:230 src/Resources.vala:165
+#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:165
 msgid "_Crop"
 msgstr "_Обрезать"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:235
+#: data/ui/direct.ui:146 data/ui/photo.ui:231
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
 msgstr "_Выровнять"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:240 src/Resources.vala:173
+#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:173
 msgid "_Red-eye"
 msgstr "_Удаление эффекта «красных глаз»"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:245 src/Resources.vala:177
+#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:177
 msgid "_Adjust"
 msgstr "_Коррекция"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:339 src/Resources.vala:276
+#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:276
 msgid "_Adjust Date and Time…"
 msgstr "_Изменить дату и время…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:150
-#: data/ui/events_directory.ui:153 data/ui/event.ui:420 data/ui/event.ui:423
-#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
-#: data/ui/import_queue.ui:68 data/ui/import.ui:183 data/ui/import.ui:186
-#: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
-#: data/ui/offline.ui:183 data/ui/photo.ui:389 data/ui/photo.ui:392
-#: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
-#: data/ui/trash.ui:192 src/Resources.vala:129
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146
+#: data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419
+#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:61
+#: data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182
+#: data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:176
+#: data/ui/offline.ui:179 data/ui/photo.ui:385 data/ui/photo.ui:388
+#: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:185
+#: data/ui/trash.ui:188 src/Resources.vala:129
 msgid "_Help"
 msgstr "_Справка"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:158 data/ui/event.ui:428
-#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
-#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:397
-#: data/ui/tags.ui:430 data/ui/trash.ui:197
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424
+#: data/ui/faces.ui:438 data/ui/import_queue.ui:69 data/ui/import.ui:187
+#: data/ui/media.ui:407 data/ui/offline.ui:184 data/ui/photo.ui:393
+#: data/ui/tags.ui:426 data/ui/trash.ui:193
 msgid "_Frequently Asked Questions"
 msgstr "_Часто задаваемые вопросы (FAQ)"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:162 data/ui/event.ui:432
-#: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:195
-#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:401
-#: data/ui/tags.ui:434 data/ui/trash.ui:201
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428
+#: data/ui/faces.ui:442 data/ui/import_queue.ui:73 data/ui/import.ui:191
+#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:397
+#: data/ui/tags.ui:430 data/ui/trash.ui:197
 msgid "_Report a Problem…"
 msgstr "_Сообщить об ошибке…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
-#: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:407
-#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:122
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434
+#: data/ui/faces.ui:448 data/ui/import_queue.ui:79 data/ui/import.ui:197
+#: data/ui/media.ui:417 data/ui/offline.ui:194 data/ui/photo.ui:403
+#: data/ui/tags.ui:436 data/ui/trash.ui:203 src/Resources.vala:122
 msgid "_About"
 msgstr "_О приложении"
 
@@ -1649,216 +1644,213 @@ msgstr "_О приложении"
 msgid "_Import From Folder…"
 msgstr "_Импортировать из папки…"
 
-#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13
-#: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
-#: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
-#: data/ui/trash.ui:13
-msgid "Import From _Application…"
-msgstr "Импортировать из _приложения…"
-
-#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
-#: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
-#: data/ui/offline.ui:19 data/ui/photo.ui:44 data/ui/tags.ui:34
-#: data/ui/trash.ui:24 data/ui/trash.ui:234 data/ui/trash.ui:242
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:34
+#: data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30
+#: data/ui/offline.ui:15 data/ui/photo.ui:40 data/ui/tags.ui:30
+#: data/ui/trash.ui:20 data/ui/trash.ui:230 data/ui/trash.ui:238
 msgid "Empty T_rash"
 msgstr "Очистить _корзину"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
-#: data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47
-#: data/ui/tags.ui:62 data/ui/trash.ui:52
+#: data/ui/events_directory.ui:43 data/ui/event.ui:58 data/ui/faces.ui:62
+#: data/ui/import.ui:51 data/ui/media.ui:58 data/ui/offline.ui:43
+#: data/ui/tags.ui:58 data/ui/trash.ui:48
 msgid "_Find"
 msgstr "_Найти"
 
-#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
-#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:72
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:66
+#: data/ui/media.ui:62 data/ui/offline.ui:47 data/ui/photo.ui:68
 #: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
-#: data/ui/tags.ui:66 data/ui/trash.ui:56
+#: data/ui/tags.ui:62 data/ui/trash.ui:52
 msgid "Ne_w Saved Search…"
 msgstr "Н_овый сохранённый поисковый запрос…"
 
-#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
-#: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:788
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:86
+#: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:61
+#: data/ui/tags.ui:82 data/ui/trash.ui:70 src/Resources.vala:788
 msgid "Select _All"
 msgstr "Выбрать _все"
 
-#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
-#: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
-#: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:93
+#: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:68
+#: data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:77
 #: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "_Параметры"
 
-#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
-#: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
-#: data/ui/offline.ui:81 data/ui/photo.ui:100 data/ui/tags.ui:102
-#: data/ui/trash.ui:90
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:102
+#: data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98
+#: data/ui/offline.ui:77 data/ui/photo.ui:96 data/ui/tags.ui:98
+#: data/ui/trash.ui:86
 msgid "_Basic Information"
 msgstr "_Основная информация"
 
-#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
-#: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
-#: data/ui/photo.ui:105 data/ui/tags.ui:107 data/ui/trash.ui:95
+#: data/ui/events_directory.ui:75 data/ui/event.ui:103 data/ui/faces.ui:107
+#: data/ui/import.ui:78 data/ui/media.ui:103 data/ui/offline.ui:82
+#: data/ui/photo.ui:101 data/ui/tags.ui:103 data/ui/trash.ui:91
 msgid "E_xtended Information"
 msgstr "_Расширенная информация"
 
-#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112
-#: data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91
-#: data/ui/tags.ui:112 data/ui/trash.ui:100
+#: data/ui/events_directory.ui:80 data/ui/event.ui:108 data/ui/faces.ui:112
+#: data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:87
+#: data/ui/tags.ui:108 data/ui/trash.ui:96
 msgid "_Search Bar"
 msgstr "П_анель поиска"
 
-#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
-#: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
-#: data/ui/photo.ui:110 data/ui/tags.ui:117 data/ui/trash.ui:105
+#: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:117
+#: data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:92
+#: data/ui/photo.ui:106 data/ui/tags.ui:113 data/ui/trash.ui:101
 msgid "S_idebar"
 msgstr "Б_оковая панель"
 
-#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
-#: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
-#: data/ui/photo.ui:115 data/ui/tags.ui:122 data/ui/trash.ui:110
+#: data/ui/events_directory.ui:90 data/ui/event.ui:118 data/ui/faces.ui:122
+#: data/ui/import.ui:93 data/ui/media.ui:118 data/ui/offline.ui:97
+#: data/ui/photo.ui:111 data/ui/tags.ui:118 data/ui/trash.ui:106
 msgid "T_oolbar"
 msgstr "П_анель инструментов"
 
-#: data/ui/events_directory.ui:101 data/ui/event.ui:134 data/ui/faces.ui:134
-#: data/ui/media.ui:134 data/ui/tags.ui:134
+#: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:134
+#: data/ui/media.ui:130 data/ui/tags.ui:130
 msgid "_Comments"
 msgstr "_Комментарии"
 
-#: data/ui/events_directory.ui:108 data/ui/event.ui:243 data/ui/faces.ui:243
-#: data/ui/import_queue.ui:48 data/ui/import.ui:166 data/ui/media.ui:243
-#: data/ui/offline.ui:163 data/ui/photo.ui:129 data/ui/tags.ui:243
-#: data/ui/trash.ui:172
+#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:243
+#: data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239
+#: data/ui/offline.ui:159 data/ui/photo.ui:125 data/ui/tags.ui:239
+#: data/ui/trash.ui:168
 msgid "Sort _Events"
 msgstr "Сортировать _события"
 
-#: data/ui/events_directory.ui:111 data/ui/event.ui:231 data/ui/event.ui:246
-#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
-#: data/ui/import.ui:169 data/ui/media.ui:231 data/ui/media.ui:246
-#: data/ui/offline.ui:166 data/ui/photo.ui:132 data/ui/tags.ui:231
-#: data/ui/tags.ui:246 data/ui/trash.ui:175
+#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242
+#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:47
+#: data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
+#: data/ui/offline.ui:162 data/ui/photo.ui:128 data/ui/tags.ui:227
+#: data/ui/tags.ui:242 data/ui/trash.ui:171
 msgid "_Ascending"
 msgstr "По _возрастанию"
 
-#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/faces.ui:236
-#: data/ui/import_queue.ui:56 data/ui/media.ui:236 data/ui/offline.ui:171
-#: data/ui/tags.ui:236 data/ui/trash.ui:180
+#: data/ui/events_directory.ui:112 data/ui/event.ui:232 data/ui/faces.ui:236
+#: data/ui/import_queue.ui:52 data/ui/media.ui:232 data/ui/offline.ui:167
+#: data/ui/tags.ui:232 data/ui/trash.ui:176
 msgid "D_escending"
 msgstr "По _убыванию"
 
-#: data/ui/events_directory.ui:132 data/ui/event.ui:379 data/ui/faces.ui:373
-#: data/ui/media.ui:373 data/ui/tags.ui:373
+#: data/ui/events_directory.ui:128 data/ui/event.ui:375 data/ui/faces.ui:373
+#: data/ui/media.ui:369 data/ui/tags.ui:369
 msgid "Even_ts"
 msgstr "Со_бытия"
 
-#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
+#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173
 #: src/Resources.vala:209
 msgid "_Merge Events"
 msgstr "_Объединить события"
 
-#: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
-#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:197
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
+#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
 msgid "Re_name Event…"
 msgstr "_Переименовать событие…"
 
-#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:257
+#: data/ui/event.ui:13 data/ui/faces.ui:17 data/ui/media.ui:13
+#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
 msgid "_Export…"
 msgstr "_Экспортировать…"
 
-#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
-#: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:784
+#: data/ui/event.ui:70 data/ui/faces.ui:74 data/ui/media.ui:70
+#: data/ui/offline.ui:54 data/ui/offline.ui:203 data/ui/offline.ui:220
+#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:784
 msgid "R_emove From Library"
 msgstr "_Удалить из библиотеки"
 
-#: data/ui/event.ui:129 data/ui/faces.ui:129 data/ui/import.ui:104
-#: data/ui/media.ui:129 data/ui/tags.ui:129
+#: data/ui/event.ui:125 data/ui/faces.ui:129 data/ui/import.ui:100
+#: data/ui/media.ui:125 data/ui/tags.ui:125
 msgid "_Titles"
 msgstr "_Названия"
 
-#: data/ui/event.ui:139 data/ui/event.ui:404 data/ui/faces.ui:139
-#: data/ui/faces.ui:387 data/ui/media.ui:139 data/ui/media.ui:387
-#: data/ui/photo.ui:374 data/ui/tags.ui:139 data/ui/tags.ui:387
+#: data/ui/event.ui:135 data/ui/event.ui:400 data/ui/faces.ui:139
+#: data/ui/faces.ui:387 data/ui/media.ui:135 data/ui/media.ui:383
+#: data/ui/photo.ui:370 data/ui/tags.ui:135 data/ui/tags.ui:383
 msgid "Ta_gs"
 msgstr "_Метки"
 
-#: data/ui/event.ui:144 data/ui/faces.ui:144 data/ui/media.ui:144
-#: data/ui/photo.ui:122 data/ui/tags.ui:144 src/Resources.vala:246
+#: data/ui/event.ui:140 data/ui/faces.ui:144 data/ui/media.ui:140
+#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
 msgid "_Ratings"
 msgstr "_Оценки"
 
-#: data/ui/event.ui:151 data/ui/faces.ui:151 data/ui/import.ui:111
-#: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
-#: data/ui/trash.ui:117 src/Resources.vala:249
+#: data/ui/event.ui:147 data/ui/faces.ui:151 data/ui/import.ui:107
+#: data/ui/media.ui:147 data/ui/offline.ui:104 data/ui/tags.ui:147
+#: data/ui/trash.ui:113 src/Resources.vala:249
 msgid "_Filter Photos"
 msgstr "_Фильтровать фотографии"
 
-#: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
-#: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:242
+#: data/ui/event.ui:180 data/ui/faces.ui:184 data/ui/import.ui:140
+#: data/ui/media.ui:180 data/ui/offline.ui:137 data/ui/search_bar.ui:18
+#: data/ui/tags.ui:180 data/ui/trash.ui:146 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "_Все фотографии"
 
-#: data/ui/event.ui:190 data/ui/faces.ui:190 data/ui/import.ui:150
-#: data/ui/media.ui:190 data/ui/offline.ui:147 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:239
+#: data/ui/event.ui:186 data/ui/faces.ui:190 data/ui/import.ui:146
+#: data/ui/media.ui:186 data/ui/offline.ui:143 data/ui/search_bar.ui:12
+#: data/ui/tags.ui:186 data/ui/trash.ui:152 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "Все и _отклонённые"
 
-#: data/ui/event.ui:196 data/ui/faces.ui:196 data/ui/import.ui:156
-#: data/ui/media.ui:196 data/ui/offline.ui:153 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:235
+#: data/ui/event.ui:192 data/ui/faces.ui:196 data/ui/import.ui:152
+#: data/ui/media.ui:192 data/ui/offline.ui:149 data/ui/search_bar.ui:6
+#: data/ui/tags.ui:192 data/ui/trash.ui:158 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "Только _отклонённые"
 
-#: data/ui/event.ui:206 data/ui/faces.ui:206 data/ui/media.ui:206
-#: data/ui/tags.ui:206
+#: data/ui/event.ui:202 data/ui/faces.ui:206 data/ui/media.ui:202
+#: data/ui/tags.ui:202
 msgid "Sort _Photos"
 msgstr "_Сортировать фотографии"
 
-#: data/ui/event.ui:209 data/ui/faces.ui:209 data/ui/media.ui:209
-#: data/ui/tags.ui:209
+#: data/ui/event.ui:205 data/ui/faces.ui:209 data/ui/media.ui:205
+#: data/ui/tags.ui:205
 msgid "By _Title"
 msgstr "По _названию"
 
-#: data/ui/event.ui:214 data/ui/faces.ui:214 data/ui/media.ui:214
-#: data/ui/tags.ui:214
+#: data/ui/event.ui:210 data/ui/faces.ui:214 data/ui/media.ui:210
+#: data/ui/tags.ui:210
 msgid "By _Filename"
 msgstr "По _имени файла"
 
-#: data/ui/event.ui:219 data/ui/faces.ui:219 data/ui/media.ui:219
-#: data/ui/tags.ui:219
+#: data/ui/event.ui:215 data/ui/faces.ui:219 data/ui/media.ui:215
+#: data/ui/tags.ui:215
 msgid "By Exposure _Date"
 msgstr "По дате _съёмки"
 
-#: data/ui/event.ui:224 data/ui/faces.ui:224 data/ui/media.ui:224
-#: data/ui/tags.ui:224
+#: data/ui/event.ui:220 data/ui/faces.ui:224 data/ui/media.ui:220
+#: data/ui/tags.ui:220
 msgid "By _Rating"
 msgstr "По _оценке"
 
-#: data/ui/event.ui:251 data/ui/faces.ui:251 data/ui/import.ui:174
-#: data/ui/media.ui:251 data/ui/photo.ui:137 data/ui/tags.ui:251
+#: data/ui/event.ui:247 data/ui/faces.ui:251 data/ui/import.ui:170
+#: data/ui/media.ui:247 data/ui/photo.ui:133 data/ui/tags.ui:247
 msgid "_Descending"
 msgstr "По _убыванию"
 
-#: data/ui/event.ui:275 data/ui/faces.ui:275 data/ui/media.ui:275
-#: data/ui/tags.ui:275
+#: data/ui/event.ui:271 data/ui/faces.ui:275 data/ui/media.ui:271
+#: data/ui/tags.ui:271
 msgid "_Photos"
 msgstr "_Фотографии"
 
-#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:200
+#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:200
 msgid "Make _Key Photo for Event"
 msgstr "Сделать _ключевой фотографией для события"
 
-#: data/ui/event.ui:382 data/ui/faces.ui:376 data/ui/media.ui:376
-#: data/ui/tags.ui:376 src/Resources.vala:203
+#: data/ui/event.ui:378 data/ui/faces.ui:376 data/ui/media.ui:372
+#: data/ui/tags.ui:372 src/Resources.vala:203
 msgid "_New Event"
 msgstr "_Новое событие"
 
-#: data/ui/event.ui:592 src/Resources.vala:273
+#: data/ui/event.ui:588 src/Resources.vala:273
 msgid "Edit Event _Comment…"
 msgstr "Изменить _комментарий к событию…"
+
+#: data/ui/faces.ui:13
+msgid "Import From _Application…"
+msgstr "Импортировать из _приложения…"
 
 #: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:301
 #: src/Resources.vala:302
@@ -1877,11 +1869,11 @@ msgstr "Удалить"
 msgid "_Stop Import"
 msgstr "_Остановить импорт"
 
-#: data/ui/import.ui:13 data/ui/import.ui:210 src/camera/ImportPage.vala:801
+#: data/ui/import.ui:13 data/ui/import.ui:206 src/camera/ImportPage.vala:801
 msgid "Import _Selected"
 msgstr "_Импортировать выбранные"
 
-#: data/ui/import.ui:17 data/ui/import.ui:214 src/camera/ImportPage.vala:811
+#: data/ui/import.ui:17 data/ui/import.ui:210 src/camera/ImportPage.vala:811
 msgid "Import _All"
 msgstr "Импортировать _все"
 
@@ -1907,7 +1899,7 @@ msgstr "_Отмена"
 msgid "_OK"
 msgstr "_ОК"
 
-#: data/ui/offline.ui:221 src/Resources.vala:772
+#: data/ui/offline.ui:217 src/Resources.vala:772
 msgid "Remove the selected photos from the library"
 msgstr "Удалить выбранные фотографии из библиотеки"
 
@@ -1919,15 +1911,15 @@ msgstr "_Добавить метки…"
 msgid "Send T_o…"
 msgstr "О_тправить…"
 
-#: data/ui/photo.ui:182 src/CollectionPage.vala:102
+#: data/ui/photo.ui:178 src/CollectionPage.vala:102
 msgid "S_lideshow"
 msgstr "_Слайд-шоу"
 
-#: data/ui/photo.ui:258 src/CollectionPage.vala:122 src/Resources.vala:157
+#: data/ui/photo.ui:254 src/CollectionPage.vala:122 src/Resources.vala:157
 msgid "_Copy Color Adjustments"
 msgstr "_Копировать настройки цвета"
 
-#: data/ui/photo.ui:263 src/CollectionPage.vala:125 src/Resources.vala:161
+#: data/ui/photo.ui:259 src/CollectionPage.vala:125 src/Resources.vala:161
 msgid "_Paste Color Adjustments"
 msgstr "_Вставить настройки цвета"
 
@@ -2134,8 +2126,8 @@ msgstr "П_ереименовать…"
 msgid "_Edit…"
 msgstr "_Изменить…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
-#: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:59
+#: data/ui/trash.ui:212 data/ui/trash.ui:254 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:728
 #: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
 #: src/Resources.vala:390 src/Resources.vala:770
@@ -2212,11 +2204,11 @@ msgstr "Показывать _название"
 msgid "seconds"
 msgstr "секунд"
 
-#: data/ui/tags.ui:450 src/Resources.vala:131 src/Resources.vala:339
+#: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
 msgid "_New"
 msgstr "_Создать"
 
-#: data/ui/tags.ui:456 src/Resources.vala:307 src/Resources.vala:349
+#: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
 msgid "_Rename…"
 msgstr "_Переименовать…"
 
@@ -2224,24 +2216,24 @@ msgstr "_Переименовать…"
 msgid "label"
 msgstr "метка"
 
-#: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
+#: data/ui/trash.ui:64 data/ui/trash.ui:217 data/ui/trash.ui:269
 #: src/Resources.vala:774
 msgid "_Restore"
 msgstr "_Восстановить"
 
-#: data/ui/trash.ui:255 src/Resources.vala:771
+#: data/ui/trash.ui:251 src/Resources.vala:771
 msgid "Remove the selected photos from the trash"
 msgstr "Удалить выбранные фотографии из корзины"
 
-#: data/ui/trash.ui:270 src/Resources.vala:775
+#: data/ui/trash.ui:266 src/Resources.vala:775
 msgid "Move the selected photos back into the library"
 msgstr "Вернуть выбранные фотографии в библиотеку"
 
-#: data/ui/trash.ui:285
+#: data/ui/trash.ui:281
 msgid "Delete all photos in the trash"
 msgstr "Удалить все фотографии в корзину"
 
-#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:577
 msgid "Empty Trash"
 msgstr "Очистить корзину"
 
@@ -2257,31 +2249,15 @@ msgstr ""
 "Нажмите кнопку «Войти» для входа на сайт Flickr с помощью веб-браузера. Вам "
 "будет нужно разрешить подключение Shotwell к вашей учётной записи Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:148
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
 msgid "Preparing for login…"
 msgstr "Подготовка к входу…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
-msgid "Flickr authorization failed"
-msgstr "Не удалось авторизоваться на сайте Flickr"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
 msgid "Verifying authorization…"
 msgstr "Проверка авторизации…"
-
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:173
-msgid ""
-"You have already logged in and out of a Google service during this Shotwell "
-"session.\n"
-"\n"
-"To continue publishing to Google services, quit and restart Shotwell, then "
-"try publishing again."
-msgstr ""
-"Вы уже авторизовались и вышли из сервиса Google в ходе этого сеанса "
-"Shotwell.\n"
-"\n"
-"Чтобы продолжить публикацию на сервисе Google, перезапустите Shotwell, затем "
-"повторите попытку публикации."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
@@ -2373,26 +2349,17 @@ msgstr "_Пароль"
 msgid "Log in"
 msgstr "Войти"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
-msgid "Enter the username and password associated with your Tumblr account."
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
+msgid ""
+"You are not currently logged into Tumblr.\n"
+"\n"
+"Click Log in to log into Tumblr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Tumblr account."
 msgstr ""
-"Введите имя пользователя и пароль, связанный с вашей учётной записью Tumblr."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
-msgid "Username and/or password invalid. Please try again"
-msgstr "Неверное имя пользователя и/или пароль. Попробуйте ещё раз"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
-msgid "Invalid User Name or Password"
-msgstr "Неверное имя пользователя или пароль"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:462
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Не удалось загрузить пользовательский интерфейс: %s"
+"В данный момент вы не авторизованы на сайте Tumblr.\n"
+"\n"
+"Нажмите кнопку «Войти» для входа на сайт Tumblr с помощью веб-браузера. Вам "
+"будет нужно разрешить подключение Shotwell к вашей учётной записи Tumblr."
 
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
@@ -2783,9 +2750,17 @@ msgstr ""
 "Shotwell не удалось подключиться к вашей фотобиблиотеке на сайте Piwigo. "
 "Проверьте правильность введённого URL-адреса"
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+msgid "Username and/or password invalid. Please try again"
+msgstr "Неверное имя пользователя и/или пароль. Попробуйте ещё раз"
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Недопустимый URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+msgid "Invalid User Name or Password"
+msgstr "Неверное имя пользователя или пароль"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
@@ -2846,6 +2821,11 @@ msgid ""
 msgstr ""
 "Вы вошли на сайт Tumblr как %s.\n"
 "\n"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Не удалось загрузить пользовательский интерфейс: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
@@ -4778,92 +4758,92 @@ msgstr "30 x 40 см"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 x 420 мм)"
 
-#: src/editing_tools/EditingTools.vala:1868 src/Properties.vala:407
+#: src/editing_tools/EditingTools.vala:1870 src/Properties.vala:407
 msgid "Size:"
 msgstr "Размер:"
 
-#: src/editing_tools/EditingTools.vala:1883
+#: src/editing_tools/EditingTools.vala:1885
 msgid "Close the red-eye tool"
 msgstr "Закрыть инструмент «Удаление эффекта «красных глаз»»"
 
-#: src/editing_tools/EditingTools.vala:1886
+#: src/editing_tools/EditingTools.vala:1888
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Удалить эффект «красных глаз» на выбранной области"
 
-#: src/editing_tools/EditingTools.vala:2227
+#: src/editing_tools/EditingTools.vala:2229
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Сброс"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2241 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Выдержка:"
 
-#: src/editing_tools/EditingTools.vala:2250
+#: src/editing_tools/EditingTools.vala:2252
 msgid "Contrast:"
 msgstr "Контрастность:"
 
-#: src/editing_tools/EditingTools.vala:2259
+#: src/editing_tools/EditingTools.vala:2261
 msgid "Saturation:"
 msgstr "Насыщенность:"
 
-#: src/editing_tools/EditingTools.vala:2268
+#: src/editing_tools/EditingTools.vala:2270
 msgid "Tint:"
 msgstr "Оттенок:"
 
-#: src/editing_tools/EditingTools.vala:2278
+#: src/editing_tools/EditingTools.vala:2280
 msgid "Temperature:"
 msgstr "Цветовая температура:"
 
-#: src/editing_tools/EditingTools.vala:2287
+#: src/editing_tools/EditingTools.vala:2289
 msgid "Shadows:"
 msgstr "Эффект тени:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2298
+#: src/editing_tools/EditingTools.vala:2300
 msgid "Highlights:"
 msgstr "Эффект света:"
 
-#: src/editing_tools/EditingTools.vala:2355
+#: src/editing_tools/EditingTools.vala:2357
 msgid "Reset Colors"
 msgstr "Сбросить цвета"
 
-#: src/editing_tools/EditingTools.vala:2355
+#: src/editing_tools/EditingTools.vala:2357
 msgid "Reset all color adjustments to original"
 msgstr "Сбросить настройки цвета на исходные"
 
-#: src/editing_tools/EditingTools.vala:2714
+#: src/editing_tools/EditingTools.vala:2716
 msgid "Temperature"
 msgstr "Цветовая температура"
 
-#: src/editing_tools/EditingTools.vala:2726
+#: src/editing_tools/EditingTools.vala:2728
 msgid "Tint"
 msgstr "Оттенок"
 
-#: src/editing_tools/EditingTools.vala:2738
+#: src/editing_tools/EditingTools.vala:2740
 msgid "Contrast"
 msgstr "Контрастность"
 
-#: src/editing_tools/EditingTools.vala:2752
+#: src/editing_tools/EditingTools.vala:2754
 msgid "Saturation"
 msgstr "Насыщенность"
 
-#: src/editing_tools/EditingTools.vala:2765
+#: src/editing_tools/EditingTools.vala:2767
 msgid "Exposure"
 msgstr "Выдержка"
 
-#: src/editing_tools/EditingTools.vala:2778
+#: src/editing_tools/EditingTools.vala:2780
 msgid "Shadows"
 msgstr "Эффект тени"
 
-#: src/editing_tools/EditingTools.vala:2791
+#: src/editing_tools/EditingTools.vala:2793
 msgid "Highlights"
 msgstr "Эффект света"
 
-#: src/editing_tools/EditingTools.vala:2801
+#: src/editing_tools/EditingTools.vala:2803
 msgid "Contrast Expansion"
 msgstr "﻿Расширение контрастности"
 
@@ -5067,23 +5047,24 @@ msgstr ""
 "Продолжить импорт фотографий?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:772
+#. var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
+#: src/library/LibraryWindow.vala:783
 msgid "Photos cannot be imported from this directory."
 msgstr "Не удалось импортировать фотографии из этого каталога."
 
-#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
+#: src/library/LibraryWindow.vala:1005 src/library/LibraryWindow.vala:1016
 msgid "Updating library…"
 msgstr "Обновление библиотеки…"
 
-#: src/library/LibraryWindow.vala:1012
+#: src/library/LibraryWindow.vala:1022
 msgid "Preparing to auto-import photos…"
 msgstr "Подготовка к автоматическому импорту фотографий…"
 
-#: src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1027
 msgid "Auto-importing photos…"
 msgstr "Автоматический импорт фотографий…"
 
-#: src/library/LibraryWindow.vala:1025
+#: src/library/LibraryWindow.vala:1035
 msgid "Writing metadata to files…"
 msgstr "Запись метаданных в файлы…"
 
@@ -5150,72 +5131,72 @@ msgstr "Неизвестная ошибка при попытке проверк
 msgid "Loading Shotwell"
 msgstr "Загрузка Shotwell"
 
-#: src/main.vala:348
+#: src/main.vala:408
 msgid "Path to Shotwell’s private data"
 msgstr "Путь к базе персональных данных Shotwell"
 
-#: src/main.vala:348
+#: src/main.vala:408
 msgid "DIRECTORY"
 msgstr "КАТАЛОГ"
 
-#: src/main.vala:349
+#: src/main.vala:409
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Не отслеживать изменения в каталоге библиотеки во время работы"
 
-#: src/main.vala:350
+#: src/main.vala:410
 msgid "Don’t display startup progress meter"
 msgstr "Не отображать индикатор выполнения запуска"
 
-#: src/main.vala:351
+#: src/main.vala:411
 msgid "Show the application’s version"
 msgstr "Показывать версию приложения"
 
-#: src/main.vala:352
+#: src/main.vala:412
 msgid "Start the application in fullscreen mode"
 msgstr "Запускать приложение в полноэкранном режиме"
 
-#: src/main.vala:353
+#: src/main.vala:413
 msgid "Print the metadata of the image file"
 msgstr "Печатать метаданные файла изображения"
 
-#: src/main.vala:354
+#: src/main.vala:414
 msgid "Name for a custom profile"
 msgstr "Название пользовательского профиля"
 
-#: src/main.vala:354
+#: src/main.vala:414
 msgid "PROFILE"
 msgstr "ПРОФИЛЬ"
 
-#: src/main.vala:355
+#: src/main.vala:415
 msgid "Start with a browser of available profiles"
 msgstr "Начать с просмотра доступных профилей"
 
-#: src/main.vala:356
+#: src/main.vala:416
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Если ПРОФИЛЬ, заданный с помощью --profile, не существует, создайте его"
 
-#: src/main.vala:357
+#: src/main.vala:417
 msgid "Show available profiles"
 msgstr "Показать доступные профили"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:398
+#: src/main.vala:458
 msgid "[FILE]"
 msgstr "[ФАЙЛ]"
 
-#: src/main.vala:403
+#: src/main.vala:463
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Введите «%s --help» для просмотра полного списка параметров командной "
 "строки.\n"
 
-#: src/main.vala:412
+#: src/main.vala:472
 msgid "Choose Shotwell's profile"
 msgstr "Выбрать профиль Shotwell"
 
-#: src/main.vala:438
+#: src/main.vala:498
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профиль %s не существует. Вы хотите передать параметр --create?"
@@ -5631,12 +5612,12 @@ msgstr "Подготовка к отправке"
 msgid "Uploading %d of %d"
 msgstr "Отправка %d из %d"
 
-#: src/publishing/PublishingPluginHost.vala:85
+#: src/publishing/PublishingPluginHost.vala:93
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "Невозможно продолжить публикацию на сервисе %s из-за ошибки:"
 
-#: src/publishing/PublishingPluginHost.vala:88
+#: src/publishing/PublishingPluginHost.vala:96
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "Чтобы выполнить публикацию на другом сервисе, выберите его в расположенном "
@@ -6598,6 +6579,30 @@ msgstr "безымянный"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Экспортировать видео"
+
+#~ msgid "Shotwell Profile Browser"
+#~ msgstr "Браузер профилей Shotwell"
+
+#~ msgid "Flickr authorization failed"
+#~ msgstr "Не удалось авторизоваться на сайте Flickr"
+
+#~ msgid ""
+#~ "You have already logged in and out of a Google service during this "
+#~ "Shotwell session.\n"
+#~ "\n"
+#~ "To continue publishing to Google services, quit and restart Shotwell, "
+#~ "then try publishing again."
+#~ msgstr ""
+#~ "Вы уже авторизовались и вышли из сервиса Google в ходе этого сеанса "
+#~ "Shotwell.\n"
+#~ "\n"
+#~ "Чтобы продолжить публикацию на сервисе Google, перезапустите Shotwell, "
+#~ "затем повторите попытку публикации."
+
+#~ msgid "Enter the username and password associated with your Tumblr account."
+#~ msgstr ""
+#~ "Введите имя пользователя и пароль, связанный с вашей учётной записью "
+#~ "Tumblr."
 
 #~ msgid "Rename All"
 #~ msgstr "Переименовать все"
