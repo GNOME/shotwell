@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-03-10 20:46+0000\n"
-"PO-Revision-Date: 2024-03-10 23:56+0100\n"
+"POT-Creation-Date: 2024-05-20 11:02+0000\n"
+"PO-Revision-Date: 2024-05-26 11:12+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -405,7 +405,6 @@ msgid "Shuffle"
 msgstr "Keverés"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:217
-#| msgid "Whether to show the title of a photo during the slideshow"
 msgid "Whether to shuffle the order of photos during the slideshow"
 msgstr "Meg legyen-e keverve a fényképek sorrendje a diavetítés alatt"
 
@@ -2185,10 +2184,12 @@ msgstr ""
 "Connectnek, hogy hozzáférjen a Flickr fiókjához."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
 msgid "Preparing for login…"
 msgstr "Felkészülés a bejelentkezésre…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
 msgid "Verifying authorization…"
 msgstr "Felhatalmazás ellenőrzése…"
 
@@ -2283,25 +2284,23 @@ msgstr "_Jelszó"
 msgid "Log in"
 msgstr "Bejelentkezés"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Adja meg a Tumblr fiókjához tartozó felhasználónevet és jelszót."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
-msgid "Username and/or password invalid. Please try again"
-msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
-msgid "Invalid User Name or Password"
-msgstr "Érvénytelen felhasználónév vagy jelszó"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:462
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "A felület nem tölthető be: %s"
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
+#| msgid ""
+#| "You are not currently logged into Flickr.\n"
+#| "\n"
+#| "Click Log in to log into Flickr in your Web browser. You will have to "
+#| "authorize Shotwell Connect to link to your Flickr account."
+msgid ""
+"You are not currently logged into Tumblr.\n"
+"\n"
+"Click Log in to log into Tumblr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Tumblr account."
+msgstr ""
+"Jelenleg nincs bejelentkezve Tumblrre.\n"
+"\n"
+"Kattintson a Bejelentkezés gombra a bejelentkezéshez a Tumblr fiókjába a "
+"böngészőből. A bejelentkezés során jogosultságot kell adnia a Shotwell "
+"Connectnek, hogy hozzáférjen a Tumblr fiókjához."
 
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
@@ -2701,9 +2700,17 @@ msgstr ""
 "A Shotwell nem éri el a Piwigo fényképgyűjteményét. Ellenőrizze a megadott "
 "URL-címet."
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+msgid "Username and/or password invalid. Please try again"
+msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Érvénytelen URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+msgid "Invalid User Name or Password"
+msgstr "Érvénytelen felhasználónév vagy jelszó"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
@@ -2764,6 +2771,11 @@ msgid ""
 msgstr ""
 "Bejelentkezett a Tumblr-re %s néven.\n"
 "\n"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "A felület nem tölthető be: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
@@ -4455,12 +4467,10 @@ msgid "Save As"
 msgstr "Mentés másként"
 
 #: src/direct/DirectPhotoPage.vala:414
-#| msgid "Unsupported file format"
 msgid "Supported image formats"
 msgstr "Támogatott képformátumok"
 
 #: src/direct/DirectPhotoPage.vala:423
-#| msgid "All Events"
 msgid "All files"
 msgstr "Összes fájl"
 
@@ -4739,7 +4749,6 @@ msgid "_Replace"
 msgstr "_Csere"
 
 #: src/Exporter.vala:359
-#| msgid "Export Video"
 msgid "Export file conflict"
 msgstr "Fájlexportálási ütközés"
 
