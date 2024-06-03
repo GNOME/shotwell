@@ -853,6 +853,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific starting date format for multi-date strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        /// xgettext:no-c-format
         START_MULTIDAY_DATE_FORMAT_STRING = C_("MultidayFormat", "%a %b %d");
         
         /// Locale-specific ending date format for multi-date strings,
@@ -863,6 +864,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific calendar date format for multi-month strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        /// xgettext:no-c-format
         START_MULTIMONTH_DATE_FORMAT_STRING = C_("MultimonthFormat", "%a %b %d");
 
         /// Locale-specific calendar date format for multi-month strings,
