@@ -105,13 +105,13 @@ public async void files_send_to(File[] files) {
     }
 
     AppWindow.get_instance().set_busy_cursor();
-    try{
-        var portal = new Xdp.Portal();
+    try {
+        var portal = new Xdp.Portal.initable_new();
 
         // Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
         yield portal.compose_email(parent, {null}, null, null,
             _("Send files per Mail: ")  + file_names.str, null, file_paths, Xdp.EmailFlags.NONE, null);
-    } catch (Error e){
+    } catch (Error e) {
         // Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
         AppWindow.error_message(_("Unable to send file %s, %s").printf(
         file_names.str, e.message));
@@ -177,12 +177,16 @@ public void set_background(Photo photo, bool desktop, bool screensaver) {
     }
 
     var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
-    var portal = new Xdp.Portal();
     Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
     if (desktop) flags |= Xdp.WallpaperFlags.BACKGROUND;
     if (screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
 
-    portal.set_wallpaper.begin(parent, save_as.get_uri(), flags, null);
+    try {
+        var portal = new Xdp.Portal.initable_new();
+        portal.set_wallpaper.begin(parent, save_as.get_uri(), flags, null);
+    } catch (Error err) {
+        AppWindow.error_message(_("Unable to set background: %s").printf(err.message));
+    }
 
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
@@ -315,12 +319,16 @@ private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled)
     }
     
     var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
-    var portal = new Xdp.Portal();
     Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
     if (set_desktop_background) flags |= Xdp.WallpaperFlags.BACKGROUND;
     if (set_screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
 
-    portal.set_wallpaper.begin(parent, xml_file.get_uri(), flags, null);
+    try {
+        var portal = new Xdp.Portal.initable_new();
+        portal.set_wallpaper.begin(parent, xml_file.get_uri(), flags, null);
+    } catch (Error err) {
+        AppWindow.error_message(_("Unable to set background: %s").printf(err.message));
+    }
 }
 
 }
