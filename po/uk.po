@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-06 17:10+0000\n"
-"PO-Revision-Date: 2024-05-06 22:39+0300\n"
+"POT-Creation-Date: 2024-06-26 08:05+0000\n"
+"PO-Revision-Date: 2024-06-27 23:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -2431,11 +2431,6 @@ msgid "Log in"
 msgstr "Увійти"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
-#| msgid ""
-#| "You are not currently logged into Tumblr.\n"
-#| "\n"
-#| "Click Log in to log into Tublr in your Web browser. You will have to "
-#| "authorize Shotwell Connect to link to your Tumblr account."
 msgid ""
 "You are not currently logged into Tumblr.\n"
 "\n"
@@ -3694,7 +3689,13 @@ msgstr "Надіслати"
 msgid "Unable to export background to %s: %s"
 msgstr "Не вдалося експортувати тло до %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
+#, c-format
+#| msgid "Unable to export background to %s: %s"
+msgid "Unable to set background: %s"
+msgstr "Не вдалося встановити фонове зображення: %s"
+
+#: src/DesktopIntegration.vala:315
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Не вдалося створити показ слайдів на стільниці: %s"
@@ -3832,35 +3833,35 @@ msgstr "Експорт _метаданих:"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:125 src/dialogs/Preferences.vala:129
+#: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
 msgid "(Help)"
 msgstr "(Довідка)"
 
-#: src/dialogs/Preferences.vala:133
+#: src/dialogs/Preferences.vala:134
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Рік%sМісяць%sДень"
 
-#: src/dialogs/Preferences.vala:135
+#: src/dialogs/Preferences.vala:136
 #, c-format
 msgid "Year%sMonth"
 msgstr "Рік%sМісяць"
 
-#: src/dialogs/Preferences.vala:137
+#: src/dialogs/Preferences.vala:138
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Рік%sМісяць-День"
 
-#: src/dialogs/Preferences.vala:139
+#: src/dialogs/Preferences.vala:140
 msgid "Year-Month-Day"
 msgstr "Рік-Місяць-День"
 
-#: src/dialogs/Preferences.vala:140 src/editing_tools/CropTool.vala:203
+#: src/dialogs/Preferences.vala:141 src/editing_tools/CropTool.vala:203
 msgid "Custom"
 msgstr "Нетиповий"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:358
+#: src/dialogs/Preferences.vala:359
 msgid "Invalid pattern"
 msgstr "Некоректний шаблон"
 
@@ -6454,7 +6455,8 @@ msgstr "%a %b %d %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:850
+#: src/Resources.vala:851
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6462,7 +6464,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:855
+#: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6470,7 +6472,8 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:860
+#: src/Resources.vala:862
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6478,7 +6481,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:865
+#: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d %Y"
