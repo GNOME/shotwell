@@ -56,12 +56,24 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+
+      <release version="0.32.7" date="2024-06-30" urgency="medium" type="stable">
+          <description>
+              <ul>
+                  <li>Updates translations</li>
+                  <li>Fixes login to Tumblr webservice</li>
+                  <li>Fixes a crash if the desktop portal service is not available</li>
+                  <li>Fixes a crash if WEBP files are corrupted</li>
+                  <li>Fixes the setting the background of transparent images</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.6" date="2024-02-14" urgency="low" type="stable">
           <description>
               <ul>
-		  <li>Fixes missing icons for the viewer</li>
-		  <li>Fixes viewer being always full-screen</li>
-		  <li>OAUTH authentication flow for web sharing is now done with user's browser</li>
+                  <li>Fixes missing icons for the viewer</li>
+                  <li>Fixes viewer being always full-screen</li>
+                  <li>OAUTH authentication flow for web sharing is now done with user's browser</li>
               </ul>
           </description>
       </release>
