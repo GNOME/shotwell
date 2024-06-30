@@ -50,7 +50,9 @@
   </screenshots>
   <update_contact>mail@jensge.org</update_contact>
 
-  <developer_name>The Shotwell developers</developer_name>
+  <developer id="org.gnome.shotwell">
+      <name>The Shotwell developers</name>
+  </developer>
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
