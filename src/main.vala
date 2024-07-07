@@ -420,8 +420,6 @@ const OptionEntry[] entries = {
 }
 
 void main(string[] args) {
-    Application.timezone = new TimeZone.local();
-
     // Call AppDirs init *before* calling Gtk.init_with_args, as it will strip the
     // exec file from the array
     AppDirs.init(args[0]);
