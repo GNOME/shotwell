@@ -1692,6 +1692,11 @@ public class ImportPage : CheckerboardPage {
         debug("Importing %d files from %s", jobs.size, dcamera.display_name);
         
         if (jobs.size > 0) {
+            var old_monitor = LibraryMonitorPool.get_instance().get_monitor();
+
+            // Disable Runtime monitoring during import
+            LibraryMonitor library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, false);
+            LibraryMonitorPool.get_instance().replace(library_monitor, MediaCollectionRegistry.LIBRARY_MONITOR_START_DELAY_MSEC);
             // see import_reporter() to see why this is held during the duration of the import
             assert(local_ref == null);
             local_ref = this;
@@ -1704,6 +1709,7 @@ public class ImportPage : CheckerboardPage {
             LibraryWindow.get_app().enqueue_batch_import(batch_import, true);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
+            LibraryMonitorPool.get_instance().replace(old_monitor, MediaCollectionRegistry.LIBRARY_MONITOR_START_DELAY_MSEC);
         } else {
             // since failed up-front, build a fake (faux?) ImportManifest and report it here
             if (already_imported.size > 0)
