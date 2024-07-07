@@ -107,7 +107,7 @@ namespace Debug {
         stream.printf("%s %d %s [%s] %s\n",
             log_app_version_prefix,
             Posix.getpid(),
-            new DateTime.now_local().format("%F %T"),
+            new DateTime.now(Application.timezone).format("%F %T"),
             prefix,
             message
         );

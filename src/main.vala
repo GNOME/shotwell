@@ -563,8 +563,8 @@ void main(string[] args) {
         message("Shotwell %s %s",
             is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
             Resources.APP_VERSION);
-    debug ("Shotwell is running in timezone %s", new
-           DateTime.now_local().get_timezone_abbreviation ());
+
+    debug ("Shotwell is running in timezone %s", Application.timezone.get_identifier());
         
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.
