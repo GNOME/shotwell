@@ -74,7 +74,7 @@ public class Application {
         public abstract void authenticated(HashTable<string, string> params);
     }
     private static Application instance = null;
-    public static TimeZone timezone = new TimeZone.local();
+    public static TimeZone timezone = null;
     private Gtk.Application system_app = null;
     private int system_app_run_retval = 0;
     private bool direct;
