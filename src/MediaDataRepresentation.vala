@@ -751,7 +751,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
 }
 
 public class MediaCollectionRegistry {
-    public const int LIBRARY_MONITOR_START_DELAY_MSEC = 1000;
+    private const int LIBRARY_MONITOR_START_DELAY_MSEC = 1000;
     
     private static MediaCollectionRegistry? instance = null;
     
