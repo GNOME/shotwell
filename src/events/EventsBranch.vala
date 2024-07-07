@@ -456,7 +456,7 @@ public class Events.UndatedDirectoryEntry : Events.DirectoryEntry {
     
     protected override Page create_page() {
         return new SubEventsDirectoryPage(SubEventsDirectoryPage.DirectoryType.UNDATED,
-            new DateTime.now_local());
+            new DateTime.now(Application.timezone));
     }
 }
 

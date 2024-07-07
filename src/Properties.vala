@@ -96,7 +96,7 @@ private abstract class Properties : Gtk.Box {
     
     protected string get_prettyprint_date(DateTime date) {
         string date_string = null;
-        var today = new DateTime.now_local();
+        var today = new DateTime.now(Application.timezone);
         if (date.get_day_of_year() == today.get_day_of_year() && date.get_year() == today.get_year()) {
             date_string = _("Today");
         } else if (date.get_day_of_year() == (today.get_day_of_year() - 1) && date.get_year() == today.get_year()) {

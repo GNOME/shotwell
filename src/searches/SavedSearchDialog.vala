@@ -563,11 +563,11 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private DateTime get_date_one() {
-            return new DateTime.local(cal_one.year, cal_one.month + 1, cal_one.day, 0, 0, 0.0);
+            return new DateTime(Application.timezone, cal_one.year, cal_one.month + 1, cal_one.day, 0, 0, 0.0);
         }
         
         private DateTime get_date_two() {
-            return new DateTime.local(cal_two.year, cal_two.month + 1, cal_two.day, 0, 0, 0.0);
+            return new DateTime(Application.timezone, cal_two.year, cal_two.month + 1, cal_two.day, 0, 0, 0.0);
         }
         
         private void set_date_one(DateTime date) {

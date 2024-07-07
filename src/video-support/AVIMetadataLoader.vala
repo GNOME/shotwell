@@ -1,5 +1,7 @@
 public class AVIMetadataLoader {
 
+    public static TimeZone local = new TimeZone.local();
+
     private File file = null;
 
     // A numerical date string, i.e 2010:01:28 14:54:25
@@ -167,7 +169,7 @@ public class AVIMetadataLoader {
                   out min, out sec, out year)) {
                 return null; // Error
             }
-            parsed_date = new DateTime.local(year, month_from_string((string)monthstr), day, hour, min, sec);
+            parsed_date = new DateTime(AVIMetadataLoader.local, year, month_from_string((string)monthstr), day, hour, min, sec);
         }
 
         return parsed_date;

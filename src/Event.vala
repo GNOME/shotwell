@@ -601,10 +601,11 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         // media sources are stored in ViewCollection from earliest to latest
         MediaSource earliest_media = (MediaSource) ((DataView) view.get_at(0)).get_source();
-        var earliest_tm = earliest_media.get_exposure_time().to_local();
+        var earliest_tm = earliest_media.get_exposure_time().to_timezone(Application.timezone);
         
         // use earliest to generate the boundary hour for that day
-        var start_boundary = new DateTime.local(earliest_tm.get_year(),
+        var start_boundary = new DateTime(Application.timezone,
+            earliest_tm.get_year(),
                                             earliest_tm.get_month(),
                                             earliest_tm.get_day_of_month(),
                                             EVENT_BOUNDARY_HOUR,

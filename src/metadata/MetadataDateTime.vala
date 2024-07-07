@@ -6,6 +6,7 @@ public errordomain MetadataDateTimeError {
 public class MetadataDateTime {
 
     private DateTime timestamp;
+    private static TimeZone local = new TimeZone.local();
 
     public MetadataDateTime(DateTime timestamp) {
         this.timestamp = timestamp;
@@ -63,7 +64,7 @@ public class MetadataDateTime {
         if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
             return false;
 
-        timestamp = new DateTime.local(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
+        timestamp = new DateTime(local, tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
 
         return true;
     }
