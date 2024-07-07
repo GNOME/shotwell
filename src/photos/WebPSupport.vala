@@ -218,6 +218,9 @@ private class WebpReader : PhotoFileReader {
         
         int width, height;
         var pixdata = WebP.DecodeRGBA(buffer, out width, out height);
+        if (pixdata == null) {
+            throw new IOError.INVALID_DATA("Failed to decode WebP file");
+        }
         pixdata.length = width * height * 4;
 
         return new Gdk.Pixbuf.from_data(pixdata, Gdk.Colorspace.RGB, true, 8, width, height, width * 4);
