@@ -35,13 +35,22 @@ shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'b
 cc = meson.get_compiler('c')
 disabled_warning_flags = []
 if cc.get_id() == 'gcc' or cc.get_id() == 'clang'
-  disabled_warning_flags = cc.get_supported_arguments(['-Wno-unused-but-set-variable', '-Wno-unused-variable'])
+  disabled_warning_flags = cc.get_supported_arguments([
+    '-Wno-unused-but-set-variable', 
+    '-Wno-unused-variable',
+    '-Wno-incompatible-pointer-types',
+    '-Wno-discarded-qualifiers',
+    '-Wno-unused-label',
+    '-Wno-unused-function',
+    '-Wno-unused-value'
+  ])
 endif
 
 
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
                      ['-include'], ['config.h'],
                      language : 'c')
+add_global_arguments(disabled_warning_flags, language: 'c')
 add_global_arguments(
     [
         '--target-glib=2.78',
