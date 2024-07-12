@@ -529,7 +529,9 @@ public class LibraryWindow : AppWindow {
         import_dialog.response.connect((dialog, response) => {
             import_dir = import_dialog.get_current_folder();
             import_recursive = bool.parse(import_dialog.get_choice("recursive-import"));
-            do_file_import.begin(import_dialog.get_files(), import_recursive);
+            if (response == Gtk.ResponseType.ACCEPT) {
+                do_file_import.begin(import_dialog.get_files(), import_recursive);
+            }
             import_dialog.destroy();
         });
     }
