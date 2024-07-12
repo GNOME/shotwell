@@ -174,8 +174,10 @@ public class Events.Branch : Sidebar.Branch {
     private void on_config_changed() {
         bool value = Config.Facade.get_instance().get_events_sort_ascending();
         
-        sort_ascending = value;
-        reorder_all();
+	if (value != sort_ascending) {
+		sort_ascending = value;
+        	reorder_all();
+	}
     }
     
     private void on_events_added_removed(Gee.Iterable<DataObject>? added, 
