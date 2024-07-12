@@ -31,6 +31,7 @@ public class ImportQueuePage : SinglePhotoPage {
 
         // Progress bar
         progress_bar.set_show_text(true);
+        progress_bar.hexpand = true;
         
         toolbar.append(progress_bar);
     }
