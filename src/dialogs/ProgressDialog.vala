@@ -33,6 +33,8 @@ public class ProgressDialog : Gtk.Window {
             cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
             cancel_button.clicked.connect(on_cancel);
             close_request.connect(on_window_closed);
+        } else {
+            delete_event.connect(hide_on_delete);
         }
 
         Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
