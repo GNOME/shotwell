@@ -156,13 +156,14 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.selected_entry_removed.connect(on_sidebar_selected_entry_removed);
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
-        sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
-        sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
-        sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
-        sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
+        sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
+        sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
+        sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
+        sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        sidebar_tree.finish();
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
