@@ -52,6 +52,7 @@
                 "cflags" : "-Wp,-U_GLIBCXX_ASSERTIONS"
             },
             "config-opts" : [
+                "-DCMAKE_CXX_VERSION=14",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DOPENCV_GENERATE_PKGCONFIG=ON",
                 "-DBUILD_TESTS=OFF",
@@ -71,7 +72,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "commit" : "6dbc5e032fa851d1a25fb4a895d735ed3441975b",
+                    "commit" : "71d3237a093b60a27601c20e9ee6c3e52154e8b1",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
@@ -109,17 +110,6 @@
             ]
         },
         {
-            "name" : "inih",
-            "buildsystem" : "meson",
-            "sources" : [
-                {
-                    "type": "git",
-                    "url" : "https://github.com/benhoyt/inih",
-                    "commit" : "9cecf0643da0846e77f64d10a126d9f48b9e05e8"
-                }
-            ]
-        },
-        {
             "name" : "exiv2",
             "cleanup" : [
                 "/bin"
@@ -131,13 +121,14 @@
                 "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
                 "-DEXIV2_BUILD_SAMPLES=OFF",
                 "-DEXIV2_BUILD_UNIT_TESTS=OFF",
-                "-DEXIV2_ENABLE_BMFF=ON"
+                "-DEXIV2_ENABLE_BMFF=ON",
+                "-DEXIV2_ENABLE_INIH=OFF"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz",
-                    "sha256" : "3078651f995cb6313b1041f07f4dd1bf0e9e4d394d6e2adc6e92ad0b621291fa"
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.3.tar.gz",
+                    "sha256" : "1315e17d454bf4da3cc0edb857b1d2c143670f3485b537d0f946d9ed31d87b70"
                 }
             ]
         },
