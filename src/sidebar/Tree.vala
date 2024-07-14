@@ -75,6 +75,8 @@ public class Sidebar.Tree : Gtk.TreeView {
     private bool is_internal_drag_in_progress = false;
     private Sidebar.Entry? internal_drag_source_entry = null;
     private Gtk.TreeRowReference? old_path_ref = null;
+    private Gee.ArrayList<unowned Branch> expand_to_child = new Gee.ArrayList<unowned Branch>();
+    private Gee.ArrayList<unowned Branch> expand_to_element = new Gee.ArrayList<unowned Branch>();
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     
@@ -92,8 +94,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     public Tree(Gtk.TargetEntry[] target_entries, Gdk.DragAction actions,
         ExternalDropHandler drop_handler) {
-        set_model(store);
-        
+
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_expand(true);
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
@@ -154,6 +155,18 @@ public class Sidebar.Tree : Gtk.TreeView {
     ~Tree() {
         text_renderer.editing_canceled.disconnect(on_editing_canceled);
         text_renderer.editing_started.disconnect(on_editing_started);
+    }
+
+    public void finish() {
+        set_model(store);
+        foreach (var branch in expand_to_child) {
+            expand_to_first_child(branch.get_root());
+        }
+        expand_to_child.clear();
+        foreach (var branch in expand_to_element) {
+            expand_to_entry(branch.get_root());
+        }
+        expand_to_element.clear();
     }
     
     public void icon_renderer_function(Gtk.CellLayout layout, Gtk.CellRenderer renderer, Gtk.TreeModel model, Gtk.TreeIter iter) {
@@ -399,11 +412,14 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (branch.get_show_branch()) {
             associate_branch(branch);
             
-            if (branch.is_startup_expand_to_first_child())
-                expand_to_first_child(branch.get_root());
+            if (branch.is_startup_expand_to_first_child()) {
+                expand_to_child.add(branch);
+                
+            }
 
-            if (branch.is_startup_open_grouping())
-                expand_to_entry(branch.get_root());
+            if (branch.is_startup_open_grouping()) {
+                expand_to_element.add(branch);
+            }
         }
         
         branch.entry_added.connect(on_branch_entry_added);
@@ -587,9 +603,8 @@ public class Sidebar.Tree : Gtk.TreeView {
             selected_wrapper = null;
         
         Sidebar.Entry entry = wrapper.entry;
-        
         entry.pruned(this);
-        
+
         entry.sidebar_tooltip_changed.disconnect(on_sidebar_tooltip_changed);
         entry.sidebar_icon_changed.disconnect(on_sidebar_icon_changed);
         
