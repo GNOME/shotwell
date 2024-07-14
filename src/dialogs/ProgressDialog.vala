@@ -34,7 +34,7 @@ public class ProgressDialog : Gtk.Window {
             cancel_button.clicked.connect(on_cancel);
             close_request.connect(on_window_closed);
         } else {
-            delete_event.connect(hide_on_delete);
+            set_hide_on_close(true);
         }
 
         Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
