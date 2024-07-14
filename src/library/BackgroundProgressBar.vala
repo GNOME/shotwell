@@ -20,8 +20,9 @@ internal class BackgroundProgressBar : Gtk.Box {
     private const int PULSE_MSEC = 250;
 
     public BackgroundProgressBar() {
-        Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 0);
+        Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 0, margin_top: 12, margin_bottom: 12, margin_start: 12, margin_end: 12);
         progress_bar = new Gtk.ProgressBar();
+        progress_bar.hexpand = true;
         progress_bar.show_text = true;
         append (progress_bar);
     }
