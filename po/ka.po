@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-23 19:39+0000\n"
-"PO-Revision-Date: 2024-06-02 23:31+0200\n"
+"POT-Creation-Date: 2024-07-14 18:19+0000\n"
+"PO-Revision-Date: 2024-07-15 06:00+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -1747,7 +1747,7 @@ msgstr "_შესვლა"
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:758 src/publishing/PublishingUI.vala:172
+#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "გაუქმება"
@@ -1949,7 +1949,7 @@ msgstr ""
 
 #: data/ui/saved_search_dialog.ui:55
 msgid "_Match"
-msgstr ""
+msgstr "_ემთხვევა"
 
 #: data/ui/saved_search_dialog.ui:66
 msgid "any"
@@ -2121,7 +2121,7 @@ msgstr ""
 msgid "Delete all photos in the trash"
 msgstr ""
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:575
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "ნაგვის დაცარიელება"
 
@@ -2602,7 +2602,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:28
 msgid "Blogs"
-msgstr ""
+msgstr "ბლოგები"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
@@ -3254,7 +3254,7 @@ msgstr ""
 msgid "Database file"
 msgstr "მონაცემთა ბაზის ფაილი"
 
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:758
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
 msgid "_Import"
 msgstr "_იმპორტირება"
 
@@ -3321,7 +3321,12 @@ msgstr "გაგზავნა"
 msgid "Unable to export background to %s: %s"
 msgstr ""
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
+#, c-format
+msgid "Unable to set background: %s"
+msgstr "ფონის დაყენების შეცდომა: %s"
+
+#: src/DesktopIntegration.vala:315
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr ""
@@ -3475,7 +3480,7 @@ msgstr "განსხვავებული"
 msgid "Invalid pattern"
 msgstr "არასწორი ნიმუში"
 
-#: src/dialogs/ProgressDialog.vala:89
+#: src/dialogs/ProgressDialog.vala:91
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -4349,7 +4354,6 @@ msgid "8 × 10 in."
 msgstr "8 × 10 დუიმ."
 
 #: src/editing_tools/CropTool.vala:188
-#| msgid "8 × 10 in."
 msgid "Letter (8.5 × 11 in.)"
 msgstr "წერილი (8.5 x 11 დმ.)"
 
@@ -4398,7 +4402,6 @@ msgid "30 × 40 cm"
 msgstr "30 x 40 სმ"
 
 #: src/editing_tools/CropTool.vala:201
-#| msgid "24 × 40 cm"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 მმ)"
 
@@ -4448,7 +4451,7 @@ msgid "Undated"
 msgstr "განახლებულია"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "მოვლენა %s"
@@ -4573,11 +4576,11 @@ msgstr "%s (%d%%)"
 msgid "Importing…"
 msgstr "შემოტანა…"
 
-#: src/library/ImportQueuePage.vala:109
+#: src/library/ImportQueuePage.vala:110
 msgid "Preparing to import…"
 msgstr "შემოტანისთვის მომზადება…"
 
-#: src/library/ImportQueuePage.vala:132
+#: src/library/ImportQueuePage.vala:133
 #, c-format
 msgid "Imported %s"
 msgstr "%s შემოტანილია"
@@ -4590,19 +4593,19 @@ msgstr "ბოლო შემოტანა"
 msgid "Organize and browse your photos"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:514
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "საქაღალდიდან შემოტანა"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:575
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:755
+#: src/library/LibraryWindow.vala:758
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4611,23 +4614,23 @@ msgid ""
 msgstr ""
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:781
 msgid "Photos cannot be imported from this directory."
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
 msgid "Updating library…"
 msgstr "ბიბლიოთეკის განახლება…"
 
-#: src/library/LibraryWindow.vala:1023
+#: src/library/LibraryWindow.vala:1026
 msgid "Preparing to auto-import photos…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1028
+#: src/library/LibraryWindow.vala:1031
 msgid "Auto-importing photos…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1036
+#: src/library/LibraryWindow.vala:1039
 msgid "Writing metadata to files…"
 msgstr ""
 
@@ -4752,16 +4755,16 @@ msgstr ""
 msgid "Show available profiles"
 msgstr ""
 
-#: src/main.vala:408
+#: src/main.vala:409
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "გაშვების ხელმისაწვდომი პარამეტრების სანახავად გაუშვით \"%s --help\".\n"
 
-#: src/main.vala:416
+#: src/main.vala:417
 msgid "Choose Shotwell's profile"
 msgstr ""
 
-#: src/main.vala:450
+#: src/main.vala:451
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5708,7 +5711,8 @@ msgstr "%a %b %d, %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:850
+#: src/Resources.vala:851
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5716,7 +5720,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:855
+#: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5724,7 +5728,8 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:860
+#: src/Resources.vala:862
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5732,7 +5737,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:865
+#: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -5900,7 +5905,7 @@ msgstr "თარიღი"
 
 #: src/searches/SearchesBranch.vala:67
 msgid "Saved Searches"
-msgstr ""
+msgstr "შენახული ძებნები"
 
 #: src/searches/SearchesBranch.vala:67
 msgid "Organize your saved searches"
