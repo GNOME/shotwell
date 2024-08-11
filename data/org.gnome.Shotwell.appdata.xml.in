@@ -56,7 +56,15 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
-
+      <release version="0.32.8" date="2024-08-11" urgency="medium" type="stable">
+          <description>
+              <ul>
+                  <li>Fixes a crash while importing from local folder</li>
+                  <li>Fixes a crash if WEBP files contain animation</li>
+                  <li>Improve performance on start-up</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.7" date="2024-06-30" urgency="medium" type="stable">
           <description>
               <ul>

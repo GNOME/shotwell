@@ -1,3 +1,20 @@
+Shotwell 0.32.8 (stable) - 11 Aug 2024
+ * Fix an abort if WEBP contains animation
+ * Fix expensinve DateTime comparison
+ * Fix an assert on batch importing
+ * Prevent Events being resorted on startup
+ * Prevent navigation tree being re-layouted all the time while populating
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/2766
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5116
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/88
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.32.7 (stable) - 30 Jun 2024
  * Avoid an abort if WEBP files are corrupted somewhere after the initial header
  * Fix border colors in the thumbnail view
