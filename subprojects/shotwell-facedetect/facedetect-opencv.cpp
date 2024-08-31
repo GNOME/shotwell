@@ -193,11 +193,6 @@ bool loadNet(const cv::String &baseDir)
 #endif
     }
 
-    if(cascade.empty() && cascade_profile.empty() && faceDetectNet.empty()) {
-        g_warning("No face detection method detected. Face detection fill not work.");
-        return false;
-    }
-
 #if HAS_OPENCV_DNN
     // If there is no detection model, disable advanced face detection
     disableDnn = faceDetectNet.empty();
@@ -205,11 +200,14 @@ bool loadNet(const cv::String &baseDir)
     if(faceRecogNet.empty()) {
         g_warning("Face recognition net not available, disabling recognition");
     }
+#endif
+
+    if (disableDnn && cascade.empty() && cascade_profile.empty()) {
+       g_warning("No face detection method detected. Face detection fill not work.");
+       return false; 
+    }
 
     return true;
-#else
-    return not cascade.empty() && not cascade_profile.empty();
-#endif
 }
 
 // Face detector
