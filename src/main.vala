@@ -591,6 +591,7 @@ void main(string[] args) {
     
     // set up GLib environment
     GLib.Environment.set_application_name(Resources.APP_TITLE);
+    GLib.Environment.set_prgname("org.gnome.Shotwell");
     
     // in both the case of running as the library or an editor, Resources is always
     // initialized
