@@ -10,7 +10,7 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Isak Bergdahl <isak.bergdahl@yahoo.com>, 2021.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-06 05:42+0000\n"
-"PO-Revision-Date: 2024-05-06 16:20+0200\n"
+"POT-Creation-Date: 2024-09-05 13:47+0000\n"
+"PO-Revision-Date: 2024-09-05 17:39+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1201,10 +1201,6 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell stödjer JPEG, PNG, TIFF och flera varianter av RAW-filformat."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Shotwells utvecklare"
-
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Bildhanterare"
@@ -1852,7 +1848,7 @@ msgstr "_Kopiera färgjusteringar"
 msgid "_Paste Color Adjustments"
 msgstr "_Klistra in färgjusteringar"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:760
 msgid "Library Location"
 msgstr "Biblioteksplats"
 
@@ -2162,7 +2158,7 @@ msgstr "Flytta tillbaka markerade bilder till biblioteket"
 msgid "Delete all photos in the trash"
 msgstr "Radera alla bilder från papperskorgen"
 
-#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Töm papperskorgen"
 
@@ -3404,7 +3400,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Databasfil:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:760
 msgid "_Import"
 msgstr "_Importera"
 
@@ -3478,7 +3474,12 @@ msgstr "Skicka till"
 msgid "Unable to export background to %s: %s"
 msgstr "Kunde inte exportera bakgrund till %s: %s"
 
-#: src/DesktopIntegration.vala:309
+#: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
+#, c-format
+msgid "Unable to set background: %s"
+msgstr "Kunde inte sätta bakgrund: %s"
+
+#: src/DesktopIntegration.vala:313
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Kunde inte förbereda skrivbordsbildspel: %s"
@@ -3636,7 +3637,7 @@ msgstr "Anpassad"
 msgid "Invalid pattern"
 msgstr "Ogiltigt mönster"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/ProgressDialog.vala:99
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -4706,7 +4707,7 @@ msgid "Undated"
 msgstr "Odaterade"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Händelse %s"
@@ -4846,19 +4847,19 @@ msgstr "Senaste import"
 msgid "Organize and browse your photos"
 msgstr "Organisera och visa dina bilder"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:504
 msgid "Import From Folder"
 msgstr "Importera från mapp"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:510
 msgid "Recurse Into Subfolders"
 msgstr "Gå rekursivt in i undermappar"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Tömmer papperskorgen…"
 
-#: src/library/LibraryWindow.vala:756
+#: src/library/LibraryWindow.vala:757
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4871,23 +4872,23 @@ msgstr ""
 
 #. TODO: Specify which directory/file.
 #. var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
-#: src/library/LibraryWindow.vala:783
+#: src/library/LibraryWindow.vala:784
 msgid "Photos cannot be imported from this directory."
 msgstr "Bilder kan inte importeras från denna mapp."
 
-#: src/library/LibraryWindow.vala:1005 src/library/LibraryWindow.vala:1016
+#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
 msgid "Updating library…"
 msgstr "Uppdaterar biblioteket…"
 
-#: src/library/LibraryWindow.vala:1022
+#: src/library/LibraryWindow.vala:1023
 msgid "Preparing to auto-import photos…"
 msgstr "Förbereder automatisk import av bilder…"
 
-#: src/library/LibraryWindow.vala:1027
+#: src/library/LibraryWindow.vala:1028
 msgid "Auto-importing photos…"
 msgstr "Importerar bilder automatiskt…"
 
-#: src/library/LibraryWindow.vala:1035
+#: src/library/LibraryWindow.vala:1036
 msgid "Writing metadata to files…"
 msgstr "Skriver metadata till filer…"
 
@@ -5004,22 +5005,22 @@ msgid "Show available profiles"
 msgstr "Visa tillgängliga profiler"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:458
+#: src/main.vala:460
 msgid "[FILE]"
 msgstr "[FIL]"
 
-#: src/main.vala:463
+#: src/main.vala:465
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Kör ”%s --help” för en komplett lista över tillgängliga "
 "kommandoradsflaggor.\n"
 
-#: src/main.vala:472
+#: src/main.vala:474
 msgid "Choose Shotwell's profile"
 msgstr "Välj Shotwells profil"
 
-#: src/main.vala:498
+#: src/main.vala:500
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Profilen %s finns inte. Ville du skicka med --create också?"
@@ -6053,7 +6054,8 @@ msgstr "%a %d %b, %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:857
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6061,7 +6063,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:861
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6069,7 +6071,8 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:866
+#: src/Resources.vala:868
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -6077,7 +6080,7 @@ msgstr "%a %d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:871
+#: src/Resources.vala:873
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
@@ -6378,6 +6381,9 @@ msgstr "namnlös"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Exportera filmer"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Shotwells utvecklare"
 
 #~ msgid "Shotwell Profile Browser"
 #~ msgstr "Shotwells profilbläddrare"
