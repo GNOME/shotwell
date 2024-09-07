@@ -966,7 +966,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo.has_transformations() || photo.has_editable();
     }
     
-    private void on_pixbuf_fetched(Photo photo, owned Gdk.Pixbuf? pixbuf, Error? err) {
+    private void on_pixbuf_fetched(Photo photo, Gdk.Pixbuf? pixbuf, Error? err) {
         // if not of the current photo, nothing more to do
         if (!photo.equals(get_photo()))
             return;
@@ -986,7 +986,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                         photo, out tool_pixbuf_dim);
 
                     if (tool_pixbuf != null) {
-                        pixbuf = tool_pixbuf;
+                         pixbuf = tool_pixbuf;
                         max_dim = tool_pixbuf_dim;
                     }
                 } catch(Error err) {
