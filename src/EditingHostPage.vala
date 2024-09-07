@@ -466,7 +466,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo.has_transformations() || photo.has_editable();
     }
     
-    private void on_pixbuf_fetched(Photo photo, owned Gdk.Pixbuf? pixbuf, Error? err) {
+    private void on_pixbuf_fetched(Photo photo, Gdk.Pixbuf? pixbuf, Error? err) {
         // if not of the current photo, nothing more to do
         if (!photo.equals(get_photo()))
             return;
