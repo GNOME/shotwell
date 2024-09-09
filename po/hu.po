@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-20 11:02+0000\n"
-"PO-Revision-Date: 2024-05-26 11:12+0200\n"
+"POT-Creation-Date: 2024-09-08 11:41+0000\n"
+"PO-Revision-Date: 2024-09-09 13:30+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -1206,10 +1206,6 @@ msgstr ""
 "A Shotwell a JPEG, PNG, TIFF, valamint különböző nyers fájl formátumokat "
 "támogatja."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "A Shotwell fejlesztői"
-
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Fényképkezelő"
@@ -1856,7 +1852,7 @@ msgstr "_Színbeállítások másolása"
 msgid "_Paste Color Adjustments"
 msgstr "_Színbeállítások beillesztése"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:760
 msgid "Library Location"
 msgstr "Gyűjtemény helye"
 
@@ -2166,7 +2162,7 @@ msgstr "Kijelölt fényképek visszaállítása a gyűjteménybe"
 msgid "Delete all photos in the trash"
 msgstr "Minden fénykép törlése a Kukában"
 
-#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
@@ -2285,11 +2281,6 @@ msgid "Log in"
 msgstr "Bejelentkezés"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "Click Log in to log into Flickr in your Web browser. You will have to "
-#| "authorize Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into Tumblr.\n"
 "\n"
@@ -2775,7 +2766,7 @@ msgstr ""
 #: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
-msgstr "A felület nem tölthető be: %s"
+msgstr "Nem sikerült betölteni a felületet: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
@@ -2861,12 +2852,12 @@ msgstr "Csíkok"
 #: src/AppDirs.vala:64 src/AppDirs.vala:115
 #, c-format
 msgid "Unable to create cache directory %s: %s"
-msgstr "Nem hozható létre a gyorsítótár könyvtára (%s): %s"
+msgstr "Nem lehet létrehozni a(z) %s gyorsítótárkönyvtárat: %s"
 
 #: src/AppDirs.vala:74 src/AppDirs.vala:104
 #, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr "Nem hozható létre az adatkönyvtár (%s): %s"
+msgstr "Nem lehet létrehozni a(z) %s adatkönyvtárat: %s"
 
 #. If XDG yarfed, use ~/Pictures
 #: src/AppDirs.vala:168
@@ -2876,12 +2867,12 @@ msgstr "Képek"
 #: src/AppDirs.vala:211
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr "Nem hozható létre az ideiglenes könyvtár (%s): %s"
+msgstr "Nem lehet létrehozni a(z) %s ideiglenes könyvtárat: %s"
 
 #: src/AppDirs.vala:229 src/AppDirs.vala:260
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr "Nem hozható létre az adatalkönyvtár (%s): %s"
+msgstr "Nem lehet létrehozni a(z) %s adatalkönyvtárat: %s"
 
 #: src/AppDirs.vala:242
 #, c-format
@@ -2930,12 +2921,12 @@ msgstr "Nem lehet megjeleníteni a súgót: %s"
 #: src/AppWindow.vala:617
 #, c-format
 msgid "Unable to navigate to bug database: %s"
-msgstr "Nem nyitható meg a hibaadatbázis: %s"
+msgstr "Nem lehet eljutni a hibaadatbázishoz: %s"
 
 #: src/AppWindow.vala:625
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr "Nem jeleníthető meg a GyIK: %s"
+msgstr "Nem lehet megjeleníteni a gyakran ismételt kérdést: %s"
 
 #: src/BatchImport.vala:26
 msgid "Success"
@@ -2947,7 +2938,7 @@ msgstr "Fájlhiba"
 
 #: src/BatchImport.vala:32
 msgid "Unable to decode file"
-msgstr "Nem dekódolható a fájl"
+msgstr "Nem lehet dekódolni a fájlt"
 
 #: src/BatchImport.vala:35
 msgid "Database error"
@@ -3021,8 +3012,8 @@ msgstr "RAW+JPEG"
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
-"A fényképezőgép leválasztása nem sikerült, próbálja meg a fájlkezelőből "
-"leválasztani."
+"Nem lehet leválasztani a fényképezőgépet. Próbálja meg leválasztani a "
+"fényképezőt a fájlkezelőből."
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:761
@@ -3080,7 +3071,7 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
-"Nem tölthetők le az előnézetek a fényképezőgépről:\n"
+"Nem lehet letölteni az előnézeteket a fényképezőgépről:\n"
 "%s"
 
 #: src/camera/ImportPage.vala:1048
@@ -3107,7 +3098,7 @@ msgstr "%s előnézetének lekérése"
 #: src/camera/ImportPage.vala:1653
 #, c-format
 msgid "Unable to lock camera: %s"
-msgstr "A fényképezőgép nem zárolható: %s"
+msgstr "Nem lehet zárolni a fényképezőgépet: %s"
 
 #: src/camera/ImportPage.vala:1738
 #, c-format
@@ -3150,9 +3141,9 @@ msgstr "Fényképek vagy videók eltávolítása a fényképezőgépről"
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
-"Hiba történt, %d fénykép vagy videó nem törölhető a fényképezőgépről."
+"Hibák miatt nem lehet törölni %d fényképet vagy videót a fényképezőgépről."
 msgstr[1] ""
-"Hiba történt, %d fénykép vagy videó nem törölhető a fényképezőgépről."
+"Hibák miatt nem lehet törölni %d fényképet vagy videót a fényképezőgépről."
 
 #: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
@@ -3284,8 +3275,8 @@ msgstr "Kettőzött fényképek eltávolítása"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "Fájlhiba miatt a fénykép nem másolható le"
-msgstr[1] "Fájlhiba miatt %d fénykép nem duplikálható"
+msgstr[0] "Nem lehet kettőzni egy fényképet fájlhiba miatt"
+msgstr[1] "Nem lehet kettőzni %d fényképet fájlhibák miatt"
 
 #: src/Commands.vala:1194
 msgid "Restoring previous rating"
@@ -3313,7 +3304,7 @@ msgstr "Az előhívó beállítása"
 
 #: src/Commands.vala:1355
 msgid "Original photo could not be adjusted."
-msgstr "Az eredeti fénykép nem módosítható."
+msgstr "Az eredeti fényképet nem sikerült módosítani."
 
 #: src/Commands.vala:1376
 msgid "Adjusting Date and Time"
@@ -3326,8 +3317,8 @@ msgstr "Dátum és idő módosításának visszavonása"
 #: src/Commands.vala:1415
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] "Az eredeti fénykép nem módosítható."
-msgstr[1] "A következő eredeti fényképek nem módosíthatók."
+msgstr[0] "Egy eredeti fényképet nem sikerült módosítani."
+msgstr[1] "A következő eredeti fényképeket nem sikerült módosítani."
 
 #: src/Commands.vala:1417 src/Commands.vala:1441
 msgid "Time Adjustment Error"
@@ -3337,8 +3328,10 @@ msgstr "Hiba az idő megváltoztatásakor"
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] "Az időmódosítás nem vonható vissza a következő fényképen."
-msgstr[1] "Az időmódosítás nem vonható vissza a következő fényképeken."
+msgstr[0] ""
+"Az időmódosítást nem sikerült visszavonni a következő fényképfájlon."
+msgstr[1] ""
+"Az időmódosítást nem sikerült visszavonni a következő fényképfájlokon."
 
 #: src/Commands.vala:1653 src/Commands.vala:1676
 msgid "Create Tag"
@@ -3433,7 +3426,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Adatbázisfájl:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:760
 msgid "_Import"
 msgstr "_Importálás"
 
@@ -3456,7 +3449,8 @@ msgstr "Adatimportálások"
 #: src/db/DatabaseTable.vala:37
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "A fénykép-adatbázis (%s) nem nyitható meg/hozható létre: hibakód: %d"
+msgstr ""
+"Nem lehet megnyitni vagy létrehozni a(z) %s fényképadatbázist: hibakód: %d"
 
 #: src/db/DatabaseTable.vala:46
 #, c-format
@@ -3485,7 +3479,7 @@ msgstr ""
 #: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
-msgstr "A(z) %s fényképadatbázis nem állítható helyre"
+msgstr "Nem lehet helyreállítani a(z) %s fényképadatbázist"
 
 #. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
 #: src/DesktopIntegration.vala:113
@@ -3505,12 +3499,18 @@ msgstr "Küldés"
 #: src/DesktopIntegration.vala:171
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr "A háttér exportálása sikertelen ide: %s: %s"
+msgstr "Nem lehet exportálni a hátteret ide: %s: %s"
 
-#: src/DesktopIntegration.vala:309
+#: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
+#, c-format
+#| msgid "Unable to export background to %s: %s"
+msgid "Unable to set background: %s"
+msgstr "Nem lehet beállítani a hátteret: %s"
+
+#: src/DesktopIntegration.vala:313
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "Az asztali diavetítés nem készíthető elő: %s"
+msgstr "Nem lehet előkészíteni az asztali diavetítést: %s"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:78
 msgid "AM"
@@ -3665,7 +3665,7 @@ msgstr "Egyéni"
 msgid "Invalid pattern"
 msgstr "Érvénytelen minta"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/ProgressDialog.vala:99
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -3764,7 +3764,7 @@ msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr ""
-"A következő fényképek exportálása fájlhiba miatt nem lehetséges.\n"
+"Nem lehet exportálni a következő fényképet fájlhiba miatt.\n"
 "\n"
 
 #: src/Dialogs.vala:136
@@ -3871,7 +3871,7 @@ msgid ""
 "couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
-"%s nem másolható\n"
+"nem sikerült a(z) %s másolása\n"
 "\tide: %s"
 
 #.
@@ -4442,7 +4442,7 @@ msgstr ""
 #: src/direct/DirectPhotoPage.vala:121
 #, c-format
 msgid "Unable open photo %s. Sorry."
-msgstr "Elnézést, a(z) %s fénykép nem nyitható meg."
+msgstr "Nem lehet megnyitni a(z) %s fényképet. Elnézést."
 
 #: src/direct/DirectPhotoPage.vala:327
 msgid "_Save a Copy"
@@ -4478,7 +4478,7 @@ msgstr "Összes fájl"
 #: src/DirectoryMonitor.vala:891
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr "%s nem figyelhető: nem könyvtár (%s)"
+msgstr "A(z) %s nem figyelhető meg: nem könyvtár (%s)"
 
 #: src/DragAndDropHandler.vala:165
 msgid "Photos cannot be exported to this directory."
@@ -4717,7 +4717,7 @@ msgid "Undated"
 msgstr "Keltezetlen"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "%s események"
@@ -4725,7 +4725,7 @@ msgstr "%s események"
 #: src/Exporter.vala:238 src/Exporter.vala:302
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr "Nem generálható ideiglenes fájl ehhez: %s: %s"
+msgstr "Nem lehet a(z) %s ideiglenes fájlját előállítani: %s"
 
 #: src/Exporter.vala:339
 msgid "Exporting"
@@ -4856,19 +4856,19 @@ msgstr "Utolsó importálás"
 msgid "Organize and browse your photos"
 msgstr "Rendszerezze fényképeit és tallózzon köztük"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:504
 msgid "Import From Folder"
 msgstr "Importálás mappából"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:510
 msgid "Recurse Into Subfolders"
 msgstr "Belépés az almappákba is"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Kuka ürítése…"
 
-#: src/library/LibraryWindow.vala:756
+#: src/library/LibraryWindow.vala:757
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4882,23 +4882,23 @@ msgstr ""
 
 #. TODO: Specify which directory/file.
 #. var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
-#: src/library/LibraryWindow.vala:783
+#: src/library/LibraryWindow.vala:784
 msgid "Photos cannot be imported from this directory."
 msgstr "Ebből a könyvtárból nem importálhatók fényképek."
 
-#: src/library/LibraryWindow.vala:1005 src/library/LibraryWindow.vala:1016
+#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
 msgid "Updating library…"
 msgstr "Gyűjtemény frissítése…"
 
-#: src/library/LibraryWindow.vala:1022
+#: src/library/LibraryWindow.vala:1023
 msgid "Preparing to auto-import photos…"
 msgstr "Felkészülés fényképek automatikus importáláshoz…"
 
-#: src/library/LibraryWindow.vala:1027
+#: src/library/LibraryWindow.vala:1028
 msgid "Auto-importing photos…"
 msgstr "Fényképek automatikus importálása…"
 
-#: src/library/LibraryWindow.vala:1035
+#: src/library/LibraryWindow.vala:1036
 msgid "Writing metadata to files…"
 msgstr "Metaadatok írása a fájlokba…"
 
@@ -5016,22 +5016,22 @@ msgid "Show available profiles"
 msgstr "Elérhető profilok megjelenítése"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:458
+#: src/main.vala:460
 msgid "[FILE]"
 msgstr "[FÁJL]"
 
-#: src/main.vala:463
+#: src/main.vala:465
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
 "ki.\n"
 
-#: src/main.vala:472
+#: src/main.vala:474
 msgid "Choose Shotwell's profile"
 msgstr "A Shotwell profiljának kiválasztása"
 
-#: src/main.vala:498
+#: src/main.vala:500
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5050,7 +5050,7 @@ msgstr ""
 #: src/MediaMonitor.vala:400
 #, c-format
 msgid "Unable to process monitoring updates: %s"
-msgstr "A megfigyelés frissítései nem dolgozhatók fel: %s"
+msgstr "Nem lehet feldolgozni a megfigyelés frissítéseit: %s"
 
 #: src/MediaPage.vala:76
 msgid "Adjust the size of the thumbnails"
@@ -5093,7 +5093,7 @@ msgstr "Fénykép eltávolítása a gyűjteményből"
 #: src/PhotoPage.vala:3045
 #, c-format
 msgid "Unable to export %s: %s"
-msgstr "%s exportálása sikertelen: %s"
+msgstr "A(z) %s nem exportálható: %s"
 
 #: src/photos/AvifSupport.vala:30
 msgid "AVIF"
@@ -5225,7 +5225,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"A fénykép nem nyomtatható:\n"
+"Nem lehet kinyomtatni a fényképet:\n"
 "\n"
 "%s"
 
@@ -5481,7 +5481,7 @@ msgstr "Fényképek és vi_deók közzététele ide:"
 #. warn the user.
 #: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
-msgstr "Nem sikerült közzétenni"
+msgstr "Nem lehet közzétenni"
 
 #: src/publishing/PublishingUI.vala:286
 #, c-format
@@ -5844,7 +5844,7 @@ msgstr "Arc törlése"
 #: src/Resources.vala:311
 #, c-format
 msgid "Unable to launch editor: %s"
-msgstr "A szerkesztő nem indítható el: %s"
+msgstr "Nem lehet elindítani a szerkesztőt: %s"
 
 #: src/Resources.vala:316
 #, c-format
@@ -5922,12 +5922,12 @@ msgstr[1] "„%s” címke eltávolítása a fényképekről"
 #: src/Resources.vala:379
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "A címke nem nevezhető át erre: „%s”, mert a címke már létezik."
+msgstr "Nem lehet átnevezni a címkét „%s” névre, mert a címke már létezik."
 
 #: src/Resources.vala:383
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr "Nem lehet átnevezni a keresést erre: „%s”, mert a keresés már létezik."
+msgstr "Nem lehet átnevezni a keresést „%s” névre, mert a keresés már létezik."
 
 #. Saved search button
 #: src/Resources.vala:386 src/SearchFilter.vala:1145
@@ -5951,7 +5951,7 @@ msgstr "„%s” keresés törlése"
 #: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "Az arc nem nevezhető át erre: „%s”, mert az arc már létezik."
+msgstr "Nem lehet átnevezni az arcot „%s” névre, mert az arc már létezik."
 
 #: src/Resources.vala:407
 #, c-format
@@ -6040,7 +6040,7 @@ msgstr "Kijelölt fénykép könyvtárának megnyitása a fájlkezelőben"
 #: src/Resources.vala:781
 #, c-format
 msgid "Unable to open in file manager: %s"
-msgstr "Nem nyitható meg a fájlkezelőben: %s"
+msgstr "Nem lehet megnyitni a fájlkezelőben: %s"
 
 #: src/Resources.vala:789
 msgid "Select all items"
@@ -6062,7 +6062,8 @@ msgstr "%Y. %b. %d., %a"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:857
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a. %b. %d"
@@ -6070,7 +6071,7 @@ msgstr "%a. %b. %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:861
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%Y. %d."
@@ -6078,7 +6079,8 @@ msgstr "%Y. %d."
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:866
+#: src/Resources.vala:868
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a. %b. %d"
@@ -6086,7 +6088,7 @@ msgstr "%a. %b. %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:871
+#: src/Resources.vala:873
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%Y. %b. %d., %a"
