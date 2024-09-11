@@ -330,9 +330,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private PrivacyDescription[] create_privacy_descriptions() {
         PrivacyDescription[] result = new PrivacyDescription[0];
 
-        result += new PrivacyDescription(_("Public listed"), PrivacySetting.PUBLIC);
-        result += new PrivacyDescription(_("Public unlisted"), PrivacySetting.UNLISTED);
+        result += new PrivacyDescription(_("Public"), PrivacySetting.PUBLIC);
         result += new PrivacyDescription(_("Private"), PrivacySetting.PRIVATE);
+        result += new PrivacyDescription(_("unlisted"), PrivacySetting.UNLISTED);
 
         return result;
     }
