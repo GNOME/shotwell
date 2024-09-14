@@ -13,8 +13,8 @@
 msgid ""
 msgstr "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-02-14 14:53+0000\n"
-"PO-Revision-Date: 2024-02-25 10:00+0100\n"
+"POT-Creation-Date: 2024-09-05 13:47+0000\n"
+"PO-Revision-Date: 2024-09-14 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -1081,10 +1081,6 @@ msgstr "Prest daudenean, Shotwell aplikazioak zenbait webgunetara igo ditzake zu
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwellek JPEG, PNG, TIFF eta hainbat RAW fitxategi-formatu onartzen ditu."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Shotwell garatzaileak"
-
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Argazki-kudeatzailea"
@@ -1234,7 +1230,7 @@ msgstr "Bidali _honi…"
 #: data/ui/faces.ui:79 data/ui/media.ui:75 data/ui/photo_context.ui:141
 #: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:786
 msgid "_Move to Trash"
-msgstr "_Bota zakarrontzira"
+msgstr "Eraman _zakarrontzira"
 
 #: data/ui/collection.ui:148 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
@@ -1270,7 +1266,7 @@ msgstr "Aurkitu irudi bat bere izenean edo etiketetan ageri den testuren bat ida
 #: data/ui/collection.ui:217 data/ui/offline.ui:235 data/ui/trash.ui:308
 #: src/Resources.vala:294
 msgid "Find"
-msgstr "Bilatu"
+msgstr "Aurkitu"
 
 #: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
 #: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
@@ -1288,7 +1284,7 @@ msgstr "_Gorde"
 
 #: data/ui/direct.ui:13
 msgid "Save _As…"
-msgstr "Gorde _honela…"
+msgstr "Gorde _honela..."
 
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:27 data/ui/import.ui:29
@@ -1334,7 +1330,7 @@ msgstr "Pantaila o_soa"
 #: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
 #: src/Resources.vala:150
 msgid "Zoom _In"
-msgstr "_Zooma handiagotu"
+msgstr "_Handiagotu"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:265
 #: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
@@ -1728,7 +1724,7 @@ msgstr "_Kopiatu koloreen doikuntzak"
 msgid "_Paste Color Adjustments"
 msgstr "_Itsatsi koloreen doikuntzak"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:760
 msgid "Library Location"
 msgstr "Liburutegiaren kokalekua"
 
@@ -1782,7 +1778,7 @@ msgstr "Xake-taula"
 
 #: data/ui/preferences_dialog.ui:370
 msgid "Solid color"
-msgstr "Kolore lisoa"
+msgstr "Kolore laua"
 
 #: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
 msgid "None"
@@ -1804,7 +1800,7 @@ msgstr "Erabili gai iluna"
 
 #: data/ui/preferences_dialog.ui:470
 msgid "Display"
-msgstr "Pantaila"
+msgstr "Bistaratzea"
 
 #: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
@@ -2038,7 +2034,7 @@ msgstr "Mugitu hautatutako argazkiak berriro liburutegira"
 msgid "Delete all photos in the trash"
 msgstr "Ezabatu zakarrontziko argazki guztiak"
 
-#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Hustu zakarrontzia"
 
@@ -2053,10 +2049,12 @@ msgstr "Flickr-en saioa hasi gabe zaude.\n"
 "Joan zure web nabigatzailera eta sakatu 'Hasi saioa' Flickr-en. Shotwell Connect aplikazioari baimena eman beharko diozu zure Flickr kontuarekin esteka sor dezan."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
 msgid "Preparing for login…"
 msgstr "Saioa hasteko prestatzen…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
 msgid "Verifying authorization…"
 msgstr "Baimena egiaztatzen…"
 
@@ -2126,25 +2124,15 @@ msgstr "_Pasahitza"
 msgid "Log in"
 msgstr "Hasi saioa"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Sartu zure Tumblr kontuaren erabiltzaile-izena eta pasahitza."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
-msgid "Username and/or password invalid. Please try again"
-msgstr "Erabiltzaile-izena eta/edo pasahitza baliogabea. Saiatu berriro."
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
-msgid "Invalid User Name or Password"
-msgstr "Erabiltzaile-izen edo pasahitz okerra"
-
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:462
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Ezin izan da EIa kargatu: %s"
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
+msgid ""
+"You are not currently logged into Tumblr.\n"
+"\n"
+"Click Log in to log into Tumblr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Tumblr account."
+msgstr "Tumblr gunean saioa hasi gabe zaude.\n"
+"\n"
+"Joan zure web nabigatzailera eta sakatu 'Hasi saioa' Tumblr-en. Shotwell Connect aplikazioari baimena eman beharko diozu zure Tumblr kontuarekin esteka sor dezan."
 
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
@@ -2153,7 +2141,7 @@ msgstr "Bisitatu Shotwellen webgunea"
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:599
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
-msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
+msgstr "Asier Sarasua Garmendia <asiersarasua@ni.eus>"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -2492,9 +2480,17 @@ msgid ""
 "entered"
 msgstr "Shotwellek ezin du zure Piwigo argazki-liburutegiarekin kontaktatu. Egiaztatu sartu duzun URLa."
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+msgid "Username and/or password invalid. Please try again"
+msgstr "Erabiltzaile-izena eta/edo pasahitza baliogabea. Saiatu berriro."
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "URL baliogabea"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
+msgid "Invalid User Name or Password"
+msgstr "Erabiltzaile-izen edo pasahitz okerra"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
@@ -2552,6 +2548,11 @@ msgid ""
 "\n"
 msgstr "Tumblr-en saioa hasi duzu %s erabiltzailearekin.\n"
 "\n"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Ezin izan da EIa kargatu: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
@@ -2624,7 +2625,7 @@ msgstr "Diapositiba"
 
 #: plugins/shotwell-transitions/SquaresEffect.vala:20
 msgid "Squares"
-msgstr "Koadroak"
+msgstr "Karratuak"
 
 #: plugins/shotwell-transitions/StripesEffect.vala:20
 msgid "Stripes"
@@ -3187,7 +3188,7 @@ msgstr "Ez daukazu datuak inportatzeko pluginik gaituta.\n"
 msgid "Database file:"
 msgstr "Datu-basearen fitxategia:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:760
 msgid "_Import"
 msgstr "_Inportatu"
 
@@ -3259,7 +3260,12 @@ msgstr "Bidali honi:"
 msgid "Unable to export background to %s: %s"
 msgstr "Ezin izan da atzeko planoa esportatu %s-(e)ra: %s"
 
-#: src/DesktopIntegration.vala:309
+#: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
+#, c-format
+msgid "Unable to set background: %s"
+msgstr "Ezin da atzeko planoa ezarri: %s"
+
+#: src/DesktopIntegration.vala:313
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Ezin da mahaigaineko diapositiba-aurkezpena prestatu: %s"
@@ -3415,7 +3421,7 @@ msgstr "Pertsonalizatua"
 msgid "Invalid pattern"
 msgstr "Baliogabeko eredua"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/ProgressDialog.vala:99
 #, c-format
 msgid "%d%%"
 msgstr "%% %d"
@@ -4163,7 +4169,7 @@ msgstr "Onartutako irudi-formatuak"
 
 #: src/direct/DirectPhotoPage.vala:423
 msgid "All files"
-msgstr "Fitxategi guztiak"
+msgstr "Fitxategi denak"
 
 #. verify this is a directory
 #: src/DirectoryMonitor.vala:891
@@ -4369,7 +4375,7 @@ msgstr "Itzalak"
 
 #: src/editing_tools/EditingTools.vala:2793
 msgid "Highlights"
-msgstr "Argiak"
+msgstr "Argi-ukituak"
 
 #: src/editing_tools/EditingTools.vala:2803
 msgid "Contrast Expansion"
@@ -4408,7 +4414,7 @@ msgid "Undated"
 msgstr "Datarik gabea"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "%s gertaera"
@@ -4547,19 +4553,19 @@ msgstr "Azken inportazioa"
 msgid "Organize and browse your photos"
 msgstr "Antolatu eta arakatu zure argazkiak"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:504
 msgid "Import From Folder"
 msgstr "Inportatu karpetatik"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:510
 msgid "Recurse Into Subfolders"
 msgstr "Errekurtsiboki azpikarpetetan"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Zakarrontzia husten…"
 
-#: src/library/LibraryWindow.vala:756
+#: src/library/LibraryWindow.vala:757
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4571,23 +4577,23 @@ msgstr "Shotwell argazkiak zure karpeta nagusira inportatzeko konfiguratuta dago
 
 #. TODO: Specify which directory/file.
 #. var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
-#: src/library/LibraryWindow.vala:783
+#: src/library/LibraryWindow.vala:784
 msgid "Photos cannot be imported from this directory."
 msgstr "Direktorio honetatik ezin dira argazkiak inportatu"
 
-#: src/library/LibraryWindow.vala:1005 src/library/LibraryWindow.vala:1016
+#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
 msgid "Updating library…"
 msgstr "Liburutegia eguneratzen…"
 
-#: src/library/LibraryWindow.vala:1022
+#: src/library/LibraryWindow.vala:1023
 msgid "Preparing to auto-import photos…"
 msgstr "Argazkiak automatikoki inportatzeko prestatzen…"
 
-#: src/library/LibraryWindow.vala:1027
+#: src/library/LibraryWindow.vala:1028
 msgid "Auto-importing photos…"
 msgstr "Argazkiak automatikoki inportatzen…"
 
-#: src/library/LibraryWindow.vala:1035
+#: src/library/LibraryWindow.vala:1036
 msgid "Writing metadata to files…"
 msgstr "Metadatuak fitxategietan idazten…"
 
@@ -4694,20 +4700,20 @@ msgid "Show available profiles"
 msgstr "Erakutsi erabilgarri dauden profilak"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:458
+#: src/main.vala:460
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:463
+#: src/main.vala:465
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko.\n"
+msgstr "Exekutatu “%s --help“ komando-lerroko aukera erabilgarrien zerrenda ikusteko.\n"
 
-#: src/main.vala:472
+#: src/main.vala:474
 msgid "Choose Shotwell's profile"
 msgstr "Aukeratu Shotwellen profila"
 
-#: src/main.vala:498
+#: src/main.vala:500
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "%s profilik ez dago. Pasatu nahi al diozu --create parametroa ere?"
@@ -5007,7 +5013,7 @@ msgstr[1] "%d bideo"
 #. display only one date if start and end are the same
 #: src/Properties.vala:389
 msgid "Date:"
-msgstr "Data:"
+msgstr "Eguna:"
 
 #. display only one time if start and end are the same
 #: src/Properties.vala:393
@@ -5291,7 +5297,7 @@ msgstr "Moztu argazkiaren tamaina"
 
 #: src/Resources.vala:170
 msgid "Straighten"
-msgstr "Jarri zuzen"
+msgstr "Zuzendu"
 
 #: src/Resources.vala:171
 msgid "Straighten the photo"
@@ -5383,7 +5389,7 @@ msgstr "Txikitu balorazioa"
 
 #: src/Resources.vala:224
 msgid "Unrated"
-msgstr "Baloratu gabea"
+msgstr "Puntuaziorik gabea"
 
 #: src/Resources.vala:225
 msgid "Rate Unrated"
@@ -5725,7 +5731,8 @@ msgstr "%a %b %d, %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:857
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5733,7 +5740,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:861
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5741,7 +5748,8 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:866
+#: src/Resources.vala:868
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5749,7 +5757,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:871
+#: src/Resources.vala:873
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -6050,6 +6058,12 @@ msgstr "izengabea"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Esportatu bideoak"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Shotwell garatzaileak"
+
+#~ msgid "Enter the username and password associated with your Tumblr account."
+#~ msgstr "Sartu zure Tumblr kontuaren erabiltzaile-izena eta pasahitza."
 
 #~ msgid "Shotwell Profile Browser"
 #~ msgstr "Shotwell profil-arakatzailea"
