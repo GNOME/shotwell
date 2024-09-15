@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2023 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2024 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2023-11-25 19:35+0000\n"
-"PO-Revision-Date: 2023-11-25 21:41+0100\n"
+"POT-Creation-Date: 2024-09-15 10:15+0000\n"
+"PO-Revision-Date: 2024-09-15 12:33+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -46,9 +46,9 @@ msgid ""
 msgstr ""
 "För att exportera bilder från Shotwell via dra-och-släpp, dra bilderna från "
 "Shotwell till ett filhanterarfönster eller ditt skrivbord. De nya filerna "
-"kommer att vara kopior av bilderna i ditt bibliotek. För att exportera den "
-"ursprungliga filen håller du <keyseq><key>Skift</key></keyseq> samtidigt som "
-"du släpper bilden till filhanteraren."
+"kommer att vara fullskaliga kopior av bilderna i ditt bibliotek. För att "
+"exportera den ursprungliga filen håller du <keyseq><key>Skift</key></keyseq> "
+"samtidigt som du släpper bilden till filhanteraren."
 
 #. (itstool) path: page/p
 #: C/share-export.page:19
@@ -1692,7 +1692,7 @@ msgid "Google"
 msgstr "Google"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:10 C/privacy-policy.page:42
+#: C/privacy-policy.page:10 C/privacy-policy.page:48
 msgid "Information Shotwell Stores and Transmits About You"
 msgstr "Information om dig som Shotwell lagrar och överför"
 
@@ -1711,27 +1711,46 @@ msgid ""
 "authentication token that it receives from YouTube and Google Photos on your "
 "computer. This authentication token is simply a session-identifying sequence "
 "of letters and numbers. It contains no password, user name, or other "
-"personal information."
+"personal information. This authentication token can be deleted by logging "
+"out of the service, or, if Shotwell Connect is not available anymore, by "
+"navigating to your system's credential store and removing it manually."
 msgstr ""
-"Under sitt arbete kan Shotwell Connect lagra en autentiseringstoken som det "
-"erhåller från YouTube och Google Foto på din dator. Denna "
+"Under sitt arbete kan Shotwell Connect lagra ett autentiseringstoken som det "
+"erhåller från YouTube och Google Foto på din dator. Detta "
 "autentiseringstoken är helt enkelt en sessionsidentifierande rad bokstäver "
-"och siffror. Den innehåller inga lösenord, användarnamn eller annan "
-"personlig information."
+"och siffror. Det innehåller inga lösenord, användarnamn eller annan "
+"personlig information. Detta autentiseringstoken kan tas bort genom att "
+"logga ut från tjänsten, eller om Shotwell Connect inte är tillgängligt "
+"längre, genom att navigera till ditt systems uppgiftslagring och ta bort det "
+"manuellt."
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:13
+#: C/privacy-policy.page:14
+msgid ""
+"You can also revoke access to any Google service at any time by visiting "
+"<link href=\"https://security.google.com/settings/\">https://security.google."
+"com/settings/</link>. If you opt to revoke the access by using the link "
+"above, the stored token will removed upon next use."
+msgstr ""
+"Du kan också återkalla åtkomst till alla Google-tjänster när som helst genom "
+"att besöka <link href=\"https://security.google.com/settings/\">https://"
+"security.google.com/settings/</link>. Om du väljer att återkalla åtkomsten "
+"genom att använda linken ovan kommer lagrat token tas bort vid nästa "
+"användning."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:16
 msgid ""
 "At no time does Shotwell Connect transmit any information to the GNOME "
-"foundation, the Software Freedom Conservancy or any of the developers of the "
-"Shotwell Connect Application for Google services."
+"foundation, the Software Freedom Conservancy, any of the developers of the "
+"Shotwell Connect Application for Google services or any other third-party."
 msgstr ""
 "Shotwell Connect överför aldrig någon information till GNOME-stiftelsen, the "
 "Software Freedom Conservancy eller någon av utvecklarna av programmet "
-"Shotwell Connect för Google-tjänster."
+"Shotwell Connect för Google-tjänster eller någon annan tredje part."
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:15
+#: C/privacy-policy.page:17
 msgid ""
 "For Google's own privacy policy, please refer to <link href=\"https://"
 "policies.google.com/privacy\">https://policies.google.com/privacy</link>"
@@ -1740,12 +1759,12 @@ msgstr ""
 "com/privacy\">https://policies.google.com/privacy</link>"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:18
+#: C/privacy-policy.page:20
 msgid "YouTube"
 msgstr "YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:19
+#: C/privacy-policy.page:21
 msgid ""
 "Shotwell uses the YouTube API services <link href=\"https://developers."
 "google.com/youtube\">https://developers.google.com/youtube</link> for "
@@ -1756,12 +1775,28 @@ msgstr ""
 "komma åt din YouTube-kanal och skicka videoklippen."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:21
+#: C/privacy-policy.page:23
+msgid "Data obtained from your YouTube account"
+msgstr "Data erhållet från ditt YouTube-konto"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:24
+msgid ""
+"The only data retrieved from your YouTube account is your YouTube user name. "
+"The user name will be used during the upload procedure only and not stored "
+"permanently anywhere."
+msgstr ""
+"De enda data som erhålls från ditt YouTube-konto är ditt YouTube-"
+"användarnamn. Användarnamnet kommer användas under sändningsprocessen och "
+"lagras inte permanent någonstans."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:27
 msgid "YouTube terms and permissions"
 msgstr "Villkor för YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:22
+#: C/privacy-policy.page:28
 msgid ""
 "By using Shotwell to access YouTube, you agree to be bound to the YouTube "
 "Terms of Service as available at <link href=\"https://www.youtube.com/t/"
@@ -1772,30 +1807,30 @@ msgstr ""
 "www.youtube.com/t/terms\">https://www.youtube.com/t/terms</link>"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:25
+#: C/privacy-policy.page:31
 msgid "Permissions you grant Shotwell for YouTube"
 msgstr "Rättigheter som du ger Shotwell för YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:26
+#: C/privacy-policy.page:32
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application permission to "
 "publish videos to your YouTube channel. Other than uploading videos, "
-"Shotwell does not insert, modify or remove any information from your YouTube "
-"account and channel."
+"Shotwell does not insert, modify or remove, store or share any information "
+"from your YouTube account and channel."
 msgstr ""
 "Genom att använda Shotwell ger du programmet Shotwell Connect rätt att "
 "publicera videoklipp på din YouTube-kanal. Förutom att Shotwell skickar "
-"videoklipp så varken infogar, ändrar eller tar det bort någon information "
-"från ditt konto och din kanal på YouTube."
+"videoklipp så varken infogar, ändrar, lagrar, delar eller tar det bort någon "
+"information från ditt konto och din kanal på YouTube."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:31
+#: C/privacy-policy.page:37
 msgid "Google Photos"
 msgstr "Google Foto"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:32
+#: C/privacy-policy.page:38
 msgid ""
 "Shotwell uses the Google Photos API services <link href=\"https://developers."
 "google.com/photos/\">https://developers.google.com/photos/</link> for all "
@@ -1806,12 +1841,12 @@ msgstr ""
 "interaktion med dina Google Foto-data"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:34
-msgid "Permissions you Grant Shotwell for Google Photos"
+#: C/privacy-policy.page:40
+msgid "Permissions you grant Shotwell for Google Photos"
 msgstr "Rättigheter som du ger Shotwell för Google Foto"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:35
+#: C/privacy-policy.page:41
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application to publish "
 "photos on your Google Photos account. It will download the list of available "
@@ -1827,12 +1862,12 @@ msgstr ""
 "inga ändringar överhuvudtaget till befintliga data på Google Foto"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:40
+#: C/privacy-policy.page:46
 msgid "Flickr"
 msgstr "Flickr"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:43
+#: C/privacy-policy.page:49
 msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer. During the course of its operation, Shotwell Connect may "
@@ -1853,13 +1888,13 @@ msgstr ""
 "Flickr."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:47
+#: C/privacy-policy.page:53
 msgid "Permissions you grant Shotwell for Flickr"
 msgstr "Rättigheter som du ger Shotwell för Flickr"
 
 # TODO: choose, "does no modification"
 #. (itstool) path: section/p
-#: C/privacy-policy.page:48
+#: C/privacy-policy.page:54
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application access to "
 "publish photos to your Flickr account. It will download the list of "
