@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-05 13:47+0000\n"
-"PO-Revision-Date: 2024-09-05 17:39+0200\n"
+"POT-Creation-Date: 2024-09-15 09:38+0000\n"
+"PO-Revision-Date: 2024-09-15 12:15+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -2763,16 +2763,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "Du är inloggad på YouTube som %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Offentligt listad"
+msgid "Public"
+msgstr "Offentlig"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Offentligt olistad"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Privat"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "olistad"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -5139,7 +5139,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "ändrad"
 
@@ -6382,6 +6382,9 @@ msgstr "namnlös"
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
+#~ msgid "Public listed"
+#~ msgstr "Offentligt listad"
+
 #~ msgid "The Shotwell developers"
 #~ msgstr "Shotwells utvecklare"
 
@@ -6699,9 +6702,6 @@ msgstr "Exportera filmer"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "Du är för närvarande inte inloggad på Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Offentlig"
 
 #~ msgid "Friends"
 #~ msgstr "Vänner"
