@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-05 13:47+0000\n"
-"PO-Revision-Date: 2024-09-05 21:53+0300\n"
+"POT-Creation-Date: 2024-09-15 10:15+0000\n"
+"PO-Revision-Date: 2024-09-15 19:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2834,16 +2834,17 @@ msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Відкрите у списку"
+msgid "Public"
+msgstr "Відкритий доступ"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Відкрите без показу у списку"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Конфіденційне"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#| msgid "Public unlisted"
+msgid "unlisted"
+msgstr "поза списком"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3584,7 +3585,6 @@ msgstr "Не вдалося експортувати тло до %s: %s"
 
 #: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
 #, c-format
-#| msgid "Unable to export background to %s: %s"
 msgid "Unable to set background: %s"
 msgstr "Не вдалося встановити тло: %s"
 
@@ -5471,7 +5471,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "змінено"
 
@@ -6740,6 +6740,9 @@ msgstr "без назви"
 msgid "Export Videos"
 msgstr "Експорт відео"
 
+#~ msgid "Public listed"
+#~ msgstr "Відкрите у списку"
+
 #~ msgid "The Shotwell developers"
 #~ msgstr "Розробники Shotwell"
 
@@ -7068,9 +7071,6 @@ msgstr "Експорт відео"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "Ви ще не увійшли до системи Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Відкритий доступ"
 
 #~ msgid "Friends"
 #~ msgstr "Друзі"
