@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-06-27 20:36+0000\n"
+"POT-Creation-Date: 2024-09-15 07:56+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1871,7 +1871,7 @@ msgstr "_Prijava"
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:758 src/publishing/PublishingUI.vala:172
+#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Prekliči"
@@ -2246,7 +2246,7 @@ msgstr "Premakne izbrane fotografije nazaj v zbirko"
 msgid "Delete all photos in the trash"
 msgstr "Izbriše vse fotografije v smeteh"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:575
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
@@ -2288,8 +2288,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2320,8 +2320,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2335,14 +2335,14 @@ msgstr ""
 "\n"
 "Najbrž ste se že prijavili z računom Google in ga nastavili za uporabo s "
 "programom Fotografije Google. Program Shotwell uporablja za delo s "
-"fotografijami in podatki teh fotografij storitve API Google Photos <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"fotografijami in podatki teh fotografij storitve API Google Photos <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a>. Za uporabo programa za dostop do teh storitev je treba "
 "predhodno odobriti dostop do spletne zbirke.\n"
 "\n"
 "Določila zasebnosti uporabe podatkov, povezanih z računom Google na splošno "
-"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a href="
-"\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
+"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a "
+"href=\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -2396,8 +2396,8 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
-"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko zaupali. "
-"Preverite nastavljen datum in čas vaše naprave."
+"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko "
+"zaupali. Preverite nastavljen datum in čas vaše naprave."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:252
@@ -2417,8 +2417,8 @@ msgstr ""
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Podatki istovetnosti spletnega mesta so bili preklicani s strani zaupanja "
 "vredne ustanove, ki je te podatke izdala."
@@ -2867,16 +2867,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "V storitev YouTube ste prijavljeni kot %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Javno objavljeno"
+msgid "Public"
+msgstr "Javno"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Ni javno objavljeno"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Zasebno"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "nemenjeno"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3519,7 +3519,7 @@ msgstr ""
 msgid "Database file"
 msgstr "Datoteka zbirke podatkov"
 
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:758
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
 msgid "_Import"
 msgstr "_Uvozi"
 
@@ -3772,7 +3772,7 @@ msgstr "Po meri"
 msgid "Invalid pattern"
 msgstr "Neveljaven vzorec"
 
-#: src/dialogs/ProgressDialog.vala:89
+#: src/dialogs/ProgressDialog.vala:91
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -5012,7 +5012,7 @@ msgid "Undated"
 msgstr "Brez datuma"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Dogodek %s"
@@ -5129,7 +5129,7 @@ msgstr "Uvozi"
 msgid "Browse the library’s import history"
 msgstr "Prebrskaj zgodovino uvažanja v zbirko"
 
-#: src/library/BackgroundProgressBar.vala:74
+#: src/library/BackgroundProgressBar.vala:75
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
@@ -5138,11 +5138,11 @@ msgstr "%s (%d%%)"
 msgid "Importing…"
 msgstr "Poteka uvažanje …"
 
-#: src/library/ImportQueuePage.vala:109
+#: src/library/ImportQueuePage.vala:110
 msgid "Preparing to import…"
 msgstr "Poteka priprava na uvažanje slik …"
 
-#: src/library/ImportQueuePage.vala:132
+#: src/library/ImportQueuePage.vala:133
 #, c-format
 msgid "Imported %s"
 msgstr "Uvoženo %s"
@@ -5156,19 +5156,19 @@ msgstr "Zadnji uvoz"
 msgid "Organize and browse your photos"
 msgstr "Urejanje in brskanje med fotografijami"
 
-#: src/library/LibraryWindow.vala:514
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "Uvozi iz mape"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "Izvedi po strukturi map"
 
-#: src/library/LibraryWindow.vala:575
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Poteka praznjenje smeti …"
 
-#: src/library/LibraryWindow.vala:755
+#: src/library/LibraryWindow.vala:758
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -5180,23 +5180,23 @@ msgstr ""
 "Ali želite nadaljevati z uvažanjem?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:781
 msgid "Photos cannot be imported from this directory."
 msgstr "Iz te mape ni mogoče uvoziti fotografij."
 
-#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
 msgid "Updating library…"
 msgstr "Poteka posodabljanje knjižnice …"
 
-#: src/library/LibraryWindow.vala:1023
+#: src/library/LibraryWindow.vala:1026
 msgid "Preparing to auto-import photos…"
 msgstr "Poteka priprava na samodejno uvažanje slik …"
 
-#: src/library/LibraryWindow.vala:1028
+#: src/library/LibraryWindow.vala:1031
 msgid "Auto-importing photos…"
 msgstr "Samodejno uvažanje fotografij …"
 
-#: src/library/LibraryWindow.vala:1036
+#: src/library/LibraryWindow.vala:1039
 msgid "Writing metadata to files…"
 msgstr "Poteka zapisovanje metapodatkov v datoteke …"
 
@@ -5331,16 +5331,16 @@ msgstr "Če profil, podan z  zastavico --profile ne obstaja, ga ustvari"
 msgid "Show available profiles"
 msgstr "Prikaži razpoložljive profile"
 
-#: src/main.vala:408
+#: src/main.vala:409
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite ukaz »%s --help«.\n"
 
-#: src/main.vala:416
+#: src/main.vala:417
 msgid "Choose Shotwell's profile"
 msgstr "Izberite profil za Shotwell"
 
-#: src/main.vala:450
+#: src/main.vala:451
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5431,7 +5431,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "spremenjeno"
 
