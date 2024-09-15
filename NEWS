@@ -1,3 +1,37 @@
+Shotwell 0.32.9 (stable) - 15 Sep 2024
+ * Address Google YouTube API usage review comments
+ * Fix a memory leak during slideshows
+ * Fix a compile error if OpenCV does not come with DNN support
+ * Fix issue with missing application icon on Wayland compositors
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5122
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5123
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/89
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Martin <miles@filmsi.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Balló György <ballogyor@gmail.com>
+ - Juliano de Souza Camargo <julianosc@protonmail.com>
+
+Added/updated translations:
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.32.8 (stable) - 11 Aug 2024
  * Fix an abort if WEBP contains animation
  * Fix expensinve DateTime comparison
