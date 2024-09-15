@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-06-26 08:05+0000\n"
-"PO-Revision-Date: 2024-06-27 23:35+0300\n"
+"POT-Creation-Date: 2024-09-15 15:46+0000\n"
+"PO-Revision-Date: 2024-09-15 19:41+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1933,7 +1933,7 @@ msgstr "_Увійти"
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:758 src/publishing/PublishingUI.vala:172
+#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Скасувати"
@@ -2311,7 +2311,7 @@ msgstr "Пересунути позначені фотографії назад 
 msgid "Delete all photos in the trash"
 msgstr "Вилучити всі фотографії до смітника"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:575
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Спорожнити смітник"
 
@@ -2946,16 +2946,17 @@ msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Відкрите у списку"
+msgid "Public"
+msgstr "Відкритий доступ"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Відкрите без показу у списку"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Конфіденційне"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#| msgid "Public unlisted"
+msgid "unlisted"
+msgstr "поза списком"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3614,7 +3615,7 @@ msgstr ""
 msgid "Database file"
 msgstr "Файл бази даних"
 
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:758
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
 msgid "_Import"
 msgstr "_Імпортувати"
 
@@ -3691,7 +3692,6 @@ msgstr "Не вдалося експортувати тло до %s: %s"
 
 #: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
 #, c-format
-#| msgid "Unable to export background to %s: %s"
 msgid "Unable to set background: %s"
 msgstr "Не вдалося встановити фонове зображення: %s"
 
@@ -3865,7 +3865,7 @@ msgstr "Нетиповий"
 msgid "Invalid pattern"
 msgstr "Некоректний шаблон"
 
-#: src/dialogs/ProgressDialog.vala:89
+#: src/dialogs/ProgressDialog.vala:91
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -5135,7 +5135,7 @@ msgid "Undated"
 msgstr "Оновлено"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Подія %s"
@@ -5252,7 +5252,7 @@ msgstr "Імпорт"
 msgid "Browse the library’s import history"
 msgstr "Навігація журналом імпортування бібліотеки"
 
-#: src/library/BackgroundProgressBar.vala:74
+#: src/library/BackgroundProgressBar.vala:75
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
@@ -5261,11 +5261,11 @@ msgstr "%s (%d%%)"
 msgid "Importing…"
 msgstr "Імпортування…"
 
-#: src/library/ImportQueuePage.vala:109
+#: src/library/ImportQueuePage.vala:110
 msgid "Preparing to import…"
 msgstr "Приготування до імпортування…"
 
-#: src/library/ImportQueuePage.vala:132
+#: src/library/ImportQueuePage.vala:133
 #, c-format
 msgid "Imported %s"
 msgstr "Імпортовано %s"
@@ -5278,19 +5278,19 @@ msgstr "Попереднє імпортування"
 msgid "Organize and browse your photos"
 msgstr "Впорядкуйте ваші фотографії і переглядайте їх"
 
-#: src/library/LibraryWindow.vala:514
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "Імпортувати з теки"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "Рекурсивно у підтеках"
 
-#: src/library/LibraryWindow.vala:575
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Спорожнення смітника…"
 
-#: src/library/LibraryWindow.vala:755
+#: src/library/LibraryWindow.vala:758
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -5304,23 +5304,23 @@ msgstr ""
 "Хочете продовжити імпортування фотографій?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:781
 msgid "Photos cannot be imported from this directory."
 msgstr "Імпорт фотографій з цього каталогу неможливий."
 
-#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
 msgid "Updating library…"
 msgstr "Оновлення бібліотеки…"
 
-#: src/library/LibraryWindow.vala:1023
+#: src/library/LibraryWindow.vala:1026
 msgid "Preparing to auto-import photos…"
 msgstr "Приготування до автоматичного імпортування фотографій…"
 
-#: src/library/LibraryWindow.vala:1028
+#: src/library/LibraryWindow.vala:1031
 msgid "Auto-importing photos…"
 msgstr "Автоматичне імпортування фотографій…"
 
-#: src/library/LibraryWindow.vala:1036
+#: src/library/LibraryWindow.vala:1039
 msgid "Writing metadata to files…"
 msgstr "Запис метаданих до файлів…"
 
@@ -5457,7 +5457,7 @@ msgstr ""
 msgid "Show available profiles"
 msgstr "Показати доступні профілі"
 
-#: src/main.vala:408
+#: src/main.vala:409
 #, c-format
 msgid ""
 "Run “%s --help” to see a full list of available command line options.\n"
@@ -5465,11 +5465,11 @@ msgstr ""
 "Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
 "команду «%s --help».\n"
 
-#: src/main.vala:416
+#: src/main.vala:417
 msgid "Choose Shotwell's profile"
 msgstr "Виберіть профіль Shotwell"
 
-#: src/main.vala:450
+#: src/main.vala:451
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профілю %s не існує. Ви хотіли передати також параметр --create?"
@@ -5559,7 +5559,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "змінено"
 
@@ -6752,6 +6752,9 @@ msgstr ""
 msgid "Export Videos"
 msgstr "Експорт відео"
 
+#~ msgid "Public listed"
+#~ msgstr "Відкрите у списку"
+
 #~ msgid "Enter the username and password associated with your Tumblr account."
 #~ msgstr ""
 #~ "Вкажіть ім’я користувача і пароль, пов’язані з вашим обліковим записом "
@@ -7104,9 +7107,6 @@ msgstr "Експорт відео"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "Ви ще не увійшли до системи Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Відкритий доступ"
 
 #~ msgid "Friends"
 #~ msgstr "Друзі"
