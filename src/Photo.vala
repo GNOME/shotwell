@@ -405,9 +405,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         readers.master = row.master.file_format.create_reader(row.master.filepath);
         
         // get the file title of the Photo without using a File object, skipping the separator itself
-        string? basename = String.sliced_at_last_char(row.master.filepath, Path.DIR_SEPARATOR);
-        if (basename != null)
-            file_title = String.sliced_at(basename, 1);
+        file_title = Path.get_basename(row.master.filepath);
         
         if (is_string_empty(file_title))
             file_title = row.master.filepath;

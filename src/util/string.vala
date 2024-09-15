@@ -177,30 +177,6 @@ public inline bool contains_char(string haystack, unichar needle) {
     return haystack.index_of_char(needle) >= 0;
 }
 
-public inline bool contains_str(string haystack, string needle) {
-    return haystack.index_of(needle) >= 0;
-}
-
-public inline string? sliced_at(string str, int index) {
-    return (index >= 0) ? str[index:str.length] : null;
-}
-
-public inline string? sliced_at_first_str(string haystack, string needle, int start_index = 0) {
-    return sliced_at(haystack, haystack.index_of(needle, start_index));
-}
-
-public inline string? sliced_at_last_str(string haystack, string needle, int start_index = 0) {
-    return sliced_at(haystack, haystack.last_index_of(needle, start_index));
-}
-
-public inline string? sliced_at_first_char(string haystack, unichar ch, int start_index = 0) {
-    return sliced_at(haystack, haystack.index_of_char(ch, start_index));
-}
-
-public inline string? sliced_at_last_char(string haystack, unichar ch, int start_index = 0) {
-    return sliced_at(haystack, haystack.last_index_of_char(ch, start_index));
-}
-
 // Note that this method currently turns a word of all zeros into empty space ("000" -> "")
 public string strip_leading_zeroes(string str) {
     StringBuilder stripped = new StringBuilder();
