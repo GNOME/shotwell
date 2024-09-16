@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-07 10:34+0000\n"
-"PO-Revision-Date: 2024-09-09 13:40+0200\n"
+"POT-Creation-Date: 2024-09-15 15:46+0000\n"
+"PO-Revision-Date: 2024-09-16 13:54+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -1865,7 +1865,6 @@ msgid "Hide photos already imported"
 msgstr "Már importált fényképek elrejtése"
 
 #: data/ui/import.ui:276
-#| msgid "Move the selected photos back into the library"
 msgid "Import the selected media files into the library"
 msgstr "A kijelölt médiafájlok importálása a gyűjteménybe"
 
@@ -2136,7 +2135,6 @@ msgid "Videos"
 msgstr "Videók"
 
 #: data/ui/search_bar.ui:42
-#| msgid "RAW Photos"
 msgid "RAW photos"
 msgstr "RAW fényképek"
 
@@ -2159,7 +2157,6 @@ msgid "Saved Search"
 msgstr "Mentett keresés"
 
 #: data/ui/search_bar.ui:164
-#| msgid "Use a saved search to filter items in the current view"
 msgid "Type to filter in current view"
 msgstr "Gépeljen a jelenlegi nézetben történő szűréshez"
 
@@ -2377,11 +2374,6 @@ msgid "Log in"
 msgstr "Bejelentkezés"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:16
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "Click Log in to log into Flickr in your Web browser. You will have to "
-#| "authorize Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into Tumblr.\n"
 "\n"
@@ -2498,7 +2490,6 @@ msgstr "Megértettem, _folytatás."
 
 #: plugins/common/SSLCertificatePane.vala:12
 #, c-format
-#| msgid "Certificate of %s"
 msgid "TLS Certificate details for %s"
 msgstr "A(z) %s TLS-tanúsítványának részletei"
 
@@ -2519,7 +2510,6 @@ msgid "Sign in with your browser to setup an account"
 msgstr "Jelentkezzen be a böngészőjével egy fiók beállításához"
 
 #: plugins/common/WebAuthenticationPane.vala:37
-#| msgid "Con_tinue"
 msgid "Continue"
 msgstr "Folytatás"
 
@@ -2904,16 +2894,18 @@ msgid "You are logged into YouTube as %s."
 msgstr "Bejelentkezett a YouTube-ra %s néven."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Nyilvános, felsorolt"
+#| msgid "Publish"
+msgid "Public"
+msgstr "Nyilvános"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Nyilvános, felsorolatlan"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Magánjellegű"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#| msgid "Public unlisted"
+msgid "unlisted"
+msgstr "felsorolatlan"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3613,7 +3605,6 @@ msgstr "Nem lehet exportálni a hátteret ide: %s: %s"
 
 #: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
 #, c-format
-#| msgid "Unable to export background to %s: %s"
 msgid "Unable to set background: %s"
 msgstr "Nem lehet beállítani a hátteret: %s"
 
@@ -4544,7 +4535,6 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:113
 #, c-format
-#| msgid "Unable open photo %s. Sorry."
 msgid "Unable to open photo %s. Sorry."
 msgstr "Nem lehet megnyitni a(z) %s fényképet. Elnézést."
 
@@ -4609,7 +4599,6 @@ msgid "Contrast:"
 msgstr "Kontraszt:"
 
 #: src/editing_tools/AdjustTool.vala:84
-#| msgid "Duration:"
 msgid "Saturation:"
 msgstr "Telítettség:"
 
@@ -4650,12 +4639,10 @@ msgid "Contrast"
 msgstr "Kontraszt"
 
 #: src/editing_tools/AdjustTool.vala:598
-#| msgid "duration"
 msgid "Saturation"
 msgstr "Telítettség"
 
 #: src/editing_tools/AdjustTool.vala:611
-#| msgid "Exposure:"
 msgid "Exposure"
 msgstr "Expozíció"
 
@@ -4664,7 +4651,6 @@ msgid "Shadows"
 msgstr "Árnyékok"
 
 #: src/editing_tools/AdjustTool.vala:637
-#| msgid "Height"
 msgid "Highlights"
 msgstr "Kiemelések"
 
@@ -4678,7 +4664,6 @@ msgstr "Aktuális fényképméretek visszaállítása"
 
 #. cancel_button.set_image_position(Gtk.PositionType.LEFT);
 #: src/editing_tools/CropTool.vala:86
-#| msgid "Detect faces on this photo"
 msgid "Set the crop for this photo"
 msgstr "Képkivágás beállítása a képhez"
 
@@ -4687,17 +4672,14 @@ msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "A kivágási téglalap forgatása az álló és fekvő tájolások között"
 
 #: src/editing_tools/CropTool.vala:175
-#| msgid "_Scaling constraint:"
 msgid "Unconstrained"
 msgstr "Korlátlan"
 
 #: src/editing_tools/CropTool.vala:176
-#| msgid "Squares"
 msgid "Square"
 msgstr "Négyzet"
 
 #: src/editing_tools/CropTool.vala:177
-#| msgid "Fullscreen"
 msgid "Screen"
 msgstr "Képernyő"
 
@@ -4735,7 +4717,6 @@ msgid "8 × 10 in."
 msgstr "8 × 10 hüvelyk"
 
 #: src/editing_tools/CropTool.vala:188
-#| msgid "Notecard (3 × 5 in.)"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8.5 × 11 hüvelyk)"
 
@@ -4744,7 +4725,6 @@ msgid "11 × 14 in."
 msgstr "11 × 14 hüvelyk"
 
 #: src/editing_tools/CropTool.vala:190
-#| msgid "11 × 14 in."
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 hüvelyk)"
 
@@ -4785,7 +4765,6 @@ msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
 #: src/editing_tools/CropTool.vala:201
-#| msgid "24 × 40 cm"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
@@ -4799,7 +4778,6 @@ msgstr "Vörösszemhatás eszköz bezárása"
 
 #. close_button.set_image_position(Gtk.PositionType.LEFT);
 #: src/editing_tools/RedeyeTool.vala:60
-#| msgid "Reduce or eliminate any red-eye effects in the photo"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Minden vörösszemhatás eltávolítása a kijelölt területről"
 
@@ -4937,12 +4915,10 @@ msgid "Browse the library’s folder structure"
 msgstr "Tallózás a gyűjtemény mappaszerkezetében"
 
 #: src/FullscreenWindow.vala:83
-#| msgid "pin toolbar state"
 msgid "Pin the toolbar open"
 msgstr "Eszköztár rögzítése nyitva"
 
 #: src/FullscreenWindow.vala:88
-#| msgid "Leave _Fullscreen"
 msgid "Leave fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
@@ -5101,7 +5077,6 @@ msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Ismeretlen hiba a Shotwell adatbázisának ellenőrzésekor: %s"
 
 #: src/main.vala:81
-#| msgid "Unable to display help: %s"
 msgid "Unable to start Shotwell"
 msgstr "Nem lehet elindítani a Shotwell alkalmazást"
 
@@ -5260,12 +5235,11 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "módosítva"
 
 #: src/plugins/ManifestWidget.vala:142
-#| msgid "enable tumblr publishing plugin"
 msgid "Enable or disable the plugin"
 msgstr "A bővítmény engedélyezése vagy letiltása"
 
@@ -5404,7 +5378,6 @@ msgid "Remove profile only"
 msgstr "Csak a profil eltávolítása"
 
 #: src/ProfileBrowser.vala:241
-#| msgid "Create new Profile"
 msgid "Add a new profile"
 msgstr "Új profil hozzáadása"
 
@@ -6414,9 +6387,6 @@ msgid "untitled"
 msgstr "névtelen"
 
 #: src/video-support/Video.vala:163
-#| msgid ""
-#| "Unable to export the following photo due to a file error.\n"
-#| "\n"
 msgid ""
 "Unable to export the following video due to a file error.\n"
 "\n"
