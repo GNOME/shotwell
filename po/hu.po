@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-08 11:41+0000\n"
-"PO-Revision-Date: 2024-09-09 13:30+0200\n"
+"POT-Creation-Date: 2024-09-15 16:48+0000\n"
+"PO-Revision-Date: 2024-09-16 13:52+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -2786,16 +2786,18 @@ msgid "You are logged into YouTube as %s."
 msgstr "Bejelentkezett a YouTube-ra %s néven."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Nyilvános, felsorolt"
+#| msgid "Publish"
+msgid "Public"
+msgstr "Nyilvános"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Nyilvános, felsorolatlan"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Magánjellegű"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#| msgid "Public unlisted"
+msgid "unlisted"
+msgstr "felsorolatlan"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3503,7 +3505,6 @@ msgstr "Nem lehet exportálni a hátteret ide: %s: %s"
 
 #: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
 #, c-format
-#| msgid "Unable to export background to %s: %s"
 msgid "Unable to set background: %s"
 msgstr "Nem lehet beállítani a hátteret: %s"
 
@@ -5152,7 +5153,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "módosítva"
 
