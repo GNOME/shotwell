@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-07-14 18:41+0000\n"
-"PO-Revision-Date: 2024-05-06 19:36+0300\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"POT-Creation-Date: 2024-09-16 11:55+0000\n"
+"PO-Revision-Date: 2024-09-20 08:00+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -491,7 +491,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "write metadata to master files"
-msgstr "üst veriyi ana dosyalara yaz"
+msgstr "üst veriyi özgün dosyalara yaz"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid ""
@@ -499,7 +499,7 @@ msgid ""
 "photo file"
 msgstr ""
 "Eğer doğruysa, üst veriye yapılan değişiklikler (etiketler, başlıklar, vb.) "
-"ana fotoğraf dosyasına da yazılır"
+"özgün fotoğraf dosyasına da yazılır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "use lowercase filenames"
@@ -1190,7 +1190,7 @@ msgstr ""
 "tarih veya konuya hatta puana göre yönetmenizi sağlar. Ayrıca; kırpma, "
 "kırmızı göz giderme, renk düzeltmeleri, doğrultma gibi basit fotoğraf "
 "düzenlemeleri sunar. Shotwell’in yok edici olmayan fotoğraf düzenleyicisi "
-"ana fotoğraflarınızı başkalaştırmaz, hataları düzeltmeyi ve denemeyi "
+"özgün fotoğraflarınızı başkalaştırmaz, hataları düzeltmeyi ve denemeyi "
 "kolaylaştırır."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:19
@@ -2384,16 +2384,17 @@ msgstr ""
 
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
-msgstr "Shotwell ev sayfasınnı ziyaret et"
+msgstr "Shotwell ev sayfasını ziyaret et"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:302
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
+"Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Sabri Ünal <yakushabb@gmail.com>\n"
 "Yiğit Ateş <yigitates52@gmail.com>\n"
 "Hüseyin Demirtaş <h.demirtas.l10n@gmail.com>\n"
-"Ferhat Tunçtan <ferhattnctn19@yahoo.com.tr>\n"
-"Emin Tufan Çetin <etcetin@gmail.com>"
+"Ferhat Tunçtan <ferhattnctn19@yahoo.com.tr>"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -2868,16 +2869,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "YouTube’a %s olarak oturum açtınız."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Genel listelenmiş"
+msgid "Public"
+msgstr "Genel"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Genel listelenmemiş"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Özel"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "listelenmemiş"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -5103,7 +5104,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "değiştirilmiş"
 
@@ -5569,11 +5570,11 @@ msgstr "Özgün Haline Döndür"
 
 #: src/Resources.vala:184
 msgid "Revert External E_dits"
-msgstr "Harici Değ_işiklikleri Geri Al"
+msgstr "Dış Değ_işiklikleri Geri Al"
 
 #: src/Resources.vala:185
 msgid "Revert to the master photo"
-msgstr "Esas fotoğrafa döndür"
+msgstr "Özgün fotoğrafa döndür"
 
 #: src/Resources.vala:188
 msgid "Set selected image to be the new desktop background"
@@ -6065,11 +6066,11 @@ msgstr "değişiklikler"
 
 #: src/searches/SavedSearchDialog.vala:317
 msgid "internal modifications"
-msgstr "dahili değişiklikler"
+msgstr "iç değişiklikler"
 
 #: src/searches/SavedSearchDialog.vala:318
 msgid "external modifications"
-msgstr "harici düzenlemeler"
+msgstr "dış düzenlemeler"
 
 #. Ordering must correspond with SearchConditionFlagged.State
 #: src/searches/SavedSearchDialog.vala:372
@@ -6256,72 +6257,3 @@ msgstr ""
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
 
-#~ msgid "Enter the username and password associated with your Tumblr account."
-#~ msgstr ""
-#~ "Lütfen Tumblr hesabınızla ilişkili kullanıcı adınızı ve parolanızı "
-#~ "giriniz."
-
-#~ msgid "Previous photo"
-#~ msgstr "Önceki fotoğraf"
-
-#~ msgid "Next photo"
-#~ msgstr "Sonraki fotoğraf"
-
-#~ msgid ""
-#~ "<b><span size=\"larger\">%s</span></b>\n"
-#~ "<span weight=\"light\">%s</span>"
-#~ msgstr ""
-#~ "<b><span size=\"larger\">%s</span></b>\n"
-#~ "<span weight=\"light\">%s</span>"
-
-#~ msgid "Error loading search bar UI: %s"
-#~ msgstr "Arama çubuğu kullanıcı arayüzü yüklenirken hata: %s"
-
-#~ msgid "Close"
-#~ msgstr "Kapat"
-
-#~ msgid "Flickr authorization failed"
-#~ msgstr "Flick yetkilendirmesi başarısız"
-
-#~ msgid ""
-#~ "You have already logged in and out of a Google service during this "
-#~ "Shotwell session.\n"
-#~ "\n"
-#~ "To continue publishing to Google services, quit and restart Shotwell, "
-#~ "then try publishing again."
-#~ msgstr ""
-#~ "Bu Shotwell oturumu boyunca zaten bir Google hizmetine giriş ve çıkış "
-#~ "yaptınız.\n"
-#~ "\n"
-#~ "Google hizmetlerine yayımlamayı sürdürmek için, çıkın ve Shotwell’i "
-#~ "yeniden başlatın, ardından yeniden yayımlamayı deneyin."
-
-#~ msgid "Select Library Folder"
-#~ msgstr "Kitaplık Klasörü Seç"
-
-#~ msgid "Shotwell Profile Browser"
-#~ msgstr "Shotwell Profil Görüntüleyici"
-
-#~ msgid "Rename All"
-#~ msgstr "Tümünü Yeniden Adlandır"
-
-#~ msgid "Replace _All"
-#~ msgstr "_Tümünü Değiştir"
-
-#~ msgid "Export"
-#~ msgstr "Dışa Aktar"
-
-#~ msgid "Import From _Application…"
-#~ msgstr "_Uygulamadan İçe Aktar…"
-
-#~ msgid "Pin Toolbar"
-#~ msgstr "Araç Çubuğunu Sabitle"
-
-#~ msgid "[FILE]"
-#~ msgstr "[DOSYA]"
-
-#~ msgid "%Y"
-#~ msgstr "%Y"
-
-#~ msgid "%B"
-#~ msgstr "%B"
