@@ -162,7 +162,6 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
         sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
-        sidebar_tree.finish();
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);

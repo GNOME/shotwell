@@ -6,13 +6,13 @@
 
 public delegate bool Locator<G>(G item);
 
-public class Sidebar.Branch : Object {
+public class Sidebar.Branch : Sidebar.Entry, Object {
     public string? label {
         owned get {
             print("%s\n", get_root().to_string());
             return get_root().to_string();
         }
-        private set {        
+        set {        
         }
     }
 
@@ -21,11 +21,25 @@ public class Sidebar.Branch : Object {
             print("%s\n", get_root().get_sidebar_icon());
             return get_root().get_sidebar_icon();
         }
-        private set {
+        set {
         }
     }
 
+    public string get_sidebar_name() {
+        return get_root().get_sidebar_name();
+    }
 
+    public string? get_sidebar_tooltip() {
+        return get_root().get_sidebar_name();
+    }
+
+    public string? get_sidebar_icon() {
+        return get_root().get_sidebar_icon();
+    }
+
+    public string to_string() {
+        return get_root().to_string();
+    }
 
 
     [Flags]
@@ -235,6 +249,24 @@ public class Sidebar.Branch : Object {
         
         if (options.is_hide_if_empty())
             set_show_branch(false);
+    }
+
+    private GLib.ListModel? on_model_create_model(Object item) {
+        print("  > Branch on model create model %s\n", item.get_type().name());
+        return null;
+    }
+
+    public override GLib.ListModel? get_model() {
+        var children = get_children(get_root());
+        if (children == null) {
+            return null;
+        }
+
+        var result = new GLib.ListStore(typeof(Sidebar.Entry));
+        foreach (var c in children) {
+            result.append(c);
+        }
+        return result;
     }
     
     public Sidebar.Entry get_root() {

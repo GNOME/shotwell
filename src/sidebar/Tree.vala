@@ -7,9 +7,7 @@ public class Sidebar.Tree : Object {
     private Gtk.SelectionModel selection;
     private Gtk.ListView list_view;
     private Gtk.SignalListItemFactory list_item_factory;
-    private GLib.ListStore toplevel_items = new GLib.ListStore(typeof(Sidebar.Branch));
-    private Gee.ArrayList<unowned Branch> expand_to_child = new Gee.ArrayList<unowned Branch>();
-    private Gee.ArrayList<unowned Branch> expand_to_element = new Gee.ArrayList<unowned Branch>();
+    private GLib.ListStore toplevel_items = new GLib.ListStore(typeof(Sidebar.Entry));
     
     public signal void entry_selected(Sidebar.SelectableEntry selectable);
     public signal void selected_entry_removed(Sidebar.SelectableEntry removed);
@@ -35,12 +33,14 @@ public class Sidebar.Tree : Object {
         ((Gtk.ListItem)object).set_child(expander);
 
         var item = new Gtk.ConstantExpression(typeof(Gtk.ListItem), object);
-        var expander_ex = new Gtk.PropertyExpression(typeof(Gtk.ListItem), item, "item");
-        item.bind(expander, "list-row", expander);
-        var label_ex = new Gtk.PropertyExpression(typeof(Sidebar.Branch), expander_ex, "label");
-        label_ex.bind(label, "label", label);
-        var icon_ex = new Gtk.PropertyExpression(typeof(Sidebar.Branch), expander_ex, "icon-name");
-        icon_ex.bind(icon, "icon-name", icon);
+        var expander_ex_0 = new Gtk.PropertyExpression(typeof(Gtk.ListItem), item, "item");
+        var expander_ex = new Gtk.PropertyExpression(typeof(Gtk.TreeListRow), expander_ex_0, "item");
+        expander_ex_0.bind(expander, "list-row", object);
+
+        var label_ex2 = new Gtk.PropertyExpression(typeof(Sidebar.Entry), expander_ex, "label");
+        label_ex2.bind(label, "label", object);
+        var icon_ex = new Gtk.PropertyExpression(typeof(Sidebar.Entry), expander_ex, "icon-name");
+        icon_ex.bind(icon, "icon-name", object);
     }
 
     public Gtk.ListView get_view() {
@@ -56,12 +56,18 @@ public class Sidebar.Tree : Object {
     }
 
     private GLib.ListModel? on_model_create_model(Object item) {
-        return null;
+        if (item is Gtk.TreeListRow) {
+            var inner_item = ((Gtk.TreeListRow)item).get_item();
+
+            print("create model for inner_item %s\n", inner_item.get_type().name());
+            return ((Entry)inner_item).get_model();
+        }
+        print("create model for item %s\n", item.get_type().name());
+        return ((Entry)item).get_model();
     }
 
     public GLib.ListModel get_model() {
-        //return new Gtk.TreeListModel(toplevel_items, false, true, on_model_create_model);
-        return toplevel_items;
+        return new Gtk.TreeListModel(toplevel_items, false, true, on_model_create_model);
     }
 
     public void graft(Sidebar.Branch branch, int position) requires (position >= 0) {

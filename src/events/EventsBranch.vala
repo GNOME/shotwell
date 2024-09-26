@@ -442,6 +442,10 @@ public class Events.MonthDirectoryEntry : Events.DirectoryEntry {
     public int get_month() {
         return tm.get_month();
     }
+
+    public override GLib.ListModel? get_model() {
+        return GLib.ListStore(typeof(Sidebar.Entry));
+    }
     
     protected override Page create_page() {
         return new SubEventsDirectoryPage(SubEventsDirectoryPage.DirectoryType.MONTH, tm);

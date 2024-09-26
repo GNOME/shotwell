@@ -11,6 +11,23 @@ public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry,
     private string name;
     private string? tooltip;
     private string? icon;
+
+    public string? label {
+
+        owned get {
+            return name;
+        }
+        set {        
+        }
+    }
+
+    public string? icon_name {
+        owned get {
+            return icon;
+        }
+        set {
+        }
+    }
     
     public Grouping(string name, string? icon, string? tooltip = null) {
         this.name = name;
@@ -53,8 +70,25 @@ public class Sidebar.Grouping : Object, Sidebar.Entry, Sidebar.ExpandableEntry,
 // This class also handles the bookwork of creating the Page on-demand and maintaining it in memory.
 public abstract class Sidebar.SimplePageEntry : Object, Sidebar.Entry, Sidebar.SelectableEntry,
     Sidebar.PageRepresentative, Sidebar.Contextable {
-    private Page? page = null;
-    
+
+        private Page? page = null;
+        public string? label {
+
+        owned get {
+            return get_sidebar_name();
+        }
+        set {        
+        }
+    }
+
+    public string? icon_name {
+        owned get {
+            return get_sidebar_icon();
+        }
+        set {
+        }
+    }
+
     public abstract string get_sidebar_name();
     
     public virtual string? get_sidebar_tooltip() {

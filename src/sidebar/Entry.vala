@@ -5,6 +5,9 @@
  */
 
 public interface Sidebar.Entry : Object {
+    public abstract  string? label { owned get;  set; }
+    public abstract string? icon_name {owned get; set; }
+
     public signal void sidebar_tooltip_changed(string? tooltip);
     
     public signal void sidebar_icon_changed(string? icon);
@@ -16,6 +19,10 @@ public interface Sidebar.Entry : Object {
     public abstract string? get_sidebar_icon();
     
     public abstract string to_string();
+
+    public virtual GLib.ListModel? get_model() {
+        return null;
+    }
     
     internal virtual void grafted(Sidebar.Tree tree) {
     }
