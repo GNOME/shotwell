@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2023-04-05 20:04+0000\n"
-"PO-Revision-Date: 2023-04-06 23:14+1000\n"
+"POT-Creation-Date: 2024-09-26 23:57+0000\n"
+"PO-Revision-Date: 2024-09-27 23:47+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -1752,7 +1752,7 @@ msgid "Google"
 msgstr "Google"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:10 C/privacy-policy.page:42
+#: C/privacy-policy.page:10 C/privacy-policy.page:48
 msgid "Information Shotwell Stores and Transmits About You"
 msgstr "Сведения о вас, которые Shotwell хранит и передаёт"
 
@@ -1772,27 +1772,45 @@ msgid ""
 "authentication token that it receives from YouTube and Google Photos on your "
 "computer. This authentication token is simply a session-identifying sequence "
 "of letters and numbers. It contains no password, user name, or other "
-"personal information."
+"personal information. This authentication token can be deleted by logging "
+"out of the service, or, if Shotwell Connect is not available anymore, by "
+"navigating to your system's credential store and removing it manually."
 msgstr ""
 "В ходе своей работы приложение Shotwell Connect может хранить на вашем "
 "компьютере токен аутентификации, который оно получает от YouTube и Google "
 "Photos. Токен представляет собой последовательность букв и цифр, "
 "идентифицирующую сеанс. Он не содержит пароля, имени пользователя или другой "
-"личной информации."
+"личной информации. Этот токен можно удалить, выйдя из службы, или, если "
+"Shotwell Connect больше недоступен, перейдя в хранилище учётных данных вашей "
+"системы удалить его вручную."
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:13
+#: C/privacy-policy.page:14
+msgid ""
+"You can also revoke access to any Google service at any time by visiting "
+"<link href=\"https://security.google.com/settings/\">https://security.google."
+"com/settings/</link>. If you opt to revoke the access by using the link "
+"above, the stored token will removed upon next use."
+msgstr ""
+"Вы также можете в любое время отозвать доступ к любому сервису Google, "
+"перейдя по ссылке <link href=\"https://security.google.com/settings/"
+"\">https://security.google.com/settings/</link>. Если вы решите отозвать "
+"доступ с помощью указанной ссылки, сохраненный токен будет удалён при "
+"следующем использовании."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:16
 msgid ""
 "At no time does Shotwell Connect transmit any information to the GNOME "
-"foundation, the Software Freedom Conservancy or any of the developers of the "
-"Shotwell Connect Application for Google services."
+"foundation, the Software Freedom Conservancy, any of the developers of the "
+"Shotwell Connect Application for Google services or any other third-party."
 msgstr ""
 "Shotwell Connect ни при каких обстоятельствах не передает какую-либо "
-"информацию в фонд GNOME, Software Freedom Conservancy или кому-либо из "
-"разработчиков приложения Shotwell Connect для служб Google."
+"информацию в фонд GNOME, Software Freedom Conservancy, разработчикам "
+"приложения Shotwell Connect для служб Google или любой третьей стороне."
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:15
+#: C/privacy-policy.page:17
 msgid ""
 "For Google's own privacy policy, please refer to <link href=\"https://"
 "policies.google.com/privacy\">https://policies.google.com/privacy</link>"
@@ -1802,12 +1820,12 @@ msgstr ""
 "privacy</link>"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:18
+#: C/privacy-policy.page:20
 msgid "YouTube"
 msgstr "YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:19
+#: C/privacy-policy.page:21
 msgid ""
 "Shotwell uses the YouTube API services <link href=\"https://developers."
 "google.com/youtube\">https://developers.google.com/youtube</link> for "
@@ -1818,12 +1836,29 @@ msgstr ""
 "доступа к вашему каналу YouTube и загрузки видеовамериалов."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:21
+#: C/privacy-policy.page:23
+msgid "Data obtained from your YouTube account"
+msgstr "Данные, полученные из вашего аккаунта YouTube"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:24
+msgid ""
+"The only data retrieved from your YouTube account is your YouTube user name. "
+"The user name will be used during the upload procedure only and not stored "
+"permanently anywhere."
+msgstr ""
+"Единственными данными, которые будут получены из вашей учётной записи "
+"YouTube, является ваше имя пользователя на YouTube. Имя пользователя будет "
+"использоваться только во время процедуры загрузки и не будет храниться "
+"постоянно."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:27
 msgid "YouTube terms and permissions"
 msgstr "Правила использования и права доступа к YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:22
+#: C/privacy-policy.page:28
 msgid ""
 "By using Shotwell to access YouTube, you agree to be bound to the YouTube "
 "Terms of Service as available at <link href=\"https://www.youtube.com/t/"
@@ -1834,30 +1869,30 @@ msgstr ""
 "youtube.com/t/terms\">https://www.youtube.com/t/terms</link>"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:25
+#: C/privacy-policy.page:31
 msgid "Permissions you grant Shotwell for YouTube"
 msgstr "Разрешения, которые вы представляете Shotwell для YouTube"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:26
+#: C/privacy-policy.page:32
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application permission to "
 "publish videos to your YouTube channel. Other than uploading videos, "
-"Shotwell does not insert, modify or remove any information from your YouTube "
-"account and channel."
+"Shotwell does not insert, modify or remove, store or share any information "
+"from your YouTube account and channel."
 msgstr ""
 "Используя Shotwell, вы предоставляете приложению Shotwell Connect разрешение "
 "на публикацию видео на вашем канале YouTube. Помимо загрузки видео, Shotwell "
-"не вставляет, не изменяет и не удаляет какую-либо информацию из вашей "
-"учётной записи и канала YouTube."
+"не вставляет, не изменяет, не удаляет, не хранит и не делится какой-либо "
+"информацие из вашей учётной записи и канала YouTube."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:31
+#: C/privacy-policy.page:37
 msgid "Google Photos"
 msgstr "Google Photos"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:32
+#: C/privacy-policy.page:38
 msgid ""
 "Shotwell uses the Google Photos API services <link href=\"https://developers."
 "google.com/photos/\">https://developers.google.com/photos/</link> for all "
@@ -1868,12 +1903,12 @@ msgstr ""
 "\">https://developers.google.com/photos/</link>"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:34
-msgid "Permissions you Grant Shotwell for Google Photos"
+#: C/privacy-policy.page:40
+msgid "Permissions you grant Shotwell for Google Photos"
 msgstr "Разрешения, которые вы представляете Shotwell для Google Photos"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:35
+#: C/privacy-policy.page:41
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application to publish "
 "photos on your Google Photos account. It will download the list of available "
@@ -1890,12 +1925,12 @@ msgstr ""
 "данные в Google Photos"
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:40
+#: C/privacy-policy.page:46
 msgid "Flickr"
 msgstr "Flickr"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:43
+#: C/privacy-policy.page:49
 msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer. During the course of its operation, Shotwell Connect may "
@@ -1916,12 +1951,12 @@ msgstr ""
 "приложения Shotwell Connect для Flickr."
 
 #. (itstool) path: section/title
-#: C/privacy-policy.page:47
+#: C/privacy-policy.page:53
 msgid "Permissions you grant Shotwell for Flickr"
 msgstr "Разрешения, которые вы представляете Shotwell для Flickr"
 
 #. (itstool) path: section/p
-#: C/privacy-policy.page:48
+#: C/privacy-policy.page:54
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application access to "
 "publish photos to your Flickr account. It will download the list of "
