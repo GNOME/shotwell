@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-06-26 08:05+0000\n"
-"PO-Revision-Date: 2024-06-26 17:20+0200\n"
+"POT-Creation-Date: 2024-09-15 09:39+0000\n"
+"PO-Revision-Date: 2024-09-15 12:16+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1877,7 +1877,7 @@ msgstr "_Logga in"
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:758 src/publishing/PublishingUI.vala:172
+#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Avbryt"
@@ -2251,7 +2251,7 @@ msgstr "Flytta tillbaka markerade bilder till biblioteket"
 msgid "Delete all photos in the trash"
 msgstr "Radera alla bilder från papperskorgen"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:575
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Töm papperskorgen"
 
@@ -2871,16 +2871,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "Du är inloggad på YouTube som %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Offentligt listad"
+msgid "Public"
+msgstr "Offentlig"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Offentligt olistad"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Privat"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "olistad"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3500,7 +3500,7 @@ msgstr ""
 msgid "Database file"
 msgstr "Databasfil"
 
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:758
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
 msgid "_Import"
 msgstr "_Importera"
 
@@ -3737,7 +3737,7 @@ msgstr "Anpassad"
 msgid "Invalid pattern"
 msgstr "Ogiltigt mönster"
 
-#: src/dialogs/ProgressDialog.vala:89
+#: src/dialogs/ProgressDialog.vala:91
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -4803,7 +4803,7 @@ msgid "Undated"
 msgstr "Odaterade"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Händelse %s"
@@ -4920,7 +4920,7 @@ msgstr "Importer"
 msgid "Browse the library’s import history"
 msgstr "Bläddra genom bibliotekets importhistorik"
 
-#: src/library/BackgroundProgressBar.vala:74
+#: src/library/BackgroundProgressBar.vala:75
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
@@ -4929,11 +4929,11 @@ msgstr "%s (%d%%)"
 msgid "Importing…"
 msgstr "Importerar…"
 
-#: src/library/ImportQueuePage.vala:109
+#: src/library/ImportQueuePage.vala:110
 msgid "Preparing to import…"
 msgstr "Förbereder import…"
 
-#: src/library/ImportQueuePage.vala:132
+#: src/library/ImportQueuePage.vala:133
 #, c-format
 msgid "Imported %s"
 msgstr "Importerade %s"
@@ -4946,19 +4946,19 @@ msgstr "Senaste import"
 msgid "Organize and browse your photos"
 msgstr "Organisera och visa dina bilder"
 
-#: src/library/LibraryWindow.vala:514
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "Importera från mapp"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "Gå rekursivt in i undermappar"
 
-#: src/library/LibraryWindow.vala:575
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Tömmer papperskorgen…"
 
-#: src/library/LibraryWindow.vala:755
+#: src/library/LibraryWindow.vala:758
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4970,23 +4970,23 @@ msgstr ""
 "Vill du fortsätta att importera bilder?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:781
 msgid "Photos cannot be imported from this directory."
 msgstr "Bilder kan inte importeras från denna katalog."
 
-#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
 msgid "Updating library…"
 msgstr "Uppdaterar biblioteket…"
 
-#: src/library/LibraryWindow.vala:1023
+#: src/library/LibraryWindow.vala:1026
 msgid "Preparing to auto-import photos…"
 msgstr "Förbereder automatisk import av bilder…"
 
-#: src/library/LibraryWindow.vala:1028
+#: src/library/LibraryWindow.vala:1031
 msgid "Auto-importing photos…"
 msgstr "Importerar bilder automatiskt…"
 
-#: src/library/LibraryWindow.vala:1036
+#: src/library/LibraryWindow.vala:1039
 msgid "Writing metadata to files…"
 msgstr "Skriver metadata till filer…"
 
@@ -5121,18 +5121,18 @@ msgstr "Skapa PROFIL som angivits med --profile om den inte redan finns"
 msgid "Show available profiles"
 msgstr "Visa tillgängliga profiler"
 
-#: src/main.vala:408
+#: src/main.vala:409
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Kör ”%s --help” för en komplett lista över tillgängliga "
 "kommandoradsflaggor.\n"
 
-#: src/main.vala:416
+#: src/main.vala:417
 msgid "Choose Shotwell's profile"
 msgstr "Välj Shotwells profil"
 
-#: src/main.vala:450
+#: src/main.vala:451
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Profilen %s finns inte. Ville du skicka med --create också?"
@@ -5221,7 +5221,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "ändrad"
 
@@ -6390,6 +6390,9 @@ msgstr ""
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
+#~ msgid "Public listed"
+#~ msgstr "Offentligt listad"
+
 #~ msgid "Enter the username and password associated with your Tumblr account."
 #~ msgstr "Fyll i användarnamn och lösenord för ditt Tumblr-konto."
 
@@ -6737,9 +6740,6 @@ msgstr "Exportera filmer"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "Du är för närvarande inte inloggad på Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Offentlig"
 
 #~ msgid "Friends"
 #~ msgstr "Vänner"
