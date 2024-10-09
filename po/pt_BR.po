@@ -21,16 +21,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-05-06 05:42+0000\n"
-"PO-Revision-Date: 2024-08-22 08:11-0300\n"
+"POT-Creation-Date: 2024-10-04 10:56+0000\n"
+"PO-Revision-Date: 2024-10-09 09:47-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 46.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 47.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1264,10 +1264,6 @@ msgstr ""
 "Shotwell oferece suporte a JPEG, PNG, TIFF e a uma variedade de formatos de "
 "arquivo RAW."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Os desenvolvedores do Shotwell"
-
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Organizador de fotos"
@@ -1916,7 +1912,7 @@ msgstr "_Copiar ajustes de cor"
 msgid "_Paste Color Adjustments"
 msgstr "C_olar ajustes de cor"
 
-#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:760
 msgid "Library Location"
 msgstr "Localização da biblioteca"
 
@@ -2229,7 +2225,7 @@ msgstr "Mover as fotos selecionadas para a biblioteca"
 msgid "Delete all photos in the trash"
 msgstr "Apaga todas as fotos na lixeira"
 
-#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:577
+#: data/ui/trash.ui:284 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
@@ -2842,16 +2838,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "Você está autenticado no Youtube como %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Público listado"
+msgid "Public"
+msgstr "Público"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Público não listado"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Privado"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "Não listado"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3478,7 +3474,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Arquivo de banco de dados:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:760
 msgid "_Import"
 msgstr "Parar _importação"
 
@@ -3553,7 +3549,12 @@ msgstr "Enviar para"
 msgid "Unable to export background to %s: %s"
 msgstr "Não foi possível exportar o plano de fundo para %s: %s"
 
-#: src/DesktopIntegration.vala:309
+#: src/DesktopIntegration.vala:186 src/DesktopIntegration.vala:328
+#, c-format
+msgid "Unable to set background: %s"
+msgstr "Não foi possível definir o plano de fundo: %s"
+
+#: src/DesktopIntegration.vala:313
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr ""
@@ -3712,7 +3713,7 @@ msgstr "Personalizar"
 msgid "Invalid pattern"
 msgstr "Padrão inválido"
 
-#: src/dialogs/ProgressDialog.vala:97
+#: src/dialogs/ProgressDialog.vala:99
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -4778,7 +4779,7 @@ msgid "Undated"
 msgstr "Sem data"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Evento %s"
@@ -4918,20 +4919,20 @@ msgstr "Última importação"
 msgid "Organize and browse your photos"
 msgstr "Organize e navegue por suas fotos"
 
-#: src/library/LibraryWindow.vala:503
+#: src/library/LibraryWindow.vala:504
 msgid "Import From Folder"
 msgstr "Importa da pasta"
 
-#: src/library/LibraryWindow.vala:509
+#: src/library/LibraryWindow.vala:510
 msgid "Recurse Into Subfolders"
 msgstr "Recursividade em subpastas"
 
-#: src/library/LibraryWindow.vala:577
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Esvaziando lixeira…"
 
 # %s é um glifo de seta -- Rafael
-#: src/library/LibraryWindow.vala:756
+#: src/library/LibraryWindow.vala:757
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4944,23 +4945,23 @@ msgstr ""
 
 #. TODO: Specify which directory/file.
 #. var message = ngettext("Photos cannot be imported from this folder", "Photos cannot be imported from these folders", rejected.size)
-#: src/library/LibraryWindow.vala:783
+#: src/library/LibraryWindow.vala:784
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotos não podem ser importadas deste diretório."
 
-#: src/library/LibraryWindow.vala:1005 src/library/LibraryWindow.vala:1016
+#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
 msgid "Updating library…"
 msgstr "Atualizando biblioteca…"
 
-#: src/library/LibraryWindow.vala:1022
+#: src/library/LibraryWindow.vala:1023
 msgid "Preparing to auto-import photos…"
 msgstr "Preparando para auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1027
+#: src/library/LibraryWindow.vala:1028
 msgid "Auto-importing photos…"
 msgstr "Auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1035
+#: src/library/LibraryWindow.vala:1036
 msgid "Writing metadata to files…"
 msgstr "Escrevendo metadados para arquivos…"
 
@@ -5079,22 +5080,22 @@ msgid "Show available profiles"
 msgstr "Mostra perfis disponíveis"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:458
+#: src/main.vala:460
 msgid "[FILE]"
 msgstr "[ARQUIVO]"
 
-#: src/main.vala:463
+#: src/main.vala:465
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Execute “%s --help” para ver uma lista completa de opções de linha de "
 "comando disponíveis.\n"
 
-#: src/main.vala:472
+#: src/main.vala:474
 msgid "Choose Shotwell's profile"
 msgstr "Escolher perfil do Shotwell"
 
-#: src/main.vala:498
+#: src/main.vala:500
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "O perfil %s não existe. Você pretendia passar --create também?"
@@ -5214,7 +5215,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "modificado"
 
@@ -6126,7 +6127,8 @@ msgstr "%a, %d de %b de %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:857
+#, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6134,7 +6136,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:861
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6142,7 +6144,8 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:866
+#: src/Resources.vala:868
+#, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6150,7 +6153,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:871
+#: src/Resources.vala:873
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %d de %b de %Y"
@@ -6451,6 +6454,12 @@ msgstr "sem título"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Exportar vídeos"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Os desenvolvedores do Shotwell"
+
+#~ msgid "Public listed"
+#~ msgstr "Público listado"
 
 #~ msgid "Shotwell Profile Browser"
 #~ msgstr "Navegador de perfil do Shotwell"
