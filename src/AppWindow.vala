@@ -290,6 +290,21 @@ public abstract class AppWindow : PageWindow {
         if (Resources.GIT_VERSION != null && Resources.GIT_VERSION != "" && Resources.GIT_VERSION != Resources.APP_VERSION) {
             hash = " (%s)".printf(Resources.GIT_VERSION.substring(0,7));
         }
+        var runtime = AppDirs.get_runtime();
+        switch (runtime) {
+            case AppDirs.Runtime.SNAP:
+                hash += " (Snap)";
+                break;
+            case AppDirs.Runtime.FLATPAK:
+                hash += " (Flatpak)";
+                break;
+            case AppDirs.Runtime.NATIVE:
+                hash += " (Native)";
+                break;
+            default:
+                hash += " (Unknown)";
+                break;
+        }
         Gtk.show_about_dialog(this,
             "version", Resources.APP_VERSION + hash,
             "comments", get_app_role(),
