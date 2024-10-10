@@ -193,12 +193,39 @@ class AppDirs {
     public static File get_exec_dir() {
         return exec_dir;
     }
+
+    public enum Runtime {
+        NATIVE,
+        FLATPAK,
+        SNAP,
+        UNKNOWN
+    }
+
+    private static Runtime _runtime = Runtime.UNKNOWN;
+
+    public static Runtime get_runtime() {
+        if (_runtime == Runtime.UNKNOWN) {
+            var snap = Environment.get_variable("SNAP_NAME");
+            if (snap != null) {
+                _runtime = Runtime.SNAP;
+            }
+            else {
+                var flatpak_canary = File.new_for_path("/.flatpak-info");
+                if (flatpak_canary.query_exists()) {
+                    _runtime = Runtime.FLATPAK;
+                } else {
+                    _runtime = Runtime.NATIVE;
+                }
+            }
+        }
+
+        return _runtime;
+    }
     
     public static File get_temp_dir() {
         if (tmp_dir == null) {
             var basedir = Environment.get_tmp_dir();
-            var flatpak_canary = File.new_for_path("/.flatpak-info");
-            if (flatpak_canary.query_exists() && basedir == "/tmp") {
+            if (get_runtime() == Runtime.FLATPAK && basedir == "/tmp") {
                 basedir = Environment.get_user_cache_dir() + "/tmp";
             }
 

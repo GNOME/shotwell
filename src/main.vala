@@ -567,7 +567,7 @@ void main(string[] args) {
             Resources.APP_VERSION);
 
     debug ("Shotwell is running in timezone %s", Application.timezone.get_identifier());
-        
+    message ("Shotwell is runing inside %s", AppDirs.get_runtime().to_string());
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.
     Application.init(!is_string_empty(filename));
