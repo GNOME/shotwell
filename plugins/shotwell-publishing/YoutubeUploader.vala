@@ -18,7 +18,10 @@ internal class Publishing.YouTube.UploadTransaction : Publishing.RESTSupport.Goo
     public override async void execute_async() throws Spit.Publishing.PublishingError {
         // Collect parameters
 
-        var slug = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        var slug = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
+        if (slug == null || slug == "") {
+            slug = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        }
         // Set title to publishing name, but if that's empty default to filename.
         string title = publishable.get_publishing_name();
         if (title == "") {
