@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-07-14 18:19+0000\n"
-"PO-Revision-Date: 2024-07-15 06:00+0200\n"
+"POT-Creation-Date: 2024-10-16 19:25+0000\n"
+"PO-Revision-Date: 2024-10-18 06:43+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -2209,7 +2209,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr ""
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:317
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
@@ -2262,7 +2262,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 
@@ -2651,16 +2651,16 @@ msgid "You are logged into YouTube as %s."
 msgstr ""
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr ""
+msgid "Public"
+msgstr "საჯარო"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr ""
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "პირადი"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr ""
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -2727,22 +2727,22 @@ msgstr "მონაცემების საქაღალდის (%s) �
 msgid "Pictures"
 msgstr "სურათები"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "დროებითი საქაღალდის (%s) შექმნის შეცდომა: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "მონაცემების ქვესაქაღალდის (%s) შექმნის შეცდომა: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr ""
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr ""
@@ -2760,21 +2760,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:314
 msgid "Visit the Shotwell web site"
 msgstr ""
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:326
 #, c-format
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:334
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr ""
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:342
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr ""
@@ -4156,7 +4156,7 @@ msgstr "სიმაღლე"
 #: src/direct/DirectPhotoPage.vala:92
 #, c-format
 msgid "%s does not exist."
-msgstr ""
+msgstr "%s არ არსებობს."
 
 #: src/direct/DirectPhotoPage.vala:94
 #, c-format
@@ -4567,7 +4567,7 @@ msgstr "შემოტანები"
 msgid "Browse the library’s import history"
 msgstr ""
 
-#: src/library/BackgroundProgressBar.vala:74
+#: src/library/BackgroundProgressBar.vala:75
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
@@ -4850,7 +4850,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "შეიცვალა"
 
@@ -5976,7 +5976,7 @@ msgstr ""
 
 #: src/slideshow/TransitionEffects.vala:98
 msgid "(None)"
-msgstr ""
+msgstr "(არცერთი)"
 
 #: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
