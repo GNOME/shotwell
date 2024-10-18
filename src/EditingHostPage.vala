@@ -487,6 +487,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
                     if (tool_pixbuf != null) {
                         pixbuf = tool_pixbuf;
+                        pixbuf.ref();
                         max_dim = tool_pixbuf_dim;
                     }
                 } catch(Error err) {
