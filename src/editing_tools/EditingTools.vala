@@ -2126,7 +2126,6 @@ public class RedeyeTool : EditingTool {
 
 
         if (coord_in_rectangle((int)Math.lround(x * scale), (int)Math.lround(y * scale), bounds_rect)) {
-            print("Motion in progress!!\n");
             is_reticle_move_in_progress = true;
             reticle_move_mouse_start_point.x = (int)Math.lround(x * scale);
             reticle_move_mouse_start_point.y = (int)Math.lround(y * scale);
