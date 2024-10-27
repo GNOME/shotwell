@@ -1,3 +1,37 @@
+Shotwell 0.32.10 (stable) - 27 Oct 2024
+ * Add information to log and about about running environment
+ * Fix video description upload for YouTube
+ * Fix a regression causing a crash in crop again
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5129
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Juliano de Souza Camargo <julianosc@protonmail.com>
+ - Daniel Rusek <mail@asciiwolf.com>
+ - Sergej A. <asvmail.as@gmail.com>
+ - Jürgen Benvenuti <jbenvenuti@gnome.org>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Martin <miles@filmsi.net>
+
+Added/updated translations:
+ - ru.po, courtesy of Ser82-png
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - cs.po, courtesy of Daniel Rusek
+ - de.po, courtesy of Jürgen Benvenuti
+ - hu.po, courtesy of Balázs Úr
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.32.9 (stable) - 15 Sep 2024
  * Address Google YouTube API usage review comments
  * Fix a memory leak during slideshows
