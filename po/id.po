@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.32\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-05 13:47+0000\n"
-"PO-Revision-Date: 2024-09-08 18:40+0700\n"
+"POT-Creation-Date: 2024-10-27 17:51+0000\n"
+"PO-Revision-Date: 2024-10-28 20:23+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -2298,7 +2298,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Kunjungi laman serambi Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:614
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2372,7 +2372,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Berkas sementara yang diperlukan untuk penerbitan tidak tersedia"
 
@@ -2400,7 +2400,7 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2496
 msgid "_Publish"
 msgstr "_Terbitkan"
 
@@ -2774,16 +2774,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "Anda masuk ke YouTube sebagai %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Publik terdaftar"
+msgid "Public"
+msgstr "Publik"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Publik tak terdaftar"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Privat"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "tidak terdaftar"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -2852,22 +2852,22 @@ msgstr "Gagal membuat direktori data %s: %s"
 msgid "Pictures"
 msgstr "Foto"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Gagal membuat direktori temporer %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Gagal membuat direktori data %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Tidak bisa membuat direktori %s dapat ditulisi"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Tidak bisa membuat direktori %s dapat ditulisi: %s"
@@ -2897,21 +2897,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:596
+#: src/AppWindow.vala:611
 msgid "Visit the Shotwell web site"
 msgstr "Kunjungi situs web Shotwell"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Pedoman penggunaan tidak dapat ditampilkan: %s"
 
-#: src/AppWindow.vala:617
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Gagal menavigasi basis data bug: %s"
 
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:640
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Gagal menampilkan FAQ: %s"
@@ -3134,12 +3134,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
-#: src/PhotoPage.vala:2490 src/Resources.vala:137
+#: src/PhotoPage.vala:2491 src/Resources.vala:137
 msgid "_Print"
 msgstr "_Cetak"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
-#: src/PhotoPage.vala:2500 src/Resources.vala:187
+#: src/PhotoPage.vala:2501 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Atur sebagai Latar _Destop"
 
@@ -3692,7 +3692,7 @@ msgstr[0] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
 msgid "Export Video"
 msgstr "Ekspor Video"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3026
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Ekspor Foto"
@@ -4499,80 +4499,80 @@ msgstr "Tutup penghilang mata merah"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Hilangkan efek mata merah pada area yang diinginkan"
 
-#: src/editing_tools/EditingTools.vala:2229
+#: src/editing_tools/EditingTools.vala:2228
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reset"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2242 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Bukaan:"
 
-#: src/editing_tools/EditingTools.vala:2252
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Contrast:"
 msgstr "Kontras:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Saturation:"
 msgstr "Saturasi:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Tint:"
 msgstr "Tint:"
 
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Temperature:"
 msgstr "Suhu:"
 
-#: src/editing_tools/EditingTools.vala:2289
+#: src/editing_tools/EditingTools.vala:2288
 msgid "Shadows:"
 msgstr "Kegelapan:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2300
+#: src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Highlight:"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset Colors"
 msgstr "Reset Warna"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset all color adjustments to original"
 msgstr "Kembalikan warna ke nilai aslinya"
 
-#: src/editing_tools/EditingTools.vala:2716
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Temperature"
 msgstr "Suhu"
 
-#: src/editing_tools/EditingTools.vala:2728
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Tint"
 msgstr "Tint"
 
-#: src/editing_tools/EditingTools.vala:2740
+#: src/editing_tools/EditingTools.vala:2739
 msgid "Contrast"
 msgstr "Kontras"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2753
 msgid "Saturation"
 msgstr "Saturasi"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2766
 msgid "Exposure"
 msgstr "Bukaan"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2779
 msgid "Shadows"
 msgstr "Kegelapan"
 
-#: src/editing_tools/EditingTools.vala:2793
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Highlights"
 msgstr "Highlight"
 
-#: src/editing_tools/EditingTools.vala:2803
+#: src/editing_tools/EditingTools.vala:2802
 msgid "Contrast Expansion"
 msgstr "Naikkan Kontras"
 
@@ -4967,22 +4967,22 @@ msgstr "Foto sebelumnya"
 msgid "Next photo"
 msgstr "Foto berikutnya"
 
-#: src/PhotoPage.vala:1867
+#: src/PhotoPage.vala:1868
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Sumber foto asli hilang: %s"
 
-#: src/PhotoPage.vala:2900
+#: src/PhotoPage.vala:2901
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Hapus Dari Album"
 
-#: src/PhotoPage.vala:2901
+#: src/PhotoPage.vala:2902
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Menghapus Foto Dari Album"
 
-#: src/PhotoPage.vala:3045
+#: src/PhotoPage.vala:3046
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Proses ekspor %s gagal: %s"
@@ -5044,7 +5044,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "berubah"
 
