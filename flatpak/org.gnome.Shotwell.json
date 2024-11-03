@@ -29,7 +29,8 @@
     ],
     "cleanup" : [
         "/include",
-        "/lib/pkconfig",
+        "/lib/cmake",
+        "/lib/pkgconfig",
         "/share/pkgconfig",
         "/share/gtk-doc",
         "/share/man",
@@ -38,7 +39,15 @@
         "*.la",
         "*.a"
     ],
-    "modules" : [
+    "add-extensions": {
+        "org.gnome.Shotwell.HEIC": {
+            "directory": "lib/libheif",
+            "add-ld-path": "lib",
+            "bundle": true,
+            "autodelete": true
+        }
+    },
+    "modules": [
         {
             "name" : "opencv",
             "buildsystem" : "cmake-ninja",
@@ -47,13 +56,10 @@
                 "/share/OpenCV/*.cmake",
                 "/share/OpenCV/*.supp"
             ],
-            "build-options" : {
-                "cxxflags" : "-Wp,-U_GLIBCXX_ASSERTIONS",
-                "cflags" : "-Wp,-U_GLIBCXX_ASSERTIONS"
-            },
             "config-opts" : [
                 "-DCMAKE_CXX_VERSION=14",
                 "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_COMPILE_WARNING_AS_ERROR=OFF",
                 "-DOPENCV_GENERATE_PKGCONFIG=ON",
                 "-DBUILD_TESTS=OFF",
                 "-DBUILD_EXAMPLES=OFF",
@@ -82,8 +88,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2",
-                    "sha256" : "12ce7a61fc9854d1d2a1ffe095f7b5fac19ddba095c259e6067a46500381b5a5"
+                    "url": "https://github.com/libusb/libusb/archive/v1.0.27.tar.gz",
+                    "sha256": "e8f18a7a36ecbb11fb820bd71540350d8f61bcd9db0d2e8c18a6fb80b214a3de"
                 }
             ],
             "config-opts" : [
@@ -139,8 +145,9 @@
                 "/lib/girepository-1.0",
                 "/share/gir-1.0"
             ],
-            "config-opts" : [
-                "-Dpython3=false"
+            "config-opts": [
+                "-Dpython3=false",
+                "-Dtools=false"
             ],
             "build-options" : {
                 "env" : {
@@ -157,13 +164,18 @@
         },
         {
             "name": "libraw",
-            "config-opts": [ "--disable-examples", "--disable-static" ],
-            "cleanup": [ "/share/doc" ],
+            "config-opts": [
+                "--disable-examples",
+                "--disable-static"
+            ],
+            "cleanup": [
+                "/share/doc"
+            ],
             "sources": [
                 {
                     "type": "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.21.1.tar.gz",
-                    "sha256" : "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
+                    "url": "https://www.libraw.org/data/LibRaw-0.21.3.tar.gz",
+                    "sha256": "dba34b7fc1143503942fa32ad9db43e94f714e62a4a856e91617f8f3e1e0aa5c"
                 },
                 {
                     "type": "patch",
@@ -187,31 +199,37 @@
                 "-Dbackend-gtk3=disabled",
                 "-Dbackend-gtk4=enabled",
                 "-Dbackend-qt5=disabled",
+                "-Dbackend-qt6=disabled",
                 "-Ddocs=false",
                 "-Dtests=false"
             ],
             "sources" : [
                 {
                     "type": "archive",
-                    "url": "https://github.com/flatpak/libportal/releases/download/0.7.1/libportal-0.7.1.tar.xz",
-                    "sha256" : "297b90b263fad22190a26b8c7e8ea938fe6b18fb936265e588927179920d3805"
+                    "url": "https://github.com/flatpak/libportal/releases/download/0.8.1/libportal-0.8.1.tar.xz",
+                    "sha256": "281e54e4f8561125a65d20658f1462ab932b2b1258c376fed2137718441825ac"
                 }
             ]
         },
         {
             "name": "de256",
             "buildsystem": "cmake-ninja",
-            "config-opts" : [
-                "-DCMAKE_INSTALL_LIBDIR=lib",
+            "config-opts": [
+                "-DCMAKE_INSTALL_PREFIX=/app/lib/libheif",
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DENABLE_DECODER=Off",
                 "-DENABLE_ENCODER=OfF"
             ],
-            "sources" : [
+            "cleanup": [
+                "/lib/libheif/include",
+                "/lib/libheif/lib/cmake",
+                "/lib/libheif/lib/pkgconfig"
+            ],
+            "sources": [
                 {
                     "type": "archive",
-                    "url" : "https://github.com/strukturag/libde265/releases/download/v1.0.12/libde265-1.0.12.tar.gz",
-                    "sha256" : "62185ea2182e68cf68bba20cc6eb4c287407b509cf0a827d7ddb75614db77b5c"
+                    "url": "https://github.com/strukturag/libde265/releases/download/v1.0.15/libde265-1.0.15.tar.gz",
+                    "sha256": "00251986c29d34d3af7117ed05874950c875dd9292d016be29d3b3762666511d"
                 }
             ]
         },
@@ -221,33 +239,80 @@
             "config-opts": [
                 "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
-                "-DLIBDE265=On",
+                "-DCMAKE_COMPILE_WARNING_AS_ERROR=OFF",
+                "-DWITH_LIBDE265_PLUGIN=On",
                 "-DWITH_DAV1D=Off",
                 "-DWITH_AOM_ENCODER=Off",
                 "-DWITH_AOM_DECODER=Off",
+                "-DWITH_OpenH264_ENCODER=Off",
+                "-DWITH_OpenH264_DECODER=Off",
+                "-DWITH_OpenJPEG_ENCODER=Off",
+                "-DWITH_OpenJPEG_DECODER=Off",
                 "-DWITH_SvtEnc=Off",
                 "-DWITH_RAV1E=Off",
-                "-DWITH_ENABLE_PLUGIN_LOADING=On",
+                "-DENABLE_PLUGIN_LOADING=On",
                 "-DWITH_EXAMPLES=Off"
             ],
-            "sources" : [
+            "build-options": {
+                "append-pkg-config-path": "/app/lib/libheif/lib/pkgconfig"
+            },
+            "sources": [
                 {
-                    "type" : "archive",
-                    "url" : "https://github.com/strukturag/libheif/releases/download/v1.17.3/libheif-1.17.3.tar.gz",
-                    "sha256" : "8d5b6292e7931324f81f871f250ecbb9f874aa3c66b4f6f35ceb0bf3163b53ea"
+                    "type": "archive",
+                    "url": "https://github.com/strukturag/libheif/releases/download/v1.19.1/libheif-1.19.1.tar.gz",
+                    "sha256": "994913eb2a29c00c146d6f3d61e07d9ff0d8e9eccb0624d87e4be8b108c74e4b"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "sed -i 's|DESTINATION ${GDKPIXBUF2_MODULE_DIR}|DESTINATION /app/lib/gdk-pixbuf-2.0/2.10.0/loaders|' gdk-pixbuf/CMakeLists.txt"
+                    ]
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "sed -i 's|find_package(Doxygen)|set(DOXYGEN_FOUND OFF)|' CMakeLists.txt"
+                    ]
                 }
-            ],
-            "post-install" :  [
-                "mkdir -p /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
-                "mv $(pkg-config --define-variable=prefix=/app --variable=gdk_pixbuf_moduledir gdk-pixbuf-2.0)/* /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
-                "gdk-pixbuf-query-loaders /app/lib/gdk-pixbuf-2.0/2.10.0/loaders/*  > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
             ]
         },
         {
-            "name" : "shotwell",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dfatal_warnings=true",
+            "name": "gdk-pixbuf",
+            "cleanup": [
+                "/bin/*"
+            ],
+            "post-install": [
+                "rm /app/lib/libgdk_pixbuf-2.0.so*",
+                "rm /app/lib/pkgconfig/gdk-pixbuf-2.0.pc",
+                "rm /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+            ],
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dgtk_doc=false",
+                "-Dman=false",
+                "-Dothers=enabled",
+                "-Dtests=false",
+                "-Dinstalled_tests=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.tar.xz",
+                    "sha256": "b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7"
+                }
+            ]
+        },
+        {
+            "name": "update-pixbuf-loaders",
+            "buildsystem": "simple",
+            "build-commands": [
+                "GDK_PIXBUF_MODULEDIR=/app/lib/gdk-pixbuf-2.0/2.10.0/loaders/ gdk-pixbuf-query-loaders > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+            ]
+        },
+        {
+            "name": "shotwell",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection_helper_bus=private",
