@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-06-26 08:05+0000\n"
-"PO-Revision-Date: 2024-06-27 21:30+0300\n"
-"Last-Translator: Artur So <arturios2005@mail.ru>\n"
+"POT-Creation-Date: 2024-11-03 10:10+0000\n"
+"PO-Revision-Date: 2024-11-24 10:22+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1948,7 +1948,7 @@ msgstr "_Войти"
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:758 src/publishing/PublishingUI.vala:172
+#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Отмена"
@@ -2324,7 +2324,7 @@ msgstr "Вернуть выбранные фотографии в библиот
 msgid "Delete all photos in the trash"
 msgstr "Удалить все фотографии в корзину"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:575
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
 msgid "Empty Trash"
 msgstr "Очистить корзину"
 
@@ -2456,7 +2456,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Посетить веб-сайт Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:317
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2526,7 +2526,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Временный файл, необходимый для публикации, недоступен"
 
@@ -2951,16 +2951,16 @@ msgid "You are logged into YouTube as %s."
 msgstr "Вы вошли на сайт YouTube как %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
+msgid "Public"
 msgstr "Общедоступное"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Не общедоступное"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Личное"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+msgid "unlisted"
+msgstr "вне списка"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3029,22 +3029,22 @@ msgstr "Невозможно создать каталог данных %s: %s"
 msgid "Pictures"
 msgstr "Изображения"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Невозможно создать временный каталог %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Невозможно создать подкаталог данных %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Не удалось сделать каталог %s доступным для записи"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Не удалось сделать каталог %s доступным для записи: %s"
@@ -3066,21 +3066,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:314
 msgid "Visit the Shotwell web site"
 msgstr "Посетить веб-сайт Shotwell"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:326
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Невозможно отобразить справку: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:334
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Невозможно перейти к базе данных об ошибках: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:342
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Невозможно отобразить FAQ: %s"
@@ -3591,7 +3591,7 @@ msgstr ""
 msgid "Database file"
 msgstr "Файл базы данных"
 
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:758
+#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
 msgid "_Import"
 msgstr "_Импортировать"
 
@@ -3838,7 +3838,7 @@ msgstr "Вручную"
 msgid "Invalid pattern"
 msgstr "Неверный шаблон"
 
-#: src/dialogs/ProgressDialog.vala:89
+#: src/dialogs/ProgressDialog.vala:91
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
@@ -4742,7 +4742,7 @@ msgstr "Невозможно следить за %s: не является ка�
 msgid "Photos cannot be exported to this directory."
 msgstr "Не удалось экспортировать фотографии в этот каталог."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Исходный файл не найден: %s"
@@ -4979,7 +4979,7 @@ msgid "Undated"
 msgstr "Без даты"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:748
+#: src/Event.vala:749
 #, c-format
 msgid "Event %s"
 msgstr "Событие %s"
@@ -5099,7 +5099,7 @@ msgstr "Импортированные"
 msgid "Browse the library’s import history"
 msgstr "Просмотреть журнал импорта библиотеки"
 
-#: src/library/BackgroundProgressBar.vala:74
+#: src/library/BackgroundProgressBar.vala:75
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
@@ -5108,11 +5108,11 @@ msgstr "%s (%d%%)"
 msgid "Importing…"
 msgstr "Импорт…"
 
-#: src/library/ImportQueuePage.vala:109
+#: src/library/ImportQueuePage.vala:110
 msgid "Preparing to import…"
 msgstr "Подготовка к импорту…"
 
-#: src/library/ImportQueuePage.vala:132
+#: src/library/ImportQueuePage.vala:133
 #, c-format
 msgid "Imported %s"
 msgstr "Импортировано %s"
@@ -5125,19 +5125,19 @@ msgstr "Последнее импортированное"
 msgid "Organize and browse your photos"
 msgstr "Упорядочение и просмотр фотографий"
 
-#: src/library/LibraryWindow.vala:514
+#: src/library/LibraryWindow.vala:515
 msgid "Import From Folder"
 msgstr "Импортировать из папки"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:527
 msgid "Recurse Into Subfolders"
 msgstr "Рекурсивно обойти вложенные папки"
 
-#: src/library/LibraryWindow.vala:575
+#: src/library/LibraryWindow.vala:578
 msgid "Emptying Trash…"
 msgstr "Очистка корзины…"
 
-#: src/library/LibraryWindow.vala:755
+#: src/library/LibraryWindow.vala:758
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -5149,23 +5149,23 @@ msgstr ""
 "Продолжить импорт фотографий?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:781
 msgid "Photos cannot be imported from this directory."
 msgstr "Не удалось импортировать фотографии из этого каталога."
 
-#: src/library/LibraryWindow.vala:1006 src/library/LibraryWindow.vala:1017
+#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
 msgid "Updating library…"
 msgstr "Обновление библиотеки…"
 
-#: src/library/LibraryWindow.vala:1023
+#: src/library/LibraryWindow.vala:1026
 msgid "Preparing to auto-import photos…"
 msgstr "Подготовка к автоматическому импорту фотографий…"
 
-#: src/library/LibraryWindow.vala:1028
+#: src/library/LibraryWindow.vala:1031
 msgid "Auto-importing photos…"
 msgstr "Автоматический импорт фотографий…"
 
-#: src/library/LibraryWindow.vala:1036
+#: src/library/LibraryWindow.vala:1039
 msgid "Writing metadata to files…"
 msgstr "Запись метаданных в файлы…"
 
@@ -5300,18 +5300,18 @@ msgstr ""
 msgid "Show available profiles"
 msgstr "Показать доступные профили"
 
-#: src/main.vala:408
+#: src/main.vala:409
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Введите «%s --help» для просмотра полного списка параметров командной "
 "строки.\n"
 
-#: src/main.vala:416
+#: src/main.vala:417
 msgid "Choose Shotwell's profile"
 msgstr "Выбрать профиль Shotwell"
 
-#: src/main.vala:450
+#: src/main.vala:451
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профиль %s не существует. Вы хотите передать параметр --create?"
@@ -5401,7 +5401,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "изменено"
 
@@ -6591,6 +6591,9 @@ msgstr ""
 msgid "Export Videos"
 msgstr "Экспортировать видео"
 
+#~ msgid "Public listed"
+#~ msgstr "Общедоступное"
+
 #~ msgid "Enter the username and password associated with your Tumblr account."
 #~ msgstr ""
 #~ "Введите имя пользователя и пароль, связанный с вашей учётной записью "
@@ -6946,9 +6949,6 @@ msgstr "Экспортировать видео"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "В данный момент вы не авторизованы на сервисе Яндекс.Фотки."
-
-#~ msgid "Public"
-#~ msgstr "Общедоступное"
 
 #~ msgid "Friends"
 #~ msgstr "Друзья"
