@@ -1086,7 +1086,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.visible = false;
         
-        try_refreshing_camera(true);
+        Timeout.add_seconds(3, () => { try_refreshing_camera(true); return false; });
     }
     
     private void clear_all_import_sources() {
