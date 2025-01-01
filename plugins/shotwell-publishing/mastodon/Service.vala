@@ -4,10 +4,12 @@
 internal class Publishing.Mastodon.Account : Object, Spit.Publishing.Account {
     public string instance;
     public string user;
+    public string id;
 
-    public Account(string? instance, string? user) {
+    public Account(string? instance, string? user, string? id) {
         this.instance = instance;
         this.user = user;
+        this.id = id;
     }
 
     public string display_name() {
@@ -83,7 +85,7 @@ public class Publishing.Mastodon.Service : Object, Spit.Pluggable, Spit.Publishi
             foreach (var user in user_entries) {
                 var found_user_attributes = user.get_attributes();
                 var user_name = found_user_attributes[Publishing.Authenticator.Shotwell.Mastodon.USER_KEY_USERNAME_ID];
-                list.add(new Account(instance, user_name));
+                list.add(new Account(instance, user_name, null));
             }
         }
 

@@ -95,31 +95,6 @@ internal class Account : Object, Spit.Publishing.Account {
                 add_argument("token", token);
             }
         }
-
-        /**
-         * Transaction to introspect information about the instance, stuff
-         * like supported server version, file formats, size and rate limits
-         */
-         private class InstanceInfo : global::Publishing.RESTSupport.Transaction {
-            const string ENDPOINT_URL = "https://%s/api/v1/instance";
-
-            /**
-             * Constructor.
-             * 
-             * @session: A Publishing.RESTSupport.Session used to communicate
-             */
-             public InstanceInfo(Session session) {
-                base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance,
-                                        Publishing.RESTSupport.HttpMethod.GET));
-            }
-
-            // There is no body, basically could just use a SoupMessage, but 
-            // for consistency just go with this.
-            public override async void execute_async() throws Spit.Publishing.PublishingError {
-                set_is_executed(true);
-                yield send_async();
-            }
-        }
     }
 
     /**
