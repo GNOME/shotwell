@@ -3,9 +3,14 @@
 
 internal class Publishing.Mastodon.Session : Publishing.RESTSupport.Session {
     public string? access_token;
+    public Soup.Cache cache;
 
     public Session() {
-        base("");
+        var cache_folder = File.new_for_path(Environment.get_user_cache_dir()).get_child("shotwell").get_child("PublishingCache");
+        var cache = new Soup.Cache(cache_folder.get_path(), Soup.CacheType.SINGLE_USER);
+        base("", {cache});
+
+        this.cache = cache;
     }
 
     public override bool is_authenticated() {
@@ -114,6 +119,37 @@ namespace Publishing.Mastodon.Transactions {
             }
         }
     }
+
+    internal class ServerInformation : global::Publishing.RESTSupport.Transaction {
+        const string ENDPOINT_URL = "https://%s/api/v2/instance";
+
+        public ServerInformation(Session session, Parameters parameters) {
+            base.with_endpoint_url(session, ENDPOINT_URL.printf(parameters.account.instance), Publishing.RESTSupport.HttpMethod.GET);
+        }
+
+        // There is no body, basically could just use a SoupMessage, but 
+        // for consistency just go with this.
+        public override async void execute_async() throws Spit.Publishing.PublishingError {
+            set_is_executed(true);
+            yield send_async();
+            var session = (Publishing.Mastodon.Session)base.get_parent_session();
+            session.cache.flush();
+        }
+    }
+
+    internal class UserInformation : global::Publishing.RESTSupport.Transaction {
+        const string ENDPOINT_URL = "https://%s/api/v2/search";
+
+        public UserInformation(Session session, Parameters parameters) {
+            base.with_endpoint_url(session, ENDPOINT_URL.printf(parameters.account.instance), Publishing.RESTSupport.HttpMethod.GET);
+
+            add_header("Authorization", "Bearer " + session.access_token);
+
+            add_argument("type", "accounts");
+            add_argument("limit", "1");
+            add_argument("q", parameters.account.display_name());
+        }
+    }
 }
 
 public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Object {
@@ -193,11 +229,25 @@ public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Obj
 
         var params = this.authenticator.get_authentication_parameter();
 
-        this.account = new Account(params["Instance"].get_string(), params["User"].get_string());
+        this.account = new Account(params["Instance"].get_string(), params["User"].get_string(), null);
         this.session.access_token = params["AccessToken"].get_string();
 
         this.parameters.account = this.account;
         debug("EVENT: a fully authenticated session has become available");
+
+        do_get_server_information.begin();
+    }
+
+    private async void do_get_server_information() {
+        var txn = new Transactions.ServerInformation(session, this.parameters);
+        yield txn.execute_async();
+        print(txn.get_response());
+        var json = Json.from_string (txn.get_response());
+
+        var txn2 = new Transactions.UserInformation(session, this.parameters);
+        yield txn2.execute_async();
+        print(txn2.get_response());
+        json = Json.from_string (txn2.get_response());
 
         do_show_publishing_options_pane();
     }
@@ -223,7 +273,7 @@ public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Obj
     }
     
     private async void do_logout() {
-        debug("ACTION: loggin user out, deauthenticating session, and erasing stored credentials");
+        debug("ACTION: logging user out, deauthenticating session, and erasing stored credentials");
 
         if (authenticator.can_logout()) {
             authenticator.logout();
