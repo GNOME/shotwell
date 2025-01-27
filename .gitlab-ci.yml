@@ -8,7 +8,7 @@ include:
 
 variables:
   FLATPAK_MODULE: "shotwell"
-  TARBALL_ARTIFACT_PATH: ".flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-dist/${CI_COMMIT_TAG}.tar.xz"
+  TARBALL_ARTIFACT_PATH: ".flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
   GIT_SUBMODULE_STRATEGY: recursive
 
 .vars-devel:
