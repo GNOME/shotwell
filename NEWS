@@ -1,3 +1,135 @@
+Shotwell 33.alpha - 27 Jan 2025
+ * Port to GTK4
+
+Bugs fixed in this release:
+ - Fixes https://bugs.launchpad.net/bugs/1988490
+ - Fixes https://gitlab.gnome.org/GNOME/shotwell/-/issues/5085
+ - See https://gitlab.gnome.org/GNOME/Initiatives/-/issues/35
+ - Work-around for https://github.com/flathub/org.gnome.Shotwell/issues/46
+ - https://bugzilla.gnome.org/show_bug.cgi?id=793552
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/230
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/232
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/2531
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/2766
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4906
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4919
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4998
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5006
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5008
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5016
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5035
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5044
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5048
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5049
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5051
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5059
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5063
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5066
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5068
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5069
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5069
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5071
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5078
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5079
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5083
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5084
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5085
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5088
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5089
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5101
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5116
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5122
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5123
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5129
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/90
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/85
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/84
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/82
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/81
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/80
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/78
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/77
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/74
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Martin <miles@filmsi.net>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Daniel Rusek <mail@asciiwolf.com>
+ - Sabri Ünal <libreajans@gmail.com>
+ - Juliano de Souza Camargo <julianosc@protonmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Artur S0 <arturios05@bk.ru>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Sergej A. <asvmail.as@gmail.com>
+ - Yaron Shahrabani <sh.yaron@gmail.com>
+ - Jürgen Benvenuti <jbenvenuti@gnome.org>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Balló György <ballogyor@gmail.com>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Nathan Follens <nfollens@gnome.org>
+ - Athmane MOKRAOUI <butterflyoffire@protonmail.com>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Luming Zh <lumingzh@qq.com>
+ - Rodrigo Lledó <rodhos92@gmail.com>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Martin Ortbauer <martin@villagefarmer.net>
+ - Rūdolfs Mazurs <alta.liepa@gmail.com>
+ - Bruce Cowan <bruce@bcowan.me.uk>
+ - Andi Chandler <andi@gowling.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Will Thompson <will@willthompson.co.uk>
+ - Ngọc Quân Trần <vnwildman@gmail.com>
+ - Andre Klapper <a9016009@gmx.de>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Ihor M <erwaht@gmail.com>
+ - Sergej A <asvmail.as@gmail.com>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Kryštof Černý <cleverline1mc@gmail.com>
+
+Added/updated translations:
+ - id.po, courtesy of Andika Triwidada
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - ru.po, courtesy of Ser82-png
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Daniel Rusek
+ - da.po, courtesy of Alan Mortensen
+ - de.po, courtesy of Jürgen Benvenuti
+ - en_GB.po, courtesy of Bruce Cowan
+ - es.po, courtesy of Daniel Mustieles García
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - he.po, courtesy of Yaron Shahrabani
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Kukuh Syafaat
+ - ka.po, courtesy of Ekaterine Papava
+ - kab.po, courtesy of ButterflyOfFire
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - lt.po, courtesy of Aurimas Černius
+ - lv.po, courtesy of Rūdolfs Mazurs
+ - nl.po, courtesy of Roland Vet
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - ru.po, courtesy of Ser82-png
+ - sl.po, courtesy of Martin Srebotnjak
+ - sr.po, courtesy of Мирослав Николић
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+ - vi.po, courtesy of Trần Ngọc Quân
+ - zh_CN.po, courtesy of lumingzh
+ - zh_TW.po, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.32.1 (stable) - 09 May 2023
  * Fix version display in about dialog when not building from git
  * Fix settings schema migration when source is using obsolete
