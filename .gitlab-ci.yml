@@ -32,3 +32,13 @@ nightly@x86_64:
 nightly@aarch64:
     extends: '.publish_nightly'
     needs: ['flatpak@aarch64']
+
+docs:
+  image: alpine:latest
+  script:
+    - apk add yelp-tools yelp-xsl ninja-build meson itstool gettext bash
+    - bash build-aux/render-help.sh
+  artifacts:
+    paths:
+      - docs.tar
+
