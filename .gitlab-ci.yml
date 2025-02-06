@@ -36,11 +36,18 @@ nightly@aarch64:
 docs:
   image: alpine:latest
   script:
-    - apk add yelp-tools yelp-xsl ninja-build meson itstool gettext bash
+    - apk add yelp-tools yelp-xsl ninja-build meson itstool gettext bash openssh
+    - mkdir ~/.ssh
+    - echo -n $SSH_HOST_KEY | base64 -d >~/.ssh/known_hosts
+    - eval `ssh-agent`
+    - echo -n $SSH_PRIVATE_KEY | base64 -d | ssh-add -
     - bash build-aux/render-help.sh
+    - scp -r doc-build/html scponly-shotwell-deploy@webstreams.de:/doc
   artifacts:
     paths:
       - docs.tar
-  only:
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - help/**/*
 
