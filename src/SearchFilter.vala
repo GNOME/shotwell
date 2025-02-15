@@ -675,7 +675,8 @@ public class SearchFilterToolbar : Gtk.Box {
         on_media_context_changed(actions.get_has_photos(), actions.get_has_videos(),
             actions.get_has_raw(), actions.get_has_flagged());
         actions.media_context_changed.connect(on_media_context_changed);
-        search_box.search_changed.connect(() => {actions.text.set_text(search_box.get_text());});
+        SearchFilterToolbar *self = this;
+        search_box.search_changed.connect(() => { self->actions.text.set_text(search_box.get_text());});
         var key_controller = new Gtk.EventControllerKey();
         key_controller.key_pressed.connect((event, keyval, code, modifiers) => {
             if (keyval == Gdk.Key.Escape) {
