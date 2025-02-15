@@ -170,91 +170,84 @@ public abstract class AppWindow : PageWindow {
 
     public static void error_message(string message, Gtk.Window? parent = null, bool panic = false) {
         Application.get_instance().set_panicking();
-        error_message_with_title(Resources.APP_TITLE, message, parent, true, panic);
+        error_message_with_title.begin(Resources.APP_TITLE, message, parent, true, panic);
     }
     
-    public static void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true, bool panic=false) {
+    public static async void error_message_with_title(string title, string message, Gtk.Window? parent = null, bool should_escape = true, bool panic=false) {
         // Per the Gnome HIG (http://library.gnome.org/devel/hig-book/2.32/windows-alert.html.en),            
         // alert-style dialogs mustn't have titles; we use the title as the primary text, and the
         // existing message as the secondary text.
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", build_alert_body_text(title, message, should_escape));
-            
-        // Occasionally, with_markup doesn't actually do anything, but set_markup always works.
-        dialog.set_markup(build_alert_body_text(title, message, should_escape));
-        dialog.set_transient_for(parent != null ? parent : get_instance());
+        var dialog = new Gtk.AlertDialog("%s", title);
+        dialog.set_detail(message);
         dialog.set_modal(true);
+        dialog.set_buttons({_("Ok")});
 
-        dialog.use_markup = true;
-        dialog.show();
-        dialog.response.connect(() => { dialog.destroy(); if (panic) Application.get_instance().panic();});
+        try {
+            yield dialog.choose(parent, null);
+            if (panic) {
+                Application.get_instance().panic();
+            }
+        } catch (Error error) {
+            warning("Failed to show dialog: %s", error.message);
+        }
     }
     
     public static async bool negate_affirm_question(string message, string negative, string affirmative,
         string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
+        var dialog = new Gtk.AlertDialog("%s", title);
+        dialog.set_detail(message);
+        dialog.set_modal(true);
+        dialog.set_buttons({negative, affirmative});
+        dialog.set_cancel_button(0);
+        dialog.set_default_button(0);
+        try {
+            var result = yield dialog.choose(parent, null);
+            return result == 1;
+        } catch (Error error) {
+            warning("Failed to ask user: %s", error.message);
+        }
 
-        dialog.set_markup(build_alert_body_text(title, message));
-        dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
-        
-        dialog.show();
-
-        int response_id = 0;
-        SourceFunc callback = negate_affirm_question.callback;
-        dialog.response.connect((source, resp) => {
-            response_id = resp;
-            dialog.destroy();
-            callback();
-        });
-        yield;
-
-        return response_id == Gtk.ResponseType.YES;
+        return false;
     }
 
     public static async Gtk.ResponseType affirm_cancel_question(string message, string affirmative,
         string? title = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        // Occasionally, with_markup doesn't actually enable markup...? Force the issue.
-        dialog.set_markup(message);
-        dialog.use_markup = true;
-        dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        dialog.add_buttons(affirmative, Gtk.ResponseType.YES, _("_Cancel"),
-            Gtk.ResponseType.CANCEL);
-        
-        int response = Gtk.ResponseType.OK;
-        
-        SourceFunc callback = affirm_cancel_question.callback;
-        dialog.show();
-        dialog.response.connect((r) => {
-            response = r;
-            dialog.hide();
-            callback();
-        });
-        yield;
-        
-        dialog.destroy();
-        
-        return response;
+
+        var dialog = new Gtk.AlertDialog("%s", title);
+        dialog.set_detail(message);
+        dialog.set_modal(true);
+        dialog.set_buttons({ affirmative, _("_Cancel") });
+        dialog.set_cancel_button(1);
+        dialog.set_default_button(0);
+        Gtk.ResponseType result = Gtk.ResponseType.CANCEL;
+        try {
+            var choice = yield dialog.choose(AppWindow.get_instance(), null);
+            if (choice == 0) {
+                return Gtk.ResponseType.YES;
+            }
+        } catch (Error error) {
+            warning("Failed to ask user: %s", error.message);
+        }
+
+        return Gtk.ResponseType.CANCEL;
     }
-    
-	public static async int export_overwrite_or_replace_question(string message,
-		string alt1, string alt2, string alt4, string alt6,
-        string? title = null) {
+
+	public static async int resolve_export_conflict(File file) {
+        var message = _("File %s already exists. Replace?").printf(file.get_basename());
         var dialog = new Gtk.MessageDialog(get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        dialog.title = _("Export file conflict");
         dialog.set_transient_for(get_instance());
         dialog.set_modal(true);
         var content = (Gtk.Box)dialog.get_message_area();
         var c = new Gtk.CheckButton.with_label(_("Apply this conflict resolution to all further conflicts"));
         content.append(c);
-        dialog.add_buttons(alt1, 1, alt2, 2, alt4, 4, alt6, 6);
+        dialog.add_buttons(_("_Skip"), 1, _("Rename"), 2, _("_Replace"), 4, _("_Cancel"), 6);
 
-        SourceFunc callback = export_overwrite_or_replace_question.callback;
+        SourceFunc callback = resolve_export_conflict.callback;
         int response = Gtk.ResponseType.CANCEL;
         dialog.show();
+        // Lambda is checked.
         dialog.response.connect((r) => {
             response = r;
             dialog.hide();

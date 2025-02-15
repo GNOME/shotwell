@@ -351,9 +351,8 @@ public class ExporterUI : Exporter {
     
     public override async Overwrite overwrite(File file) {
         progress_dialog.set_modal(false);
-        string question = _("File %s already exists. Replace?").printf(file.get_basename());
-        int response = yield AppWindow.export_overwrite_or_replace_question(question, 
-            _("_Skip"), _("Rename"), _("_Replace"), _("_Cancel"), _("Export file conflict"));
+        
+        int response = yield AppWindow.resolve_export_conflict(file);
         
         progress_dialog.set_modal(true);
 

@@ -1100,7 +1100,7 @@ public async void remove_from_app(Gee.Collection<MediaSource> sources, string di
                     ngettext("The photo or video cannot be deleted.",
                         "%d photos/videos cannot be deleted.",
                         num_not_deleted).printf(num_not_deleted);
-                AppWindow.error_message_with_title(dialog_title, delete_failed_message, AppWindow.get_instance());
+                AppWindow.error_message_with_title.begin(dialog_title, delete_failed_message, AppWindow.get_instance());
             }
         }
     }
