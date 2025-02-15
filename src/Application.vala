@@ -144,28 +144,31 @@ public class Application {
             system_app.command_line.connect(on_command_line);
             var action = new SimpleAction("authenticated", VariantType.STRING);
             system_app.add_action(action);
-            action.activate.connect((a, p) => {
-                try {
-                    var uri = Uri.parse(p.get_string(), UriFlags.NONE);
-                    debug("Got authentication callback uri: %s", p.get_string());
-                    // See if something is waiting for a pending authentication
-                    var uri_params = Uri.parse_params(uri.get_query());
-                    if ("sw_auth_cookie" in uri_params) {
-                        var cookie = uri_params["sw_auth_cookie"];
-                        if (pending_auth_requests.has_key(cookie)) {
-                            pending_auth_requests[cookie].authenticated(uri_params);
-                        } else {
-                            debug("No call-back registered for cookie %s, probably user cancelled", cookie);
-                        }
-                    }
-                } catch (Error error) {
-                    warning("Got invalid authentication call-back: %s", p.get_string());
-                }
-            });
+            action.activate.connect(on_authenticate_action);
         }
 
         system_app.activate.connect(on_activated);
         system_app.startup.connect(on_activated);
+    }
+
+    private void on_authenticate_action(SimpleAction action, Variant? parameter) {
+        try {
+            var uri = Uri.parse(parameter.get_string(), UriFlags.NONE);
+            debug("Got authentication callback uri: %s", parameter.get_string());
+            // See if something is waiting for a pending authentication
+            var uri_params = Uri.parse_params(uri.get_query());
+            if ("sw_auth_cookie" in uri_params) {
+                var cookie = uri_params["sw_auth_cookie"];
+                if (pending_auth_requests.has_key(cookie)) {
+                    pending_auth_requests[cookie].authenticated(uri_params);
+                } else {
+                    debug("No call-back registered for cookie %s, probably user cancelled", cookie);
+                }
+            }
+        } catch (Error error) {
+            warning("Got invalid authentication call-back: %s", parameter.get_string());
+        }
+
     }
 
     public static void register_auth_callback(string cookie, Spit.Publishing.AuthenticatedCallback cb) {
