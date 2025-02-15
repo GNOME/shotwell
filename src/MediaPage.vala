@@ -58,7 +58,7 @@ public abstract class MediaPage : CheckerboardPage {
             var click = new Gtk.GestureClick();
             click.set_exclusive(true);
             zoom_out.add_controller(click);
-            click.pressed.connect(() => { snap_to_min();});
+            click.pressed.connect(snap_to_min);
             
             append(zoom_out);
 
@@ -80,7 +80,7 @@ public abstract class MediaPage : CheckerboardPage {
             click = new Gtk.GestureClick();
             click.set_exclusive(true);
             zoom_in.add_controller(click);
-            click.pressed.connect(() => {snap_to_max();});
+            click.pressed.connect(snap_to_max);
 
             append(zoom_in);
         }
