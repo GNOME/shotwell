@@ -1433,6 +1433,18 @@ private class FileToPrepare {
         this.file = file;
         this.copy_to_library = copy_to_library;
     }
+
+    public static int compare(FileToPrepare file_a, FileToPrepare file_b) {
+        string sa = file_a.get_path();
+        if (!sa.validate()) {
+            sa = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+        }            
+        string sb = file_b.get_path();
+        if (!sb.validate()) {
+            sb = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
+        }
+        return utf8_cs_compare(sa, sb);
+    }
     
     public void set_associated(FileToPrepare? a) {
         associated = a;
@@ -1504,19 +1516,7 @@ private class WorkSniffer : BackgroundImportJob {
             if (!ftp.is_directory())
                 sorted.add(ftp);
         }
-        sorted.sort((a, b) => {
-            FileToPrepare file_a = (FileToPrepare) a;
-            FileToPrepare file_b = (FileToPrepare) b;
-            string sa = file_a.get_path();
-            if (!sa.validate()) {
-                sa = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
-            }            
-            string sb = file_b.get_path();
-            if (!sb.validate()) {
-                sb = Uri.escape_string(sa, Uri.RESERVED_CHARS_ALLOWED_IN_PATH, true);
-            }
-            return utf8_cs_compare(sa, sb);
-        });
+        sorted.sort(FileToPrepare.compare);
         
         // For each file, check if the current file is RAW.  If so, check the previous
         // and next files to see if they're a "plus jpeg."
