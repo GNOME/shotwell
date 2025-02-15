@@ -33,8 +33,11 @@ protected class SavedSearchPopover {
             row.append(edit_button);
             edit_button.add_css_class("toolbar");
             edit_button.has_frame = false;
+
+            // Prevent referenced capture of self 
+            SavedSearchPopover *self = this;
             edit_button.clicked.connect(() => {
-                edit_clicked(search);
+                self->edit_clicked(search);
             });
             edit_buttons += edit_button;
 
@@ -43,7 +46,7 @@ protected class SavedSearchPopover {
             delete_button.add_css_class("toolbar");
             delete_button.has_frame = false;
             delete_button.clicked.connect(() => {
-                delete_clicked (search);
+                self->delete_clicked (search);
             });
             delete_buttons += delete_button;
 
