@@ -80,11 +80,10 @@ public class CheckerboardLayout : Gtk.Widget {
     private bool reflow_needed = false;
     
     public CheckerboardLayout(ViewCollection view) {
+        this.view = view;
         set_css_name("content-view");
         rubber_band = new RubberbandProxy(this);
 
-        this.view = view;
-        
         clear_drag_select();
         
         // subscribe to the new collection

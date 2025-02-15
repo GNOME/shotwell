@@ -68,7 +68,7 @@ public abstract class Page : Gtk.Box {
     private Gtk.Window container = null;
     private string toolbar_path;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
-    private Gtk.Widget event_source = null;
+    private weak Gtk.Widget event_source = null;
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;

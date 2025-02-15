@@ -8,7 +8,7 @@ public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_PIXELS = 50;
     private const int AUTOSCROLL_TICKS_MSEC = 50;
 
-    private CheckerboardLayout layout;
+    private weak CheckerboardLayout layout;
     private Gtk.Stack stack;
     private PageMessagePane message_pane;
     private string item_context_menu_path = null;
@@ -46,11 +46,12 @@ public abstract class CheckerboardPage : Page {
         stack = new Gtk.Stack();
         message_pane = new PageMessagePane();
 
-        layout = new CheckerboardLayout(get_view());
+        var layout = new CheckerboardLayout(get_view());
         layout.set_name(page_name);
         stack.add_named (layout, "layout");
         stack.add_named (message_pane, "message");
         stack.set_visible_child(layout);
+        this.layout = layout;
 
         set_event_source(layout);
 
@@ -138,7 +139,7 @@ public abstract class CheckerboardPage : Page {
         KeyboardModifiers modifiers) {
     }
 
-    public CheckerboardLayout get_checkerboard_layout() {
+    public weak CheckerboardLayout get_checkerboard_layout() {
         return layout;
     }
 
