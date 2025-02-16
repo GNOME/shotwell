@@ -7,14 +7,14 @@
 # Translators:
 # verayin <vera@yorba.org>, 2011.
 # Yuri Chornoivan <yurchor@ukr.net>, 2011-2013.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 15:46+0000\n"
-"PO-Revision-Date: 2024-09-15 19:41+0300\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-02-16 18:21+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1929,12 +1929,13 @@ msgid "_Log in"
 msgstr "_Увійти"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -2198,7 +2199,7 @@ msgid "Flagged"
 msgstr "Позначені"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Оцінка"
 
@@ -2447,7 +2448,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
@@ -2512,7 +2513,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
 
@@ -2954,7 +2955,6 @@ msgid "Private"
 msgstr "Конфіденційне"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:335
-#| msgid "Public unlisted"
 msgid "unlisted"
 msgstr "поза списком"
 
@@ -3025,31 +3025,56 @@ msgstr "Не вдалося створити каталог даних %s: %s"
 msgid "Pictures"
 msgstr "Фотографії"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Не вдалося створити тимчасовий каталог %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Не вдалося створити підкаталог даних %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Не вдалося зробити каталог %s придатним до запису"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Не вдалося зробити каталог %s придатним до запису: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Гаразд"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Файл з назвою %s вже існує. Замінити його?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Конфлікт під час експортування файла"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Застосувати це розв'язання конфлікту до усіх подальших конфліктів"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "Пр_опустити"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Замінити"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3062,21 +3087,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Відвідати сайт Shotwell"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Не вдалося показати довідку: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Не вдалося перейти до сторінки бази даних вад: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Не вдалося показати сторінку поширених питань: %s"
@@ -3305,11 +3330,11 @@ msgstr[2] ""
 msgstr[3] ""
 "Не вдалося вилучити з фотоапарата %d фотографію або відео через помилки."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Немає фотографій або відео"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Не знайдено фотографій або відео, які відповідають поточним умовам "
@@ -4897,7 +4922,7 @@ msgstr "Неможливо стежити за %s: це не каталог (%s)
 msgid "Photos cannot be exported to this directory."
 msgstr "Експорт фотографій до цього каталогу неможливий."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Не виявлено файла джерела фотографії: %s"
@@ -5148,27 +5173,6 @@ msgstr "Не вдалося створити файл тимчасових да�
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Експортування"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Файл з назвою %s вже існує. Замінити його?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "Пр_опустити"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Перейменувати"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Замінити"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Конфлікт під час експортування файла"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5897,16 +5901,21 @@ msgstr "Не вдалося оприлюднити"
 
 #: src/publishing/PublishingUI.vala:284
 #, c-format
+#| msgid ""
+#| "Shotwell cannot publish the selected items because you do not have a "
+#| "compatible publishing plugin enabled. To correct this, choose Edit %s "
+#| "Preferences and enable one or more of the publishing plugins on the "
+#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell не вдалося оприлюднити вказані дані, оскільки у вашій системі не "
 "увімкнено сумісного з програмою додатка оприлюднення. Щоб виправити це, "
 "скористайтеся пунктом меню Зміни %s Налаштування і увімкніть один або "
-"декілька додатків на вкладці <b>Додатки</b>."
+"декілька додатків на вкладці «Додатки»."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6655,23 +6664,23 @@ msgstr "Збережені пошуки"
 msgid "Organize your saved searches"
 msgstr "Впорядкуйте ваші збережені пошуки"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "Оцінка ★+"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "Оцінка ★★+"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "Оцінка ★★★+"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "Оцінка ★★★★+"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "Оцінка ★★★★★+"
 
