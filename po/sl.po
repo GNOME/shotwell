@@ -4,13 +4,13 @@
 #
 # Andrej Žnidaršič, transifex.
 # Matej Urbančič <mateju@src.gnome.org>, 2019–2021.
-# Martin Srebbotnjak <miles@filmsi.net>, 2023.
+# Martin Srebotnjak <miles@filmsi.net>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 07:56+0000\n"
+"POT-Creation-Date: 2025-02-15 10:32+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1867,12 +1867,13 @@ msgid "_Log in"
 msgstr "_Prijava"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -2134,7 +2135,7 @@ msgid "Flagged"
 msgstr "Označeno z zastavico"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Ocena"
 
@@ -2288,8 +2289,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2320,8 +2321,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2335,14 +2336,14 @@ msgstr ""
 "\n"
 "Najbrž ste se že prijavili z računom Google in ga nastavili za uporabo s "
 "programom Fotografije Google. Program Shotwell uporablja za delo s "
-"fotografijami in podatki teh fotografij storitve API Google Photos <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"fotografijami in podatki teh fotografij storitve API Google Photos <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a>. Za uporabo programa za dostop do teh storitev je treba "
 "predhodno odobriti dostop do spletne zbirke.\n"
 "\n"
 "Določila zasebnosti uporabe podatkov, povezanih z računom Google na splošno "
-"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a "
-"href=\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
+"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a href="
+"\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -2375,7 +2376,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Obiščite domačo stran programa Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2396,8 +2397,8 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
-"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko "
-"zaupali. Preverite nastavljen datum in čas vaše naprave."
+"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko zaupali. "
+"Preverite nastavljen datum in čas vaše naprave."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:252
@@ -2417,8 +2418,8 @@ msgstr ""
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted "
-"organization that issued it."
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
 msgstr ""
 "⚫ Podatki istovetnosti spletnega mesta so bili preklicani s strani zaupanja "
 "vredne ustanove, ki je te podatke izdala."
@@ -2443,7 +2444,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Začasna datoteka, nujna za objavljanje, ni na voljo."
 
@@ -2945,31 +2946,56 @@ msgstr "Ni mogoče ustvariti podatkovne mape %s: %s"
 msgid "Pictures"
 msgstr "Slike"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Ni mogoče ustvariti začasne mape %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Ni mogoče ustvariti podrejene mape %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Mape %s ni mogoče pripraviti za zapisovanje."
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Mape %s ni mogoče pripraviti za zapisovanje: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "V redu"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Datoteka %s že obstaja. Ali jo želite zamenjati?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Spor pri izvozu datotek"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Uveljavi to razrešitev spora pri vseh nadaljnjih sporih"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "Pre_skoči"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Preimenuj"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Zamenjaj"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2982,21 +3008,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Obišči spletišče Shotwell"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ni mogoče prikazati pomoči: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ni se mogoče povezati s podatkovno zbirko hroščev: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ni mogoče prikazati pogostih vprašanj: %s"
@@ -4774,7 +4800,7 @@ msgstr "Ni mogoče spremljati %s: to ni mapa (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografij ni mogoče izvoziti v to mapo."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Izvirna datoteka fotografije manjka: %s"
@@ -5025,27 +5051,6 @@ msgstr "Ni mogoče ustvariti začasne datoteke za %s: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Izvažanje"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Datoteka %s že obstaja. Ali jo želite zamenjati?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "Pre_skoči"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Preimenuj"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Zamenjaj"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Spor pri izvozu datotek"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5770,12 +5775,13 @@ msgstr "Fotografije ni mogoče objaviti"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Izbranih predmetov ni mogoče objaviti, ker ni omogočenega ustreznega "
 "skladnega vstavka za objavljanje. Napako je mogoče odpraviti z urejanjem "
-"možnosti %s in omogočanjem ustreznih možnosti v zavihku <b>Vstavkov</b>"
+"možnosti %s in omogočanjem enega ali več vstavkov za objavo na zavihku "
+"Vstavki."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6524,23 +6530,23 @@ msgstr "Shranjena iskanja"
 msgid "Organize your saved searches"
 msgstr "Uredjanje shranjenih iskanj"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "★+ Ocena"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "★★+ Ocena"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "★★★+ Ocena"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Ocena"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Ocena"
 
