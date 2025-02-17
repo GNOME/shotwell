@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-11-03 10:10+0000\n"
-"PO-Revision-Date: 2024-11-24 10:22+1000\n"
+"POT-Creation-Date: 2025-02-15 10:32+0000\n"
+"PO-Revision-Date: 2025-02-15 15:13+0300\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1944,12 +1944,13 @@ msgid "_Log in"
 msgstr "_Войти"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Отмена"
 
@@ -2211,7 +2212,7 @@ msgid "Flagged"
 msgstr "Отмеченные"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Оценка"
 
@@ -2456,7 +2457,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Посетить веб-сайт Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:317
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -3049,11 +3050,36 @@ msgstr "Не удалось сделать каталог %s доступным 
 msgid "Could not make directory %s writable: %s"
 msgstr "Не удалось сделать каталог %s доступным для записи: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Хорошо"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Файл %s уже существует. Заменить?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Конфликт при экспорте файла"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Применить это решение конфликта ко всем дальнейшим конфликтам"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Пропустить"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Переименовать"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Заменить"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3066,21 +3092,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:314
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Посетить веб-сайт Shotwell"
 
-#: src/AppWindow.vala:326
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Невозможно отобразить справку: %s"
 
-#: src/AppWindow.vala:334
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Невозможно перейти к базе данных об ошибках: %s"
 
-#: src/AppWindow.vala:342
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Невозможно отобразить FAQ: %s"
@@ -4993,27 +5019,6 @@ msgstr "Невозможно создать временный файл для %
 msgid "Exporting"
 msgstr "Экспорт"
 
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Файл %s уже существует. Заменить?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Пропустить"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Переименовать"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Заменить"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Конфликт при экспорте файла"
-
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
 msgstr "Определить лица…"
@@ -5742,13 +5747,13 @@ msgstr "Невозможно опубликовать"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell не удалось опубликовать выделенные элементы, потому что у вас нет "
 "активированных подходящих модулей публикации. Чтобы это исправить, выберите "
 "«Правка %s Параметры» и активируйте один или несколько модулей публикации на "
-"вкладке <b>Модули</b>."
+"вкладке Модули."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6495,23 +6500,23 @@ msgstr "Сохранённые поисковые запросы"
 msgid "Organize your saved searches"
 msgstr "Упорядочение сохранённых поисковых запросов"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "Оценка ★+"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "Оценка ★★+"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "Оценка ★★★+"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "Оценка ★★★★+"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "Оценка ★★★★★+"
 
