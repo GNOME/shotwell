@@ -86,7 +86,7 @@ sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.20')
 gstreamer_pbu = dependency('gstreamer-pbutils-1.0', version : '>= 1.20')
 gphoto2 = dependency('libgphoto2', version : '>= 2.5.0')
-gudev = dependency('gudev-1.0', version : '>= 145', required: false)
+gudev = dependency('gudev-1.0', version : '>= 145', required: get_option('udev'))
 gexiv2 = dependency('gexiv2', version: '>= 0.12.3')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
@@ -116,7 +116,7 @@ if not get_option('dupe_detection')
   add_global_arguments(['--define=NO_DUPE_DETECTION'], language : 'vala')
 endif
 
-if get_option('udev') and gudev.found()
+if gudev.found()
   add_global_arguments(['--define=HAVE_UDEV'], language : 'vala')
 endif
 

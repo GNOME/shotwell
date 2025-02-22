@@ -2,7 +2,7 @@ option('publishers', type: 'array', choices: ['flickr','googlephotos','piwigo','
 option('trace', type: 'array', choices: ['dtors', 'import', 'md5', 'metadata-writer', 'monitoring', 'pixbuf-cache', 'reflow', 'reflow-items'], value : [], description: 'Enable various trace options')
 option('measure', type: 'array', choices: ['enhance', 'import', 'pipeline', 'view-filtering', 'thumbnail-cache'], value : [], description : 'Enable various timing measurements')
 option('dupe_detection', type: 'boolean', value : true, description: 'Disable duplicate checks')
-option('udev', type: 'boolean', value : true, description: 'Enable or disable udev support')
+option('udev', type: 'feature', value : 'auto', description: 'Enable or disable udev support')
 option('install_apport_hook', type : 'boolean', value : true, description: 'Enable Ubuntu apport hook')
 option('face_detection', type:'boolean', value:false, description: 'Enable face detection and recognition features')
 option('face_detection_helper', type : 'boolean', value : true, description : 'If face-detection is enabled, build the external helper tool')
