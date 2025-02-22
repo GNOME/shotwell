@@ -91,16 +91,12 @@
                     "url": "https://github.com/libusb/libusb/archive/v1.0.27.tar.gz",
                     "sha256": "e8f18a7a36ecbb11fb820bd71540350d8f61bcd9db0d2e8c18a6fb80b214a3de"
                 }
-            ],
-            "config-opts" : [
-                "--disable-udev"
             ]
         },
         {
             "name" : "libghoto2",
             "cleanup" : [
                 "/bin",
-                "/lib/udev",
                 "/share/doc"
             ],
             "sources" : [
@@ -313,7 +309,6 @@
             "name": "shotwell",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dudev=false",
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection_helper_bus=private",
                 "-Dface_detection=true",
