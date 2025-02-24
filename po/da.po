@@ -9,7 +9,7 @@
 # johanneswilm <johanneswilm@gmail.com>, 2011.
 # Kris Thomsen <lakristho@gmail.com>, 2011.
 # verayin <vera@yorba.org>, 2011.
-# Alan Mortensen <alanmortensen.am@gmail.com>, 2016-19, 22-24.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2016-19, 22-25.
 # scootergrisen, 2019.
 #
 # Konventioner:
@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-24 12:04+0000\n"
-"PO-Revision-Date: 2024-09-25 17:16+0200\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-02-18 19:08+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish\n"
 "Language: da\n"
@@ -1229,7 +1229,6 @@ msgid "The Shotwell developers"
 msgstr "Udviklerne af Shotwell"
 
 #: data/org.gnome.Shotwell.Auth.desktop.in:4
-#| msgid "authentication token"
 msgid "Shotwell Authentication helper"
 msgstr "Shotwells godkendelseshjælp"
 
@@ -1897,12 +1896,13 @@ msgid "_Log in"
 msgstr "_Log ind"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Afbryd"
 
@@ -2164,7 +2164,7 @@ msgid "Flagged"
 msgstr "Med flag på"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Bedømmelse"
 
@@ -2407,7 +2407,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Besøg Shotwells hjemmeside"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2478,7 +2478,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 "En midlertidig fil, som er nødvendig for udgivelse, er ikke tilgængelig"
@@ -2978,31 +2978,56 @@ msgstr "Kunne ikke oprette datamappen %s: %s"
 msgid "Pictures"
 msgstr "Billeder"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Kunne ikke oprette den midlertidige mappe %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Kunne ikke oprette dataundermappen %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Kunne ikke gøre mappen %s skrivbar"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Kunne ikke gøre mappen %s skrivbar: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "OK"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Filen %s findes allerede. Overskriv?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Eksportér filkonflikt"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Anvend denne konfliktløsning på alle andre konflikter"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Udelad"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Omdøb"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Overskriv"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3015,21 +3040,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Besøg Shotwells websted"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kan ikke vise hjælp: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Kan ikke navigere til fejldatabase: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ikke i stand til at vise OSS: %s"
@@ -3239,11 +3264,11 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Kan ikke slette %d billede/video fra kameraet på grund af fejl."
 msgstr[1] "Kan ikke slette %d billeder/videoer fra kameraet på grund af fejl."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Ingen billeder/videoer"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Der blev ikke fundet nogen billeder/videoer, som matcher det nuværende filter"
@@ -4570,7 +4595,7 @@ msgstr "Ikke muligt at overvåge %s: Ikke en mappe (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Billeder kan ikke eksporteres til denne mappe."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Kildefil for billede mangler: %s"
@@ -4819,27 +4844,6 @@ msgstr "Ikke i stand til at generere en midlertidig fil for %s: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Eksporterer"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Filen %s findes allerede. Overskriv?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Udelad"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Omdøb"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Overskriv"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Eksportér filkonflikt"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5561,13 +5565,13 @@ msgstr "Ikke i stand til at udgive"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
-"Shotwell kan ikke udgive de valgte elementer, da du ikke har aktiveret en "
-"udvidelse, som er kompatibel. For at korrigere dette, så vælg Redigér "
+"Shotwell kan ikke udgive de valgte elementer, da der ikke er aktiveret et "
+"kompatibelt udgivelsesmodul. For at korrigere dette, så vælg Redigér "
 "indstillinger for %s og aktivér ét eller flere af udgivelsesmodulerne i "
-"fanebladet <b>Udvidelsesmoduler</b>."
+"fanebladet Udvidelsesmoduler."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6294,23 +6298,23 @@ msgstr "Gemte søgninger"
 msgid "Organize your saved searches"
 msgstr "Organisér dine gemte søgninger"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "Bedømmelse ★+"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "Bedømmelse ★★+"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "Bedømmelse ★★★+"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "Bedømmelse ★★★★+"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "Bedømmelse ★★★★★+"
 
