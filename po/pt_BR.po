@@ -16,21 +16,22 @@
 # Enrico Nicoletto <hiko@duck.com>, 2016, 2020, 2022.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2014-2023.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+# Álvaro Burns <>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-29 12:53+0000\n"
-"PO-Revision-Date: 2024-09-24 09:01-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-02-22 08:26-0300\n"
+"Last-Translator: Álvaro Burns <>\n"
+"Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 47.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1937,12 +1938,13 @@ msgid "_Log in"
 msgstr "A_utenticar"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -2206,7 +2208,7 @@ msgid "Flagged"
 msgstr "Marcadas"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Avaliação"
 
@@ -2448,7 +2450,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Visitar o site do Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2525,7 +2527,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Um arquivo temporário necessário para a publicação não está disponível"
 
@@ -3024,31 +3026,56 @@ msgstr "Não foi possível criar diretório de dados %s: %s"
 msgid "Pictures"
 msgstr "Fotos"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Não foi possível criar diretório temporário %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Não foi possível criar subdiretório de dados %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Não foi possível tornar o diretório %s gravável"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Não foi possível tornar o diretório %s gravável: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Ok"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "%s já existe. Sobrescrever?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Conflito ao exportar arquivo"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Aplicar esta resolução de conflito para todos os futuros conflitos"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Ignorar"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Renomear"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Substituir"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3061,21 +3088,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Não foi possível exibir a ajuda: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Não foi possível navegar no banco de dados de bugs: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Não foi possível exibir FAQ: %s"
@@ -3285,11 +3312,11 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Não foi possível excluir %d foto/vídeo da câmera devido a erros."
 msgstr[1] "Não foi possível excluir %d fotos/vídeos da câmera devido a erros."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Sem fotos/vídeos"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Nenhuma foto ou vídeo encontrados que correspondam ao filtro atual"
 
@@ -4639,7 +4666,7 @@ msgstr "Não foi possível monitorar %s: Não é um diretório (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotos não podem ser exportadas para este diretório."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
@@ -4888,27 +4915,6 @@ msgstr "Não foi possível gerar um arquivo temporário para %s: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Exportando"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "%s já existe. Sobrescrever?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Ignorar"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Renomear"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Substituir"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Conflito ao exportar arquivo"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5631,13 +5637,12 @@ msgstr "Não é possível publicar"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell não pode publicar os itens selecionados porque você não tem um plug-"
-"in compatível publicação habilitado. Para corrigir isso, escolha Editar %s "
-"Preferências e habilite um ou mais plug-ins de publicação na aba <b>Plug-"
-"ins</b>."
+"in compatível habilitado. Para corrigir isso, escolha Editar %s Preferências "
+"e habilite um ou mais plug-ins de publicação na aba Plug-ins."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6367,23 +6372,23 @@ msgstr "Pesquisas salvas"
 msgid "Organize your saved searches"
 msgstr "Organize suas pesquisas salvas"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "★+ Avaliação"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "★★+ Avaliação"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "★★★+ Avaliação"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Avaliação"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Avaliação"
 
