@@ -1,18 +1,18 @@
 # Hungarian translation for shotwell.
-# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gábor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016, 2017.
 # László Csordás <csola48 at gmail dot com>, 2012.
 # lsbeeler <lucas at yorba dot org>, 2011.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2016, 2017, 2019, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 15:46+0000\n"
-"PO-Revision-Date: 2024-09-16 13:54+0200\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-03-02 21:10+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1877,12 +1877,13 @@ msgid "_Log in"
 msgstr "Bejele_ntkezés"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "Mé_gse"
 
@@ -2144,7 +2145,7 @@ msgid "Flagged"
 msgstr "Megjelölve"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Értékelés"
 
@@ -2390,7 +2391,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2472,7 +2473,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
 
@@ -2894,7 +2895,6 @@ msgid "You are logged into YouTube as %s."
 msgstr "Bejelentkezett a YouTube-ra %s néven."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:333
-#| msgid "Publish"
 msgid "Public"
 msgstr "Nyilvános"
 
@@ -2903,7 +2903,6 @@ msgid "Private"
 msgstr "Magánjellegű"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:335
-#| msgid "Public unlisted"
 msgid "unlisted"
 msgstr "felsorolatlan"
 
@@ -2974,31 +2973,56 @@ msgstr "Nem lehet létrehozni a(z) %s adatkönyvtárat: %s"
 msgid "Pictures"
 msgstr "Képek"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Nem lehet létrehozni a(z) %s ideiglenes könyvtárat: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nem lehet létrehozni a(z) %s adatalkönyvtárat: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Rendben"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "A(z) %s fájl már létezik. Lecseréli?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Fájlexportálási ütközés"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Az ütközés megoldásának alkalmazása az összes későbbi ütközésre"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Kihagyás"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Átnevezés"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Csere"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3011,21 +3035,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem lehet eljutni a hibaadatbázishoz: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem lehet megjeleníteni a gyakran ismételt kérdést: %s"
@@ -3238,11 +3262,11 @@ msgstr[0] ""
 msgstr[1] ""
 "Hibák miatt nem lehet törölni %d fényképet vagy videót a fényképezőgépről."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Nincsenek fényképek vagy videók"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Nem található fénykép vagy videó, amely megfelel a jelenlegi szűrőnek"
 
@@ -4578,7 +4602,7 @@ msgstr "A(z) %s nem figyelhető meg: nem könyvtár (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "A fénykép forrásfájlja hiányzik: %s"
@@ -4827,27 +4851,6 @@ msgstr "Nem lehet a(z) %s ideiglenes fájlját előállítani: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Exportálás"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "A(z) %s fájl már létezik. Lecseréli?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Kihagyás"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Átnevezés"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Csere"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Fájlexportálási ütközés"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5567,16 +5570,21 @@ msgstr "Nem lehet közzétenni"
 
 #: src/publishing/PublishingUI.vala:284
 #, c-format
+#| msgid ""
+#| "Shotwell cannot publish the selected items because you do not have a "
+#| "compatible publishing plugin enabled. To correct this, choose Edit %s "
+#| "Preferences and enable one or more of the publishing plugins on the "
+#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
-"A Shotwell nem képes közzétenni a kijelölt elemeket, mert nincs engedélyezve "
-"a megfelelő közzétételi bővítmény. Ennek javításához válassza a Szerkesztés "
-"%s Beállítások menüpontot, és engedélyezze az egyik közzétételi bővítményt a "
-"<b>Bővítmények</b> lapon."
+"A Shotwell nem képes közzétenni a kijelölt elemeket, mert nincs engedélyezve"
+" a megfelelő közzétételi bővítmény. Ennek javításához válassza a Szerkesztés "
+"%s Beállítások menüpontot, és engedélyezze az egyik közzétételi bővítményt a"
+" Bővítmények lapon."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6303,23 +6311,23 @@ msgstr "Mentett keresések"
 msgid "Organize your saved searches"
 msgstr "Rendszerezze mentett kereséseit"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "★+ Értékelés"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "★★+ Értékelés"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "★★★+ Értékelés"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Értékelés"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Értékelés"
 
@@ -6398,3 +6406,4 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Videók exportálása"
+
