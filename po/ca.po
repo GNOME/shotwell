@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2023-09-16 12:27+0200\n"
+"PO-Revision-Date: 2025-03-03 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -335,11 +335,11 @@ msgstr "L'escala de miniatures de la fotografia, entre 72 i 360"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:160
 msgid "pin toolbar state"
-msgstr "estat del pin de la barra d'eines"
+msgstr "estat de la fixació de la barra d'eines"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:161
 msgid "Pin toolbar in fullscreen, or not"
-msgstr "Pin de la barra d'eines a pantalla completa, o no"
+msgstr "Fixa la barra d'eines a pantalla completa, o no"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:166
 msgid "prefer GTK+’s dark theme"
@@ -488,7 +488,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:262
 msgid "import directory"
-msgstr "importa al directori"
+msgstr "importa directori"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:263
 msgid "Directory in which imported photo files are placed"
@@ -894,7 +894,7 @@ msgstr "URL"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:573
 msgid "Gallery3 site URL"
-msgstr "Lloc URL de Gallery3"
+msgstr "URL del lloc Gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:585
 msgid ""
@@ -1031,7 +1031,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:668
 msgid "print titles"
-msgstr "Imprimeix els títols de la imatge"
+msgstr "Imprimeix els títols"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:669
 msgid ""
@@ -1939,7 +1939,7 @@ msgstr "_Vigila si hi ha fitxers nous al directori de la biblioteca"
 # N.T.: Títol d'una secció a un quadre de diàleg
 #: data/ui/preferences_dialog.ui:151
 msgid "Importing"
-msgstr "Importador"
+msgstr "Importació"
 
 #: data/ui/preferences_dialog.ui:167
 msgid "_Directory structure:"
@@ -2913,11 +2913,11 @@ msgstr "No s'ha pogut fer que es pugui escriure al directori %s: %s"
 
 #: src/AppWindow.vala:47
 msgid "Pin Toolbar"
-msgstr "Manté la barra d'eines"
+msgstr "Fixa la barra d'eines"
 
 #: src/AppWindow.vala:48
 msgid "Pin the toolbar open"
-msgstr "Manté la barra d'eines oberta"
+msgstr "Fixa la barra d'eines oberta"
 
 #: src/AppWindow.vala:53
 msgid "Leave fullscreen"
