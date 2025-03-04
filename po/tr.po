@@ -5,22 +5,22 @@
 # Copyright (C) 2017-2024 Shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the Shotwell package.
 #
-# Ferhat Tunctan <ferhattnctn66@gmail.com>, 2012
 # Huseyin Demirtaş <hsyn.demirtas@gmail.com>, 2011
-# Tayyip <m.tayyib.yel@gmail.com>, 2013
 # Muhammet Yüksel <bulutyg@gmail.com>, 2011
 # verayin <vera@yorba.org>, 2011
+# Ferhat Tunctan <ferhattnctn66@gmail.com>, 2012
+# Tayyip <m.tayyib.yel@gmail.com>, 2013
 # İşbaran Akçayır <isbaran@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2016.
-# Sabri Ünal <libreajans@gmail.com>, 2020, 2022, 2023, 2024.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2024.
+# Sabri Ünal <yakushabb@gmail.com>, 2020, 2022, 2023, 2024.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-16 11:55+0000\n"
-"PO-Revision-Date: 2024-09-20 08:00+0300\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-03-04 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -1877,12 +1877,13 @@ msgid "_Log in"
 msgstr "_Oturum aç"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "İ_ptal"
 
@@ -2144,7 +2145,7 @@ msgid "Flagged"
 msgstr "İmli"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Puan"
 
@@ -2386,15 +2387,12 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Shotwell ev sayfasını ziyaret et"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Emin Tufan Çetin <etcetin@gmail.com>\n"
-"Sabri Ünal <yakushabb@gmail.com>\n"
-"Yiğit Ateş <yigitates52@gmail.com>\n"
-"Hüseyin Demirtaş <h.demirtas.l10n@gmail.com>\n"
-"Ferhat Tunçtan <ferhattnctn19@yahoo.com.tr>"
+"Sabri Ünal <yakushabb@gmail.com>"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -2452,7 +2450,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Yayımlama için gerekli geçici bir dosya kullanılamıyor"
 
@@ -2947,31 +2945,56 @@ msgstr "Veri dizini oluşturulamadı %s: %s"
 msgid "Pictures"
 msgstr "Resimler"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Geçici dizin oluşturulamadı %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Altdizin oluşturulamadı %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "%s dizini yazılabilir yapılamıyor"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "%s dizini yazılabilir yapılamıyor: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Tamam"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "%s dosyası zaten var. Yer değiştirilsin mi?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Dosya çakışmasını dışa aktar"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Bu çatışma çözümünü diğer tüm çatışmalara uygula"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Atla"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Değiştir"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2984,21 +3007,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Shotwell web sitesini ziyaret et"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Yardım görüntülenemiyor: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Hata veri tabanına yönlendirme başarısız: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "SSS gösterilemiyor: %s"
@@ -3200,11 +3223,11 @@ msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "%d fotoğraf/video hatalar sebebiyle kameradan silinemiyor."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Resim/Video Yok"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Geçerli süzgeçle eşleşen video/fotoğraf yok"
 
@@ -4453,7 +4476,7 @@ msgstr "%s izlenemiyor: Bir dizin değil (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotoğraflar, bu dizinden dışa aktarılamadı."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Fotoğraf kaynağı bulunamadı: %s"
@@ -4702,27 +4725,6 @@ msgstr "%s için geçici dosya oluşturulamıyor: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Dışa Aktarılıyor"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "%s dosyası zaten var. Yer değiştirilsin mi?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Atla"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Yeniden Adlandır"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Değiştir"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Dosya çakışmasını dışa aktar"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5436,12 +5438,12 @@ msgstr "Yayımlanamıyor"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell seçili ögeleri yayımlayamaz çünkü uyumlu bir yayımlama eklentiniz "
 "etkinleştirilmemiş. Bunu düzeltmek için, Düzenle - Tercihler - %s Tercihleri "
-"- <b>Eklentiler</b> sekmesinden bir veya daha çok yayımlama eklentisini "
+"- Eklentiler sekmesinden bir veya daha çok yayımlama eklentisini "
 "etkinleştirin."
 
 #: src/publishing/Publishing.vala:15
@@ -6161,23 +6163,23 @@ msgstr "Kaydedilmiş Aramalar"
 msgid "Organize your saved searches"
 msgstr "Kaydedilmiş aramalarınızı düzenleyin"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "★+ Puan"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "★★+ Puan"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "★★★+ Puan"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Puan"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Puan"
 
@@ -6256,4 +6258,3 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
-
