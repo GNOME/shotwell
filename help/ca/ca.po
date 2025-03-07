@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-07-21 10:39+0000\n"
-"PO-Revision-Date: 2019-08-18 19:20+0000\n"
+"PO-Revision-Date: 2025-03-07 19:20+0000\n"
 "Last-Translator: Jaume Jorba <jaume.jorba@gmail.com>, 2019\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
 "ca/)\n"
@@ -1024,7 +1024,7 @@ msgstr "%b"
 #. (itstool) path: td/p
 #: C/other-files.page:60
 msgid "Month name: abbreviated"
-msgstr "Nom del meso: abreviat"
+msgstr "Nom del mes: abreviat"
 
 #. (itstool) path: td/p
 #: C/other-files.page:60
@@ -1039,7 +1039,7 @@ msgstr "%B"
 #. (itstool) path: td/p
 #: C/other-files.page:62
 msgid "Month name: full"
-msgstr "Nom del mes: ple"
+msgstr "Nom del mes: complet"
 
 #. (itstool) path: td/p
 #: C/other-files.page:62
@@ -2001,7 +2001,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/other-plugins.page:7
 msgid "Extend Shotwell's functionality dynamically."
-msgstr "Estendre les funcionalitats de Shotwell's dinàmicament."
+msgstr "Estendre les funcionalitats de Shotwell dinàmicament."
 
 #. (itstool) path: page/title
 #: C/other-plugins.page:12
@@ -2487,7 +2487,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/organize-tag.page:29
 msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-msgstr "Tipus <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+msgstr "Teclegeu <keyseq><key>Ctrl</key><key>T</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:30
@@ -3114,8 +3114,8 @@ msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
-"El canvi entre desenvolupadors, es descarten totes les edicions realitzades "
-"a una fotografia."
+"El canvi entre desenvolupadors farà que totes les edicions fetes a una "
+"fotografia es descartin."
 
 #. (itstool) path: page/p
 #: C/raw.page:39
