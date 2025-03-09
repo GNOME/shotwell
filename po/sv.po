@@ -10,7 +10,7 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Isak Bergdahl <isak.bergdahl@yahoo.com>, 2021.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 09:39+0000\n"
-"PO-Revision-Date: 2024-09-15 12:16+0200\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-03-09 13:10+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1219,14 +1219,10 @@ msgstr "Organisera dina bilder"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;"
-"importera;organisera;bild;foto;foton;bilder;fotografier;skriv ut;publicera;"
-"rotera;dela;taggar;video;flickr;picasa;youtube;piwigo;"
+"album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;importera;organisera;bild;foto;foton;bilder;fotografier;skriv "
+"ut;publicera;rotera;dela;taggar;video;flickr;picasa;youtube;piwigo;"
 
 #: data/org.gnome.Shotwell.desktop.in:21
 msgid "Manage Different Profiles"
@@ -1873,12 +1869,13 @@ msgid "_Log in"
 msgstr "_Logga in"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Avbryt"
 
@@ -2140,7 +2137,7 @@ msgid "Flagged"
 msgstr "Flaggade"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Betyg"
 
@@ -2285,19 +2282,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på YouTube.\n"
 "\n"
@@ -2306,19 +2303,19 @@ msgstr ""
 "använda din webbläsare för att logga in på YouTube-webbplatsen minst en "
 "gång.\n"
 "\n"
-"Shotwell använder YouTubes API-tjänster <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> för att komma åt din "
-"YouTube-kanal och skicka videoklippen. Genom att använda Shotwell för att "
-"komma åt YouTube så behöver du följa YouTubes användningsvillkor som finns "
-"på <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/"
-"terms</a>\n"
+"Shotwell använder YouTubes API-tjänster <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"för att komma åt din YouTube-kanal och skicka videoklippen. Genom att "
+"använda Shotwell för att komma åt YouTube så behöver du följa YouTubes "
+"användningsvillkor som finns på <a href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
 "Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a "
 "href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
 "\n"
-"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
-"com/privacy</a> för Googles egen sekretesspolicy"
+"Se <a href=\"https://policies.google.com/privacy\">https://"
+"policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
@@ -2333,8 +2330,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på Google Foto.\n"
 "\n"
@@ -2347,8 +2344,8 @@ msgstr ""
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
 "Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a "
 "href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. "
-"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
-"com/privacy</a> för Googles egen sekretesspolicy"
+"Se <a href=\"https://policies.google.com/privacy\">https://"
+"policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -2380,7 +2377,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2453,7 +2450,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
 
@@ -2949,31 +2946,56 @@ msgstr "Kunde inte skapa datakatalogen %s: %s"
 msgid "Pictures"
 msgstr "Bilder"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Kunde inte skapa den temporära katalogen %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Kunde inte skapa den underliggande datakatalogen %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Kunde inte göra katalogen %s skrivbar"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Kunde inte göra katalogen %s skrivbar: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "OK"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Filen %s finns redan. Vill du ersätta den?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Konflikt vid filexport"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Tillämpa denna konfliktlösning på alla vidare konflikter"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "_Hoppa över"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Byt namn"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Ersätt"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2986,21 +3008,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Kunde inte komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -3211,11 +3233,11 @@ msgstr[0] ""
 msgstr[1] ""
 "Kunde inte radera %d bilder och filmer från kameran på grund av ett fel."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Inga bilder eller filmer"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Inga bilder/videor hittades som matchar nuvarande filter"
 
@@ -4567,7 +4589,7 @@ msgstr "Kunde inte övervaka %s: Det är inte en katalog (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Bilderna kan inte exporteras till denna katalog."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Källfilen för bilden saknas: %s"
@@ -4816,27 +4838,6 @@ msgstr "Kunde inte skapa en temporärfil för %s: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Exporterar"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Filen %s finns redan. Vill du ersätta den?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "_Hoppa över"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Byt namn"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Ersätt"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Konflikt vid filexport"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5558,13 +5559,13 @@ msgstr "Kunde inte publicera"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell kan inte publicera de markerade objekten därför att du inte har "
 "aktiverat en kompatibel insticksmodul för publicering. Välj Redigera %s "
 "Inställningar och aktivera en eller flera av de insticksmoduler för "
-"publicering som finns under fliken <b>Insticksmoduler</b>."
+"publicering som finns under fliken Insticksmoduler."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6294,23 +6295,23 @@ msgstr "Sparade sökningar"
 msgid "Organize your saved searches"
 msgstr "Organisera dina sparade sökningar"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "★+ i betyg"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "★★+ i betyg"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "★★★+ i betyg"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "★★★★+ i betyg"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ i betyg"
 
