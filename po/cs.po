@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-16 11:55+0000\n"
-"PO-Revision-Date: 2024-09-17 20:18+0200\n"
+"POT-Creation-Date: 2025-02-16 11:46+0000\n"
+"PO-Revision-Date: 2025-03-13 15:02+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1908,12 +1908,13 @@ msgid "_Log in"
 msgstr "_Přihlásit se"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -2177,7 +2178,7 @@ msgid "Flagged"
 msgstr "Označeno"
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Hodnocení"
 
@@ -2420,7 +2421,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:302
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2491,7 +2492,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný soubor potřebný pro zveřejnění není k dispozici"
 
@@ -2992,31 +2993,56 @@ msgstr "Nelze vytvořit složku %s pro data: %s"
 msgid "Pictures"
 msgstr "Obrázky"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Nelze vytvořit složku %s pro dočasné soubory: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nelze vytvořit podsložku %s pro data: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Nelze nastavit složku %s jako zapisovatelnou"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Nelze nastavit složku %s jako zapisovatelnou: %s"
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Budiž"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr "Soubor %s již existuje. Přepsat?"
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr "Konflikt exportu souborů"
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Použít toto řešení konfliktů na všechny další konflikty"
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "Pře_skočit"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr "_Přepsat"
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3029,21 +3055,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:299
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: src/AppWindow.vala:311
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nelze zobrazit nápovědu: %s"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nelze se připojit k databázi chyb: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nelze zobrazit časté dotazy a odpovědi: %s"
@@ -3259,11 +3285,11 @@ msgstr[0] "Kvůli chybě nelze smazat fotografii/video z fotoaparátu."
 msgstr[1] "Kvůli chybě nelze smazat %d fotografie/videa z fotoaparátu."
 msgstr[2] "Kvůli chybě nelze smazat %d fotografií/videí z fotoaparátu."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Žádné fotografie/videa"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Nebyly nalezeny žádné fotografie/videa, které by vyhovovaly aktuálnímu filtru"
@@ -4671,7 +4697,7 @@ msgstr "Nelze sledovat %s: nejedná se o složku (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografie nelze exportovat do této složky."
 
-#: src/EditingHostPage.vala:1318
+#: src/EditingHostPage.vala:1319
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Chybí zdrojový soubor s fotografií: %s"
@@ -4920,27 +4946,6 @@ msgstr "Nelze vytvořit dočasný soubor pro %s: %s"
 #: src/Exporter.vala:348
 msgid "Exporting"
 msgstr "Exportuje se"
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr "Soubor %s již existuje. Přepsat?"
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr "Pře_skočit"
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr "Přejmenovat"
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr "_Přepsat"
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
-msgstr "Konflikt exportu souborů"
 
 #: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
@@ -5660,13 +5665,13 @@ msgstr "Nelze zveřejnit"
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 "Shotwell nemůže zveřejnit vybrané položky, protože nemáte povolen "
 "kompatibilní zásuvný modul pro zveřejňování. Chcete-li tento problém "
-"vyřešit, zvolte Upravit %s Předvolby a pak kartu <b>Zásuvné moduly</b> pro "
-"výběr jednoho či více zásuvných modulů pro zveřejňování."
+"vyřešit, zvolte Upravit %s Předvolby a pak kartu Zásuvné moduly pro výběr "
+"jednoho či více zásuvných modulů pro zveřejňování."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6401,23 +6406,23 @@ msgstr "Uložená hledání"
 msgid "Organize your saved searches"
 msgstr "Roztřídit své uložené fotografie"
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr "Hodnocení ★+"
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr "Hodnocení ★★+"
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr "Hodnocení ★★★+"
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr "Hodnocení ★★★★+"
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr "Hodnocení ★★★★★+"
 
