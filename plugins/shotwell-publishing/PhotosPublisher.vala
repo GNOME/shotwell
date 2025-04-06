@@ -244,8 +244,15 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
                 if (!is_running())
                     return;
 
+
                 var json = Json.from_string (txn.get_response());
                 var object = json.get_object ();
+                // Work-around for Google sometimes sending an empty JSON object '{}' instead of 
+                // not setting the nextPageToken on the previous page
+                if (object.get_size() == 0) {
+                    break;
+                }
+                
                 if (!object.has_member ("albums")) {
                     throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Album fetch did not contain expected data");
                 }
