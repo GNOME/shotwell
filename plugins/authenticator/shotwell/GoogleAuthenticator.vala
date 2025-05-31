@@ -64,7 +64,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
     internal class Google : Spit.Publishing.Authenticator, Object {
         private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Google";
 
-        private string scope = null;
+        private string[] scopes = null;
 
         // Prepare for multiple user accounts
         private string accountname = "default";
@@ -74,12 +74,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
         private string welcome_message = null;
         private Secret.Schema? schema = null;
 
-        public Google(string scope,
+        public Google(string[] scopes,
                       string welcome_message,
                       Spit.Publishing.PluginHost host) {
             this.host = host;
             this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
-            this.scope = scope;
+            this.scopes = scopes;
             this.session = new Session();
             this.welcome_message = welcome_message;
             this.schema = new Secret.Schema(PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
@@ -93,7 +93,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             try {
                 refresh_token = Secret.password_lookup_sync(this.schema, null,
                     SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", get_scopes());
             } catch (Error err) {
                 critical("Failed to lookup refresh_token from password store: %s", err.message);
             }
@@ -104,6 +104,10 @@ namespace Publishing.Authenticator.Shotwell.Google {
             }
 
             this.do_show_service_welcome_pane();
+        }
+
+        public string get_scopes(string separator=",") {
+            return string.joinv(separator, this.scopes);
         }
 
         public bool can_logout() {
@@ -119,9 +123,9 @@ namespace Publishing.Authenticator.Shotwell.Google {
             try {
                 Secret.password_clear_sync(this.schema, null,
                     SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", get_scopes());
             } catch (Error err) {
-                critical("Failed to remove password for scope %s: %s", this.scope, err.message);
+                critical("Failed to remove password for scope %s: %s", get_scopes(), err.message);
             }
         }
 
@@ -147,7 +151,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 "response_type=code&" +
                 "client_id=" + OAUTH_CLIENT_ID + "&" +
                 "redirect_uri=" + GLib.Uri.escape_string(OAUTH_CALLBACK_URI, null) + "&" +
-                "scope=" + GLib.Uri.escape_string(this.scope, null) + "+" +
+                "scope=" + GLib.Uri.escape_string(get_scopes(" "), null) + "+" +
                 GLib.Uri.escape_string("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
                 "state=connect&" +
                 "access_type=offline&" +
@@ -315,12 +319,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
             assert(session.is_authenticated());
             try {
                 Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                    "Shotwell publishing (Google account scope %s@%s)".printf(this.accountname, this.scope),
+                    "Shotwell publishing (Google account scope %s@%s)".printf(this.accountname, get_scopes()),
                     session.refresh_token, null,
                     SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", get_scopes());
             } catch (Error err) {
-                critical("Failed to look up password for scope %s: %s", this.scope, err.message);
+                critical("Failed to look up password for scope %s: %s", get_scopes(), err.message);
             }
 
             this.authenticated();
@@ -352,9 +356,9 @@ namespace Publishing.Authenticator.Shotwell.Google {
                     try {
                         Secret.password_clear_sync(this.schema, null,
                             SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                            SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
+                            SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", get_scopes());
                     } catch (Error err) {
-                        critical("Failed to remove password for accountname@scope %s@%s: %s", this.accountname, this.scope, err.message);
+                        critical("Failed to remove password for accountname@scope %s@%s: %s", this.accountname, get_scopes(), err.message);
                     }
 
                     Idle.add (() => { this.authenticate(); return false; });
