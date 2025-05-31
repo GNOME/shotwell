@@ -321,7 +321,7 @@ public abstract class MultipleDataSourceCommand : PageCommand {
     private void on_source_destroyed(DataSource source) {
         // as with SingleDataSourceCommand, too risky to selectively remove commands from the stack,
         // although this could be reconsidered in the future
-        if (source_list.contains(source))
+        if (source_list.contains(source) && get_command_manager() != null)
             get_command_manager().reset();
     }
     
