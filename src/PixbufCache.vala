@@ -120,7 +120,11 @@ public class PixbufCache : Object {
     }
     
     // This call never blocks.  Returns null if the pixbuf is not present.
-    public Gdk.Pixbuf? get_ready_pixbuf(Photo photo) {
+    public Gdk.Pixbuf? get_ready_pixbuf(Photo? photo) {
+        if (photo == null) {
+            return null;
+        }
+        
         return get_cached(photo);
     }
     

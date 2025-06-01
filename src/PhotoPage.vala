@@ -835,7 +835,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         photo_changing(photo);
         DataView view = get_view().get_view_for_source(photo);
-        assert(view != null);
+        if (view == null) {
+            return;
+        }
         
         // Select photo.
         get_view().unselect_all();
@@ -1255,6 +1257,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void quick_update_pixbuf() {
+        if (get_photo() == null) {
+            return;
+        }
+
         Gdk.Pixbuf? pixbuf = cache.get_ready_pixbuf(get_photo());
         if (pixbuf != null) {
             set_pixbuf(pixbuf, get_photo().get_dimensions());
