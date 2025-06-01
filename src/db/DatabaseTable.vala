@@ -29,10 +29,61 @@ public abstract class DatabaseTable {
 
     public string table_name = null;
 
+    static Gee.HashMap<string, Regex> regex_map;
+
+    private static void regexp_replace(Sqlite.Context context, Sqlite.Value[] args) {
+        var pattern = args[0].to_text();
+        if (pattern == null) {
+            context.result_error("Missing regular expression", Sqlite.ERROR);
+            return;
+        }
+
+        var text = args[1].to_text();
+        if (text == null) {
+            return;
+        }
+
+        var replacement = args[2].to_text();
+        if (replacement == null) {
+            context.result_value(args[1]);
+            return;
+        }
+        
+        Regex re;
+        if (regex_map == null) {
+            regex_map = new Gee.HashMap<string, Regex>();
+        }
+        if (regex_map.has_key(pattern)) {
+            re = regex_map[pattern];
+        } else {
+            try {
+                re = new Regex(pattern, RegexCompileFlags.DEFAULT, RegexMatchFlags.DEFAULT);
+                regex_map[pattern] = re;
+            } catch (Error err) {
+                context.result_error("Invalid pattern: %s".printf(err.message), Sqlite.ERROR);
+                return;
+            }
+        }
+
+        try {
+            var result = re.replace(text, -1, 0, replacement, RegexMatchFlags.DEFAULT);
+            context.result_text(result);
+        } catch (Error err) {
+            context.result_error("Replacement failed: %s".printf(err.message), Sqlite.ERROR);
+        }
+    }
+
+    [CCode (cname="SQLITE_DETERMINISTIC", cheader_filename="sqlite3.h")]
+    extern static int SQLITE_DETERMINISTIC;
+
     private static void prepare_db(string filename) {
         // Open DB.
         int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
             null);
+
+        db.create_function("regexp_replace", 3, Sqlite.UTF8 | SQLITE_DETERMINISTIC, null,
+            DatabaseTable.regexp_replace, null, null);
+
         if (res != Sqlite.OK)
             AppWindow.panic(_("Unable to open/create photo database %s: error code %d").printf(filename,
                 res));
