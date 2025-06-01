@@ -21,6 +21,10 @@ jfif_support_test = executable('jfif-support-test',
                                c_args : ['-DTEST_DATA_DIR="@0@"'.format(meson.current_source_dir())]
                              )
 
+regexp_replace_test = executable('regexp-replace-test',
+                                 ['RegexpReplace.vala', 'DatabaseTable.vala'],
+                                 dependencies: [gee, gio, sqlite])
 
 test('natural-collate', natural_collate_test)
 test('jfif-support', jfif_support_test)
+test('regexp-replace', regexp_replace_test)
