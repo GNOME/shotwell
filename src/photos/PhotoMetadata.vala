@@ -1043,7 +1043,13 @@ public class PhotoMetadata : MediaMetadata {
     };
     
     public override string? get_comment() {
-        return get_first_string_interpreted (COMMENT_TAGS);
+        var comment = get_first_string_interpreted (COMMENT_TAGS);
+        try {
+            var re = new Regex("^charset=\\w+\\s*");
+            return re.replace(comment, -1, 0, "", RegexMatchFlags.DEFAULT);
+        } catch (Error err) {
+            return comment;
+        }
     }
     
     public void set_comment(string? comment,

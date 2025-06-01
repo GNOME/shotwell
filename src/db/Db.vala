@@ -55,6 +55,10 @@ public VerifyResult verify_database(out string app_version, out int schema_versi
         if (result != VerifyResult.OK)
             return result;
     }
+
+    PhotoTable.clean_comments();
+    VideoTable.clean_comments();
+
     
     return VerifyResult.OK;
 }
