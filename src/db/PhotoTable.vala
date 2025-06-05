@@ -1123,6 +1123,13 @@ public class PhotoTable : DatabaseTable {
             throw_error("PhotoTable.upgrade_for_unset_timestamp", res);
         }
     }
+
+    public static void clean_comments() throws DatabaseError {
+        var result = db.exec("UPDATE PhotoTable SET comment = regexp_replace('^charset=\\w+\\s*', comment, '') WHERE comment like 'charset=%'");
+        if (result != Sqlite.OK) {
+            throw_error("Cleaning comments from charset", result);
+        }
+    }
     
 }
 
