@@ -5,8 +5,9 @@ cache:
   - _bundle/
 
 before_script:
-  - gem install bundler
-  - bundle install --path _bundle
+  - gem install bundler -v 2.6.2
+  - bundle config set path '_bundle'
+  - bundle install
 
 build:
   stage: build
