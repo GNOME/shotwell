@@ -24,7 +24,7 @@
       Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats.
     </p>
   </description>
-  <url type="homepage">https://wiki.gnome.org/Apps/Shotwell</url>
+  <url type="homepage">https://shotwell-project.org</url>
   <content_rating type="oars-1.0" />
   <screenshots>
     <screenshot type="default">
@@ -56,6 +56,13 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.10" date="2024-10-18" urgency="high" type="stable">
+          <description>
+              <ul>
+                  <li>Fixes a crash when editing the photo</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.9" date="2024-09-15" urgency="high" type="stable">
           <description>
               <ul>
