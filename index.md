@@ -2,45 +2,43 @@
 layout: default
 ---
 <picture class="full pixels">
-    <source srcset="assets/splash-dark.png" media="(prefers-color-scheme: dark)">
-    <img src="assets/splash.png">
+    <img src="assets/logo.svg">
+</picture>
+
+# Shotwell
+
+Shotwell is an easy-to-use, fast photo organizer.
+It allows you to import photos from your camera or disk, organize them by date and subject
+matter, even ratings.  It also offers basic photo editing, like crop, red-eye correction,
+color adjustments, and straighten.  Shotwell’s non-destructive photo editor does not alter
+your master photos, making it easy to experiment and correct errors.
+
+When ready, Shotwell can upload your photos to various web services, such as Flickr,
+Google Photos, and more.
+
+Shotwell supports JPEG, PNG, HEIF/HEIC, AVIF, TIFF, WebP, JpegXL, GIF, and a variety of RAW file formats.
+
+## Features
+
+* Import from disk or camera
+* Organize by time-based Events, Tags (keywords), Folders, and more
+* View your photos in full-window or fullscreen mode
+* Crop, rotate, color adjust, straighten, and enhance photos
+* Slideshow
+* Video and RAW photo support
+* Share to major Web services, including Flickr, Tumblr and YouTube 
+
+<picture class="full pixels">
+  <img src="https://gitlab.gnome.org/GNOME/shotwell/raw/shotwell-0.30/data/appdata/harbor.png"/>
 </picture>
 
 
-[OS Component Template](https://github.com/jimmac/os-component-website) is a project that aims to greatly simplify creating a  website for your project. It aims to let you write simple markdown pages and deploy the simple jekyll project to [gitlab](https://gitlab.org) or [github](https://github.com).
- 
-Edit a bit of metadata and tweak some of the included graphics and have a site up in minutes!
+## Installation
 
+Shotwell is available through your distribution's package manger or [directly on Flathub](https://flathub.org/apps/details/org.gnome.Shotwell)
 
-- Proper favicon for modern browsers and Apple device icons
-- Twitter, Facebook and other social media meta cards for easy sharing. Try [Share Preview](https://flathub.org/apps/details/com.rafaelmardojai.SharePreview) to test.
-- Local copy of the amazing [Inter font](https://rsms.me/inter/). No slowdowns pulling from external hosting.
-- Mobile friendly, dark variant included.
+## Links
 
-
-## Setup
-
-The process of setting up the site locally consists of:
-
-- Install ruby [gem bundler](https://bundler.io/). On [Fedora](https://getfedora.org/)/in the [Toolbx](https://containertoolbx.org) you do:
-
-```
-toolbox enter
-sudo dnf install rubygem-bundler
-cd os-component-website
-bundle install
-```
-
-- Edit the [Jekyll](https://jekyllrb.com/) config file --`_config.yml`.
-- Replace or edit all the graphics. I recommend using [Inkscape](https://inkscape.org). If you want to shave off some kB out of the SVGs, use [svgo](https://github.com/svg/svgo).
-
-- Test the site locally:
-```
-bundle exec jekyll s
-```
-
-- `git commit` your changes and push to your remote repo for automatic deployment. There is an included `.gitlab-ci.yml` that should be easy to adjust to your gitlab hosting situation. For github pages situation, [see these instructions](https://pages.github.com/). 
-
-Alternatively you can be wild and edit the site directly on github using the remote VSCode editor by pressing `.` after cloning the repo. Right in the browser. It's insane.
-
-Written with love using [Apostrophe](https://flathub.org/apps/details/org.gnome.gitlab.somas.Apostrophe).
+* [Old GNOME Wiki page](https://wiki.gnome.org/Apps/Shotwell)
+* [User Manual](https://shotwell-project.org/doc/html/)
+* [Online services privacy policy](https://shotwell-project.org/doc/html/privacy-policy.html)

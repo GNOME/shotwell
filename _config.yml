@@ -1,12 +1,12 @@
 # Site settings
-title: Website Template
-baseurl: "/os-component-website" # the subpath of your site, e.g. /blog/
+title: Shotwell
+baseurl: "" # the subpath of your site, e.g. /blog/
                                  # usually empty. necessary for building absolute URIs
                                  # for metadata header
-url: "https://jimmac.github.io"   # the base hostname & protocol for your site
-sourceurl: "https://github.com/jimmac/os-component-website" # "edit this website" link in the footer
-description: "Description of the OS Component website."
-issuesurl: "https://github.com/jimmac/os-component-website/issues" # issue tracker for website
+url: "https://shotwell-project.org"   # the base hostname & protocol for your site
+sourceurl: "https://gitlab.gnome.org/GNOME/shotwell/-/tree/website" # "edit this website" link in the footer
+description: "Shotwell is a personal photo manager."
+issuesurl: "https://gitlab.gnome.org/GNOME/shotwell/-/issues" # issue tracker for website
 permalink: /:title/
 primary-color: "#26a269" #used in ios theme. further color customization in style.css  
 
