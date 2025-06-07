@@ -44,9 +44,6 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
 namespace Publishing.YouTube {
 
-private const string DEVELOPER_KEY =
-    "AIzaSyB6hLnm0n5j8Y6Bkvh9bz3i8ADM2bJdYeY";
-    
 private enum PrivacySetting {
     PUBLIC,
     UNLISTED,
