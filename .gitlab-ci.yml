@@ -18,7 +18,7 @@ pages:
   - echo -n $SSH_HOST_KEY | base64 -d >~/.ssh/known_hosts
   - eval `ssh-agent`
   - echo -n $SSH_PRIVATE_KEY | base64 -d | ssh-add -
-  - scp -r public/* scponly-shotwell-deploy@webstreams.de:.
+  - scp -r public/* scponly-shotwell-deploy@webstreams.de:site
   artifacts:
     paths:
     - public
