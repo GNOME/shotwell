@@ -9,24 +9,18 @@ before_script:
   - bundle config set path '_bundle'
   - bundle install
 
-build:
-  stage: build
-  script:
-  - bundle exec jekyll b
-  - mv _site public
-  artifacts:
-    paths:
-    - public
-  except:
-  - master
-
 pages:
   stage: deploy
   script:
   - bundle exec jekyll b
   - mv _site public
+  - mkdir ~/.ssh
+  - echo -n $SSH_HOST_KEY | base64 -d >~/.ssh/known_hosts
+  - eval `ssh-agent`
+  - echo -n $SSH_PRIVATE_KEY | base64 -d | ssh-add -
+  - scp -r public/* scponly-shotwell-deploy@webstreams.de:.
   artifacts:
     paths:
     - public
   only:
-  - main
+  - website
