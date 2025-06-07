@@ -111,6 +111,7 @@ internal class PublishingParameters {
 }
 
 private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+    // SCOPE: photoslibrary.appendonly
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate";
     private string[] upload_tokens;
     private string[] titles;
@@ -154,6 +155,7 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
 }
 
 private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+    // SCOPE: photoslibrary.appendonly
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
     private string title;
 
@@ -179,6 +181,7 @@ private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.
 }
 
 private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+    // SCOPE: photoslibrary.readonly.appcreateddata
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
 
     public AlbumDirectoryTransaction(Publishing.RESTSupport.GoogleSession session, string? token) {
@@ -286,7 +289,10 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
             debug("EVENT: fetching album information failed; response = '%s'.",
             txn.get_response());
 
-            if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
+            if (txn.get_status_code() == 403) {
+                debug("Lacking permission to download album list, showing publishing options anyway");
+                show_publishing_options_pane();
+            } else if (txn.get_status_code() == 404) {
                 do_logout();
             } else {
                 // If we get any other kind of error, we can't recover, so just post it to the user
@@ -352,10 +358,13 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
 
             yield do_upload();    
         } catch (Error err) {
-            debug("EVENT: creating album failed; response = '%s'.",
+            debug("EVENT: creating album failed; status = '%u', response = '%s'.", txn.get_status_code(),
             txn.get_response());
 
-            if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
+            if (txn.get_status_code() == 403) {
+                get_host().install_static_message_pane(_("Could not create album, Shotwell is lacking permission to do so. Please re-authenticate and grant Shotwell the required permission to create new media and Albums"),
+                    Spit.Publishing.PluginHost.ButtonMode.CLOSE);
+            } else if (txn.get_status_code() == 404) {
                 do_logout();
             } else {
                 // If we get any other kind of error, we can't recover, so just post it to the user

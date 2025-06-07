@@ -159,17 +159,24 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             var auth_callback = new AuthCallback();
             string? web_auth_code = null;
+
             auth_callback.auth.connect((prm) => {
                 if ("code" in prm) {
                     web_auth_code = prm["code"];
+                }
+                if ("scope" in prm) {
+                    debug("Effective scopes as returned from login: %s", prm["scope"]);
                 }
                 do_hosted_web_authentication.callback();
             });
             host.register_auth_callback(REVERSE_CLIENT_ID, auth_callback);
             try {
+                debug("Launching external authentication on URI %s", user_authorization_url);
                 AppInfo.launch_default_for_uri(user_authorization_url, null);
                 host.install_login_wait_pane();
                 yield;
+
+                // FIXME throw error missing scopes
 
                 yield do_get_access_tokens(web_auth_code);
             } catch (Error err) {
