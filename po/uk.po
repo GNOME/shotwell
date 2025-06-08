@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-16 11:46+0000\n"
-"PO-Revision-Date: 2025-02-16 18:21+0200\n"
+"POT-Creation-Date: 2025-06-08 14:04+0000\n"
+"PO-Revision-Date: 2025-06-08 17:32+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2726,6 +2726,17 @@ msgstr "Новому альбомі з назвою"
 msgid "Shotwell Connect"
 msgstr "З’єднувач Shotwell"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Не вдалося створити альбом, у Shotwell недостатні права доступу для"
+" виконання цього завдання. Будь ласка, пройдіть повторне розпізнавання і"
+" надайте Shotwell потрібні для створення мультимедійних об'єктів та альбомів"
+" права доступу"
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "Малий (640 × 480 пікселів)"
@@ -2933,7 +2944,7 @@ msgstr ""
 "© Software Freedom Conservancy Inc., 2016\n"
 "© Jens Georg <mail@jensge.org>, 2022"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2941,20 +2952,20 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Youtube неможливе."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Відкритий доступ"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Конфіденційне"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "поза списком"
 
@@ -3660,13 +3671,13 @@ msgstr "За_крити"
 msgid "Data Imports"
 msgstr "Імпортування даних"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Не вдалося відкрити або створити базу даних фотографій %s: код помилки %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3675,7 +3686,7 @@ msgstr ""
 "Не вдалося записати дані до файла бази даних фотографій:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3690,7 +3701,7 @@ msgstr ""
 "Помилка: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Не вдалося відновити базу даних фотографій %s"
@@ -4922,7 +4933,7 @@ msgstr "Неможливо стежити за %s: це не каталог (%s)
 msgid "Photos cannot be exported to this directory."
 msgstr "Експорт фотографій до цього каталогу неможливий."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Не виявлено файла джерела фотографії: %s"
@@ -5901,11 +5912,6 @@ msgstr "Не вдалося оприлюднити"
 
 #: src/publishing/PublishingUI.vala:284
 #, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose Edit %s "
-#| "Preferences and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
