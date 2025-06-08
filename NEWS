@@ -1,3 +1,28 @@
+Shotwell 0.32.11 (stable) - 8 Jun 2025
+ * Fix wrong "Error -53" dialog when plugging in phone
+ * Fix issue when Google Photos returns empty response
+ * Fix assertion when deleting an image in fullscreen view
+ * Add a work-around comments with "charset=" prefix
+ * Fix publishing Google Photos
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/339
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5095
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5150
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/80
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/92
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/94
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/93
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+
+Added/updated translations:
+ - id.po, courtesy of Andika Triwidada
+
 Shotwell 0.32.10 (stable) - 27 Oct 2024
  * Add information to log and about about running environment
  * Fix video description upload for YouTube

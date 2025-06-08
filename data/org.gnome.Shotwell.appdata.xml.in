@@ -56,6 +56,15 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.11" date="2025-06-08" urgency="high" type="stable>
+          <description>
+              <ul>
+                  <li>Fixes publishing to Google Photos</li>
+                  <li>Fixes charset= prefixes in photo comments</li>
+                  <li>Fixes a crash when deleting a photo in fullscreen view</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.10" date="2024-10-18" urgency="high" type="stable">
           <description>
               <ul>
