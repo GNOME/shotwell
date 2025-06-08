@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-15 10:32+0000\n"
+"POT-Creation-Date: 2025-06-08 09:11+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -2289,8 +2289,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2321,8 +2321,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2336,14 +2336,14 @@ msgstr ""
 "\n"
 "Najbrž ste se že prijavili z računom Google in ga nastavili za uporabo s "
 "programom Fotografije Google. Program Shotwell uporablja za delo s "
-"fotografijami in podatki teh fotografij storitve API Google Photos <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"fotografijami in podatki teh fotografij storitve API Google Photos <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a>. Za uporabo programa za dostop do teh storitev je treba "
 "predhodno odobriti dostop do spletne zbirke.\n"
 "\n"
 "Določila zasebnosti uporabe podatkov, povezanih z računom Google na splošno "
-"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a href="
-"\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
+"in še posebej v okolju Google Photos, so na voljo na strani pomoči <a "
+"href=\"help:shotwell/privacy-policy\">za uporabo storitev</a>."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -2397,8 +2397,8 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
-"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko zaupali. "
-"Preverite nastavljen datum in čas vaše naprave."
+"⚫ Podatki istovetnosti spletnega mesta so prestari, da bi jim lahko "
+"zaupali. Preverite nastavljen datum in čas vaše naprave."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:252
@@ -2418,8 +2418,8 @@ msgstr ""
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Podatki istovetnosti spletnega mesta so bili preklicani s strani zaupanja "
 "vredne ustanove, ki je te podatke izdala."
@@ -2656,6 +2656,16 @@ msgstr "Nov album z imenom"
 msgid "Shotwell Connect"
 msgstr "Povezava Shotwell"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Ni možno ustvariti albuma, Shotwell nima dovoljenja za to. Prosimo, ponovno "
+"preverite pristnost in podelite Shotwellu potrebno dovoljenje za ustvarjanje "
+"novih medijev in albumov"
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "Majhna (640 × 480 točk)"
@@ -2854,7 +2864,7 @@ msgstr ""
 "Avtorske pravice 2016 Software Freedom Conservancy Inc.\n"
 "Avtorske pravice 2022 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2862,20 +2872,20 @@ msgstr ""
 "Datoteka, zahtevana za objavo, ni na voljo. Objavljanja v YouTube ni mogoče "
 "nadaljevati."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "V storitev YouTube ste prijavljeni kot %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Javno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Zasebno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "Neizpostavljeno"
 
@@ -3241,11 +3251,11 @@ msgstr[1] "Zaradi napak ni mogoče izbrisati %d fotografije oziroma posnetka."
 msgstr[2] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 msgstr[3] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Ni fotografij in posnetkov"
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Ni najdenih fotografij ali posnetkov, skladnih s trenutno uveljavljenim "
@@ -3565,14 +3575,14 @@ msgstr "_Zapri"
 msgid "Data Imports"
 msgstr "Uvoz podatkov"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Ni mogoče odpreti oziroma ustvariti podatkovne zbirke %s: javljena je koda "
 "napake %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3581,7 +3591,7 @@ msgstr ""
 "Zapisovanje v datoteko podatkovne zbirke ni mogoče:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3596,7 +3606,7 @@ msgstr ""
 "Napaka: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Ni mogoče obnoviti fotografije iz podatkovne zbirke %s"
@@ -4800,7 +4810,7 @@ msgstr "Ni mogoče spremljati %s: to ni mapa (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografij ni mogoče izvoziti v to mapo."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Izvirna datoteka fotografije manjka: %s"
