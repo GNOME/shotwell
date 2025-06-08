@@ -362,7 +362,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
             txn.get_response());
 
             if (txn.get_status_code() == 403) {
-                get_host().install_static_message_pane(_("Could not create album, Shotwell is lacking permission to do so. Please re-authenticate and grant Shotwell the required permission to create new media and Albums"),
+                get_host().install_static_message_pane(_("Could not create album, Shotwell is lacking permission to do so. Please re-authenticate and grant Shotwell the required permission to create new media and albums"),
                     Spit.Publishing.PluginHost.ButtonMode.CLOSE);
             } else if (txn.get_status_code() == 404) {
                 do_logout();
