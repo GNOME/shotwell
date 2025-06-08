@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 07:01+0000\n"
+"POT-Creation-Date: 2025-06-08 10:12+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -2281,7 +2281,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Obiščite domačo stran programa Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:614
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2349,7 +2349,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Začasna datoteka, nujna za objavljanje, ni na voljo."
 
@@ -2378,7 +2378,7 @@ msgstr "_Odjava"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2502
 msgid "_Publish"
 msgstr "O_bjavi"
 
@@ -2524,6 +2524,16 @@ msgstr "Nov album z imenom"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Povezava Shotwell"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Ni možno ustvariti albuma, Shotwell nima dovoljenja za to. Prosimo, ponovno "
+"preverite pristnost in podelite Shotwellu potrebno dovoljenje za ustvarjanje "
+"novih medijev in albumov"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -2744,7 +2754,7 @@ msgstr "Ni mogoče naložiti uporabniškega vmesnika: %s"
 msgid "Video privacy _setting"
 msgstr "Nastavitev _zasebnosti videa"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2752,20 +2762,20 @@ msgstr ""
 "Datoteka, zahtevana za objavo, ni na voljo. Objavljanja v YouTube ni mogoče "
 "nadaljevati."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "V storitev YouTube ste prijavljeni kot %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Javno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Zasebno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "neomenjeno"
 
@@ -2835,22 +2845,22 @@ msgstr "Ni mogoče ustvariti podatkovne mape %s: %s"
 msgid "Pictures"
 msgstr "Slike"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Ni mogoče ustvariti začasne mape %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Ni mogoče ustvariti podrejene mape %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Mape %s ni mogoče pripraviti za zapisovanje."
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Mape %s ni mogoče pripraviti za zapisovanje: %s"
@@ -2880,21 +2890,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:596
+#: src/AppWindow.vala:611
 msgid "Visit the Shotwell web site"
 msgstr "Obišči spletišče Shotwell"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ni mogoče prikazati pomoči: %s"
 
-#: src/AppWindow.vala:617
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ni se mogoče povezati s podatkovno zbirko hroščev: %s"
 
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:640
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ni mogoče prikazati pogostih vprašanj: %s"
@@ -3133,12 +3143,12 @@ msgstr ""
 "filtrom"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
-#: src/PhotoPage.vala:2490 src/Resources.vala:137
+#: src/PhotoPage.vala:2497 src/Resources.vala:137
 msgid "_Print"
 msgstr "Na_tisni"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
-#: src/PhotoPage.vala:2500 src/Resources.vala:187
+#: src/PhotoPage.vala:2507 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Slika kot _ozadje namizja"
 
@@ -3437,14 +3447,14 @@ msgstr "_Zapri"
 msgid "Data Imports"
 msgstr "Uvoz podatkov"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Ni mogoče odpreti oziroma ustvariti podatkovne zbirke %s: javljena je koda "
 "napake %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3453,7 +3463,7 @@ msgstr ""
 "Zapisovanje v datoteko podatkovne zbirke ni mogoče:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3468,7 +3478,7 @@ msgstr ""
 "Napaka: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Ni mogoče obnoviti fotografije iz podatkovne zbirke %s"
@@ -3761,7 +3771,7 @@ msgstr[3] ""
 msgid "Export Video"
 msgstr "Izvozi posnetke"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3032
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Izvozi fotografijo"
@@ -4804,80 +4814,80 @@ msgstr "Zapri orodje rdečih oči"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Odstrani morebitne učinke rdečih oči v izbranemu področju"
 
-#: src/editing_tools/EditingTools.vala:2229
+#: src/editing_tools/EditingTools.vala:2228
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Ponastavi"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2242 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Osvetlitev:"
 
-#: src/editing_tools/EditingTools.vala:2252
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Saturation:"
 msgstr "Nasičenost:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Tint:"
 msgstr "Črnilo:"
 
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2289
+#: src/editing_tools/EditingTools.vala:2288
 msgid "Shadows:"
 msgstr "Sence:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2300
+#: src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Poudarjanje:"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset Colors"
 msgstr "Ponastavi barve"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset all color adjustments to original"
 msgstr "Ponastavi vse prilagoditve barve na izvirno"
 
-#: src/editing_tools/EditingTools.vala:2716
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2728
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Tint"
 msgstr "Črnilo"
 
-#: src/editing_tools/EditingTools.vala:2740
+#: src/editing_tools/EditingTools.vala:2739
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2753
 msgid "Saturation"
 msgstr "Nasičenost"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2766
 msgid "Exposure"
 msgstr "Osvetljenost"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2779
 msgid "Shadows"
 msgstr "Sence"
 
-#: src/editing_tools/EditingTools.vala:2793
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Highlights"
 msgstr "Poudarjanje"
 
-#: src/editing_tools/EditingTools.vala:2803
+#: src/editing_tools/EditingTools.vala:2802
 msgid "Contrast Expansion"
 msgstr "Razširitev kontrasta"
 
@@ -5270,22 +5280,22 @@ msgstr "Predhodna fotografija"
 msgid "Next photo"
 msgstr "Naslednja fotografija"
 
-#: src/PhotoPage.vala:1867
+#: src/PhotoPage.vala:1874
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Izvirna datoteka fotografije manjka: %s"
 
-#: src/PhotoPage.vala:2900
+#: src/PhotoPage.vala:2907
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Odstrani iz knjižnice"
 
-#: src/PhotoPage.vala:2901
+#: src/PhotoPage.vala:2908
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Odstranjevanje fotografije iz knjižnice"
 
-#: src/PhotoPage.vala:3045
+#: src/PhotoPage.vala:3052
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s ni mogoče izvoziti: %s"
@@ -5347,7 +5357,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "spremenjeno"
 
