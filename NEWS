@@ -1,3 +1,6 @@
+Shotwell 0.32.12 (stable) - 8 Jun 2025
+ * Fix broken appdata
+
 Shotwell 0.32.11 (stable) - 8 Jun 2025
  * Fix wrong "Error -53" dialog when plugging in phone
  * Fix issue when Google Photos returns empty response
