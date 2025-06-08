@@ -56,6 +56,13 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.13" date="2025-06-08" urgency="low" type="stable">
+          <description>
+              <ul>
+                  <li>Fixes an issue with the meson file in 0.32.12</li>
+              </ul>
+          </description>
+      </release>
       <release version="0.32.12" date="2025-06-08" urgency="low" type="stable">
           <description>
               <ul>
