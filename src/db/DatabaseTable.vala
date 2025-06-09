@@ -57,7 +57,7 @@ public abstract class DatabaseTable {
             re = regex_map[pattern];
         } else {
             try {
-                re = new Regex(pattern, RegexCompileFlags.DEFAULT, RegexMatchFlags.DEFAULT);
+                re = new Regex(pattern, 0, 0);
                 regex_map[pattern] = re;
             } catch (Error err) {
                 context.result_error("Invalid pattern: %s".printf(err.message), Sqlite.ERROR);
