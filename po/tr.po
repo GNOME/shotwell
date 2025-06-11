@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-16 11:46+0000\n"
-"PO-Revision-Date: 2025-03-04 08:00+0300\n"
+"POT-Creation-Date: 2025-06-08 14:32+0000\n"
+"PO-Revision-Date: 2025-06-11 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -1390,7 +1390,7 @@ msgstr "İyileştir"
 
 #: data/ui/collection.ui:211 src/Resources.vala:263
 msgid "Publish to various websites"
-msgstr "Çeşitli web sitelerinde yayımla"
+msgstr "Türlü web sitelerinde yayımla"
 
 #: data/ui/collection.ui:229
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
@@ -2650,6 +2650,16 @@ msgstr "Şu adda yeni albüm"
 msgid "Shotwell Connect"
 msgstr "Shotwell Bağlantısı"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Albüm oluşturulamadı, Shotwell’in bunu yapacak izni yok. Lütfen yeniden "
+"kimlik doğrulayıp Shotwell’in yeni ortam ve albüm oluşturması için gerekli "
+"izni verin"
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "Küçük (640 × 480 benek)"
@@ -2854,27 +2864,27 @@ msgstr ""
 "Telif Hakkı 2016 Software Freedom Conservancy Inc.\n"
 "Telif Hakkı 2022 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "YouTube’a %s olarak oturum açtınız."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Genel"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Özel"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "listelenmemiş"
 
@@ -3221,7 +3231,7 @@ msgstr "Fotoğraflar/Videolar kameradan kaldırılıyor"
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "%d fotoğraf/video hatalar sebebiyle kameradan silinemiyor."
+msgstr[0] "%d fotoğraf/video hatalar nedeniyle kameradan silinemiyor."
 
 #: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
@@ -3527,12 +3537,12 @@ msgstr "_Kapat"
 msgid "Data Imports"
 msgstr "Veri İçe Aktarımları"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "Fotoğraf veri tabanı açılmadı/oluşturulamadı %s: hata kodu %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3541,7 +3551,7 @@ msgstr ""
 "Fotoğraf veri tabanı dosyasına yazılamıyor:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3556,7 +3566,7 @@ msgstr ""
 "Hata şuydu: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "%s fotoğraf veri tabanı geri yüklenemiyor"
@@ -3799,7 +3809,7 @@ msgstr[0] "Bu işlem “%s” yüzünü %d fotoğraftan kaldıracak. Sürdürül
 
 #: src/Dialogs.vala:77
 msgid "Export Video"
-msgstr "Video Ihracatı"
+msgstr "Videoyu Dışa Aktar"
 
 #: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:666
 msgctxt "Dialog Title"
@@ -3884,12 +3894,12 @@ msgstr "var olan ortam ögesini çoğaltır"
 #.
 #: src/Dialogs.vala:259
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
-msgstr "Kamera Hataları Sebebiyle İçe Aktarılmayan Fotoğraflar/Videolar:"
+msgstr "Kamera Hataları Nedeniyle İçe Aktarılmayan Fotoğraflar/Videolar:"
 
 #: src/Dialogs.vala:262 src/Dialogs.vala:277 src/Dialogs.vala:292
 #: src/Dialogs.vala:308 src/Dialogs.vala:323 src/Dialogs.vala:337
 msgid "error message:"
-msgstr "hata mesajı:"
+msgstr "hata iletisi:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
@@ -3941,7 +3951,7 @@ msgstr "Dosyalar Bozuk Olduğundan Fotoğraflar/Videolar İçe Aktarılmadı:"
 #.
 #: src/Dialogs.vala:334
 msgid "Photos/Videos Not Imported for Other Reasons:"
-msgstr "Başka Sebeplerden İçe Aktarılmayan Fotoğraflar/Videolar:"
+msgstr "Başka Nedenlerden İçe Aktarılmayan Fotoğraflar/Videolar:"
 
 #: src/Dialogs.vala:354
 #, c-format
@@ -4476,7 +4486,7 @@ msgstr "%s izlenemiyor: Bir dizin değil (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotoğraflar, bu dizinden dışa aktarılamadı."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Fotoğraf kaynağı bulunamadı: %s"
@@ -4853,8 +4863,9 @@ msgid ""
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell fotoğrafları ev dizininize kopyalamak üzere yapılandırılmıştır.\n"
-"Bunu Düzenle - Tercihler - %s Tercihleri sayfasından değiştirmenizi tavsiye\n"
-"ederiz. Fotoğrafları içe aktarmayı sürdürmek istiyor musunuz?"
+"Bunu Düzenle - Tercihler - %s Tercihleri sayfasından değiştirmenizi "
+"öneririz\n"
+"Fotoğrafları içe aktarmayı sürdürmek istiyor musunuz?"
 
 #. TODO: Specify which directory/file.
 #: src/library/LibraryWindow.vala:781
@@ -5134,7 +5145,7 @@ msgstr "Lisans"
 
 #: src/plugins/ManifestWidget.vala:213
 msgid "Website"
-msgstr "Web sitesi"
+msgstr "Web Sitesi"
 
 #: src/plugins/SpitInterfaces.vala:173
 msgid "LGPL v2.1 or later"
@@ -5677,7 +5688,7 @@ msgstr "Yalnızca reddedilmiş fotoğrafları göster"
 #: src/Resources.vala:240
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
-msgstr "Reddedilmişler dahil tüm fotoğrafları göster"
+msgstr "Reddedilmişlerle birlikte tüm fotoğrafları göster"
 
 #. Button tooltip
 #: src/Resources.vala:244
