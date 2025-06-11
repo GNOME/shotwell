@@ -22,16 +22,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-16 11:46+0000\n"
-"PO-Revision-Date: 2025-02-22 08:26-0300\n"
+"POT-Creation-Date: 2025-06-11 16:11+0000\n"
+"PO-Revision-Date: 2025-06-11 13:50-0300\n"
 "Last-Translator: Álvaro Burns <>\n"
-"Language-Team: Brazilian Portuguese\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -2733,6 +2733,16 @@ msgstr "Um novo álbum chamado"
 msgid "Shotwell Connect"
 msgstr "Conexão do Shotwell"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Não pode criar álbum, Shotwell não tem premissão para fazê-lo. Por favor "
+"autentique novamente e conceda a permissão necessária ao Shotwell para criar "
+"novas mídias e álbuns"
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "Pequeno (640 × 480 pixels)"
@@ -2934,7 +2944,7 @@ msgstr ""
 "Copyright 2016 Software Freedom Conservancy Inc.\n"
 "Copyright 2022 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2942,20 +2952,20 @@ msgstr ""
 "O arquivo necessário para a publicação não está disponível. A publicação "
 "para o YouTube não pode continuar."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Você está autenticado no Youtube como %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Público"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Privado"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "Não listado"
 
@@ -3621,13 +3631,13 @@ msgstr "Fe_char"
 msgid "Data Imports"
 msgstr "Importação de dados"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Não foi possível abrir/criar banco de dados de foto %s: código de erro %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3636,7 +3646,7 @@ msgstr ""
 "Não foi possível gravar no arquivo de banco de dados de fotos:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3651,7 +3661,7 @@ msgstr ""
 "O erro foi: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Não foi possível restaurar o banco de dados de fotos %s"
@@ -4666,7 +4676,7 @@ msgstr "Não foi possível monitorar %s: Não é um diretório (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotos não podem ser exportadas para este diretório."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
