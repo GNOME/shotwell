@@ -456,7 +456,14 @@ public class RGBTransformation : PixelTransformation {
         return (transform_pixel_rgb(p.to_rgb())).to_hsv();
     }
 
-    public extern override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p);
+    extern void do_transform_pixel_rgb(RGBAnalyticPixel p, out RGBAnalyticPixel q);
+
+    public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
+        RGBAnalyticPixel result;
+        do_transform_pixel_rgb(p, out result);
+
+        return result;
+    }
 
     public override bool is_identity() {
         return identity;

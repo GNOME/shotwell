@@ -155,7 +155,7 @@ void hsv_analytic_pixel_init_from_rgb (HSVAnalyticPixel *self, RGBAnalyticPixel*
     self->light_value = CLAMP(self->light_value, 0.0f, 1.0f);
 }
 
-void rgb_transformation_real_transform_pixel_rgb (PixelTransformation* base, RGBAnalyticPixel* p, RGBAnalyticPixel* result) {
+void rgb_transformation_do_transform_pixel_rgb (PixelTransformation* base, RGBAnalyticPixel* p, RGBAnalyticPixel* result) {
     RGBTransformation *self = RGB_TRANSFORMATION(base);
     result->red = CLAMP(p->red * self->matrix_entries[0] +
                         p->green * self->matrix_entries[1] +
