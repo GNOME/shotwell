@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-16 11:46+0000\n"
-"PO-Revision-Date: 2025-02-17 19:10+0800\n"
+"POT-Creation-Date: 2025-06-11 16:11+0000\n"
+"PO-Revision-Date: 2025-06-18 08:46+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -2572,6 +2572,15 @@ msgstr "新建影集"
 msgid "Shotwell Connect"
 msgstr "Shotwell 连接"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"无法创建相册，Shotwell 缺乏这样做的权限。请重新认证并授予 Shotwell 所需权限以"
+"创建新的媒体和相册"
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "小（640 × 480 像素）"
@@ -2766,26 +2775,26 @@ msgstr ""
 "版权所有 2016 Software Freedom Conservancy Inc.\n"
 "版权所有 2022 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr "一个发布所需要的文件不存在。无法继续发布至 YouTube。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "你已经作为 %s 登录 YouTube。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "公开"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "私人"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "未列出"
 
@@ -3431,12 +3440,12 @@ msgstr "关闭(_C)"
 msgid "Data Imports"
 msgstr "数据导入"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "无法打开/创建照片数据库 %s：错误代码 %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3445,7 +3454,7 @@ msgstr ""
 "无法写入照片数据库文件：\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3460,7 +3469,7 @@ msgstr ""
 "错误是：\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "无法还原照片数据库 %s"
@@ -4349,7 +4358,7 @@ msgstr "无法监视 %s：不是目录（%s）"
 msgid "Photos cannot be exported to this directory."
 msgstr "照片不可以被导出到该文件夹。"
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "照片源文件丢失：%s"
