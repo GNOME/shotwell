@@ -10,7 +10,7 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Isak Bergdahl <isak.bergdahl@yahoo.com>, 2021.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-15 09:38+0000\n"
-"PO-Revision-Date: 2024-09-15 12:15+0200\n"
+"POT-Creation-Date: 2025-06-08 10:12+0000\n"
+"PO-Revision-Date: 2025-06-20 00:47+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1211,14 +1211,10 @@ msgstr "Organisera dina bilder"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;"
-"importera;organisera;bild;foto;foton;bilder;fotografier;skriv ut;publicera;"
-"rotera;dela;taggar;video;flickr;picasa;youtube;piwigo;"
+"album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;importera;organisera;bild;foto;foton;bilder;fotografier;skriv "
+"ut;publicera;rotera;dela;taggar;video;flickr;picasa;youtube;piwigo;"
 
 #: data/org.gnome.Shotwell.desktop.in:21
 msgid "Manage Different Profiles In Shotwell"
@@ -2192,19 +2188,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på YouTube.\n"
 "\n"
@@ -2213,19 +2209,19 @@ msgstr ""
 "använda din webbläsare för att logga in på YouTube-webbplatsen minst en "
 "gång.\n"
 "\n"
-"Shotwell använder YouTubes API-tjänster <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> för att komma åt din "
-"YouTube-kanal och skicka videoklippen. Genom att använda Shotwell för att "
-"komma åt YouTube så behöver du följa YouTubes användningsvillkor som finns "
-"på <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/"
-"terms</a>\n"
+"Shotwell använder YouTubes API-tjänster <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"för att komma åt din YouTube-kanal och skicka videoklippen. Genom att "
+"använda Shotwell för att komma åt YouTube så behöver du följa YouTubes "
+"användningsvillkor som finns på <a href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
 "Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a "
 "href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
 "\n"
-"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
-"com/privacy</a> för Googles egen sekretesspolicy"
+"Se <a href=\"https://policies.google.com/privacy\">https://"
+"policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
@@ -2240,8 +2236,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på Google Foto.\n"
 "\n"
@@ -2254,8 +2250,8 @@ msgstr ""
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
 "Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a "
 "href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. "
-"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
-"com/privacy</a> för Googles egen sekretesspolicy"
+"Se <a href=\"https://policies.google.com/privacy\">https://"
+"policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 msgid "_Email address"
@@ -2287,7 +2283,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:614
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2360,7 +2356,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
 
@@ -2389,7 +2385,7 @@ msgstr "_Logga ut"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2502
 msgid "_Publish"
 msgstr "_Publicera"
 
@@ -2527,6 +2523,16 @@ msgstr "Ett nytt album med namnet"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Kunde inte skapa album, Shotwell saknar rättighet att göra det. Autentisera "
+"på nytt och ge Shotwell rättigheten som krävs för att skapa nya media och "
+"album"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -2749,7 +2755,7 @@ msgstr "Kunde inte ladda användargränssnittet: %s"
 msgid "Video privacy _setting"
 msgstr "_Sekretessinställningar för film"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2757,20 +2763,20 @@ msgstr ""
 "En fil som krävs för publiceringen saknas. Därför kan publiceringen till "
 "YouTube inte fortsätta."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Du är inloggad på YouTube som %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Offentlig"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Privat"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "olistad"
 
@@ -2841,22 +2847,22 @@ msgstr "Kunde inte skapa datakatalogen %s: %s"
 msgid "Pictures"
 msgstr "Bilder"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Kunde inte skapa den temporära katalogen %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Kunde inte skapa den underliggande datakatalogen %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Kunde inte göra katalogen %s skrivbar"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Kunde inte göra katalogen %s skrivbar: %s"
@@ -2886,21 +2892,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:596
+#: src/AppWindow.vala:611
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:617
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Det går inte att komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:640
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -3129,12 +3135,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Inga bilder/videor hittades som matchar nuvarande filter"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
-#: src/PhotoPage.vala:2490 src/Resources.vala:137
+#: src/PhotoPage.vala:2497 src/Resources.vala:137
 msgid "_Print"
 msgstr "Skriv _ut"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
-#: src/PhotoPage.vala:2500 src/Resources.vala:187
+#: src/PhotoPage.vala:2507 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Använd som skrivbords_bakgrund"
 
@@ -3420,12 +3426,12 @@ msgstr "S_täng"
 msgid "Data Imports"
 msgstr "Dataimporter"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "Kunde inte öppna eller skapa bilddatabasen %s: felkod %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3434,7 +3440,7 @@ msgstr ""
 "Kunde inte skriva till bilddatabasfilen:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3449,7 +3455,7 @@ msgstr ""
 "Felet var: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Kunde inte återställa bilddatabasen %s"
@@ -3712,7 +3718,7 @@ msgstr[1] ""
 msgid "Export Video"
 msgstr "Exportera film"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3032
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Exportera bild"
@@ -4597,80 +4603,80 @@ msgstr "Stäng röda ögon-verktyget"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Ta bort eventuella röda ögon i det markerade området"
 
-#: src/editing_tools/EditingTools.vala:2229
+#: src/editing_tools/EditingTools.vala:2228
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "Åt_erställ"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2242 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Exponering:"
 
-#: src/editing_tools/EditingTools.vala:2252
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Saturation:"
 msgstr "Mättnad:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Tint:"
 msgstr "Färgton:"
 
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Temperature:"
 msgstr "Färgtemperatur:"
 
-#: src/editing_tools/EditingTools.vala:2289
+#: src/editing_tools/EditingTools.vala:2288
 msgid "Shadows:"
 msgstr "Skuggor:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2300
+#: src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Högdagrar:"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset Colors"
 msgstr "Återställ färger"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset all color adjustments to original"
 msgstr "Återställ alla färgjusteringar till de ursprungliga värdena"
 
-#: src/editing_tools/EditingTools.vala:2716
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Temperature"
 msgstr "Färgtemperatur"
 
-#: src/editing_tools/EditingTools.vala:2728
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Tint"
 msgstr "Färgton"
 
-#: src/editing_tools/EditingTools.vala:2740
+#: src/editing_tools/EditingTools.vala:2739
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2753
 msgid "Saturation"
 msgstr "Mättnad"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2766
 msgid "Exposure"
 msgstr "Exponering"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2779
 msgid "Shadows"
 msgstr "Skuggor"
 
-#: src/editing_tools/EditingTools.vala:2793
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Highlights"
 msgstr "Högdagrar"
 
-#: src/editing_tools/EditingTools.vala:2803
+#: src/editing_tools/EditingTools.vala:2802
 msgid "Contrast Expansion"
 msgstr "Kontrastökning"
 
@@ -5062,22 +5068,22 @@ msgstr "Föregående bild"
 msgid "Next photo"
 msgstr "Nästa bild"
 
-#: src/PhotoPage.vala:1867
+#: src/PhotoPage.vala:1874
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Källfilen för bilden saknas: %s"
 
-#: src/PhotoPage.vala:2900
+#: src/PhotoPage.vala:2907
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Ta bort från bibliotek"
 
-#: src/PhotoPage.vala:2901
+#: src/PhotoPage.vala:2908
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Tar bort bild från bibliotek"
 
-#: src/PhotoPage.vala:3045
+#: src/PhotoPage.vala:3052
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Kunde inte exportera %s: %s"
