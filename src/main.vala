@@ -262,9 +262,9 @@ void library_exec(string[] mounts) {
     message("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
     message("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
     message("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
-    message("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "yes" : "no");
-    message("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "yes" : "no");
-    message("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "yes" : "no");
+    message("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
+    message("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
+    message("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
