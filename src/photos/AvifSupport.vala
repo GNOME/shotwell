@@ -118,7 +118,7 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     }
     
     public override bool can_write_metadata() {
-        return true;
+        return false;
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {
