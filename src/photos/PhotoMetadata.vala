@@ -1044,6 +1044,10 @@ public class PhotoMetadata : MediaMetadata {
     
     public override string? get_comment() {
         var comment = get_first_string_interpreted (COMMENT_TAGS);
+        if (comment == null) {
+            return comment;
+        }
+        
         try {
             var re = new Regex("^charset=\\w+\\s*");
             return re.replace(comment, -1, 0, "", RegexMatchFlags.DEFAULT);
