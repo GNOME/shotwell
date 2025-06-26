@@ -15,14 +15,14 @@
 # Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 # Enrico Nicoletto <hiko@duck.com>, 2016, 2020, 2022.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2014-2023.
-# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-10-04 10:56+0000\n"
-"PO-Revision-Date: 2024-10-09 09:47-0300\n"
+"POT-Creation-Date: 2025-06-19 22:49+0000\n"
+"PO-Revision-Date: 2025-06-26 09:56-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 47.0\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -2355,7 +2355,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Visitar o site do Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:614
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2432,7 +2432,7 @@ msgstr ""
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Um arquivo temporário necessário para a publicação não está disponível"
 
@@ -2461,7 +2461,7 @@ msgstr "_Sair"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2502
 msgid "_Publish"
 msgstr "_Publicar"
 
@@ -2601,6 +2601,16 @@ msgstr "Um novo álbum chamado"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Conexão do Shotwell"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Não pôde criar um álbum, o Shotwell não possui permissões para fazê-lo. Por "
+"favor, autentique-se novamente e conceda ao Shotwell a permissão requerida "
+"para criar nova mídia e álbuns"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -2824,7 +2834,7 @@ msgstr "Não foi possível carregar a UI: %s"
 msgid "Video privacy _setting"
 msgstr "De_finições de privacidade de vídeo"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2832,20 +2842,20 @@ msgstr ""
 "O arquivo necessário para a publicação não está disponível. A publicação "
 "para o YouTube não pode continuar."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Você está autenticado no Youtube como %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Público"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Privado"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "Não listado"
 
@@ -2916,22 +2926,22 @@ msgstr "Não foi possível criar diretório de dados %s: %s"
 msgid "Pictures"
 msgstr "Fotos"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Não foi possível criar diretório temporário %s: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Não foi possível criar subdiretório de dados %s: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Não foi possível tornar o diretório %s gravável"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Não foi possível tornar o diretório %s gravável: %s"
@@ -2961,21 +2971,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:596
+#: src/AppWindow.vala:611
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Não foi possível exibir a ajuda: %s"
 
-#: src/AppWindow.vala:617
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Não foi possível navegar no banco de dados de bugs: %s"
 
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:640
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Não foi possível exibir FAQ: %s"
@@ -3203,12 +3213,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Nenhuma foto ou vídeo encontrados que correspondam ao filtro atual"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
-#: src/PhotoPage.vala:2490 src/Resources.vala:137
+#: src/PhotoPage.vala:2497 src/Resources.vala:137
 msgid "_Print"
 msgstr "Im_primir"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
-#: src/PhotoPage.vala:2500 src/Resources.vala:187
+#: src/PhotoPage.vala:2507 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Definir como _plano de fundo da área de trabalho"
 
@@ -3494,13 +3504,13 @@ msgstr "Fe_char"
 msgid "Data Imports"
 msgstr "Importação de dados"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Não foi possível abrir/criar banco de dados de foto %s: código de erro %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3509,7 +3519,7 @@ msgstr ""
 "Não foi possível gravar no arquivo de banco de dados de fotos:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3524,7 +3534,7 @@ msgstr ""
 "O erro foi: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Não foi possível restaurar o banco de dados de fotos %s"
@@ -3784,7 +3794,7 @@ msgstr[1] "Isto irá remover a face “%s” de %d fotos. Continuar?"
 msgid "Export Video"
 msgstr "Exportar vídeo"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3032
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Exportar foto"
@@ -4669,80 +4679,80 @@ msgstr "Fechar ferramenta de olhos vermelhos"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Remove qualquer efeito de olhos vermelhos na região selecionada"
 
-#: src/editing_tools/EditingTools.vala:2229
+#: src/editing_tools/EditingTools.vala:2228
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reiniciar"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2242 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Exposição:"
 
-#: src/editing_tools/EditingTools.vala:2252
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Contrast:"
 msgstr "Contraste:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Saturation:"
 msgstr "Saturação:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Tint:"
 msgstr "Colorir:"
 
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2289
+#: src/editing_tools/EditingTools.vala:2288
 msgid "Shadows:"
 msgstr "Sombras:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2300
+#: src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Destaques:"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset Colors"
 msgstr "Reiniciar cores"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset all color adjustments to original"
 msgstr "Reiniciar todos os ajustes de cores para o original"
 
-#: src/editing_tools/EditingTools.vala:2716
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2728
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Tint"
 msgstr "Colorir"
 
-#: src/editing_tools/EditingTools.vala:2740
+#: src/editing_tools/EditingTools.vala:2739
 msgid "Contrast"
 msgstr "Contraste"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2753
 msgid "Saturation"
 msgstr "Saturação"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2766
 msgid "Exposure"
 msgstr "Exposição"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2779
 msgid "Shadows"
 msgstr "Sombras"
 
-#: src/editing_tools/EditingTools.vala:2793
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Highlights"
 msgstr "Destaques"
 
-#: src/editing_tools/EditingTools.vala:2803
+#: src/editing_tools/EditingTools.vala:2802
 msgid "Contrast Expansion"
 msgstr "Expansão de contraste"
 
@@ -5138,22 +5148,22 @@ msgstr "Foto anterior"
 msgid "Next photo"
 msgstr "Próxima foto"
 
-#: src/PhotoPage.vala:1867
+#: src/PhotoPage.vala:1874
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
 
-#: src/PhotoPage.vala:2900
+#: src/PhotoPage.vala:2907
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Remover da biblioteca"
 
-#: src/PhotoPage.vala:2901
+#: src/PhotoPage.vala:2908
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Removendo foto da biblioteca"
 
-#: src/PhotoPage.vala:3045
+#: src/PhotoPage.vala:3052
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Não foi possível exportar %s: %s"
