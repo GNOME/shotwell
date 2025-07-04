@@ -1,0 +1,9 @@
+diff -ruN libde265-1.0.16/CMakeLists.txt libde265-1.0.16-patched/CMakeLists.txt
+--- libde265-1.0.16/CMakeLists.txt	2025-05-04 00:02:09.000000000 +0200
++++ libde265-1.0.16-patched/CMakeLists.txt	2025-07-04 23:09:41.758453727 +0200
+@@ -1,4 +1,4 @@
+-cmake_minimum_required (VERSION 3.5.0)
++cmake_minimum_required (VERSION 3.10.0)
+ 
+ project (libde265
+     LANGUAGES C CXX
