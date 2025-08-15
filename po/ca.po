@@ -15,13 +15,13 @@
 # lsbeeler <lucas@yorba.org>, 2011.
 # Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2017.
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
-# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2019-2023
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2019-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2025-03-03 12:27+0200\n"
+"PO-Revision-Date: 2025-08-15 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -53,7 +53,7 @@ msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
 msgstr ""
-"El secret criptogràfic utilitzat per s signar peticions contra el testimoni "
+"El secret criptogràfic utilitzat per a signar peticions contra el testimoni "
 "d'autorització per a l'usuari actualment connectat a Tumblr, si escau"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
@@ -761,7 +761,7 @@ msgstr "últim àlbum"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:579
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
-"El nom de l'últim àlbum de fotografies que l'usuari publica per, si escau"
+"El nom de l'últim àlbum de fotografies en què l'usuari ha publicat fotografies, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:485
 msgid ""
@@ -865,16 +865,16 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
 msgid "do not upload ratings when uploading to Piwigo"
-msgstr "no pugeu etiquetes al pujar a Piwigo"
+msgstr "no pugeu puntuacions al pujar a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:553
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
+
 msgstr ""
-"Si les imatges que pugen a Piwigo han de tenir les seves etiquetes "
-"eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en"
-" el servidor remot de Piwigo"
+"Si les imatges que es pugen a Piwigo han de tenir les seves puntuacions pujades, "
+"de manera que aquestes puntuacions no apareguin al servidor remot de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:561
 msgid "Gallery3 username"
@@ -984,7 +984,7 @@ msgstr "L'alçada de l'emulsió d'imprès a la pàgina quan s'imprimeix"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:644
 msgid "content units"
-msgstr "els blocs del contingut"
+msgstr "unitats del contingut"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:645
 msgid ""
@@ -1019,7 +1019,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:662
 msgid "match aspect ratio"
-msgstr "relació d'aspecte de la imatge"
+msgstr "coincideix amb la relació d'aspecte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:663
 msgid ""
@@ -1285,7 +1285,7 @@ msgstr "Organitzeu les vostres fotografies"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;flickr;picasa;youtube;Piwigo;"
+"àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotografies;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;flickr;picasa;youtube;Piwigo;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
 msgid "Shotwell Profile Browser"
@@ -1331,7 +1331,7 @@ msgstr "_Modifica les etiquetes…"
 #: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
 #: data/ui/photo.ui:272 data/ui/tags.ui:281
 msgid "Toggle _Flag"
-msgstr "_Palanca marcada"
+msgstr "_Canvia d'opció"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
 #: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
@@ -1536,7 +1536,7 @@ msgstr "_Redueix"
 
 #: data/ui/direct.ui:81 data/ui/photo.ui:158
 msgid "Fit to _Page"
-msgstr "Ajusta a l'amplada de la _pàgina"
+msgstr "Ajusta a la _pàgina"
 
 #: data/ui/direct.ui:86 data/ui/photo.ui:163
 msgid "Zoom _100%"
@@ -6466,236 +6466,3 @@ msgstr "sense títol"
 msgid "Export Videos"
 msgstr "Exporta vídeos"
 
-#~ msgid "authentication token"
-#~ msgstr "testimoni d'autenticació"
-
-#~ msgid "Yandex-Fotki authentication token, if logged in"
-#~ msgstr "Testimoni d'autenticació de Yandex-Fotki, si s'ha iniciat la sessió"
-
-#~ msgid "Rajce URL"
-#~ msgstr "L'URL de Rajce"
-
-#~ msgid "URL of the Rajce server"
-#~ msgstr "L'URL del servidor de Rajce"
-
-#~ msgid "Rajce username, if logged in"
-#~ msgstr "Nom d'usuari de Rajce, si s'ha iniciat la sessió"
-
-#~ msgid "token"
-#~ msgstr "testimoni"
-
-#~ msgid "user token, if remembered"
-#~ msgstr "si recordaves el testimoni d'usuari"
-
-#~ msgid "The last selected Rajce category"
-#~ msgstr "La darrera categoria Rajce seleccionada"
-
-#~ msgid ""
-#~ "A numeric code representing the last photo size preset used when publishing "
-#~ "to Rajce"
-#~ msgstr ""
-#~ "Un codi numèric que representa l'última mida de la imatge preestablerta "
-#~ "utilitzada al publicar a Rajce"
-
-#~ msgid "remember"
-#~ msgstr "recorda"
-
-#~ msgid "If true, remember last login"
-#~ msgstr "Si és cert, recorda l'últim inici de sessió"
-
-#~ msgid "hide album"
-#~ msgstr "amaga l'àlbum"
-
-#~ msgid "If true, hide the newly created Rajce album"
-#~ msgstr "Si és cert, amaga l'àlbum acabat de crear a Rajce"
-
-#~ msgid "open album in web browser"
-#~ msgstr "obre l'àlbum al navegador"
-
-#~ msgid ""
-#~ "If true, open target album in the web browser just after uploading photos"
-#~ msgstr ""
-#~ "Si és cert, obre l'àlbum de destí al navegador web solament després de pujar"
-#~ " les fotografies"
-
-#~ msgid ""
-#~ "Whether images being uploaded to Rajce should have their metadata removed "
-#~ "first"
-#~ msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Rajce"
-
-#~ msgid "delay"
-#~ msgstr "retard"
-
-#~ msgid ""
-#~ "The name of the transition effect that will be used between photos when "
-#~ "running a slideshow"
-#~ msgstr ""
-#~ "El nom de l'efecte de transició que s'utilitzarà entre les imatges quan "
-#~ "s'executa una presentació de diapositives"
-
-#~ msgid "interpreter state cookie"
-#~ msgstr "estat de la galeta d'intèrpret"
-
-#~ msgid ""
-#~ "A numeric code that captures the state of the GStreamer plug-in environment"
-#~ msgstr ""
-#~ "Un codi numèric que captura l'estat del medi ambient del plug-in de "
-#~ "GStreamer"
-
-#~ msgid "enable facebook publishing plugin"
-#~ msgstr "Habilita el complement de publicació de Facebook"
-
-#~ msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-#~ msgstr ""
-#~ "Cert si el complement de la publicació de Facebook està habilitat, fals en "
-#~ "cas contrari"
-
-#~ msgid "enable yandex publishing plugin"
-#~ msgstr "Habilita el complement de publicació de yandex"
-
-#~ msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-#~ msgstr ""
-#~ "Cert si el complement de la publicació de Yandex.Fotki està habilitat, fals "
-#~ "en cas contrari"
-
-#~ msgid "enable rajce publishing plugin"
-#~ msgstr "Habilita el complement de publicació de rajce"
-
-#~ msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-#~ msgstr ""
-#~ "Cert si el complement de la publicació de Rajce està habilitat, fals en cas "
-#~ "contrari"
-
-#~ msgid "enable F-Spot import plugin"
-#~ msgstr "Habilita el complement de publicació de F-Spot"
-
-#~ msgid "True if the F-Spot import plugin is enabled, false otherwise"
-#~ msgstr ""
-#~ "Cert si el complement de la publicació de F-Spot està habilitat, fals en cas"
-#~ " contrari"
-
-#~ msgid "E_xternal photo editor:"
-#~ msgstr "Editor fotogràfic e_xtern:"
-
-#~ msgid "External _RAW editor:"
-#~ msgstr "Editor d'imatges _RAW extern:"
-
-#~ msgid "_Delay:"
-#~ msgstr "_Retard:"
-
-#~ msgid "_Gallery3 URL:"
-#~ msgstr "URL _Gallery3:"
-
-#~ msgid "_User name:"
-#~ msgstr "Nom d'us_uari:"
-
-#~ msgid "_Password:"
-#~ msgstr "_Contrasenya:"
-
-#~ msgid "Go _Back"
-#~ msgstr "_Enrere"
-
-#~ msgid "API _Key:"
-#~ msgstr "_Clau API:"
-
-#~ msgid "or"
-#~ msgstr "o"
-
-#~ msgid "An _existing album"
-#~ msgstr "Un àlbum _existent"
-
-#~ msgid "A _new album"
-#~ msgstr "Un àlbum _nou"
-
-#~ msgid "_Remove location, tag and camera-identifying data before uploading"
-#~ msgstr ""
-#~ "Sup_rimeix les dades d'ubicació, d'etiquetes i d'identificació de la càmera "
-#~ "abans de la càrrega"
-
-#~ msgid "Scaling constraint:"
-#~ msgstr "Constant d'escala:"
-
-#~ msgid "pixels"
-#~ msgstr "píxels"
-
-#~ msgid "Gallery3 publishing module"
-#~ msgstr "Mòdul de publicació Gallery3"
-
-#~ msgid ""
-#~ "You are not currently logged into your Gallery.\n"
-#~ "\n"
-#~ "You must have already signed up for a Gallery3 account to complete the login process."
-#~ msgstr ""
-#~ "Actualment no esteu connectat a la vostra Gallery.\n"
-#~ "\n"
-#~ "Per a completar el procés d'identificació heu d'estar inscrits a Gallery3 i tenir un compte per a accedir-hi."
-
-#~ msgid "Shotwell default directory"
-#~ msgstr "Directori per defecte del Shotwell"
-
-#, c-format
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The file “%s” may not be supported by or may be too large for this instance of Gallery3."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "El fitxer «%s» pot no ser compatible o pot ser massa gran per a aquesta instància de Gallery3."
-
-#~ msgid ""
-#~ "\n"
-#~ "Note that Gallery3 only supports the video types that Flowplayer does."
-#~ msgstr ""
-#~ "\n"
-#~ "Tingueu en compte que Gallery3 només és compatible amb els mateixos tipus de vídeo que són compatibles amb el Flowplayer."
-
-#, c-format
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to %s can’t "
-#~ "continue."
-#~ msgstr ""
-#~ "Un fitxer necessari per a la publicació no està disponible. No es pot "
-#~ "continuar amb la publicació a %s."
-
-#, c-format
-#~ msgid "Publishing to %s as %s."
-#~ msgstr "S'està publicant a %s com a %s."
-
-#~ msgid ""
-#~ "Enter the URL for your Gallery3 site and the username and password (or API "
-#~ "key) for your Gallery3 account."
-#~ msgstr ""
-#~ "Introduïu l'URL del vostre lloc Gallery3 i el nom d'usuari i contrasenya (o "
-#~ "clau API) per al vostre compte de Gallery3."
-
-#~ msgid ""
-#~ "The username and password or API key were incorrect. To try again, re-enter "
-#~ "your username and password below."
-#~ msgstr ""
-#~ "El nom d'usuari i contrasenya o la clau API són incorrectes. Proveu de nou, "
-#~ "torneu a introduir el vostre nom d'usuari i contrasenya a continuació."
-
-#~ msgid ""
-#~ "The URL entered does not appear to be the main directory of a Gallery3 "
-#~ "instance. Please make sure you typed it correctly and it does not have any "
-#~ "trailing components (e.g., index.php)."
-#~ msgstr ""
-#~ "L'URL que s'ha introduït no forma part del directori principal d'una "
-#~ "instància de Gallery3. Assegureu-vos que l'heu introduït correctament i que "
-#~ "no conté cap component al final (per exemple, index.php)."
-
-#~ msgid "Unrecognized User"
-#~ msgstr "Usuari no reconegut"
-
-#~ msgid " Site Not Found"
-#~ msgstr "No s'ha trobat el lloc"
-
-#~ msgid "Shotwell Extra Publishing Services"
-#~ msgstr "Serveis de publicació addicionals del Shotwell"
-
-#, c-format
-#~ msgid "%d Photo/Video"
-#~ msgid_plural "%d Photos/Videos"
-#~ msgstr[0] "%d fotografia/vídeo"
-#~ msgstr[1] "%d fotografies/vídeos"
