@@ -7,8 +7,8 @@ subdir('icons')
 
 podir = join_paths('..', 'po')
 
-i18n.merge_file(input : 'org.gnome.Shotwell.appdata.xml.in',
-                output : 'org.gnome.Shotwell.appdata.xml',
+i18n.merge_file(input : 'org.gnome.Shotwell.metainfo.xml.in',
+                output : 'org.gnome.Shotwell.metainfo.xml',
                 po_dir : podir,
                 type : 'xml',
                 install: true,
