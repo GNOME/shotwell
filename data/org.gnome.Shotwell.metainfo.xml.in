@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2016 Software Freedom Conservancy Inc. -->
-<component type="desktop">
-  <id>org.gnome.Shotwell.desktop</id>
+<component type="desktop-application">
+  <id>org.gnome.Shotwell</id>
   <launchable type="desktop-id">org.gnome.Shotwell.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
