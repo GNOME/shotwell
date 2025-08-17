@@ -41,7 +41,7 @@ face_sources = (['faces/FacesBranch.vala',
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule, unity,
                  libraw, libexif, sw_plugin, webpdemux, webp, version,
-                 portal]
+                 portal, math]
 
 subdir('metadata')
 subdir('publishing')
