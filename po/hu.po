@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-02-16 11:46+0000\n"
-"PO-Revision-Date: 2025-03-02 21:10+0100\n"
+"POT-Creation-Date: 2025-08-17 09:51+0000\n"
+"PO-Revision-Date: 2025-09-02 14:29+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1163,19 +1163,46 @@ msgid ""
 msgstr ""
 "Igaz, ha a Sakktábla diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
+msgid "Shotwell Authentication helper"
+msgstr "Shotwell hitelesítési segéd"
+
+#: data/org.gnome.Shotwell.desktop.in:3
+#: data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:10
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
+msgid "Photo Manager"
+msgstr "Fényképkezelő"
+
+#: data/org.gnome.Shotwell.desktop.in:5
+msgid "Organize your photos"
+msgstr "Rendszerezze a fényképeit"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;orga"
+"nize;photo;photographs;photos;picture;pictures;photography;print;publish;rotat"
+"e;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgstr ""
+"album;fényképezőgép;fényképezőgépek;vágás;szerkesztés;exportálás;galéria;kép;k"
+"épek;importálás;rendszerezés;fénykép;fényképek;fotó;fotók;fotográfia;nyomtatás"
+";közzététel;forgatás;megosztás;videó;flickr;picasa;youtube;piwigo;"
+
+#: data/org.gnome.Shotwell.desktop.in:20
+msgid "Manage Different Profiles"
+msgstr "Különböző profilok kezelése"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
 msgid "Digital photo organizer"
 msgstr "Digitálisfénykép-rendező"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:12
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1192,7 +1219,7 @@ msgstr ""
 "nem módosítja az eredeti fényképeket, így könnyebbé teszi a kísérletezést és "
 "a hibák javítását."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:19
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1200,48 +1227,21 @@ msgstr ""
 "Ha készen áll, akkor a Shotwell képes feltölteni a képeit különböző "
 "webszolgáltatásokba, mint a Flickr, Google Fényképek, és továbbiak."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:23
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "A Shotwell a JPEG, PNG, TIFF, valamint különböző nyers fájl formátumokat "
 "támogatja."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
+#: data/org.gnome.Shotwell.metainfo.xml.in:53
 msgid "The Shotwell developers"
 msgstr "A Shotwell fejlesztői"
 
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
-msgid "Shotwell Authentication helper"
-msgstr "Shotwell hitelesítési segéd"
-
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
-msgid "Photo Manager"
-msgstr "Fényképkezelő"
-
-#: data/org.gnome.Shotwell.desktop.in:6
-msgid "Organize your photos"
-msgstr "Rendszerezze a fényképeit"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr ""
-"album;fényképezőgép;fényképezőgépek;vágás;szerkesztés;exportálás;galéria;kép;"
-"képek;importálás;rendszerezés;fénykép;fényképek;fotó;fotók;fotográfia;"
-"nyomtatás;közzététel;forgatás;megosztás;videó;flickr;picasa;youtube;piwigo;"
-
-#: data/org.gnome.Shotwell.desktop.in:21
-msgid "Manage Different Profiles"
-msgstr "Különböző profilok kezelése"
-
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Shotwell megjelenítő"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Fénykép-megjelenítő"
 
@@ -2291,19 +2291,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Jelenleg nincs bejelentkezve a YouTube-ra.\n"
 "\n"
@@ -2316,8 +2316,9 @@ msgstr ""
 "developers.google.com/youtube</a> YouTube API szolgáltatásokat használja a "
 "YouTube csatornájához történő hozzáféréshez és a videók feltöltéséhez. A "
 "Shotwell használatával történő YouTube hozzáféréssel beleegyezik abba, hogy "
-"betartja a <a href=\"https://www.youtube.com/t/terms\">https://www.youtube."
-"com/t/terms</a> címen elérhető YouTube általános szerződési feltételeket.\n"
+"betartja a <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a> címen elérhető YouTube általános szerződési "
+"feltételeket.\n"
 "\n"
 "A Shotwell adatvédelmi irányelvei általánosan a Google-fiókjához és "
 "különösen a YouTube-hoz kapcsolódó adatok felhasználásával kapcsolatban "
@@ -2340,8 +2341,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Jelenleg nincs bejelentkezve a Google Fényképekbe.\n"
 "\n"
@@ -2679,6 +2680,16 @@ msgstr "Új album, a neve:"
 msgid "Shotwell Connect"
 msgstr "Shotwell kapcsolat"
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+"Nem sikerült létrehozni az albumot, a Shotwell nem rendelkezik ehhez megfelelő"
+" jogosultsággal. Hitelesítsen újra, és adja meg a Shotwell számára a szükséges"
+" jogosultságot új média és albumok létrehozásához."
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr "Kicsi (640 × 480 képpont)"
@@ -2881,7 +2892,7 @@ msgstr ""
 "Copyright 2016 Software Freedom Conservancy Inc.\n"
 "Copyright 2022 Jens Georg <mail@jensge.org>"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2889,20 +2900,20 @@ msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Youtube-ra "
 "nem folytatódhat."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Bejelentkezett a YouTube-ra %s néven."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
 msgstr "Nyilvános"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Magánjellegű"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr "felsorolatlan"
 
@@ -3572,13 +3583,13 @@ msgstr "_Bezárás"
 msgid "Data Imports"
 msgstr "Adatimportálások"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 "Nem lehet megnyitni vagy létrehozni a(z) %s fényképadatbázist: hibakód: %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3587,7 +3598,7 @@ msgstr ""
 "Nem lehet írni a fényképadatbázis-fájlba:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3602,7 +3613,7 @@ msgstr ""
 "A hibaüzenet: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nem lehet helyreállítani a(z) %s fényképadatbázist"
@@ -4602,7 +4613,7 @@ msgstr "A(z) %s nem figyelhető meg: nem könyvtár (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "A fénykép forrásfájlja hiányzik: %s"
@@ -5087,67 +5098,67 @@ msgstr "Nem lehet elindítani a Shotwell alkalmazást"
 msgid "Loading Shotwell"
 msgstr "A Shotwell betöltése"
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "Path to Shotwell’s private data"
 msgstr "A Shotwell privát adatainak útvonala"
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "DIRECTORY"
 msgstr "KÖNYVTÁR"
 
-#: src/main.vala:351
+#: src/main.vala:412
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
 
-#: src/main.vala:352
+#: src/main.vala:413
 msgid "Don’t display startup progress meter"
 msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
 
-#: src/main.vala:353
+#: src/main.vala:414
 msgid "Show the application’s version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
-#: src/main.vala:354
+#: src/main.vala:415
 msgid "Start the application in fullscreen mode"
 msgstr "Az alkalmazás indítása teljes képernyős módban"
 
-#: src/main.vala:355
+#: src/main.vala:416
 msgid "Print the metadata of the image file"
 msgstr "A képfájl metaadatainak nyomtatása"
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "Name for a custom profile"
 msgstr "Egy egyéni profil neve"
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:357
+#: src/main.vala:418
 msgid "Start with a browser of available profiles"
 msgstr "Indítás az elérhető profilok böngészőjével"
 
-#: src/main.vala:358
+#: src/main.vala:419
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Ha a --profile kapcsolóval megadott PROFIL nem létezik, akkor létrehozza"
 
-#: src/main.vala:359
+#: src/main.vala:420
 msgid "Show available profiles"
 msgstr "Elérhető profilok megjelenítése"
 
-#: src/main.vala:409
+#: src/main.vala:470
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
 "ki.\n"
 
-#: src/main.vala:417
+#: src/main.vala:478
 msgid "Choose Shotwell's profile"
 msgstr "A Shotwell profiljának kiválasztása"
 
-#: src/main.vala:451
+#: src/main.vala:512
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5570,21 +5581,16 @@ msgstr "Nem lehet közzétenni"
 
 #: src/publishing/PublishingUI.vala:284
 #, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose Edit %s "
-#| "Preferences and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
 "Preferences and enable one or more of the publishing plugins on the Plugins "
 "tab."
 msgstr ""
-"A Shotwell nem képes közzétenni a kijelölt elemeket, mert nincs engedélyezve"
-" a megfelelő közzétételi bővítmény. Ennek javításához válassza a Szerkesztés "
-"%s Beállítások menüpontot, és engedélyezze az egyik közzétételi bővítményt a"
-" Bővítmények lapon."
+"A Shotwell nem képes közzétenni a kijelölt elemeket, mert nincs engedélyezve "
+"a megfelelő közzétételi bővítmény. Ennek javításához válassza a Szerkesztés "
+"%s Beállítások menüpontot, és engedélyezze az egyik közzétételi bővítményt a "
+"Bővítmények lapon."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6406,4 +6412,3 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Videók exportálása"
-
