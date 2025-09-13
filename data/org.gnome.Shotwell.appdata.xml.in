@@ -70,7 +70,7 @@
               </ul>
           </description>
       </release>
-      <release version="0.32.12" date="2025-06-08" urgency="high" type="stable">
+      <release version="0.32.11" date="2025-06-08" urgency="high" type="stable">
           <description>
               <ul>
                   <li>Fixes publishing to Google Photos</li>
