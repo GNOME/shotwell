@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2025-08-15 12:27+0200\n"
+"PO-Revision-Date: 2025-09-15 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -3924,7 +3924,7 @@ msgstr[1] "No s'han importat %d fotografies duplicades:\n"
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "No s'ha importat un vídeo duplicat:\n"
-msgstr[1] "No s'ha importat uns vídeos %d duplicats:\n"
+msgstr[1] "No s'han importat %d vídeos duplicats:\n"
 
 #: src/Dialogs.vala:351
 #, c-format
@@ -4090,7 +4090,7 @@ msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "No s'ha pogut importar un vídeo perquè el fitxer està danyat:\n"
 msgstr[1] ""
-"No s'ha pogut importar uns vídeos %d perquè els fitxers estan danyats:\n"
+"No s'han pogut importar %d vídeos perquè els fitxers estan danyats:\n"
 
 #: src/Dialogs.vala:440
 #, c-format
@@ -4107,7 +4107,7 @@ msgstr[1] ""
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
 msgstr[0] "No s'ha pogut importar un fitxer perquè està danyat:\n"
-msgstr[1] "No s'ha pogut importar uns fitxers %d perquè estan danyats:\n"
+msgstr[1] "No s'han pogut importar %d fitxers perquè estan danyats:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in
