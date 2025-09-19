@@ -19,63 +19,49 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-06-08 14:32+0000\n"
-"PO-Revision-Date: 2025-06-11 08:00+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2025-08-17 09:51+0000\n"
+"PO-Revision-Date: 2025-09-02 09:33+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.7\n"
 "X-POOTLE-MTIME: 1427298590.000000\n"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-#: data/gsettings/org.gnome.shotwell.gschema.xml:438
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
 msgstr "OAuth Erişim Aşaması Jetonu"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "The authorization token for the currently logged in Tumblr user, if any"
-msgstr ""
-"Şu anda oturum açmış Tumblr kullanıcısı için yetkilendirme jetonu, eğer varsa"
+msgstr "Şu anda oturum açmış Tumblr kullanıcısı için yetkilendirme jetonu, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
-#: data/gsettings/org.gnome.shotwell.gschema.xml:444
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12 data/gsettings/org.gnome.shotwell.gschema.xml:444
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth Erişim Aşaması Jetonu Gizi"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:13
-msgid ""
-"The cryptographic secret used to sign requests against the authorization "
-"token for the currently logged in Tumblr user, if any"
-msgstr ""
-"Giriş yapmış geçerli Tumblr kullanıcısı için istekleri yetkilendirme "
-"jetonuna dayanarak imzalamada kullanılacak kriptografik giz"
+msgid "The cryptographic secret used to sign requests against the authorization token for the currently logged in Tumblr user, if any"
+msgstr "Giriş yapmış geçerli Tumblr kullanıcısı için istekleri yetkilendirme jetonuna dayanarak imzalamada kullanılacak kriptografik giz"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
-#: data/gsettings/org.gnome.shotwell.gschema.xml:450
-#: data/gsettings/org.gnome.shotwell.gschema.xml:508
-#: data/gsettings/org.gnome.shotwell.gschema.xml:570
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18 data/gsettings/org.gnome.shotwell.gschema.xml:450 data/gsettings/org.gnome.shotwell.gschema.xml:508 data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "username"
 msgstr "kullanıcı adı"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
-#: data/gsettings/org.gnome.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19 data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Şu anda oturum açmış Flickr kullanıcısının kullanıcı adı, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
-#: data/gsettings/org.gnome.shotwell.gschema.xml:482
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24 data/gsettings/org.gnome.shotwell.gschema.xml:482
 msgid "default size"
 msgstr "öntanımlı boyut"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:25
-msgid ""
-"A numeric code representing the default size for photos uploaded to Tumblr"
-msgstr ""
-"Tumblr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
+msgid "A numeric code representing the default size for photos uploaded to Tumblr"
+msgstr "Tumblr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:30
 msgid "default blog"
@@ -98,10 +84,8 @@ msgid "display extended properties"
 msgstr "ayrıntılı özellikleri göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
-msgid ""
-"True if the extended properties window is to be displayed, false otherwise"
-msgstr ""
-"Eğer ayrıntılı özellikler penceresi gösterilecekse doğru, değilse yanlış"
+msgid "True if the extended properties window is to be displayed, false otherwise"
+msgstr "Eğer ayrıntılı özellikler penceresi gösterilecekse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:34
 msgid "display sidebar"
@@ -140,74 +124,50 @@ msgid "display photo titles"
 msgstr "fotoğraf başlıklarını göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:59
-msgid ""
-"True if photo titles are to be displayed beneath thumbnails in collection "
-"views, false otherwise"
-msgstr ""
-"Eğer koleksiyon görünümlerinde fotoğraf başlıkları küçük resimlerin altında "
-"gösterilecekse doğru, değilse yanlış"
+msgid "True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise"
+msgstr "Eğer koleksiyon görünümlerinde fotoğraf başlıkları küçük resimlerin altında gösterilecekse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:64
 msgid "display photo comments"
 msgstr "fotoğraf yorumlarını göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:65
-msgid ""
-"True if photo comments are to be displayed beneath thumbnails in collection "
-"views, false otherwise"
-msgstr ""
-"Eğer koleksiyon görünümlerinde fotoğraf yorumları küçük resimlerin altında "
-"gösterilecekse doğru, değilse yanlış"
+msgid "True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise"
+msgstr "Eğer koleksiyon görünümlerinde fotoğraf yorumları küçük resimlerin altında gösterilecekse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:70
 msgid "display event comments"
 msgstr "olay yorumlarını göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:71
-msgid ""
-"True if event comments are to be displayed beneath thumbnails in event "
-"views, false otherwise"
-msgstr ""
-"Eğer etkinlik görünümlerinde etkinlik yorumları küçük resimlerin altında "
-"gösterilecekse doğru, değilse yanlış"
+msgid "True if event comments are to be displayed beneath thumbnails in event views, false otherwise"
+msgstr "Eğer etkinlik görünümlerinde etkinlik yorumları küçük resimlerin altında gösterilecekse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:76
 msgid "display photo tags"
 msgstr "fotoğraf etiketlerini göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:77
-msgid ""
-"True if photo tags are to be listed beneath thumbnails in collection views, "
-"false otherwise"
-msgstr ""
-"Eğer koleksiyon görünümlerinde fotoğraf etiketleri küçük resimlerin altında "
-"gösterilecekse doğru, değilse yanlış"
+msgid "True if photo tags are to be listed beneath thumbnails in collection views, false otherwise"
+msgstr "Eğer koleksiyon görünümlerinde fotoğraf etiketleri küçük resimlerin altında gösterilecekse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:82
 msgid "display photo ratings"
 msgstr "fotoğraf puanlarını göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:83
-msgid ""
-"True if a photo’s rating should be displayed as overlaid trinket, false "
-"otherwise"
-msgstr ""
-"Eğer fotoğrafın oylaması kaplayan biblo olarak gösterilmeliyse doğru, "
-"değilse yanlış"
+msgid "True if a photo’s rating should be displayed as overlaid trinket, false otherwise"
+msgstr "Eğer fotoğrafın oylaması kaplayan biblo olarak gösterilmeliyse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:88
 msgid "rating filter level"
 msgstr "puan süzme düzeyi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
-msgid ""
-"Determines how to filter photos based on their ratings. 1: Rejected or "
-"better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
-"or better, 6: Four or better, 7: Five or better"
+msgid "Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better"
 msgstr ""
-"Fotoğrafların puanlarına göre nasıl süzüleceğini saptar: 1: Reddedilmiş veya "
-"daha iyi, 2: Puansız veya daha iyi, 3: Bir veya daha iyi, 4: İki veya daha "
-"iyi, 5: Üç veya daha iyi, 6: Dört veya daha iyi, 7: Beş veya daha iyi"
+"Fotoğrafların puanlarına göre nasıl süzüleceğini saptar: 1: Reddedilmiş veya daha iyi, 2: Puansız veya daha iyi, 3: Bir veya daha iyi, 4: İki veya daha iyi, 5: Üç veya daha iyi, 6: Dört veya daha iyi, 7: Beş "
+"veya daha iyi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:94
 msgid "sort events ascending"
@@ -223,19 +183,15 @@ msgstr "kitaplık fotoğraflarını artan biçimde sırala"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "True if library photos should be sorted ascending, false if descending"
-msgstr ""
-"Eğer kitaplık fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
+msgstr "Eğer kitaplık fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:106
 msgid "sort library photos criteria"
 msgstr "kitaplık fotoğraflarını sıralama ölçütü"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:107
-msgid ""
-"A numeric code that specifies the sort criteria for photos in library views"
-msgstr ""
-"Kitaplık görünümlerinde fotoğraflar için sıralama ölçütünü belirten sayısal "
-"kod"
+msgid "A numeric code that specifies the sort criteria for photos in library views"
+msgstr "Kitaplık görünümlerinde fotoğraflar için sıralama ölçütünü belirten sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:112
 msgid "sort event photos ascending"
@@ -243,8 +199,7 @@ msgstr "olay fotoğraflarını artan biçimde sırala"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "True if event photos should be sorted ascending, false if descending"
-msgstr ""
-"Eğer etkinlik fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
+msgstr "Eğer etkinlik fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:118
 msgid "sort event photos criteria"
@@ -259,48 +214,32 @@ msgid "use 24 hour time"
 msgstr "24 saat zamanı kullan"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:125
-msgid ""
-"True if should display times with a 24 hour clock, false if times should use "
-"AM/PM notation"
-msgstr ""
-"Eğer saatler 24 saatlik dilimle gösterilmeliyse doğru, eğer saatler ÖÖ/ÖS "
-"gösterimini kullanmalıysa yanlış"
+msgid "True if should display times with a 24 hour clock, false if times should use AM/PM notation"
+msgstr "Eğer saatler 24 saatlik dilimle gösterilmeliyse doğru, eğer saatler ÖÖ/ÖS gösterimini kullanmalıysa yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:130
 msgid "keep relative time between photos"
 msgstr "fotoğraflar arası göreceli zaman tut"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:131
-msgid ""
-"True if when adjusting time/date of photos, relative time should be "
-"maintained. False if all photos should be set to the same time"
-msgstr ""
-"Fotoğrafların zamanı/tarihi ayarlanırken göreceli zaman korunacaksa doğru. "
-"Tüm fotoğraflar aynı zamana ayarlanacaksa yanlış"
+msgid "True if when adjusting time/date of photos, relative time should be maintained. False if all photos should be set to the same time"
+msgstr "Fotoğrafların zamanı/tarihi ayarlanırken göreceli zaman korunacaksa doğru. Tüm fotoğraflar aynı zamana ayarlanacaksa yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:136
 msgid "modify original photo files"
 msgstr "özgün fotoğraf dosyalarını değiştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:137
-msgid ""
-"True if when adjusting time/date of photos, the original files should be "
-"modified as well. False if changes are made only in the database"
-msgstr ""
-"Fotoğrafların zamanı/tarihi ayarlanırken özgün dosyalar da değiştirilecekse "
-"doğru. Değişiklikler yalnızca veri tabanında yapılacaksa yanlış"
+msgid "True if when adjusting time/date of photos, the original files should be modified as well. False if changes are made only in the database"
+msgstr "Fotoğrafların zamanı/tarihi ayarlanırken özgün dosyalar da değiştirilecekse doğru. Değişiklikler yalnızca veri tabanında yapılacaksa yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:142
 msgid "show welcome dialog on startup"
 msgstr "başlangıçta karşılama kutusunu göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:143
-msgid ""
-"True if, when on startup, a welcome dialog should be shown. False if it "
-"should not be shown"
-msgstr ""
-"Eğer başlangıçta karşılama kutusu gösterilmeliyse doğru. Eğer "
-"gösterilmemeliyse yanlış"
+msgid "True if, when on startup, a welcome dialog should be shown. False if it should not be shown"
+msgstr "Eğer başlangıçta karşılama kutusu gösterilmeliyse doğru. Eğer gösterilmemeliyse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:148
 msgid "sidebar position"
@@ -348,21 +287,15 @@ msgstr "düz saydam arka plan için renk"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:179
 msgid "Color to use if background for transparent images is set to solid color"
-msgstr ""
-"Eğer saydam resimler için arka plan düz bir renge belirlendiyse kullanılacak "
-"renk"
+msgstr "Eğer saydam resimler için arka plan düz bir renge belirlendiyse kullanılacak renk"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:184
 msgid "Selection state of “hide photos” option"
 msgstr "“Fotoğrafları gizle” seçeneğinin seçim durumu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:185
-msgid ""
-"Last used selection state of the “hide photos already imported” option in "
-"the import page"
-msgstr ""
-"İçe aktarma sayfasındaki “içe aktarılmış fotoğrafları gizle” seçeneğinin son "
-"kullanılan seçim durumu"
+msgid "Last used selection state of the “hide photos already imported” option in the import page"
+msgstr "İçe aktarma sayfasındaki “içe aktarılmış fotoğrafları gizle” seçeneğinin son kullanılan seçim durumu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:192
 msgid "duration"
@@ -377,8 +310,7 @@ msgid "transition duration"
 msgstr "geçiş süresi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-msgid ""
-"The time (in seconds) that a transition runs between photos in a slideshow"
+msgid "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr "Slayt gösterisindeki fotoğraflar arası geçiş zamanı (saniye türünden)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:204
@@ -386,11 +318,8 @@ msgid "transition effect id"
 msgstr "geçiş etkisi kimliği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
-msgid ""
-"The time (in seconds) to show each transition between photos in a slideshow"
-msgstr ""
-"Slayt gösterisinde fotoğraflar arasındaki her geçişin gösterim süresi "
-"(saniye türünden)"
+msgid "The time (in seconds) to show each transition between photos in a slideshow"
+msgstr "Slayt gösterisinde fotoğraflar arasındaki her geçişin gösterim süresi (saniye türünden)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:210
 msgid "Show title"
@@ -398,12 +327,9 @@ msgstr "Başlığı göster"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Whether to show the title of a photo during the slideshow"
-msgstr ""
-"Slayt gösterisi sırasında bir fotoğrafın başlığının gösterilip "
-"gösterilmeyeceği"
+msgstr "Slayt gösterisi sırasında bir fotoğrafın başlığının gösterilip gösterilmeyeceği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:216
-#: data/ui/slideshow_settings.ui:75
+#: data/gsettings/org.gnome.shotwell.gschema.xml:216 data/ui/slideshow_settings.ui:75
 msgid "Shuffle"
 msgstr "Karıştır"
 
@@ -464,12 +390,8 @@ msgid "sidebar divider position"
 msgstr "kenar çubuğu bölücüsü konumu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:261
-msgid ""
-"The last recorded position of the divider between the sidebar and view in "
-"library application window"
-msgstr ""
-"Kenar çubuğu ve kitaplıkta gör uygulama penceresi arasındaki ayracın "
-"kaydedilen son konumu"
+msgid "The last recorded position of the divider between the sidebar and view in library application window"
+msgstr "Kenar çubuğu ve kitaplıkta gör uygulama penceresi arasındaki ayracın kaydedilen son konumu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:268
 msgid "import directory"
@@ -484,58 +406,40 @@ msgid "watch library directory for new files"
 msgstr "yeni dosyalar için kitaplık dizinini gözle"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:275
-msgid ""
-"If true, files added to the library directory are automatically imported"
-msgstr ""
-"Eğer doğruysa, kitaplık dizinine eklenen dosyalar kendiliğinden içe aktarılır"
+msgid "If true, files added to the library directory are automatically imported"
+msgstr "Eğer doğruysa, kitaplık dizinine eklenen dosyalar kendiliğinden içe aktarılır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "write metadata to master files"
 msgstr "üst veriyi özgün dosyalara yaz"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:281
-msgid ""
-"If true, changes to metadata (tags, titles, etc.) are written to the master "
-"photo file"
-msgstr ""
-"Eğer doğruysa, üst veriye yapılan değişiklikler (etiketler, başlıklar, vb.) "
-"özgün fotoğraf dosyasına da yazılır"
+msgid "If true, changes to metadata (tags, titles, etc.) are written to the master photo file"
+msgstr "Eğer doğruysa, üst veriye yapılan değişiklikler (etiketler, başlıklar, vb.) özgün fotoğraf dosyasına da yazılır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "use lowercase filenames"
 msgstr "küçük harfli dosya adları kullan"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:287
-msgid ""
-"If true, Shotwell will convert all filenames to lowercase when importing "
-"photo files"
-msgstr ""
-"Eğer doğruysa, Shotwell fotoğraflar içe aktarırken tüm dosya adlarını küçük "
-"harfe çevirir"
+msgid "If true, Shotwell will convert all filenames to lowercase when importing photo files"
+msgstr "Eğer doğruysa, Shotwell fotoğraflar içe aktarırken tüm dosya adlarını küçük harfe çevirir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:292
 msgid "directory pattern"
-msgstr "dizin yapısı"
+msgstr "dizin örüntüsü"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:293
-msgid ""
-"A string encoding a naming pattern that will be used to name photo "
-"directories on import"
-msgstr ""
-"İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak adlandırma "
-"yapısını kodlayan dizge"
+msgid "A string encoding a naming pattern that will be used to name photo directories on import"
+msgstr "İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak adlandırma örüntüsünü kodlayan dizge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:298
 msgid "directory pattern custom"
-msgstr "özel dizin yapısı"
+msgstr "dizin örüntüsü özel"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
-msgid ""
-"A string encoding a custom naming pattern that will be used to name photo "
-"directories on import"
-msgstr ""
-"İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak özel "
-"adlandırma yapısını kodlayan dizge"
+msgid "A string encoding a custom naming pattern that will be used to name photo directories on import"
+msgstr "İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak özel adlandırma örüntüsünü kodlayan dizge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:304
 msgid "RAW developer default"
@@ -551,32 +455,23 @@ msgstr "En son kullanılan kırpma en/boy oranı menü seçeneği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
 msgid "A numeric code representing the last crop menu choice the user made"
-msgstr ""
-"Kullanıcının yaptığı son kırpma menüsü seçimini temsil eden sayısal kod"
+msgstr "Kullanıcının yaptığı son kırpma menüsü seçimini temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr "En son kullanılan kırpma özel en boy oranının payı"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
-msgid ""
-"A nonzero, positive integer representing the width part of the last custom "
-"crop ratio the user entered"
-msgstr ""
-"Kullanıcının girdiği son özel kırpma oranının genişlik bölümünü temsil eden "
-"sıfır olmayan, pozitif tam sayı"
+msgid "A nonzero, positive integer representing the width part of the last custom crop ratio the user entered"
+msgstr "Kullanıcının girdiği son özel kırpma oranının genişlik bölümünü temsil eden sıfır olmayan, pozitif tam sayı"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:322
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr "En son kullanılan kırpma özel en boy oranının paydası"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:323
-msgid ""
-"A nonzero, positive integer representing the height part of the last custom "
-"crop ratio the user entered"
-msgstr ""
-"Kullanıcının girdiği son özel kırpma oranının yükseklik bölümünü temsil eden "
-"sıfır olmayan, pozitif tam sayı"
+msgid "A nonzero, positive integer representing the height part of the last custom crop ratio the user entered"
+msgstr "Kullanıcının girdiği son özel kırpma oranının yükseklik bölümünü temsil eden sıfır olmayan, pozitif tam sayı"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:330
 msgid "external photo editor"
@@ -594,8 +489,7 @@ msgstr "dış raw düzenleyici"
 msgid "External application used to edit RAW photos"
 msgstr "RAW fotoğrafları düzenlemekte kullanılan dış uygulama"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:379
-#: data/gsettings/org.gnome.shotwell.gschema.xml:380
+#: data/gsettings/org.gnome.shotwell.gschema.xml:379 data/gsettings/org.gnome.shotwell.gschema.xml:380
 msgid "Setting in export dialog: how to trim images"
 msgstr "Dışa aktarma kutusunda ayar: resimler nasıl kırpılsın"
 
@@ -643,10 +537,8 @@ msgstr "Dışa aktarma kutusunda ayar: resmin en büyük boyutu"
 msgid "last used publishing service"
 msgstr "son kullanılan yayımlama hizmeti"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:418
-#: data/gsettings/org.gnome.shotwell.gschema.xml:424
-msgid ""
-"A numeric code representing the last service to which photos were published"
+#: data/gsettings/org.gnome.shotwell.gschema.xml:418 data/gsettings/org.gnome.shotwell.gschema.xml:424
+msgid "A numeric code representing the last service to which photos were published"
 msgstr "Fotoğrafların yayımlandığı son hizmeti temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:423
@@ -655,92 +547,59 @@ msgstr "öntanımlı yayımlama hizmeti"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:439
 msgid "The authorization token for the currently logged in Flickr user, if any"
-msgstr ""
-"Şu anda oturum açmış Flickr kullanıcısı için yetkilendirme jetonu, eğer varsa"
+msgstr "Şu anda oturum açmış Flickr kullanıcısı için yetkilendirme jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:445
-msgid ""
-"The cryptographic secret used to sign requests against the authorization "
-"token for the currently logged in Flickr user, if any"
-msgstr ""
-"Giriş yapmış geçerli Flick kullanıcısı için istekleri yetkilendirme jetonuna "
-"dayanarak imzalamada kullanılacak kriptografik giz"
+msgid "The cryptographic secret used to sign requests against the authorization token for the currently logged in Flickr user, if any"
+msgstr "Giriş yapmış geçerli Flick kullanıcısı için istekleri yetkilendirme jetonuna dayanarak imzalamada kullanılacak kriptografik giz"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default size code"
 msgstr "öntanımlı boyut kodu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:457
-msgid ""
-"A numeric code representing the default size for photos published to Flickr"
-msgstr ""
-"Flickr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
+msgid "A numeric code representing the default size for photos published to Flickr"
+msgstr "Flickr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:462
 msgid "default visibility"
 msgstr "öntanımlı görünürlük"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:463
-msgid ""
-"A numeric code representing the default visibility for photos published to "
-"Flickr"
-msgstr ""
-"Flickr’a yayımlanmış fotoğraflar için öntanımlı görünürlüğü temsil eden "
-"sayısal kod"
+msgid "A numeric code representing the default visibility for photos published to Flickr"
+msgstr "Flickr’a yayımlanmış fotoğraflar için öntanımlı görünürlüğü temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:468
-#: data/gsettings/org.gnome.shotwell.gschema.xml:494
-#: data/gsettings/org.gnome.shotwell.gschema.xml:544
-#: data/gsettings/org.gnome.shotwell.gschema.xml:594
+#: data/gsettings/org.gnome.shotwell.gschema.xml:468 data/gsettings/org.gnome.shotwell.gschema.xml:494 data/gsettings/org.gnome.shotwell.gschema.xml:544 data/gsettings/org.gnome.shotwell.gschema.xml:594
 msgid "remove sensitive info from uploads"
 msgstr "yüklemelerden hassas bilgiyi kaldır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:469
-msgid ""
-"Whether images being uploaded to Flickr should have their metadata removed "
-"first"
-msgstr ""
-"Flickr’a yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının "
-"gerekip gerekmediği"
+msgid "Whether images being uploaded to Flickr should have their metadata removed first"
+msgstr "Flickr’a yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının gerekip gerekmediği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:476
-#: data/gsettings/org.gnome.shotwell.gschema.xml:614
+#: data/gsettings/org.gnome.shotwell.gschema.xml:476 data/gsettings/org.gnome.shotwell.gschema.xml:614
 msgid "refresh token"
 msgstr "jetonu yenile"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:477
-msgid ""
-"The OAuth token used to refresh the Google Photos session for the currently "
-"logged in user, if any"
-msgstr ""
-"Şu anda oturum açmış kullanıcı için Google Fotoğraflar oturumunu yenilemekte "
-"kullanılan OAuth jetonu, eğer varsa"
+msgid "The OAuth token used to refresh the Google Photos session for the currently logged in user, if any"
+msgstr "Şu anda oturum açmış kullanıcı için Google Fotoğraflar oturumunu yenilemekte kullanılan OAuth jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:483
-msgid ""
-"A numeric code representing the default size for photos uploaded to Google "
-"Photos Albums"
-msgstr ""
-"Google Fotoğraf Albümleri’ne yüklenen fotoğraflar için öntanımlı boyutu "
-"temsil eden sayısal kod"
+msgid "A numeric code representing the default size for photos uploaded to Google Photos Albums"
+msgstr "Google Fotoğraf Albümleri’ne yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:488
-#: data/gsettings/org.gnome.shotwell.gschema.xml:588
+#: data/gsettings/org.gnome.shotwell.gschema.xml:488 data/gsettings/org.gnome.shotwell.gschema.xml:588
 msgid "last album"
 msgstr "son albüm"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:489
-#: data/gsettings/org.gnome.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:489 data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Kullanıcının fotoğraflarını yayımladığı son albümün adı, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:495
-msgid ""
-"Whether images being uploaded to Google Photos should have their metadata "
-"removed first"
-msgstr ""
-"Google Fotoğraflar’a yüklenecek resimlerin öncelikle üst verilerinin "
-"kaldırılmasının gerekip gerekmediği"
+msgid "Whether images being uploaded to Google Photos should have their metadata removed first"
+msgstr "Google Fotoğraflar’a yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının gerekip gerekmediği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:502
 msgid "Piwigo URL"
@@ -791,59 +650,36 @@ msgid "last photo size"
 msgstr "son fotoğraf boyutu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:539
-msgid ""
-"A numeric code representing the last photo size preset used when publishing "
-"to Piwigo"
-msgstr ""
-"Piwigo’ya yayımlanırken kullanılan son fotoğraf boyutu önayarını temsil eden "
-"sayısal kod"
+msgid "A numeric code representing the last photo size preset used when publishing to Piwigo"
+msgstr "Piwigo’ya yayımlanırken kullanılan son fotoğraf boyutu önayarını temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:545
-msgid ""
-"Whether images being uploaded to Piwigo should have their metadata removed "
-"first"
-msgstr ""
-"Piwigo’ya yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının "
-"gerekip gerekmediği"
+msgid "Whether images being uploaded to Piwigo should have their metadata removed first"
+msgstr "Piwigo’ya yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının gerekip gerekmediği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:550
-msgid ""
-"if title is set and comment unset, use title as comment for uploads to Piwigo"
-msgstr ""
-"eğer başlık ayarlanmış ve bir yorum kaldırılmışsa, Piwigo’ya yüklemelerde "
-"başlığı yorum olarak kullan"
+msgid "if title is set and comment unset, use title as comment for uploads to Piwigo"
+msgstr "eğer başlık ayarlanmış ve bir yorum kaldırılmışsa, Piwigo’ya yüklemelerde başlığı yorum olarak kullan"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:551
-msgid ""
-"Whether images being uploaded to Piwigo should have their comment set from "
-"the title if title is set and comment unset"
-msgstr ""
-"Eğer başlık ayarlı yorum değilse, Piwigo’ya yüklenecek resimlerin "
-"yorumlarının başlıktan belirlenip belirlenmeyeceği"
+msgid "Whether images being uploaded to Piwigo should have their comment set from the title if title is set and comment unset"
+msgstr "Eğer başlık ayarlı yorum değilse, Piwigo’ya yüklenecek resimlerin yorumlarının başlıktan belirlenip belirlenmeyeceği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:556
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "Piwigo’ya yüklerken etiketleri yükleme"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:557
-msgid ""
-"Whether images being uploaded to Piwigo should have their tags removed on "
-"upload, such that these tags will not appear on the remote Piwigo server"
-msgstr ""
-"Piwigo’ya yüklenecek resimlerin etiketlerinin silinip silinmeyeceği, bu "
-"etiketler uzak Piwigo sunucusunda gözükmeyecektir"
+msgid "Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server"
+msgstr "Piwigo’ya yüklenecek resimlerin etiketlerinin silinip silinmeyeceği, bu etiketler uzak Piwigo sunucusunda gözükmeyecektir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:562
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "Piwigo’ya yüklerken puanlamaları yükleme"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:563
-msgid ""
-"Whether images being uploaded to Piwigo should have their ratings uploaded, "
-"such that these ratings will not appear on the remote Piwigo server"
-msgstr ""
-"Piwigo’ya yüklenecek resimlerin puanlarının silinip silinmeyeceği, bu "
-"puanlar uzak Piwigo sunucusunda gözükmeyecektir"
+msgid "Whether images being uploaded to Piwigo should have their ratings uploaded, such that these ratings will not appear on the remote Piwigo server"
+msgstr "Piwigo’ya yüklenecek resimlerin puanlarının silinip silinmeyeceği, bu puanlar uzak Piwigo sunucusunda gözükmeyecektir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "Gallery3 username"
@@ -866,12 +702,8 @@ msgid "Gallery3 site URL"
 msgstr "Gallery3 site URL’si"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:595
-msgid ""
-"Whether images being uploaded to Gallery3 should have their metadata removed "
-"first"
-msgstr ""
-"Gallery3’e yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının "
-"gerekip gerekmediği"
+msgid "Whether images being uploaded to Gallery3 should have their metadata removed first"
+msgstr "Gallery3’e yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının gerekip gerekmediği"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:600
 msgid "scaling constraint of uploaded picture"
@@ -886,28 +718,19 @@ msgid "pixels of the major axis uploaded picture"
 msgstr "yüklenen resmin ana eksen pikselleri"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:607
-msgid ""
-"The pixels of the major axis of the picture to be uploaded; used only if "
-"scaling-constraint-id is an appropriate value"
-msgstr ""
-"Yüklenecek resmin ana ekseninin pikselleri; yalnızca ölçek kısıtlama kimliği "
-"uygun bir değerse kullanılır"
+msgid "The pixels of the major axis of the picture to be uploaded; used only if scaling-constraint-id is an appropriate value"
+msgstr "Yüklenecek resmin ana ekseninin pikselleri; yalnızca ölçek kısıtlama kimliği uygun bir değerse kullanılır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:615
-msgid ""
-"The OAuth token used to refresh the YouTube session for the currently logged "
-"in user, if any"
-msgstr ""
-"Şu anda oturum açmış kullanıcı için YouTube oturumunu yenilemekte kullanılan "
-"OAuth jetonu, eğer varsa"
+msgid "The OAuth token used to refresh the YouTube session for the currently logged in user, if any"
+msgstr "Şu anda oturum açmış kullanıcı için YouTube oturumunu yenilemekte kullanılan OAuth jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:622
 msgid "last used import service"
 msgstr "son kullanılan içe aktarma hizmeti"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:623
-msgid ""
-"A numeric code representing the last service from which photos were imported"
+msgid "A numeric code representing the last service from which photos were imported"
 msgstr "Fotoğrafların içe aktarıldığı son hizmeti temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:630
@@ -915,12 +738,8 @@ msgid "content layout mode"
 msgstr "içerik yerleşim kipi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:631
-msgid ""
-"A numeric code that describes how photos are laid out on the page during "
-"printing"
-msgstr ""
-"Yazdırma sırasında fotoğrafların sayfaya nasıl yerleştireceğini açıklayan "
-"sayısal kod"
+msgid "A numeric code that describes how photos are laid out on the page during printing"
+msgstr "Yazdırma sırasında fotoğrafların sayfaya nasıl yerleştireceğini açıklayan sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "content ppi"
@@ -951,58 +770,40 @@ msgid "content units"
 msgstr "içerik birimleri"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:655
-msgid ""
-"A numeric code representing unit of measure (inches or centimeters) used "
-"when printing"
-msgstr ""
-"Yazdırma sırasıda kulanılan ölçü birimini (inç veya santimetre) temsil eden "
-"sayısal kod"
+msgid "A numeric code representing unit of measure (inches or centimeters) used when printing"
+msgstr "Yazdırma sırasıda kulanılan ölçü birimini (inç veya santimetre) temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid "images per page code"
 msgstr "sayfa başına resim kodu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:661
-msgid ""
-"A numeric code representing the currently selected images per page mode used "
-"when printing"
-msgstr ""
-"Yazdırma sırasında sayfa başına seçilen resim kipini temsil eden sayısal kod"
+msgid "A numeric code representing the currently selected images per page mode used when printing"
+msgstr "Yazdırma sırasında sayfa başına seçilen resim kipini temsil eden sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid "size selection"
 msgstr "boyut seçimi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:667
-msgid ""
-"The index of the current print size in a pre-defined list of standard sizes"
-msgstr ""
-"Standart boyutların önceden tanımlı listesindeki geçerli yazdırma boyutunun "
-"indeksi"
+msgid "The index of the current print size in a pre-defined list of standard sizes"
+msgstr "Standart boyutların önceden tanımlı listesindeki geçerli yazdırma boyutunun indeksi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid "match aspect ratio"
 msgstr "en-boy oranını eşleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:673
-msgid ""
-"Determines whether custom print sizes must match the aspect ratio of the "
-"original photo"
-msgstr ""
-"Özel yazdırma boyutlarının, özgün fotoğrafın en-boy oranına eşleşmesinin "
-"gerekip gerekmediğini saptar"
+msgid "Determines whether custom print sizes must match the aspect ratio of the original photo"
+msgstr "Özel yazdırma boyutlarının, özgün fotoğrafın en-boy oranına eşleşmesinin gerekip gerekmediğini saptar"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid "print titles"
 msgstr "başlıkları yazdır"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:679
-msgid ""
-"True if the title of a photo should be printed when the photo is printed, "
-"false otherwise"
-msgstr ""
-"Eğer bir fotoğraf yazdırıldığında fotoğraf başlığı yazdırılmalıysa doğru, "
-"değilse yanlış"
+msgid "True if the title of a photo should be printed when the photo is printed, false otherwise"
+msgstr "Eğer bir fotoğraf yazdırıldığında fotoğraf başlığı yazdırılmalıysa doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "titles font"
@@ -1020,13 +821,11 @@ msgstr "flickr’a yayımlama eklentisini etkinleştir"
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Eğer Flickr’e yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:702
-#: data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:702 data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable Google Photos publishing plugin"
 msgstr "Google Fotoğraflar yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:703
-#: data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:703 data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "Eğer Google Fotoğraflar eklentisi etkinse doğru, değilse yanlış"
 
@@ -1067,324 +866,238 @@ msgid "enable slideshow crumble transition"
 msgstr "ufala slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:739
-msgid ""
-"True if the Crumble slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Ufala slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Crumble slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Ufala slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable slideshow fade transition"
 msgstr "soldur slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:745
-msgid ""
-"True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Soldur slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Fade slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Soldur slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow slide transition"
 msgstr "kaydır slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:751
-msgid ""
-"True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Kaydır slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Slide slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Kaydır slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow clock transition"
 msgstr "saat slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:757
-msgid ""
-"True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Saat slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Clock slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Saat slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow circle transition"
 msgstr "daire slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:763
-msgid ""
-"True if the Circle slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Daire slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Circle slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Daire slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow circles transition"
 msgstr "çemberler slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:769
-msgid ""
-"True if the Circles slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Çemberler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Circles slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Çemberler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow blinds transition"
 msgstr "panjurlar slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:775
-msgid ""
-"True if the Blinds slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Panjurlar slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Blinds slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Panjurlar slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow squares transition"
 msgstr "kareler slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:781
-msgid ""
-"True if the Squares slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Kareler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Squares slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Kareler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow stripes transition"
 msgstr "şeritler slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:787
-msgid ""
-"True if the Stripes slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Eğer Şeritler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
+msgid "True if the Stripes slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Şeritler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow chess transition"
 msgstr "satranç tahtası slayt gösterisi geçisini etkinleştir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:793
-msgid ""
-"True if the Chess-Board slideshow transition plugin is enabled, false "
-"otherwise"
-msgstr ""
-"Eğer Satranç Tahtası slayt gösterisi geçiş eklentisi etkinse doğru, değilse "
-"yanlış"
+msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
+msgstr "Eğer Satranç Tahtası slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
-#: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
-#: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
-#: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#: data/org.gnome.Shotwell.appdata.xml.in:10
-msgid "Digital photo organizer"
-msgstr "Dijital fotoğraf yöneticisi"
-
-#: data/org.gnome.Shotwell.appdata.xml.in:12
-msgid ""
-"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
-"desktop. It allows you to import photos from your camera or disk, organize "
-"them by date and subject matter, even ratings. It also offers basic photo "
-"editing, like crop, red-eye correction, color adjustments, and straighten. "
-"Shotwell’s non-destructive photo editor does not alter your master photos, "
-"making it easy to experiment and correct errors."
-msgstr ""
-"Shotwell, GNOME masaüstü için tasarlanmış kullanımı kolay ve hızlı fotoğraf "
-"yöneticisidir. Kameranızdan veya diskinizden fotoğraf aktarmanızı, onları "
-"tarih veya konuya hatta puana göre yönetmenizi sağlar. Ayrıca; kırpma, "
-"kırmızı göz giderme, renk düzeltmeleri, doğrultma gibi basit fotoğraf "
-"düzenlemeleri sunar. Shotwell’in yok edici olmayan fotoğraf düzenleyicisi "
-"özgün fotoğraflarınızı başkalaştırmaz, hataları düzeltmeyi ve denemeyi "
-"kolaylaştırır."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:19
-msgid ""
-"When ready, Shotwell can upload your photos to various web services, such as "
-"Flickr, Google Photos, and more."
-msgstr ""
-"Hazır olduğunda; Shotwell fotoğraflarınızı Facebook, Flickr, Google "
-"Fotoğraflar gibi daha çok web hizmetine yükleyebilir."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:23
-msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
-msgstr "Shotwell; JPG, PNG, TIFF ve değişik RAW dosya biçimlerini destekler."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Shotwell geliştiricileri"
-
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
 msgid "Shotwell Authentication helper"
 msgstr "Shotwell Kimlik Doğrulama yardımcısı"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:3 data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352
+#: data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Fotoğraf Yöneticisi"
 
-#: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:5
 msgid "Organize your photos"
 msgstr "Fotoğraflarınızı yönetin"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"albüm;kamera;kameralar;kırp;düzenle;güzelleştir;dışa aktar;galeri;görüntü;"
-"görüntüler;içe aktar;yerleştir;foto;fotoğraflar;fotolar;resim;resimler;"
-"fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;flickr;"
-"picasa;youtube;piwigo;"
+"albüm;kamera;kameralar;kırp;düzenle;güzelleştir;dışa aktar;galeri;görüntü;görüntüler;içe "
+"aktar;yerleştir;foto;fotoğraflar;fotolar;resim;resimler;fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;flickr;picasa;youtube;piwigo;"
 
-#: data/org.gnome.Shotwell.desktop.in:21
+#: data/org.gnome.Shotwell.desktop.in:20
 msgid "Manage Different Profiles"
 msgstr "Farklı Profilleri Yönet"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
+msgid "Digital photo organizer"
+msgstr "Dijital fotoğraf yöneticisi"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
+msgid ""
+"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers "
+"basic photo editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your master photos, making it easy to experiment and correct errors."
+msgstr ""
+"Shotwell, GNOME masaüstü için tasarlanmış kullanımı kolay ve hızlı fotoğraf yöneticisidir. Kameranızdan veya diskinizden fotoğraf aktarmanızı, onları tarih veya konuya hatta puana göre yönetmenizi sağlar. "
+"Ayrıca; kırpma, kırmızı göz giderme, renk düzeltmeleri, doğrultma gibi basit fotoğraf düzenlemeleri sunar. Shotwell’in yok edici olmayan fotoğraf düzenleyicisi özgün fotoğraflarınızı başkalaştırmaz, hataları "
+"düzeltmeyi ve denemeyi kolaylaştırır."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
+msgid "When ready, Shotwell can upload your photos to various web services, such as Flickr, Google Photos, and more."
+msgstr "Hazır olduğunda; Shotwell fotoğraflarınızı Facebook, Flickr, Google Fotoğraflar gibi daha çok web hizmetine yükleyebilir."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
+msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
+msgstr "Shotwell; JPG, PNG, TIFF ve değişik RAW dosya biçimlerini destekler."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:53
+msgid "The Shotwell developers"
+msgstr "Shotwell geliştiricileri"
+
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Shotwell Görüntüleyici"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Fotoğraf Görüntüleyici"
 
-#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221
-#: src/CollectionPage.vala:108 src/Resources.vala:153
+#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136 data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221 src/CollectionPage.vala:108 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "_İyileştir"
 
-#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248
-#: src/CollectionPage.vala:109 src/Resources.vala:181
+#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163 data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248 src/CollectionPage.vala:109 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "Özgün Haline Dö_ndür"
 
-#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454
-#: data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373
-#: data/ui/tags.ui:386 src/Resources.vala:279
+#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454 data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373 data/ui/tags.ui:386 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "E_tiket Ekle…"
 
-#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459
-#: data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
+#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459 data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22 data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "Etiketleri Düzenl_e…"
 
-#: data/ui/collection.ui:32 data/ui/event.ui:277 data/ui/event.ui:468
-#: data/ui/faces.ui:277 data/ui/media.ui:277 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:266 data/ui/tags.ui:277
+#: data/ui/collection.ui:32 data/ui/event.ui:277 data/ui/event.ui:468 data/ui/faces.ui:277 data/ui/media.ui:277 data/ui/photo_context.ui:30 data/ui/photo.ui:266 data/ui/tags.ui:277
 msgid "Toggle _Flag"
 msgstr "İşareti _Aç/Kapat"
 
-#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474
-#: data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
+#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474 data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35 data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "_Puanı Ayarla"
 
-#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497
-#: data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
+#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497 data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63 data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "P_uansız"
 
-#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501
-#: data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
+#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501 data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68 data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "_Reddedilmiş"
 
-#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507
-#: data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
+#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507 data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75 data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
 msgid "_Increase"
 msgstr "_Arttır"
 
-#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511
-#: data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
+#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511 data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80 data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "A_zalt"
 
-#: data/ui/collection.ui:81 data/ui/event.ui:349 data/ui/event.ui:517
-#: data/ui/faces.ui:349 data/ui/media.ui:349 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:342 data/ui/tags.ui:349
+#: data/ui/collection.ui:81 data/ui/event.ui:349 data/ui/event.ui:517 data/ui/faces.ui:349 data/ui/media.ui:349 data/ui/photo_context.ui:88 data/ui/photo.ui:342 data/ui/tags.ui:349
 msgid "_Developer"
 msgstr "_Geliştirici"
 
-#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525
-#: data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
+#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525 data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96 data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
 #: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Kamera"
 
-#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533
-#: data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
+#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533 data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105 data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "Başlığı _Düzenle…"
 
-#: data/ui/collection.ui:102 data/ui/events_directory.ui:140
-#: data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394
-#: data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341
-#: src/Resources.vala:269
+#: data/ui/collection.ui:102 data/ui/events_directory.ui:140 data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394 data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341 src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "_Yorumu Düzenle…"
 
-#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:286
+#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115 data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "_Dış Düzenleyiciyle Aç"
 
-#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:288
+#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120 data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "RA_W Düzenleyiciyle Aç"
 
-#: data/ui/collection.ui:118 data/ui/event.ui:383 data/ui/event.ui:554
-#: data/ui/faces.ui:377 data/ui/media.ui:377 data/ui/photo_context.ui:126
-#: data/ui/tags.ui:377
+#: data/ui/collection.ui:118 data/ui/event.ui:383 data/ui/event.ui:554 data/ui/faces.ui:377 data/ui/media.ui:377 data/ui/photo_context.ui:126 data/ui/tags.ui:377
 msgid "View Eve_nt for Photo"
 msgstr "Resmin Etki_nliğine Bak"
 
-#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30
-#: data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23
-#: data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
-#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224
-#: src/Resources.vala:774
+#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23 data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:774
 msgid "Show in File Mana_ger"
 msgstr "Dosya Yö_neticisinde Göster"
 
-#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23
-#: data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:72
-#: src/Resources.vala:290
+#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23 data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:72 src/Resources.vala:290
 msgid "Send _To…"
 msgstr "_Gönder…"
 
-#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569
-#: data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:783
+#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569 data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141 data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:783
 msgid "_Move to Trash"
 msgstr "_Çöpe Taşı"
 
-#: data/ui/collection.ui:149 data/ui/editing-toolbar.ui:13
-#: src/Resources.vala:109
+#: data/ui/collection.ui:149 data/ui/editing-toolbar.ui:13 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Fotoğrafları sağa döndür (Sola döndürmek için Ctrl’ye bas)"
 
-#: data/ui/collection.ui:167 data/ui/editing-toolbar.ui:31
-#: src/Resources.vala:107 src/Resources.vala:112
+#: data/ui/collection.ui:167 data/ui/editing-toolbar.ui:31 src/Resources.vala:107 src/Resources.vala:112
 msgid "Rotate"
 msgstr "Döndür"
 
-#: data/ui/collection.ui:177 data/ui/editing-toolbar.ui:158
-#: src/Resources.vala:155
+#: data/ui/collection.ui:177 data/ui/editing-toolbar.ui:158 src/Resources.vala:155
 msgid "Automatically improve the photo’s appearance"
 msgstr "Fotoğraf görünüşünü kendiliğinden iyileştir"
 
-#: data/ui/collection.ui:195 data/ui/editing-toolbar.ui:176
-#: src/Resources.vala:154
+#: data/ui/collection.ui:195 data/ui/editing-toolbar.ui:176 src/Resources.vala:154
 msgid "Enhance"
 msgstr "İyileştir"
 
@@ -1392,31 +1105,24 @@ msgstr "İyileştir"
 msgid "Publish to various websites"
 msgstr "Türlü web sitelerinde yayımla"
 
-#: data/ui/collection.ui:229
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
-#: src/Resources.vala:262
+#: data/ui/collection.ui:229 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203 src/Resources.vala:262
 msgid "Publish"
 msgstr "Yayımla"
 
-#: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:225
-#: data/ui/trash.ui:302 src/Resources.vala:295
+#: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:225 data/ui/trash.ui:302 src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Adında ya da etiketlerinde görünen metni yazarak resim bul"
 
-#: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:243
-#: data/ui/trash.ui:295 src/Resources.vala:294
+#: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:243 data/ui/trash.ui:295 src/Resources.vala:294
 msgid "Find"
 msgstr "Bul"
 
-#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
-#: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
-#: data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5 data/ui/tags.ui:5
-#: data/ui/trash.ui:6
+#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5
+#: data/ui/tags.ui:5 data/ui/trash.ui:6
 msgid "_File"
 msgstr "_Dosya"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
-#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
 msgid "_Save"
 msgstr "_Kaydet"
 
@@ -1424,55 +1130,40 @@ msgstr "_Kaydet"
 msgid "Save _As…"
 msgstr "_Farklı Kaydet…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
-#: data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29
-#: data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
 #: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Çık"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
-#: data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43
-#: data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
 #: data/ui/trash.ui:34 src/Resources.vala:126
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
-#: data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46
-#: data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
 #: data/ui/trash.ui:37 src/Resources.vala:191
 msgid "_Undo"
 msgstr "_Geri Al"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51
-#: data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51
-#: data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
 #: data/ui/trash.ui:42 src/Resources.vala:194
 msgid "_Redo"
 msgstr "_Yinele"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95
-#: data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70
-#: data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95 data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70 data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93
 #: data/ui/tags.ui:95 data/ui/trash.ui:84
 msgid "_View"
 msgstr "_Görünüm"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171
-#: src/Resources.vala:128
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171 src/Resources.vala:128
 msgid "Fulls_creen"
 msgstr "Tam e_kran"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256
-#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
-#: src/Resources.vala:150
+#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256 data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256 src/Resources.vala:150
 msgid "Zoom _In"
 msgstr "_Yakınlaştır"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261
-#: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
-#: src/Resources.vala:151
+#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261 data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261 src/Resources.vala:151
 msgid "Zoom _Out"
 msgstr "_Uzaklaştır"
 
@@ -1500,23 +1191,19 @@ msgstr "_Önceki Fotoğraf"
 msgid "_Next Photo"
 msgstr "_Sonraki Fotoğraf"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:99
-#: src/Resources.vala:106
+#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:99 src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "_Sağa Döndür"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:102
-#: src/Resources.vala:111
+#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:102 src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "S_ola Döndür"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:105
-#: src/Resources.vala:116
+#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:105 src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "Ya_tay Döndür"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:106
-#: src/Resources.vala:119
+#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:106 src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "Di_key Döndür"
 
@@ -1528,8 +1215,7 @@ msgstr "A_raçlar"
 msgid "_Crop"
 msgstr "_Kırp"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:231
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
+#: data/ui/direct.ui:146 data/ui/photo.ui:231 src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
 msgstr "_Düzleştir"
 
@@ -1545,34 +1231,23 @@ msgstr "_Ayarla"
 msgid "_Adjust Date and Time…"
 msgstr "Tarih ve Zamanı _Ayarla…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146
-#: data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419
-#: data/ui/faces.ui:426 data/ui/faces.ui:429 data/ui/import_queue.ui:61
-#: data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182
-#: data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177
-#: data/ui/offline.ui:180 data/ui/photo.ui:385 data/ui/photo.ui:388
-#: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186
-#: data/ui/trash.ui:189 src/Resources.vala:129
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429
+#: data/ui/import_queue.ui:61 data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180 data/ui/photo.ui:385
+#: data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
 msgstr "_Yardım"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424
-#: data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187
-#: data/ui/media.ui:407 data/ui/offline.ui:185 data/ui/photo.ui:393
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424 data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187 data/ui/media.ui:407 data/ui/offline.ui:185 data/ui/photo.ui:393
 #: data/ui/tags.ui:426 data/ui/trash.ui:194
 msgid "_Frequently Asked Questions"
 msgstr "_Sıkça Sorulan Sorular"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428
-#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
-#: data/ui/media.ui:411 data/ui/offline.ui:189 data/ui/photo.ui:397
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428 data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191 data/ui/media.ui:411 data/ui/offline.ui:189 data/ui/photo.ui:397
 #: data/ui/tags.ui:430 data/ui/trash.ui:198
 msgid "_Report a Problem…"
 msgstr "Bir Sorun _Bildir…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434
-#: data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197
-#: data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434 data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197 data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
 #: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
 msgid "_About"
 msgstr "_Hakkında"
@@ -1613,8 +1288,7 @@ msgstr "Ayarla"
 msgid "Mark faces of people in the photo"
 msgstr "Fotoğraftaki insanların yüzünü imle"
 
-#: data/ui/editing-toolbar.ui:206 data/ui/faces.ui:399
-#: src/faces/FacesBranch.vala:87 src/Resources.vala:301 src/Resources.vala:302
+#: data/ui/editing-toolbar.ui:206 data/ui/faces.ui:399 src/faces/FacesBranch.vala:87 src/Resources.vala:301 src/Resources.vala:302
 msgid "Faces"
 msgstr "Yüzler"
 
@@ -1626,200 +1300,146 @@ msgstr "Önceki fotoğrafa git"
 msgid "Go to the next photo"
 msgstr "Sonraki fotoğrafa git"
 
-#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
-#: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
-#: data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:9
+#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8
+#: data/ui/trash.ui:9
 msgid "_Import From Folder…"
 msgstr "Dizinden _İçe Aktar…"
 
-#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30
-#: data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30
-#: data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30 data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30 data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30
 #: data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
 msgid "Empty T_rash"
 msgstr "Çö_p Kutusunu Boşalt"
 
-#: data/ui/events_directory.ui:43 data/ui/event.ui:58 data/ui/faces.ui:58
-#: data/ui/import.ui:51 data/ui/media.ui:58 data/ui/offline.ui:44
-#: data/ui/tags.ui:58 data/ui/trash.ui:49
+#: data/ui/events_directory.ui:43 data/ui/event.ui:58 data/ui/faces.ui:58 data/ui/import.ui:51 data/ui/media.ui:58 data/ui/offline.ui:44 data/ui/tags.ui:58 data/ui/trash.ui:49
 msgid "_Find"
 msgstr "_Bul"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
-#: data/ui/media.ui:62 data/ui/offline.ui:48 data/ui/photo.ui:68
-#: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62 data/ui/media.ui:62 data/ui/offline.ui:48 data/ui/photo.ui:68 data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
 #: data/ui/tags.ui:62 data/ui/trash.ui:53
 msgid "Ne_w Saved Search…"
 msgstr "Ye_ni Kaydedilmiş Arama…"
 
-#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82
-#: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62
-#: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:785
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82 data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62 data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:785
 msgid "Select _All"
 msgstr "_Tümünü Seç"
 
-#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89
-#: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69
-#: data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
 #: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "_Tercihler"
 
-#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98
-#: data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98
-#: data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98 data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98 data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98
 #: data/ui/trash.ui:87
 msgid "_Basic Information"
 msgstr "_Temel Bilgiler"
 
-#: data/ui/events_directory.ui:75 data/ui/event.ui:103 data/ui/faces.ui:103
-#: data/ui/import.ui:78 data/ui/media.ui:103 data/ui/offline.ui:83
-#: data/ui/photo.ui:101 data/ui/tags.ui:103 data/ui/trash.ui:92
+#: data/ui/events_directory.ui:75 data/ui/event.ui:103 data/ui/faces.ui:103 data/ui/import.ui:78 data/ui/media.ui:103 data/ui/offline.ui:83 data/ui/photo.ui:101 data/ui/tags.ui:103 data/ui/trash.ui:92
 msgid "E_xtended Information"
 msgstr "A_yrıntılı Bilgiler"
 
-#: data/ui/events_directory.ui:80 data/ui/event.ui:108 data/ui/faces.ui:108
-#: data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:88
-#: data/ui/tags.ui:108 data/ui/trash.ui:97
+#: data/ui/events_directory.ui:80 data/ui/event.ui:108 data/ui/faces.ui:108 data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:88 data/ui/tags.ui:108 data/ui/trash.ui:97
 msgid "_Search Bar"
 msgstr "_Arama Çubuğu"
 
-#: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:113
-#: data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:93
-#: data/ui/photo.ui:106 data/ui/tags.ui:113 data/ui/trash.ui:102
+#: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:113 data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:93 data/ui/photo.ui:106 data/ui/tags.ui:113 data/ui/trash.ui:102
 msgid "S_idebar"
 msgstr "Kenar Çubuğ_u"
 
-#: data/ui/events_directory.ui:90 data/ui/event.ui:118 data/ui/faces.ui:118
-#: data/ui/import.ui:93 data/ui/media.ui:118 data/ui/offline.ui:98
-#: data/ui/photo.ui:111 data/ui/tags.ui:118 data/ui/trash.ui:107
+#: data/ui/events_directory.ui:90 data/ui/event.ui:118 data/ui/faces.ui:118 data/ui/import.ui:93 data/ui/media.ui:118 data/ui/offline.ui:98 data/ui/photo.ui:111 data/ui/tags.ui:118 data/ui/trash.ui:107
 msgid "T_oolbar"
 msgstr "Araç Ç_ubuğunu"
 
-#: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:130
-#: data/ui/media.ui:130 data/ui/tags.ui:130
+#: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:130 data/ui/media.ui:130 data/ui/tags.ui:130
 msgid "_Comments"
 msgstr "_Yorumlar"
 
-#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239
-#: data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239
-#: data/ui/offline.ui:160 data/ui/photo.ui:125 data/ui/tags.ui:239
+#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239 data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239 data/ui/offline.ui:160 data/ui/photo.ui:125 data/ui/tags.ui:239
 #: data/ui/trash.ui:169
 msgid "Sort _Events"
 msgstr "_Olayları Sırala"
 
-#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242
-#: data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47
-#: data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
-#: data/ui/offline.ui:163 data/ui/photo.ui:128 data/ui/tags.ui:227
-#: data/ui/tags.ui:242 data/ui/trash.ui:172
+#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242 data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47 data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
+#: data/ui/offline.ui:163 data/ui/photo.ui:128 data/ui/tags.ui:227 data/ui/tags.ui:242 data/ui/trash.ui:172
 msgid "_Ascending"
 msgstr "_Artan"
 
-#: data/ui/events_directory.ui:112 data/ui/event.ui:232 data/ui/faces.ui:232
-#: data/ui/import_queue.ui:52 data/ui/media.ui:232 data/ui/offline.ui:168
-#: data/ui/tags.ui:232 data/ui/trash.ui:177
+#: data/ui/events_directory.ui:112 data/ui/event.ui:232 data/ui/faces.ui:232 data/ui/import_queue.ui:52 data/ui/media.ui:232 data/ui/offline.ui:168 data/ui/tags.ui:232 data/ui/trash.ui:177
 msgid "D_escending"
 msgstr "A_zalan"
 
-#: data/ui/events_directory.ui:128 data/ui/event.ui:375 data/ui/faces.ui:369
-#: data/ui/media.ui:369 data/ui/tags.ui:369
+#: data/ui/events_directory.ui:128 data/ui/event.ui:375 data/ui/faces.ui:369 data/ui/media.ui:369 data/ui/tags.ui:369
 msgid "Even_ts"
 msgstr "Ola_ylar"
 
-#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173
-#: src/Resources.vala:209
+#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173 src/Resources.vala:209
 msgid "_Merge Events"
 msgstr "Olayları _Birleştir"
 
-#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
-#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177 data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
 msgid "Re_name Event…"
 msgstr "Olayı Ye_niden Adlandır…"
 
-#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13
-#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
+#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
 msgid "_Export…"
 msgstr "_Dışa Aktar…"
 
-#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70
-#: data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218
-#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:781
+#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70 data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218 data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:781
 msgid "R_emove From Library"
 msgstr "Kitaplıktan K_aldır"
 
-#: data/ui/event.ui:125 data/ui/faces.ui:125 data/ui/import.ui:100
-#: data/ui/media.ui:125 data/ui/tags.ui:125
+#: data/ui/event.ui:125 data/ui/faces.ui:125 data/ui/import.ui:100 data/ui/media.ui:125 data/ui/tags.ui:125
 msgid "_Titles"
 msgstr "_Başlıklar"
 
-#: data/ui/event.ui:135 data/ui/event.ui:400 data/ui/faces.ui:135
-#: data/ui/faces.ui:383 data/ui/media.ui:135 data/ui/media.ui:383
-#: data/ui/photo.ui:370 data/ui/tags.ui:135 data/ui/tags.ui:383
+#: data/ui/event.ui:135 data/ui/event.ui:400 data/ui/faces.ui:135 data/ui/faces.ui:383 data/ui/media.ui:135 data/ui/media.ui:383 data/ui/photo.ui:370 data/ui/tags.ui:135 data/ui/tags.ui:383
 msgid "Ta_gs"
 msgstr "E_tiketler"
 
-#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140
-#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
+#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140 data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
 msgid "_Ratings"
 msgstr "_Puanlar"
 
-#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107
-#: data/ui/media.ui:147 data/ui/offline.ui:105 data/ui/tags.ui:147
-#: data/ui/trash.ui:114 src/Resources.vala:249
+#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107 data/ui/media.ui:147 data/ui/offline.ui:105 data/ui/tags.ui:147 data/ui/trash.ui:114 src/Resources.vala:249
 msgid "_Filter Photos"
 msgstr "Fotoğrafları _Süz"
 
-#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140
-#: data/ui/media.ui:180 data/ui/offline.ui:138 data/ui/search_bar.ui:185
-#: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
+#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140 data/ui/media.ui:180 data/ui/offline.ui:138 data/ui/search_bar.ui:185 data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "_Tüm Fotoğraflar"
 
-#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146
-#: data/ui/media.ui:186 data/ui/offline.ui:144 data/ui/search_bar.ui:179
-#: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
+#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146 data/ui/media.ui:186 data/ui/offline.ui:144 data/ui/search_bar.ui:179 data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "Tüm + _Reddedilmişler"
 
-#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152
-#: data/ui/media.ui:192 data/ui/offline.ui:150 data/ui/search_bar.ui:173
-#: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
+#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152 data/ui/media.ui:192 data/ui/offline.ui:150 data/ui/search_bar.ui:173 data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "_Yalnızca Reddedilmiş"
 
-#: data/ui/event.ui:202 data/ui/faces.ui:202 data/ui/media.ui:202
-#: data/ui/tags.ui:202
+#: data/ui/event.ui:202 data/ui/faces.ui:202 data/ui/media.ui:202 data/ui/tags.ui:202
 msgid "Sort _Photos"
 msgstr "_Fotoğrafları Sırala"
 
-#: data/ui/event.ui:205 data/ui/faces.ui:205 data/ui/media.ui:205
-#: data/ui/tags.ui:205
+#: data/ui/event.ui:205 data/ui/faces.ui:205 data/ui/media.ui:205 data/ui/tags.ui:205
 msgid "By _Title"
 msgstr "_Başlığa Göre"
 
-#: data/ui/event.ui:210 data/ui/faces.ui:210 data/ui/media.ui:210
-#: data/ui/tags.ui:210
+#: data/ui/event.ui:210 data/ui/faces.ui:210 data/ui/media.ui:210 data/ui/tags.ui:210
 msgid "By _Filename"
 msgstr "_Dosya Adına Göre"
 
-#: data/ui/event.ui:215 data/ui/faces.ui:215 data/ui/media.ui:215
-#: data/ui/tags.ui:215
+#: data/ui/event.ui:215 data/ui/faces.ui:215 data/ui/media.ui:215 data/ui/tags.ui:215
 msgid "By Exposure _Date"
 msgstr "Çekim _Tarihine Göre"
 
-#: data/ui/event.ui:220 data/ui/faces.ui:220 data/ui/media.ui:220
-#: data/ui/tags.ui:220
+#: data/ui/event.ui:220 data/ui/faces.ui:220 data/ui/media.ui:220 data/ui/tags.ui:220
 msgid "By _Rating"
 msgstr "Puanlamaya Gö_re"
 
-#: data/ui/event.ui:247 data/ui/faces.ui:247 data/ui/import.ui:170
-#: data/ui/media.ui:247 data/ui/photo.ui:133 data/ui/tags.ui:247
+#: data/ui/event.ui:247 data/ui/faces.ui:247 data/ui/import.ui:170 data/ui/media.ui:247 data/ui/photo.ui:133 data/ui/tags.ui:247
 msgid "_Descending"
 msgstr "A_zalan"
 
-#: data/ui/event.ui:271 data/ui/faces.ui:271 data/ui/media.ui:271
-#: data/ui/tags.ui:271
+#: data/ui/event.ui:271 data/ui/faces.ui:271 data/ui/media.ui:271 data/ui/tags.ui:271
 msgid "_Photos"
 msgstr "_Fotoğraflar"
 
@@ -1827,8 +1447,7 @@ msgstr "_Fotoğraflar"
 msgid "Make _Key Photo for Event"
 msgstr "Olay İçin _Anahtar Fotoğraf Oluştur"
 
-#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372
-#: data/ui/tags.ui:372 src/Resources.vala:203
+#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372 data/ui/tags.ui:372 src/Resources.vala:203
 msgid "_New Event"
 msgstr "_Yeni Olay"
 
@@ -1876,19 +1495,13 @@ msgstr "Tüm ortam dosyalarını kitaplığa içe aktar"
 msgid "_Log in"
 msgstr "_Oturum aç"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:219 src/AppWindow.vala:245
-#: src/data_imports/DataImportsUI.vala:310
-#: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
-#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
-#: src/Resources.vala:124
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:219 src/AppWindow.vala:245 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
+#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "İ_ptal"
 
-#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:133
-#: src/widgets/FolderButton.vala:17
+#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:133 src/widgets/FolderButton.vala:17
 msgid "_OK"
 msgstr "_Tamam"
 
@@ -1916,8 +1529,7 @@ msgstr "Renk Düzenlemelerini _Kopyala"
 msgid "_Paste Color Adjustments"
 msgstr "Renk Düzenlemelerini _Yapıştır"
 
-#: data/ui/preferences_dialog.ui:31 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:127
+#: data/ui/preferences_dialog.ui:31 src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Kitaplık"
 
@@ -1967,7 +1579,7 @@ msgstr "Öntanım_lı:"
 
 #: data/ui/preferences_dialog.ui:261
 msgid "_Pattern:"
-msgstr "_Şablon:"
+msgstr "Örü_ntü:"
 
 #: data/ui/preferences_dialog.ui:284
 msgid "Checkered"
@@ -1982,9 +1594,7 @@ msgid "None"
 msgstr "Hiçbiri"
 
 #: data/ui/preferences_dialog.ui:321
-msgid ""
-"When viewing images that are transparent, they will be drawn against this "
-"background."
+msgid "When viewing images that are transparent, they will be drawn against this background."
 msgstr "Saydam resimler gösterilirken bu arka planın üzerine çizilecekler."
 
 #: data/ui/preferences_dialog.ui:324
@@ -2003,8 +1613,7 @@ msgstr "Göster"
 msgid "External Editors"
 msgstr "Dış Düzenleyiciler"
 
-#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24
-#: src/library/LibraryBranch.vala:97
+#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24 src/library/LibraryBranch.vala:97
 msgid "Photos"
 msgstr "Fotoğraflar"
 
@@ -2102,8 +1711,7 @@ msgstr "hiçbirini"
 msgid "of the following:"
 msgstr "eşleştir:"
 
-#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:208
+#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20 src/ProfileBrowser.vala:208
 msgid "Cancel"
 msgstr "İptal"
 
@@ -2119,11 +1727,8 @@ msgstr "Ye_niden Adlandır…"
 msgid "_Edit…"
 msgstr "_Düzenle…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60
-#: data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
-#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
-#: src/Resources.vala:390 src/Resources.vala:767
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
+#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
 msgid "_Delete"
 msgstr "_Sil"
 
@@ -2139,13 +1744,11 @@ msgstr "Videolar"
 msgid "RAW photos"
 msgstr "RAW fotoğraflar"
 
-#: data/ui/search_bar.ui:57 data/ui/search_bar.ui:75
-#: src/library/FlaggedPage.vala:8
+#: data/ui/search_bar.ui:57 data/ui/search_bar.ui:75 src/library/FlaggedPage.vala:8
 msgid "Flagged"
 msgstr "İmli"
 
-#: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:815
+#: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:815
 msgid "Rating"
 msgstr "Puan"
 
@@ -2165,13 +1768,11 @@ msgstr "Geçerli görünümde süzülecek tür"
 msgid "Set as Desktop Background"
 msgstr "Masaüstü Arka Planı Olarak Ayarla"
 
-#: data/ui/set_background_dialog.ui:16
-#: data/ui/set_background_slideshow_dialog.ui:49
+#: data/ui/set_background_dialog.ui:16 data/ui/set_background_slideshow_dialog.ui:49
 msgid "Use for Desktop"
 msgstr "Masaüstü İçin Kullan"
 
-#: data/ui/set_background_dialog.ui:25
-#: data/ui/set_background_slideshow_dialog.ui:58
+#: data/ui/set_background_dialog.ui:25 data/ui/set_background_slideshow_dialog.ui:58
 msgid "Use for Lock Screen"
 msgstr "Kilit Ekranı İçin Kullan"
 
@@ -2239,8 +1840,7 @@ msgstr "_Yeniden Adlandır…"
 msgid "label"
 msgstr "etiket"
 
-#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263
-#: src/Resources.vala:771
+#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263 src/Resources.vala:771
 msgid "_Restore"
 msgstr "_Geri Getir"
 
@@ -2264,21 +1864,17 @@ msgstr "Çöp Kutusunu Boşalt"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"Click Log in to log into Flickr in your Web browser. You will have to "
-"authorize Shotwell Connect to link to your Flickr account."
+"Click Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Henüz Flickr’da oturum açmadınız.\n"
 "\n"
-"Flickr’a giriş yapmak için web tarayıcınızda Oturum Aç’a tıklayın. Flickr "
-"hesabınıza Shotwell Connect’i bağlamak için yetki vermeniz gerekiyor."
+"Flickr’a giriş yapmak için web tarayıcınızda Oturum Aç’a tıklayın. Flickr hesabınıza Shotwell Connect’i bağlamak için yetki vermeniz gerekiyor."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88 plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
 msgid "Preparing for login…"
 msgstr "Giriş için hazırlanıyor…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161 plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
 msgid "Verifying authorization…"
 msgstr "Yetkilendirme doğrulanıyor…"
 
@@ -2286,88 +1882,55 @@ msgstr "Yetkilendirme doğrulanıyor…"
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once.\n"
+"You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to "
+"access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy "
+"policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Şu anda YouTube’a giriş yapmadınız.\n"
 "\n"
-"Google hesabına kaydolup, YouTube ile kullanım için ayarlamalısınız. "
-"Tarayıcınızla YouTube sitesine bir kez giriş yaparak çoğu hesabı "
-"ayarlayabilirsiniz.\n"
+"Google hesabına kaydolup, YouTube ile kullanım için ayarlamalısınız. Tarayıcınızla YouTube sitesine bir kez giriş yaparak çoğu hesabı ayarlayabilirsiniz.\n"
 "\n"
-"Shotwell, YouTube kanalınıza erişmekte ve videoları yüklemekte YouTube API "
-"hizmetlerini <a href=\"https://developers.google.com/youtube\">https://"
-"developers.google.com/youtube</a> kullanır. Shotwell’i kullanarak YouTube’a "
-"erişirken, <a href=\"https://www.youtube.com/t/terms\">https://www.youtube."
-"com/t/terms</a> adresinde bulunan YouTube Hizmet Kullanım Koşulları’na bağlı "
-"kalacağınızı kabul edersiniz.\n"
+"Shotwell, YouTube kanalınıza erişmekte ve videoları yüklemekte YouTube API hizmetlerini <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> kullanır. Shotwell’i "
+"kullanarak YouTube’a erişirken, <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a> adresinde bulunan YouTube Hizmet Kullanım Koşulları’na bağlı kalacağınızı kabul edersiniz.\n"
 "\n"
-"Shotwell’in genel olarak Google hesabınıza, özel olarak YouTube’a ilişkin "
-"verinin kullanımına yönelik gizlilik ilkeleri <a href=\"help:shotwell/"
-"privacy-policy\">çevrim içi hesaplar gizlilik ilkesi</a> sayfamızda "
-"bulunabilir.\n"
+"Shotwell’in genel olarak Google hesabınıza, özel olarak YouTube’a ilişkin verinin kullanımına yönelik gizlilik ilkeleri <a href=\"help:shotwell/privacy-policy\">çevrim içi hesaplar gizlilik ilkesi</a> "
+"sayfamızda bulunabilir.\n"
 "\n"
-"Google’ın kendi gizlilik ilkeleri için lütfen <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a> adresine gidin."
+"Google’ın kendi gizlilik ilkeleri için lütfen <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> adresine gidin."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
-"photos/</a> for all interaction with your Google Photos data. You will have "
-"to grant access Shotwell to your Google Photos library.\n"
+"You must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://"
+"developers.google.com/photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and Google Photos in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services "
+"privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Şu anda Google Fotoğraflar’a giriş yapmadınız.\n"
 "\n"
-"Google hesabına kaydolup, Google Fotoğraflar ile kullanım için "
-"ayarlamalısınız. Shotwell, Google Fotoğraflar verinizle ilgili tüm "
-"etkileşimlerde Google Fotoğraflar API hizmetlerini <a href=\"https://"
-"developers.google.com/photos/\">https://developers.google.com/photos/</a> "
-"kullanır. Shotwell’in Google Fotoğraflar kitaplığınıza erişmesi için izniniz "
-"gerekecek.\n"
+"Google hesabına kaydolup, Google Fotoğraflar ile kullanım için ayarlamalısınız. Shotwell, Google Fotoğraflar verinizle ilgili tüm etkileşimlerde Google Fotoğraflar API hizmetlerini <a href=\"https://"
+"developers.google.com/photos/\">https://developers.google.com/photos/</a> kullanır. Shotwell’in Google Fotoğraflar kitaplığınıza erişmesi için izniniz gerekecek.\n"
 "\n"
-"Shotwell’in genel olarak Google hesabınıza, özel olarak Google Fotoğraflar’a "
-"ilişkin verinin kullanımına yönelik gizlilik ilkeleri <a href=\"help:"
-"shotwell/privacy-policy\">çevrim içi hesaplar gizlilik ilkesi</a> sayfamızda "
-"bulunabilir. Google’ın kendi gizlilik ilkeleri için lütfen <a href=\"https://"
-"policies.google.com/privacy\">https://policies.google.com/privacy</a> "
-"adresine gidin."
+"Shotwell’in genel olarak Google hesabınıza, özel olarak Google Fotoğraflar’a ilişkin verinin kullanımına yönelik gizlilik ilkeleri <a href=\"help:shotwell/privacy-policy\">çevrim içi hesaplar gizlilik ilkesi</"
+"a> sayfamızda bulunabilir. Google’ın kendi gizlilik ilkeleri için lütfen <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> adresine gidin."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
 msgstr "_E-posta adresi"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64 plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
 msgid "_Password"
 msgstr "_Parola"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80 plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
 msgid "Log in"
 msgstr "Oturum aç"
 
@@ -2375,20 +1938,17 @@ msgstr "Oturum aç"
 msgid ""
 "You are not currently logged into Tumblr.\n"
 "\n"
-"Click Log in to log into Tumblr in your Web browser. You will have to "
-"authorize Shotwell Connect to link to your Tumblr account."
+"Click Log in to log into Tumblr in your Web browser. You will have to authorize Shotwell Connect to link to your Tumblr account."
 msgstr ""
 "Henüz Tumblr’da oturum açmadınız.\n"
 "\n"
-"Tumblr’a oturum açmak için web tarayıcınızda Oturum Aç’a tıklayın. Tumblr "
-"hesabınıza Shotwell Connect’i bağlamak için yetki vermeniz gerekecek."
+"Tumblr’a oturum açmak için web tarayıcınızda Oturum Aç’a tıklayın. Tumblr hesabınıza Shotwell Connect’i bağlamak için yetki vermeniz gerekecek."
 
 #: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Shotwell ev sayfasını ziyaret et"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
-#: src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Emin Tufan Çetin <etcetin@gmail.com>\n"
@@ -2396,61 +1956,40 @@ msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
-msgid ""
-"⚫ This website presented identification that belongs to a different website."
+msgid "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Bu web sitesi başka web sitesinin kimliğini sundu."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:247
-msgid ""
-"⚫ This website’s identification is too old to trust. Check the date on your "
-"computer’s calendar."
-msgstr ""
-"⚫ Bu web sitesinin kimliği güvenmek için çok eski. Bilgisayarınızdaki "
-"takvimi gözden geçirin."
+msgid "⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."
+msgstr "⚫ Bu web sitesinin kimliği güvenmek için çok eski. Bilgisayarınızdaki takvimi gözden geçirin."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:252
-msgid ""
-"⚫ This website’s identification was not issued by a trusted organization."
-msgstr ""
-"⚫ Bu web sitesinin kimliği güvenilen bir kuruluş tarafından verilmemiş."
+msgid "⚫ This website’s identification was not issued by a trusted organization."
+msgstr "⚫ Bu web sitesinin kimliği güvenilen bir kuruluş tarafından verilmemiş."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:257
-msgid ""
-"⚫ This website’s identification could not be processed. It may be corrupted."
+msgid "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ Bu web sitesinin kimliği işlenemedi. Bozulmuş olabilir."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
-msgid ""
-"⚫ This website’s identification has been revoked by the trusted "
-"organization that issued it."
-msgstr ""
-"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından "
-"iptal edilmiş."
+msgid "⚫ This website’s identification has been revoked by the trusted organization that issued it."
+msgstr "⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından iptal edilmiş."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:267
-msgid ""
-"⚫ This website’s identification cannot be trusted because it uses very weak "
-"encryption."
-msgstr ""
-"⚫ Bu web sitesinin kimliği güvenilmez çünkü çok düşük şifreleme kullanıyor."
+msgid "⚫ This website’s identification cannot be trusted because it uses very weak encryption."
+msgstr "⚫ Bu web sitesinin kimliği güvenilmez çünkü çok düşük şifreleme kullanıyor."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:272
-msgid ""
-"⚫ This website’s identification is only valid for future dates. Check the "
-"date on your computer’s calendar."
-msgstr ""
-"⚫ Bu web sitesinin kimliği yalnızca ileri tarihler için geçerli. "
-"Bilgisayarınızdaki takvimi gözden geçirin."
+msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
+msgstr "⚫ Bu web sitesinin kimliği yalnızca ileri tarihler için geçerli. Bilgisayarınızdaki takvimi gözden geçirin."
 
-#: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:560
-#: plugins/shotwell-publishing/YoutubeUploader.vala:65
+#: plugins/common/RESTSupport.vala:574 plugins/shotwell-publishing/TumblrPublishing.vala:560 plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Yayımlama için gerekli geçici bir dosya kullanılamıyor"
 
@@ -2474,14 +2013,8 @@ msgstr "%s’in TLS sertifika ayrıntıları"
 #. %s is the host name that we tried to connect to
 #: plugins/common/SSLCertificatePane.vala:152
 #, c-format
-msgid ""
-"This does not look like the real %s. Attackers might be trying to steal or "
-"alter information going to or from this site (for example, private messages, "
-"credit card information, or passwords)."
-msgstr ""
-"Bu gerçek %s gibi görünmüyor. Saldırganlar bu siteye giden veya gelen "
-"bilgiyi (örneğin; özel iletiler, kredi kartı bilgisi veya parolalar gibi) "
-"çalmak veya başkalaştırmak istiyor olabilir."
+msgid "This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords)."
+msgstr "Bu gerçek %s gibi görünmüyor. Saldırganlar bu siteye giden veya gelen bilgiyi (örneğin; özel iletiler, kredi kartı bilgisi veya parolalar gibi) çalmak veya başkalaştırmak istiyor olabilir."
 
 #: plugins/common/WebAuthenticationPane.vala:34
 msgid "Sign in with your browser to setup an account"
@@ -2491,44 +2024,31 @@ msgstr "Hesap oluşturmak için tarayıcınızla oturum açın"
 msgid "Continue"
 msgstr "Sürdür"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
 msgid "Photo _size"
 msgstr "Fotoğraf _boyutu"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
-msgid ""
-"_Remove location, camera, and other identifying information before uploading"
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
+msgid "_Remove location, camera, and other identifying information before uploading"
 msgstr "Yüklemeden önce konum, kamera, ve diğer tanımlayıcı bilgileri _kaldır"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
 msgid "_Logout"
 msgstr "_Çıkış"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52
-#: src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
 msgid "_Publish"
 msgstr "_Yayımla"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:45 src/Resources.vala:15
+#: plugins/shotwell-publishing/FlickrPublishing.vala:27 plugins/shotwell-publishing/PiwigoPublishing.vala:45 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Telif Hakkı 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:280
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
+msgid "A file required for publishing is unavailable. Publishing to Flickr can’t continue."
+msgstr "Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
@@ -2542,25 +2062,17 @@ msgstr ""
 #: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
-"Your free Flickr account limits how many photos you can upload to the "
-"service.\n"
+"Your free Flickr account limits how many photos you can upload to the service.\n"
 "You have uploaded %llu out of your %lld file limit."
 msgstr ""
-"Ücretsiz Flickr hesabınız her ay ne kadar veri gönderebileceğinizi "
-"sınırlandırır.\n"
+"Ücretsiz Flickr hesabınız her ay ne kadar veri gönderebileceğinizi sınırlandırır.\n"
 "%2$lld dosya sınırınızdan %1$llu kullandınız."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
-msgid ""
-"Your Flickr Pro account entitles you to unlimited uploads. You have "
-"currently uploaded a file"
-msgid_plural ""
-"Your Flickr Pro account entitles you to unlimited uploads. You have "
-"currently uploaded %d files"
-msgstr[0] ""
-"Flickr Pro hesabınız, sınırsız karşıya yükleme yapmanıza olanak tanır. Şu "
-"anda %d dosya yüklediniz"
+msgid "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded a file"
+msgid_plural "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %d files"
+msgstr[0] "Flickr Pro hesabınız, sınırsız karşıya yükleme yapmanıza olanak tanır. Şu anda %d dosya yüklediniz"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
@@ -2574,8 +2086,7 @@ msgstr "Videolar şunlara _görülebilir"
 msgid "Photos and videos _visible to"
 msgstr "Fotoğraflar ve videolar _şunlara görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:619
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619 plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 msgid "Everyone"
 msgstr "Herkes"
 
@@ -2595,43 +2106,29 @@ msgstr "Arkadaşlara özel"
 msgid "Just me"
 msgstr "Yalnızca ben"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:641
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
-#: plugins/shotwell-publishing/TumblrPublishing.vala:92
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641 plugins/shotwell-publishing/PiwigoPublishing.vala:1246 plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:642
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
-#: plugins/shotwell-publishing/TumblrPublishing.vala:93
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642 plugins/shotwell-publishing/PiwigoPublishing.vala:1247 plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:643
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643 plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 benek"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:644
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644 plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 benek"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:645
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
-#: src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645 plugins/shotwell-publishing/PiwigoPublishing.vala:1250 src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Özgün boyut"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:44
-msgid ""
-"Shotwell can only publish into albums that it created by itself, so this "
-"list might be empty despite the fact that you already have albums in your "
-"Google Photos account"
-msgstr ""
-"Shotwell yalnızca kendisi tarafından oluşturulmuş albümleri "
-"yayımlayabildiğinden, Google Fotoğraflar hesabınızda albüm olmasına rağmen "
-"bu liste boş olabilir"
+msgid "Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account"
+msgstr "Shotwell yalnızca kendisi tarafından oluşturulmuş albümleri yayımlayabildiğinden, Google Fotoğraflar hesabınızda albüm olmasına rağmen bu liste boş olabilir"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
 msgid "Photo _size preset"
@@ -2645,20 +2142,13 @@ msgstr "Varolan bir albüm"
 msgid "A new album named"
 msgstr "Şu adda yeni albüm"
 
-#: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
+#: plugins/shotwell-publishing/PhotosPublisher.vala:9 plugins/shotwell-publishing/PiwigoPublishing.vala:1126
 msgid "Shotwell Connect"
 msgstr "Shotwell Bağlantısı"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:365
-msgid ""
-"Could not create album, Shotwell is lacking permission to do so. Please re-"
-"authenticate and grant Shotwell the required permission to create new media "
-"and albums"
-msgstr ""
-"Albüm oluşturulamadı, Shotwell’in bunu yapacak izni yok. Lütfen yeniden "
-"kimlik doğrulayıp Shotwell’in yeni ortam ve albüm oluşturması için gerekli "
-"izni verin"
+msgid "Could not create album, Shotwell is lacking permission to do so. Please re-authenticate and grant Shotwell the required permission to create new media and albums"
+msgstr "Albüm oluşturulamadı, Shotwell’in bunu yapacak izni yok. Lütfen yeniden kimlik doğrulayıp Shotwell’in yeni ortam ve albüm oluşturması için gerekli izni verin"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -2676,8 +2166,7 @@ msgstr "Önerilen (1600 × 1200 benek)"
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 piksel)"
 
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/CropTool.vala:178
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:21 src/editing_tools/CropTool.vala:178
 msgid "Original Size"
 msgstr "Özgün Boyut"
 
@@ -2691,8 +2180,7 @@ msgstr "Google Fotoğraflar’a %s olarak oturum açtınız."
 msgid "Videos will appear in:"
 msgstr "Videolar şurada görünecektir:"
 
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:15
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:15
 msgid "Photos will appear in:"
 msgstr "Fotoğrafların görüneceği yer:"
 
@@ -2744,9 +2232,7 @@ msgstr "Fotoğraf boyutu"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
 msgid "_If a title is set and comment unset, use title as comment"
-msgstr ""
-"Bir başlık ayarlanmış ve bir yorum kaldırılmışsa, başlığı yorum olarak "
-"_kullan"
+msgstr "Bir başlık ayarlanmış ve bir yorum kaldırılmışsa, başlığı yorum olarak _kullan"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid "_Do no upload tags"
@@ -2767,25 +2253,15 @@ msgstr "%s albümü oluşturuluyor…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
-msgstr ""
-"Piwigo’ya yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden "
-"deneyin."
+msgstr "Piwigo’ya yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden deneyin."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1019
-msgid ""
-"Enter the URL of your Piwigo photo library as well as the username and "
-"password associated with your Piwigo account for that library."
-msgstr ""
-"Piwigo fotoğraf kitaplığınızın URL’sinin yanı sıra bu kitaplık için Piwigo "
-"hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
+msgid "Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library."
+msgstr "Piwigo fotoğraf kitaplığınızın URL’sinin yanı sıra bu kitaplık için Piwigo hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1020
-msgid ""
-"Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
-"entered"
-msgstr ""
-"Shotwell Piwigo fotoğraf kitaplığınızla bağlantı kuramıyor. Lüften "
-"girdiğiniz URL’yi denetleyin"
+msgid "Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered"
+msgstr "Shotwell Piwigo fotoğraf kitaplığınızla bağlantı kuramıyor. Lüften girdiğiniz URL’yi denetleyin"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
 msgid "Username and/or password invalid. Please try again"
@@ -2832,11 +2308,8 @@ msgid "1280 × 853 pixels"
 msgstr "1280 × 853 piksel"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:371
-msgid ""
-"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
-msgstr ""
-"TumblrPublisher: start( ): başlatılamıyor; bu yayımcı yeniden başlatılabilir "
-"değildir."
+msgid "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
+msgstr "TumblrPublisher: start( ): başlatılamıyor; bu yayımcı yeniden başlatılabilir değildir."
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:443
 #, c-format
@@ -2865,11 +2338,8 @@ msgstr ""
 "Telif Hakkı 2022 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:178
-msgid ""
-"A file required for publishing is unavailable. Publishing to YouTube can’t "
-"continue."
-msgstr ""
-"Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
+msgid "A file required for publishing is unavailable. Publishing to YouTube can’t continue."
+msgstr "Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
@@ -3007,13 +2477,11 @@ msgstr "_Değiştir"
 #: src/AppWindow.vala:268
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Shotwell’in kitaplığına erişilirken ölümcül bir hata meydana geldi. Shotwell "
-"işlemi sürdüremiyor.\n"
+"Shotwell’in kitaplığına erişilirken ölümcül bir hata meydana geldi. Shotwell işlemi sürdüremiyor.\n"
 "\n"
 "%s"
 
@@ -3117,8 +2585,7 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:468
-msgid ""
-"Unable to unmount camera. Try unmounting the camera from the file manager."
+msgid "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr "Kamera ayrılamadı. Kamerayı dosya yöneticisinden ayırmayı deneyin."
 
 #: src/camera/ImportPage.vala:776
@@ -3131,12 +2598,8 @@ msgstr "Kamerada hiç yeni fotoğraf/video bulunamadı"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:933
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it. Continue?"
-msgstr ""
-"Shotwell, erişim sağlamak için kameranın dosya sisteminden ayrılmasına "
-"gereksiniyor. Sürdürülsün mü?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it. Continue?"
+msgstr "Shotwell, erişim sağlamak için kameranın dosya sisteminden ayrılmasına gereksiniyor. Sürdürülsün mü?"
 
 #: src/camera/ImportPage.vala:939
 msgid "_Unmount"
@@ -3147,14 +2610,8 @@ msgid "Please unmount the camera."
 msgstr "Lütfen kamerayı ayırın."
 
 #: src/camera/ImportPage.vala:951
-msgid ""
-"The camera is locked by another application. Shotwell can only access the "
-"camera when it’s unlocked. Please close any other application using the "
-"camera and try again."
-msgstr ""
-"Kamera, başka bir uygulama tarafından kullanılıyor. Shotwell, kameraya "
-"yalnızca boştayken erişebilir. Lütfen kamerayı kullanan diğer uygulamayı "
-"kapatın ve yeniden deneyin."
+msgid "The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again."
+msgstr "Kamera, başka bir uygulama tarafından kullanılıyor. Shotwell, kameraya yalnızca boştayken erişebilir. Lütfen kamerayı kullanan diğer uygulamayı kapatın ve yeniden deneyin."
 
 #: src/camera/ImportPage.vala:961
 msgid "Please close any other application using the camera."
@@ -3241,13 +2698,11 @@ msgstr "Resim/Video Yok"
 msgid "No photos/videos found which match the current filter"
 msgstr "Geçerli süzgeçle eşleşen video/fotoğraf yok"
 
-#: src/CollectionPage.vala:69 src/direct/DirectPhotoPage.vala:78
-#: src/LibraryPhotoPage.vala:131 src/Resources.vala:137
+#: src/CollectionPage.vala:69 src/direct/DirectPhotoPage.vala:78 src/LibraryPhotoPage.vala:131 src/Resources.vala:137
 msgid "_Print"
 msgstr "_Yazdır"
 
-#: src/CollectionPage.vala:73 src/direct/DirectPhotoPage.vala:83
-#: src/LibraryPhotoPage.vala:141 src/Resources.vala:187
+#: src/CollectionPage.vala:73 src/direct/DirectPhotoPage.vala:83 src/LibraryPhotoPage.vala:141 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "_Masaüstü Arka Planı Olarak Ayarla"
 
@@ -3418,10 +2873,8 @@ msgstr "Saat Ayarlama Hatası"
 
 #: src/Commands.vala:1446
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-"Zaman ayarlamaları sonraki fotoğraf dosyası(ları) üzerine geri alınamaz."
+msgid_plural "Time adjustments could not be undone on the following photo files."
+msgstr[0] "Zaman ayarlamaları sonraki fotoğraf dosyası(ları) üzerine geri alınamaz."
 
 #: src/Commands.vala:1660 src/Commands.vala:1683
 msgid "Create Tag"
@@ -3481,39 +2934,31 @@ msgid "Unflag"
 msgstr "İşaretleme"
 
 #. Send an empty job to the queue to mark the end of the import
-#: src/data_imports/DataImportsPluginHost.vala:65
-#: src/data_imports/DataImportsPluginHost.vala:78
+#: src/data_imports/DataImportsPluginHost.vala:65 src/data_imports/DataImportsPluginHost.vala:78
 #, c-format
 msgid "%s Database"
 msgstr "%s Veri Tabanı"
 
-#: src/data_imports/DataImportsPluginHost.vala:148
-#: src/data_imports/DataImportsPluginHost.vala:294
+#: src/data_imports/DataImportsPluginHost.vala:148 src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
 msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "%s’den içe aktarım süremez çünkü hata oluştu:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
-msgstr ""
-"Başka hizmetten içe aktarmayı denemek için yukarıdaki menüden seçim yapın."
+msgstr "Başka hizmetten içe aktarmayı denemek için yukarıdaki menüden seçim yapın."
 
 #: src/data_imports/DataImportsUI.vala:10
 msgid ""
 "You do not have any data imports plugins enabled.\n"
 "\n"
-"In order to use the Import From Application functionality, you need to have "
-"at least one data imports plugin enabled. Plugins can be enabled in the "
-"Preferences dialog."
+"In order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog."
 msgstr ""
 "Herhangi bir etkinleştirilmiş veri içe aktarma eklentiniz yok.\n"
 "\n"
-"Uygulamadan İçe Aktar işlevselliğini kullanmak için en azından bir veri içe "
-"aktarma eklentiniz etkin olmalı. Eklentiler Tercihler bölümünden "
-"etkinleştirilebilinir."
+"Uygulamadan İçe Aktar işlevselliğini kullanmak için en azından bir veri içe aktarma eklentiniz etkin olmalı. Eklentiler Tercihler bölümünden etkinleştirilebilinir."
 
-#: src/data_imports/DataImportsUI.vala:100
-#: src/data_imports/DataImportsUI.vala:102
+#: src/data_imports/DataImportsUI.vala:100 src/data_imports/DataImportsUI.vala:102
 msgid "Database file"
 msgstr "Veri tabanı dosyası"
 
@@ -3746,7 +3191,7 @@ msgstr "Özel"
 #. Invalid pattern.
 #: src/dialogs/Preferences.vala:359
 msgid "Invalid pattern"
-msgstr "Geçersiz şablon"
+msgstr "Geçersiz örüntü"
 
 #: src/dialogs/ProgressDialog.vala:91
 #, c-format
@@ -3787,15 +3232,9 @@ msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Bu işlem kayıtlı “%s” aramasını kaldıracak. Sürdürülsün mü?"
 
 #: src/Dialogs.vala:36
-msgid ""
-"Switching developers will undo all changes you have made to this photo in "
-"Shotwell"
-msgid_plural ""
-"Switching developers will undo all changes you have made to these photos in "
-"Shotwell"
-msgstr[0] ""
-"Geliştiricileri değiştirmek Shotwell’de bu fotoğraf(lar)a yapmış olduğunuz "
-"tüm değişiklikleri geri alacak"
+msgid "Switching developers will undo all changes you have made to this photo in Shotwell"
+msgid_plural "Switching developers will undo all changes you have made to these photos in Shotwell"
+msgstr[0] "Geliştiricileri değiştirmek Shotwell’de bu fotoğraf(lar)a yapmış olduğunuz tüm değişiklikleri geri alacak"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3828,12 +3267,8 @@ msgstr "Fotoğrafları Dışa Aktar"
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:130
 #, c-format
-msgid ""
-"Shotwell couldn’t create a file for editing this photo because you do not "
-"have permission to write to %s."
-msgstr ""
-"Shotwell bu fotoğrafı düzenlemek için dosya oluşturamıyor çünkü %s’e yazmaya "
-"izniniz yok."
+msgid "Shotwell couldn’t create a file for editing this photo because you do not have permission to write to %s."
+msgstr "Shotwell bu fotoğrafı düzenlemek için dosya oluşturamıyor çünkü %s’e yazmaya izniniz yok."
 
 #: src/Dialogs.vala:145
 msgid ""
@@ -3896,8 +3331,7 @@ msgstr "var olan ortam ögesini çoğaltır"
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Kamera Hataları Nedeniyle İçe Aktarılmayan Fotoğraflar/Videolar:"
 
-#: src/Dialogs.vala:262 src/Dialogs.vala:277 src/Dialogs.vala:292
-#: src/Dialogs.vala:308 src/Dialogs.vala:323 src/Dialogs.vala:337
+#: src/Dialogs.vala:262 src/Dialogs.vala:277 src/Dialogs.vala:292 src/Dialogs.vala:308 src/Dialogs.vala:323 src/Dialogs.vala:337
 msgid "error message:"
 msgstr "hata iletisi:"
 
@@ -3912,23 +3346,15 @@ msgstr "Fotoğraf Veya Video Olarak Tanınmadığı İçin İçe Aktarılmayan D
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
 #: src/Dialogs.vala:288
-msgid ""
-"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
-"Understands:"
-msgstr ""
-"Shotwell’in Anlayabildiği Bir Biçimde Olmadıklarından İçe Aktarılmayan "
-"Fotoğraflar/Videolar:"
+msgid "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell Understands:"
+msgstr "Shotwell’in Anlayabildiği Bir Biçimde Olmadıklarından İçe Aktarılmayan Fotoğraflar/Videolar:"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
 #: src/Dialogs.vala:303
-msgid ""
-"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
-"Library:"
-msgstr ""
-"Shotwell Kendi Kitaplığına Kopyalayamadığı İçin İçe Aktarılmayan Fotoğraflar/"
-"Videolar:"
+msgid "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its Library:"
+msgstr "Shotwell Kendi Kitaplığına Kopyalayamadığı İçin İçe Aktarılmayan Fotoğraflar/Videolar:"
 
 #: src/Dialogs.vala:307
 #, c-format
@@ -3975,8 +3401,7 @@ msgstr[0] "%d fotoğraf/video kopyası içe aktarılmadı:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d fotoğraf, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
+msgstr[0] "%d fotoğraf, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:377
 #, c-format
@@ -3987,10 +3412,8 @@ msgstr[0] "%d video, dosya veya donanım hatası dolayısıyla içe aktarılamad
 #: src/Dialogs.vala:380
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
-msgid_plural ""
-"%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d fotoğraf/video, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
+msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] "%d fotoğraf/video, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:383
 #, c-format
@@ -4000,48 +3423,27 @@ msgstr[0] "%d dosya, dosya veya donanım hatası dolayısıyla içe aktarılamad
 
 #: src/Dialogs.vala:397
 #, c-format
-msgid ""
-"1 photo failed to import because the photo library folder was not writable:\n"
-msgid_plural ""
-"%d photos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] ""
-"%d fotoğraf, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
-"aktarılamadı:\n"
+msgid "1 photo failed to import because the photo library folder was not writable:\n"
+msgid_plural "%d photos failed to import because the photo library folder was not writable:\n"
+msgstr[0] "%d fotoğraf, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:400
 #, c-format
-msgid ""
-"1 video failed to import because the photo library folder was not writable:\n"
-msgid_plural ""
-"%d videos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] ""
-"%d video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
-"aktarılamadı:\n"
+msgid "1 video failed to import because the photo library folder was not writable:\n"
+msgid_plural "%d videos failed to import because the photo library folder was not writable:\n"
+msgstr[0] "%d video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:403
 #, c-format
-msgid ""
-"1 photo/video failed to import because the photo library folder was not "
-"writable:\n"
-msgid_plural ""
-"%d photos/videos failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] ""
-"%d fotoğraf/video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
-"aktarılamadı:\n"
+msgid "1 photo/video failed to import because the photo library folder was not writable:\n"
+msgid_plural "%d photos/videos failed to import because the photo library folder was not writable:\n"
+msgstr[0] "%d fotoğraf/video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:406
 #, c-format
-msgid ""
-"1 file failed to import because the photo library folder was not writable:\n"
-msgid_plural ""
-"%d files failed to import because the photo library folder was not "
-"writable:\n"
-msgstr[0] ""
-"%d dosya, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
-"aktarılamadı:\n"
+msgid "1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural "%d files failed to import because the photo library folder was not writable:\n"
+msgstr[0] "%d dosya, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:420
 #, c-format
@@ -4212,11 +3614,8 @@ msgstr "Dış Düzenlemeleri Geri Döndür?"
 #: src/Dialogs.vala:780
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files. Continue?"
-msgstr[0] ""
-"Bu işlem %d dış dosyaya yapılan tüm değişiklikleri yok edecek. Sürdürülsün "
-"mü?"
+msgid_plural "This will destroy all changes made to %d external files. Continue?"
+msgstr[0] "Bu işlem %d dış dosyaya yapılan tüm değişiklikleri yok edecek. Sürdürülsün mü?"
 
 #: src/Dialogs.vala:784
 msgid "Re_vert External Edit"
@@ -4266,12 +3665,8 @@ msgstr "Etiketler (virgülle ayrılmış):"
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
 #: src/Dialogs.vala:1003
-msgid ""
-"Shotwell can copy the photos into your library folder or it can import them "
-"without copying."
-msgstr ""
-"Shotwell fotoğrafları kitaplık klasörünün içine kopyalayabilir ya da "
-"kopyalama olmadan içe aktarabilir."
+msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
+msgstr "Shotwell fotoğrafları kitaplık klasörünün içine kopyalayabilir ya da kopyalama olmadan içe aktarabilir."
 
 #: src/Dialogs.vala:1008
 msgid "Co_py Photos"
@@ -4297,66 +3692,53 @@ msgstr[0] "Fotoğraf(lar) Kitaplıktan Kaldırılıyor"
 #: src/Dialogs.vala:1043
 #, c-format
 msgid ""
-"This will remove the photo/video from your Shotwell library. Would you also "
-"like to move the file to your desktop trash?\n"
+"This will remove the photo/video from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library. Would you also "
-"like to move the files to your desktop trash?\n"
+"This will remove %d photos/videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Bu işlem %d fotoğrafı/videoyu Shotwell kitaplığınızdan kaldıracak. Ayrıca "
-"dosyaları masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
+"Bu işlem %d fotoğrafı/videoyu Shotwell kitaplığınızdan kaldıracak. Ayrıca dosyaları masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
 "\n"
 "Bu eylem geri alınamaz."
 
 #: src/Dialogs.vala:1047
 #, c-format
 msgid ""
-"This will remove the video from your Shotwell library. Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the video from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d videos from your Shotwell library. Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Bu işlem %d videoyu Shotwell kitaplığınızdan kaldıracak. Ayrıca dosyaları "
-"masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
+"Bu işlem %d videoyu Shotwell kitaplığınızdan kaldıracak. Ayrıca dosyaları masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
 "\n"
 "Bu eylem geri alınamaz."
 
 #: src/Dialogs.vala:1051
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library. Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library. Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library. Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Bu işlem %d fotoğrafı Shotwell kitaplığınızdan kaldıracak. Ayrıca dosyaları "
-"masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
+"Bu işlem %d fotoğrafı Shotwell kitaplığınızdan kaldıracak. Ayrıca dosyaları masaüstünüzdeki çöp kutusuna taşımak ister misiniz?\n"
 "\n"
 "Bu eylem geri alınamaz."
 
 #: src/Dialogs.vala:1083
 #, c-format
-msgid ""
-"The photo or video cannot be moved to your desktop trash. Delete this file?"
-msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
-msgstr[0] ""
-"%d fotoğraf/video masaüstünüzdeki çöp kutusuna taşınamıyor. Bu dosyalar "
-"silinsin mi?"
+msgid "The photo or video cannot be moved to your desktop trash. Delete this file?"
+msgid_plural "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
+msgstr[0] "%d fotoğraf/video masaüstünüzdeki çöp kutusuna taşınamıyor. Bu dosyalar silinsin mi?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1100
@@ -4375,9 +3757,7 @@ msgstr "Shotwell’e Hoş Geldiniz!"
 
 #: src/dialogs/WelcomeDialog.vala:47
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
-"Başlangıç olarak, fotoğraflarınızı şu yöntemlerden birini kullanarak içe "
-"aktarabilirsiniz:"
+msgstr "Başlangıç olarak, fotoğraflarınızı şu yöntemlerden birini kullanarak içe aktarabilirsiniz:"
 
 #: src/dialogs/WelcomeDialog.vala:65
 msgid "Choose “Import From Folder” from the File menu"
@@ -4398,8 +3778,7 @@ msgstr "_%s klasörünüzden fotoğrafları içe aktarın"
 
 #: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
-msgstr ""
-"Ayrıca fotoğrafları şu yollardan herhangi biriyle içe aktarabilirsiniz:"
+msgstr "Ayrıca fotoğrafları şu yollardan herhangi biriyle içe aktarabilirsiniz:"
 
 #: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
@@ -4491,14 +3870,12 @@ msgstr "Fotoğraflar, bu dizinden dışa aktarılamadı."
 msgid "Photo source file missing: %s"
 msgstr "Fotoğraf kaynağı bulunamadı: %s"
 
-#: src/editing_tools/AdjustTool.vala:44
-#: src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/AdjustTool.vala:44 src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Sıfırla"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/AdjustTool.vala:58 src/Properties.vala:451
-#: src/Properties.vala:455 src/Properties.vala:462
+#: src/editing_tools/AdjustTool.vala:58 src/Properties.vala:451 src/Properties.vala:455 src/Properties.vala:462
 msgid "Exposure:"
 msgstr "Pozlandırma:"
 
@@ -4591,8 +3968,7 @@ msgstr "Kare"
 msgid "Screen"
 msgstr "Ekran"
 
-#: src/editing_tools/CropTool.vala:179 src/editing_tools/CropTool.vala:182
-#: src/editing_tools/CropTool.vala:192 src/editing_tools/CropTool.vala:202
+#: src/editing_tools/CropTool.vala:179 src/editing_tools/CropTool.vala:182 src/editing_tools/CropTool.vala:192 src/editing_tools/CropTool.vala:202
 msgid "-"
 msgstr "-"
 
@@ -4863,8 +4239,7 @@ msgid ""
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell fotoğrafları ev dizininize kopyalamak üzere yapılandırılmıştır.\n"
-"Bunu Düzenle - Tercihler - %s Tercihleri sayfasından değiştirmenizi "
-"öneririz\n"
+"Bunu Düzenle - Tercihler - %s Tercihleri sayfasından değiştirmenizi öneririz\n"
 "Fotoğrafları içe aktarmayı sürdürmek istiyor musunuz?"
 
 #. TODO: Specify which directory/file.
@@ -4925,37 +4300,22 @@ msgstr "Fotoğraflar Siliniyor"
 
 #: src/main.vala:54
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell. It "
-"appears it was created by Shotwell %s (schema %d). This version is %s "
-"(schema %d). Please use the latest version of Shotwell."
-msgstr ""
-"Fotoğraf kitaplığınız Shotwell’in bu sürümüyle uyumlu değil. Shotwell %s (%d "
-"şeması) ile oluşturulduğu görünüyor. Bu sürüm ise %s (%d şeması). Lütfen "
-"Shotwell’in son sürümünü kullanın."
+msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please use the latest version of Shotwell."
+msgstr "Fotoğraf kitaplığınız Shotwell’in bu sürümüyle uyumlu değil. Shotwell %s (%d şeması) ile oluşturulduğu görünüyor. Bu sürüm ise %s (%d şeması). Lütfen Shotwell’in son sürümünü kullanın."
 
 #: src/main.vala:59
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
-"at %s"
-msgstr ""
-"Shotwell fotoğraf kitaplığınızı sürüm %s (%d şeması)’den %s (%d şeması)’e "
-"güncellemeyi başaramadı. Daha çok bilgi için lütfen Shotwell Wiki’yi %s "
-"adresinden gözden geçirin."
+msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d). For more information please check the Shotwell Wiki at %s"
+msgstr "Shotwell fotoğraf kitaplığınızı sürüm %s (%d şeması)’den %s (%d şeması)’e güncellemeyi başaramadı. Daha çok bilgi için lütfen Shotwell Wiki’yi %s adresinden gözden geçirin."
 
 #: src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell. It "
-"appears it was created by Shotwell %s (schema %d). This version is %s "
-"(schema %d). Please clear your library by deleting %s and re-import your "
-"photos."
+"Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import "
+"your photos."
 msgstr ""
-"Fotoğraf kitaplığınız Shotwell’in bu sürümüyle uyumlu değil. Shotwell %s (%d "
-"şeması) ile oluşturulduğu görünüyor. Bu sürüm ise %s (%d şeması). Lütfen "
-"kitaplığınızı %s’i silerek temizleyin ve resimlerini yeniden içe aktarın."
+"Fotoğraf kitaplığınız Shotwell’in bu sürümüyle uyumlu değil. Shotwell %s (%d şeması) ile oluşturulduğu görünüyor. Bu sürüm ise %s (%d şeması). Lütfen kitaplığınızı %s’i silerek temizleyin ve resimlerini "
+"yeniden içe aktarın."
 
 #: src/main.vala:71
 #, c-format
@@ -4970,66 +4330,64 @@ msgstr "Shotwell başlatılamadı"
 msgid "Loading Shotwell"
 msgstr "Shotwell Yükleniyor"
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell’in gizli veri yolu"
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: src/main.vala:351
+#: src/main.vala:412
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Kitaplık dizinini çalışırken değişiklikler için izleme"
 
-#: src/main.vala:352
+#: src/main.vala:413
 msgid "Don’t display startup progress meter"
 msgstr "Başlangıç ilerleme metresini gösterme"
 
-#: src/main.vala:353
+#: src/main.vala:414
 msgid "Show the application’s version"
 msgstr "Uygulama sürümünü göster"
 
-#: src/main.vala:354
+#: src/main.vala:415
 msgid "Start the application in fullscreen mode"
 msgstr "Uygulamayı tam ekran kipinde başlat"
 
-#: src/main.vala:355
+#: src/main.vala:416
 msgid "Print the metadata of the image file"
 msgstr "Resim dosyasının üst verisini yazdır"
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "Name for a custom profile"
 msgstr "Özel profil adı"
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:357
+#: src/main.vala:418
 msgid "Start with a browser of available profiles"
 msgstr "Var olan profillere göz atmayla başla"
 
-#: src/main.vala:358
+#: src/main.vala:419
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Eğer --profile ile verilen PROFIL yoksa oluştur"
 
-#: src/main.vala:359
+#: src/main.vala:420
 msgid "Show available profiles"
 msgstr "Kullanılabilir profilleri gister"
 
-#: src/main.vala:409
+#: src/main.vala:470
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr ""
-"Kullanılabilir komut satırı seçeneklerinin tam bir listesini görmek için “%s "
-"--help” komutunu çalıştır.\n"
+msgstr "Kullanılabilir komut satırı seçeneklerinin tam bir listesini görmek için “%s --help” komutunu çalıştır.\n"
 
-#: src/main.vala:417
+#: src/main.vala:478
 msgid "Choose Shotwell's profile"
 msgstr "Shotwell profili seç"
 
-#: src/main.vala:451
+#: src/main.vala:512
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "%s profili yok. Komuta --create eklemeyi düşünür müsünüz?"
@@ -5040,9 +4398,7 @@ msgstr "Bu haritayı geliştir"
 
 #: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
-msgstr ""
-"Resimleri haritaya sürükleyerek coğrafi etiketleme için haritayı kilitleyin "
-"veya kilidini açın"
+msgstr "Resimleri haritaya sürükleyerek coğrafi etiketleme için haritayı kilitleyin veya kilidini açın"
 
 #: src/MediaMonitor.vala:400
 #, c-format
@@ -5244,12 +4600,8 @@ msgid "Remove profile “%s”"
 msgstr "“%s” profilini kaldır"
 
 #: src/ProfileBrowser.vala:207
-msgid ""
-"None of the options will remove any of the images associated with this "
-"profile"
-msgstr ""
-"Seçeneklerin hiçbiri bu profille ilişkili resimlerin hiçbirini "
-"kaldırmayacaktır"
+msgid "None of the options will remove any of the images associated with this profile"
+msgstr "Seçeneklerin hiçbiri bu profille ilişkili resimlerin hiçbirini kaldırmayacaktır"
 
 #: src/ProfileBrowser.vala:208
 msgid "Remove profile and files"
@@ -5411,8 +4763,7 @@ msgstr "%s’e yayımlanamıyor çünkü hata oluştu:"
 
 #: src/publishing/PublishingPluginHost.vala:96
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
-"Başka hizmette yayımlamayı denemek için yukarıdaki menüden seçim yapın."
+msgstr "Başka hizmette yayımlamayı denemek için yukarıdaki menüden seçim yapın."
 
 #: src/publishing/PublishingUI.vala:69
 msgid "Publish Photos"
@@ -5447,15 +4798,11 @@ msgstr "Yayımlanamıyor"
 #: src/publishing/PublishingUI.vala:284
 #, c-format
 msgid ""
-"Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the Plugins "
-"tab."
+"Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the "
+"Plugins tab."
 msgstr ""
-"Shotwell seçili ögeleri yayımlayamaz çünkü uyumlu bir yayımlama eklentiniz "
-"etkinleştirilmemiş. Bunu düzeltmek için, Düzenle - Tercihler - %s Tercihleri "
-"- Eklentiler sekmesinden bir veya daha çok yayımlama eklentisini "
-"etkinleştirin."
+"Shotwell seçili ögeleri yayımlayamaz çünkü uyumlu bir yayımlama eklentiniz etkinleştirilmemiş. Bunu düzeltmek için, Düzenle - Tercihler - %s Tercihleri - Eklentiler sekmesinden bir veya daha çok yayımlama "
+"eklentisini etkinleştirin."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6015,8 +5362,7 @@ msgid "contains"
 msgstr "içerir"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:168
-#: src/searches/SavedSearchDialog.vala:499
+#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:499
 msgid "is exactly"
 msgstr "tam olarak"
 
@@ -6032,8 +5378,7 @@ msgstr "ile biter"
 msgid "does not contain"
 msgstr "içermez"
 
-#: src/searches/SavedSearchDialog.vala:172
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:172 src/searches/SavedSearchDialog.vala:503
 msgid "is not set"
 msgstr "ayarlı değil"
 
@@ -6042,9 +5387,7 @@ msgid "is set"
 msgstr "ayarlı"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:247
-#: src/searches/SavedSearchDialog.vala:378
-#: src/searches/SavedSearchDialog.vala:443
+#: src/searches/SavedSearchDialog.vala:247 src/searches/SavedSearchDialog.vala:378 src/searches/SavedSearchDialog.vala:443
 msgid "is"
 msgstr "dir"
 
