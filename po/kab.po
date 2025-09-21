@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-01-13 04:55+0000\n"
-"PO-Revision-Date: 2025-01-20 10:28+0100\n"
+"POT-Creation-Date: 2025-09-19 15:51+0000\n"
+"PO-Revision-Date: 2025-09-21 09:43+0100\n"
 "Last-Translator: ButterflyOfFire <butterflyoffire@protonmail.com>\n"
 "Language-Team: Kabyle\n"
 "Language: kab\n"
@@ -22,7 +22,8 @@ msgstr ""
 "X-DL-Branch: master\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 49.0\n"
+"X-DL-VCS-Web: https://gitlab.gnome.org/GNOME/shotwell/\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -49,7 +50,7 @@ msgstr ""
 #: data/gsettings/org.gnome.shotwell.gschema.xml:508
 #: data/gsettings/org.gnome.shotwell.gschema.xml:570
 msgid "username"
-msgstr ""
+msgstr "isem n useqdac"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
 #: data/gsettings/org.gnome.shotwell.gschema.xml:451
@@ -681,7 +682,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:514
 msgid "password"
-msgstr ""
+msgstr "awal n uɛeddi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "Piwigo password, if logged in"
@@ -772,7 +773,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:582
 msgid "URL"
-msgstr ""
+msgstr "Tansa URL"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "Gallery3 site URL"
@@ -1049,19 +1050,40 @@ msgid ""
 "otherwise"
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
+msgid "Shotwell Authentication helper"
+msgstr ""
+
+#: data/org.gnome.Shotwell.desktop.in:3
+#: data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
+msgstr "Shotwell"
+
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
+msgid "Photo Manager"
+msgstr "Amsefrak n tewlafin"
+
+#: data/org.gnome.Shotwell.desktop.in:5
+msgid "Organize your photos"
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:10
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgstr ""
+
+#: data/org.gnome.Shotwell.desktop.in:20
+msgid "Manage Different Profiles"
+msgstr ""
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
 msgid "Digital photo organizer"
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:12
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1071,49 +1093,25 @@ msgid ""
 "making it easy to experiment and correct errors."
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:19
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:23
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
+#: data/org.gnome.Shotwell.metainfo.xml.in:53
 msgid "The Shotwell developers"
 msgstr ""
 
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
-msgid "Shotwell Authentication helper"
-msgstr ""
-
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
-msgid "Photo Manager"
-msgstr ""
-
-#: data/org.gnome.Shotwell.desktop.in:6
-msgid "Organize your photos"
-msgstr ""
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr ""
-
-#: data/org.gnome.Shotwell.desktop.in:21
-msgid "Manage Different Profiles"
-msgstr ""
-
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr ""
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr ""
 
@@ -1181,14 +1179,14 @@ msgstr ""
 #: data/ui/faces.ui:349 data/ui/media.ui:349 data/ui/photo_context.ui:88
 #: data/ui/photo.ui:342 data/ui/tags.ui:349
 msgid "_Developer"
-msgstr ""
+msgstr "Aneflay (_D)"
 
 #: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525
 #: data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
 #: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
 msgid "Camera"
-msgstr ""
+msgstr "Takamiṛat"
 
 #: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533
 #: data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105
@@ -1290,7 +1288,7 @@ msgstr ""
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
 #: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
 msgid "_Save"
-msgstr ""
+msgstr "_Sekles"
 
 #: data/ui/direct.ui:13
 msgid "Save _As…"
@@ -1301,14 +1299,14 @@ msgstr ""
 #: data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
 #: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
-msgstr ""
+msgstr "Ffeɣ (_Q)"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
 #: data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43
 #: data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
 #: data/ui/trash.ui:34 src/Resources.vala:126
 msgid "_Edit"
-msgstr ""
+msgstr "Ẓreg (_E)"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
 #: data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46
@@ -1362,7 +1360,7 @@ msgstr ""
 
 #: data/ui/direct.ui:98 data/ui/photo.ui:185
 msgid "_Photo"
-msgstr ""
+msgstr "Tawlaft (_P)"
 
 #: data/ui/direct.ui:101 data/ui/photo.ui:188
 msgid "_Previous Photo"
@@ -1426,7 +1424,7 @@ msgstr ""
 #: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186
 #: data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
-msgstr ""
+msgstr "Tallalt (_H)"
 
 #: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424
 #: data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187
@@ -1447,7 +1445,7 @@ msgstr ""
 #: data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
 #: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
 msgid "_About"
-msgstr ""
+msgstr "Ɣef (_A)"
 
 #: data/ui/editing-toolbar.ui:42 src/Resources.vala:167
 msgid "Crop the photo’s size"
@@ -1528,7 +1526,7 @@ msgstr ""
 #: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62
 #: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:785
 msgid "Select _All"
-msgstr ""
+msgstr "Fren-iten a_kk"
 
 #: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89
 #: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69
@@ -1554,7 +1552,7 @@ msgstr ""
 #: data/ui/import.ui:83 data/ui/media.ui:108 data/ui/offline.ui:88
 #: data/ui/tags.ui:108 data/ui/trash.ui:97
 msgid "_Search Bar"
-msgstr ""
+msgstr "Afeggag n unadi (_S)"
 
 #: data/ui/events_directory.ui:85 data/ui/event.ui:113 data/ui/faces.ui:113
 #: data/ui/import.ui:88 data/ui/media.ui:113 data/ui/offline.ui:93
@@ -1571,7 +1569,7 @@ msgstr ""
 #: data/ui/events_directory.ui:97 data/ui/event.ui:130 data/ui/faces.ui:130
 #: data/ui/media.ui:130 data/ui/tags.ui:130
 msgid "_Comments"
-msgstr ""
+msgstr "Iwenniten (_C)"
 
 #: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239
 #: data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239
@@ -1710,11 +1708,11 @@ msgstr ""
 
 #: data/ui/faces.ui:461
 msgid "Rename…"
-msgstr ""
+msgstr "Snifel isem…"
 
 #: data/ui/faces.ui:465 src/library/TrashPage.vala:112
 msgid "Delete"
-msgstr ""
+msgstr "Kkes"
 
 #: data/ui/import_queue.ui:8
 msgid "_Stop Import"
@@ -1749,19 +1747,20 @@ msgid "_Log in"
 msgstr ""
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:223 src/data_imports/DataImportsUI.vala:310
+#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/Exporter.vala:356
-#: src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
+#: src/Resources.vala:124
 msgid "_Cancel"
-msgstr ""
+msgstr "Semmet (_C)"
 
 #: data/ui/multitextentrydialog.ui:45 src/Resources.vala:133
 #: src/widgets/FolderButton.vala:17
 msgid "_OK"
-msgstr ""
+msgstr "Ih (_O)"
 
 #: data/ui/offline.ui:216 src/Resources.vala:769
 msgid "Remove the selected photos from the library"
@@ -1877,11 +1876,11 @@ msgstr ""
 #: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24
 #: src/library/LibraryBranch.vala:97
 msgid "Photos"
-msgstr ""
+msgstr "Tiwlafin"
 
 #: data/ui/preferences_dialog.ui:470 src/photos/RawSupport.vala:136
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: data/ui/preferences_dialog.ui:494
 msgid "Plugins"
@@ -1889,7 +1888,7 @@ msgstr ""
 
 #: data/ui/preferences_dialog.ui:505 src/ProfileBrowser.vala:231
 msgid "Profiles"
-msgstr ""
+msgstr "Imeɣna"
 
 #: data/ui/preferences_dialog.ui:532
 msgid "Shotwell Preferences"
@@ -1947,7 +1946,7 @@ msgstr ""
 
 #: data/ui/saved_search_dialog.ui:5
 msgid "Search"
-msgstr ""
+msgstr "Nadi"
 
 #: data/ui/saved_search_dialog.ui:29
 msgid "_Name of search:"
@@ -1963,7 +1962,7 @@ msgstr ""
 
 #: data/ui/saved_search_dialog.ui:67
 msgid "all"
-msgstr ""
+msgstr "akk"
 
 #: data/ui/saved_search_dialog.ui:68
 msgid "none"
@@ -1976,11 +1975,11 @@ msgstr ""
 #: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
 #: src/ProfileBrowser.vala:208
 msgid "Cancel"
-msgstr ""
+msgstr "Semmet"
 
 #: data/ui/saved_search_dialog.ui:137
 msgid "OK"
-msgstr ""
+msgstr "Ih"
 
 #: data/ui/savedsearch.ui:6 src/Resources.vala:392
 msgid "Re_name…"
@@ -1988,7 +1987,7 @@ msgstr ""
 
 #: data/ui/savedsearch.ui:10 src/Resources.vala:391
 msgid "_Edit…"
-msgstr ""
+msgstr "Ẓr_eg…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60
 #: data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20
@@ -1996,7 +1995,7 @@ msgstr ""
 #: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
 #: src/Resources.vala:390 src/Resources.vala:767
 msgid "_Delete"
-msgstr ""
+msgstr "Kkes (_D)"
 
 #: data/ui/search_bar.ui:18
 msgid "Type"
@@ -2004,7 +2003,7 @@ msgstr ""
 
 #: data/ui/search_bar.ui:33
 msgid "Videos"
-msgstr ""
+msgstr "Tividyutin"
 
 #: data/ui/search_bar.ui:42
 msgid "RAW photos"
@@ -2016,7 +2015,7 @@ msgid "Flagged"
 msgstr ""
 
 #: data/ui/search_bar.ui:115 src/searches/SearchBoolean.vala:195
-#: src/SearchFilter.vala:814
+#: src/SearchFilter.vala:815
 msgid "Rating"
 msgstr ""
 
@@ -2100,11 +2099,11 @@ msgstr ""
 
 #: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
 msgid "_New"
-msgstr ""
+msgstr "Amay_nut"
 
 #: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
 msgid "_Rename…"
-msgstr ""
+msgstr "Snifel isem… (_R)"
 
 #: data/ui/textentrydialog.ui:20
 msgid "label"
@@ -2157,19 +2156,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
@@ -2185,8 +2184,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
@@ -2196,7 +2195,7 @@ msgstr ""
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
 msgid "_Password"
-msgstr ""
+msgstr "Awal n uɛeddi (_P)"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
@@ -2215,7 +2214,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr ""
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:317
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2304,7 +2303,7 @@ msgstr ""
 
 #: plugins/common/WebAuthenticationPane.vala:37
 msgid "Continue"
-msgstr ""
+msgstr "Kemmel"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
@@ -2455,6 +2454,13 @@ msgstr ""
 msgid "Shotwell Connect"
 msgstr ""
 
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr ""
+
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
 msgstr ""
@@ -2507,7 +2513,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:75
 msgid "User _name"
-msgstr ""
+msgstr "Isem n useqdac (_n)"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:109
 msgid "Remember Password"
@@ -2600,7 +2606,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
 msgid "Admins"
-msgstr ""
+msgstr "Inedbalen"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
@@ -2645,26 +2651,26 @@ msgid ""
 "Copyright 2022 Jens Georg <mail@jensge.org>"
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
 msgid "Public"
-msgstr ""
+msgstr "Azayez"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "unlisted"
 msgstr ""
 
@@ -2686,7 +2692,7 @@ msgstr ""
 
 #: plugins/shotwell-transitions/ClockEffect.vala:20
 msgid "Clock"
-msgstr ""
+msgstr "Tamrilt"
 
 #: plugins/shotwell-transitions/CrumbleEffect.vala:20
 msgid "Crumble"
@@ -2753,11 +2759,36 @@ msgstr ""
 msgid "Could not make directory %s writable: %s"
 msgstr ""
 
-#: src/AppWindow.vala:251
+#: src/AppWindow.vala:183
+msgid "Ok"
+msgstr "Ih"
+
+#: src/AppWindow.vala:236
+#, c-format
+msgid "File %s already exists. Replace?"
+msgstr ""
+
+#: src/AppWindow.vala:239
+msgid "Export file conflict"
+msgstr ""
+
+#: src/AppWindow.vala:243
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr ""
 
-#: src/AppWindow.vala:275
+#: src/AppWindow.vala:245
+msgid "_Skip"
+msgstr "Zgel (_S)"
+
+#: src/AppWindow.vala:245
+msgid "Rename"
+msgstr "Snifel isem"
+
+#: src/AppWindow.vala:245
+msgid "_Replace"
+msgstr ""
+
+#: src/AppWindow.vala:268
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2766,21 +2797,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/AppWindow.vala:314
+#: src/AppWindow.vala:307
 msgid "Visit the Shotwell web site"
 msgstr ""
 
-#: src/AppWindow.vala:326
+#: src/AppWindow.vala:319
 #, c-format
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/AppWindow.vala:334
+#: src/AppWindow.vala:327
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr ""
 
-#: src/AppWindow.vala:342
+#: src/AppWindow.vala:335
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr ""
@@ -2848,7 +2879,7 @@ msgstr ""
 
 #: src/camera/CameraBranch.vala:85
 msgid "Cameras"
-msgstr ""
+msgstr "Tikamiṛatin"
 
 #: src/camera/CameraBranch.vala:85
 msgid "List of all discovered camera devices"
@@ -2980,11 +3011,11 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CheckerboardPage.vala:130
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr ""
 
-#: src/CheckerboardPage.vala:134
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 
@@ -3280,19 +3311,19 @@ msgstr ""
 msgid "Data Imports"
 msgstr ""
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr ""
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
 " %s"
 msgstr ""
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3302,7 +3333,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr ""
@@ -3437,7 +3468,7 @@ msgstr ""
 
 #: src/dialogs/ExportDialog.vala:94
 msgid "_Quality:"
-msgstr ""
+msgstr "Taɣara (_Q)"
 
 #: src/dialogs/ExportDialog.vala:97
 msgid "_Scaling constraint:"
@@ -3456,7 +3487,7 @@ msgstr ""
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
 msgid "(Help)"
-msgstr ""
+msgstr "(Tallalt)"
 
 #: src/dialogs/Preferences.vala:134
 #, c-format
@@ -3479,7 +3510,7 @@ msgstr ""
 
 #: src/dialogs/Preferences.vala:141 src/editing_tools/CropTool.vala:203
 msgid "Custom"
-msgstr ""
+msgstr "Udmawan"
 
 #. Invalid pattern.
 #: src/dialogs/Preferences.vala:359
@@ -3514,7 +3545,7 @@ msgstr[1] ""
 
 #: src/dialogs/SetBackgroundSlideshow.vala:59
 msgid "1 day"
-msgstr ""
+msgstr "1 n wass"
 
 #: src/Dialogs.vala:16
 #, c-format
@@ -3551,16 +3582,16 @@ msgstr[1] ""
 
 #: src/Dialogs.vala:77
 msgid "Export Video"
-msgstr ""
+msgstr "Sifeḍ tavidyut"
 
 #: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:666
 msgctxt "Dialog Title"
 msgid "Export Photo"
-msgstr ""
+msgstr "Sifeḍ tawlaft"
 
 #: src/Dialogs.vala:103
 msgid "Export Photos"
-msgstr ""
+msgstr "Sifeḍ tiwlafin"
 
 #. namespace ExportUI
 #. Ticket #3023
@@ -3918,17 +3949,17 @@ msgstr ""
 
 #: src/Dialogs.vala:671
 msgid "Name:"
-msgstr ""
+msgstr "Isem:"
 
 #. Dialog title
 #: src/Dialogs.vala:682
 msgctxt "Dialog Title"
 msgid "Edit Title"
-msgstr ""
+msgstr "Ẓreg azwel"
 
 #: src/Dialogs.vala:683 src/Properties.vala:355
 msgid "Title:"
-msgstr ""
+msgstr "Azwel:"
 
 #. Dialog title
 #: src/Dialogs.vala:699 src/Resources.vala:274
@@ -3941,7 +3972,7 @@ msgstr ""
 
 #: src/Dialogs.vala:701 src/Properties.vala:653
 msgid "Comment:"
-msgstr ""
+msgstr "Awennit:"
 
 #: src/Dialogs.vala:717
 msgid "Remove and _Trash File"
@@ -3986,7 +4017,7 @@ msgstr[1] ""
 
 #: src/Dialogs.vala:820 src/Resources.vala:140
 msgid "_Remove"
-msgstr ""
+msgstr "Kkes (_R)"
 
 #: src/Dialogs.vala:821
 msgid "Remove Photo From Library"
@@ -4107,11 +4138,11 @@ msgstr[1] ""
 
 #: src/dialogs/WelcomeDialog.vala:36
 msgid "Welcome!"
-msgstr ""
+msgstr "Ansuf!"
 
 #: src/dialogs/WelcomeDialog.vala:42
 msgid "Welcome to Shotwell!"
-msgstr ""
+msgstr "Ansuf ar Shotwell!"
 
 #: src/dialogs/WelcomeDialog.vala:47
 msgid "To get started, import photos in any of these ways:"
@@ -4201,7 +4232,7 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:408
 msgid "Save As"
-msgstr ""
+msgstr "Sekles am"
 
 #: src/direct/DirectPhotoPage.vala:424
 msgid "Supported image formats"
@@ -4209,7 +4240,7 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:433
 msgid "All files"
-msgstr ""
+msgstr "Akk ifuyla"
 
 #. verify this is a directory
 #: src/DirectoryMonitor.vala:891
@@ -4221,7 +4252,7 @@ msgstr ""
 msgid "Photos cannot be exported to this directory."
 msgstr ""
 
-#: src/EditingHostPage.vala:1319
+#: src/EditingHostPage.vala:1325
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr ""
@@ -4413,7 +4444,7 @@ msgstr ""
 
 #: src/editing_tools/RedeyeTool.vala:42 src/Properties.vala:410
 msgid "Size:"
-msgstr ""
+msgstr "Tiddi:"
 
 #: src/editing_tools/RedeyeTool.vala:57
 msgid "Close the red-eye tool"
@@ -4450,7 +4481,7 @@ msgstr ""
 
 #: src/events/EventsDirectoryPage.vala:228
 msgid "All Events"
-msgstr ""
+msgstr "Akk tidyanin"
 
 #: src/events/EventsDirectoryPage.vala:242
 msgid "Undated"
@@ -4469,27 +4500,6 @@ msgstr ""
 
 #: src/Exporter.vala:348
 msgid "Exporting"
-msgstr ""
-
-#: src/Exporter.vala:354
-#, c-format
-msgid "File %s already exists. Replace?"
-msgstr ""
-
-#: src/Exporter.vala:356
-msgid "_Skip"
-msgstr ""
-
-#: src/Exporter.vala:356
-msgid "Rename"
-msgstr ""
-
-#: src/Exporter.vala:356
-msgid "_Replace"
-msgstr ""
-
-#: src/Exporter.vala:356
-msgid "Export file conflict"
 msgstr ""
 
 #: src/faces/FacesTool.vala:114
@@ -4551,7 +4561,7 @@ msgstr ""
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Folders"
-msgstr ""
+msgstr "Ikaramen"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Browse the library’s folder structure"
@@ -4713,64 +4723,64 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr ""
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "Path to Shotwell’s private data"
 msgstr ""
 
-#: src/main.vala:350
+#: src/main.vala:411
 msgid "DIRECTORY"
 msgstr ""
 
-#: src/main.vala:351
+#: src/main.vala:412
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 
-#: src/main.vala:352
+#: src/main.vala:413
 msgid "Don’t display startup progress meter"
 msgstr ""
 
-#: src/main.vala:353
+#: src/main.vala:414
 msgid "Show the application’s version"
 msgstr ""
 
-#: src/main.vala:354
+#: src/main.vala:415
 msgid "Start the application in fullscreen mode"
 msgstr ""
 
-#: src/main.vala:355
+#: src/main.vala:416
 msgid "Print the metadata of the image file"
 msgstr ""
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "Name for a custom profile"
 msgstr ""
 
-#: src/main.vala:356
+#: src/main.vala:417
 msgid "PROFILE"
-msgstr ""
+msgstr "AMAƔNU"
 
-#: src/main.vala:357
+#: src/main.vala:418
 msgid "Start with a browser of available profiles"
 msgstr ""
 
-#: src/main.vala:358
+#: src/main.vala:419
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 
-#: src/main.vala:359
+#: src/main.vala:420
 msgid "Show available profiles"
 msgstr ""
 
-#: src/main.vala:409
+#: src/main.vala:470
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 
-#: src/main.vala:417
+#: src/main.vala:478
 msgid "Choose Shotwell's profile"
 msgstr ""
 
-#: src/main.vala:451
+#: src/main.vala:512
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -4801,7 +4811,7 @@ msgstr ""
 
 #: src/photos/AvifSupport.vala:30
 msgid "AVIF"
-msgstr ""
+msgstr "AVIF"
 
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
@@ -4809,15 +4819,15 @@ msgstr ""
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: src/photos/HeifSupport.vala:30
 msgid "HEIF"
-msgstr ""
+msgstr "HEIF"
 
 #: src/photos/JfifSupport.vala:84
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/photos/JfifSupport.vala:256
 #, c-format
@@ -4841,19 +4851,19 @@ msgstr ""
 
 #: src/photos/JpegXLSupport.vala:30
 msgid "JPEGXL"
-msgstr ""
+msgstr "JPEGXL"
 
 #: src/photos/PngSupport.vala:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/photos/TiffSupport.vala:86
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: src/photos/WebPSupport.vala:86
 msgid "WebP"
-msgstr ""
+msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
 #: src/Photo.vala:3810
@@ -4872,19 +4882,19 @@ msgstr ""
 
 #: src/plugins/ManifestWidget.vala:181
 msgid "Authors"
-msgstr ""
+msgstr "Imeskaren"
 
 #: src/plugins/ManifestWidget.vala:191
 msgid "Version"
-msgstr ""
+msgstr "Lqem"
 
 #: src/plugins/ManifestWidget.vala:201
 msgid "License"
-msgstr ""
+msgstr "Turagt"
 
 #: src/plugins/ManifestWidget.vala:213
 msgid "Website"
-msgstr ""
+msgstr "Asmel Web"
 
 #: src/plugins/SpitInterfaces.vala:173
 msgid "LGPL v2.1 or later"
@@ -4920,7 +4930,7 @@ msgstr ""
 
 #: src/Printing.vala:853
 msgid "Image Settings"
-msgstr ""
+msgstr "Iɣewwaren n tugna"
 
 #: src/Printing.vala:866
 msgid "Printing…"
@@ -4936,15 +4946,15 @@ msgstr ""
 
 #: src/ProfileBrowser.vala:20
 msgid "Create"
-msgstr ""
+msgstr "Snulfu-d"
 
 #: src/ProfileBrowser.vala:24
 msgid "Create new Profile"
-msgstr ""
+msgstr "Rnu amaɣnu amaynut"
 
 #: src/ProfileBrowser.vala:38
 msgid "Name"
-msgstr ""
+msgstr "Isem"
 
 #: src/ProfileBrowser.vala:52 src/ProfileBrowser.vala:166
 msgid "Library Folder"
@@ -4995,7 +5005,7 @@ msgstr ""
 
 #: src/ProfileBrowser.vala:241
 msgid "Add a new profile"
-msgstr ""
+msgstr "Rnu amaɣnu amaynut"
 
 #: src/Profiles.vala:32
 msgid "System Profile"
@@ -5003,7 +5013,7 @@ msgstr ""
 
 #: src/Properties.vala:101
 msgid "Today"
-msgstr ""
+msgstr "Ass-a"
 
 #: src/Properties.vala:103
 msgid "Yesterday"
@@ -5011,7 +5021,7 @@ msgstr ""
 
 #: src/Properties.vala:358
 msgid "Items:"
-msgstr ""
+msgstr "Iferdisen:"
 
 #: src/Properties.vala:361
 #, c-format
@@ -5037,7 +5047,7 @@ msgstr[1] ""
 #. display only one date if start and end are the same
 #: src/Properties.vala:392
 msgid "Date:"
-msgstr ""
+msgstr "Azemz:"
 
 #. display only one time if start and end are the same
 #: src/Properties.vala:396
@@ -5052,7 +5062,7 @@ msgstr ""
 
 #: src/Properties.vala:400 src/Properties.vala:405
 msgid "To:"
-msgstr ""
+msgstr "I:"
 
 #: src/Properties.vala:419
 msgid "Duration:"
@@ -5065,12 +5075,12 @@ msgstr ""
 
 #: src/Properties.vala:423
 msgid "Developer:"
-msgstr ""
+msgstr "Aneflay:"
 
 #. nothing special to be done for now for Events
 #: src/Properties.vala:601
 msgid "Location:"
-msgstr ""
+msgstr "Asun:"
 
 #: src/Properties.vala:604
 msgid "File size:"
@@ -5130,7 +5140,7 @@ msgstr ""
 
 #: src/Properties.vala:649
 msgid "Software:"
-msgstr ""
+msgstr "Aseɣẓan:"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
@@ -5185,8 +5195,8 @@ msgstr ""
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
-"Preferences and enable one or more of the publishing plugins on the "
-"<b>Plugins</b> tab."
+"Preferences and enable one or more of the publishing plugins on the Plugins "
+"tab."
 msgstr ""
 
 #: src/publishing/Publishing.vala:15
@@ -5253,7 +5263,7 @@ msgstr ""
 
 #: src/Resources.vala:132
 msgid "_Next"
-msgstr ""
+msgstr "Uḍfir (_N)"
 
 #: src/Resources.vala:136
 msgid "_Previous"
@@ -5461,7 +5471,7 @@ msgstr ""
 #: src/Resources.vala:267
 msgctxt "Button Label"
 msgid "Edit Title"
-msgstr ""
+msgstr "Ẓreg azwel"
 
 #. Button label
 #: src/Resources.vala:271
@@ -5476,7 +5486,7 @@ msgstr ""
 #: src/Resources.vala:282
 msgctxt "Dialog Title"
 msgid "Add Tags"
-msgstr ""
+msgstr "Rnu tibzimin"
 
 #: src/Resources.vala:293
 msgid "_Find…"
@@ -5518,7 +5528,7 @@ msgstr ""
 #: src/Resources.vala:324
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
-msgstr ""
+msgstr "Rnu tibzimin"
 
 #: src/Resources.vala:329
 #, c-format
@@ -5868,15 +5878,15 @@ msgstr ""
 
 #: src/searches/SearchBoolean.vala:168
 msgid "Title"
-msgstr ""
+msgstr "Azwel"
 
 #: src/searches/SearchBoolean.vala:171
 msgid "Tag"
-msgstr ""
+msgstr "Tabzimt"
 
 #: src/searches/SearchBoolean.vala:174
 msgid "Comment"
-msgstr ""
+msgstr "Awennit"
 
 #: src/searches/SearchBoolean.vala:177
 msgid "Event name"
@@ -5904,7 +5914,7 @@ msgstr ""
 
 #: src/searches/SearchBoolean.vala:198
 msgid "Date"
-msgstr ""
+msgstr "Azemz"
 
 #: src/searches/SearchesBranch.vala:67
 msgid "Saved Searches"
@@ -5914,23 +5924,23 @@ msgstr ""
 msgid "Organize your saved searches"
 msgstr ""
 
-#: src/SearchFilter.vala:798
+#: src/SearchFilter.vala:799
 msgid "★+ Rating"
 msgstr ""
 
-#: src/SearchFilter.vala:801
+#: src/SearchFilter.vala:802
 msgid "★★+ Rating"
 msgstr ""
 
-#: src/SearchFilter.vala:804
+#: src/SearchFilter.vala:805
 msgid "★★★+ Rating"
 msgstr ""
 
-#: src/SearchFilter.vala:807
+#: src/SearchFilter.vala:808
 msgid "★★★★+ Rating"
 msgstr ""
 
-#: src/SearchFilter.vala:811
+#: src/SearchFilter.vala:812
 msgid "★★★★★+ Rating"
 msgstr ""
 
@@ -5938,7 +5948,7 @@ msgstr ""
 #. add toolbar buttons
 #: src/SlideshowPage.vala:155
 msgid "Back"
-msgstr ""
+msgstr "Uɣal"
 
 #: src/SlideshowPage.vala:162 src/SlideshowPage.vala:271
 msgid "Pause"
@@ -5950,11 +5960,11 @@ msgstr ""
 
 #: src/SlideshowPage.vala:169
 msgid "Next"
-msgstr ""
+msgstr "Uḍfir"
 
 #: src/SlideshowPage.vala:178
 msgid "Settings"
-msgstr ""
+msgstr "Iɣewwaren"
 
 #: src/SlideshowPage.vala:179
 msgid "Change slideshow settings"
@@ -6006,4 +6016,4 @@ msgstr ""
 #. multiple videos
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
-msgstr ""
+msgstr "Sifeḍ tividyutin"
