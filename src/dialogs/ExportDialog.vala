@@ -144,7 +144,7 @@ public class ExportDialog : Gtk.Dialog {
             selection_ticker++;
         }
 
-        error("format_set_active_text: text '%s' isn't in combo box", text);
+        critical("format_set_active_text: text '%s' isn't in combo box", text);
     }
 
     private PhotoFileFormat get_specified_format() {
