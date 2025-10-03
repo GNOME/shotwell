@@ -30,30 +30,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
 public const string TRANSLATORS = _("translator-credits");
 
-// TODO: modify to load multiple icons
-//
-// provided all the icons in the set follow a known naming convention (such as iconName_nn.png,
-// where 'nn' is a size value in pixels, for example plugins_16.png -- this convention seems
-// pretty common in the GNOME world), then this function can be modified to load an entire icon
-// set without its interface needing to change, since given one icon filename, we can
-// determine the others.
-public Gdk.Pixbuf[]? load_icon_set(GLib.File? icon_file) {
-    Gdk.Pixbuf? icon = null;
-    try {
-        icon = new Gdk.Pixbuf.from_file(icon_file.get_path());
-    } catch (Error err) {
-        warning("couldn't load icon set from %s: %s", icon_file.get_path(), err.message);
-    }
-    
-    if (icon != null) {
-        Gdk.Pixbuf[] icon_pixbuf_set = new Gdk.Pixbuf[0];
-        icon_pixbuf_set += icon;
-        return icon_pixbuf_set;
-    }
-    
-    return null;
-}
-
 public Gdk.Pixbuf[]? load_from_resource (string resource_path) {
     Gdk.Pixbuf? icon = null;
     try {
