@@ -10,7 +10,7 @@
  * The Shotwell Pluggable Data Imports API allows you to write plugins that import
  * information from other media library databases to help migration to Shotwell.
  * The Shotwell distribution includes import support for F-Spot.
- * To enable Shotwell to import from additional libaries, developers like you write
+ * To enable Shotwell to import from additional libraries, developers like you write
  * data import plugins, dynamically-loadable shared objects that are linked into the
  * Shotwell process at runtime. Data import plugins are just one of several kinds of
  * plugins supported by {@link Spit}, the Shotwell Pluggable Interfaces Technology.
