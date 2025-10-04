@@ -82,8 +82,8 @@
               <object class="GtkComboBoxText" id="units_combo">
                 <property name="active">0</property>
                 <items>
-                  <item translatable="yes" comments="Abbrevation for &quot;inch&quot;">in.</item>
-                  <item translatable="yes" comments="Abbrevation for &quot;centimeters&quot;">cm</item>
+                  <item translatable="yes" comments="Abbreviation for &quot;inch&quot;">in.</item>
+                  <item translatable="yes" comments="Abbreviation for &quot;centimeters&quot;">cm</item>
                 </items>
               </object>
             </child>
