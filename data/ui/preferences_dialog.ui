@@ -256,7 +256,7 @@
                         <child>
                           <object class="GtkBox" id="hbox1">
                             <child>
-                              <object class="GtkLabel" id="patern">
+                              <object class="GtkLabel" id="pattern">
                                 <property name="halign">start</property>
                                 <property name="label" translatable="1">_Pattern:</property>
                                 <property name="use-underline">1</property>
