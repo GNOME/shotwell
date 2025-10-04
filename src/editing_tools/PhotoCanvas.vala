@@ -156,7 +156,7 @@ public abstract class EditingTools.PhotoCanvas {
     // and it's a pain to constantly calculate where it's laid out on the drawable, these convenience
     // methods automatically adjust for its position.
     //
-    // If these methods are not used, all painting to the drawable should be offet by
+    // If these methods are not used, all painting to the drawable should be offset by
     // get_scaled_pixbuf_position().x and get_scaled_pixbuf_position().y
     public void paint_pixbuf(Gdk.Pixbuf pixbuf) {
         default_ctx.save();
