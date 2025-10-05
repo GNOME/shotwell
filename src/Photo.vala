@@ -3723,7 +3723,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         if (metadata == null)
             metadata = export_format.create_metadata();       
 
-        if (!export_format.can_write())
+        if (!export_format.can_write_image())
             export_format = PhotoFileFormat.get_system_default_format();
 
         PhotoFileWriter writer = export_format.create_writer(dest_file.get_path());
