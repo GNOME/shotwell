@@ -38,7 +38,7 @@ public class DiscoveredCamera {
 
         res = gcamera.set_port_info(port_info);
         if (res != GPhoto.Result.OK) {
-            throw new GPhotoError.LIBRARY("[%d] Unable to set port infor for %s: %s",
+            throw new GPhotoError.LIBRARY("[%d] Unable to set port info for %s: %s",
                 (int) res, name, res.as_string());
         }
 

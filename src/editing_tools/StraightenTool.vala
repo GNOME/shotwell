@@ -366,7 +366,7 @@ public class StraightenTool : EditingTool {
         window = new StraightenToolWindow(canvas.get_container());
         bind_window_handlers();
 
-        // prepare ths slider for display
+        // prepare the slider for display
         window.angle_slider.set_value(incoming_angle);
         photo_angle = incoming_angle;
 

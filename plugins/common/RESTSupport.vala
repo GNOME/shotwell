@@ -441,7 +441,7 @@ public class Transaction {
     }
 
     public virtual async void execute_async() throws Spit.Publishing.PublishingError {
-        // if a custom payload is being used, we don't need to peform the tasks that are necessary
+        // if a custom payload is being used, we don't need to perform the tasks that are necessary
         // to prepare a traditional key-value pair REST request; Instead (since we don't
         // know anything about the custom payload), we just put it on the wire and return
         if (use_custom_payload) {

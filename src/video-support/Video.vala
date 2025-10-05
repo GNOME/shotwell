@@ -69,8 +69,8 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
 
         var registry = Gst.Registry.@get ();
 
-        /* Update our local registr to not include vaapi stuff. This is basically to
-        * work-around concurrent access to VAAPI/X11 which it doesn't like, cf
+        /* Update our local registry to not include vaapi stuff. This is basically to
+         * work-around concurrent access to VAAPI/X11 which it doesn't like, cf
          * https://bugzilla.gnome.org/show_bug.cgi?id=762416
          */
 

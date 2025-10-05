@@ -309,7 +309,7 @@ public void run_system_pictures_import(ImportManifest? external_exclusion_manife
 }
 
 private void report_system_pictures_import(ImportManifest manifest, BatchImportRoll import_roll) {
-    /* Don't report the manifest to the user if exteral import was done and the entire manifest
+    /* Don't report the manifest to the user if external import was done and the entire manifest
        is empty. An empty manifest in this case results from files that were already imported
        in the external import phase being skipped. Note that we are testing against manifest.all,
        not manifest.success; manifest.all is zero when no files were enqueued for import in the
@@ -579,7 +579,7 @@ void main(string[] args) {
             Resources.APP_VERSION);
 
     debug ("Shotwell is running in timezone %s", Application.timezone.get_identifier());
-    message ("Shotwell is runing inside %s", AppDirs.get_runtime().to_string());
+    message ("Shotwell is running inside %s", AppDirs.get_runtime().to_string());
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.
     Application.init(!is_string_empty(filename));

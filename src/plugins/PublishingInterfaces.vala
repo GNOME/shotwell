@@ -667,7 +667,7 @@ public interface Authenticator : Object {
 
 public interface AuthenticatorFactory : Object {
     // By contract, every AuthenticatorFactory implementation needs to have a
-    // static get_instance() method. Unfortunately this is not expressable in
+    // static get_instance() method. Unfortunately this is not expressible in
     // Vala.
 
     public abstract Gee.List<string> get_available_authenticators();
