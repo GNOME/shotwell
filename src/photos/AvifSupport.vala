@@ -79,7 +79,7 @@ public class AvifWriter : PhotoFileWriter {
     }
     
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "avif", "quality", "90", null);
+        pixbuf.save(get_filepath(), "avif", "quality", quality.get_pct_text(), null);
     }
 }
 
@@ -89,7 +89,8 @@ public class AvifMetadataWriter : PhotoFileMetadataWriter {
     }
     
     public override void write_metadata(PhotoMetadata metadata) throws Error {
-        metadata.write_to_file(get_file());
+        // TODO: Not yet implemented in gexiv2
+        // metadata.write_to_file(get_file());
     }
 }
 
@@ -114,6 +115,12 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     }
     
     public override bool can_write_image() {
+        try {
+            var loader = new Gdk.PixbufLoader.with_type("avif");
+            return loader.get_format().is_writable();
+        } catch (Error err) {
+            critical("Could not create aviv loader");
+        }
         return true;
     }
     

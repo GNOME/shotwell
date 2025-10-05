@@ -71,7 +71,7 @@ public class ExportDialog : Gtk.Dialog {
         format_combo = new Gtk.ComboBoxText();
         format_add_option(UNMODIFIED_FORMAT_LABEL);
         format_add_option(CURRENT_FORMAT_LABEL);
-        foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_image_writeable()) {
             format_add_option(format.get_properties().get_user_visible_name());
         }
 
@@ -153,7 +153,7 @@ public class ExportDialog : Gtk.Dialog {
             index = NUM_SPECIAL_FORMATS;
 
         index -= NUM_SPECIAL_FORMATS;
-        PhotoFileFormat[] writeable_formats = PhotoFileFormat.get_writeable();
+        PhotoFileFormat[] writeable_formats = PhotoFileFormat.get_image_writeable();
         return writeable_formats[index];
     }
 
@@ -276,7 +276,7 @@ public class ExportDialog : Gtk.Dialog {
 
         if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
             // if the user wishes to export the media unmodified, then we just copy the original
-            // files, so parameterizing size, quality, etc. is impossible -- these are all
+            // files, so parameterize size, quality, etc. is impossible -- these are all
             // just as they are in the original file. In this case, we set the scale constraint to
             // original and lock out all the controls
             constraint_combo.set_active(0); /* 0 == original size */
@@ -303,7 +303,9 @@ public class ExportDialog : Gtk.Dialog {
             constraint_combo.set_sensitive(true);
             bool jpeg = get_specified_format() == PhotoFileFormat.JFIF;
             quality_combo.sensitive = !original && jpeg;
-            export_metadata.sensitive = true;
+
+            export_metadata.sensitive = get_specified_format().can_write_metadata();
+            export_metadata.active = get_specified_format().can_write_metadata();
         }
     }
 
