@@ -190,7 +190,11 @@ public class JfifWriter : PhotoFileWriter {
     }
     
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
+        if (pixbuf.has_alpha) {
+            apply_alpha_channel(pixbuf).save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
+        } else {
+            pixbuf.save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
+        }
     }
 }
 
