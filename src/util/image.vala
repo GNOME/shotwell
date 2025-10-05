@@ -184,8 +184,39 @@ public Gdk.Point subtract_points(Gdk.Point p1, Gdk.Point p2) {
     return result;
 }
 
+Gdk.Pixbuf apply_alpha_channel(Gdk.Pixbuf source, bool strip = false) {
+    var dest = new Gdk.Pixbuf (source.colorspace, false, source.bits_per_sample, source.width, source.height);
+    uchar *sp = source.pixels;
+    uchar *dp = dest.pixels;
+
+    for (int j = 0; j < source.height; j++) {
+        uchar *s = sp;
+        uchar *d = dp;
+        uchar *end = s + 4 * source.width;
+        while (s < end) {
+            if (strip) {
+                d[0] = s[0];
+                d[1] = s[1];
+                d[2] = s[2]; 
+            } else {
+                double alpha = s[3] / 255.0;
+                d[0] = (uchar)Math.round((255.0 * (1.0 - alpha)) + (s[0] * alpha));
+                d[1] = (uchar)Math.round((255.0 * (1.0 - alpha)) + (s[1] * alpha));
+                d[2] = (uchar)Math.round((255.0 * (1.0 - alpha)) + (s[2] * alpha));
+            }
+            s += 4;
+            d += 3;
+        }
+
+        sp += source.rowstride;
+        dp += dest.rowstride;
+    }
+
+    return dest;
+}
+
 // Converts XRGB/ARGB (Cairo)-formatted pixels to RGBA (GDK).
-void fix_cairo_pixbuf(Gdk.Pixbuf pixbuf) {
+void argb2rgba(Gdk.Pixbuf pixbuf) {
     uchar *gdk_pixels = pixbuf.pixels;
     for (int j = 0 ; j < pixbuf.height; ++j) {
         uchar *p = gdk_pixels;
@@ -273,9 +304,8 @@ Gdk.Pixbuf rotate_arb(Gdk.Pixbuf source_pixbuf, double angle) {
     
     // prepare the newly-drawn image for use by
     // the rest of the pipeline.
-    fix_cairo_pixbuf(dest_pixbuf);
-
-    return dest_pixbuf;
+    argb2rgba(dest_pixbuf);
+    return apply_alpha_channel(dest_pixbuf, true);
 }
 
 /**
