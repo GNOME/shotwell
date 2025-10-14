@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+extern const string _VERSION;
+
 namespace Publishing.RESTSupport {
 
 // Ported from librest
@@ -37,6 +39,8 @@ public abstract class Session {
     protected Session(string? endpoint_url = null) {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
+        // The trailing space is intentional to make libsoup append its version info
+        soup_session.set_user_agent("Shotwell/%s ".printf(_VERSION));
         if (Environment.get_variable("SHOTWELL_SOUP_LOG") != null) {
             var logger = new Soup.Logger(Soup.LoggerLogLevel.BODY);
             logger.set_request_filter((logger, msg) => {
