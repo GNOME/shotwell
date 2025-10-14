@@ -1738,7 +1738,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
             Xml.Node* image_node = resp_doc.get_named_child(resp_doc.get_root_node(), "image_id");
             string image_id = image_node->get_content();
 
-            if (!parameters.no_upload_ratings)
+            if (!parameters.no_upload_ratings && publishable.get_rating() > 0)
                 new ImagesAddRating(session, publishable, image_id);
         } catch(Spit.Publishing.PublishingError err) {
             debug("Response parse error");
