@@ -1746,9 +1746,9 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
     }
 }
 
-private class ImagesAddRating : Publishing.RESTSupport.UploadTransaction {
+private class ImagesAddRating : Transaction {
     public ImagesAddRating(Session session, Spit.Publishing.Publishable publishable, string image_id) {
-        base.with_endpoint_url(session, publishable, session.get_pwg_url());
+        base.with_endpoint_url(session, session.get_pwg_url());
         if (session.is_authenticated()) {
             add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
         }
