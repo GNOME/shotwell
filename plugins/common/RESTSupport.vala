@@ -36,7 +36,7 @@ public abstract class Session {
     public signal void authenticated();
     public signal void authentication_failed(Spit.Publishing.PublishingError err);
 
-    protected Session(string? endpoint_url = null) {
+    protected Session(string? endpoint_url = null, Soup.SessionFeature[] features = {}) {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
         // The trailing space is intentional to make libsoup append its version info
@@ -52,6 +52,10 @@ public abstract class Session {
                 return Soup.LoggerLogLevel.BODY;
             });
             soup_session.add_feature (logger);
+        }
+
+        foreach (var feature in features) {
+            soup_session.add_feature(feature);
         }
     }
     
@@ -365,7 +369,7 @@ public class Transaction {
     protected virtual void add_header(string key, string value) {
         message.request_headers.append(key, value);
     }
-    
+
     // set custom_payload to null to have this transaction send the default payload of
     // key-value pairs appended through add_argument(...) (this is how most REST requests work).
     // To send a payload other than traditional key-value pairs (such as an XML document or a JPEG
