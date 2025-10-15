@@ -1555,9 +1555,14 @@ internal class Session : Publishing.RESTSupport.Session {
     private string? pwg_url = null;
     private string? pwg_id = null;
     private string? username = null;
+    private Soup.CookieJar? jar = null;
 
     public Session() {
-        base("");
+        var cookies = new Soup.CookieJar();
+        base("", {cookies});
+
+        // Member only exists after this point, so set it after the base constructor
+        this.jar = cookies;
     }
 
     public override bool is_authenticated() {
@@ -1574,6 +1579,10 @@ internal class Session : Publishing.RESTSupport.Session {
         pwg_url = null;
         pwg_id = null;
         username = null;
+        var cookies = jar.all_cookies();
+        foreach (var cookie in cookies) {
+            jar.delete_cookie(cookie);
+        }
     }
     
     public string get_username() {
@@ -1597,21 +1606,17 @@ internal class Session : Publishing.RESTSupport.Session {
  * Generic REST transaction class.
  *
  * This class implements the generic logic for all REST transactions used
- * by the Piwigo publishing plugin. In particular, it ensures that if the
- * session has been authenticated, the pwg_id token is included in the
- * transaction header.
+ * by the Piwigo publishing plugin. 
  */
 internal class Transaction : Publishing.RESTSupport.Transaction {
     public Transaction(Session session) {
         base(session);
-        if (session.is_authenticated()) {
-            add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
-        }
+        add_header("Referer", session.get_pwg_url());
     }
 
     public Transaction.authenticated(Session session) {
         base.with_endpoint_url(session, session.get_pwg_url());
-        add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
+        add_header("Referer", session.get_pwg_url());
     }
 
     public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
@@ -1674,7 +1679,6 @@ internal class SessionLoginTransaction : Transaction {
 internal class SessionGetStatusTransaction : Transaction {
     public SessionGetStatusTransaction.unauthenticated(Session session, string url, string pwg_id) {
         base.with_endpoint_url(session, url);
-        add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
 
         add_argument("method", "pwg.session.getStatus");
     }
@@ -1729,9 +1733,6 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
 
     public ImagesAddTransaction(Session session, PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
         base.with_endpoint_url(session, publishable, session.get_pwg_url());
-        if (session.is_authenticated()) {
-            add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
-        }
         this.session = session;
         this.parameters = parameters;
 
@@ -1817,9 +1818,6 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
 private class ImagesAddRating : Transaction {
     public ImagesAddRating(Session session, Spit.Publishing.Publishable publishable, string image_id) {
         base.with_endpoint_url(session, session.get_pwg_url());
-        if (session.is_authenticated()) {
-            add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
-        }
         add_argument("method", "pwg.images.rate");
         add_argument("image_id", image_id);
         add_argument("rate", publishable.get_rating().to_string());
