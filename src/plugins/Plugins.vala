@@ -300,13 +300,6 @@ public int compare_extension_point_names(ExtensionPoint a, ExtensionPoint b) {
     return a.name.collate(b.name);
 }
 
-private bool is_shared_library(File file) {
-    string name, ext;
-    disassemble_filename(file.get_basename(), out name, out ext);
-
-    return ext == Module.SUFFIX;
-}
-
 private void search_for_plugins(File dir) throws Error {
     debug("Searching %s for plugins…", dir.get_path());
     
@@ -334,8 +327,9 @@ private void search_for_plugins(File dir) throws Error {
             break;
             
             case FileType.REGULAR:
-                if (is_shared_library(file))
+                if (info.get_content_type() == "application/x-sharedlib") {
                     load_module(file);
+                }
             break;
             
             default:
