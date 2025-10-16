@@ -22,13 +22,7 @@ variables:
 flatpak@x86_64:
     extends: ['.flatpak@x86_64', '.vars-devel']
 
-flatpak@aarch64:
-    extends: ['.flatpak@aarch64', '.vars-devel']
-
 nightly@x86_64:
     extends: '.publish_nightly'
     needs: ['flatpak@x86_64']
 
-nightly@aarch64:
-    extends: '.publish_nightly'
-    needs: ['flatpak@aarch64']
