@@ -42,7 +42,7 @@ docs:
     - eval `ssh-agent`
     - echo -n $SSH_PRIVATE_KEY | base64 -d | ssh-add -
     - bash build-aux/render-help.sh
-    - scp -r doc-build/html scponly-shotwell-deploy@webstreams.de:/doc
+    - scp -r doc-build/html scponly-shotwell-deploy@webstreams.de:doc
   artifacts:
     paths:
       - docs.tar
