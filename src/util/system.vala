@@ -21,27 +21,11 @@ File? get_sys_install_dir(File exec_dir) {
     return null;
 }
 
-[DBus (name = "org.freedesktop.FileManager1")]
-public interface org.freedesktop.FileManager1 : Object {
-    public const string NAME = "org.freedesktop.FileManager1";
-    public const string PATH = "/org/freedesktop/FileManager1";
-
-    public abstract async void show_folders(string[] uris, string startup_id) throws IOError, DBusError;
-    public abstract async void show_items(string[] uris, string startup_id) throws IOError, DBusError;
-    public abstract async void show_item_properties(string[] uris, string startup_id) throws IOError, DBusError;
-}
-
 async void show_file_in_filemanager(File file) throws Error {
     try {
-        org.freedesktop.FileManager1? manager = yield Bus.get_proxy (BusType.SESSION,
-                                                                     org.freedesktop.FileManager1.NAME,
-                                                                     org.freedesktop.FileManager1.PATH,
-                                                                     DBusProxyFlags.DO_NOT_LOAD_PROPERTIES |
-                                                                     DBusProxyFlags.DO_NOT_CONNECT_SIGNALS);
-        var id = "%s_%s_%d_%s".printf(Environment.get_prgname(), Environment.get_host_name(),
-                                      Posix.getpid(),
-                                      GLib.get_monotonic_time().to_string());
-        yield manager.show_items({file.get_uri()}, id);
+        var portal = new Xdp.Portal.initable_new();
+        var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+        yield portal.open_directory(parent, file.get_uri(), Xdp.OpenUriFlags.NONE, null);
     } catch (Error e) {
         warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);
         Gtk.show_uri(AppWindow.get_instance(), file.get_parent().get_uri(), Gdk.CURRENT_TIME);
