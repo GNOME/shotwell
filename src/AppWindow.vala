@@ -23,6 +23,8 @@ public abstract class AppWindow : PageWindow {
     private Gtk.PopoverMenuBar menu_bar;
     private Gtk.Revealer menu_revealer = new Gtk.Revealer();
     
+    protected Shotwell.ToastOverlay toast_overlay = new Shotwell.ToastOverlay();
+
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
     protected Dimensions dimensions;
@@ -525,8 +527,6 @@ public abstract class AppWindow : PageWindow {
             }
         }
     }
-
-
     
     public static CommandManager get_command_manager() {
         return command_manager;
@@ -591,6 +591,10 @@ public abstract class AppWindow : PageWindow {
             dimensions.width = get_size (Gtk.Orientation.HORIZONTAL);
             dimensions.height = get_size (Gtk.Orientation.VERTICAL);
         }
+    }
+
+    public void add_toast(Shotwell.Toast toast) {
+        toast_overlay.add_toast(toast);
     }
     
 }

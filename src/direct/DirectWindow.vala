@@ -28,7 +28,7 @@ public class DirectWindow : AppWindow {
         
         set_menubar(direct_photo_page.get_menubar ());
 
-        set_child(layout);
+        set_child(toast_overlay.attach(layout));
 
         var key = new Gtk.EventControllerKey();
         key.key_pressed.connect(key_press_event);

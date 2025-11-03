@@ -1079,16 +1079,18 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.set_position(700);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        right_vbox.set_name("mainwindow-content");
         right_vbox.append(search_toolbar);
         var stack_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         stack_box.append(stack);
         right_vbox.append(stack_box);
         right_vbox.append(toolbar_revealer);
+        var toast_host = toast_overlay.attach(right_vbox);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.set_start_child(sidebar_paned);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        client_paned.set_end_child(right_vbox);
+        client_paned.set_end_child(toast_host);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);

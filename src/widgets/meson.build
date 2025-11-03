@@ -3,7 +3,8 @@ libwidgets = static_library(
     [
       'lib.vala',
       'FolderButton.vala',
-      'SettingsGroup.vala'
+      'SettingsGroup.vala',
+      'Toast.vala'
     ],
     vala_header : 'shotwell-internal-widgets.h',
     vala_vapi : 'shotwell-internal-widgets.vapi',
