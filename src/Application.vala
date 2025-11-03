@@ -368,9 +368,5 @@ public class Application {
     public void uninhibit(uint cookie) {
         system_app.uninhibit(cookie);
     }
-
-    public int get_run_return_value() {
-        return system_app_run_retval;
-    }
 }
 

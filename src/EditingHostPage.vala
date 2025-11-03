@@ -1224,15 +1224,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-        print("key_press_event! %s\n", Gdk.keyval_name(keyval));
         // editing tool gets first crack at the keypress
         if (current_tool != null) {
             if (current_tool.on_keypress(event, keyval, keycode, modifiers))
                 return true;
         }
 
-        print("key_press_event! 2\n");
-        
         // if panning is possible, the pan handler (on MUNI?) gets second crack at the keypress
         if (is_panning_possible()) {
             if (on_keyboard_pan_event(keyval))
@@ -1273,7 +1270,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 handled = false;
             break;
         }
-        print("key_press_event! 3\n");
         
         return base.key_press_event(event, keyval, keycode, modifiers);
     }
