@@ -251,6 +251,7 @@ public enum PhotoFileFormat {
                 return PhotoFileFormat.AVIF;
 
             case "heif":
+            case "heic":
                 return PhotoFileFormat.HEIF;
 
             case "jxl":
