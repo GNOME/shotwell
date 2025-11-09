@@ -117,7 +117,9 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     public override bool can_write_image() {
         try {
             var loader = new Gdk.PixbufLoader.with_type("avif");
-            return loader.get_format().is_writable();
+            var writeable = loader.get_format().is_writable();
+            loader.close();
+            return writeable;
         } catch (Error err) {
             critical("Could not create aviv loader");
         }
