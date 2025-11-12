@@ -112,7 +112,10 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
     private async void async_scan(DirectoryMonitor? monitor, Cancellable? cancellable) {
         // search through all tombstones for missing files, which indicate the tombstone can go away
         Marker marker = start_marking();
-        foreach (DataObject object in get_all()) {
+
+        // There is an issue with modifying this list while this loop here is iterating it, source unknown
+        // Getting a copy of the list to work-around this (https://gitlab.gnome.org/GNOME/shotwell/-/issues/181)
+        foreach (DataObject object in get_dataset_copy().get_all()) {
             Tombstone tombstone = (Tombstone) object;
             File file = tombstone.get_file();
             
