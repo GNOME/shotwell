@@ -100,6 +100,15 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     public static void init() {
         instance = new AvifFileFormatDriver();
         AvifFileFormatProperties.init();
+
+        var formats = Gdk.Pixbuf.get_formats();
+        can_write = false;
+        foreach (var format in formats) {
+            if (format.get_name() == "avif") {
+                can_write = format.is_writable();
+                break;
+            }
+        }
     }
     
     public static AvifFileFormatDriver get_instance() {
@@ -114,16 +123,9 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
         return new AvifReader(filepath);
     }
 
+    static bool can_write;
     public override bool can_write_image() {
-        try {
-            var loader = new Gdk.PixbufLoader.with_type("avif");
-            var writeable = loader.get_format().is_writable();
-            loader.close();
-            return writeable;
-        } catch (Error err) {
-            critical("Could not create aviv loader");
-        }
-        return true;
+        return AvifFileFormatDriver.can_write;
     }
     
     public override bool can_write_metadata() {
