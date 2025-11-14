@@ -162,7 +162,7 @@
   </releases>
 
   <!--GNOME Projects usually have no per-app donation page-->
-  <url type="donation">https://www.gnome.org/friends/</url>
+  <url type="donation">https://donate.gnome.org/</url>
 
   <url type="help">https://shotwell-project.org/doc/html</url>
 </component>
