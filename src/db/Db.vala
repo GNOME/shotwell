@@ -56,8 +56,12 @@ public VerifyResult verify_database(out string app_version, out int schema_versi
             return result;
     }
 
-    PhotoTable.clean_comments();
-    VideoTable.clean_comments();
+    try {
+        PhotoTable.clean_comments();
+        VideoTable.clean_comments();
+    } catch (DatabaseError err) {
+        debug("Ignoring database error while clean ing comments: %s", err.message);
+    }
 
     
     return VerifyResult.OK;
