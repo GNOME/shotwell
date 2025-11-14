@@ -158,6 +158,8 @@ public class VideoTable : DatabaseTable {
         if (res != Sqlite.DONE) {
             if (res != Sqlite.CONSTRAINT)
                 throw_error("VideoTable.add", res);
+
+            return VideoID();
         }
         
         // fill in ignored fields with database values
