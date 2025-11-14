@@ -113,7 +113,7 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     public override PhotoFileReader create_reader(string filepath) {
         return new AvifReader(filepath);
     }
-    
+
     public override bool can_write_image() {
         try {
             var loader = new Gdk.PixbufLoader.with_type("avif");
