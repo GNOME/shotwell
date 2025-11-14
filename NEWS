@@ -1,3 +1,54 @@
+Shotwell 0.32.14 (stable) - 14 Nov 2025
+
+ * Fix AVIF and HEIF falsly claiming to support writing meta-data
+ * Fix a couple of ciriticals
+ * Add missing -lm where necessary
+ * Fix issue using RGBA data to store JPEG files when using glycin
+   pixbuf loaders
+ * Correctly export images with an alpha channel rendered on top offset
+   a white background
+ * Allow exporting to formats that do not support writing meta-data
+ * Piwigo: Fix publishing to instances that have Bot protection enabled
+ * Piwigo: Fix double upload of files
+ * Piwigo: Fix setting bogus ratings
+ * Fix import of HEIC files with glycin loaders
+ * Try work-around for a libgee assertion on startup
+ * Fix a rare assertion when importing videos that already exist in
+   the database
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/181
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/207
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5151
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5154
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5159
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5160
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/102
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/101
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/99
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/97
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Aurimas Černius <aurimas.cernius@mailo.com>
+ - Yaakov Selkowitz <yselkowi@redhat.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Juliano de Souza Camargo <julianosc@protonmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Martin <miles@filmsi.net>
+
+Added/updated translations:
+ - hu.po, courtesy of Balázs Úr
+ - lt.po, courtesy of Aurimas Černius
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ 
 Shotwell 0.32.13 (stable) - 8 Jun 2025
  * Fix broken meson file
 
