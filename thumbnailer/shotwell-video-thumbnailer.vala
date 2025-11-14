@@ -126,12 +126,14 @@ class ShotwellThumbnailer {
                 }
             }
 
-            // Save the pixbuf.
-            if (direction != Gdk.PixbufRotation.NONE) {
-                pixbuf = pixbuf.rotate_simple(direction);
+            if (pixbuf != null) {
+                // Save the pixbuf.
+                if (direction != Gdk.PixbufRotation.NONE) {
+                    pixbuf = pixbuf.rotate_simple(direction);
+                }
+                pixbuf.save_to_buffer(out pngdata, "png");
+                out.write(pngdata);
             }
-            pixbuf.save_to_buffer(out pngdata, "png");
-            out.write(pngdata);
 
             // cleanup and exit.
             pipeline.set_state(Gst.State.NULL);
