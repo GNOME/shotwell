@@ -871,7 +871,7 @@ public class DirectoryMonitor : Object {
             }
         }
         
-        if (local_dir_info.get_is_hidden()) {
+        if (local_dir_info.has_attribute("standard::is-hidden") && local_dir_info.get_is_hidden()) {
             warning("Ignoring hidden directory %s", dir.get_path());
             
             explore_directory_completed(in_discovery);
@@ -918,7 +918,7 @@ public class DirectoryMonitor : Object {
                                                   dir.get_uri());
                     }
                     // we don't deal with hidden files or directories
-                    if (info.get_is_hidden()) {
+                    if (info.has_attribute("standard::is-hidden") && info.get_is_hidden()) {
                         warning("Skipping hidden file/directory %s",
                             dir.get_child(info.get_name()).get_path());
                         
@@ -1439,7 +1439,7 @@ public class DirectoryMonitor : Object {
     // Returns true if the file is not a symlink or if symlinks are supported for the file type,
     // false otherwise.  If an unsupported file type, returns false.
     public static bool is_file_symlink_supported(FileInfo info) {
-        if (!info.get_is_symlink())
+        if (info.has_attribute("standard::is-symlink") && !info.get_is_symlink())
             return true;
         
         FType ftype = get_ftype(info);

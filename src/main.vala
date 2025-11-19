@@ -346,7 +346,16 @@ void dump_metadata (string filename) {
 
 void editing_exec(string filename, bool fullscreen) {
     File initial_file = File.new_for_commandline_arg(filename);
-    
+            
+    if (!initial_file.get_uri().has_prefix("file://")) {
+        if (!initial_file.get_uri().has_prefix("trash://")) {
+            initial_file = File.new_for_path(initial_file.get_path());
+        } else {
+            var info = initial_file.query_info("standard::target-uri", FileQueryInfoFlags.NONE);
+            initial_file = File.new_for_uri(info.get_attribute_as_string("standard::target-uri"));
+        }
+    }
+        
     // preconfigure units
     Direct.preconfigure(initial_file);
     Db.preconfigure(null);
@@ -542,7 +551,7 @@ void main(string[] args) {
     foreach (var arg in args[1:args.length]) {
         if (LibraryWindow.is_mount_uri_supported(arg)) {
             mounts += arg;
-        } else if (is_string_empty(filename) && !arg.contains("://")) {
+        } else if (is_string_empty(filename)) {
             filename = arg;
         }
     }
