@@ -102,13 +102,17 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
         AvifFileFormatProperties.init();
 
         var formats = Gdk.Pixbuf.get_formats();
-        can_write = false;
+        var seen = false;
+        can_write = true;
+
         foreach (var format in formats) {
             if (format.get_name() == "avif") {
-                can_write = format.is_writable();
-                break;
+                seen = true;
+                can_write = can_write && format.is_writable();
             }
         }
+
+        can_write = can_write && seen;
     }
     
     public static AvifFileFormatDriver get_instance() {
