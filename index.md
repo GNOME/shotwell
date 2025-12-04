@@ -40,5 +40,6 @@ Shotwell is available through your distribution's package manger or [directly on
 ## Links
 
 * [Old GNOME Wiki page](https://wiki.gnome.org/Apps/Shotwell)
+* [Shotwell source code repository](https://gitlab.gnome.org/GNOME/shotwell)
 * [User Manual](https://shotwell-project.org/doc/html/)
 * [Online services privacy policy](https://shotwell-project.org/doc/html/privacy-policy.html)
