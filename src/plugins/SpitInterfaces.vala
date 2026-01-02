@@ -172,7 +172,7 @@ public class PluggableInfo : Object {
     public string? copyright {get; set; }
     public string? license_blurp { get; set; default = _("LGPL v2.1 or later"); }
     public string? license_url { get; set; default = "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"; }
-    public string? website_url {get; set;  default = "https://wiki.gnome.org/Apps/Shotwell";}
+    public string? website_url {get; set;  default = "https://shotwell-project.org";}
     public string? website_name { get; set;  default = _("Visit the Shotwell home page");}
     public string? translators {get; set; default = _("translator-credits"); }
 
