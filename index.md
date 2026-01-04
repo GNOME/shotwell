@@ -37,9 +37,18 @@ Shotwell supports JPEG, PNG, HEIF/HEIC, AVIF, TIFF, WebP, JpegXL, GIF, and a var
 
 Shotwell is available through your distribution's package manger or [directly on Flathub](https://flathub.org/apps/details/org.gnome.Shotwell)
 
+## Documentation
+
+* [User Manual](https://shotwell-project.org/doc/html/)
+* [FAQ](https://gitlab.gnome.org/GNOME/shotwell/-/wikis/Frequently-Asked-Questions)
+
+## Getting in touch
+
+* [Matrix room](https://matrix.to/#/#shotwell:gnome.org)
+* [GNOME's discourse](https://discourse.gnome.org/tag/shotwell)
+
 ## Links
 
 * [Old GNOME Wiki page](https://wiki.gnome.org/Apps/Shotwell)
 * [Shotwell source code repository](https://gitlab.gnome.org/GNOME/shotwell)
-* [User Manual](https://shotwell-project.org/doc/html/)
 * [Online services privacy policy](https://shotwell-project.org/doc/html/privacy-policy.html)
