@@ -16,7 +16,7 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string HOME_URL = "https://shotwell-project.org";
-    public const string FAQ_URL = "https://shotwell-project.org/doc/html";
+    public const string FAQ_URL = "https://gitlab.gnome.org/GNOME/shotwell/-/wikis/Frequently-Asked-Questions";
     public const string BUG_DB_URL = "https://gitlab.gnome.org/GNOME/shotwell/issues";
     public const string DIR_PATTERN_URI_SYSWIDE = "help:shotwell/other-files";
 
