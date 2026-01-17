@@ -935,7 +935,7 @@ msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod šahovnice"
 #: data/org.gnome.Shotwell.appdata.xml.in:9 data/org.gnome.Shotwell.desktop.in:3 data/ui/collection.ui:85 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:356 data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352
 #: src/photos/RawSupport.vala:313
 msgid "Shotwell"
-msgstr "Shotwell +"
+msgstr "Shotwell"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:10
 msgid "Digital photo organizer"
@@ -962,9 +962,8 @@ msgid "Main View with extended information display"
 msgstr "Glavni pogled z razširjenim prikazom podatkov"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:40
-#, fuzzy
 msgid "Import roll history"
-msgstr "Uvozite zgodovino zvitka / Zgodovina uvoženih fotografij"
+msgstr "Zgodovina uvoženih fotografij"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:44
 msgid "Event-based organization"
