@@ -175,4 +175,6 @@
   <url type="donation">https://donate.gnome.org/</url>
 
   <url type="help">https://shotwell-project.org/doc/html</url>
+  
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/shotwell</url>
 </component>
