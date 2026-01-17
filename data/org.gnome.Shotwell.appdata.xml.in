@@ -28,24 +28,24 @@
   <content_rating type="oars-1.0" />
   <screenshots>
     <screenshot type="default">
-        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/harbor.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/harbor.png</image>
+      <caption>Main View with extended information display</caption>
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/import.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
+      <caption>Import roll history</caption>
     </screenshot>
     <screenshot>
-        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/edit.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/edit.png</image>
+      <caption>Event-based organization</caption>
     </screenshot>
     <screenshot>
-        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/publish.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/publish.png</image>
+      <caption>Image color editing</caption>
     </screenshot>
   </screenshots>
   <update_contact>mail@jensge.org</update_contact>
