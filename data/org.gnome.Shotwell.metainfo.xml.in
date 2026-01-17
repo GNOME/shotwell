@@ -39,23 +39,23 @@
   <screenshots>
     <screenshot type="default">
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/harbor.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <caption>Main View with extended information display</caption>
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/import.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <caption>Import roll history</caption>
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <caption>Event-based organization</caption>
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/edit.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <caption>Image color editing</caption>
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/publish.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
+      <caption>Image upload to a web service</caption>
     </screenshot>
   </screenshots>
   
