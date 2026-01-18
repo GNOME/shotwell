@@ -1,14 +1,14 @@
 # Georgian translation for shotwell.
 # Copyright (C) 2023 shotwell authors
 # This file is distributed under the same license as the shotwell package.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023-2025.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-09-10 23:11+0000\n"
-"PO-Revision-Date: 2025-09-12 02:52+0200\n"
+"POT-Creation-Date: 2026-01-17 10:22+0000\n"
+"PO-Revision-Date: 2026-01-18 03:23+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
@@ -949,6 +949,22 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 
+#: data/org.gnome.Shotwell.appdata.xml.in:32
+msgid "Main View with extended information display"
+msgstr ""
+
+#: data/org.gnome.Shotwell.appdata.xml.in:40
+msgid "Import roll history"
+msgstr ""
+
+#: data/org.gnome.Shotwell.appdata.xml.in:44
+msgid "Event-based organization"
+msgstr ""
+
+#: data/org.gnome.Shotwell.appdata.xml.in:48
+msgid "Image color editing"
+msgstr "გამოსახულების ფერების ჩასწორება"
+
 #: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "სურათების მმართველი"
@@ -1676,7 +1692,7 @@ msgstr ""
 
 #: data/ui/set_background_slideshow_dialog.ui:92
 msgid "period of time"
-msgstr ""
+msgstr "დროის მონაკვეთი"
 
 #: data/ui/set_background_slideshow_dialog.ui:114
 msgid "How long each photo is shown on the desktop background"
@@ -1819,41 +1835,41 @@ msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid "⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid "⚫ This website’s identification has been revoked by the trusted organization that issued it."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid "⚫ This website’s identification cannot be trusted because it uses very weak encryption."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
 msgstr ""
 
-#: plugins/common/RESTSupport.vala:574 plugins/shotwell-publishing/TumblrPublishing.vala:567 plugins/shotwell-publishing/YoutubeUploader.vala:65
+#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:567 plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 
@@ -2785,7 +2801,7 @@ msgstr ""
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
-msgstr ""
+msgstr "მონაცემთა ბაზის ფაილი:"
 
 #: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:760
 msgid "_Import"
@@ -3747,19 +3763,19 @@ msgstr ""
 
 #: src/editing_tools/EditingTools.vala:748
 msgid "SD Video (4 ∶ 3)"
-msgstr ""
+msgstr "SD ვიდეო (4 : 3)"
 
 #: src/editing_tools/EditingTools.vala:749
 msgid "HD Video (16 ∶ 9)"
-msgstr ""
+msgstr "HD ვიდეო (16 : 9)"
 
 #: src/editing_tools/EditingTools.vala:751 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
-msgstr ""
+msgstr "საფულე (2 × 3 დმ.)"
 
 #: src/editing_tools/EditingTools.vala:752 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
-msgstr ""
+msgstr "შენიშვნა (3 × 5 დმ.)"
 
 #: src/editing_tools/EditingTools.vala:753 src/Printing.vala:798
 msgid "4 × 6 in."
@@ -3775,7 +3791,7 @@ msgstr "8 × 10 დუიმ."
 
 #: src/editing_tools/EditingTools.vala:756
 msgid "Letter (8.5 × 11 in.)"
-msgstr ""
+msgstr "წერილი (8.5 × 11 დმ.)"
 
 #: src/editing_tools/EditingTools.vala:757 src/Printing.vala:807
 msgid "11 × 14 in."
@@ -3791,35 +3807,35 @@ msgstr "16 × 20 დუიმ."
 
 #: src/editing_tools/EditingTools.vala:761 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
-msgstr ""
+msgstr "მეტრული საფულე (9 × 13 სმ)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
-msgstr ""
+msgstr "საფოსტო ბარათი (10 × 15 სმ)"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:822
 msgid "13 × 18 cm"
-msgstr ""
+msgstr "13 × 18 სმ"
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:825
 msgid "18 × 24 cm"
-msgstr ""
+msgstr "18 × 24 სმ"
 
 #: src/editing_tools/EditingTools.vala:765
 msgid "A4 (210 × 297 mm)"
-msgstr ""
+msgstr "A4 (210 × 297 მმ)"
 
 #: src/editing_tools/EditingTools.vala:766 src/Printing.vala:828
 msgid "20 × 30 cm"
-msgstr ""
+msgstr "20 × 30 სმ"
 
 #: src/editing_tools/EditingTools.vala:767 src/Printing.vala:831
 msgid "24 × 40 cm"
-msgstr ""
+msgstr "24 × 40 სმ"
 
 #: src/editing_tools/EditingTools.vala:768 src/Printing.vala:834
 msgid "30 × 40 cm"
-msgstr ""
+msgstr "30 × 40 სმ"
 
 #: src/editing_tools/EditingTools.vala:769
 msgid "A3 (297 × 420 mm)"
@@ -4171,69 +4187,69 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr ""
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "Path to Shotwell’s private data"
 msgstr ""
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: src/main.vala:409
+#: src/main.vala:418
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 
-#: src/main.vala:410
+#: src/main.vala:419
 msgid "Don’t display startup progress meter"
 msgstr ""
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "Show the application’s version"
 msgstr "აპლიკაციის ვერსიის ჩვენება"
 
-#: src/main.vala:412
+#: src/main.vala:421
 msgid "Start the application in fullscreen mode"
 msgstr ""
 
-#: src/main.vala:413
+#: src/main.vala:422
 msgid "Print the metadata of the image file"
 msgstr ""
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "Name for a custom profile"
 msgstr ""
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "PROFILE"
 msgstr ""
 
-#: src/main.vala:415
+#: src/main.vala:424
 msgid "Start with a browser of available profiles"
 msgstr ""
 
-#: src/main.vala:416
+#: src/main.vala:425
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "Show available profiles"
 msgstr ""
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:460
+#: src/main.vala:469
 msgid "[FILE]"
 msgstr "[ფაილი]"
 
-#: src/main.vala:465
+#: src/main.vala:474
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "გაშვების ხელმისაწვდომი პარამეტრების სანახავად გაუშვით \"%s --help\".\n"
 
-#: src/main.vala:474
+#: src/main.vala:483
 msgid "Choose Shotwell's profile"
 msgstr ""
 
-#: src/main.vala:500
+#: src/main.vala:509
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -4312,22 +4328,22 @@ msgstr "GIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "დაბალი (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "საშუალო (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "მაღალი (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "მაქსიმუმი (%d%%)"
@@ -4545,7 +4561,7 @@ msgstr "ვისგან:"
 
 #: src/Properties.vala:397 src/Properties.vala:402
 msgid "To:"
-msgstr ""
+msgstr "ვის:"
 
 #: src/Properties.vala:416
 msgid "Duration:"
@@ -4607,11 +4623,11 @@ msgstr ""
 
 #: src/Properties.vala:636
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPS გრძედი:"
 
 #: src/Properties.vala:639
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPS გრძედი:"
 
 #: src/Properties.vala:642
 msgid "Artist:"
@@ -5205,7 +5221,7 @@ msgstr ""
 #: src/Resources.vala:678
 #, c-format
 msgid "%s or Better"
-msgstr ""
+msgstr "%s ან უკეთესი"
 
 #: src/Resources.vala:679
 #, c-format
@@ -5314,11 +5330,11 @@ msgstr "დაყენებულია"
 #. Ordering must correspond with SearchConditionMediaType.Context
 #: src/searches/SavedSearchDialog.vala:248 src/searches/SavedSearchDialog.vala:379 src/searches/SavedSearchDialog.vala:444
 msgid "is"
-msgstr ""
+msgstr "არის"
 
 #: src/searches/SavedSearchDialog.vala:249
 msgid "is not"
-msgstr ""
+msgstr "არ არის"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
 #: src/searches/SavedSearchDialog.vala:255
@@ -5327,11 +5343,11 @@ msgstr "ნებისმიერი სურათი"
 
 #: src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
-msgstr ""
+msgstr "დაუმუშავებელი სურათი"
 
 #: src/searches/SavedSearchDialog.vala:257
 msgid "a video"
-msgstr ""
+msgstr "ვიდეო"
 
 #: src/searches/SavedSearchDialog.vala:311
 msgid "has"
@@ -5356,19 +5372,19 @@ msgstr "გარე ცვლილებები"
 #. Ordering must correspond with SearchConditionFlagged.State
 #: src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
-msgstr ""
+msgstr "აქვს ალამი"
 
 #: src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
-msgstr ""
+msgstr "არ აქვს ალამი"
 
 #: src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
-msgstr ""
+msgstr "და უფრო მაღალი"
 
 #: src/searches/SavedSearchDialog.vala:438
 msgid "only"
-msgstr ""
+msgstr "მხოლოდ"
 
 #: src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
@@ -5388,7 +5404,7 @@ msgstr "არის შუალედში"
 
 #: src/searches/SavedSearchDialog.vala:516
 msgid "and"
-msgstr ""
+msgstr "და"
 
 #: src/searches/SearchBoolean.vala:165
 msgid "Any text"
@@ -5424,11 +5440,11 @@ msgstr "მედიის ტიპი"
 
 #: src/searches/SearchBoolean.vala:189
 msgid "Flag state"
-msgstr ""
+msgstr "ალმის მდგომარეობა"
 
 #: src/searches/SearchBoolean.vala:192
 msgid "Photo state"
-msgstr ""
+msgstr "ფოტოს მდგომარეობა"
 
 #: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:851 src/SearchFilter.vala:1135
 msgid "Rating"
@@ -5448,23 +5464,23 @@ msgstr ""
 
 #: src/SearchFilter.vala:835
 msgid "★+ Rating"
-msgstr ""
+msgstr "★+ რეიტინგი"
 
 #: src/SearchFilter.vala:838
 msgid "★★+ Rating"
-msgstr ""
+msgstr "★★+ რეიტინგი"
 
 #: src/SearchFilter.vala:841
 msgid "★★★+ Rating"
-msgstr ""
+msgstr "★★★+ რეიტინგი"
 
 #: src/SearchFilter.vala:844
 msgid "★★★★+ Rating"
-msgstr ""
+msgstr "★★★★+ რეიტინგი"
 
 #: src/SearchFilter.vala:848
 msgid "★★★★★+ Rating"
-msgstr ""
+msgstr "★★★★★+ რეიტინგი"
 
 #: src/SearchFilter.vala:1085
 #, c-format
