@@ -14,23 +14,23 @@
 # Isaac Ferreira Filho <isaacmob@riseup.net>, 2017.
 # Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 # Enrico Nicoletto <hiko@duck.com>, 2016, 2020, 2022.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2014-2023.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2024-2025.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2014-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-06-19 22:49+0000\n"
-"PO-Revision-Date: 2025-06-26 09:56-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"POT-Creation-Date: 2026-01-17 10:22+0000\n"
+"PO-Revision-Date: 2026-01-20 15:23-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 48.0\n"
+"X-Generator: Gtranslator 49.0\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1223,7 +1223,7 @@ msgstr ""
 "slides está habilitado; do contrário, falso"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
+#: data/org.gnome.Shotwell.desktop.in:3 data/ui/collection.ui:85
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:356
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
@@ -1264,35 +1264,44 @@ msgstr ""
 "Shotwell oferece suporte a JPEG, PNG, TIFF e a uma variedade de formatos de "
 "arquivo RAW."
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.appdata.xml.in:32
+msgid "Main View with extended information display"
+msgstr "Visão principal com exibição de informações estendidas"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:40
+msgid "Import roll history"
+msgstr "Histórico da galeria de importação"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:44
+msgid "Event-based organization"
+msgstr "Organização baseada em eventos"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:48
+msgid "Image color editing"
+msgstr "Edição de cores de imagens"
+
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Organizador de fotos"
 
-#: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:5
 msgid "Organize your photos"
 msgstr "Organize suas fotos"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr ""
-"álbum;câmera;câmeras;cortar;editar;melhorar;exportar;galeria;imagem;imagens;"
-"importar;organizar;foto;fotografia;fotografias;foto;fotos;imprimir;impressão;"
-"publicar;publicação;girar;compartilhar;etiquetas;vídeo;facebook;flickr;"
-"picasa;youtube;piwigo;"
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgstr "álbum;câmera;câmeras;cortar;editar;melhorar;exportar;galeria;imagem;imagens;importar;organizar;foto;fotografia;fotografias;foto;fotos;imprimir;impressão;publicar;publicação;girar;compartilhar;etiquetas;vídeo;facebook;flickr;picasa;youtube;piwigo;"
 
-#: data/org.gnome.Shotwell.desktop.in:21
+#: data/org.gnome.Shotwell.desktop.in:20
 msgid "Manage Different Profiles In Shotwell"
 msgstr "Gerencie diferentes perfis no Shotwell"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Visualizador do Shotwell"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Visualizador de fotos"
 
@@ -2259,19 +2268,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "No momento, você não está conectado ao YouTube.\n"
 "\n"
@@ -2279,12 +2288,12 @@ msgstr ""
 "YouTube para continuar. Você pode configurar a maioria das contas usando seu "
 "navegador para se autenticar no site do YouTube pelo menos uma vez.\n"
 "\n"
-"Shotwell usa os serviços de API do YouTube <a href=\"https://developers."
-"google.com/youtube\">https://developers.google.com/youtube</a> para acessar "
-"seu canal do YouTube e enviar os vídeos. Ao usar o Shotwell para acessar o "
-"YouTube, você concorda em obedecer aos Termos de Serviço do YouTube, "
-"conforme disponível em <a href=\"https://www.youtube.com/t/terms\">https://"
-"www.youtube.com/t/terms</a>\n"
+"Shotwell usa os serviços de API do YouTube <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"para acessar seu canal do YouTube e enviar os vídeos. Ao usar o Shotwell "
+"para acessar o YouTube, você concorda em obedecer aos Termos de Serviço do "
+"YouTube, conforme disponível em <a href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "A política de privacidade da Shotwell em relação ao uso de dados "
 "relacionados à sua conta do Google em geral e do YouTube em particular pode "
@@ -2307,8 +2316,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "No momento, você não está conectado ao Google Fotos.\n"
 "\n"
@@ -2322,8 +2331,8 @@ msgstr ""
 "relacionados à sua conta do Google em geral e ao Google Fotos em particular "
 "pode ser encontrada em nossa <a href=\"help:shotwell/privacy-"
 "policy\">política de privacidade de serviços on-line</a>. Para a própria "
-"política de privacidade do Google, consulte <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"política de privacidade do Google, consulte <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 msgid "_Email address"
@@ -2373,14 +2382,14 @@ msgstr ""
 "Juliano de Souza Camargo <julianosc@pm.me>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Este site apresentou identificação que pertence a um site diferente."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2389,14 +2398,14 @@ msgstr ""
 "data no calendário de seu computador."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ A identificação deste site não foi emitida por uma organização confiável."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2404,7 +2413,7 @@ msgstr ""
 "corrompida."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
@@ -2413,7 +2422,7 @@ msgstr ""
 "emitiu."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2422,7 +2431,7 @@ msgstr ""
 "codificação muito fraca."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2430,7 +2439,7 @@ msgstr ""
 "⚫ A identificação deste site somente é válida para datas futuras. Por "
 "favor, verifique a data no calendário do seu computador."
 
-#: plugins/common/RESTSupport.vala:574
+#: plugins/common/RESTSupport.vala:582
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
@@ -5039,73 +5048,73 @@ msgstr "Erro desconhecido ao tentar verificar o banco de dados do Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Carregando Shotwell"
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "Path to Shotwell’s private data"
 msgstr "Caminho para os dados privados do Shotwell"
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: src/main.vala:409
+#: src/main.vala:418
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "Não monitora o diretório da biblioteca durante o tempo de execução para "
 "mudanças"
 
-#: src/main.vala:410
+#: src/main.vala:419
 msgid "Don’t display startup progress meter"
 msgstr "Não exibe a medida do progresso de inicialização"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "Show the application’s version"
 msgstr "Mostra a versão do aplicativo"
 
-#: src/main.vala:412
+#: src/main.vala:421
 msgid "Start the application in fullscreen mode"
 msgstr "Inicia o aplicativo em modo tela cheia"
 
-#: src/main.vala:413
+#: src/main.vala:422
 msgid "Print the metadata of the image file"
 msgstr "Imprime os metadados do arquivo de imagem"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "Name for a custom profile"
 msgstr "Nome para um perfil personalizado"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "PROFILE"
 msgstr "PERFIL"
 
-#: src/main.vala:415
+#: src/main.vala:424
 msgid "Start with a browser of available profiles"
 msgstr "Inicia com um navegador de perfis disponíveis"
 
-#: src/main.vala:416
+#: src/main.vala:425
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Se PERFIL dado com --profile não existir, cria-o"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "Show available profiles"
 msgstr "Mostra perfis disponíveis"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:460
+#: src/main.vala:469
 msgid "[FILE]"
 msgstr "[ARQUIVO]"
 
-#: src/main.vala:465
+#: src/main.vala:474
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Execute “%s --help” para ver uma lista completa de opções de linha de "
 "comando disponíveis.\n"
 
-#: src/main.vala:474
+#: src/main.vala:483
 msgid "Choose Shotwell's profile"
 msgstr "Escolher perfil do Shotwell"
 
-#: src/main.vala:500
+#: src/main.vala:509
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "O perfil %s não existe. Você pretendia passar --create também?"
@@ -5188,22 +5197,22 @@ msgstr "GIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Baixo (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Médio (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "Alto (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Máximo (%d%%)"
