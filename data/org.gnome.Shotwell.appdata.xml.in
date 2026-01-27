@@ -33,19 +33,19 @@
     </screenshot>
     <screenshot>
         <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/import.png</image>
-      <caption><!-- Describe this screenshot in less than ~10 words --></caption>
-    </screenshot>
-    <screenshot>
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
       <caption>Import roll history</caption>
     </screenshot>
     <screenshot>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
+      <caption>Event-based image organization</caption>
+    </screenshot>
+    <screenshot>
       <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/edit.png</image>
-      <caption>Event-based organization</caption>
+      <caption>Image color editing</caption>
     </screenshot>
     <screenshot>
       <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/publish.png</image>
-      <caption>Image color editing</caption>
+      <caption>Uploading images to online services</caption>
     </screenshot>
   </screenshots>
   <update_contact>mail@jensge.org</update_contact>
