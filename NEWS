@@ -1,3 +1,35 @@
+Shotwell 0.32.15 (stable) - 01 Mar 2025
+ * Translation updates
+ * Fix writable detection for AVIF files
+ * Support trash:/// urls in the viewer
+ * Appstream updates; Fix linter warnings
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5161
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/103
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Martin <miles@filmsi.net>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Aurimas Aurimas Černius <aurimas.cernius@mailo.com>
+ - Juliano de Souza Camargo <julianosc@protonmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Sabri Ünal <137977-yakushabb@users.noreply.gitlab.gnome.org>
+ - Александр Вахрамеев <yasson2008@ya.ru>
+
+Added/updated translations:
+ - ka.po, courtesy of Ekaterine Papava
+ - lt.po, courtesy of Aurimas Černius
+ - pt_BR.po, courtesy of Juliano de Souza Camargo
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ 
 Shotwell 0.32.14 (stable) - 14 Nov 2025
 
  * Fix AVIF and HEIF falsly claiming to support writing meta-data

@@ -56,10 +56,17 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+    <release version="0.32.15" date="2026-03-01" urgency="low" type="stable">
+      <description>
+        <ul>
+          <li>Updates translations</li>
+        </ul>
+      </description>
+    </release>
       <release version="0.32.14" date="2025-11-14" urgency="medium" type="stable">
           <description>
               <ul>
-                <li>Adds support for epxorting to BMP and AVIF</li>
+                <li>Adds support for exporting to BMP and AVIF</li>
                 <li>Fixes export of files with transparency</li>
                 <li>Allows publishing to Piwigo instances with bot protection</li>
                 <li>Improves stability</li>
