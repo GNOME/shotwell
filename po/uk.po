@@ -7,14 +7,14 @@
 # Translators:
 # verayin <vera@yorba.org>, 2011.
 # Yuri Chornoivan <yurchor@ukr.net>, 2011-2013.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-06-08 14:04+0000\n"
-"PO-Revision-Date: 2025-06-08 17:32+0300\n"
+"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"PO-Revision-Date: 2026-03-03 22:13+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1208,19 +1208,50 @@ msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом шахівниці у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
+msgid "Shotwell Authentication helper"
+msgstr "Помічник розпізнавання Shotwell"
+
+#: data/org.gnome.Shotwell.desktop.in:3
+#: data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:10
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
+msgid "Photo Manager"
+msgstr "Впорядник фотографій"
+
+#: data/org.gnome.Shotwell.desktop.in:5
+msgid "Organize your photos"
+msgstr "Впорядкуйте ваші фотографії"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;org"
+"anize;photo;photographs;photos;picture;pictures;photography;print;publish;rot"
+"ate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgstr ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;org"
+"anize;photo;photographs;photos;picture;pictures;photography;print;publish;rot"
+"ate;share;tags;video;flickr;picasa;youtube;piwigo;альбом;камера;фотоапарат;ка"
+"мери;фотоапарати;обрізати;редагувати;виправити;експортувати;галерея;зображенн"
+"я;фото;імпортувати;імпорт;упорядкувати;упорядковування;фотографія;фотографії;"
+"картинка;картинки;друк;надрукувати;оприлюднити;обернути;обертання;поділитися;"
+"мітки;теґи;флікр;пікаса;ютьюб;півіго;півіґо;"
+
+#: data/org.gnome.Shotwell.desktop.in:20
+msgid "Manage Different Profiles"
+msgstr "Керування різними профілями"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
 msgid "Digital photo organizer"
 msgstr "Засіб упорядковування цифрових фотографій"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:12
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1239,7 +1270,7 @@ msgstr ""
 "початкових файлів фотографій, що спростить вам експерименти з редагуванням "
 "та виправлення помилок."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:19
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1247,52 +1278,39 @@ msgstr ""
 "Після обробки Shotwell може вивантажувати ваші фотографії на різноманітні "
 "вебслужби, зокрема Flickr, Google Фото тощо."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:23
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "У Shotwell передбачено підтримку роботи з файлами у форматах JPEG, PNG, TIFF "
 "та різноманітних форматах цифрових негативів (RAW)."
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Розробники Shotwell"
+#: data/org.gnome.Shotwell.metainfo.xml.in:42
+msgid "Main View with extended information display"
+msgstr "Головна панель із показом розширених відомостей"
 
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
-msgid "Shotwell Authentication helper"
-msgstr "Помічник розпізнавання Shotwell"
+#: data/org.gnome.Shotwell.metainfo.xml.in:46
+#| msgid "Import to Library"
+msgid "Import roll history"
+msgstr "Імпортування журналу накочування"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
-msgid "Photo Manager"
-msgstr "Впорядник фотографій"
+#: data/org.gnome.Shotwell.metainfo.xml.in:50
+msgid "Event-based organization"
+msgstr "Упорядкування на основі подій"
 
-#: data/org.gnome.Shotwell.desktop.in:6
-msgid "Organize your photos"
-msgstr "Впорядкуйте ваші фотографії"
+#: data/org.gnome.Shotwell.metainfo.xml.in:54
+#| msgid "Image Settings"
+msgid "Image color editing"
+msgstr "Редагування кольорів зображення"
 
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;альбом;камера;"
-"фотоапарат;камери;фотоапарати;обрізати;редагувати;виправити;експортувати;"
-"галерея;зображення;фото;імпортувати;імпорт;упорядкувати;упорядковування;"
-"фотографія;фотографії;картинка;картинки;друк;надрукувати;оприлюднити;"
-"обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;півіґо;"
+#: data/org.gnome.Shotwell.metainfo.xml.in:58
+msgid "Image upload to a web service"
+msgstr "Вивантаження зображення до вебслужби"
 
-#: data/org.gnome.Shotwell.desktop.in:21
-msgid "Manage Different Profiles"
-msgstr "Керування різними профілями"
-
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Переглядач Shotwell"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Переглядач фотографій"
 
@@ -1929,7 +1947,7 @@ msgid "_Log in"
 msgstr "_Увійти"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/AppWindow.vala:221 src/AppWindow.vala:247
 #: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
@@ -2090,12 +2108,12 @@ msgstr "Використовувати с_тандартні:"
 msgid "Use a c_ustom size:"
 msgstr "Використовувати н_етипові:"
 
-#. Abbrevation for "inch"
+#. Abbreviation for "inch"
 #: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "дюйми"
 
-#. Abbrevation for "centimeters"
+#. Abbreviation for "centimeters"
 #: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "см"
@@ -2347,19 +2365,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Ви не увійшли до облікового запису YouTube.\n"
 "\n"
@@ -2372,8 +2390,8 @@ msgstr ""
 "href=\"https://developers.google.com/youtube\">https://developers.google.com/"
 "youtube</a> для доступу до вашого каналу YouTube та вивантаження відео. "
 "Користуючись Shotwell для доступу до YouTube, ви погоджуєтеся із умовами "
-"надання послуг YouTube, які викладено на сторінці <a href=\"https://www."
-"youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"надання послуг YouTube, які викладено на сторінці <a href=\"https://"
+"www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "Правила конфіденційності Shotwell, які стосуються даних, пов'язаних із вашим "
 "обліковим записом Google загалом та YouTube зокрема, наведено на нашій <a "
@@ -2397,8 +2415,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Ви не увійшли до облікового запису Google Фото.\n"
 "\n"
@@ -2448,20 +2466,20 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Цим сайтом надано дані щодо розпізнавання, які належать іншому сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2470,14 +2488,14 @@ msgstr ""
 "Перевірте, чи правильно вказано дату на календарі вашого комп’ютера."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2485,7 +2503,7 @@ msgstr ""
 "пошкоджено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
@@ -2494,7 +2512,7 @@ msgstr ""
 "їх було випущено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2503,7 +2521,7 @@ msgstr ""
 "використовується дуже слабкий спосіб шифрування."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2511,7 +2529,7 @@ msgstr ""
 "⚫ Дані розпізнавання сайта набудуть чинності лише у майбутньому. Перевірте, "
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
-#: plugins/common/RESTSupport.vala:574
+#: plugins/common/RESTSupport.vala:582
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
@@ -2732,10 +2750,10 @@ msgid ""
 "authenticate and grant Shotwell the required permission to create new media "
 "and albums"
 msgstr ""
-"Не вдалося створити альбом, у Shotwell недостатні права доступу для"
-" виконання цього завдання. Будь ласка, пройдіть повторне розпізнавання і"
-" надайте Shotwell потрібні для створення мультимедійних об'єктів та альбомів"
-" права доступу"
+"Не вдалося створити альбом, у Shotwell недостатні права доступу для "
+"виконання цього завдання. Будь ласка, пройдіть повторне розпізнавання і "
+"надайте Shotwell потрібні для створення мультимедійних об'єктів та альбомів "
+"права доступу"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -3056,36 +3074,36 @@ msgstr "Не вдалося зробити каталог %s придатним 
 msgid "Could not make directory %s writable: %s"
 msgstr "Не вдалося зробити каталог %s придатним до запису: %s"
 
-#: src/AppWindow.vala:183
+#: src/AppWindow.vala:185
 msgid "Ok"
 msgstr "Гаразд"
 
-#: src/AppWindow.vala:236
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Файл з назвою %s вже існує. Замінити його?"
 
-#: src/AppWindow.vala:239
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "Конфлікт під час експортування файла"
 
-#: src/AppWindow.vala:243
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Застосувати це розв'язання конфлікту до усіх подальших конфліктів"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "Пр_опустити"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "_Замінити"
 
-#: src/AppWindow.vala:268
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3098,21 +3116,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:307
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "Відвідати сайт Shotwell"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Не вдалося показати довідку: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Не вдалося перейти до сторінки бази даних вад: %s"
 
-#: src/AppWindow.vala:335
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Не вдалося показати сторінку поширених питань: %s"
@@ -4933,7 +4951,7 @@ msgstr "Неможливо стежити за %s: це не каталог (%s)
 msgid "Photos cannot be exported to this directory."
 msgstr "Експорт фотографій до цього каталогу неможливий."
 
-#: src/EditingHostPage.vala:1325
+#: src/EditingHostPage.vala:1321
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Не виявлено файла джерела фотографії: %s"
@@ -5422,57 +5440,57 @@ msgstr "Не вдалося запустити Shotwell"
 msgid "Loading Shotwell"
 msgstr "Завантаження Shotwell"
 
-#: src/main.vala:350
+#: src/main.vala:420
 msgid "Path to Shotwell’s private data"
 msgstr "Шлях до конфіденційних даних Shotwell"
 
-#: src/main.vala:350
+#: src/main.vala:420
 msgid "DIRECTORY"
 msgstr "КАТАЛОГ"
 
-#: src/main.vala:351
+#: src/main.vala:421
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Не стежити за змінами у каталозі бібліотеки під час роботи програми"
 
-#: src/main.vala:352
+#: src/main.vala:422
 msgid "Don’t display startup progress meter"
 msgstr "Не показувати панель поступу під час завантаження"
 
-#: src/main.vala:353
+#: src/main.vala:423
 msgid "Show the application’s version"
 msgstr "Показати дані щодо версії програми"
 
-#: src/main.vala:354
+#: src/main.vala:424
 msgid "Start the application in fullscreen mode"
 msgstr "Запускати програму у повноекранному режимі"
 
-#: src/main.vala:355
+#: src/main.vala:425
 msgid "Print the metadata of the image file"
 msgstr "Надрукувати метадані файла зображення"
 
-#: src/main.vala:356
+#: src/main.vala:426
 msgid "Name for a custom profile"
 msgstr "Назва нетипового профілю"
 
-#: src/main.vala:356
+#: src/main.vala:426
 msgid "PROFILE"
 msgstr "ПРОФІЛЬ"
 
-#: src/main.vala:357
+#: src/main.vala:427
 msgid "Start with a browser of available profiles"
 msgstr "Починати з вибору доступних профілів"
 
-#: src/main.vala:358
+#: src/main.vala:428
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Якщо профілю ПРОФІЛЬ, який задано за допомогою параметра --profile, не "
 "існує, створити його"
 
-#: src/main.vala:359
+#: src/main.vala:429
 msgid "Show available profiles"
 msgstr "Показати доступні профілі"
 
-#: src/main.vala:409
+#: src/main.vala:479
 #, c-format
 msgid ""
 "Run “%s --help” to see a full list of available command line options.\n"
@@ -5480,11 +5498,11 @@ msgstr ""
 "Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
 "команду «%s --help».\n"
 
-#: src/main.vala:417
+#: src/main.vala:487
 msgid "Choose Shotwell's profile"
 msgstr "Виберіть профіль Shotwell"
 
-#: src/main.vala:451
+#: src/main.vala:521
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профілю %s не існує. Ви хотіли передати також параметр --create?"
@@ -5537,22 +5555,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Низька (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Середня (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "Висока (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Максимальна (%d%%)"
@@ -6766,6 +6784,9 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Розробники Shotwell"
 
 #~ msgid "Public listed"
 #~ msgstr "Відкрите у списку"
