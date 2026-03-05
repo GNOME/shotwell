@@ -1,18 +1,18 @@
 # Hungarian translation for shotwell.
-# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gábor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016, 2017.
 # László Csordás <csola48 at gmail dot com>, 2012.
 # lsbeeler <lucas at yorba dot org>, 2011.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2016, 2017, 2019, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-08-17 09:51+0000\n"
-"PO-Revision-Date: 2025-09-02 14:29+0200\n"
+"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"PO-Revision-Date: 2026-03-05 23:17+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1233,9 +1233,27 @@ msgstr ""
 "A Shotwell a JPEG, PNG, TIFF, valamint különböző nyers fájl formátumokat "
 "támogatja."
 
-#: data/org.gnome.Shotwell.metainfo.xml.in:53
-msgid "The Shotwell developers"
-msgstr "A Shotwell fejlesztői"
+#: data/org.gnome.Shotwell.metainfo.xml.in:42
+msgid "Main View with extended information display"
+msgstr "Fő nézet kiterjesztett információs megjelenítéssel"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:46
+#| msgid "Import to Library"
+msgid "Import roll history"
+msgstr "Importálás görgetési előzményei"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:50
+msgid "Event-based organization"
+msgstr "Eseményalapú szervezet"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:54
+#| msgid "Image Settings"
+msgid "Image color editing"
+msgstr "Képszínszerkesztés"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:58
+msgid "Image upload to a web service"
+msgstr "Kép feltöltése webszolgáltatásba"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
@@ -1877,7 +1895,7 @@ msgid "_Log in"
 msgstr "Bejele_ntkezés"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/AppWindow.vala:221 src/AppWindow.vala:247
 #: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
@@ -2036,12 +2054,12 @@ msgstr "_Szabványos méret használata:"
 msgid "Use a c_ustom size:"
 msgstr "_Egyéni méret használata:"
 
-#. Abbrevation for "inch"
+#. Abbreviation for "inch"
 #: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "hüvelyk"
 
-#. Abbrevation for "centimeters"
+#. Abbreviation for "centimeters"
 #: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "cm"
@@ -2392,7 +2410,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2417,7 +2435,7 @@ msgstr ""
 "  csola48 https://launchpad.net/~mail-csordaslaszlo"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -2425,7 +2443,7 @@ msgstr ""
 "tartozik."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2434,20 +2452,20 @@ msgstr ""
 "Ellenőrizze a dátumot a számítógépe naptárában."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ A weboldal tanúsítványát nem egy megbízható szervezet állította ki."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 "⚫ A weboldal tanúsítványát nem sikerült feldolgozni. Lehet, hogy sérült."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
@@ -2455,7 +2473,7 @@ msgstr ""
 "⚫ A weboldal tanúsítványát visszavonta az azt kiállító megbízható szervezet."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2464,7 +2482,7 @@ msgstr ""
 "titkosítást használ."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2472,7 +2490,7 @@ msgstr ""
 "⚫ A weboldal tanúsítványa csak jövőbeli dátumokra érvényes. Ellenőrizze a "
 "dátumot a számítógépe naptárában."
 
-#: plugins/common/RESTSupport.vala:574
+#: plugins/common/RESTSupport.vala:582
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
@@ -2686,9 +2704,9 @@ msgid ""
 "authenticate and grant Shotwell the required permission to create new media "
 "and albums"
 msgstr ""
-"Nem sikerült létrehozni az albumot, a Shotwell nem rendelkezik ehhez megfelelő"
-" jogosultsággal. Hitelesítsen újra, és adja meg a Shotwell számára a szükséges"
-" jogosultságot új média és albumok létrehozásához."
+"Nem sikerült létrehozni az albumot, a Shotwell nem rendelkezik ehhez "
+"megfelelő jogosultsággal. Hitelesítsen újra, és adja meg a Shotwell számára "
+"a szükséges jogosultságot új média és albumok létrehozásához."
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -3004,36 +3022,36 @@ msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni"
 msgid "Could not make directory %s writable: %s"
 msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni: %s"
 
-#: src/AppWindow.vala:183
+#: src/AppWindow.vala:185
 msgid "Ok"
 msgstr "Rendben"
 
-#: src/AppWindow.vala:236
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "A(z) %s fájl már létezik. Lecseréli?"
 
-#: src/AppWindow.vala:239
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "Fájlexportálási ütközés"
 
-#: src/AppWindow.vala:243
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Az ütközés megoldásának alkalmazása az összes későbbi ütközésre"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "_Kihagyás"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "_Csere"
 
-#: src/AppWindow.vala:268
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3046,21 +3064,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:307
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem lehet eljutni a hibaadatbázishoz: %s"
 
-#: src/AppWindow.vala:335
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem lehet megjeleníteni a gyakran ismételt kérdést: %s"
@@ -4613,7 +4631,7 @@ msgstr "A(z) %s nem figyelhető meg: nem könyvtár (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
 
-#: src/EditingHostPage.vala:1325
+#: src/EditingHostPage.vala:1321
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "A fénykép forrásfájlja hiányzik: %s"
@@ -5098,67 +5116,67 @@ msgstr "Nem lehet elindítani a Shotwell alkalmazást"
 msgid "Loading Shotwell"
 msgstr "A Shotwell betöltése"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "Path to Shotwell’s private data"
 msgstr "A Shotwell privát adatainak útvonala"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "DIRECTORY"
 msgstr "KÖNYVTÁR"
 
-#: src/main.vala:412
+#: src/main.vala:421
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
 
-#: src/main.vala:413
+#: src/main.vala:422
 msgid "Don’t display startup progress meter"
 msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "Show the application’s version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
-#: src/main.vala:415
+#: src/main.vala:424
 msgid "Start the application in fullscreen mode"
 msgstr "Az alkalmazás indítása teljes képernyős módban"
 
-#: src/main.vala:416
+#: src/main.vala:425
 msgid "Print the metadata of the image file"
 msgstr "A képfájl metaadatainak nyomtatása"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "Name for a custom profile"
 msgstr "Egy egyéni profil neve"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:418
+#: src/main.vala:427
 msgid "Start with a browser of available profiles"
 msgstr "Indítás az elérhető profilok böngészőjével"
 
-#: src/main.vala:419
+#: src/main.vala:428
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Ha a --profile kapcsolóval megadott PROFIL nem létezik, akkor létrehozza"
 
-#: src/main.vala:420
+#: src/main.vala:429
 msgid "Show available profiles"
 msgstr "Elérhető profilok megjelenítése"
 
-#: src/main.vala:470
+#: src/main.vala:479
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
 "ki.\n"
 
-#: src/main.vala:478
+#: src/main.vala:487
 msgid "Choose Shotwell's profile"
 msgstr "A Shotwell profiljának kiválasztása"
 
-#: src/main.vala:512
+#: src/main.vala:521
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5212,22 +5230,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Alacsony (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Közepes (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "Magas (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Maximum (%d%%)"
