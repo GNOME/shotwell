@@ -7,15 +7,15 @@
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2011, 2012, 2013, 2019, 2020, 2022.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2023, 2024.
+# Asier Saratsua Garmendia <asiersarasua@ni.eus>, 2011, 2012, 2013, 2019, 2020, 2022.
+# Asier Saratsua Garmendia <asiersarasua@ni.eus>, 2023, 2024, 2026.
 #
 msgid ""
 msgstr "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2024-09-05 13:47+0000\n"
-"PO-Revision-Date: 2024-09-14 10:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"POT-Creation-Date: 2026-03-01 18:42+0000\n"
+"PO-Revision-Date: 2026-03-08 10:00+0100\n"
+"Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -1050,7 +1050,7 @@ msgid ""
 msgstr "Egia xake-taularen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
+#: data/org.gnome.Shotwell.desktop.in:3 data/ui/collection.ui:85
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:356
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
@@ -1081,31 +1081,48 @@ msgstr "Prest daudenean, Shotwell aplikazioak zenbait webgunetara igo ditzake zu
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwellek JPEG, PNG, TIFF eta hainbat RAW fitxategi-formatu onartzen ditu."
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.appdata.xml.in:32
+msgid "Main View with extended information display"
+msgstr "Ikuspegi nagusia informazio hedatuarekin"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:36
+msgid "Import roll history"
+msgstr "Inportatu argazki-filmaren historia"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:40
+msgid "Event-based image organization"
+msgstr "Gertaeretan oinarritutako irudi-antolaketa"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:44
+msgid "Image color editing"
+msgstr "Irudien kolore-edizioa"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:48
+msgid "Uploading images to online services"
+msgstr "Irudiak lineako zerbitzuetara igotzen"
+
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Argazki-kudeatzailea"
 
-#: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:5
 msgid "Organize your photos"
 msgstr "Antolatu zure argazkiak"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr "albuma;kamera;kamerak;moztu;editatu;hobetu;esportatu;galeria;irudia;irudiak;inportatu;antolatu;argazkia;argazkiak;irudia;irudiak;argazkilaritza;inprimatu;argitaratu;biratu;partekatu;etiketak;bideoa;flickr;picasa;youtube;piwigo;"
 
-#: data/org.gnome.Shotwell.desktop.in:21
+#: data/org.gnome.Shotwell.desktop.in:20
 msgid "Manage Different Profiles In Shotwell"
 msgstr "Kudeatu Shotwell aplikazioko profil desberdinak"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Shotwell ikustailea"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Argazki-ikustailea"
 
@@ -2066,19 +2083,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr "Ez duzu saioa hasi YouTube-n.\n"
 "\n"
 "Google-n kontu bat eduki behar duzu eta hura YouTube-n erabiltzeko konfiguratuta eduki behar duzu jarraitzeko. Kontu gehiago sor ditzakezu zure nabigatzailearekin YouTube-ra gutxienez behin sartuz.\n"
@@ -2102,8 +2119,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr "Ez duzu saioa hasi Google Photos aplikazioan.\n"
 "\n"
 "Google kontu bat eduki behar duzu eta hura Google Photosen erabiltzeko konfiguratuta eduki behar duzu jarraitzeko. Shotwellek Google Photosen API zerbitzuak <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> erabiltzen ditu zure Google Photos datuetara sartzeko. Shotwell aplikazioari zure Google Photos liburutegira sartzeko baimena eman beharko diozu.\n"
@@ -2138,60 +2155,60 @@ msgstr "Tumblr gunean saioa hasi gabe zaude.\n"
 msgid "Visit the Shotwell home page"
 msgstr "Bisitatu Shotwellen webgunea"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:599
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:614
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Asier Sarasua Garmendia <asiersarasua@ni.eus>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Webgune honek beste webgune batena den identifikazioa aurkeztu du."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr "⚫ Webgune honen identifikazioa zaharregia da fidagarria izateko. Egiaztatu data zure ordenagailuaren egutegian."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ Webgune honen identifikazioa ez da erakunde fidagarri batek igorritakoa."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ Ezin izan da webgune honen identifikazioa prozesatu. Hondatuta egon daiteke."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
 msgstr "⚫ Webgune honen identifikazioa igorri zuen erakunde fidagarriak errebokatu egin du."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr "⚫ Ezin da webgune honen identifikazioan fidatu, zifratze oso ahula darabilelako."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr "⚫ Webgune honen identifikazioa etorkizuneko datentzako bakarrik da baliozkoa. Egiaztatu data zure ordenagailuaren egutegian."
 
-#: plugins/common/RESTSupport.vala:574
+#: plugins/common/RESTSupport.vala:582
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
-#: plugins/shotwell-publishing/YoutubeUploader.vala:62
+#: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Argitaratzea beharrezkoa den aldi baterako fitxategi bat ez dago eskuragarri"
 
@@ -2218,7 +2235,7 @@ msgstr "A_maitu saioa"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2495
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2502
 msgid "_Publish"
 msgstr "_Argitaratu"
 
@@ -2346,6 +2363,13 @@ msgstr "Album berri bat, izen honekin:"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:365
+msgid ""
+"Could not create album, Shotwell is lacking permission to do so. Please re-"
+"authenticate and grant Shotwell the required permission to create new media "
+"and albums"
+msgstr "Ezin da albuma sortu, Shotwellek ez du hori egiteko baimenik. Autentifikatu berriro eta eman Shotwelli baimena multimedia eta album berriak sortzeko"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -2558,28 +2582,28 @@ msgstr "Ezin izan da EIa kargatu: %s"
 msgid "Video privacy _setting"
 msgstr "Bideoaren _pribatutasun-ezarpena"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:181
+#: plugins/shotwell-publishing/YouTubePublishing.vala:178
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr "Argitaratzeko beharrezkoa den fitxategi bat ez dago eskuragarri. Youtube-n argitaratzeak ezin du jarraitu."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:301
+#: plugins/shotwell-publishing/YouTubePublishing.vala:298
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "YouTube-n saioa hasita daukazu %s erabiltzaile-izenarekin."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
-msgid "Public listed"
-msgstr "Publikoa zerrendatua"
+#: plugins/shotwell-publishing/YouTubePublishing.vala:330
+msgid "Public"
+msgstr "Publikoa"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:334
-msgid "Public unlisted"
-msgstr "Publikoa zerrendatu gabea"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:335
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Private"
 msgstr "Pribatua"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
+msgid "unlisted"
+msgstr "zerrendatu gabea"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -2646,22 +2670,22 @@ msgstr "Ezin izan da %s datu-direktorioa sortu: %s"
 msgid "Pictures"
 msgstr "Argazkiak"
 
-#: src/AppDirs.vala:211
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Ezin izan da behin-behineko %s direktorioa sortu: %s"
 
-#: src/AppDirs.vala:229 src/AppDirs.vala:260
+#: src/AppDirs.vala:256 src/AppDirs.vala:287
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Ezin izan da %s datu-azpidirektorioa sortu: %s"
 
-#: src/AppDirs.vala:242
+#: src/AppDirs.vala:269
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Ezin da %s direktorioa idazteko moduan ezarri"
 
-#: src/AppDirs.vala:245
+#: src/AppDirs.vala:272
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Ezin da %s direktorioa idazteko moduan ezarri: %s"
@@ -2689,21 +2713,21 @@ msgstr "Errore larria gertatu da Shotwellen liburutegia atzitzean  Shotwellek ez
 "\n"
 "%s"
 
-#: src/AppWindow.vala:596
+#: src/AppWindow.vala:611
 msgid "Visit the Shotwell web site"
 msgstr "Bisitatu Shotwellen webgunea"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ezin izan da laguntza erakutsi: %s"
 
-#: src/AppWindow.vala:617
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ezin izan da akatsen datu-basera nabigatu: %s"
 
-#: src/AppWindow.vala:625
+#: src/AppWindow.vala:640
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ezin izan dira ohiko galderak erakutsi: %s"
@@ -2922,12 +2946,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Ez da aurkitu uneko iragazkiarekin bat datorren argazkirik/bideorik"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:86
-#: src/PhotoPage.vala:2490 src/Resources.vala:137
+#: src/PhotoPage.vala:2497 src/Resources.vala:137
 msgid "_Print"
 msgstr "I_nprimatu"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:91
-#: src/PhotoPage.vala:2500 src/Resources.vala:187
+#: src/PhotoPage.vala:2507 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Ezarri _mahaigainaren atzeko plano gisa"
 
@@ -3208,12 +3232,12 @@ msgstr "It_xi"
 msgid "Data Imports"
 msgstr "Datu-inportazioak"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "Ezin izan da argazkien %s datu-basea ireki/sortu: %d errore-kodea"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:97
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3221,7 +3245,7 @@ msgid ""
 msgstr "Ezin izan da idatzi argazkiaren datu-basearen fitxategian:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:99
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3235,7 +3259,7 @@ msgstr "Errorea datu-basearen fitxategia atzitzean:\n"
 "Errorea hau da: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:143
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Ezin izan da argazkien %s datu-basea leheneratu"
@@ -3488,7 +3512,7 @@ msgstr[1] "Honek “%s” etiketa kenduko du %d argazkitatik.  Jarraitu?"
 msgid "Export Video"
 msgstr "Esportatu bideoa"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3025
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3032
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Esportatu argazkia"
@@ -4304,80 +4328,80 @@ msgstr "Itxi begi gorrien tresna"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Kendu begi gorrien efektua hautatutako eskualdean"
 
-#: src/editing_tools/EditingTools.vala:2229
+#: src/editing_tools/EditingTools.vala:2228
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Berrezarri"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2243 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2242 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Esposizioa:"
 
-#: src/editing_tools/EditingTools.vala:2252
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Contrast:"
 msgstr "Kontrastea:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Saturation:"
 msgstr "Saturazioa:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Tint:"
 msgstr "Ñabardura:"
 
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Temperature:"
 msgstr "Tenperatura:"
 
-#: src/editing_tools/EditingTools.vala:2289
+#: src/editing_tools/EditingTools.vala:2288
 msgid "Shadows:"
 msgstr "Itzalak:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2300
+#: src/editing_tools/EditingTools.vala:2299
 msgid "Highlights:"
 msgstr "Nabarmendu:"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset Colors"
 msgstr "Berrezarri koloreak"
 
-#: src/editing_tools/EditingTools.vala:2357
+#: src/editing_tools/EditingTools.vala:2356
 msgid "Reset all color adjustments to original"
 msgstr "Berrezarri kolore-doiketa guztiak jatorrizkora"
 
-#: src/editing_tools/EditingTools.vala:2716
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Temperature"
 msgstr "Tenperatura"
 
-#: src/editing_tools/EditingTools.vala:2728
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Tint"
 msgstr "Tinda"
 
-#: src/editing_tools/EditingTools.vala:2740
+#: src/editing_tools/EditingTools.vala:2739
 msgid "Contrast"
 msgstr "Kontrastea"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2753
 msgid "Saturation"
 msgstr "Saturazioa"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2766
 msgid "Exposure"
 msgstr "Esposizioa"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2779
 msgid "Shadows"
 msgstr "Itzalak"
 
-#: src/editing_tools/EditingTools.vala:2793
+#: src/editing_tools/EditingTools.vala:2792
 msgid "Highlights"
 msgstr "Argi-ukituak"
 
-#: src/editing_tools/EditingTools.vala:2803
+#: src/editing_tools/EditingTools.vala:2802
 msgid "Contrast Expansion"
 msgstr "Kontrastearen hedapena"
 
@@ -4651,69 +4675,69 @@ msgstr "Errore ezezaguna Shotwellen datu-basea egiaztatzean: %s"
 msgid "Loading Shotwell"
 msgstr "Shotwell kargatzen"
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwellen datu pribatuetarako bidea"
 
-#: src/main.vala:408
+#: src/main.vala:417
 msgid "DIRECTORY"
 msgstr "DIREKTORIOA"
 
-#: src/main.vala:409
+#: src/main.vala:418
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ez monitorizatu liburutegien direktorioa aldaketen bila exekuzio-denboran"
 
-#: src/main.vala:410
+#: src/main.vala:419
 msgid "Don’t display startup progress meter"
 msgstr "Ez erakutsi abioaren aurrerapenaren neurgailua"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "Show the application’s version"
 msgstr "Erakutsi aplikazioaren bertsioa"
 
-#: src/main.vala:412
+#: src/main.vala:421
 msgid "Start the application in fullscreen mode"
 msgstr "Abiarazi aplikazioa pantaila osoko moduan"
 
-#: src/main.vala:413
+#: src/main.vala:422
 msgid "Print the metadata of the image file"
 msgstr "Inprimatu irudi-fitxategiaren metadatuak"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "Name for a custom profile"
 msgstr "Profil pertsonalizatu baterako izena"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "PROFILE"
 msgstr "PROFILA"
 
-#: src/main.vala:415
+#: src/main.vala:424
 msgid "Start with a browser of available profiles"
 msgstr "Hasi erabilgarri dauden profilen arakatzaile batekin"
 
-#: src/main.vala:416
+#: src/main.vala:425
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "--profile aukerarekin eman den PROFILA ez bada existitzen, sortu"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "Show available profiles"
 msgstr "Erakutsi erabilgarri dauden profilak"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:460
+#: src/main.vala:469
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:465
+#: src/main.vala:474
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Exekutatu “%s --help“ komando-lerroko aukera erabilgarrien zerrenda ikusteko.\n"
 
-#: src/main.vala:474
+#: src/main.vala:483
 msgid "Choose Shotwell's profile"
 msgstr "Aukeratu Shotwellen profila"
 
-#: src/main.vala:500
+#: src/main.vala:509
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "%s profilik ez dago. Pasatu nahi al diozu --create parametroa ere?"
@@ -4753,22 +4777,22 @@ msgstr "Aurreko argazkia"
 msgid "Next photo"
 msgstr "Hurrengo argazkia"
 
-#: src/PhotoPage.vala:1867
+#: src/PhotoPage.vala:1874
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Argazkiaren jatorrizko fitxategia falta da: %s"
 
-#: src/PhotoPage.vala:2900
+#: src/PhotoPage.vala:2907
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Kendu liburutegitik"
 
-#: src/PhotoPage.vala:2901
+#: src/PhotoPage.vala:2908
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Argazkia liburutegitik kentzen"
 
-#: src/PhotoPage.vala:3045
+#: src/PhotoPage.vala:3052
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Ezin izan da %s esportatu: %s"
@@ -4793,22 +4817,22 @@ msgstr "GIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Baxua (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Ertaina (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "Altua (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Maximoa (%d%%)"
@@ -4830,7 +4854,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3812
+#: src/Photo.vala:3810
 msgid "modified"
 msgstr "aldatua"
 
@@ -6059,6 +6083,9 @@ msgstr "izengabea"
 msgid "Export Videos"
 msgstr "Esportatu bideoak"
 
+#~ msgid "Public listed"
+#~ msgstr "Publikoa zerrendatua"
+
 #~ msgid "The Shotwell developers"
 #~ msgstr "Shotwell garatzaileak"
 
@@ -6382,9 +6409,6 @@ msgstr "Esportatu bideoak"
 
 #~ msgid "You are not currently logged into Yandex.Fotki."
 #~ msgstr "Yandex.Fotki-n saioa hasi gabe zaude."
-
-#~ msgid "Public"
-#~ msgstr "Publikoa"
 
 #~ msgid "Friends"
 #~ msgstr "Lagunak"
