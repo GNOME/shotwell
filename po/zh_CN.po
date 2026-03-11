@@ -27,14 +27,14 @@
 # Tommy He <lovenemesis@gmail.com>, 2012
 # 甘露(Gan Lu) <rhythm.gan@gmail.com>, 2014.
 # Dingzhong Chen <wsxy162@gmail.com>, 2020.
-# lumingzh <lumingzh@qq.com>, 2024-2025.
+# lumingzh <lumingzh@qq.com>, 2024-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-06-11 16:11+0000\n"
-"PO-Revision-Date: 2025-06-18 08:46+0800\n"
+"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"PO-Revision-Date: 2026-03-11 14:05+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 48.0\n"
+"X-Generator: Gtranslator 49.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1086,19 +1086,43 @@ msgid ""
 "otherwise"
 msgstr "如果要启用棋盘幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
+msgid "Shotwell Authentication helper"
+msgstr "Shotwell 身份验证助手"
+
+#: data/org.gnome.Shotwell.desktop.in:3
+#: data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
 #: data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345
 #: data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:10
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
+msgid "Photo Manager"
+msgstr "照片管理器"
+
+#: data/org.gnome.Shotwell.desktop.in:5
+msgid "Organize your photos"
+msgstr "组织你的照片"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Shotwell.desktop.in:7
+msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+msgstr ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
+"相册;相机;裁剪;编辑;增强;导出;图库;图像;导入;整理;照片;图片;摄影;打印;发布;旋"
+"转;分享;标签;视频;"
+
+#: data/org.gnome.Shotwell.desktop.in:20
+msgid "Manage Different Profiles"
+msgstr "管理不同配置"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
 msgid "Digital photo organizer"
 msgstr "数码照片整理工具"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:12
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -1113,7 +1137,7 @@ msgstr ""
 "的非破坏性照片编辑器不会修改你的原始照片，可以更方便你的试验并对编辑错误进行"
 "修正。"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:19
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1121,47 +1145,35 @@ msgstr ""
 "一切就绪后，Shotwell 可以将你的照片上传到各个网站上，例如 Flickr、Google 相"
 "册，等等。"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:23
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell 支持 JPEG、PNG、TIFF 以及许多 RAW 文件格式。"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Shotwell 开发者"
+#: data/org.gnome.Shotwell.metainfo.xml.in:42
+msgid "Main View with extended information display"
+msgstr "显示扩展信息的主视图"
 
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
-msgid "Shotwell Authentication helper"
-msgstr "Shotwell 身份验证助手"
+#: data/org.gnome.Shotwell.metainfo.xml.in:46
+msgid "Import roll history"
+msgstr "导入胶卷历史"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
-msgid "Photo Manager"
-msgstr "照片管理器"
+#: data/org.gnome.Shotwell.metainfo.xml.in:50
+msgid "Event-based organization"
+msgstr "基于事件的组织"
 
-#: data/org.gnome.Shotwell.desktop.in:6
-msgid "Organize your photos"
-msgstr "组织你的照片"
+#: data/org.gnome.Shotwell.metainfo.xml.in:54
+msgid "Image color editing"
+msgstr "图像色彩编辑"
 
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
-msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;flickr;picasa;youtube;piwigo;相册;相机;裁剪;编辑;增"
-"强;导出;图库;图像;导入;整理;照片;图片;摄影;打印;发布;旋转;分享;标签;视频;"
+#: data/org.gnome.Shotwell.metainfo.xml.in:58
+msgid "Image upload to a web service"
+msgstr "上传图像至网络服务"
 
-#: data/org.gnome.Shotwell.desktop.in:21
-msgid "Manage Different Profiles"
-msgstr "管理不同配置"
-
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Shotwell 查看器"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "照片查看器"
 
@@ -1797,7 +1809,7 @@ msgid "_Log in"
 msgstr "登录(_L)"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:219 src/AppWindow.vala:245
+#: src/AppWindow.vala:221 src/AppWindow.vala:247
 #: src/data_imports/DataImportsUI.vala:310
 #: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
@@ -1956,12 +1968,12 @@ msgstr "使用标准尺寸(_S)："
 msgid "Use a c_ustom size:"
 msgstr "使用自定义尺寸(_U)："
 
-#. Abbrevation for "inch"
+#. Abbreviation for "inch"
 #: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "英寸"
 
-#. Abbrevation for "centimeters"
+#. Abbreviation for "centimeters"
 #: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "厘米"
@@ -2210,19 +2222,19 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google."
-"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
-"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
-"you agree to be bound to the YouTube Terms of Service as available at <a "
-"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
-"a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</a> "
+"for accessing your YouTube channel and upload the videos. By using Shotwell "
+"to access YouTube, you agree to be bound to the YouTube Terms of Service as "
+"available at <a href=\"https://www.youtube.com/t/terms\">https://"
+"www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and YouTube in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "你当前未登录 YouTube。\n"
 "\n"
@@ -2231,9 +2243,9 @@ msgstr ""
 "\n"
 "Shotwell 使用了 YouTube 的 API 服务 <a href=\"https://developers.google.com/"
 "youtube\">https://developers.google.com/youtube</a> 来访问你的 YouTube 频道和"
-"上传视频。使用 Shotwell 访问 YouTube，即表示你同意位于 <a href=\"https://www."
-"youtube.com/t/terms\">https://www.youtube.com/t/terms</a> 的 YouTube 服务条"
-"款。\n"
+"上传视频。使用 Shotwell 访问 YouTube，即表示你同意位于 <a href=\"https://"
+"www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a> 的 YouTube 服务"
+"条款。\n"
 "\n"
 "关于你的 Google 帐户，特别是 YouTube 相关的数据使用，Shotwell 的隐私策略可以"
 "在 <a href=\"help:shotwell/privacy-policy\">在线服务隐私策略</a> 找到\n"
@@ -2254,8 +2266,8 @@ msgid ""
 "Shotwell's privacy policy regarding the use of data related to your Google "
 "account in general and Google Photos in particular can be found in our <a "
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
-"For Google's own privacy policy, please refer to <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"For Google's own privacy policy, please refer to <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "你当前未登录 Google 相册。\n"
 "\n"
@@ -2299,7 +2311,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "访问 Shotwell 主页"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:310
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2313,7 +2325,7 @@ msgstr ""
 "甘露(Gan Lu) <rhythm.gan@gmail.com>, 2014\n"
 "Boyuan Yang <073plan@gmail.com>, 2016\n"
 "Dingzhong Chen <wsxy162@gmail.com>, 2020\n"
-"lumingzh <lumingzh@qq.com>, 2024-2025\n"
+"lumingzh <lumingzh@qq.com>, 2024-2026\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Aron Xu https://launchpad.net/~happyaron\n"
@@ -2331,52 +2343,52 @@ msgstr ""
 "  丁威扬 https://launchpad.net/~dingvyoung"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ 此站点给出了一个其他站点的证书。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr "⚫ 此站点的证书因太老而无法信任。请检查计算机的时间是否正确。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ 此站点的证书不是由可信的组织签发。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ 此站点的证书无法处理。可能已经损坏。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
 msgstr "⚫ 此站点的证书已经被发布它的可信组织吊销。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr "⚫ 此站点的证书不受信任，因为使用了非常弱的加密。"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr "⚫ 此站点的证书尚未到生效时间。检查计算机的时间是不是正确。"
 
-#: plugins/common/RESTSupport.vala:574
+#: plugins/common/RESTSupport.vala:582
 #: plugins/shotwell-publishing/TumblrPublishing.vala:560
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
@@ -2885,36 +2897,36 @@ msgstr "无法将 %s 目录设为可写状态"
 msgid "Could not make directory %s writable: %s"
 msgstr "无法将 %s 目录设为可写状态：%s"
 
-#: src/AppWindow.vala:183
+#: src/AppWindow.vala:185
 msgid "Ok"
 msgstr "确定"
 
-#: src/AppWindow.vala:236
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "文件 %s 已存在。是否替换？"
 
-#: src/AppWindow.vala:239
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "导出文件冲突"
 
-#: src/AppWindow.vala:243
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "对所有冲突应用此解决方式"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "重命名"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: src/AppWindow.vala:268
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2926,21 +2938,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:307
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "访问 Shotwell 网站"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "无法显示帮助 %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "无法转向 Bug 数据库：%s"
 
-#: src/AppWindow.vala:335
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "无法显示常见问题 %s"
@@ -4358,7 +4370,7 @@ msgstr "无法监视 %s：不是目录（%s）"
 msgid "Photos cannot be exported to this directory."
 msgstr "照片不可以被导出到该文件夹。"
 
-#: src/EditingHostPage.vala:1325
+#: src/EditingHostPage.vala:1321
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "照片源文件丢失：%s"
@@ -4838,64 +4850,64 @@ msgstr "无法启动 Shotwell"
 msgid "Loading Shotwell"
 msgstr "正在载入 Shotwell"
 
-#: src/main.vala:350
+#: src/main.vala:420
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell 程序数据目录"
 
-#: src/main.vala:350
+#: src/main.vala:420
 msgid "DIRECTORY"
 msgstr "文件夹"
 
-#: src/main.vala:351
+#: src/main.vala:421
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "不在程序运行时监视文件夹变化"
 
-#: src/main.vala:352
+#: src/main.vala:422
 msgid "Don’t display startup progress meter"
 msgstr "不显示启动进程条"
 
-#: src/main.vala:353
+#: src/main.vala:423
 msgid "Show the application’s version"
 msgstr "显示程序版本"
 
-#: src/main.vala:354
+#: src/main.vala:424
 msgid "Start the application in fullscreen mode"
 msgstr "以全屏模式启动"
 
-#: src/main.vala:355
+#: src/main.vala:425
 msgid "Print the metadata of the image file"
 msgstr "输出图像文件的元数据"
 
-#: src/main.vala:356
+#: src/main.vala:426
 msgid "Name for a custom profile"
 msgstr "自定义配置名称"
 
-#: src/main.vala:356
+#: src/main.vala:426
 msgid "PROFILE"
 msgstr "配置"
 
-#: src/main.vala:357
+#: src/main.vala:427
 msgid "Start with a browser of available profiles"
 msgstr "带可用配置浏览器启动"
 
-#: src/main.vala:358
+#: src/main.vala:428
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "如果 --profile 指定的配置不存在，那么创建它"
 
-#: src/main.vala:359
+#: src/main.vala:429
 msgid "Show available profiles"
 msgstr "显示可用配置"
 
-#: src/main.vala:409
+#: src/main.vala:479
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "运行“%s --help”来查看可用命令行选项的完整列表。\n"
 
-#: src/main.vala:417
+#: src/main.vala:487
 msgid "Choose Shotwell's profile"
 msgstr "选择 Shotwell 的配置"
 
-#: src/main.vala:451
+#: src/main.vala:521
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "配置 %s 不存在。你的意思是同时传递 --create 选项吗？"
@@ -4946,22 +4958,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "低（%d%%）"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "中（%d%%）"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "高（%d%%）"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "最高（%d%%）"
@@ -5315,8 +5327,8 @@ msgid ""
 "Preferences and enable one or more of the publishing plugins on the Plugins "
 "tab."
 msgstr ""
-"Shotwell 无法发布选定项目，因为你尚未启用兼容的发布插件。要修复此问题，请选"
-"择“编辑 %s 首选项”，并且在“插件”标签页中启用一个或多个发布插件。"
+"Shotwell 无法发布选定项目，因为你尚未启用兼容的发布插件。要修复此问题，请选择"
+"“编辑 %s 首选项”，并且在“插件”标签页中启用一个或多个发布插件。"
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6130,6 +6142,9 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "导出视频"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Shotwell 开发者"
 
 #~ msgid "Yandex-Fotki authentication token, if logged in"
 #~ msgstr "Yandex-Fotki 的身份验证令牌，如果已登录"
