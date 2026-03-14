@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-01-04 14:58+0000\n"
-"PO-Revision-Date: 2026-01-25 19:26+0500\n"
+"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"PO-Revision-Date: 2026-03-14 13:55+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/projects/p/shotwell/language/kk/)\n"
 "Language: kk\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
@@ -157,7 +157,9 @@ msgstr "рейтинг сүзгісінің деңгейі"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better"
-msgstr "Суреттерді олардың рейтингіне қарай қалай сүзуді анықтайды. 1: Қабылданбаған немесе жақсырақ, 2: Рейтингсіз немесе жақсырақ, 3: Бір немесе жақсырақ, 4: Екі немесе жақсырақ, 5: Үш немесе жақсырақ, 6: Төрт немесе жақсырақ, 7: Бес немесе жақсырақ"
+msgstr ""
+"Суреттерді олардың рейтингіне қарай қалай сүзуді анықтайды. 1: Қабылданбаған немесе жақсырақ, 2: Рейтингсіз немесе жақсырақ, 3: Бір немесе жақсырақ, 4: Екі немесе жақсырақ, 5: Үш немесе жақсырақ, 6: Төрт "
+"немесе жақсырақ, 7: Бес немесе жақсырақ"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:94
 msgid "sort events ascending"
@@ -935,7 +937,8 @@ msgstr "Chess-Board слайдшоу ауысу плагині іске қосы
 msgid "Shotwell Authentication helper"
 msgstr "Shotwell аутентификация көмекшісі"
 
-#: data/org.gnome.Shotwell.desktop.in:3 data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352 data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
+#: data/org.gnome.Shotwell.desktop.in:3 data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352
+#: data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -947,11 +950,12 @@ msgstr "Фотосуреттерді басқару қолданбасы"
 msgid "Organize your photos"
 msgstr "Фотосуреттеріңізді реттеңіз"
 
-#. Translators: Search terms to find this application. Do NOT translate or
-#. localize the semicolons! The list MUST also end with a semicolon!
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:7
 msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
-msgstr "альбом;камера;камералар;қию;түзету;жақсарту;экспорттау;галерея;сурет;суреттер;импорттау;ұйымдастыру;фото;фотосуреттер;фотолар;сурет;суреттер;фотография;басып шығару;жариялау;бұру;бөлісу;тегтер;видео;flickr;picasa;youtube;piwigo;"
+msgstr ""
+"альбом;камера;камералар;қию;түзету;жақсарту;экспорттау;галерея;сурет;суреттер;импорттау;ұйымдастыру;фото;фотосуреттер;фотолар;сурет;суреттер;фотография;басып "
+"шығару;жариялау;бұру;бөлісу;тегтер;видео;flickr;picasa;youtube;piwigo;"
 
 #: data/org.gnome.Shotwell.desktop.in:20
 msgid "Manage Different Profiles"
@@ -963,11 +967,12 @@ msgstr "Сандық фотоларды ұйымдастырушы"
 
 #: data/org.gnome.Shotwell.metainfo.xml.in:12
 msgid ""
-"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers basic photo editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your master photos, making "
-"it easy to experiment and correct errors."
+"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers "
+"basic photo editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your master photos, making it easy to experiment and correct errors."
 msgstr ""
-"Shotwell — GNOME жұмыс үстеліне арналған, қолдануға оңай әрі жылдам фотоларды ұйымдастырушы. Ол фотоларды камерадан немесе дисктен импорттауға, оларды күні, тақырыбы, тіпті рейтингі бойынша ұйымдастыруға мүмкіндік береді. Сондай-ақ ол қию, \"қызыл көзді\" түзету, түсті реттеу және түзеу сияқты негізгі фото түзету функцияларын ұсынады. Shotwell бағдарламасының деструктивті "
-"емес фото редакторы түпнұсқа фотоларды өзгертпейді, бұл тәжірибе жасауды және қателерді түзетуді жеңілдетеді."
+"Shotwell — GNOME жұмыс үстеліне арналған, қолдануға оңай әрі жылдам фотоларды ұйымдастырушы. Ол фотоларды камерадан немесе дисктен импорттауға, оларды күні, тақырыбы, тіпті рейтингі бойынша ұйымдастыруға "
+"мүмкіндік береді. Сондай-ақ ол қию, \"қызыл көзді\" түзету, түсті реттеу және түзеу сияқты негізгі фото түзету функцияларын ұсынады. Shotwell бағдарламасының деструктивті емес фото редакторы түпнұсқа фотоларды "
+"өзгертпейді, бұл тәжірибе жасауды және қателерді түзетуді жеңілдетеді."
 
 #: data/org.gnome.Shotwell.metainfo.xml.in:19
 msgid "When ready, Shotwell can upload your photos to various web services, such as Flickr, Google Photos, and more."
@@ -976,6 +981,26 @@ msgstr "Дайын болған кезде, Shotwell фотоларыңызды 
 #: data/org.gnome.Shotwell.metainfo.xml.in:23
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell JPEG, PNG, TIFF және RAW файл пішімдерінің бірнеше түрлерін қолдайды."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:42
+msgid "Main View with extended information display"
+msgstr "Негізгі көрініс кеңейтілген ақпараттық көрсетуімен"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:46
+msgid "Import roll history"
+msgstr "Таспа тарихын импорттау"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:50
+msgid "Event-based organization"
+msgstr "Оқиғаға негізделген ұйымдастыру"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:54
+msgid "Image color editing"
+msgstr "Сурет түстерін өңдеу"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:58
+msgid "Image upload to a web service"
+msgstr "Суретті веб-қызметке жүктеу"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
@@ -1029,7 +1054,8 @@ msgstr "Кі_шірейту"
 msgid "_Developer"
 msgstr "Ө_ндіруші"
 
-#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525 data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96 data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
+#: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525 data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96 data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Камера"
 
@@ -1037,7 +1063,8 @@ msgstr "Камера"
 msgid "Edit _Title…"
 msgstr "А_тауды түзету…"
 
-#: data/ui/collection.ui:102 data/ui/events_directory.ui:140 data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394 data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341 data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341 src/Resources.vala:269
+#: data/ui/collection.ui:102 data/ui/events_directory.ui:140 data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394 data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341 src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "Тү_сіндірмені түзету…"
 
@@ -1053,7 +1080,8 @@ msgstr "RAW түзетушісімен ашу"
 msgid "View Eve_nt for Photo"
 msgstr "Фото ү_шін оқиғаны қарау"
 
-#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23 data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33 data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:774
+#: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23 data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:774
 msgid "Show in File Mana_ger"
 msgstr "Файлдар басқарушысында көрсету"
 
@@ -1097,7 +1125,8 @@ msgstr "Суретті оның аты не тегтеріндегі бар мә
 msgid "Find"
 msgstr "Табу"
 
-#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5 data/ui/tags.ui:5 data/ui/trash.ui:6
+#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5
+#: data/ui/tags.ui:5 data/ui/trash.ui:6
 msgid "_File"
 msgstr "_Файл"
 
@@ -1109,23 +1138,28 @@ msgstr "_Сақтау"
 msgid "Save _As…"
 msgstr "Қала_йша сақтау…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46 data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
+#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Шығу"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43 data/ui/trash.ui:34 src/Resources.vala:126
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
+#: data/ui/trash.ui:34 src/Resources.vala:126
 msgid "_Edit"
 msgstr "Тү_зету"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46 data/ui/trash.ui:37 src/Resources.vala:191
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
+#: data/ui/trash.ui:37 src/Resources.vala:191
 msgid "_Undo"
 msgstr "Бол_дырмау"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51 data/ui/trash.ui:42 src/Resources.vala:194
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
+#: data/ui/trash.ui:42 src/Resources.vala:194
 msgid "_Redo"
 msgstr "Қа_йталау"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95 data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70 data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93 data/ui/tags.ui:95 data/ui/trash.ui:84
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95 data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70 data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93
+#: data/ui/tags.ui:95 data/ui/trash.ui:84
 msgid "_View"
 msgstr "_Түрі"
 
@@ -1205,20 +1239,24 @@ msgstr "К_елтіру"
 msgid "_Adjust Date and Time…"
 msgstr "Күн мен уақытын _түзету…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429 data/ui/import_queue.ui:61 data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180
-#: data/ui/photo.ui:385 data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429
+#: data/ui/import_queue.ui:61 data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180 data/ui/photo.ui:385
+#: data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
 msgstr "_Көмек"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424 data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187 data/ui/media.ui:407 data/ui/offline.ui:185 data/ui/photo.ui:393 data/ui/tags.ui:426 data/ui/trash.ui:194
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:154 data/ui/event.ui:424 data/ui/faces.ui:434 data/ui/import_queue.ui:69 data/ui/import.ui:187 data/ui/media.ui:407 data/ui/offline.ui:185 data/ui/photo.ui:393
+#: data/ui/tags.ui:426 data/ui/trash.ui:194
 msgid "_Frequently Asked Questions"
 msgstr "_Жиі қойылатын сұрақтар"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428 data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191 data/ui/media.ui:411 data/ui/offline.ui:189 data/ui/photo.ui:397 data/ui/tags.ui:430 data/ui/trash.ui:198
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:158 data/ui/event.ui:428 data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191 data/ui/media.ui:411 data/ui/offline.ui:189 data/ui/photo.ui:397
+#: data/ui/tags.ui:430 data/ui/trash.ui:198
 msgid "_Report a Problem…"
 msgstr "Мә_селе жөнінде хабарлау…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434 data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197 data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403 data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434 data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197 data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
+#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
 msgid "_About"
 msgstr "О_сы туралы"
 
@@ -1270,11 +1308,13 @@ msgstr "Алдыңғы фотоға өту"
 msgid "Go to the next photo"
 msgstr "Келесі фотоға өту"
 
-#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:9
+#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8
+#: data/ui/trash.ui:9
 msgid "_Import From Folder…"
 msgstr "Бумадан _импорттау…"
 
-#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30 data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30 data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30 data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30 data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30 data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30
+#: data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
 msgid "Empty T_rash"
 msgstr "Қоқ_ыс шелегін тазарту"
 
@@ -1282,7 +1322,8 @@ msgstr "Қоқ_ыс шелегін тазарту"
 msgid "_Find"
 msgstr "Т_абу"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62 data/ui/media.ui:62 data/ui/offline.ui:48 data/ui/photo.ui:68 data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6 data/ui/tags.ui:62 data/ui/trash.ui:53
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62 data/ui/media.ui:62 data/ui/offline.ui:48 data/ui/photo.ui:68 data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
+#: data/ui/tags.ui:62 data/ui/trash.ui:53
 msgid "Ne_w Saved Search…"
 msgstr "Ж_аңа сақталған іздеу…"
 
@@ -1290,11 +1331,13 @@ msgstr "Ж_аңа сақталған іздеу…"
 msgid "Select _All"
 msgstr "Б_арлығын таңдау"
 
-#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78 src/Resources.vala:135 src/Resources.vala:284
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
+#: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "Ба_птаулар"
 
-#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98 data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98 data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98 data/ui/trash.ui:87
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98 data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98 data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98
+#: data/ui/trash.ui:87
 msgid "_Basic Information"
 msgstr "Не_гізгі ақпарат"
 
@@ -1318,11 +1361,13 @@ msgstr "Саймандар _панелі"
 msgid "_Comments"
 msgstr "_Пікірлер"
 
-#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239 data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239 data/ui/offline.ui:160 data/ui/photo.ui:125 data/ui/tags.ui:239 data/ui/trash.ui:169
+#: data/ui/events_directory.ui:104 data/ui/event.ui:239 data/ui/faces.ui:239 data/ui/import_queue.ui:44 data/ui/import.ui:162 data/ui/media.ui:239 data/ui/offline.ui:160 data/ui/photo.ui:125 data/ui/tags.ui:239
+#: data/ui/trash.ui:169
 msgid "Sort _Events"
 msgstr "Оқ_иғаларды сұрыптау"
 
-#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242 data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47 data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242 data/ui/offline.ui:163 data/ui/photo.ui:128 data/ui/tags.ui:227 data/ui/tags.ui:242 data/ui/trash.ui:172
+#: data/ui/events_directory.ui:107 data/ui/event.ui:227 data/ui/event.ui:242 data/ui/faces.ui:227 data/ui/faces.ui:242 data/ui/import_queue.ui:47 data/ui/import.ui:165 data/ui/media.ui:227 data/ui/media.ui:242
+#: data/ui/offline.ui:163 data/ui/photo.ui:128 data/ui/tags.ui:227 data/ui/tags.ui:242 data/ui/trash.ui:172
 msgid "_Ascending"
 msgstr "Өс_у ретімен"
 
@@ -1458,7 +1503,8 @@ msgstr "Барлық медиа файлдарды жинаққа импортт
 msgid "_Log in"
 msgstr "_Кіру"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:247 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:247 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
 #: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "Ба_с тарту"
@@ -1689,7 +1735,8 @@ msgstr "Ат_ын ауыстыру…"
 msgid "_Edit…"
 msgstr "Тү_зету…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749 src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
+#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
 msgid "_Delete"
 msgstr "Ө_шіру"
 
@@ -1845,9 +1892,11 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to "
+"access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy "
+"policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
@@ -1855,10 +1904,11 @@ msgstr ""
 "\n"
 "Жалғастыру үшін сізде Google тіркелгісі болуы және ол YouTube-пен пайдалану үшін бапталған болуы керек. Көптеген тіркелгілерді браузер арқылы YouTube сайтына кем дегенде бір рет кіру арқылы баптауға болады.\n"
 "\n"
-"Shotwell сіздің YouTube арнаңызға қол жеткізу және видеоларды жүктеп салу үшін YouTube API қызметтерін <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> пайдаланады. Shotwell арқылы YouTube-ке қол жеткізу арқылы сіз <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a> мекенжайында қолжетімді YouTube қызмет "
-"көрсету шарттарымен келісесіз.\n"
+"Shotwell сіздің YouTube арнаңызға қол жеткізу және видеоларды жүктеп салу үшін YouTube API қызметтерін <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> пайдаланады. "
+"Shotwell арқылы YouTube-ке қол жеткізу арқылы сіз <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a> мекенжайында қолжетімді YouTube қызмет көрсету шарттарымен келісесіз.\n"
 "\n"
-"Shotwell-дің жалпы Google тіркелгіңізге және атап айтқанда YouTube-ке қатысты деректерді пайдалану бойынша жекелік саясатын біздің <a href=\"help:shotwell/privacy-policy\">онлайн қызметтердің жекелік саясатынан</a> табуға болады.\n"
+"Shotwell-дің жалпы Google тіркелгіңізге және атап айтқанда YouTube-ке қатысты деректерді пайдалану бойынша жекелік саясатын біздің <a href=\"help:shotwell/privacy-policy\">онлайн қызметтердің жекелік "
+"саясатынан</a> табуға болады.\n"
 "\n"
 "Google-дың жеке жекелік саясатын <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> мекенжайынан қараңыз"
 
@@ -1866,16 +1916,19 @@ msgstr ""
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n"
+"You must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://"
+"developers.google.com/photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services "
+"privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Сіз қазір Google Photos жүйесіне кірмегенсіз.\n"
 "\n"
-"Сіздің Google тіркелгіңіз болуы және ол Google Photos-пен пайдалану үшін бапталған болуы керек. Shotwell сіздің Google Photos деректеріңізбен барлық әрекеттерді жасау үшін Google Photos API қызметтерін <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> пайдаланады. Сізге Shotwell-ге Google Photos жинағына қол жеткізуге рұқсат беру "
-"керек болады.\n"
+"Сіздің Google тіркелгіңіз болуы және ол Google Photos-пен пайдалану үшін бапталған болуы керек. Shotwell сіздің Google Photos деректеріңізбен барлық әрекеттерді жасау үшін Google Photos API қызметтерін <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> пайдаланады. Сізге Shotwell-ге Google Photos жинағына қол жеткізуге рұқсат беру керек болады.\n"
 "\n"
-"Shotwell-дің жалпы Google тіркелгіңізге және атап айтқанда Google Photos-қа қатысты деректерді пайдалану бойынша жекелік саясатын біздің <a href=\"help:shotwell/privacy-policy\">онлайн қызметтердің жекелік саясатынан</a> табуға болады. Google-дың жеке жекелік саясатын <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> мекенжайынан қараңыз"
+"Shotwell-дің жалпы Google тіркелгіңізге және атап айтқанда Google Photos-қа қатысты деректерді пайдалану бойынша жекелік саясатын біздің <a href=\"help:shotwell/privacy-policy\">онлайн қызметтердің жекелік "
+"саясатынан</a> табуға болады. Google-дың жеке жекелік саясатын <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> мекенжайынан қараңыз"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -1967,7 +2020,9 @@ msgstr "%s үшін TLS сертификатының ақпараты"
 #: plugins/common/SSLCertificatePane.vala:152
 #, c-format
 msgid "This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords)."
-msgstr "Бұл нақты %s сияқты көрінбейді. Шабуылдаушылар осы сайтқа жіберілетін немесе одан алынатын ақпаратты (мысалы, жеке хабарламалар, несие картасы туралы ақпарат немесе парольдер) ұрлауға немесе өзгертуге әрекет жасауы мүмкін."
+msgstr ""
+"Бұл нақты %s сияқты көрінбейді. Шабуылдаушылар осы сайтқа жіберілетін немесе одан алынатын ақпаратты (мысалы, жеке хабарламалар, несие картасы туралы ақпарат немесе парольдер) ұрлауға немесе өзгертуге әрекет "
+"жасауы мүмкін."
 
 #: plugins/common/WebAuthenticationPane.vala:34
 msgid "Sign in with your browser to setup an account"
@@ -1985,11 +2040,13 @@ msgstr "Фото өл_шемі"
 msgid "_Remove location, camera, and other identifying information before uploading"
 msgstr "Жүктеу алдында орналасу, камера және басқа сілтеуші ақпаратты ө_шіру"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76 plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
 msgid "_Logout"
 msgstr "_Шығу"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85 plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
 msgid "_Publish"
 msgstr "Жари_ялау"
 
@@ -2135,8 +2192,7 @@ msgstr "Видеолар жарияланатын жері:"
 msgid "Photos will appear in:"
 msgstr "Фотолар қайда көрінеді:"
 
-#. Activate last known album id. If none was chosen, either use the old
-#. default (Shotwell connect)
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
 msgid "Default album"
@@ -2525,10 +2581,8 @@ msgstr "Камералар"
 msgid "List of all discovered camera devices"
 msgstr "Барлық табылған камера құрылғыларының тізімі"
 
-#. Translators: First %s is the name of camera as gotten from GPhoto, second
-#. is the GVolume name, e.g. Mass storage camera (510MB volume)
-#. Translators: First %s is the name of camera as gotten from GPhoto, second
-#. is the GMount name, e.g. Mass storage camera (510MB volume)
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
 #: src/camera/DiscoveredCamera.vala:82 src/camera/DiscoveredCamera.vala:86
 #, c-format
 msgid "%s (%s)"
@@ -2970,14 +3024,12 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "%s фотолар дерекқорын қалпына келтіру мүмкін емес"
 
-#. Use empty list for addresses instead of null to word around bug in xdg-
-#. desktop-portal-gtk
+#. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
 #: src/DesktopIntegration.vala:113
 msgid "Send files per Mail: "
 msgstr "Файлдарды эл. пошта арқылы жіберу: "
 
-#. Translators: The first %s is the name of the file, the second %s is the
-#. reason why it could not be sent
+#. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
 #: src/DesktopIntegration.vala:116
 #, c-format
 msgid "Unable to send file %s, %s"
@@ -3082,10 +3134,8 @@ msgid "second"
 msgid_plural "seconds"
 msgstr[0] "секунд"
 
-#. "Unmodified" and "Current," though they appear in the "Format:" popup menu,
-#. really
-#. aren't formats so much as they are operating modes that determine specific
-#. formats.
+#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
+#. aren't formats so much as they are operating modes that determine specific formats.
 #. Hereafter we'll refer to these as "special formats."
 #: src/dialogs/ExportDialog.vala:15
 msgid "Unmodified"
@@ -3117,8 +3167,7 @@ msgid "Export _metadata:"
 msgstr "_Метаақпаратты экспорттау:"
 
 #. We're installed system-wide, so use the system help.
-#. We're being run from the build directory; we'll have to handle clicks to
-#. this
+#. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
 msgid "(Help)"
@@ -3272,7 +3321,9 @@ msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
 msgstr[0] "Осылардан, %d файл сәтті импортталды."
 
+#.
 #. Duplicates
+#.
 #: src/Dialogs.vala:244
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Импортталмаған қайталанатын фото/видеолар:"
@@ -3281,7 +3332,9 @@ msgstr "Импортталмаған қайталанатын фото/виде�
 msgid "duplicates existing media item"
 msgstr "бар болып тұрған медиа элементінің көшірмесі"
 
+#.
 #. Files Not Imported Due to Camera Errors
+#.
 #: src/Dialogs.vala:259
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Фото/видеолар камера қатесі салдарынан импортталмады:"
@@ -3290,19 +3343,23 @@ msgstr "Фото/видеолар камера қатесі салдарынан
 msgid "error message:"
 msgstr "қате хабарламасы:"
 
+#.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
+#.
 #: src/Dialogs.vala:273
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr "Файлдар фото не видео ретінде танылмағандықтан импортталмады:"
 
-#. Photos/Videos Not Imported Because They Weren't in a Format Shotwell
-#. Understands
+#.
+#. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
+#.
 #: src/Dialogs.vala:288
 msgid "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell Understands:"
 msgstr "Фото/видеолар Shotwell түсінетін пішімде емес болғандықтан импортталмады:"
 
-#. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its
-#. Library
+#.
+#. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
+#.
 #: src/Dialogs.vala:303
 msgid "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its Library:"
 msgstr "Фото/видеолар Shotwell оларды өз жинағына көшіре алмаған себебінен импортталмады:"
@@ -3316,13 +3373,16 @@ msgstr ""
 "%s көшіру мүмкін емес\n"
 "\t%s ішіне"
 
-#. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as
-#. Corrupt
+#.
+#. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
+#.
 #: src/Dialogs.vala:319
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Фото/видеолар зақымдалған болғандықтан импортталмады:"
 
+#.
 #. Photos/Videos Not Imported for Other Reasons
+#.
 #: src/Dialogs.vala:334
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Фото/видеолар келесі себептермен импортталмады:"
@@ -3442,8 +3502,7 @@ msgid_plural "%d files failed to import because it was corrupt:\n"
 msgstr[0] "%d файл зақымдалған болғандықтан импортталмады:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
-#. standard container formats are supported, it's just that the streams in
-#. them
+#. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
 #: src/Dialogs.vala:469
@@ -3502,8 +3561,7 @@ msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
 msgstr[0] "%d фото/видео сәтті импортталды.\n"
 
-#. if no media items were imported at all (i.e. an empty directory attempted),
-#. need to at least
+#. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
 #: src/Dialogs.vala:540
 msgid "No photos or videos imported.\n"
@@ -3612,10 +3670,8 @@ msgstr[0] ""
 msgid "Tags (separated by commas):"
 msgstr "Тегтер (үтірмен ажыратылған):"
 
-#. This function is used to determine whether or not files should be copied or
-#. linked when imported.
-#. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll)
-#. cancel.
+#. This function is used to determine whether or not files should be copied or linked when imported.
+#. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
 #: src/Dialogs.vala:1003
 msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
 msgstr "Shotwell фотоларды жинағыңызға көшіре алады, немесе көшірмесіз-ақ импорттай алады."
@@ -4262,8 +4318,12 @@ msgstr "Shotwell сіздің фото жинағыңызды %s нұсқасы�
 
 #: src/main.vala:65
 #, c-format
-msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import your photos."
-msgstr "Сіздегі фото жинағыңыз Shotwell-дың осы нұсқасымен үйлеспейді. Ол жинақ Shotwell %s нұсқасымен (схема %d) жасалған сияқты. Қазіргі нұсқасы - %s (схема %d). %s өшіру арқылы жинағыңызды өшіріңіз де, фотоларды қайта импорттаңыз."
+msgid ""
+"Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import "
+"your photos."
+msgstr ""
+"Сіздегі фото жинағыңыз Shotwell-дың осы нұсқасымен үйлеспейді. Ол жинақ Shotwell %s нұсқасымен (схема %d) жасалған сияқты. Қазіргі нұсқасы - %s (схема %d). %s өшіру арқылы жинағыңызды өшіріңіз де, фотоларды "
+"қайта импорттаңыз."
 
 #: src/main.vala:71
 #, c-format
@@ -4422,9 +4482,7 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#. TRANSLATORS: "modified" here is part of a file name that was changed with
-#. another image tool outside of Shotwell. Note that there are potential
-#. issues with UTF-8 characters
+#. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
 #: src/Photo.vala:3810
 msgid "modified"
 msgstr "түрлендірілген"
@@ -4433,8 +4491,7 @@ msgstr "түрлендірілген"
 msgid "Enable or disable the plugin"
 msgstr "Плагинді іске қосу немесе сөндіру"
 
-#. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon,
-#. ...
+#. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
 #: src/plugins/ManifestWidget.vala:156
 #, c-format
 msgid "Manage accounts for %s"
@@ -4750,8 +4807,12 @@ msgstr "Жариялау мүмкін емес"
 
 #: src/publishing/PublishingUI.vala:284
 #, c-format
-msgid "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the Plugins tab."
-msgstr "Shotwell таңдалған элементтерді жариялай алмайды, себебі үйлесімді жариялау плагині іске қосылмаған. Мұны түзету үшін %s «Түзету» > «Қалаулар» тармағын таңдап, «Плагиндер» бетінде бір немесе бірнеше жариялау плагинін іске қосыңыз."
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the "
+"Plugins tab."
+msgstr ""
+"Shotwell таңдалған элементтерді жариялай алмайды, себебі үйлесімді жариялау плагині іске қосылмаған. Мұны түзету үшін %s «Түзету» > «Қалаулар» тармағын таңдап, «Плагиндер» бетінде бір немесе бірнеше жариялау "
+"плагинін іске қосыңыз."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -4765,8 +4826,7 @@ msgstr "Тіркелгі ақпараты алынуда…"
 msgid "Logging in…"
 msgstr "Жүйеге кіру…"
 
-#. Here, we check whether more than one item is being uploaded, and if so,
-#. display
+#. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/SuccessPaneWidget.vala:17
 msgid "The selected video was successfully published."
@@ -5257,27 +5317,20 @@ msgstr "Барлық нәрсені таңдау"
 
 #. ...precache the timestamp string...
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
-#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad
-#. with zeroes
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
-#. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42
-#. PM
-#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad
-#. with zeroes
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
+#. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:845
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:851
 #, no-c-format
 msgctxt "MultidayFormat"
@@ -5286,8 +5339,7 @@ msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
@@ -5295,8 +5347,7 @@ msgstr "%d, %Y"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:862
 #, no-c-format
 msgctxt "MultimonthFormat"
@@ -5305,8 +5356,7 @@ msgstr "%a %b %d"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-
-#. format
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
@@ -5856,11 +5906,13 @@ msgstr "Видеоларды экспорттау"
 #~ msgid ""
 #~ "You are not currently logged into Facebook.\n"
 #~ "\n"
-#~ "If you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
+#~ "If you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions "
+#~ "are required for Shotwell Connect to function."
 #~ msgstr ""
 #~ "Сіз Facebook ішіне кірген жоқсыз.\n"
 #~ "\n"
-#~ "Егер сізде Facebook тіркелгісі әлі жоқ болса, кіру үрдісі кезінде оны жасай аласыз. Кіру кезінде, Shotwell Connect сізден фотоларды жүктеу мен оларды сіздің таспаңызға жариялау үшін рұқсат сұрауы мүмкін. Ол рұқсаттар Shotwell Connect дұрыс жұмысы үшін керек."
+#~ "Егер сізде Facebook тіркелгісі әлі жоқ болса, кіру үрдісі кезінде оны жасай аласыз. Кіру кезінде, Shotwell Connect сізден фотоларды жүктеу мен оларды сіздің таспаңызға жариялау үшін рұқсат сұрауы мүмкін. Ол "
+#~ "рұқсаттар Shotwell Connect дұрыс жұмысы үшін керек."
 
 #~ msgid ""
 #~ "You have already logged in and out of Facebook during this Shotwell session.\n"
