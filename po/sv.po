@@ -10,7 +10,7 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Isak Bergdahl <isak.bergdahl@yahoo.com>, 2021.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2025-06-22 17:50+0000\n"
-"PO-Revision-Date: 2025-08-06 20:40+0200\n"
+"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"PO-Revision-Date: 2026-03-02 23:19+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -164,8 +164,7 @@ msgstr "betygsfilternivå"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better"
-msgstr ""
-"Avgör hur bilder filtreras baserat på deras betyg: 1: Avvisad eller bättre, 2: Ej betygsatt eller bättre, 3: Ett eller bättre, 4: Två eller bättre, 5: Tre eller bättre, 6: Fyra eller bättre, 7: Fem eller bättre"
+msgstr "Avgör hur bilder filtreras baserat på deras betyg: 1: Avvisad eller bättre, 2: Ej betygsatt eller bättre, 3: Ett eller bättre, 4: Två eller bättre, 5: Tre eller bättre, 6: Fyra eller bättre, 7: Fem eller bättre"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:94
 msgid "sort events ascending"
@@ -939,62 +938,78 @@ msgstr "aktivera schackövergång för bildspel"
 msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
 msgstr "True om insticksmodulen Schackrutig för bildspelsövergångar är aktiverad, annars false"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:9 data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352
-#: data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#: data/org.gnome.Shotwell.appdata.xml.in:10
-msgid "Digital photo organizer"
-msgstr "Digital bildorganiserare"
-
-#: data/org.gnome.Shotwell.appdata.xml.in:12
-msgid ""
-"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers "
-"basic photo editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your master photos, making it easy to experiment and correct errors."
-msgstr ""
-"Shotwell är en lättanvänd, snabb bildorganiserare designad för GNOME-skrivbordet. Det låter dig importera bilder från din kamera eller disk, organisera dem efter datum och ämne samt betyg. Det erbjuder "
-"grundläggande bildredigering, beskärning, röda ögon-korrigering, färgjusteringar och verktyg för att räta ut bilder. Shotwells icke-destruktiva bildredigerare ändrar inte dina huvudbilder och gör det enkelt "
-"att experimentera och rätta fel."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:19
-msgid "When ready, Shotwell can upload your photos to various web services, such as Flickr, Google Photos, and more."
-msgstr "Shotwell kan, om så önskas, skicka dina bilder till olika webbtjänster som Flickr, Google Foto med flera."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:23
-msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
-msgstr "Shotwell stödjer JPEG, PNG, TIFF och flera varianter av RAW-filformat."
-
-#: data/org.gnome.Shotwell.appdata.xml.in:53
-msgid "The Shotwell developers"
-msgstr "Shotwells utvecklare"
-
-#: data/org.gnome.Shotwell.Auth.desktop.in:4
+#: data/org.gnome.Shotwell.Auth.desktop.in:3
 msgid "Shotwell Authentication helper"
 msgstr "Shotwells autentiseringshjälp"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:3 data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352 data/ui/photo_context.ui:91
+#: data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Bildhanterare"
 
-#: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:5
 msgid "Organize your photos"
 msgstr "Organisera dina bilder"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Shotwell.desktop.in:8
+#: data/org.gnome.Shotwell.desktop.in:7
 msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr "album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;importera;organisera;bild;foto;foton;bilder;fotografier;skriv;ut;utskrift;publicera;rotera;dela;taggar;video;flickr;picasa;youtube;piwigo;"
 
-#: data/org.gnome.Shotwell.desktop.in:21
+#: data/org.gnome.Shotwell.desktop.in:20
 msgid "Manage Different Profiles"
 msgstr "Hantera olika profiler"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:4
+#: data/org.gnome.Shotwell.metainfo.xml.in:10
+msgid "Digital photo organizer"
+msgstr "Digital bildorganiserare"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:12
+msgid ""
+"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers basic photo "
+"editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your master photos, making it easy to experiment and correct errors."
+msgstr ""
+"Shotwell är en lättanvänd, snabb bildorganiserare designad för GNOME-skrivbordet. Det låter dig importera bilder från din kamera eller disk, organisera dem efter datum och ämne samt betyg. Det erbjuder grundläggande "
+"bildredigering, beskärning, röda ögon-korrigering, färgjusteringar och verktyg för att räta ut bilder. Shotwells icke-destruktiva bildredigerare ändrar inte dina huvudbilder och gör det enkelt att experimentera och rätta "
+"fel."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:19
+msgid "When ready, Shotwell can upload your photos to various web services, such as Flickr, Google Photos, and more."
+msgstr "Shotwell kan, om så önskas, skicka dina bilder till olika webbtjänster som Flickr, Google Foto med flera."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:23
+msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
+msgstr "Shotwell stödjer JPEG, PNG, TIFF och flera varianter av RAW-filformat."
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:42
+msgid "Main View with extended information display"
+msgstr "Huvudvy med utökad informationsvisning"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:46
+msgid "Import roll history"
+msgstr "Importera rullhistorik"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:50
+msgid "Event-based organization"
+msgstr "Händelsebaserad organisation"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:54
+msgid "Image color editing"
+msgstr "Bildfärgsredigering"
+
+#: data/org.gnome.Shotwell.metainfo.xml.in:58
+msgid "Image upload to a web service"
+msgstr "Bildsändning till en webbtjänst"
+
+#: data/org.gnome.Shotwell-Viewer.desktop.in:3
 msgid "Shotwell Viewer"
 msgstr "Shotwell bildvisare"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Bildvisare"
 
@@ -1113,8 +1128,8 @@ msgstr "Sök efter en bild genom att skriva något som finns i dess namn eller t
 msgid "Find"
 msgstr "Sök"
 
-#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5
-#: data/ui/tags.ui:5 data/ui/trash.ui:6
+#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:6 data/ui/photo.ui:5 data/ui/tags.ui:5
+#: data/ui/trash.ui:6
 msgid "_File"
 msgstr "_Arkiv"
 
@@ -1126,28 +1141,28 @@ msgstr "_Spara"
 msgid "Save _As…"
 msgstr "_Spara som…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
-#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46 data/ui/tags.ui:36
+#: data/ui/trash.ui:27 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Avsluta"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
-#: data/ui/trash.ui:34 src/Resources.vala:126
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43 data/ui/trash.ui:34
+#: src/Resources.vala:126
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
-#: data/ui/trash.ui:37 src/Resources.vala:191
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46 data/ui/trash.ui:37
+#: src/Resources.vala:191
 msgid "_Undo"
 msgstr "_Ångra"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
-#: data/ui/trash.ui:42 src/Resources.vala:194
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51 data/ui/trash.ui:42
+#: src/Resources.vala:194
 msgid "_Redo"
 msgstr "_Gör om"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95 data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70 data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93
-#: data/ui/tags.ui:95 data/ui/trash.ui:84
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:67 data/ui/event.ui:95 data/ui/faces.ui:95 data/ui/import_queue.ui:34 data/ui/import.ui:70 data/ui/media.ui:95 data/ui/offline.ui:75 data/ui/photo.ui:93 data/ui/tags.ui:95
+#: data/ui/trash.ui:84
 msgid "_View"
 msgstr "_Visa"
 
@@ -1227,9 +1242,9 @@ msgstr "_Justera"
 msgid "_Adjust Date and Time…"
 msgstr "_Justera datum och tid…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429
-#: data/ui/import_queue.ui:61 data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180 data/ui/photo.ui:385
-#: data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429 data/ui/import_queue.ui:61
+#: data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180 data/ui/photo.ui:385 data/ui/photo.ui:388 data/ui/tags.ui:418
+#: data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
 msgid "_Help"
 msgstr "_Hjälp"
 
@@ -1296,13 +1311,12 @@ msgstr "Gå till föregående bild"
 msgid "Go to the next photo"
 msgstr "Gå till nästa bild"
 
-#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8
-#: data/ui/trash.ui:9
+#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:9 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:9
 msgid "_Import From Folder…"
 msgstr "_Importera från mapp…"
 
-#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30 data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30 data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30
-#: data/ui/trash.ui:21 data/ui/trash.ui:231 data/ui/trash.ui:239
+#: data/ui/events_directory.ui:15 data/ui/event.ui:30 data/ui/faces.ui:30 data/ui/import_queue.ui:21 data/ui/import.ui:23 data/ui/media.ui:30 data/ui/offline.ui:16 data/ui/photo.ui:40 data/ui/tags.ui:30 data/ui/trash.ui:21
+#: data/ui/trash.ui:231 data/ui/trash.ui:239
 msgid "Empty T_rash"
 msgstr "_Töm papperskorgen"
 
@@ -1319,13 +1333,12 @@ msgstr "_Ny sparad sökning…"
 msgid "Select _All"
 msgstr "Markera _alla"
 
-#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
-#: src/Resources.vala:135 src/Resources.vala:284
+#: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78 src/Resources.vala:135
+#: src/Resources.vala:284
 msgid "_Preferences"
 msgstr "_Inställningar"
 
-#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98 data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98 data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98
-#: data/ui/trash.ui:87
+#: data/ui/events_directory.ui:70 data/ui/event.ui:98 data/ui/faces.ui:98 data/ui/import_queue.ui:37 data/ui/import.ui:73 data/ui/media.ui:98 data/ui/offline.ui:78 data/ui/photo.ui:96 data/ui/tags.ui:98 data/ui/trash.ui:87
 msgid "_Basic Information"
 msgstr "_Grundläggande information"
 
@@ -1491,9 +1504,8 @@ msgstr "Importera alla mediafiler till biblioteket"
 msgid "_Log in"
 msgstr "_Logga in"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:219 src/AppWindow.vala:245 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:247 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Avbryt"
 
@@ -1641,12 +1653,12 @@ msgstr "Använd en _standardstorlek:"
 msgid "Use a c_ustom size:"
 msgstr "Använd en _anpassad storlek:"
 
-#. Abbrevation for "inch"
+#. Abbreviation for "inch"
 #: data/ui/printing_widget.ui:85
 msgid "in."
 msgstr "tum"
 
-#. Abbrevation for "centimeters"
+#. Abbreviation for "centimeters"
 #: data/ui/printing_widget.ui:86
 msgid "cm"
 msgstr "cm"
@@ -1723,8 +1735,8 @@ msgstr "Byt _namn…"
 msgid "_Edit…"
 msgstr "_Redigera…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
-#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749 src/Resources.vala:125
+#: src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
 msgid "_Delete"
 msgstr "_Radera"
 
@@ -1880,24 +1892,22 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to "
-"access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to access "
+"YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy "
-"policy</a>\n"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på YouTube.\n"
 "\n"
-"Du måste ha registrerat ett Google-konto och konfigurera det för YouTube-användning för att fortsätta. Du kan konfigurera de flesta konton genom att använda din webbläsare för att logga in på YouTube-"
-"webbplatsen minst en gång.\n"
+"Du måste ha registrerat ett Google-konto och konfigurera det för YouTube-användning för att fortsätta. Du kan konfigurera de flesta konton genom att använda din webbläsare för att logga in på YouTube-webbplatsen minst en "
+"gång.\n"
 "\n"
-"Shotwell använder YouTubes API-tjänster <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> för att komma åt din YouTube-kanal och skicka videoklippen. Genom att använda "
-"Shotwell för att komma åt YouTube så behöver du följa YouTubes användningsvillkor som finns på <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"Shotwell använder YouTubes API-tjänster <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> för att komma åt din YouTube-kanal och skicka videoklippen. Genom att använda Shotwell "
+"för att komma åt YouTube så behöver du följa YouTubes användningsvillkor som finns på <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
-"Shotwells sekretesspolicy kring användning av data relaterade till ditt Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</"
-"a>\n"
+"Shotwells sekretesspolicy kring användning av data relaterade till ditt Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
 "\n"
 "Se <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
@@ -1905,19 +1915,19 @@ msgstr ""
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://"
-"developers.google.com/photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n"
+"You must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services "
-"privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
+"Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</"
+"a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på Google Foto.\n"
 "\n"
-"Du måste ha registrerat ett Google-konto och konfigurera det för användning med Google Foto. Shotwell använder Google Fotos API-tjänster <a href=\"https://developers.google.com/photos/\">https://"
-"developers.google.com/photos/</a> för all interaktion med dina Google Foto-data. Du kommer att behöva ge Shotwell åtkomst till ditt Google Foto-bibliotek.\n"
+"Du måste ha registrerat ett Google-konto och konfigurera det för användning med Google Foto. Shotwell använder Google Fotos API-tjänster <a href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> för all interaktion med dina Google Foto-data. Du kommer att behöva ge Shotwell åtkomst till ditt Google Foto-bibliotek.\n"
 "\n"
-"Shotwells sekretesspolicy kring användning av data relaterade till ditt Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a href=\"help:shotwell/privacy-policy\">sekretesspolicy för "
-"nättjänster</a>. Se <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> för Googles egen sekretesspolicy"
+"Shotwells sekretesspolicy kring användning av data relaterade till ditt Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. Se "
+"<a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:28
 msgid "_Email address"
@@ -1945,7 +1955,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:310 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -1956,41 +1966,41 @@ msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:250
 msgid "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Den här webbplatsen tillhandahöll identifiering som tillhör en annan webbplats."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:255
 msgid "⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."
 msgstr "⚫ Den här webbplatsens information är för utdaterad för att lita på. Kontrollera datumet i din dators kalender."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:252
+#: plugins/common/RESTSupport.vala:260
 msgid "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ Den här webbplatsens identifiering utfärdades inte av en betrodd organisation."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:257
+#: plugins/common/RESTSupport.vala:265
 msgid "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ Den här webbplatsens identifiering kunde inte fortsätta. Den kan vara trasig."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:262
+#: plugins/common/RESTSupport.vala:270
 msgid "⚫ This website’s identification has been revoked by the trusted organization that issued it."
 msgstr "⚫ Den här webbplatsens identifiering har återkallats av den betrodda organisation som utfärdade den."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:267
+#: plugins/common/RESTSupport.vala:275
 msgid "⚫ This website’s identification cannot be trusted because it uses very weak encryption."
 msgstr "⚫ Den här webbplatsens identifiering har ingen tillit eftersom den använder en väldigt svag kryptering."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:272
+#: plugins/common/RESTSupport.vala:280
 msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
 msgstr "⚫ Den här webbplatsens identifiering är endast giltig för framtida datum. Kontrollera datumet i din dators kalender."
 
-#: plugins/common/RESTSupport.vala:574 plugins/shotwell-publishing/TumblrPublishing.vala:560 plugins/shotwell-publishing/YoutubeUploader.vala:65
+#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:560 plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
 
@@ -2016,8 +2026,7 @@ msgstr "TLS-certifikatdetaljer för %s"
 #, c-format
 msgid "This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords)."
 msgstr ""
-"Det här ser inte ut som det äkta %s. En anfallare kanske försöker att stjäla eller ändra information som passerar till eller från denna webbplats (till exempel, privata meddelanden, kreditkortsinformation "
-"eller lösenord)."
+"Det här ser inte ut som det äkta %s. En anfallare kanske försöker att stjäla eller ändra information som passerar till eller från denna webbplats (till exempel, privata meddelanden, kreditkortsinformation eller lösenord)."
 
 #: plugins/common/WebAuthenticationPane.vala:34
 msgid "Sign in with your browser to setup an account"
@@ -2449,36 +2458,36 @@ msgstr "Kunde inte göra katalogen %s skrivbar"
 msgid "Could not make directory %s writable: %s"
 msgstr "Kunde inte göra katalogen %s skrivbar: %s"
 
-#: src/AppWindow.vala:183
+#: src/AppWindow.vala:185
 msgid "Ok"
 msgstr "OK"
 
-#: src/AppWindow.vala:236
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Filen %s finns redan. Vill du ersätta den?"
 
-#: src/AppWindow.vala:239
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "Konflikt vid filexport"
 
-#: src/AppWindow.vala:243
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Tillämpa denna konfliktlösning på alla vidare konflikter"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "Byt namn"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "_Ersätt"
 
-#: src/AppWindow.vala:268
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n"
@@ -2489,21 +2498,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:307
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:319
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:327
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Kunde inte komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:335
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -3943,7 +3952,7 @@ msgstr "Kunde inte övervaka %s: Det är inte en katalog (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Bilderna kan inte exporteras till denna katalog."
 
-#: src/EditingHostPage.vala:1325
+#: src/EditingHostPage.vala:1321
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Källfilen för bilden saknas: %s"
@@ -4379,8 +4388,7 @@ msgstr "Raderar bilder"
 #: src/main.vala:54
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please use the latest version of Shotwell."
-msgstr ""
-"Ditt bildbibliotek är inte kompatibelt med den här versionen av Shotwell. Det verkar som det skapades med Shotwell %s (schema %d). Denna version är %s (schema %d). Använd den senaste versionen av Shotwell."
+msgstr "Ditt bildbibliotek är inte kompatibelt med den här versionen av Shotwell. Det verkar som det skapades med Shotwell %s (schema %d). Denna version är %s (schema %d). Använd den senaste versionen av Shotwell."
 
 #: src/main.vala:59
 #, c-format
@@ -4390,11 +4398,10 @@ msgstr "Shotwell kunde inte uppgradera ditt bildbibliotek från version %s (sche
 #: src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import "
-"your photos."
+"Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import your photos."
 msgstr ""
-"Ditt bildbibliotek är inte kompatibelt med denna version av Shotwell. Det verkar som om det skapades med Shotwell %s (schema %d). Denna version är %s (schema %d). Töm ditt bibliotek genom att ta bort %s och "
-"importera dina bilder igen."
+"Ditt bildbibliotek är inte kompatibelt med denna version av Shotwell. Det verkar som om det skapades med Shotwell %s (schema %d). Denna version är %s (schema %d). Töm ditt bibliotek genom att ta bort %s och importera dina "
+"bilder igen."
 
 #: src/main.vala:71
 #, c-format
@@ -4409,64 +4416,64 @@ msgstr "Kunde inte starta Shotwell"
 msgid "Loading Shotwell"
 msgstr "Läser in Shotwell"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "Path to Shotwell’s private data"
 msgstr "Sökväg till Shotwells privata data"
 
-#: src/main.vala:411
+#: src/main.vala:420
 msgid "DIRECTORY"
 msgstr "KATALOG"
 
-#: src/main.vala:412
+#: src/main.vala:421
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Sök inte efter ändringar i biblioteket medan programmet används"
 
-#: src/main.vala:413
+#: src/main.vala:422
 msgid "Don’t display startup progress meter"
 msgstr "Visa inte hur uppstarten framskrider"
 
-#: src/main.vala:414
+#: src/main.vala:423
 msgid "Show the application’s version"
 msgstr "Visa programversion"
 
-#: src/main.vala:415
+#: src/main.vala:424
 msgid "Start the application in fullscreen mode"
 msgstr "Starta programmet i helskärmsläge"
 
-#: src/main.vala:416
+#: src/main.vala:425
 msgid "Print the metadata of the image file"
 msgstr "Skriv ut metadata för bildfilen"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "Name for a custom profile"
 msgstr "Namn för en anpassad profil"
 
-#: src/main.vala:417
+#: src/main.vala:426
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:418
+#: src/main.vala:427
 msgid "Start with a browser of available profiles"
 msgstr "Starta med en bläddrare med tillgängliga profiler"
 
-#: src/main.vala:419
+#: src/main.vala:428
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Skapa PROFIL som angivits med --profile om den inte redan finns"
 
-#: src/main.vala:420
+#: src/main.vala:429
 msgid "Show available profiles"
 msgstr "Visa tillgängliga profiler"
 
-#: src/main.vala:470
+#: src/main.vala:479
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Kör ”%s --help” för en komplett lista över tillgängliga kommandoradsflaggor.\n"
 
-#: src/main.vala:478
+#: src/main.vala:487
 msgid "Choose Shotwell's profile"
 msgstr "Välj Shotwells profil"
 
-#: src/main.vala:512
+#: src/main.vala:521
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Profilen %s finns inte. Ville du skicka med --create också?"
@@ -4517,22 +4524,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:256
+#: src/photos/JfifSupport.vala:260
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Låg (%d%%)"
 
-#: src/photos/JfifSupport.vala:259
+#: src/photos/JfifSupport.vala:263
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Mellan (%d%%)"
 
-#: src/photos/JfifSupport.vala:262
+#: src/photos/JfifSupport.vala:266
 #, c-format
 msgid "High (%d%%)"
 msgstr "Hög (%d%%)"
 
-#: src/photos/JfifSupport.vala:265
+#: src/photos/JfifSupport.vala:269
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Maximal (%d%%)"
@@ -4882,11 +4889,10 @@ msgstr "Kunde inte publicera"
 #: src/publishing/PublishingUI.vala:284
 #, c-format
 msgid ""
-"Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the "
-"Plugins tab."
+"Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the Plugins tab."
 msgstr ""
-"Shotwell kan inte publicera de markerade objekten därför att du inte har aktiverat en kompatibel insticksmodul för publicering. Välj Redigera %s Inställningar och aktivera en eller flera av de insticksmoduler "
-"för publicering som finns under fliken Insticksmoduler."
+"Shotwell kan inte publicera de markerade objekten därför att du inte har aktiverat en kompatibel insticksmodul för publicering. Välj Redigera %s Inställningar och aktivera en eller flera av de insticksmoduler för "
+"publicering som finns under fliken Insticksmoduler."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5706,6 +5712,9 @@ msgstr ""
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
+#~ msgid "The Shotwell developers"
+#~ msgstr "Shotwells utvecklare"
+
 #~ msgid "Public listed"
 #~ msgstr "Offentligt listad"
 
@@ -6101,13 +6110,13 @@ msgstr "Exportera filmer"
 #~ msgid ""
 #~ "You are not currently logged into Facebook.\n"
 #~ "\n"
-#~ "If you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions "
-#~ "are required for Shotwell Connect to function."
+#~ "If you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required "
+#~ "for Shotwell Connect to function."
 #~ msgstr ""
 #~ "Du är för närvarande inte inloggad på Facebook.\n"
 #~ "\n"
-#~ "Om du ännu inte har ett Facebook-konto så kan du skapa ett under inloggningsprocessen. Under inloggningen kan Shotwell Connect fråga dig om behörighet att skicka upp bilder och publicera till din logg. "
-#~ "Dessa behörigheter krävs för att Shotwell Connect ska fungera."
+#~ "Om du ännu inte har ett Facebook-konto så kan du skapa ett under inloggningsprocessen. Under inloggningen kan Shotwell Connect fråga dig om behörighet att skicka upp bilder och publicera till din logg. Dessa "
+#~ "behörigheter krävs för att Shotwell Connect ska fungera."
 
 #~ msgid ""
 #~ "You have already logged in and out of Facebook during this Shotwell session.\n"
