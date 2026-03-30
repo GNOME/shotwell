@@ -86,9 +86,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         Gtk.Box clock = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
 
         clock.append(hour);
-        clock.append(new Gtk.Label(":"));
+        clock.append(new Gtk.Label("∶"));
         clock.append(minute);
-        clock.append(new Gtk.Label(":"));
+        clock.append(new Gtk.Label("∶"));
         clock.append(second);
         clock.append(system);
 
