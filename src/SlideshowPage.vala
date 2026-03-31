@@ -33,7 +33,7 @@ class SlideshowPage : SinglePhotoPage {
         [GtkChild]
         unowned Gtk.SpinButton delay_entry;
         [GtkChild]
-        unowned Gtk.ComboBoxText transition_effect_selector;
+        unowned Gtk.DropDown transition_effect_selector;
         [GtkChild]
         unowned Gtk.Scale transition_effect_hscale;
         [GtkChild]
@@ -47,13 +47,12 @@ class SlideshowPage : SinglePhotoPage {
         
         public SettingsDialog() {
             Object ();
+            transition_effect_selector.notify["selected-item"].connect(on_transition_changed);
             update_from_settings();
         }
 
         public void update_from_settings() {
             double delay = Config.Facade.get_instance().get_slideshow_delay();
-
-            //set_transient_for(AppWindow.get_fullscreen());
 
             delay_adjustment.value = delay;
 
@@ -63,8 +62,10 @@ class SlideshowPage : SinglePhotoPage {
             // null effect first, always, and set active in case no other one is found
             string null_display_name = TransitionEffectsManager.get_instance().get_effect_name(
                 TransitionEffectsManager.NULL_EFFECT_ID);
-            transition_effect_selector.append_text(null_display_name);
-            transition_effect_selector.set_active(0);
+            var model = new Gtk.StringList({});
+            model.append(null_display_name);
+            print("Stored effect ID: %s\n", effect_id);
+            var selected_id = 0;
             
             int i = 1;
             foreach (string display_name in 
@@ -72,13 +73,14 @@ class SlideshowPage : SinglePhotoPage {
                 if (display_name == null_display_name)
                     continue;
                 
-                transition_effect_selector.append_text(display_name);
+                model.append(display_name);
                 if (effect_id == TransitionEffectsManager.get_instance().get_id_for_effect_name(display_name))
-                    transition_effect_selector.set_active(i);
+                    selected_id = i;
                 
                 ++i;
             }
-            transition_effect_selector.changed.connect(on_transition_changed);
+            transition_effect_selector.model = model;
+            transition_effect_selector.set_selected(selected_id);
             
             double transition_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
             transition_effect_adjustment.value = transition_delay;
@@ -93,9 +95,9 @@ class SlideshowPage : SinglePhotoPage {
         }
         
         private void on_transition_changed() {
-            string selected = transition_effect_selector.get_active_text();
+            var selected = (Gtk.StringObject) transition_effect_selector.get_selected_item();
             bool sensitive = selected != null 
-               && selected != TransitionEffectsManager.NULL_EFFECT_ID;
+               && selected.get_string() != TransitionEffectsManager.NULL_EFFECT_ID;
            
             transition_effect_hscale.sensitive = sensitive;
             transition_effect_entry.sensitive = sensitive;
@@ -110,9 +112,10 @@ class SlideshowPage : SinglePhotoPage {
         }
         
         public string get_transition_effect_id() {
-            string? active = transition_effect_selector.get_active_text();
-            if (active == null)
+            var selected = (Gtk.StringObject) transition_effect_selector.get_selected_item();
+            if (selected == null)
                 return TransitionEffectsManager.NULL_EFFECT_ID;
+            var active = selected.get_string();
             
             string? id = TransitionEffectsManager.get_instance().get_id_for_effect_name(active);
             
@@ -399,14 +402,14 @@ class SlideshowPage : SinglePhotoPage {
             playing = false;
             //hide_toolbar();
             suspend_cursor_hiding();
-            print("Disabling toolbar dismissaal\n");
             fsw.disable_toolbar_dismissal();
             settings_dialog.update_from_settings();
         } else {
             Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
                 
             Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-            Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
+            var id = settings_dialog.get_transition_effect_id();
+            Config.Facade.get_instance().set_slideshow_transition_effect_id(id);
             Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
             
             shuffled = settings_dialog.get_shuffle();
