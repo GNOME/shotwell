@@ -244,7 +244,7 @@ public class PhotoMetadata : MediaMetadata {
            
             try {
                 return new
-                    Bytes(owner.exiv2.try_get_preview_image(props[number]).get_data());
+                    Bytes(owner.exiv2.get_preview_image(props[number]).get_data());
             } catch (Error err) {
                 return new Bytes(null);
             }
@@ -369,7 +369,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public bool has_tag(string tag) {
         try {
-            return exiv2.try_has_tag(tag);
+            return exiv2.has_tag(tag);
         } catch (Error error) {
             return false;
         }
@@ -434,7 +434,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public string? get_tag_label(string tag) {
         try {
-            return GExiv2.Metadata.try_get_tag_label(tag);
+            return GExiv2.Metadata.get_tag_label(tag);
         } catch (Error error) {
             return null;
         }
@@ -442,7 +442,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public string? get_tag_description(string tag) {
         try {
-            return GExiv2.Metadata.try_get_tag_description(tag);
+            return GExiv2.Metadata.get_tag_description(tag);
         } catch (Error error) {
             return null;
         }
@@ -450,7 +450,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public string? get_string(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
         try {
-            return prepare_input_text(exiv2.try_get_tag_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+            return prepare_input_text(exiv2.get_tag_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
         } catch (Error error) {
             return null;
         }
@@ -458,7 +458,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public string? get_string_interpreted(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
         try {
-            return prepare_input_text(exiv2.try_get_tag_interpreted_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+            return prepare_input_text(exiv2.get_tag_interpreted_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
         } catch (Error error) {
             return null;
         }
@@ -492,7 +492,7 @@ public class PhotoMetadata : MediaMetadata {
     // https://gitlab.gnome.org/GNOME/gexiv2/issues/10
     public Gee.List<string>? get_string_multiple(string tag) {
         try {
-            string[] values = exiv2.try_get_tag_multiple(tag);
+            string[] values = exiv2.get_tag_multiple(tag);
             if (values == null || values.length == 0)
                 return null;
             
@@ -541,7 +541,7 @@ public class PhotoMetadata : MediaMetadata {
         }
         
         try {
-            exiv2.try_set_tag_string(tag, prepped);
+            exiv2.set_tag_string(tag, prepped);
         } catch (Error error) {
             warning("Unable to set tag %s to string %s from source %s: %s", tag, value, source_name, error.message);
         }
@@ -596,7 +596,7 @@ public class PhotoMetadata : MediaMetadata {
         values += null;
         
         try {
-            exiv2.try_set_tag_multiple(tag, values);
+            exiv2.set_tag_multiple(tag, values);
         } catch (Error err) {
             warning("Unable to set %d strings to tag %s from source %s: %s", values.length, tag, source_name, err.message);
         }
@@ -613,7 +613,7 @@ public class PhotoMetadata : MediaMetadata {
         }
         
         try {
-            value = exiv2.try_get_tag_long(tag);
+            value = exiv2.get_tag_long(tag);
         } catch (Error error) {
             return false;
         }
@@ -634,7 +634,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public void set_long(string tag, long value) {
         try {
-            exiv2.try_set_tag_long(tag, value);
+            exiv2.set_tag_long(tag, value);
         } catch (Error err) {
             warning("Unable to set tag %s to long %ld from source %s: %s", tag, value, source_name, err.message);
         }
@@ -647,7 +647,7 @@ public class PhotoMetadata : MediaMetadata {
     public bool get_rational(string tag, out MetadataRational rational) {
         int numerator, denominator;
         try {
-            if (exiv2.try_get_exif_tag_rational(tag, out numerator, out denominator)) {
+            if (exiv2.get_exif_tag_rational(tag, out numerator, out denominator)) {
                 rational = MetadataRational(numerator, denominator);
             } else {
                 rational = MetadataRational.invalid();
@@ -674,7 +674,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public void set_rational(string tag, MetadataRational rational) {
         try {
-            exiv2.try_set_exif_tag_rational(tag, rational.numerator, rational.denominator);
+            exiv2.set_exif_tag_rational(tag, rational.numerator, rational.denominator);
         } catch (Error err) {
             warning("Unable to set tag %s to rational %s from source %s: %s", tag, rational.to_string(),
                 source_name, err.message);
@@ -817,7 +817,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public void remove_exif_thumbnail() {
         try {
-            exiv2.try_erase_exif_thumbnail();
+            exiv2.erase_exif_thumbnail();
         } catch (Error err) { }
 
         if (exif != null) {
@@ -829,7 +829,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public void remove_tag(string tag) {
         try {
-            exiv2.try_clear_tag(tag);
+            exiv2.clear_tag(tag);
         } catch (Error err){}
     }
     
@@ -1206,7 +1206,7 @@ public class PhotoMetadata : MediaMetadata {
     
     public bool has_orientation() {
         try {
-            return exiv2.try_get_orientation() == GExiv2.Orientation.UNSPECIFIED;
+            return exiv2.get_orientation() == GExiv2.Orientation.UNSPECIFIED;
         } catch (Error err) {
             debug("Failed to get orientation: %s", err.message);
             return false;
@@ -1218,7 +1218,7 @@ public class PhotoMetadata : MediaMetadata {
         // GExiv2.Orientation is the same value-wise as Orientation, with one exception:
         // GExiv2.Orientation.UNSPECIFIED must be handled
         try {
-            GExiv2.Orientation orientation = exiv2.try_get_orientation();
+            GExiv2.Orientation orientation = exiv2.get_orientation();
             if (orientation ==  GExiv2.Orientation.UNSPECIFIED || orientation < Orientation.MIN ||
                 orientation > Orientation.MAX)
                 return Orientation.TOP_LEFT;
@@ -1232,7 +1232,7 @@ public class PhotoMetadata : MediaMetadata {
     public void set_orientation(Orientation orientation) {
         // GExiv2.Orientation is the same value-wise as Orientation
         try {
-            exiv2.try_set_orientation((GExiv2.Orientation) orientation);
+            exiv2.set_orientation((GExiv2.Orientation) orientation);
         } catch (Error err) {
             debug("Failed to set the orientation: %s", err.message);
         }
@@ -1243,19 +1243,17 @@ public class PhotoMetadata : MediaMetadata {
         longitude = 0.0;
         latitude = 0.0;
         altitude = 0.0;
+        long_ref = null;
+        lat_ref = null;
         try {
-            if (!exiv2.try_get_gps_longitude(out longitude) || !exiv2.try_get_gps_latitude(out latitude)) {
-                long_ref = null;
-                lat_ref = null;
-                
-                return false;
-            }
+            longitude = exiv2.get_gps_longitude();
+            latitude = exiv2.get_gps_latitude();
         } catch (Error err) {
             debug("Failed to get GPS lon/lat: %s", err.message);
         }
 
         try {
-            exiv2.try_get_gps_altitude(out altitude);
+            altitude = exiv2.get_gps_altitude();
         } catch (Error err) {
             debug("Failed to get GPS altitude: %s", err.message);
         }
@@ -1270,7 +1268,7 @@ public class PhotoMetadata : MediaMetadata {
         GpsCoords gps_coords = GpsCoords();
         try {
             double altitude;
-            gps_coords.has_gps = exiv2.try_get_gps_info(out gps_coords.longitude, out gps_coords.latitude, out altitude) ? 1 : 0;
+            gps_coords.has_gps = exiv2.get_gps_info(out gps_coords.longitude, out gps_coords.latitude, out altitude) ? 1 : 0;
             if (gps_coords.has_gps > 0) {
                 if (get_string("Exif.GPSInfo.GPSLongitudeRef") == "W" && gps_coords.longitude > 0)
                     gps_coords.longitude = -gps_coords.longitude;
@@ -1287,11 +1285,10 @@ public class PhotoMetadata : MediaMetadata {
     public void set_gps_coords(GpsCoords gps_coords) {
         try {
             if (gps_coords.has_gps > 0) {
-                var altitude = 0.0;
-                exiv2.try_get_gps_altitude(out altitude);
-                exiv2.try_set_gps_info(gps_coords.longitude, gps_coords.latitude, altitude);
+                var altitude = exiv2.get_gps_altitude();
+                exiv2.set_gps_info(gps_coords.longitude, gps_coords.latitude, altitude);
             } else
-                exiv2.try_delete_gps_info();
+                exiv2.delete_gps_info();
         } catch (Error err) {
             debug("Failed to set or remove GPS info: %s", err.message);
         }
