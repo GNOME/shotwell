@@ -365,11 +365,13 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_file_uri(File file) throws Error {
-        show_file_in_filemanager.begin(file);
+        var launcher = new Gtk.FileLauncher(file);
+        launcher.open_containing_folder.begin(AppWindow.get_instance(), null);
     }
     
     public void show_uri(string url) throws Error {
-        Gtk.show_uri(this, url, Gdk.CURRENT_TIME);
+        var launcher = new Gtk.UriLauncher(url);
+        launcher.launch.begin(AppWindow.get_instance(), null, null);
     }
     
     protected virtual void add_actions () {

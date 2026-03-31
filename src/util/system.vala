@@ -20,15 +20,3 @@ File? get_sys_install_dir(File exec_dir) {
 
     return null;
 }
-
-async void show_file_in_filemanager(File file) throws Error {
-    try {
-        var portal = new Xdp.Portal.initable_new();
-        var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
-        yield portal.open_directory(parent, file.get_uri(), Xdp.OpenUriFlags.NONE, null);
-    } catch (Error e) {
-        warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);
-        Gtk.show_uri(AppWindow.get_instance(), file.get_parent().get_uri(), Gdk.CURRENT_TIME);
-    }
-}
-
