@@ -140,7 +140,7 @@ public abstract class CheckerboardPage : Page {
         KeyboardModifiers modifiers) {
     }
 
-    public weak CheckerboardLayout get_checkerboard_layout() {
+    public unowned CheckerboardLayout get_checkerboard_layout() {
         return layout;
     }
 
