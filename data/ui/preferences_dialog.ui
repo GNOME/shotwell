@@ -65,11 +65,14 @@
                       </object>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="default_raw_developer_combo">
+                          <object class="GtkDropDown" id="default_raw_developer_combo">
                             <layout>
                               <property name="column">1</property>
                               <property name="row">14</property>
                             </layout>
+                            <property name="model">
+                              <object class="GtkStringList"/>
+                            </property>
                           </object>
                         </child>
                         <child>
@@ -224,11 +227,14 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="dir_pattern_combo">
+                          <object class="GtkDropDown" id="dir_pattern_combo">
                             <layout>
                               <property name="column">1</property>
                               <property name="row">7</property>
                             </layout>
+                            <property name="model">
+                              <object class="GtkStringList"/>
+                            </property>
                           </object>
                         </child>
                         <child>

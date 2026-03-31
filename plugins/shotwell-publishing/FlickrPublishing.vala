@@ -521,8 +521,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private Gtk.Label size_label = null;
     private Gtk.Button logout_button = null;
     private Gtk.Button publish_button = null;
-    private Gtk.ComboBoxText visibility_combo = null;
-    private Gtk.ComboBoxText size_combo = null;
+    private Gtk.DropDown visibility_combo = null;
+    private Gtk.DropDown size_combo = null;
     private Gtk.CheckButton strip_metadata_check = null;
     private VisibilityEntry[] visibilities = null;
     private SizeEntry[] sizes = null;
@@ -545,8 +545,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         upload_info_label = (Gtk.Label) this.builder.get_object("upload_info_label");
         logout_button = (Gtk.Button) this.builder.get_object("logout_button");
         publish_button = (Gtk.Button) this.builder.get_object("publish_button");
-        visibility_combo = (Gtk.ComboBoxText) this.builder.get_object("visibility_combo");
-        size_combo = (Gtk.ComboBoxText) this.builder.get_object("size_combo");
+        visibility_combo = (Gtk.DropDown) this.builder.get_object("visibility_combo");
+        size_combo = (Gtk.DropDown) this.builder.get_object("size_combo");
         size_label = (Gtk.Label) this.builder.get_object("size_label");
         strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
 
@@ -581,11 +581,11 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         visibility_label.set_label(visibility_label_text);
 
         populate_visibility_combo();
-        visibility_combo.changed.connect(on_visibility_changed);
+        visibility_combo.notify["selected-item"].connect(on_visibility_changed);
 
         if ((media_type != Spit.Publishing.Publisher.MediaType.VIDEO)) {
             populate_size_combo();
-            size_combo.changed.connect(on_size_changed);
+            size_combo.notify["selected-item"].connect(on_size_changed);
         } else {
             // publishing -only- video - don't let the user manipulate the photo size choices.
             size_combo.set_sensitive(false);
@@ -605,10 +605,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private void on_publish_clicked() {
         parameters.strip_metadata = strip_metadata_check.get_active();
         parameters.visibility_specification =
-            visibilities[visibility_combo.get_active()].specification;
+            visibilities[visibility_combo.get_selected()].specification;
 
         if ((media_type & Spit.Publishing.Publisher.MediaType.PHOTO) != 0)
-            parameters.photo_major_axis_size = sizes[size_combo.get_active()].size;
+            parameters.photo_major_axis_size = sizes[size_combo.get_selected()].size;
 
         publish(strip_metadata_check.get_active());
     }
@@ -629,10 +629,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         if (visibilities == null)
             visibilities = create_visibilities();
 
-        foreach (VisibilityEntry v in visibilities)
-            visibility_combo.append_text(v.title);
+        var model = (Gtk.StringList) visibility_combo.model;
 
-        visibility_combo.set_active(publisher.get_persistent_visibility());
+        foreach (VisibilityEntry v in visibilities)
+            model.append(v.title);
+
+        visibility_combo.set_selected(publisher.get_persistent_visibility());
     }
 
     private SizeEntry[] create_sizes() {
@@ -651,18 +653,20 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         if (sizes == null)
             sizes = create_sizes();
 
-        foreach (SizeEntry e in sizes)
-            size_combo.append_text(e.title);
+        var model = (Gtk.StringList)size_combo.model;
 
-        size_combo.set_active(publisher.get_persistent_default_size());
+        foreach (SizeEntry e in sizes)
+            model.append(e.title);
+
+        size_combo.set_selected(publisher.get_persistent_default_size());
     }
 
     private void on_size_changed() {
-        publisher.set_persistent_default_size(size_combo.get_active());
+        publisher.set_persistent_default_size((int)size_combo.get_selected());
     }
 
     private void on_visibility_changed() {
-        publisher.set_persistent_visibility(visibility_combo.get_active());
+        publisher.set_persistent_visibility((int)visibility_combo.get_selected());
     }
     
     protected void notify_publish() {

@@ -48,19 +48,25 @@ so changes made here will not display)</property>
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="blog_combo">
+              <object class="GtkDropDown" id="blog_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">0</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList"/>
+                </property>
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="size_combo">
+              <object class="GtkDropDown" id="size_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">1</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList"/>
+                </property>
               </object>
             </child>
           </object>

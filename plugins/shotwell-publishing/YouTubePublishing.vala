@@ -264,7 +264,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void logout();
 
     private Gtk.Box pane_widget = null;
-    private Gtk.ComboBoxText privacy_combo = null;
+    private Gtk.DropDown privacy_combo = null;
     private Gtk.Label login_identity_label = null;
     private Gtk.Button publish_button = null;
     private Gtk.Button logout_button = null;
@@ -285,7 +285,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         assert(builder.get_objects().length() > 0);
 
         login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
-        privacy_combo = this.builder.get_object("privacy_combo") as Gtk.ComboBoxText;
+        privacy_combo = (Gtk.DropDown)this.builder.get_object("privacy_combo");
         publish_button = this.builder.get_object("publish_button") as Gtk.Button;
         logout_button = this.builder.get_object("logout_button") as Gtk.Button;
         pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
@@ -298,11 +298,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(
             publishing_parameters.get_user_name()));
 
-        foreach(PrivacyDescription desc in privacy_descriptions) {
-            privacy_combo.append_text(desc.description);
+        var model = (Gtk.StringList)privacy_combo.model;
+        foreach(var desc in privacy_descriptions) {
+            model.append(desc.description);
         }
 
-        privacy_combo.set_active(PrivacySetting.PUBLIC);
+        privacy_combo.set_selected(PrivacySetting.PUBLIC);
         privacy_label.set_mnemonic_widget(privacy_combo);
 
         logout_button.clicked.connect(on_logout_clicked);
@@ -311,7 +312,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
     private void on_publish_clicked() {
         publishing_parameters.set_privacy(
-            privacy_descriptions[privacy_combo.get_active()].privacy_setting);
+            privacy_descriptions[privacy_combo.get_selected()].privacy_setting);
 
         publish();
     }

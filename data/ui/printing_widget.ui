@@ -36,11 +36,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="standard_sizes_combo">
+          <object class="GtkDropDown" id="standard_sizes_combo">
             <layout>
               <property name="column">1</property>
               <property name="row">0</property>
             </layout>
+            <property name="model">
+              <object class="GtkStringList"></object>
+            </property>
           </object>
         </child>
         <child>
@@ -79,12 +82,16 @@
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="units_combo">
-                <property name="active">0</property>
-                <items>
-                  <item translatable="yes" comments="Abbreviation for &quot;inch&quot;">in.</item>
-                  <item translatable="yes" comments="Abbreviation for &quot;centimeters&quot;">cm</item>
-                </items>
+              <object class="GtkDropDown" id="units_combo">
+                <property name="selected">0</property>
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item translatable="yes" comments="Abbreviation for &quot;inch&quot;">in.</item>
+                      <item translatable="yes" comments="Abbreviation for &quot;centimeters&quot;">cm</item>
+                    </items>
+                  </object>
+                </property>
               </object>
             </child>
             <layout>
@@ -120,11 +127,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="image_per_page_combo">
+          <object class="GtkDropDown" id="image_per_page_combo">
             <layout>
               <property name="column">1</property>
               <property name="row">3</property>
             </layout>
+            <property name="model">
+              <object class="GtkStringList"></object>
+            </property>
           </object>
         </child>
         <child>

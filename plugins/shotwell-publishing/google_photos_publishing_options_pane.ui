@@ -40,12 +40,16 @@
             <property name="column_spacing">12</property>
             <property name="column_homogeneous">1</property>
             <child>
-              <object class="GtkComboBoxText" id="existing_albums_combo">
+              <object class="GtkDropDown" id="existing_albums_combo">
                 <property name="tooltip_text" translatable="yes">Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account</property>
                 <layout>
                   <property name="column">1</property>
                   <property name="row">0</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList">
+                  </object>
+                </property>
               </object>
             </child>
             <child>
@@ -76,11 +80,15 @@
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="size_combo">
+              <object class="GtkDropDown" id="size_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">2</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList">
+                  </object>
+                </property>
               </object>
             </child>
             <child>

@@ -34,7 +34,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Label library_dir_text;
     [GtkChild]
-    private unowned Gtk.ComboBoxText dir_pattern_combo;
+    private unowned Gtk.DropDown dir_pattern_combo;
     [GtkChild]
     private unowned Gtk.Entry dir_pattern_entry;
     [GtkChild]
@@ -47,7 +47,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
 
     [GtkChild]
-    private unowned Gtk.ComboBoxText default_raw_developer_combo;
+    private unowned Gtk.DropDown default_raw_developer_combo;
 
     [GtkChild]
     private unowned Gtk.CheckButton autoimport;
@@ -139,7 +139,7 @@ public class PreferencesDialog : Gtk.Dialog {
             "%Y" + Path.DIR_SEPARATOR_S + "%m-%d");
         add_to_dir_formats(_("Year-Month-Day"), "%Y-%m-%d");
         add_to_dir_formats(_("Custom"), null); // Custom must always be last.
-        dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
+        dir_pattern_combo.notify["selected-item"].connect(on_dir_pattern_combo_changed);
         dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
 
         lowercase.toggled.connect(on_lowercase_toggled);
@@ -157,10 +157,11 @@ public class PreferencesDialog : Gtk.Dialog {
 
         write_metadata.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
 
-        default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
-        default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
+        var model = (Gtk.StringList)default_raw_developer_combo.model;
+        model.append(RawDeveloper.CAMERA.get_label());
+        model.append(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
-        default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
+        default_raw_developer_combo.notify["selected-item"].connect(on_default_raw_developer_changed);
         switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
         switch_dark.notify["active"].connect(on_theme_variant_changed);
     }
@@ -180,6 +181,7 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
+        print("=>>>>>>>>>>>>> Theme variant changes to %s", switch_dark.active.to_string());
         var config = Config.Facade.get_instance();
         config.set_gtk_theme_variant(switch_dark.active);
 
@@ -259,7 +261,7 @@ public class PreferencesDialog : Gtk.Dialog {
             combo_box.set_active(current_app);
     }
 
-    private void setup_dir_pattern(Gtk.ComboBox combo_box, Gtk.Entry entry) {
+    private void setup_dir_pattern(Gtk.DropDown combo_box, Gtk.Entry entry) {
         string? pattern = Config.Facade.get_instance().get_directory_pattern();
         bool found = false;
         if (null != pattern) {
@@ -267,7 +269,7 @@ public class PreferencesDialog : Gtk.Dialog {
             int i = 0;
             foreach (PathFormat pf in path_formats) {
                 if (pf.pattern == pattern) {
-                    combo_box.set_active(i);
+                    combo_box.set_selected(i);
                     found = true;
                     break;
                 }
@@ -277,13 +279,13 @@ public class PreferencesDialog : Gtk.Dialog {
             // Custom path.
             string? s = Config.Facade.get_instance().get_directory_pattern_custom();
             if (!is_string_empty(s)) {
-                combo_box.set_active(path_formats.size - 1); // Assume "custom" is last.
+                combo_box.set_selected(path_formats.size - 1); // Assume "custom" is last.
                 found = true;
             }
         }
 
         if (!found) {
-            combo_box.set_active(0);
+            combo_box.set_selected(0);
         }
 
         on_dir_pattern_combo_changed();
@@ -310,7 +312,7 @@ public class PreferencesDialog : Gtk.Dialog {
         if (library_dir_button.folder != null)
             AppDirs.set_import_dir(library_dir_button.folder);
 
-        PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
+        PathFormat pf = path_formats.get((int)dir_pattern_combo.get_selected());
         if (null == pf.pattern) {
             Config.Facade.get_instance().set_directory_pattern_custom(dir_pattern_entry.text);
             Config.Facade.get_instance().set_directory_pattern(null);
@@ -336,7 +338,7 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_dir_pattern_combo_changed() {
-        PathFormat pf = path_formats.get(dir_pattern_combo.get_active());
+        PathFormat pf = path_formats.get((int)dir_pattern_combo.get_selected());
         if (null == pf.pattern) {
             // Custom format.
             string? dir_pattern = Config.Facade.get_instance().get_directory_pattern_custom();
@@ -400,16 +402,16 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private RawDeveloper raw_developer_from_combo() {
-        if (default_raw_developer_combo.get_active() == 0)
+        if (default_raw_developer_combo.get_selected() == 0)
             return RawDeveloper.CAMERA;
         return RawDeveloper.SHOTWELL;
     }
 
     private void set_raw_developer_combo(RawDeveloper d) {
         if (d == RawDeveloper.CAMERA)
-            default_raw_developer_combo.set_active(0);
+            default_raw_developer_combo.set_selected(0);
         else
-            default_raw_developer_combo.set_active(1);
+            default_raw_developer_combo.set_selected(1);
     }
 
     private void on_default_raw_developer_changed() {
@@ -419,7 +421,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private void add_to_dir_formats(string name, string? pattern) {
         PathFormat pf = new PathFormat(name, pattern);
         path_formats.add(pf);
-        dir_pattern_combo.append_text(name);
+        ((Gtk.StringList)dir_pattern_combo.model).append(name);
     }
 
     private void on_lowercase_toggled() {

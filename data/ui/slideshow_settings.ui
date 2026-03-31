@@ -83,11 +83,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="transition_effect_selector">
-            <layout>
-              <property name="column">1</property>
-              <property name="row">1</property>
-            </layout>
+          <object class="GtkDropDown" id="transition_effect_selector">
           </object>
         </child>
         <child>
