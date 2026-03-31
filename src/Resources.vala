@@ -1071,7 +1071,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             uri += anchor;
         }
 
-        Gtk.show_uri(window, uri, Gdk.CURRENT_TIME);
+        new Gtk.UriLauncher(uri).launch.begin(AppWindow.get_instance(), null);
     }
     
     public const int ALL_DATA = -1;

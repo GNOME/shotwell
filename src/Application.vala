@@ -156,15 +156,12 @@ public class Application {
     }
 
     private void on_show_folder(SimpleAction action, Variant? parameter) {
-        print("on_show_folder for uri %s\n", parameter != null ? parameter.get_string() : "null");
-        try {
-            var portal = new Xdp.Portal.initable_new();
-            var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
-            portal.open_directory.begin(parent, parameter.get_string(), Xdp.OpenUriFlags.NONE, null);
-        } catch (Error e) {
-            warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);
-            Gtk.show_uri(AppWindow.get_instance(), parameter.get_string(), Gdk.CURRENT_TIME);
-        }        
+        if (parameter == null) {
+            return;
+        }
+
+        var launcher = new Gtk.FileLauncher(File.new_for_uri(parameter.get_string()));
+        launcher.open_containing_folder.begin(AppWindow.get_instance (), null);
     }
 
     private void on_authenticate_action(SimpleAction action, Variant? parameter) {
