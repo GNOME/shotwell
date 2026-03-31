@@ -326,7 +326,7 @@ void dump_tags (GExiv2.Metadata metadata, string[] tags) throws Error {
         try {
             print("%-64s%s\n",
                 tag,
-                metadata.try_get_tag_interpreted_string (tag));
+                metadata.get_tag_interpreted_string (tag));
         } catch (Error err) {
             print("Failed to get tag %s: %s\n", tag, err.message);
         }

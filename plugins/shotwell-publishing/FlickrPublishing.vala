@@ -724,28 +724,28 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
             return;
 
         try {
-            if (publishable_metadata.try_has_tag("Iptc.Application2.Caption"))
-                publishable_metadata.try_set_tag_string("Iptc.Application2.Caption",
-                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+            if (publishable_metadata.has_tag("Iptc.Application2.Caption"))
+                publishable_metadata.set_tag_string("Iptc.Application2.Caption",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
                     "Iptc.Application2.Caption")));
         } catch (Error err) {}
 
         try {
-            if (publishable_metadata.try_has_tag("Iptc.Application2.Headline"))
-                publishable_metadata.try_set_tag_string("Iptc.Application2.Headline",
-                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+            if (publishable_metadata.has_tag("Iptc.Application2.Headline"))
+                publishable_metadata.set_tag_string("Iptc.Application2.Headline",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
                     "Iptc.Application2.Headline")));
         } catch (Error error) {}
 
         try {
-            if (publishable_metadata.try_has_tag("Iptc.Application2.Keywords")) {
+            if (publishable_metadata.has_tag("Iptc.Application2.Keywords")) {
                 Gee.Set<string> keyword_set = new Gee.HashSet<string>();
-                string[] iptc_keywords = publishable_metadata.try_get_tag_multiple("Iptc.Application2.Keywords");
+                string[] iptc_keywords = publishable_metadata.get_tag_multiple("Iptc.Application2.Keywords");
                 if (iptc_keywords != null)
                     foreach (string keyword in iptc_keywords)
                         keyword_set.add(keyword);
 
-                string[] xmp_keywords = publishable_metadata.try_get_tag_multiple("Xmp.dc.subject");
+                string[] xmp_keywords = publishable_metadata.get_tag_multiple("Xmp.dc.subject");
                 if (xmp_keywords != null)
                     foreach (string keyword in xmp_keywords)
                         keyword_set.add(keyword);
@@ -763,11 +763,11 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
                 no_keywords[0] = null;
                 
                 try {
-                    publishable_metadata.try_set_tag_multiple("Xmp.dc.subject", all_keywords);
+                    publishable_metadata.set_tag_multiple("Xmp.dc.subject", all_keywords);
                 } catch (Error error) {
                 }
                 try {
-                    publishable_metadata.try_set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
+                    publishable_metadata.set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
                 } catch (Error error) {
                 }
 
