@@ -646,7 +646,7 @@ public class SavedSearchDialog : Gtk.Dialog {
 
         show();
         set_valid(false);
-        response.connect (() => {destroy();});
+        response.connect (this.destroy);
     }
     
     public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
@@ -669,6 +669,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             row_list.get(0).allow_removal(false);
         
         set_valid(true);
+        response.connect (this.destroy);
     }
     
     // Builds the dialog UI.  Doesn't add buttons to the dialog or call dialog.show().
