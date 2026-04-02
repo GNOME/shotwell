@@ -927,8 +927,6 @@ public class Sidebar.Tree : Gtk.TreeView {
             else
                 popup_default_context_menu(x, y);
 
-            gesture.set_sequence_state (sequence, Gtk.EventSequenceState.CLAIMED);
-
             return;
         }
 
