@@ -511,13 +511,13 @@ public class SavedSearchDialog : Gtk.Dialog {
             var popover = new Gtk.Popover();
             label_one.set_popover(popover);
             popover.set_child(cal_one);
-            cal_one.day_selected.connect(() => { update_date_labels();});
+            cal_one.day_selected.connect(this.update_date_labels);
 
             label_two = new Gtk.MenuButton();
             popover = new Gtk.Popover();
             label_two.set_popover(popover);
             popover.set_child(cal_two);
-            cal_two.day_selected.connect(() => { update_date_labels();});
+            cal_two.day_selected.connect(this.update_date_labels);
             
             and = new Gtk.Label(_("and"));
             
