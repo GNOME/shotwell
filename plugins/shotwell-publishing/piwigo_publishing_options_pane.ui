@@ -33,35 +33,51 @@
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="existing_categories_combo">
+              <object class="GtkDropDown" id="existing_categories_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">0</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList" />
+                </property>
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="within_existing_combo">
+              <object class="GtkDropDown" id="within_existing_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">2</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item>/</item>
+                    </items>
+                  </object>
+                </property>
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="perms_combo">
+              <object class="GtkDropDown" id="perms_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">5</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList" />
+                </property>
               </object>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="size_combo">
+              <object class="GtkDropDown" id="size_combo">
                 <layout>
                   <property name="column">1</property>
                   <property name="row">6</property>
                 </layout>
+                <property name="model">
+                  <object class="GtkStringList" />
+                </property>
               </object>
             </child>
             <child>

@@ -13,7 +13,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         public signal void remove(SearchRowContainer this_row);
         public signal void changed(SearchRowContainer this_row);
         
-        private Gtk.ComboBoxText type_combo;
+        private Gtk.DropDown type_combo;
         private Gtk.Box box;
         private Gtk.Button remove_button;
         private SearchCondition.SearchType[] search_types;
@@ -39,14 +39,15 @@ public class SavedSearchDialog : Gtk.Dialog {
             search_types_index = new Gee.HashMap<SearchCondition.SearchType, int>();
             SearchCondition.SearchType.sort_array(ref search_types);
             
-            type_combo = new Gtk.ComboBoxText();
+            var model = new Gtk.StringList(null);
             for (int i = 0; i < search_types.length; i++) {
                 SearchCondition.SearchType st = search_types[i];
                 search_types_index.set(st, i);
-                type_combo.append_text(st.display_text());
+                model.append(st.display_text());
             }
+            type_combo = new Gtk.DropDown(model, null);
             set_type_combo_box(SearchCondition.SearchType.ANY_TEXT); // Sets default.
-            type_combo.changed.connect(on_type_changed);
+            type_combo.notify["selected-item"].connect(on_type_changed);
             
             remove_button = new Gtk.Button.from_icon_name("window-close-symbolic");
             remove_button.clicked.connect(on_removed);
@@ -62,12 +63,13 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private void on_type_changed() {
+            print("Search type changes\n");
             set_type(get_search_type());
             changed(this);
         }
         
         private void set_type_combo_box(SearchCondition.SearchType st) {
-            type_combo.set_active(search_types_index.get(st));
+            type_combo.set_selected(search_types_index.get(st));
         }
         
         private void set_type(SearchCondition.SearchType type) {
@@ -113,7 +115,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         public SearchCondition.SearchType get_search_type() {
-            return search_types[type_combo.get_active()];
+            return search_types[type_combo.get_selected()];
         }
         
         private void on_removed() {
@@ -154,7 +156,7 @@ public class SavedSearchDialog : Gtk.Dialog {
     
     private class SearchRowText : SearchRow {
         private Gtk.Box box;
-        private Gtk.ComboBoxText text_context;
+        private Gtk.DropDown text_context;
         private Gtk.Entry entry;
         
         private SearchRowContainer parent;
@@ -163,16 +165,12 @@ public class SavedSearchDialog : Gtk.Dialog {
             this.parent = parent;
             
             // Ordering must correspond with SearchConditionText.Context
-            text_context = new Gtk.ComboBoxText();
-            text_context.append_text(_("contains"));
-            text_context.append_text(_("is exactly"));
-            text_context.append_text(_("starts with"));
-            text_context.append_text(_("ends with"));
-            text_context.append_text(_("does not contain"));
-            text_context.append_text(_("is not set"));
-            text_context.append_text(_("is set"));
-            text_context.set_active(0);
-            text_context.changed.connect(on_changed);
+            text_context = new Gtk.DropDown.from_strings({
+                _("contains"), _("is exactly"), _("starts with"),
+                _("ends with"), _("does not contain"), _("is not set"),
+                _("is set")});
+            text_context.set_selected(0);
+            text_context.notify["selected-item"].connect(on_changed);
             
             entry = new Gtk.Entry();
             entry.set_width_chars(25);
@@ -186,7 +184,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowText() {
-            text_context.changed.disconnect(on_changed);
+            text_context.notify["selected-item"].disconnect(on_changed);
             entry.changed.disconnect(on_changed);
         }
         
@@ -205,7 +203,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionText? text = sc as SearchConditionText;
             assert(text != null);
-            text_context.set_active(text.context);
+            text_context.set_selected(text.context);
             entry.set_text(text.text);
             on_changed();
         }
@@ -217,7 +215,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private SearchConditionText.Context get_text_context() {
-            return (SearchConditionText.Context) text_context.get_active();
+            return (SearchConditionText.Context) text_context.get_selected();
         }
         
         private void on_changed() {
@@ -234,8 +232,8 @@ public class SavedSearchDialog : Gtk.Dialog {
     
     private class SearchRowMediaType : SearchRow {
         private Gtk.Box box;
-        private Gtk.ComboBoxText media_context;
-        private Gtk.ComboBoxText media_type;
+        private Gtk.DropDown media_context;
+        private Gtk.DropDown media_type;
         
         private SearchRowContainer parent;
         
@@ -243,19 +241,19 @@ public class SavedSearchDialog : Gtk.Dialog {
             this.parent = parent;
             
             // Ordering must correspond with SearchConditionMediaType.Context
-            media_context = new Gtk.ComboBoxText();
-            media_context.append_text(_("is"));
-            media_context.append_text(_("is not"));
-            media_context.set_active(0);
-            media_context.changed.connect(on_changed);
+            media_context = new Gtk.DropDown.from_strings({
+                _("is"), _("is not")
+            });
+            media_context.notify["selected-item"].connect(on_changed);
+            media_context.set_selected(0);
             
             // Ordering must correspond with SearchConditionMediaType.MediaType
-            media_type = new Gtk.ComboBoxText();
-            media_type.append_text(_("any photo"));
-            media_type.append_text(_("a raw photo"));
-            media_type.append_text(_("a video"));
-            media_type.set_active(0);
-            media_type.changed.connect(on_changed);
+            media_type = new Gtk.DropDown.from_strings({
+            _("any photo"),
+            _("a raw photo"),
+            _("a video")});
+            media_type.notify["selected-item"].connect(on_changed);
+            media_type.set_selected(0);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(media_context);
@@ -264,8 +262,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowMediaType() {
-            media_context.changed.disconnect(on_changed);
-            media_type.changed.disconnect(on_changed);
+            media_context.notify["selected-item"].disconnect(on_changed);
+            media_type.notify["selected-item"].disconnect(on_changed);
         }
         
         public override Gtk.Widget get_widget() {
@@ -274,8 +272,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType search_type = parent.get_search_type();
-            SearchConditionMediaType.Context context = (SearchConditionMediaType.Context) media_context.get_active();
-            SearchConditionMediaType.MediaType type = (SearchConditionMediaType.MediaType) media_type.get_active();
+            SearchConditionMediaType.Context context = (SearchConditionMediaType.Context) media_context.get_selected();
+            SearchConditionMediaType.MediaType type = (SearchConditionMediaType.MediaType) media_type.get_selected();
             SearchConditionMediaType c = new SearchConditionMediaType(search_type, context, type);
             return c;
         }
@@ -283,8 +281,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionMediaType? media = sc as SearchConditionMediaType;
             assert(media != null);
-            media_context.set_active(media.context);
-            media_type.set_active(media.media_type);
+            media_context.set_selected(media.context);
+            media_type.set_selected(media.media_type);
         }
         
         public override bool is_complete() {
@@ -298,26 +296,28 @@ public class SavedSearchDialog : Gtk.Dialog {
     
     private class SearchRowModified : SearchRow {
         private Gtk.Box box;
-        private Gtk.ComboBoxText modified_context;
-        private Gtk.ComboBoxText modified_state;
+        private Gtk.DropDown modified_context;
+        private Gtk.DropDown modified_state;
         
         private SearchRowContainer parent;
         
         public SearchRowModified(SearchRowContainer parent) {
             this.parent = parent;
 
-            modified_context = new Gtk.ComboBoxText();
-            modified_context.append_text(_("has"));
-            modified_context.append_text(_("has no"));
-            modified_context.set_active(0);
-            modified_context.changed.connect(on_changed);
+            modified_context = new Gtk.DropDown.from_strings({
+                _("has"),
+                _("has no")
+            });
+            modified_context.notify["selected-item"].connect(on_changed);
+            modified_context.set_selected(0);
             
-            modified_state = new Gtk.ComboBoxText();
-            modified_state.append_text(_("modifications"));
-            modified_state.append_text(_("internal modifications"));
-            modified_state.append_text(_("external modifications"));
-            modified_state.set_active(0);
-            modified_state.changed.connect(on_changed);
+            modified_state = new Gtk.DropDown.from_strings({
+                _("modifications"),
+                _("internal modifications"),
+                _("external modifications")
+            });
+            modified_state.notify["selected-item"].connect(on_changed);
+            modified_state.set_selected(0);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(modified_context);
@@ -326,8 +326,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowModified() {
-            modified_state.changed.disconnect(on_changed);
-            modified_context.changed.disconnect(on_changed);
+            modified_state.notify["selected-item"].disconnect(on_changed);
+            modified_context.notify["selected-item"].disconnect(on_changed);
         }
         
         public override Gtk.Widget get_widget() {
@@ -336,8 +336,8 @@ public class SavedSearchDialog : Gtk.Dialog {
 
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType search_type = parent.get_search_type();
-            SearchConditionModified.Context context = (SearchConditionModified.Context) modified_context.get_active();
-            SearchConditionModified.State state = (SearchConditionModified.State) modified_state.get_active();
+            SearchConditionModified.Context context = (SearchConditionModified.Context) modified_context.get_selected();
+            SearchConditionModified.State state = (SearchConditionModified.State) modified_state.get_selected();
             SearchConditionModified c = new SearchConditionModified(search_type, context, state);
             return c;
         }
@@ -345,8 +345,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionModified? scm = sc as SearchConditionModified;
             assert(scm != null);
-            modified_state.set_active(scm.state);
-            modified_context.set_active(scm.context);
+            modified_state.set_selected(scm.state);
+            modified_context.set_selected(scm.context);
         }
         
         public override bool is_complete() {
@@ -360,7 +360,7 @@ public class SavedSearchDialog : Gtk.Dialog {
     
     private class SearchRowFlagged : SearchRow {
         private Gtk.Box box;
-        private Gtk.ComboBoxText flagged_state;
+        private Gtk.DropDown flagged_state;
         
         private SearchRowContainer parent;
         
@@ -368,11 +368,12 @@ public class SavedSearchDialog : Gtk.Dialog {
             this.parent = parent;
             
             // Ordering must correspond with SearchConditionFlagged.State
-            flagged_state = new Gtk.ComboBoxText();
-            flagged_state.append_text(_("flagged"));
-            flagged_state.append_text(_("not flagged"));
-            flagged_state.set_active(0);
-            flagged_state.changed.connect(on_changed);
+            flagged_state = new Gtk.DropDown.from_strings({
+                _("flagged"),
+                _("not flagged")
+            });
+            flagged_state.notify["selected-item"].connect(on_changed);
+            flagged_state.set_selected(0);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(new Gtk.Label(_("is")));
@@ -381,7 +382,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowFlagged() {
-            flagged_state.changed.disconnect(on_changed);
+            flagged_state.notify["selected-item"].disconnect(on_changed);
         }
         
         public override Gtk.Widget get_widget() {
@@ -390,7 +391,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType search_type = parent.get_search_type();
-            SearchConditionFlagged.State state = (SearchConditionFlagged.State) flagged_state.get_active();
+            SearchConditionFlagged.State state = (SearchConditionFlagged.State) flagged_state.get_selected();
             SearchConditionFlagged c = new SearchConditionFlagged(search_type, state);
             return c;
         }
@@ -398,7 +399,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionFlagged? f = sc as SearchConditionFlagged;
             assert(f != null);
-            flagged_state.set_active(f.state);
+            flagged_state.set_selected(f.state);
         }
         
         public override bool is_complete() {
@@ -412,8 +413,8 @@ public class SavedSearchDialog : Gtk.Dialog {
     
     private class SearchRowRating : SearchRow {
         private Gtk.Box box;
-        private Gtk.ComboBoxText rating;
-        private Gtk.ComboBoxText context;
+        private Gtk.DropDown rating;
+        private Gtk.DropDown context;
         
         private SearchRowContainer parent;
         
@@ -421,23 +422,27 @@ public class SavedSearchDialog : Gtk.Dialog {
             this.parent = parent;
             
             // Ordering must correspond with Rating
-            rating = new Gtk.ComboBoxText();
-            rating.append_text(Resources.rating_combo_box(Rating.REJECTED));
-            rating.append_text(Resources.rating_combo_box(Rating.UNRATED));
-            rating.append_text(Resources.rating_combo_box(Rating.ONE));
-            rating.append_text(Resources.rating_combo_box(Rating.TWO));
-            rating.append_text(Resources.rating_combo_box(Rating.THREE));
-            rating.append_text(Resources.rating_combo_box(Rating.FOUR));
-            rating.append_text(Resources.rating_combo_box(Rating.FIVE));
-            rating.set_active(0);
-            rating.changed.connect(on_changed);
+            rating = new Gtk.DropDown.from_strings(
+                {
+                    Resources.rating_combo_box(Rating.REJECTED),
+                    Resources.rating_combo_box(Rating.UNRATED),
+                    Resources.rating_combo_box(Rating.ONE),
+                    Resources.rating_combo_box(Rating.TWO),
+                    Resources.rating_combo_box(Rating.THREE),
+                    Resources.rating_combo_box(Rating.FOUR),
+                    Resources.rating_combo_box(Rating.FIVE),
+                }
+            );
+            rating.notify["selected-item"].connect(on_changed);
+            rating.set_selected(0);
             
-            context = new Gtk.ComboBoxText();
-            context.append_text(_("and higher"));
-            context.append_text(_("only"));
-            context.append_text(_("and lower"));
-            context.set_active(0);
-            context.changed.connect(on_changed);
+            context = new Gtk.DropDown.from_strings({
+                _("and higher"),
+                _("only"),
+                _("and lower"),
+            });
+            context.notify["selected-item"].connect(on_changed);
+            context.set_selected(0);
             
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(new Gtk.Label(_("is")));
@@ -447,8 +452,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowRating() {
-            rating.changed.disconnect(on_changed);
-            context.changed.disconnect(on_changed);
+            rating.notify["selected-item"].disconnect(on_changed);
+            context.notify["selected-item"].disconnect(on_changed);
         }
         
         public override Gtk.Widget get_widget() {
@@ -457,8 +462,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType search_type = parent.get_search_type();
-            Rating search_rating = (Rating) rating.get_active() + Rating.REJECTED;
-            SearchConditionRating.Context search_context = (SearchConditionRating.Context) context.get_active();
+            Rating search_rating = (Rating) rating.get_selected() + Rating.REJECTED;
+            SearchConditionRating.Context search_context = (SearchConditionRating.Context) context.get_selected();
             SearchConditionRating c = new SearchConditionRating(search_type, search_rating, search_context);
             return c;
         }
@@ -466,8 +471,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionRating? r = sc as SearchConditionRating;
             assert(r != null);
-            context.set_active(r.context);
-            rating.set_active(r.rating - Rating.REJECTED);
+            context.set_selected(r.context);
+            rating.set_selected(r.rating - Rating.REJECTED);
         }
         
         public override bool is_complete() {
@@ -482,7 +487,7 @@ public class SavedSearchDialog : Gtk.Dialog {
     private class SearchRowDate : SearchRow {
         private const string DATE_FORMAT = "%x";
         private Gtk.Box box;
-        private Gtk.ComboBoxText context;
+        private Gtk.DropDown context;
         private Gtk.MenuButton label_one;
         private Gtk.MenuButton label_two;
         private Gtk.Calendar cal_one;
@@ -495,14 +500,15 @@ public class SavedSearchDialog : Gtk.Dialog {
             this.parent = parent;
             
             // Ordering must correspond with Context
-            context = new Gtk.ComboBoxText();
-            context.append_text(_("is exactly"));
-            context.append_text(_("is after"));
-            context.append_text(_("is before"));
-            context.append_text(_("is between"));
-            context.append_text(_("is not set"));
-            context.set_active(0);
-            context.changed.connect(on_changed);
+            context = new Gtk.DropDown.from_strings({
+                _("is exactly"),
+                _("is after"),
+                _("is before"),
+                _("is between"),
+                _("is not set"),
+            });
+            context.notify["selected-item"].connect(on_changed);
+            context.set_selected(0);
             
             cal_one = new Gtk.Calendar();
             cal_two = new Gtk.Calendar();
@@ -532,11 +538,11 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         ~SearchRowDate() {
-            context.changed.disconnect(on_changed);
+            context.notify["selected-item"].disconnect(on_changed);
         }
         
         private void update_date_labels() {
-            SearchConditionDate.Context c = (SearchConditionDate.Context) context.get_active();
+            SearchConditionDate.Context c = (SearchConditionDate.Context) context.get_selected();
             
             // Only show "and" and 2nd date label for between mode.
             if (c == SearchConditionDate.Context.BETWEEN) {
@@ -584,7 +590,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         
         public override SearchCondition get_search_condition() {
             SearchCondition.SearchType search_type = parent.get_search_type();
-            SearchConditionDate.Context search_context = (SearchConditionDate.Context) context.get_active();
+            SearchConditionDate.Context search_context = (SearchConditionDate.Context) context.get_selected();
             SearchConditionDate c = new SearchConditionDate(search_type, search_context, get_date_one(),
                 get_date_two());
             return c;
@@ -593,7 +599,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         public override void populate(SearchCondition sc) {
             SearchConditionDate? cond = sc as SearchConditionDate;
             assert(cond != null);
-            context.set_active(cond.context);
+            context.set_selected(cond.context);
             set_date_one(cond.date_one);
             set_date_two(cond.date_two);
             update_date_labels();
@@ -613,7 +619,7 @@ public class SavedSearchDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Button add_criteria;
     [GtkChild]
-    private unowned Gtk.ComboBoxText operator;
+    private unowned Gtk.DropDown operator;
     [GtkChild]
     private unowned Gtk.Entry search_title;
     [GtkChild]
@@ -653,7 +659,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         present();
         
         // Load existing search into dialog.
-        operator.set_active((SearchOperator) saved_search.get_operator());
+        operator.set_selected((SearchOperator) saved_search.get_operator());
         search_title.set_text(saved_search.get_name());
         foreach (SearchCondition sc in saved_search.get_conditions()) {
             add_row(new SearchRowContainer.edit_existing(sc));
@@ -754,7 +760,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             }
             
             // Create the object.  It will be added to the DB and SearchTable automatically.
-            SearchOperator search_operator = (SearchOperator)operator.get_active();
+            SearchOperator search_operator = (SearchOperator)operator.get_selected();
             SavedSearchTable.get_instance().create(search_title.get_text(), search_operator, conditions);
         }
     }

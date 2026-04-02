@@ -28,9 +28,9 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     [GtkChild]
     private unowned Gtk.CheckButton existing_album_radio;
     [GtkChild]
-    private unowned Gtk.ComboBoxText existing_albums_combo;
+    private unowned Gtk.DropDown existing_albums_combo;
     [GtkChild]
-    private unowned Gtk.ComboBoxText size_combo;
+    private unowned Gtk.DropDown size_combo;
     [GtkChild]
     private unowned Gtk.Label publish_to_label;
     [GtkChild]
@@ -67,12 +67,13 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         }
         else {
             publish_to_label.set_label(_("Photos will appear in:"));
+            var model = (Gtk.StringList)size_combo.model;
             foreach(SizeDescription desc in size_descriptions) {
-                size_combo.append_text(desc.name);
+                model.append(desc.name);
             }
             size_combo.set_visible(true);
             size_combo.set_sensitive(true);
-            size_combo.set_active(parameters.get_major_axis_size_selection_id());
+            size_combo.set_selected(parameters.get_major_axis_size_selection_id());
         }
 
         existing_album_radio.bind_property("active", existing_albums_combo, "sensitive", GLib.BindingFlags.SYNC_CREATE);
@@ -96,9 +97,10 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         string last_album = parameters.get_target_album_name();
 
         var albums = parameters.get_albums();
+        var model = (Gtk.StringList)existing_albums_combo.model;
 
         for (int i = 0; i < albums.length; i++) {
-            existing_albums_combo.append_text(albums[i].name);
+            model.append(albums[i].name);
             // Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
             // or the new "Default album" album for Google Photos
             if (albums[i].name == last_album ||
@@ -107,7 +109,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         }
 
         if (default_album_id >= 0) {
-            existing_albums_combo.set_active(default_album_id);
+            existing_albums_combo.set_selected(default_album_id);
             existing_album_radio.set_active(true);
         }
 
@@ -124,9 +126,9 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         // size_combo won't have been set to anything useful if this is the first time we've
         // published to Google Photos, and/or we've only published video before, so it may be negative,
         // indicating nothing was selected. Clamp it to a valid value...
-        int size_combo_last_active = (size_combo.get_active() >= 0) ? size_combo.get_active() : 0;
+        var size_combo_last_active = (size_combo.get_selected() >= 0) ? size_combo.get_selected() : 0;
 
-        parameters.set_major_axis_size_selection_id(size_combo_last_active);
+        parameters.set_major_axis_size_selection_id((int)size_combo_last_active);
         parameters.set_major_axis_size_pixels(
             size_descriptions[size_combo_last_active].major_axis_pixels);
         parameters.set_strip_metadata(strip_metadata_check.get_active());
@@ -136,8 +138,8 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         if (new_album_radio.get_active()) {
             parameters.set_target_album_name(new_album_entry.get_text());
         } else {
-            parameters.set_target_album_name(albums[existing_albums_combo.get_active()].name);
-            parameters.set_target_album_entry_id(albums[existing_albums_combo.get_active()].id);
+            parameters.set_target_album_name(albums[existing_albums_combo.get_selected()].name);
+            parameters.set_target_album_entry_id(albums[existing_albums_combo.get_selected()].id);
         }
 
         publish();

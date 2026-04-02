@@ -20,7 +20,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     Gtk.SpinButton hour;
     Gtk.SpinButton minute;
     Gtk.SpinButton second;
-    Gtk.ComboBoxText system;
+    Gtk.DropDown system;
     Gtk.CheckButton relativity_radio_button;
     Gtk.CheckButton batch_radio_button;
     Gtk.CheckButton modify_originals_check_button;
@@ -77,11 +77,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         second.set_max_width_chars(2);
         second.output.connect(on_spin_button_output);
 
-        system = new Gtk.ComboBoxText();
-        system.append_text(_("AM"));
-        system.append_text(_("PM"));
-        system.append_text(_("24 Hr"));
-        system.changed.connect(on_time_system_changed);
+        system = new Gtk.DropDown.from_strings({
+            _("AM"),
+            _("PM"),
+            _("24 Hr")
+        });
+        system.notify["selected-item"].connect(on_time_system_changed);
 
         Gtk.Box clock = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
 
@@ -125,7 +126,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         var picker = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
         picker.hexpand = true;
         picker.homogeneous = true;
-        var combo = new Gtk.ComboBoxText();
+        var model = new Gtk.StringList(null);
+        var combo = new Gtk.DropDown(model, null);
         for (int i = 0; i < 12; i++){
             var dt = new DateTime.from_unix_utc(i * 2764800);
             var month_string = dt.format("%OB");
@@ -133,14 +135,14 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
                 month_string = dt.format("%B");
             }
 
-            combo.append_text(month_string);
+            model.append(month_string);
         }
         picker.prepend(combo);
         // Limits taken from GtkCalendar
         var spin = new Gtk.SpinButton.with_range(0, int.MAX >> 9, 1);
         picker.append(spin);
         spin.bind_property("value", calendar, "year", GLib.BindingFlags.BIDIRECTIONAL);
-        combo.bind_property("active", calendar, "month", GLib.BindingFlags.BIDIRECTIONAL);
+        combo.bind_property("selected", calendar, "month", GLib.BindingFlags.BIDIRECTIONAL);
         combo.halign = Gtk.Align.START;
         spin.halign = Gtk.Align.END;
 
@@ -212,18 +214,18 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         calendar.notify_property("month");
 
         if (Config.Facade.get_instance().get_use_24_hour_time()) {
-            system.set_active(TimeSystem.24HR);
+            system.set_selected(TimeSystem.24HR);
             hour.set_value(time.get_hour());
         } else {
             int AMPM_hour = time.get_hour() % 12;
             hour.set_value((AMPM_hour == 0) ? 12 : AMPM_hour);
-            system.set_active((time.get_hour() >= 12) ? TimeSystem.PM : TimeSystem.AM);
+            system.set_selected((time.get_hour() >= 12) ? TimeSystem.PM : TimeSystem.AM);
         }
 
         minute.set_value(time.get_minute());
         second.set_value(time.get_second());
 
-        previous_time_system = (TimeSystem) system.get_active();
+        previous_time_system = (TimeSystem) system.get_selected();
     }
 
     private void set_original_time_label(bool use_24_hr_format) {
@@ -238,8 +240,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     private DateTime get_time() {
         // convert to 24 hr
         int hour = (int) hour.get_value();
-        hour = (hour == 12 && system.get_active() != TimeSystem.24HR) ? 0 : hour;
-        hour += ((system.get_active() == TimeSystem.PM) ? 12 : 0);
+        hour = (hour == 12 && system.get_selected() != TimeSystem.24HR) ? 0 : hour;
+        hour += ((system.get_selected() == TimeSystem.PM) ? 12 : 0);
 
         uint year, month, day;
         var dt = calendar.get_date();
@@ -305,7 +307,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     private void on_time_changed() {
         var time_shift = get_time().difference (original_time);
 
-        previous_time_system = (TimeSystem) system.get_active();
+        previous_time_system = (TimeSystem) system.get_selected();
 
         if (time_shift == 0 || no_original_time || (batch_radio_button.get_active() &&
             batch_radio_button.sensitive)) {
@@ -337,12 +339,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void on_time_system_changed() {
-        if (previous_time_system == system.get_active())
+        if (previous_time_system == system.get_selected())
             return;
 
-        Config.Facade.get_instance().set_use_24_hour_time(system.get_active() == TimeSystem.24HR);
+        Config.Facade.get_instance().set_use_24_hour_time(system.get_selected() == TimeSystem.24HR);
 
-        if (system.get_active() == TimeSystem.24HR) {
+        if (system.get_selected() == TimeSystem.24HR) {
             int time = (hour.get_value() == 12.0) ? 0 : (int) hour.get_value();
             time = time + ((previous_time_system == TimeSystem.PM) ? 12 : 0);
 

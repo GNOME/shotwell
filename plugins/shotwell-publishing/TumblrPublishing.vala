@@ -404,8 +404,8 @@ namespace Publishing.Tumblr {
             private Gtk.Label blog_label = null;
             private Gtk.Button logout_button = null;
             private Gtk.Button publish_button = null;
-            private Gtk.ComboBoxText size_combo = null;
-            private Gtk.ComboBoxText blog_combo = null;
+            private Gtk.DropDown size_combo = null;
+            private Gtk.DropDown blog_combo = null;
             private SizeEntry[] sizes = null;
             private BlogEntry[] blogs = null;
             private string username = "";
@@ -434,9 +434,9 @@ namespace Publishing.Tumblr {
                     upload_info_label = (Gtk.Label) this.builder.get_object("upload_info_label");
                     logout_button = (Gtk.Button) this.builder.get_object("logout_button");
                     publish_button = (Gtk.Button) this.builder.get_object("publish_button");
-                    size_combo = (Gtk.ComboBoxText) this.builder.get_object("size_combo");
+                    size_combo = (Gtk.DropDown) this.builder.get_object("size_combo");
                     size_label = (Gtk.Label) this.builder.get_object("size_label");
-                    blog_combo = (Gtk.ComboBoxText) this.builder.get_object("blog_combo");
+                    blog_combo = (Gtk.DropDown) this.builder.get_object("blog_combo");
                     blog_label = (Gtk.Label) this.builder.get_object("blog_label");
 
 
@@ -444,11 +444,11 @@ namespace Publishing.Tumblr {
                     upload_info_label.set_label(upload_label_text);
 
                     populate_blog_combo();
-                    blog_combo.changed.connect(on_blog_changed);
+                    blog_combo.notify["selected-item"].connect(on_blog_changed);
 
                     if ((media_type != Spit.Publishing.Publisher.MediaType.VIDEO)) {
                         populate_size_combo();
-                        size_combo.changed.connect(on_size_changed);
+                        size_combo.notify["selected-item"].connect(on_size_changed);
                     } else {
                         // publishing -only- video - don't let the user manipulate the photo size choices.
                         size_combo.set_sensitive(false);
@@ -473,26 +473,28 @@ namespace Publishing.Tumblr {
 
             private void populate_blog_combo() {
                 if (blogs != null) {
-                    foreach (BlogEntry b in blogs)
-                        blog_combo.append_text(b.blog);
-                    blog_combo.set_active(publisher.get_persistent_default_blog());
+                    var model = (Gtk.StringList)blog_combo.model;
+                    foreach (var b in blogs)
+                        model.append(b.blog);
+                    blog_combo.set_selected(publisher.get_persistent_default_blog());
                 }
             }
 
             private void on_blog_changed() {
-                publisher.set_persistent_default_blog(blog_combo.get_active());
+                publisher.set_persistent_default_blog((int)blog_combo.get_selected());
             }
 
             private void populate_size_combo() {
                 if (sizes != null) {
-                    foreach (SizeEntry e in sizes)
-                        size_combo.append_text(e.title);
-                    size_combo.set_active(publisher.get_persistent_default_size());
+                    var model = (Gtk.StringList)size_combo.model;
+                    foreach (var e in sizes)
+                        model.append(e.title);
+                    size_combo.set_selected(publisher.get_persistent_default_size());
                 }
             }
 
             private void on_size_changed() {
-                publisher.set_persistent_default_size(size_combo.get_active());
+                publisher.set_persistent_default_size((int)size_combo.get_selected());
             }
 
 

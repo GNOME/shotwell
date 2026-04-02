@@ -1127,12 +1127,12 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private Gtk.CheckButton use_existing_radio;
     private Gtk.CheckButton create_new_radio;
-    private Gtk.ComboBoxText existing_categories_combo;
+    private Gtk.DropDown existing_categories_combo;
     private Gtk.Entry new_category_entry;
     private Gtk.Label within_existing_label;
-    private Gtk.ComboBoxText within_existing_combo;
-    private Gtk.ComboBoxText perms_combo;
-    private Gtk.ComboBoxText size_combo;
+    private Gtk.DropDown within_existing_combo;
+    private Gtk.DropDown perms_combo;
+    private Gtk.DropDown size_combo;
     private Gtk.CheckButton strip_metadata_check = null;
     private Gtk.CheckButton title_as_comment_check = null;
     private Gtk.CheckButton no_upload_tags_check = null;
@@ -1188,17 +1188,17 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
         use_existing_radio = builder.get_object("use_existing_radio") as Gtk.CheckButton;
         create_new_radio = builder.get_object("create_new_radio") as Gtk.CheckButton;
-        existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
-        new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
-        within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
-        within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
+        existing_categories_combo = (Gtk.DropDown)builder.get_object("existing_categories_combo");
+        new_category_entry = (Gtk.Entry)builder.get_object ("new_category_entry");
+        within_existing_label = (Gtk.Label)builder.get_object ("within_existing_label");
+        within_existing_combo = (Gtk.DropDown)builder.get_object ("within_existing_combo");
 
-        album_comment = builder.get_object ("album_comment") as Gtk.TextView;
+        album_comment = (Gtk.TextView)builder.get_object ("album_comment");
         album_comment.buffer = new Gtk.TextBuffer(null);
-        album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
+        album_comment_label = (Gtk.Label)builder.get_object ("album_comment_label");
 
-        perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
-        size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
+        perms_combo = (Gtk.DropDown)builder.get_object("perms_combo");
+        size_combo = (Gtk.DropDown)builder.get_object("size_combo");
 
         strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
         strip_metadata_check.set_active(strip_metadata_enabled);
@@ -1221,7 +1221,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         use_existing_radio.toggled.connect(on_use_existing_radio_clicked);
         create_new_radio.toggled.connect(on_create_new_radio_clicked);
         new_category_entry.changed.connect(on_new_category_entry_changed);
-        within_existing_combo.changed.connect(on_existing_combo_changed);
+        within_existing_combo.notify["selected-item"].connect(on_existing_combo_changed);
 
         this.perm_levels = create_perm_levels();
         this.photo_sizes = create_sizes();
@@ -1258,14 +1258,14 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private void on_publish_button_clicked() {
         PublishingParameters params = new PublishingParameters();
-        params.perm_level = perm_levels[perms_combo.get_active()];
-        params.photo_size = photo_sizes[size_combo.get_active()];
+        params.perm_level = perm_levels[perms_combo.get_selected()];
+        params.photo_size = photo_sizes[size_combo.get_selected()];
         params.title_as_comment = title_as_comment_check.get_active();
         params.no_upload_tags = no_upload_tags_check.get_active();
         params.no_upload_ratings = no_upload_ratings_check.get_active();
         if (create_new_radio.get_active()) {
             string uploadcomment = album_comment.buffer.text.strip();
-            int a = within_existing_combo.get_active();
+            var a = within_existing_combo.get_selected();
             if (a == 0) {
                 params.category = new Category.local(new_category_entry.get_text(), 0, uploadcomment);
             } else {
@@ -1273,10 +1273,10 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                 // by 1, since we add the root
                 a--;
                 params.category = new Category.local(new_category_entry.get_text(),
-                    existing_categories[a].id, uploadcomment);
+                    existing_categories[(int)a].id, uploadcomment);
             }
         } else {
-            params.category = existing_categories[existing_categories_combo.get_active()];
+            params.category = existing_categories[(int)existing_categories_combo.get_selected()];
         }
         publish(params, strip_metadata_check.get_active());
     }
@@ -1314,13 +1314,13 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private void update_publish_button_sensitivity() {
         string category_name = new_category_entry.get_text().strip();
-        int a = within_existing_combo.get_active();
+        var a = within_existing_combo.get_selected();
         string search_name;
         if (a <= 0) {
             search_name = "/ " + category_name;
         } else {
             a--;
-            search_name = existing_categories[a].display_name + "/ " + category_name;
+            search_name = existing_categories[(int)a].display_name + "/ " + category_name;
         }
         publish_button.set_sensitive(
             !(
@@ -1374,8 +1374,9 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
     }
 
     private void create_categories_combo() {
+        var model = (Gtk.StringList)existing_categories_combo.model;
         foreach (Category cat in existing_categories) {
-            existing_categories_combo.append_text(cat.display_name);
+            model.append(cat.display_name);
         }
         if (existing_categories.is_empty) {
             // if no existing categories, disable the option to choose one
@@ -1387,7 +1388,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
             new_category_entry.grab_focus();
         } else {
             int last_category_index = find_category_index(last_category);
-            existing_categories_combo.set_active(last_category_index);
+            existing_categories_combo.set_selected(last_category_index);
             new_category_entry.set_sensitive(false);
             album_comment.set_sensitive(false);
             album_comment_label.set_sensitive(false);
@@ -1398,37 +1399,39 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private void create_within_categories_combo() {
         // root menu
-        within_existing_combo.append_text("/ ");
+        var model = (Gtk.StringList)within_existing_combo.model;
         foreach (Category cat in existing_categories) {
-            within_existing_combo.append_text(cat.display_name);
+            model.append(cat.display_name);
         }
         // by default select root album as target
         within_existing_label.set_sensitive(false);
-        within_existing_combo.set_active(0);
+        within_existing_combo.set_selected(0);
         within_existing_combo.set_sensitive(false);
     }
     
     private void create_permissions_combo() {
+        var model = (Gtk.StringList)perms_combo.model;
         foreach (PermissionLevel perm in perm_levels) {
-            perms_combo.append_text(perm.name);
+            model.append(perm.name);
         }
         int last_permission_level_index = find_permission_level_index(last_permission_level);
         if (last_permission_level_index < 0) {
-            perms_combo.set_active(0);
+            perms_combo.set_selected(0);
         } else {
-            perms_combo.set_active(last_permission_level_index);
+            perms_combo.set_selected(last_permission_level_index);
         }
     }
     
     private void create_size_combo() {
+        var model = (Gtk.StringList)size_combo.model;
         foreach (SizeEntry size in photo_sizes) {
-            size_combo.append_text(size.name);
+            model.append(size.name);
         }
         int last_size_index = find_size_index(last_photo_size);
         if (last_size_index < 0) {
-            size_combo.set_active(find_size_index(ORIGINAL_SIZE));
+            size_combo.set_selected(find_size_index(ORIGINAL_SIZE));
         } else {
-            size_combo.set_active(last_size_index);
+            size_combo.set_selected(last_size_index);
         }
     }
 

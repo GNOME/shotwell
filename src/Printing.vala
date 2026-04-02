@@ -277,11 +277,11 @@ public class CustomPrintTab : Gtk.Box {
     [GtkChild]
     private unowned Gtk.CheckButton image_per_page_radio;
     [GtkChild]
-    private unowned Gtk.ComboBoxText image_per_page_combo;
+    private unowned Gtk.DropDown image_per_page_combo;
     [GtkChild]
-    private unowned Gtk.ComboBoxText standard_sizes_combo;
+    private unowned Gtk.DropDown standard_sizes_combo;
     [GtkChild]
-    private unowned Gtk.ComboBoxText units_combo;
+    private unowned Gtk.DropDown units_combo;
     [GtkChild]
     private unowned Gtk.Entry custom_width_entry;
     [GtkChild]
@@ -308,17 +308,19 @@ public class CustomPrintTab : Gtk.Box {
         custom_size_radio.toggled.connect(on_radio_group_click);
         image_per_page_radio.toggled.connect(on_radio_group_click);
 
+        var model = (Gtk.StringList)image_per_page_combo.model;
         foreach (PrintLayout layout in PrintLayout.get_all()) {
-            image_per_page_combo.append_text(layout.to_string());
+            model.append(layout.to_string());
         }
 
         unowned StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
-        standard_sizes_combo.set_row_separator_func(standard_sizes_combo_separator_func);
+        model = (Gtk.StringList)standard_sizes_combo.model;
+        //standard_sizes_combo.set_row_separator_func(standard_sizes_combo_separator_func);
         foreach (StandardPrintSize size in standard_sizes) {
-            standard_sizes_combo.append_text(size.name);
+            model.append(size.name);
         }
 
-        standard_sizes_combo.set_active(9 * Resources.get_default_measurement_unit());
+        standard_sizes_combo.set_selected(9 * Resources.get_default_measurement_unit());
 
         var focus = new Gtk.EventControllerFocus();
         focus.leave.connect(on_width_entry_focus_out);
@@ -330,8 +332,8 @@ public class CustomPrintTab : Gtk.Box {
         custom_height_entry.add_controller(focus);
         custom_height_entry.insert_text.connect(on_entry_insert_text);
 
-        units_combo.changed.connect(on_units_combo_changed);
-        units_combo.set_active(Resources.get_default_measurement_unit());
+        units_combo.notify["selected-item"].connect(on_units_combo_changed);
+        units_combo.set_selected(Resources.get_default_measurement_unit());
 
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
         focus = new Gtk.EventControllerFocus();
@@ -449,9 +451,9 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private MeasurementUnit get_user_unit_choice() {
-        if (units_combo.get_active() == INCHES_COMBO_CHOICE) {
+        if (units_combo.get_selected() == INCHES_COMBO_CHOICE) {
             return MeasurementUnit.INCHES;
-        } else if (units_combo.get_active() == CENTIMETERS_COMBO_CHOICE) {
+        } else if (units_combo.get_selected() == CENTIMETERS_COMBO_CHOICE) {
             return MeasurementUnit.CENTIMETERS;
         } else {
             error("unknown unit combo box choice");
@@ -460,9 +462,9 @@ public class CustomPrintTab : Gtk.Box {
 
     private void set_user_unit_choice(MeasurementUnit unit) {
         if (unit == MeasurementUnit.INCHES) {
-            units_combo.set_active(INCHES_COMBO_CHOICE);
+            units_combo.set_selected(INCHES_COMBO_CHOICE);
         } else if (unit == MeasurementUnit.CENTIMETERS) {
-            units_combo.set_active(CENTIMETERS_COMBO_CHOICE);
+            units_combo.set_selected(CENTIMETERS_COMBO_CHOICE);
         } else {
             error("unknown MeasurementUnit enumeration");
         }
@@ -661,19 +663,19 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private void set_image_per_page_selection(int image_per_page) {
-        image_per_page_combo.set_active(image_per_page);
+        image_per_page_combo.set_selected(image_per_page);
     }
 
     private int get_image_per_page_selection() {
-        return image_per_page_combo.get_active();
+        return (int)image_per_page_combo.get_selected();
     }
 
     private void set_size_selection(int size_selection) {
-        standard_sizes_combo.set_active(size_selection);
+        standard_sizes_combo.set_selected(size_selection);
     }
 
     private int get_size_selection() {
-        return standard_sizes_combo.get_active();
+        return (int)standard_sizes_combo.get_selected();
     }
 
     private void set_match_aspect_ratio_enabled(bool enable_state) {

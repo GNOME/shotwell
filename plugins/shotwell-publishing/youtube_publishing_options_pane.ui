@@ -27,7 +27,11 @@
           </object>
         </child>
         <child>
-          <object class="GtkComboBoxText" id="privacy_combo"/>
+          <object class="GtkDropDown" id="privacy_combo">
+            <property name="model">
+              <object class="GtkStringList"/>
+            </property>
+          </object>
         </child>
       </object>
     </child>

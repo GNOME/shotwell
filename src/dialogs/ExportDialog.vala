@@ -26,9 +26,9 @@ public class ExportDialog : Gtk.Dialog {
     private static int current_scale = DEFAULT_SCALE;
 
     private Gtk.Grid table = new Gtk.Grid();
-    private Gtk.ComboBoxText quality_combo;
-    private Gtk.ComboBoxText constraint_combo;
-    private Gtk.ComboBoxText format_combo;
+    private Gtk.DropDown quality_combo;
+    private Gtk.DropDown constraint_combo;
+    private Gtk.DropDown format_combo;
     private Gtk.Switch export_metadata;
     private Gee.ArrayList<string> format_options = new Gee.ArrayList<string>();
     private Gtk.Entry pixels_entry;
@@ -51,25 +51,28 @@ public class ExportDialog : Gtk.Dialog {
         current_constraint = config.get_export_constraint(); //constraint
         current_scale = config.get_export_scale(); //scale
 
-        quality_combo = new Gtk.ComboBoxText();
+        var model = new Gtk.StringList(null);
+        quality_combo = new Gtk.DropDown(model, null);
         int ctr = 0;
         foreach (Jpeg.Quality quality in QUALITY_ARRAY) {
-            quality_combo.append_text(quality.to_string());
+            model.append(quality.to_string());
             if (quality == current_parameters.quality)
-                quality_combo.set_active(ctr);
+                quality_combo.set_selected(ctr);
             ctr++;
         }
 
-        constraint_combo = new Gtk.ComboBoxText();
+        model = new Gtk.StringList(null);
+        constraint_combo = new Gtk.DropDown(model, null);
         ctr = 0;
         foreach (ScaleConstraint constraint in CONSTRAINT_ARRAY) {
-            constraint_combo.append_text(constraint.to_string());
+            model.append(constraint.to_string());
             if (constraint == current_constraint)
-                constraint_combo.set_active(ctr);
+                constraint_combo.set_selected(ctr);
             ctr++;
         }
 
-        format_combo = new Gtk.ComboBoxText();
+        model = new Gtk.StringList(null);
+        format_combo = new Gtk.DropDown(model, null);
         format_add_option(UNMODIFIED_FORMAT_LABEL);
         format_add_option(CURRENT_FORMAT_LABEL);
         foreach (PhotoFileFormat format in PhotoFileFormat.get_image_writeable()) {
@@ -81,8 +84,8 @@ public class ExportDialog : Gtk.Dialog {
         pixels_entry.set_text("%d".printf(current_scale));
 
         // register after preparation to avoid signals during init
-        constraint_combo.changed.connect(on_constraint_changed);
-        format_combo.changed.connect(on_format_changed);
+        constraint_combo.notify["selected-item"].connect(on_constraint_changed);
+        format_combo.notify["selected-item"].connect(on_format_changed);
         pixels_entry.changed.connect(on_pixels_changed);
         pixels_entry.insert_text.connect(on_pixels_insert_text);
         pixels_entry.activate.connect(on_activate);
@@ -136,7 +139,7 @@ public class ExportDialog : Gtk.Dialog {
 
     private void format_add_option(string format_name) {
         format_options.add(format_name);
-        format_combo.append_text(format_name);
+        ((Gtk.StringList)format_combo.model).append(format_name);
     }
 
     private void format_set_active_text(string text) {
@@ -144,7 +147,7 @@ public class ExportDialog : Gtk.Dialog {
 
         foreach (string current_text in format_options) {
             if (current_text == text) {
-                format_combo.set_active(selection_ticker);
+                format_combo.set_selected(selection_ticker);
                 return;
             }
             selection_ticker++;
@@ -154,7 +157,7 @@ public class ExportDialog : Gtk.Dialog {
     }
 
     private PhotoFileFormat get_specified_format() {
-        int index = format_combo.get_active();
+        var index = format_combo.get_selected();
         if (index < NUM_SPECIAL_FORMATS)
             index = NUM_SPECIAL_FORMATS;
 
@@ -189,7 +192,7 @@ public class ExportDialog : Gtk.Dialog {
         // reset the scale constraint to original size
         if (parameters.mode != ExportFormatMode.LAST) {
             current_constraint = parameters.constraint = ScaleConstraint.ORIGINAL;
-            constraint_combo.set_active(0);
+            constraint_combo.set_selected(0);
         }
 
         if (parameters.mode == ExportFormatMode.LAST)
@@ -211,8 +214,7 @@ public class ExportDialog : Gtk.Dialog {
         destroy();
 
         if (ok) {
-            int index = constraint_combo.get_active();
-            assert(index >= 0);
+            var index = constraint_combo.get_selected();
             parameters.constraint = CONSTRAINT_ARRAY[index];
             current_constraint = parameters.constraint;
 
@@ -223,15 +225,15 @@ public class ExportDialog : Gtk.Dialog {
 
             parameters.export_metadata = export_metadata.sensitive ? export_metadata.active : false;
 
-            if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
+            if (((Gtk.StringObject)format_combo.get_selected_item()).string == UNMODIFIED_FORMAT_LABEL) {
                 parameters.mode = current_parameters.mode = ExportFormatMode.UNMODIFIED;
-            } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
+            } else if (((Gtk.StringObject)format_combo.get_selected_item()).string == CURRENT_FORMAT_LABEL) {
                 parameters.mode = current_parameters.mode = ExportFormatMode.CURRENT;
             } else {
                 parameters.mode = current_parameters.mode = ExportFormatMode.SPECIFIED;
                 parameters.specified_format = current_parameters.specified_format = get_specified_format();
                 if (current_parameters.specified_format == PhotoFileFormat.JFIF)
-                    parameters.quality = current_parameters.quality = QUALITY_ARRAY[quality_combo.get_active()];
+                    parameters.quality = current_parameters.quality = QUALITY_ARRAY[(int)quality_combo.get_selected()];
             }
 
             //save current settings in config backend for reusing later
@@ -273,8 +275,8 @@ public class ExportDialog : Gtk.Dialog {
     }
 
     private void on_constraint_changed() {
-        bool original = CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL;
-        bool jpeg = format_combo.get_active_text() ==
+        bool original = CONSTRAINT_ARRAY[(int)constraint_combo.get_selected()] == ScaleConstraint.ORIGINAL;
+        bool jpeg = ((Gtk.StringObject)format_combo.get_selected_item()).string ==
             PhotoFileFormat.JFIF.get_properties().get_user_visible_name();
         pixels_entry.sensitive = !original;
         quality_combo.sensitive = !original && jpeg;
@@ -285,20 +287,20 @@ public class ExportDialog : Gtk.Dialog {
     }
 
     private void on_format_changed() {
-        bool original = CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL;
+        bool original = CONSTRAINT_ARRAY[constraint_combo.get_selected()] == ScaleConstraint.ORIGINAL;
 
-        if (format_combo.get_active_text() == UNMODIFIED_FORMAT_LABEL) {
+        if (((Gtk.StringObject)format_combo.get_selected_item()).string == UNMODIFIED_FORMAT_LABEL) {
             // if the user wishes to export the media unmodified, then we just copy the original
             // files, so parameterize size, quality, etc. is impossible -- these are all
             // just as they are in the original file. In this case, we set the scale constraint to
             // original and lock out all the controls
-            constraint_combo.set_active(0); /* 0 == original size */
+            constraint_combo.set_selected(0); /* 0 == original size */
             constraint_combo.set_sensitive(false);
             quality_combo.set_sensitive(false);
             pixels_entry.sensitive = false;
             export_metadata.active = false;
             export_metadata.sensitive = false;
-        } else if (format_combo.get_active_text() == CURRENT_FORMAT_LABEL) {
+        } else if (((Gtk.StringObject)format_combo.get_selected_item()).string == CURRENT_FORMAT_LABEL) {
             // if the user wishes to export the media in its current format, we allow sizing but
             // not JPEG quality customization, because in a batch of many photos, it's not
             // guaranteed that all of them will be JPEGs or RAWs that get converted to JPEGs. Some
