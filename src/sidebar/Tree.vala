@@ -1209,7 +1209,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
     
     private void on_new_search() {
-        (new SavedSearchDialog()).show();
+        new SavedSearchDialog().present();
     }
 
     private void on_new_tag() {

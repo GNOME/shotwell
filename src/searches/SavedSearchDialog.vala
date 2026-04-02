@@ -638,7 +638,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         add_text_search();
         row_list.get(0).allow_removal(false);
 
-        show();
+        present();
         set_valid(false);
         response.connect (this.destroy);
     }
@@ -650,7 +650,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         edit_mode = true;
         setup_dialog();
         
-        show();
+        present();
         
         // Load existing search into dialog.
         operator.set_active((SearchOperator) saved_search.get_operator());

@@ -582,7 +582,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_new_search() {
-        (new SavedSearchDialog()).show();
+        (new SavedSearchDialog()).present();
     }
     
     private bool can_jump_to_event() {
