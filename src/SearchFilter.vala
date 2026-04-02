@@ -908,7 +908,7 @@ public class SearchFilterToolbar : Gtk.Box {
 
     private void add_dialog() {
         saved_search_popover.hide();
-        (new SavedSearchDialog()).show();
+        (new SavedSearchDialog()).present();
     }
 
     private void on_popover_closed() {

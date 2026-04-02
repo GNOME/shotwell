@@ -79,7 +79,7 @@ public class SavedSearchPage : CollectionPage {
     
     private void on_edit_search() {
         SavedSearchDialog ssd = new SavedSearchDialog.edit_existing(search);
-        ssd.show();
+        ssd.present();
     }
     
     protected override void update_actions(int selected_count, int count) {
