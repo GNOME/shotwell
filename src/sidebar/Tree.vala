@@ -224,10 +224,17 @@ public class Sidebar.Tree : Gtk.TreeView {
     private void setup_default_context_menu() {
         // FIXME: This will throw a critical, which is an issue in GTK4 TreeView
         // We should move away to ListView + TreeListModel anyway.
-        this.default_context_menu = get_popover_menu_from_builder(builder, "popup-menu", this);
-        var group = new GLib.SimpleActionGroup ();
-        group.add_action_entries (entries, this);
-        this.insert_action_group ("sidebar", group);
+        try {
+            this.builder.add_from_resource(Resources.get_ui("sidebar_default_context.ui"));
+            this.default_context_menu = get_popover_menu_from_builder(builder, "popup-menu", this);
+            var group = new GLib.SimpleActionGroup ();
+            group.add_action_entries (entries, this);
+            this.insert_action_group ("sidebar", group);
+        } catch (Error error) {
+            AppWindow.error_message("Error loading UI resource: %s".printf(
+                error.message));
+            Application.get_instance().panic();
+        }
     }
     
     private bool has_wrapper(Sidebar.Entry entry) {
