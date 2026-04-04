@@ -1,0 +1,2967 @@
+# Serbian translation for shotwell.
+# Copyright (C) 2026 shotwell's COPYRIGHT HOLDER
+# This file is distributed under the same license as the shotwell package.
+# Марко Костић <marko.m.kostic@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell shotwell-0.32\n"
+"POT-Creation-Date: 2026-03-17 17:16+0000\n"
+"PO-Revision-Date: 2026-04-03 22:36+0200\n"
+"Last-Translator: Марко Костић <marko.m.kostic@gmail.com>\n"
+"Language-Team: Serbian <Serbian>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.9\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr ""
+"Марко Костић <marko.m.kostic@gmail.com>\n"
+"Превод на српски језик https://гном.срб"
+
+#. (itstool) path: info/desc
+#: C/edit-adjustments.page:7
+msgid "Change the exposure, saturation, tint, and shadows of a photo."
+msgstr "Промените изложеност, засићеност, нијансу и сенке фотографије."
+
+#. (itstool) path: page/title
+#: C/edit-adjustments.page:12
+msgid "Color adjustments"
+msgstr "Подешавања боје"
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:14
+msgid ""
+"The <gui>Adjust</gui> button opens a floating window with a histogram and "
+"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
+"shadows. The histogram also has sliders to reduce the upper and lower "
+"intensity thresholds of the photograph, expanding the contrast of the middle "
+"range."
+msgstr "Дугме <gui>Подеси</gui> отвара плутајући прозор са хистограмом и клизачима за подешавање изложености, засићености, нијансе, температуре и сенки фотографије. Хистограм такође има клизаче за смањење горњег и доњег прага интензитета фотографије, чиме се проширује контраст средњег опсега."
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:16
+msgid ""
+"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
+"improve the quality of a photo."
+msgstr "Дугме <gui>Побољшај</gui> дотерује хистограм и клизаче сенки како би се побољшао квалитет фотографије."
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:18
+msgid ""
+"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
+"to save the changes. <gui>Reset</gui> will return the image to its original "
+"state. <gui>Cancel</gui> discards all changes you've made."
+msgstr "Када вам се боје и контраст фотографије допадну, притисните <gui>У реду</gui> да сачувате измене. <gui>Поништи</gui> ће вратити слику у изворно стање. <gui>Откажи</gui> одбацује све измене које сте направили."
+
+#. (itstool) path: section/title
+#: C/edit-adjustments.page:21
+msgid "What do the color adjustments do?"
+msgstr "Шта раде подешавања боје?"
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:24
+msgid "Exposure"
+msgstr "Изложеност"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:25
+msgid ""
+"Changes the brightness to make it look like the photo was exposed for a "
+"longer or shorter time. Use this to correct under- or over-exposed photos."
+msgstr "Мења осветљеност како би изгледало као да је фотографија била изложена дуже или краће време. Користите ово да исправите недовољно или превише изложене фотографије."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Контраст"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr "Мења контраст фотографије. Користите га да исправите „равне“ фотографије или фотографије где се разлика између светлих и тамних делова чини превеликом."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
+msgid "Saturation"
+msgstr "Засићење"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:33
+msgid ""
+"Changes how vivid colors look. If your photo looks gray and washed out, try "
+"increasing the saturation. If colors look too bold, try decreasing it."
+msgstr "Мења колико јарко боје изгледају. Ако ваша фотографија изгледа сиво и испрано, покушајте да повећате засићеност. Ако боје изгледају превише јако, покушајте да је смањите."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:36
+msgid "Tint"
+msgstr "Нијанса"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:37
+msgid ""
+"This tints the photo with a color. It's useful for correcting photos taken "
+"with the wrong white balance setting, which typically have an unnatural "
+"color cast. For example, photos taken outdoors with the white balance set to "
+"\"Tungsten\" may have a blue cast."
+msgstr "Ово боји фотографију одређеном нијансом. Корисно је за исправљање фотографија снимљених са погрешним подешавањем равнотеже беле боје, које обично имају неприродан прелив боје. На пример, фотографије снимљене напољу са равнотежом беле постављеном на „Волфрам“ могу имати плави прелив."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:40
+msgid "Temperature"
+msgstr "Температура"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:41
+msgid ""
+"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
+"depressing scenes look more lively, for example."
+msgstr "Мења колико „топло“ или „хладно“ слика изгледа. Користите ово да бисте, на пример, хладне, депресивне сцене учинили живљим."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:44
+msgid "Shadows"
+msgstr "Тамни делови"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:45
+msgid ""
+"This makes shadowy areas appear lighter. Use this to make detail more "
+"visible if it's obscured by the darkness of a shadow."
+msgstr "Ово чини да сеновити делови изгледају светлије. Користите ово да бисте детаље учинили видљивијим ако су заклоњени тамом сенке."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:48
+msgid "Intensity Threshold (sliders on the histogram)"
+msgstr "Праг интензитета (клизачи на хистограму)"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:49
+msgid ""
+"These sliders change how light the brightest white is and how dark the "
+"darkest black is. Use them to change the contrast of the photo. Photos which "
+"look washed out should particularly benefit from changing these settings."
+msgstr "Ови клизачи мењају колико је светла најсветлија бела и колико је тамна најтамнија црна. Користите их да промените контраст фотографије. Фотографије које изгледају испрано требало би да имају нарочиту корист од мењања ових подешавања."
+
+#. (itstool) path: info/desc
+#: C/edit-enhance.page:7
+msgid ""
+"Let Shotwell improve the brightness and contrast of a photo automatically."
+msgstr "Дозволите Фото-бунару да аутоматски побољша осветљеност и контраст фотографије."
+
+#. (itstool) path: page/title
+#: C/edit-enhance.page:14
+msgid "Auto-enhance"
+msgstr "Самостално побољшај"
+
+#. (itstool) path: page/p
+#: C/edit-enhance.page:16
+msgid ""
+"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
+"adjust the brightness and contrast of your photo. It will often give you a "
+"photo that is correctly exposed. You can also use it as a starting point and "
+"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
+msgstr "Клик на дугме <gui>Побољшај</gui> је брз начин да аутоматски подесите осветљеност и контраст ваше фотографије. То ће често дати фотографију која је исправно изложена. Такође га можете користити као почетну тачку, а затим побољшати подешавања кликом на дугме <gui>Подеси</gui>."
+
+#. (itstool) path: info/desc
+#: C/share-upload.page:7
+msgid "Publish photos to Flickr, Google Photos, or other sites."
+msgstr "Објавите фотографије на Фликр, Гугл Фотографије или друге сајтове."
+
+#. (itstool) path: page/title
+#: C/share-upload.page:12
+msgid "Publishing to the Web"
+msgstr "Објављивање на вебу"
+
+#. (itstool) path: page/p
+#: C/share-upload.page:14
+msgid ""
+"Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
+"publish photos and videos to the following services, each of which requires "
+"an account:"
+msgstr "Путем <link xref=\"other-plugins\">прикључака</link>, Фото-бунар може објавити фотографије и видео снимке на следеће услуге, од којих свака захтева налог:"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:18
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Фликр</link>"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:19
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Гугл Фотографије</link>"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:20
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">Јутјуб</link> (само видео снимци)"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:21
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (Photos only)"
+msgstr "<link href=\"https://tumblr.com\">Тамблр</link> (само фотографије)"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:22
+msgid ""
+"Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
+"gallery software (photos only)"
+msgstr "Било који сајт који покреће софтвер за фото-галерије <link href=\"http://piwigo.org\">Пивиго</link> (само фотографије)"
+
+#. (itstool) path: page/p
+#: C/share-upload.page:25
+msgid ""
+"To publish selected photos in a collection, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
+"to enable the plugin for the service you want to publish to. Next, choose, "
+"<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
+msgstr "Да бисте објавили изабране фотографије у збирци, изаберите <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq> и кликните на језичак <gui>Прикључци</gui> да бисте омогућили прикључак за услугу на којој желите да објављујете. Затим изаберите <guiseq><gui>Датотека</gui><gui>Објави</gui></guiseq>, притисните дугме <gui>Објави</gui> на траци алата или користите <keyseq><key>Ctrl</key><key>Shift</key><key>P</key></keyseq>. Видећете прозорче које вам омогућава да изаберете услугу објављивања. Тада ћете морати да се пријавите или направите налог."
+
+#. (itstool) path: page/p
+#: C/share-upload.page:30
+msgid ""
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
+msgstr "Слично томе, објављивање на Фликр, Јутјуб или Гугл Фотографије захтева да се пријавите и дозволите „Фото-бунар вези“ (Shotwell Connect) да приступи вашем налогу."
+
+#. (itstool) path: info/desc
+#: C/share-print.page:7
+msgid ""
+"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
+"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
+msgstr "Кликните на <guiseq><gui>Датотека</gui><gui>Штампај...</gui></guiseq>. За више опција штампања, изаберите језичак <gui>Подешавање странице</gui> у прозорчету <gui>Штампај</gui>."
+
+#. (itstool) path: page/title
+#: C/share-print.page:12
+msgid "Printing"
+msgstr "Штампање"
+
+#. (itstool) path: page/p
+#: C/share-print.page:14
+msgid ""
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
+"gui></guiseq>."
+msgstr "Да бисте одштампали фотографију, изаберите је и изаберите <guiseq><gui>Датотека</gui><gui>Штампај...</gui></guiseq>."
+
+#. (itstool) path: page/p
+#: C/share-print.page:16
+msgid ""
+"Shotwell can also print multiple images in one page; to do this, select "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
+"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
+"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
+"options under <gui>Autosize</gui>."
+msgstr "Фото-бунар такође може да штампа више слика на једној страници; да бисте то урадили, изаберите више слика, изаберите <guiseq><gui>Датотека</gui><gui>Штампај...</gui></guiseq>, и у прозорчету <gui>Штампај</gui>, изаберите језичак <gui>Подешавања слике</gui>. У <gui>Подешавањима слике</gui>, изаберите једну од опција за више слика по страници под ставком <gui>Самостална величина</gui>."
+
+#. (itstool) path: page/p
+#: C/share-print.page:23
+msgid ""
+"If you would like to set formatting, paper size, and orientation options, "
+"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
+"printing."
+msgstr "Ако желите да подесите форматирање, величину папира и опције усмерења, изаберите језичак <gui>Подешавање странице</gui> у прозорчету <gui>Штампај</gui> пре штампања."
+
+#. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr "Промените датум и време фотографија ако су ти детаљи нетачни."
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr "Подесите датум и време фотографија"
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr "Да бисте подесили датум и време фотографија, изаберите фотографије које желите да подесите, изаберите <guiseq><gui>Фотографије</gui><gui>Подеси датум и време...</gui></guiseq> и изаберите нови датум и време."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr "Ако мењате датум и време за више фотографија одједном, можете изабрати да померите све фотографије за исти износ времена или да поставите све фотографије на исто време."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr "Подразумевано, датум и време се мењају само унутар Фото-бунара. Такође можете изабрати да измените датум и време у изворној датотеци, али ово се не може поништити када изађете из Фото-бунара."
+
+#. (itstool) path: info/desc
+#: C/edit-undo.page:7
+msgid "Return a photo to its original, unedited form."
+msgstr "Вратите фотографију у њен изворни, неизмењени облик."
+
+#. (itstool) path: page/title
+#: C/edit-undo.page:14
+msgid "Undoing changes"
+msgstr "Поништавање измена"
+
+#. (itstool) path: page/p
+#: C/edit-undo.page:16
+msgid ""
+"Because Shotwell is a non-destructive photo editor, you can undo any "
+"alterations you make to a photograph."
+msgstr "Пошто је Фото-бунар нерушилачки уређивач фотографија, можете поништити било коју измену коју направите на фотографији."
+
+#. (itstool) path: page/p
+#: C/edit-undo.page:18 C/edit-nondestructive.page:16
+msgid ""
+"If you want to see what a photo looked like before your modifications, press "
+"the <key>Shift</key> key. The original photo will be displayed as long as "
+"you hold the key down."
+msgstr "Ако желите да видите како је фотографија изгледала пре ваших измена, притисните тастер <key>Shift</key>. Изворна фотографија ће бити приказана све док држите тастер притиснутим."
+
+#. (itstool) path: page/p
+#: C/edit-undo.page:20
+msgid ""
+"To completely undo all the changes you've made to a photo, click "
+"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
+"exception is that time and date adjustments will not be reverted."
+msgstr "Да бисте потпуно поништили све измене које сте направили на фотографији, кликните на <guiseq><gui>Фотографије</gui><gui>Врати на изворно</gui></guiseq>. Једини изузетак је то што подешавања времена и датума неће бити враћена."
+
+#. (itstool) path: info/desc
+#: C/organize-face-tagging.page:7
+msgid "Marking faces in photos"
+msgstr "Означавање лица на фотографијама"
+
+#. (itstool) path: page/title
+#: C/organize-face-tagging.page:12
+msgid "Faces in photos"
+msgstr "Лица на фотографијама"
+
+#. (itstool) path: page/p
+#: C/organize-face-tagging.page:13
+msgid ""
+"Shotwell supports tagging images using faces of persons and assigning a name "
+"to them. If enabled, Shotwell also supports automatic detection of faces in "
+"images and recognition of already known faces in new images"
+msgstr "Фото-бунар подржава означавање слика коришћењем лица особа и додељивање имена истима. Ако је омогућено, Фото-бунар такође подржава аутоматско откривање лица на сликама и препознавање већ познатих лица на новим сликама"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:16
+msgid "Manual creation and modification of named faces"
+msgstr "Ручно стварање и мењање именованих лица"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:18
+msgid ""
+"Double-click on an image in the collection, then press the <gui>Faces</gui> "
+"button on the toolbar"
+msgstr "Двапут кликните на слику у збирци, а затим притисните дугме <gui>Лица</gui> на палети алата"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:19
+msgid ""
+"Start dragging a rectangle around the face you are tagging using your left "
+"mouse button"
+msgstr "Почните да превлачите правоугаоник око лица које означавате користећи леви тастер миша"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:20
+msgid ""
+"You can also drag the rectangle by clicking into it or resize it by clicking "
+"on one of the borders"
+msgstr "Такође можете превући правоугаоник кликом унутар њега или му променити величину кликом на једну од ивица"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:21
+msgid ""
+"Once satisfied, enter a name in the text box below the rectangle and press "
+"<key>Enter</key> to assign the name to the marked face"
+msgstr "Када будете задовољни, унесите име у поље за текст испод правоугаоника и притисните <key>Enter</key> да доделите име означеном лицу"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:22
+msgid "Repeat this process for as many faces as you want to mark"
+msgstr "Поновите овај поступак за онолико лица колико желите да означите"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:23
+msgid ""
+"After you marked all faces, click on <gui>Ok</gui> to save the marked faces."
+msgstr "Након што означите сва лица, кликните на <gui>У реду</gui> да сачувате означена лица."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:27
+msgid "Modifying or removing existing named faces"
+msgstr "Мењање или уклањање постојећих именованих лица"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:28
+msgid ""
+"An existing named face can be either be removed from an image using "
+"<guiseq><gui>Faces</gui><gui>Remove Face from Photo</gui></guiseq>, by "
+"pressing <keyseq><key>Ctrl</key><key>R</key></keyseq> while in the face "
+"browser or by clicking <gui>Delete</gui> in the Faces tool"
+msgstr "Постојеће именовано лице може се уклонити са слике коришћењем <guiseq><gui>Лица</gui><gui>Уклони лице са фотографије</gui></guiseq>, притиском на <keyseq><key>Ctrl</key><key>R</key></keyseq> док сте у прегледачу лица или кликом на <gui>Обриши</gui> у алату „Лица“"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:29
+msgid ""
+"To rename the face, use <guiseq><gui>Faces</gui><gui>Rename Face...</gui></"
+"guiseq> or press <keyseq><key>Ctrl</key><key>E</key></keyseq> or by clicking "
+"on <gui>Edit</gui> in the Faces tool."
+msgstr "Да бисте преименовали лице, користите <guiseq><gui>Лица</gui><gui>Преименуј лице...</gui></guiseq> или притисните <keyseq><key>Ctrl</key><key>E</key></keyseq> или кликните на <gui>Уреди</gui> у алату „Лица“."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:32
+msgid "Automatic detection of faces"
+msgstr "Аутоматско откривање лица"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:33
+msgid ""
+"It is possible to use automatic face detection to simplify the process of "
+"marking the faces. To trigger the face detection algorithm, click on "
+"<gui>Detect faces...</gui>"
+msgstr "Могуће је користити аутоматско откривање лица како би се поједноставио поступак означавања лица. Да бисте покренули алгоритам за откривање лица, кликните на <gui>Откриј лица...</gui>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:35
+msgid ""
+"If reference images for faces are defined, this will also try to match any "
+"found faces in the current image with known references."
+msgstr "Ако су дефинисане референтне слике за лица, ово ће такође покушати да упари сва пронађена лица на тренутној слици са познатим референцама."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:38
+msgid "Automatic recognition of faces"
+msgstr "Аутоматско препознавање лица"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:39
+msgid ""
+"A named face on a photo can be set as a reference for this particular name. "
+"Future calls to the automatic face detection will try to associate similar "
+"faces the same name if considered matching."
+msgstr "Именовано лице на фотографији може се поставити као референца за то одређено име. Будући позиви аутоматског откривања лица покушаће да повежу слична лица са истим именом ако се сматрају подударним."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:41
+msgid "To declare a face as the reference for its name use these steps"
+msgstr "Да бисте прогласили лице као референцу за његово име, пратите ове кораке"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:44
+msgid ""
+"Switch to the face browser by clicking on a face name in the navigation tree."
+msgstr "Пребаците се на прегледач лица кликом на назив лица у стаблу кретања."
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:45
+msgid ""
+"Select an image that contains the representation of the face you want to "
+"make a reference"
+msgstr "Изаберите слику која садржи приказ лица које желите да користите као референцу"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:46
+msgid ""
+"Click on <guiseq><gui>Faces</gui><gui>Train Face from Photo</gui></guiseq>"
+msgstr "Кликните на <guiseq><gui>Лица</gui><gui>Обучи лице са фотографије</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:50
+msgid "Improving face recognition"
+msgstr "Побољшање препознавања лица"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:51
+msgid ""
+"By default, Shotwell uses cascade classifier to find faces in images. There "
+"is a method to use a deep neural network to improve detection rates "
+"significantly, but due to certain uncertainties with the licensing of the "
+"trained model it is not included by default."
+msgstr "Подразумевано, Фото-бунар користи каскадни класификатор за проналажење лица на сликама. Постоји метод за коришћење дубоке неуронске мреже за значајно побољшање стопе откривања, али због одређених несигурности са лиценцирањем обученог модела, он није укључен по дефолту."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:54
+msgid ""
+"To enable DNN-based face detection, download the "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> from the <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">OpenCV third-party repository</"
+"link>"
+msgstr "Да бисте омогућили откривање лица засновано на ДНН-у, преузмите <file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> из <link href=\"https://github.com/opencv/opencv_3rdparty/tree/dnn_samples_face_detector_20180205_fp16\">OpenCV ризнице треће стране</link>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:55
+msgid ""
+"Copy the file into your local data folder, usually <file>$HOME/.local/share/"
+"shotwell</file> and restart Shotwell"
+msgstr "Умножите датотеку у вашу локалну фасциклу са подацима, обично <file>$HOME/.local/share/shotwell</file> и поново покрените Фото-бунар"
+
+#. (itstool) path: info/desc
+#: C/other-missing.page:7
+msgid "If Shotwell can't find a photo in your library, it marks it as missing."
+msgstr "Ако Фото-бунар не може да пронађе фотографију у вашој библиотеци, означава је као недостајућу."
+
+#. (itstool) path: page/title
+#: C/other-missing.page:12
+msgid "Missing photos"
+msgstr "Недостајуће фотографије"
+
+#. (itstool) path: page/p
+#: C/other-missing.page:14
+msgid ""
+"Each time Shotwell starts up, it scans your photo library to verify that all "
+"photo files still exist on your hard drive. If Shotwell finds that any photo "
+"files are missing, it will not display them in the normal Photos, Events and "
+"Tags views, but will instead show them in a separate Missing Files view "
+"which will appear in the sidebar."
+msgstr "Сваки пут када се Фото-бунар покрене, он скенира вашу библиотеку фотографија како би проверио да ли све датотеке фотографија и даље постоје на вашем тврдом диску. Ако Фото-бунар утврди да неке датотеке фотографија недостају, неће их приказати у уобичајеним прегледима Фотографија, Догађаја и Ознака, већ ће их уместо тога приказати у посебном прегледу Недостајућих датотека који ће се појавити у бочној површи."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:16
+msgid ""
+"If you no longer want the missing files to be part of your Shotwell "
+"collection (perhaps because you deleted them), go to the Missing Files view, "
+"select the photos and then click <gui>Remove From Library</gui>."
+msgstr "Ако више не желите да недостајуће датотеке буду део ваше збирке Фото-бунара (можда зато што сте их обрисали), идите на преглед Недостајућих датотека, изаберите фотографије и затим кликните на <gui>Уклони из библиотеке</gui>."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:18
+msgid ""
+"If you have photos on a removable disk, such as a CD or USB flash drive, and "
+"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
+"em> copying the photos to your computer, they will show up as missing files "
+"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
+"to learn how to copy files from removable disks onto your computer."
+msgstr "Ако имате фотографије на уклоњивом диску, као што је ЦД или УСБ флеш диск, и <link xref=\"index#import\">увезете</link> их у Фото-бунар <em>без</em> умножавања фотографија на ваш рачунар, оне ће се приказати као недостајуће датотеке ако затим искључите уклоњиви диск. Погледајте <link xref=\"import-file\"/> да научите како да умножите датотеке са уклоњивих дискова на ваш рачунар."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:20
+msgid ""
+"If any missing photo files become available again, Shotwell will notice this "
+"the next time it starts. The photos will once again appear in the Photos, "
+"Events and Tags views."
+msgstr "Ако било које недостајуће датотеке фотографија поново постану доступне, Фото-бунар ће то приметити приликом следећег покретања. Фотографије ће се поново појавити у прегледима Фотографија, Догађаја и Ознака."
+
+#. (itstool) path: info/desc
+#: C/other-plugins.page:7
+msgid "Extend Shotwell's functionality dynamically."
+msgstr "Проширите функционалност Фото-бунара динамички."
+
+#. (itstool) path: page/title
+#: C/other-plugins.page:12
+msgid "Plugins"
+msgstr "Прикључци"
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:13
+msgid ""
+"Shotwell can be used with <em>plugins</em>, which are companion shared "
+"libraries that can add support for new publishing destinations or new "
+"slideshow transitions."
+msgstr "Фото-бунар се може користити са <em>прикључцима</em>, који су пратеће дељене библиотеке које могу додати подршку за нова одредишта објављивања или нове прелазе покретног приказа."
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:18
+msgid ""
+"To see a list of installed plugins, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
+"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
+"installed plugins, each with a checkbox by it, and you may enable or disable "
+"each by selecting or deselecting the checkbox by its name."
+msgstr "Да бисте видели списак инсталираних прикључака, изаберите <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq>, и у прозору <gui>Поставке</gui>, кликните на језичак <gui>Прикључци</gui>. Видећете списак тренутно инсталираних прикључака, сваки са кућицом за избор поред себе, и можете омогућити или онемогућити сваки означавањем или одзначавањем кућице поред његовог назива."
+
+#. (itstool) path: note/p
+#: C/other-plugins.page:25
+msgid ""
+"Full documentation on how to develop new plugins is available at <link "
+"href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins</link>"
+msgstr "Потпуна документација о томе како развити нове прикључке доступна је на <link href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
+
+#. (itstool) path: info/desc
+#: C/edit-redeye.page:7
+msgid ""
+"Correct photos where people have red eyes because of the camera's flash."
+msgstr "Исправите фотографије на којима људи имају црвене очи због блица фото-апарата."
+
+#. (itstool) path: page/title
+#: C/edit-redeye.page:12
+msgid "Removing red-eye"
+msgstr "Уклањање црвених очију"
+
+#. (itstool) path: page/p
+#: C/edit-redeye.page:14
+msgid ""
+"Red-eye occurs when the camera's flash reflects off the pupil of someone's "
+"eye. To eliminate this in a photo, use the Red-eye tool."
+msgstr "Црвене очи се јављају када се блиц фото-апарата одбије од зенице нечијег ока. Да бисте ово елиминисали на фотографији, користите алат за црвене очи."
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:17
+msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
+msgstr "Кликните на <gui>Уклањање црвених очију</gui>. На фотографији ће се појавити кружић."
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:20
+msgid ""
+"Drag the circle over the affected pupil, adjust its size with the slider "
+"control, and press <gui>Apply</gui>. The redness will be removed."
+msgstr "Превуците кружић преко зенице, подесите његову величину помоћу клизача и притисните <gui>Примени</gui>. Црвенило ће бити уклоњено."
+
+#. (itstool) path: item/p
+#: C/edit-redeye.page:23
+msgid ""
+"Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
+"when finished."
+msgstr "Поновите овај поступак за све црвене зенице на вашој фотографији. Притисните <gui>Затвори</gui> када завршите."
+
+#. (itstool) path: info/desc
+#: C/organize-rating.page:7
+msgid ""
+"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
+"hiding them from view."
+msgstr "Дајте фотографијама оцену између 1 и 5 звездица. Можете одбацити лоше фотографије, скривајући их из приказа."
+
+#. (itstool) path: page/title
+#: C/organize-rating.page:12
+msgid "Ratings"
+msgstr "Оцене"
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:13
+msgid ""
+"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
+"it as Rejected, in which case Shotwell will hide the photo by default."
+msgstr "Свакој фотографији можете доделити оцену од 1-5 звездица, или је алтернативно можете оценити као одбачену, у ком случају ће Фото-бунар по подразумеваним подешавањима сакрити фотографију."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:15
+msgid "You can rate a photo or a set of photos in any of these ways:"
+msgstr "Фотографију или скуп фотографија можете оценити на било који од ових начина:"
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:18
+msgid ""
+"Select the photo(s), then choose a rating from the top-level "
+"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
+msgstr "Изаберите фотографију(е), а затим изаберите оцену из менија највишег нивоа <guiseq><gui>Фотографије</gui><gui>Постави оцену</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:19
+msgid ""
+"Right-click on the photo(s), then choose a rating from the Set Rating "
+"context menu."
+msgstr "Десним кликом на фотографију(е), а затим изаберите оцену из контекстног менија „Постави оцену“."
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:20
+msgid ""
+"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
+"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
+"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
+"clear the rating(s)."
+msgstr "Изаберите фотографију(е), а затим притисните било који од тастера пречица <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> или <key>5</key> да бисте доделили оцену. Или притисните <key>9</key> да бисте означили фотографију(е) као одбачену или <key>0</key> да бисте поништили оцену(е)."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:23
+msgid ""
+"Normally Shotwell displays all photos except rejected photos. You can set a "
+"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
+"gui></guiseq> menu - for example, you can display only photos rated with 3 "
+"stars or higher, or you can display all photos including those marked "
+"rejected. The Shotwell icon on the toolbar displays the current rating "
+"filter and can also be used to set the filter."
+msgstr "Уобичајено Фото-бунар приказује све фотографије осим одбачених фотографија. Можете поставити другачији филтер оцена користећи мени <guiseq><gui>Преглед</gui><gui>Филтрирај фотографије</gui></guiseq> — на пример, можете приказати само фотографије оцењене са 3 звездице или више, или можете приказати све фотографије укључујући и оне означене као одбачене. Иконица Фото-бунара на траци алата приказује тренутни филтер оцена и такође се може користити за постављање филтера."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:26
+msgid ""
+"Shotwell normally displays each photo's rating in its lower left-hand "
+"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
+"gui><gui>Ratings</gui></guiseq> menu item."
+msgstr "Фото-бунар обично приказује оцену сваке фотографије у њеном доњем левом углу. Можете искључити приказ оцена користећи ставку менија <guiseq><gui>Преглед</gui><gui>Оцене</gui></guiseq>."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:28
+msgid ""
+"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
+"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
+"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
+"<key>&lt;</key> and <key>&gt;</key>."
+msgstr "Можете повећати или смањити оцену фотографије користећи наредбе <guiseq><gui>Постави оцену</gui><gui>Повећај</gui></guiseq> и <guiseq><gui>Постави оцену</gui><gui>Смањи</gui></guiseq>, или пречице на тастатури <key>&lt;</key> и <key>&gt;</key>."
+
+#. (itstool) path: info/desc
+#: C/running.page:7
+msgid ""
+"Find Shotwell in the Applications menu, or have it start automatically when "
+"you plug in a camera."
+msgstr "Пронађите Фото-бунар у менију „Програми“, или подесите да се покреће аутоматски када прикључите фото-апарат."
+
+#. (itstool) path: page/title
+#: C/running.page:14
+msgid "Running Shotwell"
+msgstr "Покретање Фото-бунара"
+
+#. (itstool) path: page/p
+#: C/running.page:16
+msgid ""
+"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
+"under <gui>Graphics</gui> or <gui>Photography</gui>."
+msgstr "Након инсталације, Фото-бунар је доступан у вашем менију <gui>Програми</gui> под <gui>Графика</gui> или <gui>Фотографија</gui>."
+
+#. (itstool) path: page/p
+#: C/running.page:18
+msgid ""
+"Shotwell may also be executed automatically when a camera is plugged in to "
+"your computer. To check that your system is set up to run Shotwell when a "
+"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab. You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"you choose Shotwell as your photo handling application."
+msgstr "Фото-бунар се такође може извршити аутоматски када се фото-апарат прикључи на ваш рачунар. Да бисте проверили да ли је ваш систем подешен да покреће Фото-бунар када се открије фото-апарат, идите на <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq> у било ком прозору Наутилуса (прегледача датотека) и изаберите језичак <gui>Медијуми</gui>. Видећете падајући оквир под називом <gui>Фотографије:</gui> који вам омогућава да изаберете Фото-бунар као ваш програм за рад са фотографијама."
+
+#. (itstool) path: note/p
+#: C/running.page:25
+msgid ""
+"Shotwell may also be executed directly from its build directory, although "
+"this is only recommended for testing out Shotwell or for developers."
+msgstr "Фото-бунар се такође може извршити директно из његовог директоријума за изградњу, иако се ово препоручује само за тестирање Фото-бунара или за програмере."
+
+#. (itstool) path: info/desc
+#: C/import-camera.page:7
+msgid "Copy photos from a digital camera."
+msgstr "Умножите фотографије са дигиталног фото-апарата."
+
+#. (itstool) path: page/title
+#: C/import-camera.page:12
+msgid "Importing from a camera"
+msgstr "Увоз са фото-апарата"
+
+#. (itstool) path: page/p
+#: C/import-camera.page:14
+msgid "To import photos from a digital camera:"
+msgstr "За увоз фотографија са дигиталног фото-апара:"
+
+#. (itstool) path: item/p
+#: C/import-camera.page:18
+msgid ""
+"Connect the camera to your computer and switch it on. Shotwell will detect "
+"it and list it in the sidebar."
+msgstr "Повежите фото-апарат са рачунаром и укључите га. Фото-бунар ће га открити и излистати у бочној површи."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:22
+msgid ""
+"Select the camera in the sidebar. Previews of each photo on the camera will "
+"be displayed."
+msgstr "Изаберите фото-апарат у бочној површи. Биће приказани прегледи свих фотографија на фото-апарату."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:25
+msgid ""
+"If you like, you can choose a set of specific photos to import. To do this, "
+"hold down the <key>Ctrl</key> key and click to select individual photos. You "
+"can hold down <key>Shift</key> and click to select a range of photos too."
+msgstr "Ако желите, можете изабрати скуп одређених фотографија за увоз. Да бисте то урадили, држите тастер <key>Ctrl</key> и кликните да изаберете појединачне фотографија. Можете држати и <key>Shift</key> и кликнути да изаберете опсег фотографија."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:28
+msgid ""
+"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
+"will be copied from the camera and saved on your computer."
+msgstr "Кликните на <gui>Увези изабрано</gui> или <gui>Увези све</gui>. Фотографије ће бити умножене са фото-апарата и сачуване на вашем рачунару."
+
+#. (itstool) path: page/p
+#: C/import-camera.page:32
+msgid ""
+"Once the import is complete, you can open the <gui>Last Import</gui> view "
+"(in the sidebar) to see all photos that were imported. The Events list (also "
+"in the sidebar) will also show the new photos, organized by date."
+msgstr "Када се увоз заврши, можете отворити преглед <gui>Последњи увоз</gui> (у бочној површи) да видите све увезене фотографије. Списак догађаја (такође у бочној површи) ће такође приказати нове фотографије, организоване према датуму."
+
+#. (itstool) path: info/desc
+#: C/edit-crop.page:7
+msgid "Improve the composition of a photo by cutting out parts of it."
+msgstr "Побољшајте композицију фотографије исецањем њених делова."
+
+#. (itstool) path: page/title
+#: C/edit-crop.page:12
+msgid "Cropping"
+msgstr "Исецање"
+
+#. (itstool) path: page/p
+#: C/edit-crop.page:14
+msgid ""
+"To reduce the area of a photo and concentrate the viewer's attention on a "
+"smaller portion of it, use the Crop tool. The crop tool is only available in "
+"full-window or fullscreen mode."
+msgstr "Да бисте смањили област фотографије и усмерили пажњу посматрача на мањи део, користите алат за исецање. Алат за исецање је доступан само у режиму целог прозора или преко целог екрана."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:19
+msgid ""
+"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
+"gui> button on the toolbar."
+msgstr "Двапут кликните на фотографију да уђете у режим целог прозора, а затим притисните дугме <gui>Исеци</gui> на палети алата."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:22
+msgid ""
+"A white box, the crop rectangle, will appear over the photo. The lighter "
+"portion of the photo within the crop rectangle represents what the photo "
+"will look like when you crop it."
+msgstr "Бели оквир, правоугаоник за исецање, појавиће се преко фотографије. Светлији део фотографије унутар правоугаоника представља како ће фотографија изгледати када је исечете."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:25
+msgid ""
+"If you place your cursor in the middle of the box, you can move the box "
+"around. If you drag the edges of the box, you can adjust its size. As you "
+"move and adjust the crop box, you'll see four lines appear inside it, like a "
+"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
+msgstr "Ако поставите курсор у средину оквира, можете га померати. Ако превучете ивице оквира, можете му подесити величину. Док померате и подешавате оквир за исецање, видећете четири линије унутар њега, попут мреже за икс-окс. То су линије <em>правила трећина</em>."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:26
+msgid ""
+"You can also constrain the crop box to one of many common sizes. Choose a "
+"size from the drop-down list that suits your needs. If you press the flip "
+"button next to it, the orientation of the constraint will switch (from "
+"landscape to portrait)."
+msgstr "Такође можете ограничити оквир за исецање на неку од уобичајених величина. Изаберите величину са падајућег списка која вам одговара. Ако притисните дугме за извртање поред њега, усмерење ограничења ће се променити (из положеног у усправно)."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:29
+msgid ""
+"When you're happy with your crop outline, apply it by pressing the "
+"<gui>Crop</gui> button. Shotwell will display the cropped photo."
+msgstr "Када будете задовољни контуром исецања, примените је притиском на дугме <gui>Исеци</gui>. Фото-бунар ће приказати исечену фотографију."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:32
+msgid ""
+"If you change your mind, press the <gui>Crop</gui> button again and fine-"
+"tune the crop."
+msgstr "Ако се предомислите, поново притисните дугме <gui>Исеци</gui> и фино подесите исечак."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:33
+msgid ""
+"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
+"return to the photo's previous crop dimensions."
+msgstr "Ако притиснете <gui>Откажи</gui> уместо <gui>Примени</gui>, Фото-бунар ће вратити претходне димензије исецања фотографије."
+
+#. (itstool) path: section/title
+#: C/edit-crop.page:38
+msgid "What is the rule of thirds?"
+msgstr "Шта је правило трећина?"
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:39
+msgid ""
+"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
+"photo."
+msgstr "<em>Правило трећина</em> вам помаже да изаберете пријатну композицију за фотографију."
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:40
+msgid ""
+"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
+"vertical lines and two equally-spaced horizontal lines. According to the "
+"rule, you're more likely to get a pleasing composition if you align major "
+"features (like the horizon, or a person's body) with one of the lines. "
+"Paying attention to the way features flow from one part of the grid to "
+"another can also help."
+msgstr "Замислите да је сцена подељена на мрежу 3x3 са две подједнако размакнуте усправне линије и две подједнако размакнуте водоравне линије. Према овом правилу, већа је вероватноћа да ћете добити пријатну композицију ако поравнате главне карактеристике (попут хоризонта или тела особе) са једном од линија. Обраћање пажње на начин на који карактеристике теку из једног дела мреже у други такође може помоћи."
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:41
+msgid ""
+"Cropping a photo so that it conforms to the rule of thirds often results in "
+"a more visually appealing image."
+msgstr "Исецање фотографије тако да буде у складу са правилом трећина често резултира визуелно привлачнијом сликом."
+
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr "_:external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+
+#. (itstool) path: media/p
+#: C/edit-crop.page:43
+msgid ""
+"Cropping a photo, using the \"rule of thirds\" lines to improve the "
+"composition."
+msgstr "Исецање фотографије, коришћењем линија „правила трећина“ ради побољшања композиције."
+
+#. (itstool) path: page/title
+#: C/privacy-policy.page:7
+msgid "Shotwell's privacy policy for Online Services"
+msgstr "Политика приватности Фото-бунара за мрежне услуге"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:8
+msgid "Google"
+msgstr "Гугл"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:10 C/privacy-policy.page:48
+msgid "Information Shotwell Stores and Transmits About You"
+msgstr "Подаци које Фото-бунар складишти и преноси о вама"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:11
+msgid ""
+"The Shotwell Connect application and its data store reside locally on your "
+"personal computer."
+msgstr "Програм „Повезивање Фото-бунара“ и његово складиште података налазе се локално на вашем личном рачунару."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:12
+msgid ""
+"During the course of its operation, Shotwell Connect may store an "
+"authentication token that it receives from YouTube and Google Photos on your "
+"computer. This authentication token is simply a session-identifying sequence "
+"of letters and numbers. It contains no password, user name, or other "
+"personal information. This authentication token can be deleted by logging "
+"out of the service, or, if Shotwell Connect is not available anymore, by "
+"navigating to your system's credential store and removing it manually."
+msgstr "Током свог рада, „Повезивање Фото-бунара“ може на вашем рачунару да ускладишти токен за потврду идентитета који прима од Јутјуба и Гугл фотографија. Овај токен је једноставно низ слова и бројева који идентификује сесију. Он не садржи лозинку, корисничко име нити друге личне податке. Овај токен можете обрисати одјављивањем са услуге или, ако „Повезивање Фото-бунара“ више није доступно, одласком у системско складиште акредитива и његовим ручним уклањањем."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:14
+msgid ""
+"You can also revoke access to any Google service at any time by visiting "
+"<link href=\"https://security.google.com/settings/\">https://"
+"security.google.com/settings/</link>. If you opt to revoke the access by "
+"using the link above, the stored token will removed upon next use."
+msgstr "Такође можете опозвати приступ било којој Гугловој услузи у било ком тренутку посетом на <link href=\"https://security.google.com/settings/\">https://security.google.com/settings/</link>. Ако изаберете да опозовете приступ коришћењем горње везе, сачувани токен ће бити уклоњен приликом следеће употребе."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:16
+msgid ""
+"At no time does Shotwell Connect transmit any information to the GNOME "
+"foundation, the Software Freedom Conservancy, any of the developers of the "
+"Shotwell Connect Application for Google services or any other third-party."
+msgstr "„Повезивање Фото-бунара“ ни у ком тренутку не преноси никакве податке Гномовој фондацији, Организацији за слободу софтвера (Software Freedom Conservancy), било ком од програмера програма „Повезивање Фото-бунара“ за Гуглове услуге нити било којој трећој страни."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:17
+msgid ""
+"For Google's own privacy policy, please refer to <link href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</link>"
+msgstr "За Гуглову сопствену политику приватности, погледајте <link href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</link>"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:20
+msgid "YouTube"
+msgstr "Јутјуб"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:21
+msgid ""
+"Shotwell uses the YouTube API services <link href=\"https://"
+"developers.google.com/youtube\">https://developers.google.com/youtube</link> "
+"for accessing your YouTube channel and upload the videos."
+msgstr "Фото-бунар користи услуге Јутјуб АПИ-ја <link href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</link> за приступање вашем Јутјуб каналу и отпремање видео снимака."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:23
+msgid "Data obtained from your YouTube account"
+msgstr "Подаци добијени са вашег Јутјуб налога"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:24
+msgid ""
+"The only data retrieved from your YouTube account is your YouTube user name. "
+"The user name will be used during the upload procedure only and not stored "
+"permanently anywhere."
+msgstr "Једини податак који се преузима са вашег Јутјуб налога је ваше Јутјуб корисничко име. Корисничко име ће се користити само током поступка отпремања и неће бити трајно сачувано нигде."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:27
+msgid "YouTube terms and permissions"
+msgstr "Јутјуб услови и овлашћења"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:28
+msgid ""
+"By using Shotwell to access YouTube, you agree to be bound to the YouTube "
+"Terms of Service as available at <link href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</link>"
+msgstr "Коришћењем Фото-бунара за приступ Јутјубу, слажете се да будете обавезани Јутјубовим условима коришћења који су доступни на <link href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</link>"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:31
+msgid "Permissions you grant Shotwell for YouTube"
+msgstr "Овлашћења која дајете Фото-бунару за Јутјуб"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:32
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application permission to "
+"publish videos to your YouTube channel. Other than uploading videos, "
+"Shotwell does not insert, modify or remove, store or share any information "
+"from your YouTube account and channel."
+msgstr "Коришћењем Фото-бунара, дајете овлашћење програму „Повезивање Фото-бунара“ да објављује видео снимке на вашем Јутјуб каналу. Осим отпремања видео снимака, Фото-бунар не умеће, не мења нити уклања, не складишти нити дели било какве податке са вашег Јутјуб налога и канала."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:37
+msgid "Google Photos"
+msgstr "Гугл фотографије"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:38
+msgid ""
+"Shotwell uses the Google Photos API services <link href=\"https://"
+"developers.google.com/photos/\">https://developers.google.com/photos/</link> "
+"for all interaction with your Google Photos data"
+msgstr "Фото-бунар користи услуге АПИ-ја Гугл фотографија <link href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</link> за сву интеракцију са вашим подацима на Гугл фотографијама"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:40
+msgid "Permissions you grant Shotwell for Google Photos"
+msgstr "Овлашћења која дајете Фото-бунару за Гугл фотографије"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:41
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application to publish "
+"photos on your Google Photos account. It will download the list of available "
+"albums to allow you to chose an existing album to upload to, it can create "
+"albums on your behalf. Other than creating albums and uploading photos, "
+"Shotwell does no modification whatsoever to the existing data on Google "
+"Photos"
+msgstr "Коришћењем Фото-бунара, овлашћујете програм „Повезивање Фото-бунара“ да објављује фотографије на вашем налогу Гугл фотографија. Он ће преузети списак доступних албума како би вам омогућио да изаберете постојећи албум за отпремање, а може и да прави албуме у ваше име. Осим прављења албума и отпремања фотографија, Фото-бунар не врши никакве измене постојећих података на Гугл фотографијама"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:46
+msgid "Flickr"
+msgstr "Фликр"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:49
+msgid ""
+"The Shotwell Connect application and its data store reside locally on your "
+"personal computer. During the course of its operation, Shotwell Connect may "
+"store an authentication token that it receives from Flickr on your computer. "
+"This authentication token is simply a session-identifying sequence of "
+"letters and numbers. It contains no password, user name, or other personal "
+"information. At no time does Shotwell Connect transmit any information to "
+"the GNOME foundation, the Software Freedom Conservancy or any of the "
+"developers of the Shotwell Connect Application for Flickr."
+msgstr "Апликација Фото-бунар Веза и њено складиште података налазе се локално на вашем личном рачунару. Током свог рада, Фото-бунар Веза може да ускладишти скупину за потврду идентитета коју прими од Фликра на вашем рачунару. Ова скупина за потврду идентитета је једноставно низ слова и бројева који идентификују сесију. Не садржи лозинку, корисничко име или друге личне податке. Фото-бунар Веза ни у ком тренутку не преноси никакве информације Гномовој фондацији, Задужбини за слободу софтвера или било ком од програмера апликације Фото-бунар Веза за Фликр."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:53
+msgid "Permissions you grant Shotwell for Flickr"
+msgstr "Овлашћења која дајете Фото-бунару за Фликр"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:54
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application access to "
+"publish photos to your Flickr account. It will download the list of "
+"available albums to allow you to chose an existing album to upload to. It "
+"can also create new albums on your behalf. Other than creating albums and "
+"uploading photos, Shotwell does not modification whatsoever to the existing "
+"data on your Flickr account."
+msgstr "Коришћењем Фото-бунара, дајете апликацији Фото-бунар Веза приступ за објављивање фотографија на вашем Фликр налогу. Она ће преузети списак доступних албума како би вам омогућила да изаберете постојећи албум за отпремање. Такође може да направи нове албуме у ваше име. Осим прављења албума и отпремања фотографија, Фото-бунар не врши никакве измене на постојећим подацима на вашем Фликр налогу."
+
+#. (itstool) path: info/desc
+#: C/import-memorycard.page:7
+msgid "Import photos from a digital camera's memory card."
+msgstr "Увезите фотографије са меморијске картице дигиталног фото-апарата."
+
+#. (itstool) path: page/title
+#: C/import-memorycard.page:12
+msgid "Importing from a memory card"
+msgstr "Увоз са меморијске картице"
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:14
+msgid "To import photos from a camera memory card:"
+msgstr "Да увезете фотографије са меморијске картице фото-апарата:"
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:18
+msgid ""
+"Put the card into your card reader. Make sure the card reader is plugged in "
+"to the computer and switched on."
+msgstr "Уметните картицу у читач картица. Проверите да ли је читач картица прикључен на рачунар и укључен."
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:21
+msgid "The card reader and card should be detected automatically."
+msgstr "Читач картица и картица би требало да буду аутоматски откривени."
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:24
+msgid ""
+"Follow the instructions for <link xref=\"import-file\">importing photos from "
+"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
+"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
+"the side bar of the file selection window."
+msgstr "Пратите упутства за <link xref=\"import-file\">увоз фотографија са вашег чврстог диска</link>. Ако кликнете на <guiseq><gui>Датотека</gui><gui>Увези из фасцикле...</gui></guiseq>, меморијска картица би требало да буде видљива као фасцикла у бочној траци прозора за избор датотека."
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:28
+msgid ""
+"Shotwell can import photos from any memory card that is compatible with your "
+"card reader."
+msgstr "Фото-бунар може да увезе фотографије са било које меморијске картице која је сагласна са вашим читачем картица."
+
+#. (itstool) path: page/p
+#: C/import-memorycard.page:30
+msgid ""
+"If the card is not detected automatically, your card reader may not have "
+"been recognized. Try unplugging it and then plugging it in again. If that "
+"doesn't work, you should still be able to import photos by <link "
+"xref=\"import-camera\">connecting your camera directly to the computer</"
+"link>, though."
+msgstr "Ако картица није аутоматски откривена, можда ваш читач картица није препознат. Покушајте да га искључите, а затим поново прикључите. Ако то не успе, и даље би требало да можете да увезете фотографије <link xref=\"import-camera\">директним повезивањем фото-апарата са рачунаром</link>."
+
+#. (itstool) path: info/desc
+#: C/other-multiple.page:7
+msgid "You can open Shotwell with a different photo library."
+msgstr "Можете да отворите Фото-бунар са другом библиотеком фотографија."
+
+#. (itstool) path: page/title
+#: C/other-multiple.page:12
+msgid "Multiple libraries"
+msgstr "Више библиотека"
+
+#. (itstool) path: page/p
+#: C/other-multiple.page:14
+msgid ""
+"Shotwell supports multiple libraries on the same computer with the concept "
+"of profiles. A profile is a set of meta-data and settings associated with a "
+"library folder."
+msgstr "Фото-бунар подржава више библиотека на истом рачунару помоћу концепта профила. Профил је скуп метаподатака и подешавања придружених фасцикли библиотеке."
+
+#. (itstool) path: page/p
+#: C/other-multiple.page:17
+msgid ""
+"All profiles are completely isolated from each other. While it is possible "
+"to use the same library folder for different profiles, it is not recommended."
+msgstr "Сви профили су потпуно изоловани једни од других. Иако је могуће користити исту фасциклу библиотеке за различите профиле, то се не препоручује."
+
+#. (itstool) path: section/title
+#: C/other-multiple.page:20
+msgid "Managing profiles"
+msgstr "Управљање профилима"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:21
+msgid ""
+"Profiles can either be created using the dedicated <app>Shotwell Profile "
+"Manager</app>, calling <cmd>shotwell --profile-browser</cmd> from the "
+"command line or the <gui style=\"tab\">Profiles</gui> section of the "
+"settings <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>"
+msgstr "Профили се могу направити помоћу наменског <app>Управника профила Фото-бунара</app>, позивањем наредбе <cmd>shotwell --profile-browser</cmd> из линије наредби или у одељку <gui style=\"tab\">Профили</gui> у подешавањима <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/other-multiple.page:25
+msgid "Selecting a profile"
+msgstr "Бирање профила"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:26
+msgid ""
+"A profile can only be selected during start-up and cannot be switched during "
+"run-time."
+msgstr "Профил се може изабрати само током покретања и не може се мењати током рада."
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:27
+msgid ""
+"To select a profile, start the Shotwell Profile Manager and select a profile "
+"using double-click, or calling <cmd>shotwell --profile <var>name</var></cmd>"
+msgstr "Да бисте изабрали профил, покрените управника профила Фото-бунара и изаберите профил двоструким кликом, или позивањем наредбе <cmd>shotwell --profile <var>назив</var></cmd>"
+
+#. (itstool) path: info/desc
+#: C/organize-flag.page:7
+msgid "Flag photos to mark them as special or to work with them as a set."
+msgstr "Обележите фотографије да бисте их означили као посебне или да бисте радили са њима као са скупом."
+
+#. (itstool) path: page/title
+#: C/organize-flag.page:12
+msgid "Flagging photos"
+msgstr "Обележавање фотографија"
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:14
+msgid ""
+"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
+"flag icon appears in its upper right corner. You can select the "
+"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
+"flagged."
+msgstr "Фото-бунар вам омогућава да <em>обележите</em> фотографије. Када је фотографија обележена, мала иконица заставице се појављује у њеном горњем десном углу. Можете изабрати ставку <gui>Обележено</gui> у бочној површи да бисте видели све фотографије које су обележене."
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:18
+msgid ""
+"Flagging a photo marks it as special. You can interpret this in any way you "
+"like. For example, you might flag all photos which need visual adjustment, "
+"or all photos which you want to share with a friend."
+msgstr "Обележавање фотографије је означава као посебну. Ово можете тумачити на било који начин. На пример, можете обележити све фотографије којима је потребно визуелно подешавање, или све фотографије које желите да поделите са пријатељем."
+
+#. (itstool) path: page/p
+#: C/organize-flag.page:22
+msgid ""
+"Flagging is also useful because you can operate on all flagged photos as a "
+"set. For example, you can select the <gui>Flagged</gui> view and then upload "
+"all flagged photos to a publishing service."
+msgstr "Обележавање је такође корисно јер можете радити са свим обележеним фотографијама као са скупом. На пример, можете изабрати приказ <gui>Обележено</gui> и затим отпремити све обележене фотографије на услугу за објављивање."
+
+#. (itstool) path: section/title
+#: C/organize-flag.page:27
+msgid "To flag or unflag a photo"
+msgstr "За обележавање или скидање обележја са фотографије"
+
+#. (itstool) path: section/p
+#: C/organize-flag.page:28
+msgid ""
+"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
+"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
+msgstr "Да бисте обележили или скинули обележје са фотографије, десним кликом кликните на фотографију и изаберите <gui>Обележи</gui> или <gui>Скини обележје</gui> из приручног изборника. Или користите тастере пречице <keyseq><key>Ctrl</key><key>G</key></keyseq> или <key>/</key>."
+
+#. (itstool) path: info/desc
+#: C/edit-external.page:7
+msgid "Use a different program to edit a photo."
+msgstr "Користите другачији програм за уређивање фотографије."
+
+#. (itstool) path: page/title
+#: C/edit-external.page:12
+msgid "Edit photos with an external program"
+msgstr "Уређивање фотографија спољним програмом"
+
+#. (itstool) path: page/p
+#: C/edit-external.page:16
+msgid ""
+"You might want to use an external editor to do additional work on a photo. "
+"If installed, GIMP and UFRaw are the default external editors for photo and "
+"RAW editing, respectively. If these programs are not installed, you must "
+"select your preferred editors by choosing <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
+"menus of installed applications."
+msgstr "Можда ћете желети да користите спољни уређивач за додатни рад на фотографији. Ако су инсталирани, ГИМП и УФРав су подразумевани спољни уређивачи за уређивање фотографија и сирових (RAW) снимака, респективно. Ако ови програми нису инсталирани, морате изабрати жељене уређиваче бирањем <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq> и избором уређивача из падајућих изборника инсталираних програма."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:24
+msgid ""
+"Once your editors have been set, select a photo and choose "
+"<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
+"open the photo with the external editor. Likewise, if the original photo is "
+"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
+"guiseq> to edit the RAW file directly with the set RAW editor."
+msgstr "Када подесите уређиваче, изаберите фотографију и изаберите <guiseq><gui>Фотографије</gui> <gui>Отвори спољним уређивачем</gui></guiseq> да бисте отворили фотографију спољним уређивачем. Исто тако, ако је изворна фотографија сирова датотека, изаберите <guiseq><gui>Фотографије</gui><gui>Отвори уређивачем сирових снимака</gui></guiseq> да бисте уредили сирову датотеку директно подешеним уређивачем сирових снимака."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:31
+msgid ""
+"When you complete your edits and save the file, Shotwell will detect the "
+"changes and update the photo. When external edits have been made, press and "
+"hold the <key>Shift</key> key in full-window view to show the original photo "
+"rather than the externally-edited one."
+msgstr "Када завршите уређивања и сачувате датотеку, Фото-бунар ће открити измене и ажурирати фотографију. Када су направљена спољна уређивања, притисните и држите тастер <key>Shift</key> у приказу целог прозора да бисте приказали изворну фотографију уместо спољно уређене."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:38
+msgid "Reverting to original will erase any external edits."
+msgstr "Враћање на изворно ће обрисати сва спољна уређивања."
+
+#. (itstool) path: note/p
+#: C/edit-external.page:43
+msgid ""
+"If you externally edit a RAW photo and save the result to another image, "
+"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
+"original RAW and the new image should be paired."
+msgstr "Ако спољно уредите сирову (RAW) фотографију и сачувате резултат у другу слику, као што је JPEG или PNG, Фото-бунар не може аутоматски одредити да изворни RAW и нова слика треба да буду упарени."
+
+#. (itstool) path: note/p
+#: C/edit-external.page:49
+msgid ""
+"If you want to work within the resulting image within Shotwell, you'll need "
+"to import it yourself."
+msgstr "Ако желите да радите са резултујућом сликом унутар Фото-бунара, мораћете је сами увести."
+
+#. (itstool) path: info/desc
+#: C/organize-title.page:7
+msgid "Give titles to your photos."
+msgstr "Дајте наслове вашим фотографијама."
+
+#. (itstool) path: page/title
+#: C/organize-title.page:12
+msgid "Titles"
+msgstr "Наслови"
+
+#. (itstool) path: page/p
+#: C/organize-title.page:14
+msgid ""
+"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
+"display of titles beneath each photo. By default, a photo's title is its "
+"filename."
+msgstr "Поље за потврду <guiseq><gui>Преглед</gui><gui>Наслови</gui></guiseq> мења приказ наслова испод сваке фотографије. По подразумеваним поставкама, наслов фотографије је назив њене датотеке."
+
+#. (itstool) path: page/p
+#: C/organize-title.page:17
+msgid ""
+"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
+"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
+msgstr "Да бисте променили наслов фотографије, изаберите фотографију и кликните на <guiseq><gui>Фотографије</gui><gui>Уреди наслов...</gui></guiseq>, или притисните <key>F2</key>."
+
+#. (itstool) path: info/desc
+#: C/organize-event.page:7
+msgid ""
+"Group photos together that were taken at the same time. Learn how to rename, "
+"merge, and sort events."
+msgstr "Групишите заједно фотографије које су снимљене у исто време. Сазнајте како да преименујете, стопите и разврстате догађаје."
+
+#. (itstool) path: page/title
+#: C/organize-event.page:12
+msgid "Events"
+msgstr "Догађаји"
+
+#. (itstool) path: page/p
+#: C/organize-event.page:14
+msgid ""
+"An event is a group of photos that were taken at approximately the same "
+"time. When you import photos, Shotwell checks when each photo was taken. It "
+"then groups the photos into events."
+msgstr "Догађај је група фотографија које су снимљене у приближно исто време. Када увезете фотографије, Фото-бунар проверава када је свака фотографија снимљена. Он затим групише фотографије у догађаје."
+
+#. (itstool) path: page/p
+#: C/organize-event.page:16
+msgid ""
+"Choose <gui>Events</gui> from the sidebar to see your photos organized by "
+"date. If you select a month or year from the sidebar, a list of events will "
+"be displayed in the main window. Double-click an event to see all the photos "
+"that were taken around that time."
+msgstr "Изаберите <gui>Догађаји</gui> из бочне површи да бисте видели ваше фотографије организоване према датуму. Ако изаберете месец или годину из бочне површи, списак догађаја ће бити приказан у главном прозору. Двокликните на догађај да бисте видели све фотографије које су снимљене око тог времена."
+
+#. (itstool) path: page/p
+#: C/organize-event.page:18
+msgid ""
+"If a photo has no embedded date/time information, then Shotwell can't "
+"automatically place it in any event. In this case the photo will appear in "
+"the <gui>No Event</gui> view accessible from the sidebar. You can still move "
+"the photo to any event you like as described below."
+msgstr "Ако фотографија нема угњеждене податке о датуму/времену, тада Фото-бунар не може аутоматски да је смести у било који догађај. У том случају ће се фотографија појавити у прегледу <gui>Без догађаја</gui> коме се може приступити из бочне површи. И даље можете преместити фотографију у било који догађај који желите као што је описано испод."
+
+#. (itstool) path: section/title
+#: C/organize-event.page:25
+msgid "Renaming events"
+msgstr "Преименовање догађаја"
+
+#. (itstool) path: section/p
+#: C/organize-event.page:27
+msgid ""
+"To give an event a name rather than referring to it by its date, select the "
+"event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> "
+"and enter a new name. Another way of renaming an event is to double-click "
+"its name in the sidebar; type a new name and then press <key>Enter</key>."
+msgstr "Да бисте догађају дали назив уместо да га ословљавате према датуму, изаберите догађај, кликните на <guiseq><gui>Догађаји</gui><gui>Преименуј догађај…</gui></guiseq> и унесите нови назив. Други начин за преименовање догађаја јесте да двокликнете на његов назив у бочној површи; унесите нови назив и затим притисните <key>Enter</key>."
+
+#. (itstool) path: section/title
+#: C/organize-event.page:31
+msgid "Moving photos between events"
+msgstr "Премештање фотографија између догађаја"
+
+#. (itstool) path: section/p
+#: C/organize-event.page:33
+msgid ""
+"Even though photos are initially grouped into events by their date, you can "
+"move photos between events. To do this, drag any photo to the sidebar and "
+"drop it on an event."
+msgstr "Иако су фотографије првобитно груписане у догађаје према њиховом датуму, можете премештати фотографије између догађаја. Да бисте ово урадили, превуците било коју фотографију на бочну површ и спустите је на догађај."
+
+#. (itstool) path: section/title
+#: C/organize-event.page:37
+msgid "Creating and merging events"
+msgstr "Стварање и спајање догађаја"
+
+#. (itstool) path: section/p
+#: C/organize-event.page:38
+msgid ""
+"To create a new event, select the photos you would like in the new event and "
+"click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
+msgstr "Да бисте направили нови догађај, изаберите фотографије које желите у новом догађају и кликните на <guiseq><gui>Догађаји</gui><gui>Нови догађај</gui></guiseq>."
+
+#. (itstool) path: section/p
+#: C/organize-event.page:39
+msgid ""
+"To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, "
+"then, while holding down <key>Ctrl</key> click on the events you want to "
+"merge in the main window area. Finally, click <guiseq><gui>Events</"
+"gui><gui>Merge Events</gui></guiseq>."
+msgstr "Да бисте спојили догађаје, изаберите <guiseq><gui>Догађаји</gui></guiseq> из бочне површи, затим, док држите тастер <key>Ctrl</key> кликните на догађаје које желите да спојите у области главног прозора. На крају, кликните на <guiseq><gui>Догађаји</gui><gui>Споји догађаје</gui></guiseq>."
+
+#. (itstool) path: section/title
+#: C/organize-event.page:43
+msgid "Sorting events"
+msgstr "Разврставање догађаја"
+
+#. (itstool) path: section/p
+#: C/organize-event.page:45
+msgid ""
+"Events are displayed in a tree in the sidebar, organized by the year and "
+"month of the earliest photo in the event. To change the event sort order, "
+"click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
+"either ascending or descending."
+msgstr "Догађаји су приказани у стаблу у бочној површи, организовани према години и месецу најраније фотографије у догађају. Да бисте променили редослед разврставања догађаја, кликните на <guiseq><gui>Преглед</gui><gui>Разврстај догађаје</gui></guiseq> и изаберите или растуће или опадајуће."
+
+#. (itstool) path: section/title
+#: C/organize-event.page:51
+msgid "Change the photo used to represent each event"
+msgstr "Промена фотографије која се користи за представљање сваког догађаја"
+
+#. (itstool) path: section/p
+#: C/organize-event.page:53
+msgid ""
+"If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
+"photo which represents each event. This is called the key photo."
+msgstr "Ако изаберете ставку <gui>Догађаји</gui> у бочној површи, видећете једну фотографију која представља сваки догађај. Ово се назива кључном фотографијом."
+
+#. (itstool) path: section/p
+#: C/organize-event.page:55
+msgid ""
+"By default, Shotwell uses the first photo in each event as its key photo. To "
+"use a different key photo, select the photo and choose <guiseq><gui>Photos</"
+"gui><gui>Make Key Photo for Event</gui></guiseq>."
+msgstr "По подразумеваним вредностима, Фото-бунар користи прву фотографију у сваком догађају као његову кључну фотографију. Да бисте користили другачију кључну фотографију, изаберите фотографију и изаберите <guiseq><gui>Фотографије</gui><gui>Постави за кључну фотографију догађаја</gui></guiseq>."
+
+#. (itstool) path: info/desc
+#: C/view-information.page:7
+msgid ""
+"View more detailed information about photos, like the exposure mode used by "
+"the camera."
+msgstr "Прегледајте детаљније податке о фотографијама, као што је режим излагања који користи фото-апарат."
+
+#. (itstool) path: page/title
+#: C/view-information.page:12
+msgid "Basic and extended information"
+msgstr "Основни и проширени подаци"
+
+#. (itstool) path: page/p
+#: C/view-information.page:14
+msgid ""
+"The Basic Information pane appears at the bottom of the sidebar, and "
+"displays a brief summary of the photos you've selected. If no photos are "
+"selected, it displays a summary of the entire collection. You can toggle the "
+"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
+"Information</gui></guiseq> command."
+msgstr "Окно са основним подацима се појављује на дну бочне површи, и приказује кратак сажетак фотографија које сте изабрали. Ако ниједна фотографија није изабрана, приказује сажетак целе збирке. Можете да промените стање приказа овог окна користећи наредбу <guiseq><gui>Преглед</gui><gui>Основни подаци</gui></guiseq>."
+
+#. (itstool) path: page/p
+#: C/view-information.page:16
+msgid ""
+"The map pane appears at the bottom of the sidebar as part of the Basic "
+"Information pane, and displays an overview map the photos you've selected. "
+"If no photos are selected, it displays an overview of the entire collection. "
+"You can toggle the display of this pane using the <guiseq><gui>View</"
+"gui><gui>Map Overview</gui></guiseq> command. Note that the map will only "
+"show when the Basic Information pane is displayed."
+msgstr "Окно са мапом се појављује на дну бочне површи као део окна са основним подацима, и приказује прегледну мапу фотографија које сте изабрали. Ако ниједна фотографија није изабрана, приказује преглед целе збирке. Можете да промените стање приказа овог окна користећи наредбу <guiseq><gui>Преглед</gui><gui>Преглед мапе</gui></guiseq>. Имајте на уму да ће мапа бити приказана само када је приказано окно са основним подацима."
+
+#. (itstool) path: page/p
+#: C/view-information.page:18
+msgid ""
+"The floating Extended Information window displays more information about the "
+"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
+"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
+"keyseq> toggles the display of this window."
+msgstr "Плутајући прозор са проширеним подацима приказује више података о изабраној фотографији. Наредба <guiseq><gui>Преглед</gui><gui>Проширени подаци</gui></guiseq> или тастери <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></keyseq> мењају стање приказа овог прозора."
+
+#. (itstool) path: info/desc
+#: C/share-send.page:7
+msgid "Send photos via email, instant messaging or in other ways."
+msgstr "Шаљите фотографије путем е-поште, брзих порука или на друге начине."
+
+#. (itstool) path: page/title
+#: C/share-send.page:12
+msgid "Sending photos"
+msgstr "Слање фотографија"
+
+#. (itstool) path: page/p
+#: C/share-send.page:14
+msgid ""
+"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
+"lets you send photos via email."
+msgstr "Фото-бунар може слати фотографије користећи механизам „Пошаљи на“ Гномове радне површине, који вам омогућава слање фотографија путем е-поште."
+
+#. (itstool) path: page/p
+#: C/share-send.page:16
+msgid ""
+"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
+"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
+"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
+"will appear which lets you optionally remove any meta-data, scale it or "
+"change the format before passing it on to your configured email client."
+msgstr "Да бисте послали фотографије, изаберите их у Фото-бунару и изаберите <guiseq><gui>Датотека</gui><gui>Пошаљи на...</gui></guiseq>, или десним кликом на фотографије изаберите <gui>Пошаљи на...</gui> из приручног менија. Појавиће се прозорче <gui>Пошаљи на</gui> које вам омогућава да опционално уклоните метаподатке, промените величину или формат пре него што их проследите подешеном клијенту е-поште."
+
+#. (itstool) path: info/desc
+#: C/raw.page:7
+msgid "More about RAW support in Shotwell."
+msgstr "Више о подршци за сирове (RAW) слике у Фото-бунару."
+
+#. (itstool) path: page/title
+#: C/raw.page:12
+msgid "RAW support in Shotwell"
+msgstr "Подршка за сирове (RAW) слике у Фото-бунару"
+
+#. (itstool) path: page/p
+#: C/raw.page:13
+msgid ""
+"Some cameras have the ability to store data directly off the sensor and into "
+"a file that contains extra color information; this is commonly referred to "
+"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
+msgstr "Неки фото-апарати имају могућност да складиште податке директно са сензора у датотеку која садржи додатне информације о боји; ово се обично назива „RAW“ или „сирови запис“, а Фото-бунар подржава и ове датотеке."
+
+#. (itstool) path: page/p
+#: C/raw.page:18
+msgid ""
+"Since RAW photographs normally cannot be displayed directly, but must be "
+"first developed - that is, have their extra information interpreted and "
+"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
+"format file, or produce a JPEG alongside the RAW file at the time the "
+"snapshot is taken. The latter is referred to throughout this document as "
+"RAW+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"treat them as one item in your library."
+msgstr "Пошто се сирове фотографије обично не могу приказати директно, већ се прво морају развити — то јест, њихове додатне информације се морају протумачити и припремити за приказ — већина фото-апарата ће или уградити JPEG унутар датотеке сировог формата, или направити JPEG поред сирове датотеке у тренутку снимања. Ово друго се у овом документу назива RAW+JPEG. Ако увезете RAW+JPEG пар, Фото-бунар ће их држати упареним и третирати их као једну ставку у вашој библиотеци."
+
+#. (itstool) path: page/p
+#: C/raw.page:27
+msgid ""
+"When you import a RAW file, you can choose to either use the camera's "
+"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
+"gui><gui>Developer</gui></guiseq> in the menus."
+msgstr "Када увезете сирову датотеку, можете изабрати да користите или интерно развијени JPEG фото-апарата или Фото-бунаров избором <guiseq><gui>Фотографије</gui><gui>Развијач</gui></guiseq> у менијима."
+
+#. (itstool) path: note/p
+#: C/raw.page:33
+msgid ""
+"Changing between developers will cause all edits made to a photograph to be "
+"discarded."
+msgstr "Промена развијача ће довести до одбацивања свих измена направљених на фотографији."
+
+#. (itstool) path: page/p
+#: C/raw.page:39
+msgid ""
+"In order to publish or use a RAW photograph in most other software, it has "
+"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
+"or BMP format, and, when publishing, will internally export a JPEG version "
+"for you and publish that."
+msgstr "Да бисте објавили или користили сирову фотографију у већини другог софтвера, она се прво мора извести. Фото-бунар може извести ваше сирове фотографије у JPEG, PNG, TIFF или BMP формат, а приликом објављивања, интерно ће извести JPEG верзију за вас и то објавити."
+
+#. (itstool) path: info/desc
+#: C/organize-remove.page:7
+msgid ""
+"Remove photos from the library, or delete them from your computer entirely."
+msgstr "Уклоните фотографије из библиотеке или их потпуно обришите са вашег рачунара."
+
+#. (itstool) path: page/title
+#: C/organize-remove.page:12
+msgid "Removing and deleting photos"
+msgstr "Уклањање и брисање фотографија"
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:14
+msgid ""
+"You may remove photos from your library and you may additionally delete them "
+"entirely from your hard disk."
+msgstr "Можете уклонити фотографије из ваше библиотеке, а можете их додатно и потпуно обрисати са вашег чврстог диска."
+
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr "external ref='figures/trash_process.png' md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+
+#. (itstool) path: media/p
+#: C/organize-remove.page:15
+msgid "Delete process"
+msgstr "Процес брисања"
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:16
+msgid ""
+"This diagram shows how a photo, when deleted, is first put into Shotwell's "
+"trash. If you delete it from Shotwell's trash, it is put into your "
+"computer's trash. If you delete it from your computer's trash the photo is "
+"finally and irretrievably deleted from your computer."
+msgstr "Овај дијаграм показује како се фотографија, када се обрише, прво ставља у Фото-бунарово смеће. Ако је обришете из Фото-бунаровог смећа, она се ставља у смеће вашег рачунара. Ако је обришете из смећа вашег рачунара, фотографија је коначно и неповратно обрисана са вашег рачунара."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:18
+msgid "Removing photos from the library"
+msgstr "Уклањање фотографија из библиотеке"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:19
+msgid ""
+"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
+"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
+"photos will be moved from your library to Shotwell's Trash."
+msgstr "Изаберите фотографије за уклањање и изаберите <guiseq><gui>Уређивање</gui><gui>Премести у смеће</gui></guiseq>. (Такође можете притиснути тастер <key>Delete</key>.) Фотографије ће бити премештене из ваше библиотеке у Фото-бунарово смеће."
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:22
+msgid ""
+"If you want to remove photos from Shotwell without having them pass through "
+"the trash, simply select the photos to be removed and choose "
+"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
+"files will be left in place on disk."
+msgstr "Ако желите да уклоните фотографије из Фото-бунара без њиховог проласка кроз смеће, једноставно изаберите фотографије које желите да уклоните и изаберите <guiseq><gui>Уређивање</gui><gui>Уклони из библиотеке</gui></guiseq>. Датотеке фотографија ће остати на свом месту на диску."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:26
+msgid "Emptying or restoring the trash folder"
+msgstr "Празњење или враћање фасцикле смећа"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:27
+msgid ""
+"Select the Trash entry in the Sidebar and Shotwell will display all photos "
+"that have been marked for removal or deletion. In the Trash view, the "
+"following commands are available:"
+msgstr "Изаберите ставку „Смеће“ у бочној површи и Фото-бунар ће приказати све фотографије које су означене за уклањање или брисање. У прегледу смећа, доступне су следеће наредбе:"
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:29
+msgid "Delete"
+msgstr "Обриши"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:29
+msgid "Delete the selected photos from the trash folder."
+msgstr "Обришите изабране фотографије из фасцикле смећа."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:30
+msgid "Restore"
+msgstr "Обнови"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:30
+msgid "Restore the selected photos into Shotwell."
+msgstr "Вратите изабране фотографије у Фото-бунар."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:31
+msgid "Empty trash"
+msgstr "Испразни смеће"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:31
+msgid "Delete all photos from the trash folder."
+msgstr "Обришите све фотографије из фасцикле смећа."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:36
+msgid "Deleting or emptying Trash"
+msgstr "Брисање или пражњење смећа"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:37
+msgid ""
+"When you delete files from the Trash folder or empty the Trash folder, you "
+"will be given the following choices:"
+msgstr "Када бришете датотеке из фасцикле смећа или када празните фасциклу смећа, биће вам понуђени следећи избори:"
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:39
+msgid "Only Remove"
+msgstr "Само уклони"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:39
+msgid ""
+"Remove photos from the library but leave the photos in their location on the "
+"computer."
+msgstr "Уклоните фотографије из библиотеке али их оставите на њиховом месту на рачунару."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:40
+msgid "Trash file"
+msgstr "Пошаљи датотеку у смеће"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:40
+msgid "Remove photos from the library and delete them from the computer."
+msgstr "Уклоните фотографије из библиотеке и обришите их са рачунара."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:41
+msgid "Cancel"
+msgstr "Одустани"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:41
+msgid "Do nothing."
+msgstr "Не ради ништа."
+
+#. (itstool) path: info/desc
+#: C/view-sidebar.page:7
+msgid ""
+"The sidebar on the left of the window lists various views of your library."
+msgstr "Бочна површ на левој страни прозора набраја различите прегледе ваше библиотеке."
+
+#. (itstool) path: page/title
+#: C/view-sidebar.page:20
+msgid "The sidebar"
+msgstr "Бочна површ"
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:22
+msgid ""
+"The sidebar on the left side of the Shotwell window lists various views of "
+"your library. Although you may see the same photo in multiple views, it's "
+"only stored once on your hard drive."
+msgstr "Бочна површ на левој страни прозора Фото-бунара набраја различите прегледе ваше библиотеке. Иако исту фотографију можете видети у више прегледа, она је сачувана само једном на вашем чврстом диску."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:24
+msgid ""
+"The <gui>Last Import</gui> view lists your last imported photos no matter if "
+"they are imported from F-Spot, your camera, a memory card or the hard disk."
+msgstr "Преглед <gui>Последњи увоз</gui> набраја ваше последње увезене фотографије без обзира да ли су увезене из Ф-спота, са вашег фото-апарата, меморијске картице или чврстог диска."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:26
+msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
+msgstr "Преглед <gui>Означено</gui> набраја све фотографије које сте претходно означили."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:28
+msgid ""
+"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
+msgstr "Преглед <gui>Сачувана претрага</gui> вам омогућава да поређате вашу библиотеку према многим критеријумима."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:30
+msgid ""
+"The <gui>Events</gui> folder lists all events in your library. An event is a "
+"group of photos that were taken at approximately the same time."
+msgstr "Фасцикла <gui>Догађаји</gui> набраја све догађаје у вашој збирци. Догађај је група фотографија које су снимљене у приближно исто време."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:32
+msgid ""
+"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
+"can have multiple tags attached to them. When you click on the name of a tag "
+"in the sidebar, you will see all the photos associated with that tag."
+msgstr "Фасцикла <gui>Ознаке</gui> набраја све ознаке које сте доделили фотографијама. Фотографије могу имати више придружених ознака. Када кликнете на назив ознаке у бочној површи, видећете све фотографије придружене тој ознаци."
+
+#. (itstool) path: info/desc
+#: C/share-export.page:7
+msgid "Copy photos out of Shotwell so you can put them somewhere else."
+msgstr "Умножите фотографије из Фото-бунара како бисте их могли ставити на неко друго место."
+
+#. (itstool) path: page/title
+#: C/share-export.page:12
+msgid "Exporting photos"
+msgstr "Извожење фотографија"
+
+#. (itstool) path: page/p
+#: C/share-export.page:14
+msgid ""
+"To export photos from Shotwell via drag and drop, drag the photos from "
+"Shotwell onto a file manager window or your desktop. The new files will be "
+"full-sized copies of the photos in your library. To export the original "
+"file, hold <keyseq><key>Shift</key></keyseq> while dropping the photo to the "
+"file manager."
+msgstr "Да извезете фотографије из Фото-бунара путем превлачења и спуштања, превуците фотографије из Фото-бунара у прозор управника датотека или на вашу радну површину. Нове датотеке ће бити примерци фотографија у пуној величини из ваше збирке. Да извезете изворну датотеку, држите <keyseq><key>Shift</key></keyseq> док спуштате фотографију у управника датотека."
+
+#. (itstool) path: page/p
+#: C/share-export.page:19
+msgid ""
+"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
+"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
+"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
+"you fine-tune the size and dimensions of your photo files. A window will "
+"appear allowing you to make several choices:"
+msgstr "Алтернативно, изаберите скуп фотографија и изаберите наредбу <guiseq><gui>Датотека</gui><gui>Извези...</gui></guiseq> или притисните <keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>, што извози фотографије док вам омогућава да фино подесите величину и димензије ваших датотека фотографија. Појавиће се прозор који вам омогућава да направите неколико избора:"
+
+#. (itstool) path: item/p
+#: C/share-export.page:25
+msgid "A format for export."
+msgstr "Формат за извоз."
+
+#. (itstool) path: item/p
+#: C/share-export.page:28
+msgid ""
+"Choose <gui>Unmodified</gui> to export photos in their original format "
+"without any edits made in Shotwell. RAW photos will be exported in their "
+"original RAW format."
+msgstr "Изаберите <gui>Неизмењено</gui> да извезете фотографије у њиховом изворном формату без икаквих измена направљених у Фото-бунару. RAW фотографије ће бити извезене у њиховом изворном RAW формату."
+
+#. (itstool) path: item/p
+#: C/share-export.page:30
+msgid ""
+"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
+"RAW photos will be exported in JPEG format if you have edited them in "
+"Shotwell, and otherwise in their original RAW format."
+msgstr "Изаберите <gui>Тренутно</gui> да извезете фотографије укључујући измене направљене у Фото-бунару. RAW фотографије ће бити извезене у JPEG формату ако сте их уређивали у Фото-бунару, а у супротном у њиховом изворном RAW формату."
+
+#. (itstool) path: item/p
+#: C/share-export.page:32
+msgid ""
+"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
+"used for exporting. Any edits made in Shotwell will be included, and "
+"Shotwell will convert photos to the destination format."
+msgstr "Или можете изабрати посебан формат слике (JPEG, PNG, TIFF, BMP) који ће се користити за извожење. Све измене направљене у Фото-бунару ће бити укључене, а Фото-бунар ће претворити фотографије у циљни формат."
+
+#. (itstool) path: item/p
+#: C/share-export.page:38
+msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
+msgstr "Квалитет слике за извожење (низак, средњи, висок или највећи)."
+
+#. (itstool) path: item/p
+#: C/share-export.page:39
+msgid ""
+"A scaling constraint (which means how Shotwell will decide to scale the "
+"photos down), and the desired pixel size."
+msgstr "Ограничење размере (што значи како ће Фото-бунар одлучити да смањи фотографије) и жељена величина у тачкицама."
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Original size"
+msgstr "Изворна величина"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid "Image will be exported without any scaling applied"
+msgstr "Слика ће бити извезена без примењене промене размере"
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Longest edge"
+msgstr "Дужа ивица"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr "Слика ће бити извезена тако што ће њена дужа ивица бити сразмерена на <gui>Пикселе</gui>, а друга према односу висине и ширине"
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Width"
+msgstr "Ширина"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr "Ширина слике ће бити сразмерена на дату величину у тачкицама, а њена висина према односу висине и ширине. Ово је исто што и <gui>Дужа ивица</gui> за водоравне слике."
+
+#. (itstool) path: item/title
+#: C/share-export.page:44
+msgid "Height"
+msgstr "Висина"
+
+#. (itstool) path: item/p
+#: C/share-export.page:44
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr "Висина слике ће бити сразмерена на дату величину у тачкицама, а њена ширина према односу висине и ширине. Ово је исто што и <gui>Дужа ивица</gui> за усправне слике."
+
+#. (itstool) path: item/p
+#: C/share-export.page:47
+msgid ""
+"The option whether you like to export metadatas such as tags or ratings. "
+"This can help to save your privacy if you have geolocation tags or tags "
+"which shouldn't be seen by anyone."
+msgstr "Опција да ли желите да извезете метаподатке као што су ознаке или оцене. Ово може помоћи у очувању ваше приватности ако имате ознаке геолокације или ознаке које не би требало да види било ко."
+
+#. (itstool) path: page/p
+#: C/share-export.page:50
+msgid ""
+"If selected, Shotwell will write tags, titles, and other metadata to the new "
+"files."
+msgstr "Ако је изабрано, Фото-бунар ће уписати ознаке, наслове и друге метаподатке у нове датотеке."
+
+#. (itstool) path: info/desc
+#: C/share-slideshow.page:7
+msgid "Watch a slideshow of your photos."
+msgstr "Гледајте покретни приказ ваших фотографија."
+
+#. (itstool) path: page/title
+#: C/share-slideshow.page:12
+msgid "Slideshows"
+msgstr "Покретни прикази"
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:14
+msgid ""
+"To see a slideshow of any collection in Shotwell, navigate to that "
+"collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> "
+"or press <key>F5</key>."
+msgstr "Да бисте видели покретни приказ било које збирке у Фото-бунару, идите до те збирке и изаберите <guiseq><gui>Преглед</gui><gui>Покретни приказ</gui></guiseq> или притисните <key>F5</key>."
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:16
+msgid "You can change some settings in a running slideshow:"
+msgstr "Можете променити нека подешавања у покретном приказу који тече:"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:19
+msgid "The duration how long an image should be shown: 1 - 30 seconds"
+msgstr "Трајање појављивања слике: 1 - 30 секунди"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:20
+msgid "You can select different transition effects."
+msgstr "Можете изабрати различите ефекте прелаза."
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:21
+msgid "The time for each transition effect: 0.1 - 1.0 seconds"
+msgstr "Време за сваки ефекат прелаза: 0.1 - 1.0 секунди"
+
+#. (itstool) path: info/desc
+#: C/organize-search.page:7
+msgid "Find photos and videos in your collection by a variety of criteria."
+msgstr "Пронађите фотографије и видео снимке у вашој збирци према различитим критеријумима."
+
+#. (itstool) path: page/title
+#: C/organize-search.page:12
+msgid "Searching"
+msgstr "Претражујем"
+
+#. (itstool) path: page/p
+#: C/organize-search.page:14
+msgid ""
+"There are two ways to search in Shotwell: the filter toolbar, and with a "
+"saved search. The search bar allows you to quickly search the current view "
+"for certain criteria. Saved Searches feature more complex search criteria "
+"and persist in the sidebar between sessions."
+msgstr "Постоје два начина за претрагу у Фото-бунару: трака филтера и сачувана претрага. Трака претраге вам омогућава да брзо претражите тренутни приказ према одређеним критеријумима. Сачуване претраге нуде сложеније критеријуме претраге и остају у бочној површи између сесија."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:21
+msgid "Search bar"
+msgstr "Трака претраге"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:22
+msgid ""
+"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
+"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
+"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
+"this bar, you can find, show and hide photos and videos based on title, tag, "
+"rating or other options."
+msgstr "Поље за потврду <guiseq><gui>Преглед</gui><gui>Трака претраге</gui></guiseq> укључује приказ траке претраге. Такође можете притиснути <keyseq><key>Ctrl</key><key>F</key></keyseq> или <key>F8</key> да бисте приказали траку претраге. Из ове траке можете пронаћи, приказати и сакрити фотографије и видео снимке на основу наслова, ознаке, оцене или других опција."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:29
+msgid ""
+"To begin searching, simply enter a search keyword in the text box, or click "
+"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
+"matches your keywords across tag names, photo or video titles and photos' "
+"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
+"gui> buttons allow you to filter your collection by whether photos are "
+"flagged, their current number of stars, and whether the items shown are "
+"images, videos, or raw camera files, respectively."
+msgstr "Да бисте започели претрагу, једноставно унесите кључну реч за претрагу у поље за текст, или кликните на <gui>Обележено</gui>, <gui>Оцена</gui> или <gui>Врста</gui>. Текстуална претрага тражи ваше кључне речи кроз називе ознака, наслове фотографија или видео снимака и изворне називе датотека фотографија. Дугмад <gui>Обележено</gui>, <gui>Оцена</gui> и <gui>Врста</gui> вам омогућавају да филтрирате вашу збирку према томе да ли су фотографије обележене, према њиховом тренутном броју звездица, и према томе да ли су приказане ставке слике, видео снимци или сирове датотеке фото-апарата."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:38
+msgid ""
+"Disabling the search bar or exiting Shotwell automatically resets the search "
+"bar."
+msgstr "Онемогућавање траке претраге или излазак из Фото-бунара аутоматски ресетује траку претраге."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:44
+msgid "Saved search"
+msgstr "Сачувана претрага"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:45
+msgid ""
+"A saved search persists across Shotwell sessions, and is updated as photos "
+"and videos are added and removed from your Shotwell library."
+msgstr "Сачувана претрага опстаје кроз сесије Фото-бунара и ажурира се како се фотографије и видео снимци додају и уклањају из ваше библиотеке Фото-бунара."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:50
+msgid ""
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
+"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. The dialog box allows you to enter a name for the search and select "
+"whether you want to meet Any, All, or None of the criteria in the following "
+"rows."
+msgstr "Направите нову сачувану претрагу помоћу <guiseq><gui>Уређивање</gui><gui>Нова сачувана претрага...</gui></guiseq> или притиском на <keyseq><key>Ctrl</key><key>S</key></keyseq>. Прозорче вам омогућава да унесете назив за претрагу и изаберете да ли желите да испуните било који, све или ниједан од критеријума у следећим редовима."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:56
+msgid ""
+"Each row represents a search criterion. Use the <gui>+</gui> button to add "
+"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
+"box on the left of each row selects the type of criteria. Criteria must be "
+"entered correctly before the <gui>OK</gui> button becomes available."
+msgstr "Сваки ред представља услов претраге. Користите дугме <gui>+</gui> да додате још редова, а дугме <gui>-</gui> да уклоните одређени ред. Комбо поље на левој страни сваког реда бира врсту критеријума. Критеријуми морају бити исправно унети пре него што дугме <gui>У реду</gui> постане доступно."
+
+#. (itstool) path: info/desc
+#: C/edit-rotate.page:7
+msgid ""
+"Click the <gui>Rotate</gui> button, or choose one of the commands in the "
+"<gui>Photo</gui> menu."
+msgstr "Кликните на дугме <gui>Заокрени</gui>, или изаберите једну од наредби у изборнику <gui>Фотографија</gui>."
+
+#. (itstool) path: page/title
+#: C/edit-rotate.page:12
+msgid "Rotate or flip a photo"
+msgstr "Заокрените или изврните фотографију"
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:14
+msgid ""
+"You can rotate your photos left and right (clockwise and counterclockwise) "
+"with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
+"make a mirror image of any photo."
+msgstr "Можете заокренути ваше фотографије лево и десно (у смеру казаљке на сату и супротно) помоћу дугмета <gui>Заокрени</gui> на палети алата већине приказа. Такође можете направити одраз у огледалу било које фотографије."
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:16
+msgid ""
+"To rotate right, click on the <gui>Rotate</gui> button. To rotate left, "
+"press and hold the <key>Ctrl</key> key and then click the button. Both "
+"commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
+"the following keyboard shortcuts:"
+msgstr "Да бисте заокренули удесно, кликните на дугме <gui>Заокрени</gui>. Да бисте заокренули улево, притисните и држите тастер <key>Ctrl</key> а затим кликните на дугме. Обе наредбе су доступне и у изборнику <gui>Фотографије</gui>. Алтернативно, користите следеће пречице на тастатури:"
+
+#. (itstool) path: item/p
+#: C/edit-rotate.page:18
+msgid ""
+"rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
+"<key>[</key>"
+msgstr "заокрени улево: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> или <key>[</key>"
+
+#. (itstool) path: item/p
+#: C/edit-rotate.page:19
+msgid ""
+"rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
+msgstr "заокрени удесно: <keyseq><key>Ctrl</key><key>R</key></keyseq> или <key>]</key>"
+
+#. (itstool) path: page/p
+#: C/edit-rotate.page:21
+msgid ""
+"To create a mirror image of a photo, use the <gui>Flip Horizontally</gui> "
+"command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
+"<gui>Flip Vertically</gui> command in the same menu."
+msgstr "Да бисте направили одраз фотографије, користите наредбу <gui>Изврни водоравно</gui> у менију <gui>Фотографије</gui>. Да бисте изврнули слику усправно, користите наредбу <gui>Изврни усправно</gui> у истом менију."
+
+#. (itstool) path: note/p
+#: C/edit-rotate.page:24
+msgid ""
+"If you select more than one image, you can rotate all of them at the same "
+"time."
+msgstr "Ако изаберете више од једне слике, можете их све заокренути у исто време."
+
+#. (itstool) path: info/desc
+#: C/other-files.page:7
+msgid "Keep the Shotwell library in sync with photo files on disk."
+msgstr "Одржавајте библиотеку Фото-бунара усклађеном са датотекама фотографија на диску."
+
+#. (itstool) path: page/title
+#: C/other-files.page:12
+msgid "Photo files"
+msgstr "Датотеке фотографија"
+
+#. (itstool) path: page/p
+#: C/other-files.page:14
+msgid ""
+"Every photo in the Shotwell library corresponds to a file stored on your "
+"hard disk. Shotwell has several features which help you keep the Shotwell "
+"library and files on disk in sync."
+msgstr "Свака фотографија у библиотеци Фото-бунара одговара датотеци сачуваној на вашем тврдом диску. Фото-бунар има неколико могућности које вам помажу да одржавате библиотеку Фото-бунара и датотеке на диску усклађеним."
+
+#. (itstool) path: section/title
+#: C/other-files.page:21
+msgid "Using a custom directory pattern"
+msgstr "Коришћење произвољног шаблона директоријума"
+
+#. (itstool) path: section/p
+#: C/other-files.page:22
+msgid ""
+"Shotwell allows you to specify how it names directories in your library. You "
+"can do this by changing the <gui>Directory Structure</gui> and <gui>Pattern</"
+"gui> settings in the <gui>Preferences</gui> dialog. You may use a "
+"preselected pattern, or choose <gui>Custom</gui> and type in your own."
+msgstr "Фото-бунар вам омогућава да наведете како ће именовати директоријуме у вашој библиотеци. То можете учинити променом подешавања за <gui>Структуру директоријума</gui> и <gui>Шаблон</gui> у прозорчету <gui>Поставке</gui>. Можете користити већ изабрани шаблон, или изабрати <gui>Произвољно</gui> и уписати ваш сопствени."
+
+#. (itstool) path: section/p
+#: C/other-files.page:29
+msgid ""
+"The available symbols for the directory pattern begin with a % (percent "
+"sign). The values these symbols produce are locale-dependent, so what you "
+"see on your computer may vary from the examples below."
+msgstr "Доступни симболи за шаблон директоријума почињу знаком % (проценат). Вредности које ови симболи производе зависе од локалитета, тако да оно што видите на вашем рачунару може да се разликује од примера испод."
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+msgid "<em>Symbol</em>"
+msgstr "<em>Симбол</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+msgid "<em>Meaning</em>"
+msgstr "<em>Значење</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:38
+msgid "<em>Example</em>"
+msgstr "<em>Пример</em>"
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "%Y"
+msgstr "%Y."
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "Year: full"
+msgstr "Година: потпуно"
+
+#. (itstool) path: td/p
+#: C/other-files.page:43
+msgid "2011"
+msgstr "2011"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "%y"
+msgstr "%y"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "Year: two digit"
+msgstr "Година: две цифре"
+
+#. (itstool) path: td/p
+#: C/other-files.page:46
+msgid "11"
+msgstr "11"
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "%d"
+msgstr "%d."
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "Day of the month with leading zero"
+msgstr "Дан у месецу са водећом нулом"
+
+#. (itstool) path: td/p
+#: C/other-files.page:49
+msgid "03"
+msgstr "03"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "%A"
+msgstr "%A"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "Day name: full"
+msgstr "Име дана: потпуно"
+
+#. (itstool) path: td/p
+#: C/other-files.page:52
+msgid "Wednesday"
+msgstr "Среда"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "%a"
+msgstr "%a"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "Day name: abbreviated"
+msgstr "Име дана: скраћено"
+
+#. (itstool) path: td/p
+#: C/other-files.page:55
+msgid "Wed"
+msgstr "Сре"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "%m"
+msgstr "%m"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "Month number with leading zero"
+msgstr "Број месеца са водећом нулом"
+
+#. (itstool) path: td/p
+#: C/other-files.page:58
+msgid "02"
+msgstr "02"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "%b"
+msgstr "%b"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "Month name: abbreviated"
+msgstr "Назив месеца: скраћени"
+
+#. (itstool) path: td/p
+#: C/other-files.page:60
+msgid "Feb"
+msgstr "Феб"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "%B"
+msgstr "%B"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "Month name: full"
+msgstr "Назив месеца: пуни"
+
+#. (itstool) path: td/p
+#: C/other-files.page:62
+msgid "February"
+msgstr "Фебруар"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "%I"
+msgstr "%I"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "Hour: 12 hour format"
+msgstr "Сат: 12-часовни формат"
+
+#. (itstool) path: td/p
+#: C/other-files.page:63
+msgid "05"
+msgstr "05"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "%H"
+msgstr "%H"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "Hour: 24 hour format"
+msgstr "Сат: 24-часовни формат"
+
+#. (itstool) path: td/p
+#: C/other-files.page:64
+msgid "17"
+msgstr "17"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "%M"
+msgstr "%M"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "Minute"
+msgstr "Минут"
+
+#. (itstool) path: td/p
+#: C/other-files.page:66
+msgid "16"
+msgstr "16"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "%S"
+msgstr "%S"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "Second"
+msgstr "Секунда"
+
+#. (itstool) path: td/p
+#: C/other-files.page:67
+msgid "30"
+msgstr "30"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "%p"
+msgstr "%p"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "AM or PM"
+msgstr "Пре подне или по подне"
+
+#. (itstool) path: td/p
+#: C/other-files.page:68
+msgid "PM"
+msgstr "поподне"
+
+#. (itstool) path: section/p
+#: C/other-files.page:72
+msgid ""
+"There are other symbols available; please check the <link "
+"href=\"man:strftime\">manual for strftime</link> by running the command "
+"<cmd>man strftime</cmd> if you need one that isn't listed here."
+msgstr "Доступни су и други симболи; погледајте <link href=\"man:strftime\">упутство за „strftime“</link> покретањем наредбе <cmd>man strftime</cmd> ако вам је потребан неки који овде није наведен."
+
+#. (itstool) path: section/title
+#: C/other-files.page:79
+msgid "Automatically importing photos"
+msgstr "Аутоматски увоз фотографија"
+
+#. (itstool) path: section/p
+#: C/other-files.page:81
+msgid ""
+"Shotwell can automatically import new photos which appear in the library "
+"directory. (The library directory is usually the <file>Pictures</file> "
+"directory in your home directory; you can change its location in in the "
+"<gui>Preferences</gui> window.)"
+msgstr "Фото-бунар може аутоматски да увезе нове фотографије које се појаве у директоријуму библиотеке. (Директоријум библиотеке је обично директоријум <file>Слике</file> у вашој личној фасцикли; можете променити његову локацију у прозору <gui>Поставке</gui>.)"
+
+#. (itstool) path: section/p
+#: C/other-files.page:86
+msgid ""
+"To enable auto-import, check the box <gui>Watch library directory for new "
+"files</gui> in the <gui>Preferences</gui> window."
+msgstr "Да бисте омогућили аутоматски увоз, означите поље <gui>Прати директоријум библиотеке за новим датотекама</gui> у прозору <gui>Поставке</gui>."
+
+#. (itstool) path: note/p
+#: C/other-files.page:90
+msgid ""
+"Shotwell can also follow symbolic links inside automatically-imported "
+"directories."
+msgstr "Фото-бунар такође може да прати симболичке везе унутар аутоматски увезених директоријума."
+
+#. (itstool) path: section/title
+#: C/other-files.page:95
+msgid "Automatically renaming imported photos to lowercase"
+msgstr "Аутоматско преименовање увезених фотографија у мала слова"
+
+#. (itstool) path: section/p
+#: C/other-files.page:97
+msgid ""
+"Shotwell can automatically change the filenames of imported photos to "
+"lowercase. To enable this, choose <guiseq><gui>Edit</gui><gui>Preferences</"
+"gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
+"<gui>Rename imported files to lowercase</gui> box."
+msgstr "Фото-бунар може аутоматски да промени називе датотека увезених фотографија у мала слова. Да бисте то омогућили, изаберите <guiseq><gui>Уреди</gui><gui>Поставке</gui></guiseq>, и у прозору <gui>Поставке</gui>, означите поље <gui>Преименуј увезене датотеке у мала слова</gui>."
+
+#. (itstool) path: section/title
+#: C/other-files.page:107
+msgid "Writing metadata on the fly"
+msgstr "Уписивање метаподатака у ходу"
+
+#. (itstool) path: section/p
+#: C/other-files.page:109
+msgid ""
+"By default, Shotwell does not modify photo files, even when you edit photos "
+"or change their tags or titles. Shotwell records these changes in its own "
+"database only."
+msgstr "Подразумевано, Фото-бунар не мења датотеке фотографија, чак ни када уређујете фотографије или мењате њихове ознаке или наслове. Фото-бунар бележи ове измене само у сопственој бази података."
+
+#. (itstool) path: section/p
+#: C/other-files.page:112
+msgid ""
+"To change this behavior, you can enable the checkbox <gui>Write tags, titles "
+"and other metadata to photo files</gui> in the <gui>Preferences</gui> "
+"dialog. When this option is enabled, Shotwell will write the following "
+"metadata to most photo files whenever you change it in Shotwell:"
+msgstr "Да бисте променили ово понашање, можете означити поље <gui>Упиши ознаке, наслове и остале метаподатке у датотеке фотографија</gui> у прозорчету <gui>Поставке</gui>. Када је ова опција омогућена, Фото-бунар ће уписати следеће метаподатке у већину датотека фотографија кад год их промените у Фото-бунару:"
+
+#. (itstool) path: item/p
+#: C/other-files.page:118
+msgid "titles"
+msgstr "наслови"
+
+#. (itstool) path: item/p
+#: C/other-files.page:119
+msgid "tags"
+msgstr "ознаке"
+
+#. (itstool) path: item/p
+#: C/other-files.page:120
+msgid "ratings"
+msgstr "оцене"
+
+#. (itstool) path: item/p
+#: C/other-files.page:121
+msgid "rotation information"
+msgstr "подаци о ротацији"
+
+#. (itstool) path: item/p
+#: C/other-files.page:122
+msgid "time/date"
+msgstr "време/датум"
+
+#. (itstool) path: section/p
+#: C/other-files.page:125
+msgid ""
+"Shotwell stores this information in photo files in EXIF, IPTC and/or XMP "
+"format. Note that Shotwell can write only to photo files in JPEG, PNG and "
+"TIFF format, not to BMP photos, RAW photos or to video files."
+msgstr "Фото-бунар чува ове податке у датотекама фотографија у EXIF, IPTC и/или XMP формату. Имајте у виду да Фото-бунар може да пише само у датотеке фотографија у JPEG, PNG и TIFF формату, а не у BMP фотографије, RAW фотографије или у видео датотеке."
+
+#. (itstool) path: section/title
+#: C/other-files.page:133
+msgid "Runtime monitoring"
+msgstr "Надгледање током рада"
+
+#. (itstool) path: section/p
+#: C/other-files.page:135
+msgid ""
+"While Shotwell is running, it notices changes made to any photo file "
+"externally. When a photo file changes, Shotwell rereads the file and updates "
+"your view of the photo and metadata."
+msgstr "Док је Фото-бунар покренут, он примећује измене направљене споља у било којој датотеци фотографије. Када се датотека фотографије промени, Фото-бунар поново чита датотеку и ажурира ваш преглед фотографије и метаподатака."
+
+#. (itstool) path: section/p
+#: C/other-files.page:139
+msgid ""
+"Note that Shotwell checks all photo files for changes at startup, but only "
+"photo files contained in the library directory are monitored in real time "
+"after startup. We hope to remove this limitation in a further release."
+msgstr "Имајте у виду да Фото-бунар проверава све датотеке фотографија на измене при покретању, али се само датотеке фотографија садржане у директоријуму библиотеке надгледају у реалном времену након покретања. Надамо се да ћемо уклонити ово ограничење у будућем издању."
+
+#. (itstool) path: info/desc
+#: C/organize-tag.page:7
+msgid "Organize photos by labelling them."
+msgstr "Организујте фотографије тако што ћете их означити."
+
+#. (itstool) path: page/title
+#: C/organize-tag.page:14
+msgid "Tagging photos"
+msgstr "Означавање фотографија"
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:16
+msgid ""
+"You can assign one or more tags to selected photos. A tag can be one or more "
+"words that you want to associate with those photos."
+msgstr "Можете доделити једну или више ознака изабраним фотографијама. Ознака може бити једна или више речи које желите да повежете са тим фотографијама."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:22
+msgid ""
+"To add new tags to photos, select the photos you would like to tag, then do "
+"any of the following:"
+msgstr "Да бисте додали нове ознаке фотографијама, изаберите фотографије које желите да означите, а затим урадите нешто од следећег:"
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:28
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
+msgstr "Изаберите <guiseq><gui>Ознаке</gui><gui>Додај ознаке...</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:29
+msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+msgstr "Притисните <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:30
+msgid "Drag the selected photos and drop them on the desired tag."
+msgstr "Превуците изабране фотографије и спустите их на жељену ознаку."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:33
+msgid ""
+"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
+"names of one or more tags, separated by commas. You can also add tag "
+"hierarchies on the fly using <input>/</input> as if they were paths in the "
+"file system. Once you have created a tag, you can rename it by selecting "
+"that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "
+"\"[name]\"...</gui></guiseq>, by right-clicking on it and choose "
+"<gui>Rename...</gui> or double-click on the tag in the sidebar."
+msgstr "Када користите <keyseq><key>Ctrl</key><key>T</key></keyseq> или <guiseq><gui>Ознаке</gui><gui>Додај ознаке...</gui></guiseq> можете укуцати називе једне или више ознака, раздвојених зарезима. Такође можете додавати хијерархије ознака у ходу користећи <input>/</input> као да су путање у систему датотека. Када направите ознаку, можете је преименовати тако што ћете изабрати ту ознаку у бочној површи и изабрати <guiseq><gui>Ознаке</gui><gui>Преименуј ознаку „[name]“...</gui></guiseq>, десним кликом на њу и избором <gui>Преименуј...</gui> или двоструким кликом на ознаку у бочној површи."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:46
+msgid ""
+"To change which tags are associated with a particular photo, select that "
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
+"comma separated list. To remove a tag from one or more photos, first select "
+"that tag in the sidebar, then select the photos you would like to remove, "
+"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
+"gui></guiseq> or right-click on the photos and select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
+msgstr "Да бисте променили које су ознаке повезане са одређеном фотографијом, изаберите ту фотографију, изаберите <guiseq><gui>Ознаке</gui><gui>Измени ознаке...</gui></guiseq> или десним кликом на фотографију и изаберите <gui>Измени ознаке...</gui> и уредите списак раздвојен зарезима. Да бисте уклонили ознаку са једне или више фотографија, прво изаберите ту ознаку у бочној површи, затим изаберите фотографије које желите да уклоните, и изаберите <guiseq><gui>Ознаке</gui><gui>Уклони ознаку „[name]“ из фотографија</gui></guiseq> или десним кликом на фотографије и изаберите <gui>Уклони ознаку „[name]“ из фотографија</gui>."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:60
+msgid ""
+"To delete a tag entirely, select that tag in the sidebar and choose "
+"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
+"click and select <gui>Delete Tag \"[name]\"</gui>."
+msgstr "Да бисте потпуно обрисали ознаку, изаберите ту ознаку у бочној површи и изаберите <guiseq><gui>Ознаке</gui><gui>Обриши ознаку „[name]“</gui></guiseq> или десним кликом и изаберите <gui>Обриши ознаку „[name]“</gui>."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:66
+msgid ""
+"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
+"gui> item, which is hidden if there are no tags. Photos can have multiple "
+"tags attached to them, and when you click on the name of a given tag in the "
+"sidebar, you will see all the photos associated with that tag."
+msgstr "Када направите ознаку, она ће се појавити у бочној површи под ставком <gui>Ознаке</gui>, која је скривена ако нема ознака. Фотографије могу имати више прикачених ознака, а када кликнете на назив дате ознаке у бочној површи, видећете све фотографије придружене тој ознаци."
+
+#. (itstool) path: section/title
+#: C/organize-tag.page:75
+msgid "Hierarchical Tags"
+msgstr "Хијерархијске ознаке"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:76
+msgid ""
+"Shotwell supports also hierarchical tags. You can rearrange your tags by "
+"drag and drop a tag onto another. To create a new subtag right-click on a "
+"tag and select <gui>New</gui>."
+msgstr "Фото-бунар такође подржава хијерархијске ознаке. Можете преуредити своје ознаке превлачењем и пуштањем једне ознаке на другу. Да направите нову под-ознаку, десним тастером миша кликните на ознаку и изаберите <gui>Ново</gui>."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:82
+msgid ""
+"In all places where textual tag input is supported, tags can also be created "
+"using <input>/</input>. For example, using <input>/World/Africa/Togo/Lomé</"
+"input> will create or extend the tag tree"
+msgstr "На свим местима где је подржан текстуални унос ознака, ознаке се такође могу направити коришћењем <input>/</input>. На пример, коришћење <input>/Свет/Африка/Того/Ломе</input> ће направити или проширити стабло ознака"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:92
+msgid "Lomé"
+msgstr "Ломе"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:91
+msgid "Togo <_:item-1/>"
+msgstr "Того <_:item-1/>"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:90
+msgid "Africa <_:item-1/>"
+msgstr "Африка <_:item-1/>"
+
+#. (itstool) path: tree/item
+#: C/organize-tag.page:89
+msgid "World <_:item-1/>"
+msgstr "Свет <_:item-1/>"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:98
+msgid ""
+"Hierarchical tags can help you to sort your tag list in ways that better "
+"match how you work or think; for example, you can store location tags like "
+"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
+"be placed under the tag \"Summer Holidays\"."
+msgstr "Хијерархијске ознаке вам могу помоћи да разврстате свој списак ознака на начине који боље одговарају вашем раду или размишљању; на пример, можете сместити ознаке места као што су „Планине“ или „Плажа“ под надређену ознаку „Места“, која се и сама може поставити под ознаку „Летњи одмори“."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:106
+msgid "Note that deleting a parent tag will also delete its child tags."
+msgstr "Имајте у виду да ће брисање надређене ознаке такође обрисати и њене под-ознаке."
+
+#. (itstool) path: info/desc
+#: C/import-file.page:7
+msgid "Import photos that are already saved on your computer."
+msgstr "Увезите фотографије које су већ сачуване на вашем рачунару."
+
+#. (itstool) path: page/title
+#: C/import-file.page:12
+msgid "Importing from your hard disk"
+msgstr "Увожење са вашег чврстог диска"
+
+#. (itstool) path: page/p
+#: C/import-file.page:14
+msgid ""
+"To import photo files from your hard disk into Shotwell, just drag them from "
+"your file browser into the Shotwell window."
+msgstr "Да увезете датотеке фотографија са вашег чврстог диска у Фото-бунар, само их превуците из вашег прегледача датотека у прозор Фото-бунара."
+
+#. (itstool) path: page/p
+#: C/import-file.page:16
+msgid ""
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
+"on the bottom of the file dialog."
+msgstr "Алтернативно, кликните на <guiseq><gui>Датотека</gui><gui>Увези из фасцикле...</gui></guiseq> и изаберите фасциклу која садржи фотографије које желите да увезете. Ако не желите да Фото-бунар дубински претражује подфасцикле приликом увоза, можете одзначити кућицу <gui>Дубински у подфасцикле</gui> на дну прозорчета за датотеке."
+
+#. (itstool) path: page/p
+#: C/import-file.page:18
+msgid ""
+"Shotwell will ask whether you want to copy the photo files to your library "
+"folder (usually this is the <file>Pictures</file> folder in your home "
+"directory) or to import them in place without copying the files."
+msgstr "Фото-бунар ће вас питати да ли желите да умножите датотеке фотографија у вашу фасциклу библиотеке (обично је то фасцикла <file>Слике</file> у вашем личном директоријуму) или да их увезете на самом месту без умножавања датотека."
+
+#. (itstool) path: page/p
+#: C/import-file.page:20
+msgid ""
+"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
+"copy the photos into your library folder without prompting. Similarly, if "
+"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
+"dragging photos in, Shotwell will import the photos without copying them."
+msgstr "Ако држите притиснут тастер <key>Ктрл</key> док превлачите фотографије, Фото-бунар ће умножити фотографије у вашу фасциклу библиотеке без питања. Слично томе, ако држите притиснуте тастере <keyseq><key>Ктрл</key><key>Шифт</key></keyseq> док превлачите фотографије, Фото-бунар ће увести фотографије без њиховог умножавања."
+
+#. (itstool) path: page/p
+#: C/import-file.page:22
+msgid ""
+"Once the import is complete, you can select <gui>Last Import</gui> in the "
+"sidebar to see all photos successfully imported. The Events list will also "
+"show new entries for the dates corresponding to the imported photos."
+msgstr "Када се увоз заврши, можете изабрати <gui>Последњи увоз</gui> у бочној површи да видите све успешно увезене фотографије. Списак догађаја ће такође приказати нове уносе за датуме који одговарају увезеним фотографијама."
+
+#. (itstool) path: info/title
+#: C/index.page:6
+msgctxt "link:trail"
+msgid "Shotwell"
+msgstr "Фото-бунар"
+
+#. (itstool) path: info/title
+#: C/index.page:7
+msgctxt "link"
+msgid "Shotwell"
+msgstr "Фото-бунар"
+
+#. (itstool) path: info/title
+#: C/index.page:8
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Фото-бунар"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
+msgid "Jim Nelson"
+msgstr "Џим Нелсон"
+
+#. (itstool) path: credit/name
+#: C/index.page:15
+msgid "Allison Barlow"
+msgstr "Алисон Барлоу"
+
+#. (itstool) path: credit/name
+#: C/index.page:19
+msgid "Robert Ancell"
+msgstr "Роберт Ансел (Robert Ancell)"
+
+#. (itstool) path: credit/name
+#: C/index.page:23
+msgid "Peter Smith"
+msgstr "Питер Смит"
+
+#. (itstool) path: credit/name
+#: C/index.page:27
+msgid "Phil Bull"
+msgstr "Фил Бул"
+
+#. (itstool) path: page/title
+#: C/index.page:33
+msgid "<_:media-1/> Shotwell Photo Manager"
+msgstr "<_:media-1/> Фото-бунар — управник фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:39
+msgid "Importing Photos"
+msgstr "Увоз фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:43
+msgid "Viewing Photos"
+msgstr "Прегледање фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:47
+msgid "Organizing Photos"
+msgstr "Организовање фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:51
+msgid "Editing Photos"
+msgstr "Уређивање фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:55
+msgid "Sharing Photos"
+msgstr "Дељење фотографија"
+
+#. (itstool) path: section/title
+#: C/index.page:59
+msgid "Other Features"
+msgstr "Остале могућности"
+
+#. (itstool) path: info/desc
+#: C/edit-nondestructive.page:7
+msgid ""
+"Shotwell is a non-destructive photo editor - it does not modify your "
+"original photos."
+msgstr "Фото-бунар је нерушилачки уређивач фотографија — он не мења ваше изворне фотографије."
+
+#. (itstool) path: page/title
+#: C/edit-nondestructive.page:12
+msgid "What happens to the original when I edit a photo?"
+msgstr "Шта се дешава са оригиналом када уређујем фотографију?"
+
+#. (itstool) path: page/p
+#: C/edit-nondestructive.page:14
+msgid ""
+"Shotwell is a non-destructive photo editor. It does not modify your original "
+"photographs. That is to say, if you crop a photo or adjust its colors, the "
+"photo file on disc remains untouched. Shotwell stores your edits in a "
+"database and applies them on the fly as necessary. This means you can undo "
+"any alterations you make to a photograph."
+msgstr "Фото-бунар је нерушилачки уређивач фотографија. Он не мења ваше изворне фотографије. То значи, ако исечете фотографију или прилагодите њене боје, датотека фотографије на диску остаје нетакнута. Фото-бунар чува ваше измене у бази података и примењује их у ходу по потреби. Ово значи да можете опозвати било коју измену коју направите на фотографији."
+
+#. (itstool) path: page/p
+#: C/edit-nondestructive.page:18
+msgid ""
+"Note that Shotwell can optionally write metadata (such as tags and titles) "
+"to photo files. For more information, see the section <link xref=\"other-"
+"files\">Photo files</link>."
+msgstr "Имајте на уму да Фото-бунар може опционално да упише метаподатке (као што су ознаке и наслови) у датотеке фотографија. За више података, погледајте одељак <link xref=\"other-files\">Датотеке фотографија</link>."
+
+#. (itstool) path: info/desc
+#: C/share-background.page:7
+msgid ""
+"Set your desktop background to a single photo or to a slideshow of photos."
+msgstr "Поставите позадину вашег радне површине на једну фотографију или на покретни приказ фотографија."
+
+#. (itstool) path: page/title
+#: C/share-background.page:12
+msgid "Set a desktop background or slideshow"
+msgstr "Поставите позадину радне површине или покретни приказ"
+
+#. (itstool) path: page/p
+#: C/share-background.page:14
+msgid ""
+"To set a single photo as your desktop background, select the photo and "
+"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
+msgstr "Да поставите једну фотографију као позадину ваше радне површине, изаберите фотографију и изаберите <guiseq><gui>Датотека</gui><gui>Постави као позадину радне површине</gui></guiseq>."
+
+#. (itstool) path: page/p
+#: C/share-background.page:16
+msgid ""
+"You can also set your background to a slideshow of photos. To do this, "
+"select the photos for the slideshow and choose <guiseq><gui>File</"
+"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
+"you for a slideshow delay, which can be any interval up to one day in "
+"length. The background slideshow will proceed even when Shotwell is not "
+"running."
+msgstr "Такође можете поставити вашу позадину на покретни приказ фотографија. Да бисте ово урадили, изаберите фотографије за покретни приказ и изаберите <guiseq><gui>Датотека</gui><gui>Постави као покретни приказ радне површине...</gui></guiseq>. Фото-бунар ће вас питати за застој покретног приказа, који може бити било који период до једног дана дужине. Покретни приказ позадине ће се наставити чак и када Фото-бунар није покренут."
+
+#. (itstool) path: info/desc
+#: C/formats.page:7
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and RAW photo files as "
+"well as video files."
+msgstr "Фото-бунар подржава JPEG, PNG, TIFF, BMP, GIF, WebP и RAW датотеке фотографија као и видео датотеке."
+
+#. (itstool) path: page/title
+#: C/formats.page:12
+msgid "Supported photo and video formats"
+msgstr "Подржани записи фотографија и снимака"
+
+#. (itstool) path: page/p
+#: C/formats.page:14
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-"
+"raw\">RAW</link> photo files."
+msgstr "Фото-бунар подржава JPEG, PNG, TIFF, BMP, GIF, WebP и <link xref=\"other-raw\">RAW</link> датотеке фотографија."
+
+#. (itstool) path: page/p
+#: C/formats.page:16
+msgid ""
+"Shotwell's RAW format support is currently limited. When you view a RAW "
+"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
+"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
+"- you can only export edited photos as 8-bit files. Most supported formats "
+"can be used for export (JPEG, PNG, TIFF, BMP)."
+msgstr "Подршка Фото-бунара за RAW запис је тренутно ограничена. Када прегледате RAW фотографију, ви заправо прегледате JPEG изведен из RAW фотографије, а не саму RAW слику. Додатно, цевовод RAW уређивања није потпуно 16-битни — можете извести само уређене фотографије као 8-битне датотеке. Већина подржаних записа се може користити за извоз (JPEG, PNG, TIFF, BMP)."
+
+#. (itstool) path: page/p
+#: C/formats.page:18
+msgid ""
+"For more information about RAW-format photos in Shotwell, please see the "
+"<link xref=\"other-raw\">RAW</link> section."
+msgstr "За више података о фотографијама у RAW запису у Фото-бунару, погледајте одељак <link xref=\"other-raw\">RAW</link>."
+
+#. (itstool) path: page/p
+#: C/formats.page:22
+msgid ""
+"Shotwell also supports video files in any format supported by the GStreamer "
+"media library on the system where Shotwell is running. This typically "
+"includes the following formats among others:"
+msgstr "Фото-бунар такође подржава видео датотеке у било ком запису који подржава Гстримерова библиотека медија на систему на коме је Фото-бунар покренут. Ово обично укључује следеће записе, између осталих:"
+
+#. (itstool) path: item/p
+#: C/formats.page:25
+msgid "Container formats: Ogg, QuickTime, MP4, AVI."
+msgstr "Записи садржаоца: Ogg, QuickTime, MP4, AVI."
+
+#. (itstool) path: item/p
+#: C/formats.page:26
+msgid ""
+"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
+"systems may not include all codecs listed here due to legal or licensing "
+"restrictions.</em>"
+msgstr "Кодеци: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Имајте на уму да неки оперативни системи можда неће укључивати све кодеке наведене овде због законских или лиценцних ограничења.</em>"
+
+#. (itstool) path: page/p
+#: C/formats.page:30
+msgid ""
+"Shotwell supports both photos and videos, but for simplicity, this "
+"documentation uses just the term \"photos\" in most places. Many operations "
+"in Shotwell apply to both photos and videos, however. In particular, events, "
+"flagging, rating, tagging, and publishing work both for photos and for "
+"videos."
+msgstr "Фото-бунар подржава и фотографије и снимке, али ради једноставности, ова документација користи само термин „фотографије“ на већини места. Међутим, многе радње у Фото-бунару се примењују и на фотографије и на снимке. Нарочито, догађаји, обележавање, оцењивање, означавање и објављивање раде и за фотографије и за снимке."
+
+#. (itstool) path: info/desc
+#: C/view-displaying.page:7
+msgid ""
+"Learn about different ways of viewing your photos: in a grid, filling the "
+"main window, or filling the whole screen."
+msgstr "Сазнајте о различитим начинима прегледања ваших фотографија: у мрежи, попуњавајући главни прозор или попуњавајући цео екран."
+
+#. (itstool) path: page/title
+#: C/view-displaying.page:12
+msgid "Photo views"
+msgstr "Прегледи фотографија"
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:14
+msgid ""
+"When you select any collection in the sidebar, Shotwell displays all photos "
+"in the collection in the main window area. At the bottom right is a slider "
+"which adjusts the viewing size of the thumbnails. You may also adjust the "
+"thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
+"or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
+msgstr "Када изаберете било коју збирку у бочној површи, Фото-бунар приказује све фотографије у збирци у области главног прозора. Доле десно је клизач који подешава величину прегледа сличица. Такође можете подесити величину сличица користећи тастере плус и минус (<key>+</key> и <key>-</key>) или притиском на тастер <key>Ctrl</key> док померате точкић миша."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:16
+msgid ""
+"You can view a photo full-window by double-clicking on it. From there you "
+"may move to other photos in the collection with the Back and Forward "
+"buttons. To return to the collection, double-click on the photo or press "
+"<key>Esc</key>."
+msgstr "Можете прегледати фотографију у режиму целог прозора тако што ћете је двапут кликнути. Одатле се можете кретати до других фотографија у збирци помоћу дугмади Назад и Напред. Да бисте се вратили у збирку, двапут кликните на фотографију или притисните <key>Esc</key>."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:18
+msgid ""
+"When viewing a photo in full-window mode, the slider on the toolbar controls "
+"zoom. You can pan around by grabbing and dragging anywhere on the photo. You "
+"can also zoom using your scroll wheel or by pressing the following keyboard "
+"shortcuts: <keyseq><key>Ctrl</key>0</keyseq> for the full image, "
+"<keyseq><key>Ctrl</key>1</keyseq> for 100% (1 photo pixel = 1 screen pixel), "
+"and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
+"pixels)."
+msgstr "Када прегледате фотографију у режиму целог прозора, клизач на палети алата контролише увећање. Можете се померати унаоколо хватањем и превлачењем било где на фотографији. Такође можете увећавати користећи точкић миша или притиском на следеће пречице на тастатури: <keyseq><key>Ctrl</key>0</keyseq> за целу слику, <keyseq><key>Ctrl</key>1</keyseq> за 100% (1 пиксел фотографије = 1 пиксел екрана) и <keyseq><key>Ctrl</key>2</keyseq> за 200% (1 пиксел фотографије = 2x2 пиксела екрана)."
+
+#. (itstool) path: page/p
+#: C/view-displaying.page:20
+msgid ""
+"Shotwell offers a fullscreen mode to display photos. Choose "
+"<guiseq><gui>View</gui><gui>Fullscreen</gui></guiseq> or press <key>F11</"
+"key>. To see the fullscreen toolbar, move your mouse to the bottom of the "
+"screen. The toolbar offers buttons to move through the collection, to pin "
+"the toolbar down (so it isn't hidden when you move the mouse away), and to "
+"leave fullscreen view."
+msgstr "Фото-бунар нуди режим преко целог екрана за приказ фотографија. Изаберите <guiseq><gui>Преглед</gui><gui>Преко целог екрана</gui></guiseq> или притисните <key>F11</key>. Да бисте видели палету алата преко целог екрана, померите миш на дно екрана. Палета алата нуди дугмад за кретање кроз збирку, за прибадање палете алата (тако да не буде скривена када померите миш) и за напуштање приказа преко целог екрана."
+
+#. (itstool) path: section/title
+#: C/view-displaying.page:23
+msgid "Viewing videos"
+msgstr "Прегледање снимака"
+
+#. (itstool) path: section/p
+#: C/view-displaying.page:24
+msgid ""
+"When you double-click a video, Shotwell will launch an external video player "
+"to play the video. It's not currently possible to display a video in full-"
+"window mode in Shotwell or to play the video within Shotwell itself."
+msgstr "Када двапут кликните на снимак, Фото-бунар ће покренути спољни програм за пуштање снимака. Тренутно није могуће приказати снимак у режиму целог прозора у Фото-бунару или пустити снимак унутар самог Фото-бунара."
+
+#. (itstool) path: info/desc
+#: C/edit-straighten.page:7
+msgid "Straighten a photo so that its horizon appears level."
+msgstr "Исправите фотографију тако да њен хоризонт изгледа равно."
+
+#. (itstool) path: page/title
+#: C/edit-straighten.page:12
+msgid "Straighten photos"
+msgstr "Исправљање фотографија"
+
+#. (itstool) path: page/p
+#: C/edit-straighten.page:14
+msgid ""
+"The straighten tools allows photos to be leveled and straightened. The "
+"straighten tool is only available in full-window or fullscreen mode."
+msgstr "Алат за исправљање омогућава да се фотографије изравнају и исправе. Алат за исправљање је доступан само у режиму целог прозора или преко целог екрана."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:18
+msgid ""
+"Click <gui>Straighten</gui>. The straighten slider will appear. "
+"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
+"key></keyseq>."
+msgstr "Кликните на <gui>Исправи</gui>. Појавиће се клизач за исправљање. Алтернативно, користите пречицу на тастатури <keyseq><key>Ctrl</key><key>A</key></keyseq>."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:21
+msgid "Drag the slider to achieve the desired degree of straightening."
+msgstr "Превуците клизач да бисте постигли жељени степен исправљања."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:24
+msgid "Press <gui>Straighten</gui> when finished."
+msgstr "Притисните <gui>Исправи</gui> када завршите."
