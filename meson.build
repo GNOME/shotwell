@@ -36,13 +36,16 @@ cc = meson.get_compiler('c')
 disabled_warning_flags = []
 if cc.get_id() == 'gcc' or cc.get_id() == 'clang'
   disabled_warning_flags = cc.get_supported_arguments([
+    '-Wno-address',
     '-Wno-unused-but-set-variable', 
     '-Wno-unused-variable',
-    '-Wno-incompatible-pointer-types',
     '-Wno-discarded-qualifiers',
     '-Wno-unused-label',
     '-Wno-unused-function',
-    '-Wno-unused-value'
+    '-Wno-unused-value',
+    '-Wno-pointer-sign',
+    '-Wno-error=incompatible-pointer-types',
+    '-Wno-incompatible-pointer-types',
   ])
 endif
 
