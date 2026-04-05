@@ -78,7 +78,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
     }
 
     public string? get_fulldir() {
-        return ImportPage.get_fulldir(get_camera(), get_camera_name(), get_fsid(), get_folder());
+        return null; // ImportPage.get_fulldir(get_camera(), get_camera_name(), get_fsid(), get_folder());
     }
 
     public override string to_string() {
@@ -281,8 +281,6 @@ class ImportPreview : MediaSourceItem {
             warning("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
         }
 
-        print ("======> pixbuf? %p\n", pixbuf);
-        
         // use placeholder if no preview available
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
@@ -898,17 +896,21 @@ public class ImportPage : CheckerboardPage {
         base.switched_to();
     }
 
-    public override void ready() {
-        try_refreshing_camera(false);
+    private void on_camera_refreshed(Object? object, AsyncResult res) {
+        try_refreshing_camera.end(res);
         hide_imported_filter.refresh();
     }
 
-    private void try_refreshing_camera(bool fail_on_locked) {
+    public override void ready() {
+        try_refreshing_camera.begin(false, on_camera_refreshed);
+    }
+
+    private async void try_refreshing_camera(bool fail_on_locked) {
         // if camera has been refreshed or is in the process of refreshing, go no further
         if (refreshed || busy)
             return;
         
-        RefreshResult res = refresh_camera();
+        var res = yield refresh_camera();
         switch (res) {
             case ImportPage.RefreshResult.OK:
             case ImportPage.RefreshResult.BUSY:
@@ -1023,7 +1025,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.visible = false;
         
-        try_refreshing_camera(true);
+        try_refreshing_camera.begin(true);
     }
     
     private void clear_all_import_sources() {
@@ -1039,8 +1041,8 @@ public class ImportPage : CheckerboardPage {
      * @param dir The path to start searching from.
      * @param search_target The name of the directory to look for.
      */
-    private bool check_directory_exists(int fsid, string dir, string search_target) {
-        string? fulldir = get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
+    private async bool check_directory_exists(int fsid, string dir, string search_target) {
+        string? fulldir = yield get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
         GPhoto.Result result;
         GPhoto.CameraList folders;
 
@@ -1071,37 +1073,126 @@ public class ImportPage : CheckerboardPage {
 
     private int claim_timeout = 500;
 
-    private RefreshResult refresh_camera() {
-        if (busy)
-            return RefreshResult.BUSY;
-            
-        this.set_page_message (_("Connecting to camera, please wait…"));
-        update_status(busy, false);
-        
-        refresh_error = null;
-        refresh_result = dcamera.gcamera.init(spin_idle_context.context);
+    private static Workers camera_workers = new Workers(1, false);
 
-        // If we fail to claim the device, we might have run into a conflict
-        // with gvfs-gphoto2-volume-monitor. Back off, try again after
-        // claim_timeout ms.
-        // We will wait 3.5s in total (500 + 1000 + 2000) before giving
-        // up with the infamous -53 error dialog.
-        if (refresh_result == GPhoto.Result.IO_USB_CLAIM) {
-            if (claim_timeout < 4000) {
-                Timeout.add (claim_timeout, () => {
-                    refresh_camera();
-                    return false;
-                });
-                claim_timeout *= 2;
+    class InitCameraJob : AsyncableBackgroundJob {
+        public GPhoto.Result result;
+        public GPhoto.Camera camera;
 
-                return RefreshResult.LOCKED;
-            }
+        public InitCameraJob(Object owner, GPhoto.Camera camera, Cancellable? cancellable = null) {
+            base(owner, cancellable);
+            this.camera = camera;
         }
 
-        // reset claim_timeout to initial value
+        public override void execute() {
+            this.result = camera.init(new GPhoto.Context());
+            print("====> %s inited\n", get_type().name());
+        }
+
+        public async GPhoto.Result run(Workers camera_workers) {
+            this.function_callback = run.callback;
+            Idle.add(() => {camera_workers.enqueue(this); return false;});
+            yield;
+
+            return this.result;
+        }
+    }
+
+    class GetStorageInfo : AsyncableBackgroundJob {
+        public GPhoto.Result result;
+        public GPhoto.Camera camera;
+        public GPhoto.CameraStorageInformation[] sifs = null;
+
+        public GetStorageInfo(Object? owner, GPhoto.Camera camera, Cancellable? cancellable) {
+            base(owner, cancellable);
+            this.camera = camera;
+        }
+
+        public override void execute() {
+            this.result = camera.get_storageinfo(out this.sifs, new GPhoto.Context());
+        }
+
+        public async GPhoto.Result run(Workers camera_workers) {
+            this.function_callback = run.callback;
+            Idle.add(() => {camera_workers.enqueue(this); return false;});
+            yield;
+            return this.result;
+        }
+    }
+
+    class ListFiles : AsyncableBackgroundJob {
+        public GPhoto.Result result;
+        public GPhoto.Camera camera;
+        public GPhoto.CameraList files;
+        public string fulldir;
+
+        public ListFiles(Object owner, GPhoto.Camera camera, string fulldir, Cancellable? cancellable) {
+            base(owner, cancellable);
+            this.camera = camera;
+            this.fulldir = fulldir;
+        }
+
+        public override void execute() {
+            this.result = GPhoto.CameraList.create(out this.files);
+            if (this.result != GPhoto.Result.OK) {
+                warning("Unable to create file list: %s", result.to_full_string());
+
+                return;
+            }
+
+            this.result = camera.list_files(this.fulldir, this.files, new GPhoto.Context());
+        }
+
+        public async GPhoto.Result run(Workers camera_workers) {
+            this.function_callback = run.callback;
+            Idle.add(() => {camera_workers.enqueue(this); return false;});
+            yield;
+
+            return this.result;
+        }
+    }
+
+    class GetFileInfo : AsyncableBackgroundJob {
+        public GPhoto.Result result;
+        public GPhoto.Camera camera;
+        public GPhoto.CameraFileInfo info;
+        public string fulldir;
+        public string file_name;
+
+        public GetFileInfo(Object owner, GPhoto.Camera camera, string fulldir, string file_name, Cancellable? cancellable) {
+            base(owner, cancellable);
+            this.camera = camera;
+            this.fulldir = fulldir;
+            this.file_name = file_name;
+        }
+
+        public override void execute() {
+            this.result = this.camera.get_file_info (this.fulldir, this.file_name, out this.info, new GPhoto.Context());
+        }
+
+        public async GPhoto.Result run(Workers camera_workers) {
+            this.function_callback = run.callback;
+            Idle.add(() => {camera_workers.enqueue(this); return false;});
+            yield;
+
+            return this.result;
+        } 
+    }
+
+    private async RefreshResult refresh_camera() {
+        var init_job = new InitCameraJob(this, dcamera.gcamera, null);
+
+        while (claim_timeout < 4000) {
+            yield init_job.run(camera_workers);
+            if (init_job.result == GPhoto.Result.IO_USB_CLAIM) {
+                claim_timeout *= 2;
+                Timeout.add (claim_timeout, () => {refresh_camera.callback(); return false;});
+                yield;
+            }
+        }
         claim_timeout = 500;
 
-        if (refresh_result != GPhoto.Result.OK) {
+       if (init_job.result != GPhoto.Result.OK) {
             warning("Unable to initialize camera: %s", refresh_result.to_full_string());
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
@@ -1120,9 +1211,10 @@ public class ImportPage : CheckerboardPage {
         
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         
-        GPhoto.CameraStorageInformation[] sifs = null;
-        refresh_result = dcamera.gcamera.get_storageinfo(out sifs, spin_idle_context.context);
-        if (refresh_result == GPhoto.Result.OK) {
+        var storage_information = new GetStorageInfo(this, dcamera.gcamera, null);
+        yield storage_information.run(camera_workers);
+        if (storage_information.result == GPhoto.Result.OK) {
+            unowned GPhoto.CameraStorageInformation[] sifs = storage_information.sifs;
             for (int fsid = 0; fsid < sifs.length; fsid++) {
                 // Check well-known video and image paths first to prevent accidental
                 // scanning of undesired directories (which can cause user annoyance with
@@ -1130,63 +1222,63 @@ public class ImportPage : CheckerboardPage {
                 bool got_well_known_dir = false;
 
                 // Check common paths for most primarily-still cameras, many (most?) smartphones
-                if (check_directory_exists(fsid, "/", "DCIM")) {
-                    enumerate_files(fsid, "/DCIM", import_list);
+                if (yield check_directory_exists(fsid, "/", "DCIM")) {
+                    yield enumerate_files(fsid, "/DCIM", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/", "dcim")) {
-                    enumerate_files(fsid, "/dcim", import_list);
+                if (yield check_directory_exists(fsid, "/", "dcim")) {
+                    yield enumerate_files(fsid, "/dcim", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common paths for AVCHD camcorders, primarily-still
                 // cameras that shoot .mts video files
-                if (check_directory_exists(fsid, "/PRIVATE/", "AVCHD")) {
-                    enumerate_files(fsid, "/PRIVATE/AVCHD", import_list);
+                if (yield check_directory_exists(fsid, "/PRIVATE/", "AVCHD")) {
+                    yield enumerate_files(fsid, "/PRIVATE/AVCHD", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/private/", "avchd")) {
-                    enumerate_files(fsid, "/private/avchd", import_list);
+                if (yield check_directory_exists(fsid, "/private/", "avchd")) {
+                    yield enumerate_files(fsid, "/private/avchd", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/", "AVCHD")) {
-                    enumerate_files(fsid, "/AVCHD", import_list);
+                if (yield check_directory_exists(fsid, "/", "AVCHD")) {
+                    yield enumerate_files(fsid, "/AVCHD", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/", "avchd")) {
-                    enumerate_files(fsid, "/avchd", import_list);
+                if (yield check_directory_exists(fsid, "/", "avchd")) {
+                    yield enumerate_files(fsid, "/avchd", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common video paths for some Sony primarily-still
                 // cameras
-                if (check_directory_exists(fsid, "/PRIVATE/", "SONY")) {
-                    enumerate_files(fsid, "/PRIVATE/SONY", import_list);
+                if (yield check_directory_exists(fsid, "/PRIVATE/", "SONY")) {
+                    yield enumerate_files(fsid, "/PRIVATE/SONY", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/PRIVATE/M4ROOT/", "CLIP")) {
-                    enumerate_files(fsid, "/PRIVATE/M4ROOT/CLIP", import_list);
+                if (yield check_directory_exists(fsid, "/PRIVATE/M4ROOT/", "CLIP")) {
+                    yield enumerate_files(fsid, "/PRIVATE/M4ROOT/CLIP", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/private/", "sony")) {
-                    enumerate_files(fsid, "/private/sony", import_list);
+                if (yield check_directory_exists(fsid, "/private/", "sony")) {
+                    yield enumerate_files(fsid, "/private/sony", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common video paths for Sony NEX3, PSP addon camera 
-                if (check_directory_exists(fsid, "/", "MP_ROOT")) {
-                    enumerate_files(fsid, "/MP_ROOT", import_list);
+                if (yield check_directory_exists(fsid, "/", "MP_ROOT")) {
+                    yield enumerate_files(fsid, "/MP_ROOT", import_list);
                     got_well_known_dir = true;
                 }
-                if (check_directory_exists(fsid, "/", "mp_root")) {
-                    enumerate_files(fsid, "/mp_root", import_list);
+                if (yield check_directory_exists(fsid, "/", "mp_root")) {
+                    yield enumerate_files(fsid, "/mp_root", import_list);
                     got_well_known_dir = true;
                 }
                 
                 // Didn't find any of the common directories we know about
                 // already - try scanning from device root.
                 if (!got_well_known_dir) {
-                    if (!enumerate_files(fsid, "/", import_list))
+                    if (!yield enumerate_files(fsid, "/", import_list))
                         break;
                 }
             }
@@ -1254,27 +1346,29 @@ public class ImportPage : CheckerboardPage {
         else
             return basepath + addition;
     }
-    
+
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
-    public static string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
-        GPhoto.CameraStorageInformation[] sifs = null;
-        GPhoto.Result res = camera.get_storageinfo(out sifs, null_context.context);
-        if (res != GPhoto.Result.OK)
+    public static async string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
+        var gsi = new GetStorageInfo(null, camera, null);
+        yield gsi.run(camera_workers);
+        if (gsi.result != GPhoto.Result.OK) {
             return null;
-        
-        if (fsid >= sifs.length)
-            return null;
+        }
 
-        if (GPhoto.CameraStorageInfoFields.BASE in sifs[fsid].fields) {
-            return (string) sifs[fsid].basedir;
+        if (fsid >= gsi.sifs.length) {
+            return null;
+        }
+
+        if (GPhoto.CameraStorageInfoFields.BASE in gsi.sifs[fsid].fields) {
+            return (string) gsi.sifs[fsid].basedir;
         } else {
             return "/";
         }
     }
     
-    public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {        
-        string basedir = get_fs_basedir(camera, fsid);
+    public static async string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {        
+        var basedir = yield get_fs_basedir(camera, fsid);
         if (basedir == null) {
             debug("Unable to find base directory for %s fsid %d", camera_name, fsid);
             
@@ -1284,8 +1378,8 @@ public class ImportPage : CheckerboardPage {
         return append_path(basedir, folder);
     }
 
-    private bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
-        string? fulldir = get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
+    private async bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
+        string? fulldir = yield get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
         if (fulldir == null) {
             warning("Skipping enumerating %s: invalid folder name", dir);
             
@@ -1300,8 +1394,9 @@ public class ImportPage : CheckerboardPage {
             return false;
         }
         
-        refresh_result = dcamera.gcamera.list_files(fulldir, files, spin_idle_context.context);
-        if (refresh_result != GPhoto.Result.OK) {
+        var list_files = new ListFiles(this, dcamera.gcamera, fulldir, null);
+        yield list_files.run(camera_workers);
+        if (list_files.result != GPhoto.Result.OK) {
             warning("Unable to list files in %s: %s", fulldir, refresh_result.to_full_string());
             
             // Although an error, don't abort the import because of this
@@ -1309,7 +1404,7 @@ public class ImportPage : CheckerboardPage {
             
             return true;
         }
-        files.sort();
+        list_files.files.sort();
 
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
@@ -1322,27 +1417,27 @@ public class ImportPage : CheckerboardPage {
             }
             
             try {
-                GPhoto.CameraFileInfo info;
-                if (!GPhoto.get_info(spin_idle_context.context, dcamera.gcamera, fulldir, filename, out info)) {
+                var info = new GetFileInfo(this, dcamera.gcamera, fulldir, filename, null);
+                var result = yield info.run(camera_workers);
+                if (result != GPhoto.Result.OK) {
                     warning("Skipping import of %s/%s: name too long", fulldir, filename);
-                    
                     continue;
                 }
                 
-                if ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
+                if ((info.info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
                     message("Skipping %s/%s: No file (file=%02Xh)", fulldir, filename,
-                        info.file.fields);
+                        info.info.file.fields);
                         
                     continue;
                 }
                 
                 if (VideoReader.is_supported_video_filename(filename)) {
                     VideoImportSource video_source = new VideoImportSource(dcamera.display_name, dcamera.gcamera,
-                        fsid, dir, filename, info.file.size, new DateTime.from_unix_utc(info.file.mtime));
+                        fsid, dir, filename, info.info.file.size, new DateTime.from_unix_utc(info.info.file.mtime));
                     import_list.add(video_source);
                 } else {
                     // determine file format from type, and then from file extension
-                    string file_type = (string)info.file.type;
+                    string file_type = (string)info.info.file.type;
                     PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(file_type);               
                     if (file_format == PhotoFileFormat.UNKNOWN) {
                         file_format = PhotoFileFormat.get_by_basename_extension(filename);
@@ -1354,7 +1449,7 @@ public class ImportPage : CheckerboardPage {
                         }
                     }
                     import_list.add(new PhotoImportSource(dcamera.display_name, dcamera.gcamera, fsid, dir, filename,
-                        info.file.size, new DateTime.from_unix_utc(info.file.mtime), file_format));
+                        info.info.file.size, new DateTime.from_unix_utc(info.info.file.mtime), file_format));
                 }
                 
                 progress_bar.pulse();
@@ -1400,7 +1495,7 @@ public class ImportPage : CheckerboardPage {
             if (subdir.has_prefix(".")) {
                 debug("Skipping hidden sub-folder %s in %s", subdir, dir);
             } else {
-                if (!enumerate_files(fsid, append_path(dir, subdir), import_list))
+                if (!yield enumerate_files(fsid, append_path(dir, subdir), import_list))
                     return false;
             }
         }
