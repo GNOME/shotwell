@@ -820,7 +820,7 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void insert_faces_button() {
         var faces_button = (Gtk.Button) builder.get_object("FacesButton");
         if (faces_button != null) {
-            faces_button.show();
+            faces_button.set_visible(true);
         }
     }
 }

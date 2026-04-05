@@ -83,7 +83,7 @@ protected class SavedSearchPopover {
     private void on_activate_row(Gtk.ListBoxRow? row) {
         if (is_search_row(row))
             search_activated(get_search(row));
-        popover.hide();
+        popover.set_visible(false);
     }
 
     private void on_add_click() {
@@ -95,10 +95,10 @@ protected class SavedSearchPopover {
     }
 
     public void show_all() {
-        popover.show();
+        popover.set_visible(true);
     }
 
     public void hide() {
-        popover.hide();
+        popover.set_visible(false);
     }
 }

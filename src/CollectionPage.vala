@@ -37,7 +37,7 @@ public abstract class CollectionPage : MediaPage {
         init_item_context_menu("CollectionContextMenu");
         init_toolbar("CollectionToolbar");
         
-        show();
+        set_visible(true);
 
         // watch for updates to the external app settings
         Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);

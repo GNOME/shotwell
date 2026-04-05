@@ -36,8 +36,8 @@ public abstract class FaceShape : Object {
         face_window = new FacesTool.EditingFaceToolWindow(this.canvas.get_container());
         face_window.key_pressed.connect(key_press_event);
         
-        face_window.show();
-        face_window.hide();
+        face_window.present();
+        face_window.set_visible(false);
         
         this.face_vec = vec;
         this.canvas.set_cursor(current_cursor_type);
@@ -116,7 +116,7 @@ public abstract class FaceShape : Object {
         erase();
         
         if (editable)
-            face_window.hide();
+            face_window.set_visible(false);
         
         // make sure the cursor isn't set to a modify indicator
         canvas.set_cursor(null);
@@ -127,7 +127,6 @@ public abstract class FaceShape : Object {
         paint();
         
         if (editable) {
-            face_window.show();
             face_window.present();
             
             if (!known)
@@ -759,7 +758,6 @@ public class FaceRectangle : FaceShape {
         }
         
         if (is_editable()) {
-            face_window.show();
             face_window.present();
         }
         

@@ -221,7 +221,6 @@ public abstract class AppWindow : PageWindow {
         dialog.set_buttons({ affirmative, _("_Cancel") });
         dialog.set_cancel_button(1);
         dialog.set_default_button(0);
-        Gtk.ResponseType result = Gtk.ResponseType.CANCEL;
         try {
             var choice = yield dialog.choose(AppWindow.get_instance(), null);
             if (choice == 0) {
@@ -248,11 +247,11 @@ public abstract class AppWindow : PageWindow {
 
         SourceFunc callback = resolve_export_conflict.callback;
         int response = Gtk.ResponseType.CANCEL;
-        dialog.show();
+        dialog.present();
         // Lambda is checked.
         dialog.response.connect((r) => {
             response = r;
-            dialog.hide();
+            dialog.set_visible(false);
             callback();
         });
         yield;
@@ -404,12 +403,12 @@ public abstract class AppWindow : PageWindow {
         if (fullscreen_window == null)
             return;
         
-        show();
+        present();
         
         if (get_current_page() != null)
             get_current_page().returning_from_fullscreen(fullscreen_window);
         
-        fullscreen_window.hide();
+        fullscreen_window.set_visible(false);
         fullscreen_window.destroy();
         fullscreen_window = null;
         

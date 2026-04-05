@@ -94,7 +94,7 @@ public class ProgressDialog : Gtk.Window {
     public void set_status(string text) {
         progress_bar.set_text(text);
 
-        show();
+        present();
     }
 
     // This can be used as a ProgressMonitor delegate.
@@ -147,7 +147,7 @@ public class ProgressDialog : Gtk.Window {
             // If there is still more work to do for at least MINIMUM_ON_SCREEN_TIME_MSEC,
             // finally display the dialog.
             if (ttc > minimum_on_screen_time_msec) {
-                show();
+                present();
                 spin_event_loop();
             }
         }

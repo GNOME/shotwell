@@ -894,7 +894,7 @@ public class SearchFilterToolbar : Gtk.Box {
     private void edit_dialog(SavedSearch search) {
         saved_search_popover.hide();
         SavedSearchDialog ssd = new SavedSearchDialog.edit_existing(search);
-        ssd.show();
+        ssd.present();
     }
 
     private void delete_dialog(SavedSearch search) {

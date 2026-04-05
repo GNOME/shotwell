@@ -25,12 +25,12 @@ public class SetBackgroundPhotoDialog : Gtk.Dialog {
     }
 
     public async bool execute(out bool desktop_background, out bool screensaver) {
-        this.show();
+        this.present();
 
         SourceFunc continue_cb = execute.callback;
         int response = 0;
         this.response.connect((source, res) => {
-            this.hide();
+            this.set_visible(false);
             res = response;
             continue_cb();
         });

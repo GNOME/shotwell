@@ -160,7 +160,7 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
             info.clicked.connect (() => {
                 var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
                 var widget = new GcrDetailsDialog(plugin_host.get_dialog(), host, simple_cert);
-                widget.show();
+                widget.set_visible(true);
             });
         } else {
             info.unparent();

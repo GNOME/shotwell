@@ -99,7 +99,7 @@ namespace Shotwell {
 
             get_content_area().append(grid);
 
-            show();
+            set_visible(true);
         }
     }
 
@@ -252,10 +252,10 @@ namespace Shotwell {
                     }
                     editor.destroy();
                 });
-                editor.show();
+                editor.set_visible(true);
             });
             append(group);
-            show();
+            set_visible(true);
         }
 
         private Gtk.Widget on_widget_create(Object item) {

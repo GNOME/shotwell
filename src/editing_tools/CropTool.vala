@@ -430,7 +430,7 @@ public class EditingTools.CropTool : EditingTool {
         }
         custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
 
-        crop_tool_window.show();
+        crop_tool_window.present();
 
         constraint_mode = ConstraintMode.CUSTOM;
     }
@@ -453,7 +453,7 @@ public class EditingTools.CropTool : EditingTool {
         crop_tool_window.set_default_size(crop_tool_window.normal_width,
             crop_tool_window.normal_height);
 
-        crop_tool_window.show();
+        crop_tool_window.present();
 
         constraint_mode = ConstraintMode.NORMAL;
     }
@@ -563,7 +563,7 @@ public class EditingTools.CropTool : EditingTool {
 
         base.activate(canvas);
 
-        crop_tool_window.show();
+        crop_tool_window.present();
 
         // was 'custom' the most-recently-chosen menu item?
         if(!canvas.get_photo().has_crop()) {
@@ -653,7 +653,7 @@ public class EditingTools.CropTool : EditingTool {
 
         if (crop_tool_window != null) {
             unbind_window_handlers();
-            crop_tool_window.hide();
+            crop_tool_window.set_visible(false);
             crop_tool_window.destroy();
             crop_tool_window = null;
         }

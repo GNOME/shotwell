@@ -342,7 +342,7 @@ public class CustomPrintTab : Gtk.Box {
 
         sync_state_from_job(source_job);
 
-        show();
+        set_visible(true);
 
         /* connect this signal after state is sync'd */
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);

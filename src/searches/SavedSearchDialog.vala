@@ -221,9 +221,9 @@ public class SavedSearchDialog : Gtk.Dialog {
         private void on_changed() {
             if (get_text_context() == SearchConditionText.Context.IS_NOT_SET
                 || get_text_context() == SearchConditionText.Context.IS_SET) {
-                entry.hide();
+                entry.set_visible(false);
             } else {
-                entry.show();
+                entry.set_visible(true);
             }
             
             parent.changed(parent);
@@ -550,13 +550,13 @@ public class SavedSearchDialog : Gtk.Dialog {
                 and.show();
                 label_two.show();
             } else if (c == SearchConditionDate.Context.IS_NOT_SET) {
-                label_one.hide();
-                and.hide();
-                label_two.hide();
+                label_one.set_visible(false);
+                and.set_visible(false);
+                label_two.set_visible(false);
             } else {
-                label_one.show();
-                and.hide();
-                label_two.hide();
+                label_one.set_visible(true);
+                and.set_visible(false);
+                label_two.set_visible(false);
             }
             
             // Set label text to date.

@@ -2490,7 +2490,7 @@ public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
             progress_dialog = new ProgressDialog(null,
                 flag ? FLAG_PROGRESS : UNFLAG_PROGRESS);
             
-            progress_dialog.show();
+            progress_dialog.present();
         }
     }
     
@@ -2510,7 +2510,7 @@ public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
         }
         
         if (progress_dialog != null)
-            progress_dialog.hide();
+            progress_dialog.set_visible(false);
     }
     
     public override void undo_on_all(Gee.Collection<DataSource> sources) {

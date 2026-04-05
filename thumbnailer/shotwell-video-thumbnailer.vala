@@ -16,7 +16,7 @@ class ShotwellThumbnailer {
         dynamic Gst.Element pipeline, sink;
         string descr;
         Gdk.Pixbuf pixbuf;
-        uint8[]? pngdata;
+        uint8[] pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
         OutputStream out;

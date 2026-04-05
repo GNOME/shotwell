@@ -49,7 +49,7 @@ public class TextEntryDialog : Gtk.Dialog {
         // validate entry to start with
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
 
-        show();
+        present();
 
         SourceFunc continue_async = execute.callback;
         int response_id = 0;

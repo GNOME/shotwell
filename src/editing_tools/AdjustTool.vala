@@ -472,7 +472,7 @@ public class EditingTools.AdjustTool : EditingTool {
 
         if (adjust_tool_window != null) {
             unbind_window_handlers();
-            adjust_tool_window.hide();
+            adjust_tool_window.set_visible(false);
             adjust_tool_window.destroy();
             adjust_tool_window = null;
         }
@@ -516,7 +516,7 @@ public class EditingTools.AdjustTool : EditingTool {
     private void on_ok() {
         suppress_effect_redraw = true;
 
-        get_tool_window().hide();
+        get_tool_window().set_visible(false);
 
         applied(new AdjustColorsSingleCommand(canvas.get_photo(), transformations,
             Resources.ADJUST_LABEL, Resources.ADJUST_TOOLTIP), draw_to_pixbuf,

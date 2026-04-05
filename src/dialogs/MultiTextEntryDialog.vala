@@ -47,7 +47,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
     public async string? execute() {
         string? text = null;
 
-        show();
+        present();
 
         SourceFunc continue_async = execute.callback;
 

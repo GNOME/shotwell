@@ -156,7 +156,7 @@ private abstract class Properties : Gtk.Box {
     public void update_properties(Page page) {
         clear_properties();
         internal_update_properties(page);
-        show();
+        set_visible(true);
     }
 
     public virtual void internal_update_properties(Page page) {
