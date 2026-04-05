@@ -1049,6 +1049,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             // Allow the caller to request a specific page.
             if (anchor != null) {
                 help_path +=anchor;
+            } else {
+                help_path += "index.page";
             }
             
             string[] argv = new string[3];
