@@ -19,7 +19,28 @@ processor = executable('shotwell-graphics-processor',
                        dependencies: [gio, gee, gdk_pixbuf],
                        link_with: sw_graphics_processor)
 
-shotwell_libs = [sw_graphics_processor]
+threads_lib = static_library(
+  'shotwell-threading-library',
+  [
+        'SortedList.vala',
+        'threads/Threads.vala',
+        'threads/Workers.vala',
+        'threads/BackgroundJob.vala',
+        'threads/Semaphore.vala',
+  ],
+  vala_header: 'shotwell-threads.h',
+  vala_vapi: 'shotwell-threads.vapi',
+  dependencies: [gio, gee],
+  include_directories: config_incdir,
+  install: false
+)
+threads_lib_dep = declare_dependency(
+    link_with: threads_lib,
+    include_directories: include_directories('.')
+)
+
+
+shotwell_libs = [sw_graphics_processor, threads_lib]
 
 
 face_sources = (['faces/FacesBranch.vala',
@@ -50,10 +71,6 @@ executable(
         'util/string.vala',
         'util/system.vala',
         'util/ui.vala',
-        'threads/Threads.vala',
-        'threads/Workers.vala',
-        'threads/BackgroundJob.vala',
-        'threads/Semaphore.vala',
         'db/Db.vala',
         'db/DatabaseTable.vala',
         'db/PhotoTable.vala',
@@ -189,7 +206,6 @@ executable(
         'SinglePhotoPage.vala',
         'CheckerboardPage.vala',
         'PageMessagePane.vala',
-        'SortedList.vala',
         'Dimensions.vala',
         'Box.vala',
         'Photo.vala',
@@ -273,6 +289,7 @@ executable(
     ],
     link_with: [
         sw_graphics_processor,
+        threads_lib,
     ],
     install : true
 )
