@@ -39,11 +39,11 @@ public async bool confirm_warn_developer_changed(int number) {
     dialog.add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
     dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
     
-    dialog.show();
+    dialog.present();
     int result =  0;
     SourceFunc continue_cb = confirm_warn_developer_changed.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         continue_cb();
     });
@@ -559,7 +559,7 @@ public async bool report_manifest(ImportManifest manifest, bool show_dest_id,
         dialog.set_default_widget(no_button);        
     }
     dialog.text = message;
-    dialog.show();
+    dialog.present();
     SourceFunc async_cb = report_manifest.callback;
     bool result = false;
     dialog.response.connect((source, res) => {
@@ -725,12 +725,12 @@ public async Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, strin
     // dialog's old title and use it as the primary text, along with
     // using the message as the secondary text.
     dialog.set_markup(build_alert_body_text(title, user_message));
-    dialog.show();
+    dialog.present();
 
     int result =  0;
     SourceFunc continue_cb = remove_from_library_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();
@@ -750,12 +750,12 @@ public async Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, st
     dialog.set_default_response( Gtk.ResponseType.NO);
    
     dialog.set_markup(build_alert_body_text(title, user_message));
-    dialog.show();
+    dialog.present();
     
     int result =  0;
     SourceFunc continue_cb = remove_from_filesystem_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();
@@ -790,12 +790,12 @@ public async bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo>
     dialog.set_transient_for(owner);
 
     dialog.set_markup(build_alert_body_text(headline, msg));
-    dialog.show();
+    dialog.present();
 
     int result =  0;
     SourceFunc continue_cb = revert_editable_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();
@@ -820,12 +820,12 @@ public async bool remove_offline_dialog(Gtk.Window owner, int count) {
     dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
     dialog.title = (count == 1) ? _("Remove Photo From Library") : _("Remove Photos From Library");
     dialog.set_transient_for (owner);
-    dialog.show();
+    dialog.present();
     
     int result =  0;
     SourceFunc continue_cb = remove_offline_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();
@@ -855,12 +855,12 @@ public async void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects
     
     dialog.title = title;
     dialog.set_transient_for (AppWindow.get_instance());
-    dialog.show();
+    dialog.present();
     
     int result =  0;
     SourceFunc continue_cb = multiple_object_error_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();
@@ -1009,12 +1009,12 @@ public async Gtk.ResponseType copy_files_dialog() {
     dialog.add_button(_("_Import in Place"), Gtk.ResponseType.REJECT);
     dialog.title = _("Import to Library");
     dialog.set_transient_for(AppWindow.get_instance());
-    dialog.show();
+    dialog.present();
     
     int result =  0;
     SourceFunc continue_cb = copy_files_dialog.callback;
     dialog.response.connect((source, res) => {
-        dialog.hide();
+        dialog.set_visible(false);
         result = res;
         dialog.destroy();
         continue_cb();

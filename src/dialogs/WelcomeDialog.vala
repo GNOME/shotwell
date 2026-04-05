@@ -150,7 +150,7 @@ public class WelcomeDialog : Gtk.Dialog {
         // it's unsafe to call run() here - it interferes with displaying
         // images from a camera - so we process the dialog ourselves.
         response.connect(on_dismiss);
-        show();
+        present();
 
         // this will block the thread we're in until a matching call
         // to main_quit() is encountered; this happens when either the window

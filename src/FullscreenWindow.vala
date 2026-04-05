@@ -41,7 +41,7 @@ public class FullscreenWindow : PageWindow {
         set_default_size(geometry.width, geometry.height);
         // need to create a Gdk.Window to set masks
         fullscreen_on_monitor(monitor);
-        show();
+        present();
 
         // capture motion events to show the toolbar
         var motion = new Gtk.EventControllerMotion();
@@ -213,7 +213,7 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void invoke_toolbar() {
-        toolbar.show();
+        toolbar.set_visible(true);
 
         is_toolbar_shown = true;
         
@@ -257,7 +257,7 @@ public class FullscreenWindow : PageWindow {
     private void hide_toolbar() {
         // Save location of toolbar before hiding
         toolbar.get_allocation(out toolbar_alloc);
-        toolbar.hide();
+        toolbar.set_visible(false);
         is_toolbar_shown = false;
     }
 }

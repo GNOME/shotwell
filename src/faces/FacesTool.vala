@@ -202,7 +202,7 @@ public class FacesTool : EditingTools.EditingTool {
 
                     detection_button.set_sensitive(false);
                     cancel_detection_button.set_sensitive(true);
-                    cancel_detection_button.show();
+                    cancel_detection_button.set_visible(true);
 
                     break;
                 case EditingPhase.DETECTING_FACES_FINISHED:
@@ -214,7 +214,7 @@ public class FacesTool : EditingTools.EditingTool {
             }
 
             if (editing_phase == EditingPhase.DETECTING_FACES && editing_phase != phase) {
-                cancel_detection_button.hide();
+                cancel_detection_button.set_visible(false);
                 detection_button.set_sensitive(true);
             }
 
@@ -252,7 +252,7 @@ public class FacesTool : EditingTools.EditingTool {
                 face_widgets_layout.append(buttons_text_separator);
             }
 
-            face_widgets_layout.show();
+            face_widgets_layout.set_visible(true);
         }
 
         private void edit_face(Gtk.Button button) {
@@ -384,7 +384,7 @@ public class FacesTool : EditingTools.EditingTool {
 
         if (faces_tool_window != null) {
             unbind_window_handlers();
-            faces_tool_window.hide();
+            faces_tool_window.set_visible(false);
             faces_tool_window.destroy();
             faces_tool_window = null;
         }
@@ -616,7 +616,7 @@ public class FacesTool : EditingTools.EditingTool {
             // created faces being edited, and if that is the case it
             // will not be destroyed.
             editing_face_shape.hide();
-            editing_face_shape.set_editable(false);
+            editing_face_shape.hide();
 
             // This is to allow the user to edit a FaceShape's shape
             // without pressing the Enter button.

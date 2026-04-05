@@ -184,7 +184,7 @@ void library_exec(string[] mounts) {
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount, true);
 
-    library_window.show();
+    library_window.present();
 
     WelcomeServiceEntry[] selected_import_entries = new WelcomeServiceEntry[0];
     if (Config.Facade.get_instance().get_show_welcome_dialog() &&
@@ -384,7 +384,7 @@ void editing_exec(string filename, bool fullscreen) {
     //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry
     
     DirectWindow direct_window = new DirectWindow(initial_file);
-    direct_window.show();
+    direct_window.present();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
 
@@ -504,7 +504,7 @@ void main(string[] args) {
         window.set_child(browser);
         window.set_size_request(430, 560);
 
-        window.show();
+        window.present();
         loop.run();
 
         // Anything else than selecting an entry in the list will stop shotwell from starting

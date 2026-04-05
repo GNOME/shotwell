@@ -150,6 +150,7 @@ private class PluggableRow : DetailedRow {
         append_widget(plugin_enabled);
 
         if (pluggable is Spit.Publishing.Service) {
+            #if 0
             var manage = new Gtk.Button.from_icon_name("go-next-symbolic");
             manage.add_css_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
@@ -163,8 +164,9 @@ private class PluggableRow : DetailedRow {
                 dialog.set_modal(true);
                 dialog.set_transient_for((Gtk.Window)(this.get_root()));
                 dialog.response.connect(() => {dialog.destroy(); });
-                dialog.show();
-            });           
+                dialog.present();
+            });  
+            #endif         
         }
 
         var info = pluggable.get_info();
@@ -260,7 +262,7 @@ private class ManifestListView : Gtk.Box {
             }
         }
 
-        show();
+        set_visible(true);
     }
 } 
 

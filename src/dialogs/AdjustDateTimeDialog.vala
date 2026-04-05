@@ -252,7 +252,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     public async bool execute(out TimeSpan time_shift, out bool keep_relativity,
         out bool modify_originals) {
-        show();
+        present();
 
         int dialog_result = Gtk.ResponseType.CANCEL;
         SourceFunc execute_cb = execute.callback;
@@ -311,7 +311,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         if (time_shift == 0 || no_original_time || (batch_radio_button.get_active() &&
             batch_radio_button.sensitive)) {
-            notification.hide();
+            notification.set_visible(false);
         } else {
             bool forward = time_shift > 0;
             int days, hours, minutes, seconds;
@@ -334,7 +334,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
                 ngettext("minute", "minutes", minutes), seconds,
                 ngettext("second", "seconds", seconds)));
 
-            notification.show();
+            notification.set_visible(true);
         }
     }
 

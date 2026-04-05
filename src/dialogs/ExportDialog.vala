@@ -186,7 +186,7 @@ public class ExportDialog : Gtk.Dialog {
     // format parameters must be set each time the dialog is executed -- this is why
     // it's passed qualified as ref and not as out
     public async ExportFormatParameters? execute(ExportFormatParameters parameters) {
-        show();
+        present();
 
         // if the export format mode isn't set to last (i.e., don't use the persisted settings),
         // reset the scale constraint to original size

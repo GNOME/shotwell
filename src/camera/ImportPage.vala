@@ -938,7 +938,7 @@ public class ImportPage : CheckerboardPage {
                     dialog.title = Resources.APP_TITLE;
                     dialog.add_button(_("_Unmount"), Gtk.ResponseType.YES);
                     dialog.set_transient_for(AppWindow.get_instance());
-                    dialog.show();
+                    dialog.present();
                     dialog.response.connect((source, res) => {
                         if (res != Gtk.ResponseType.YES) {
                             set_page_message(_("Please unmount the camera."));
@@ -956,7 +956,7 @@ public class ImportPage : CheckerboardPage {
                         Gtk.ButtonsType.OK, "%s", locked_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.set_transient_for(AppWindow.get_instance());
-                    dialog.show();
+                    dialog.present();
                     dialog.response.connect((source, res) => {                    
                         set_page_message(_("Please close any other application using the camera."));
                         dialog.destroy();

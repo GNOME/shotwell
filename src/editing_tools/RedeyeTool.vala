@@ -245,7 +245,7 @@ public class EditingTools.RedeyeTool : EditingTool {
 
         if (redeye_tool_window != null) {
             unbind_window_handlers();
-            redeye_tool_window.hide();
+            redeye_tool_window.set_visible(false);
             redeye_tool_window.destroy();
             redeye_tool_window = null;
         }

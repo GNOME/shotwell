@@ -330,15 +330,15 @@ public class LibraryWindow : AppWindow {
     }
 
     // show_all() may make visible certain items we wish to keep programmatically hidden
-    public override void show() {
-        base.show();
+    public new void present() {
+        base.present();
 
         var basic_properties_action = get_current_page ().get_common_action
             ("CommonDisplayBasicProperties");
         assert(basic_properties_action != null);
 
         if (!basic_properties_action.get_state().get_boolean())
-            bottom_frame.hide();
+            bottom_frame.set_visible(false);
 
         // Make sure rejected pictures are not being displayed on startup
         CheckerboardPage? current_page = get_current_page() as CheckerboardPage;
@@ -656,10 +656,10 @@ public class LibraryWindow : AppWindow {
 
         if (display) {
             basic_properties.update_properties(get_current_page());
-            bottom_frame.show();
+            bottom_frame.set_visible(true);
         } else {
             if (sidebar_paned.get_end_child() != null) {
-                bottom_frame.hide();
+                bottom_frame.set_visible(false);
             }
         }
 
@@ -965,18 +965,18 @@ public class LibraryWindow : AppWindow {
     // This should only be called by LibraryWindow and PageStub.
     public void add_to_stack(Page page) {
         // need to show all before handing over to stack
-        page.show();
+        page.set_visible(true);
         
         stack.add_child(page);
         // need to show_all() after pages are added and removed
-        stack.show();
+        stack.set_visible(true);
     }
     
     private void remove_from_stack(Page page) {
         stack.remove(page);
         
         // need to show_all() after pages are added and removed
-        stack.show();
+        stack.set_visible(true);
     }
     
     // check for settings that should persist between instances
@@ -1198,7 +1198,7 @@ public class LibraryWindow : AppWindow {
         if (page is CheckerboardPage)
             init_view_filter((CheckerboardPage)page);
         
-        page.show();
+        page.set_visible(true);
         
         // subscribe to these signals for each event page so basic properties display will update
         subscribe_for_basic_information(get_current_page());
@@ -1213,7 +1213,7 @@ public class LibraryWindow : AppWindow {
         var toolbar = page.get_toolbar();
         if (toolbar != null) {
             toolbar_revealer.set_child(toolbar);
-            toolbar.show();
+            toolbar.set_visible(true);
             toolbar_revealer.set_reveal_child (this.is_toolbar_visible ());
         }
 

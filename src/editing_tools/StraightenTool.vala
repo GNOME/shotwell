@@ -374,7 +374,7 @@ public class StraightenTool : EditingTool {
         window.angle_label.set_text(tmp);
 
         high_qual_repaint();
-        window.show();
+        window.present();
     }
 
     /**
@@ -385,7 +385,7 @@ public class StraightenTool : EditingTool {
 
             unbind_window_handlers();
 
-            window.hide();
+            window.set_visible(false);
             window = null;
         }
 
