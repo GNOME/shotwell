@@ -62,7 +62,7 @@ public delegate void NotificationCallback(BackgroundJob job, NotificationObject?
 // the various callbacks from BackgroundJob.  Without this, it's possible for the object creating
 // BackgroundJobs to be freed before all the callbacks have been received, or even during a callback,
 // which is an unstable situation.
-public abstract class BackgroundJob {
+public abstract class BackgroundJob : Object {
     public enum JobPriority {
         HIGHEST = 100,
         HIGH = 75,
@@ -206,7 +206,7 @@ public abstract class BackgroundJob {
     
     // This call may be executed by the child class during execute() to inform of a unit of
     // work being completed
-    protected void notify(NotificationCallback callback, NotificationObject? user) {
+    protected new void notify(NotificationCallback callback, NotificationObject? user) {
         lock (notify_queue) {
             notify_queue.add(new NotificationJob(callback, this, user));
         }
@@ -241,3 +241,15 @@ public abstract class BackgroundJob {
     }
 }
 
+public abstract class AsyncableBackgroundJob : BackgroundJob {
+    protected AsyncableBackgroundJob(Object? owner, Cancellable? cancellable = null) {
+        base(owner, this.on_job_finished, cancellable, this.on_job_finished, null);
+        print("%s created\n", this.get_type().name());
+    }
+
+    protected unowned SourceFunc function_callback;
+
+    private void on_job_finished(BackgroundJob job) {
+        this.function_callback;
+    }
+}
