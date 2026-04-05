@@ -4,8 +4,159 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-public class DiscoveredCamera {
+internal class CameraImportJob : BatchImportJob {
+    private GPhoto.Context context;
+    private ImportSource import_file;
+    private GPhoto.Camera camera;
+    private string fulldir;
+    private string filename;
+    private uint64 filesize;
+    private PhotoMetadata metadata;
+    private DateTime exposure_time;
+    private CameraImportJob? associated = null;
+    private BackingPhotoRow? associated_file = null;
+    private DuplicatedFile? duplicated_file;
+    
+    public CameraImportJob(GPhoto.Context context, ImportSource import_file,
+        DuplicatedFile? duplicated_file = null) {
+        this.context = context;
+        this.import_file = import_file;
+        this.duplicated_file = duplicated_file;
+        
+        // stash everything called in prepare(), as it may/will be called from a separate thread
+        camera = import_file.get_camera();
+        fulldir = import_file.get_fulldir();
+        // this should've been caught long ago when the files were first enumerated
+        assert(fulldir != null);
+        filename = import_file.get_filename();
+        filesize = import_file.get_filesize();
+        var photo_import_source = import_file as PhotoImportSource;
+        metadata = (photo_import_source != null) ?
+            photo_import_source.get_metadata() : null;
+        exposure_time = import_file.get_exposure_time();
+    }
+    
+    public DateTime get_exposure_time() {
+        return exposure_time;
+    }
+    
+    public override DuplicatedFile? get_duplicated_file() {
+        return duplicated_file;
+    }
+
+    public override DateTime? get_exposure_time_override() {
+        return (import_file is VideoImportSource) ? get_exposure_time() : null;
+    }
+    
+    public override string get_dest_identifier() {
+        return filename;
+    }
+    
+    public override string get_source_identifier() {
+        return import_file.get_filename();
+    }
+    
+    public override string get_basename() {
+        return filename;
+    }
+
+    public override string get_path() {
+        return fulldir;
+    }
+    
+    public override void set_associated(BatchImportJob associated) {
+        this.associated = associated as CameraImportJob;
+    }
+    
+    public ImportSource get_source() {
+        return import_file;
+    }
+    
+    public override bool is_directory() {
+        return false;
+    }
+    
+    public override bool determine_file_size(out uint64 filesize, out File file) {
+        file = null;
+        filesize = this.filesize;
+        
+        return true;
+    }
+    
+    public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
+        file_to_import = null;
+        copy_to_library = false;
+        
+        File dest_file = null;
+        try {
+            bool collision;
+            dest_file = LibraryFiles.generate_unique_file(filename, metadata, exposure_time,
+                out collision);
+        } catch (Error err) {
+            warning("Unable to generate local file for %s: %s", import_file.get_filename(),
+                err.message);
+        }
+        
+        if (dest_file == null) {
+            message("Unable to generate local file for %s", import_file.get_filename());
+            
+            return false;
+        }
+        
+        // always blacklist the copied images from the LibraryMonitor, otherwise it'll think
+        // they should be auto-imported
+        LibraryMonitor.blacklist_file(dest_file, "CameraImportJob.prepare");
+        try {
+            GPhoto.save_image(context, camera, fulldir, filename, dest_file);
+        } finally {
+            LibraryMonitor.unblacklist_file(dest_file);
+        }
+        
+        // Copy over associated file, if it exists.
+        if (associated != null) {
+            try {
+                associated_file = 
+                    RawDeveloper.CAMERA.create_backing_row_for_development(dest_file.get_path(),
+                        associated.get_basename());
+            } catch (Error err) {
+                warning("Unable to generate backing associated file for %s: %s", associated.filename,
+                    err.message);
+            }
+            
+            if (associated_file == null) {
+                message("Unable to generate backing associated file for %s", associated.filename);
+                return false;
+            }
+            
+            File assoc_dest = File.new_for_path(associated_file.filepath);
+            LibraryMonitor.blacklist_file(assoc_dest, "CameraImportJob.prepare");
+            try {
+                GPhoto.save_image(context, camera, associated.fulldir, associated.filename, 
+                    assoc_dest);
+            } finally {
+                LibraryMonitor.unblacklist_file(assoc_dest);
+            }
+        }
+        
+        file_to_import = dest_file;
+        copy_to_library = false;
+        
+        return true;
+    }
+
+    public override File? get_associated_file() {
+        if (associated_file == null) {
+            return null;
+        }
+
+        return File.new_for_path(associated_file.filepath);
+    }
+}
+    
+public class DiscoveredCamera : Object {
     public GPhoto.Camera gcamera;
+    private GPhoto.Context context;
+
     public string uri;
     public string display_name;
     public string? icon;
@@ -13,6 +164,8 @@ public class DiscoveredCamera {
     private string port;
     private string camera_name;
     private string[] mount_uris;
+    private Workers? workers = null;
+    private Cancellable? cancellable = null;
 
     public DiscoveredCamera(string name, string port, GPhoto.PortInfo port_info, GPhoto.CameraAbilities camera_abilities) throws GPhotoError {
         this.port = port;
@@ -95,6 +248,10 @@ public class DiscoveredCamera {
         }
     }
 
+    public void attach(Workers workers) {
+        this.workers = workers;
+    }
+
     public Mount? get_mount() {
         foreach (var uri in this.mount_uris) {
             var f = File.new_for_uri(uri);
@@ -113,7 +270,433 @@ public class DiscoveredCamera {
         return port.has_prefix("usb:") ? 
             "/dev/bus/usb/%s".printf(port.substring(4).replace(",", "/")) : null;
     }
- 
+    
+
+    private abstract class CameraJob : AsyncableBackgroundJob {
+        public GPhoto.Camera camera;
+        public GPhoto.Context context;
+
+        protected CameraJob(Object? owner, GPhoto.Context context, GPhoto.Camera camera,
+            Cancellable? cancellable) {
+            base(owner, cancellable);
+            this.camera = camera;
+            this.context = context;
+        }
+
+        // Subclasses that produce a result override this; the default is a no-op.
+        public virtual GPhoto.Result get_result() {
+            return GPhoto.Result.OK;
+        }
+
+        public async GPhoto.Result run(Workers camera_workers) {
+            this.function_callback = run.callback;
+            camera_workers.enqueue(this);
+            yield;
+
+            return get_result();
+        }
+    }
+
+    private abstract class ResultCameraJob : CameraJob {
+        public GPhoto.Result result;
+
+        protected ResultCameraJob(Object? owner, GPhoto.Context context, GPhoto.Camera camera,
+            Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+        }
+
+        public override GPhoto.Result get_result() {
+            return this.result;
+        }
+    }
+
+    // Base for camera jobs that may raise a GLib.Error; run() rethrows it on the caller's behalf.
+    private abstract class ThrowingCameraJob : CameraJob {
+        public Error? error = null;
+
+        protected ThrowingCameraJob(Object? owner, GPhoto.Context context, GPhoto.Camera camera,
+            Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+        }
+
+        public new async void run(Workers camera_workers) throws Error {
+            this.function_callback = run.callback;
+            camera_workers.enqueue(this);
+            yield;
+
+            if (this.error != null)
+                throw this.error;
+        }
+    }
+
+    private class InitCameraJob : ResultCameraJob {
+        public InitCameraJob(Object owner, GPhoto.Camera camera, Cancellable? cancellable = null) {
+            var context = new GPhoto.Context();
+            base(owner, context, camera, cancellable);
+        }
+
+        public override void execute() {
+            this.result = camera.init(this.context);
+        }
+    }
+
+    public async GPhoto.Result init() {
+        var init = new InitCameraJob(this, this.gcamera, this.cancellable);
+        var result = yield init.run(this.workers);
+
+        this.context = init.context;
+
+        return result;
+    }
+
+    public BatchImportJob create_import_job(ImportSource import_file, DuplicatedFile? duplicated_file = null) {
+        return new CameraImportJob(this.context, import_file, duplicated_file);
+    }
+
+    private class GetStorageInfo : ResultCameraJob {
+        public GPhoto.CameraStorageInformation[] sifs = null;
+
+        public GetStorageInfo(Object? owner, GPhoto.Context context, GPhoto.Camera camera, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+        }
+
+        public override void execute() {
+            this.result = camera.get_storageinfo(out this.sifs, this.context);
+        }
+    }
+
+    // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
+    // between each mount
+    public async string? get_fs_basedir(int fsid) {
+        var gsi = new GetStorageInfo(null, context, gcamera, null);
+        yield gsi.run(this.workers);
+        if (gsi.result != GPhoto.Result.OK) {
+            return null;
+        }
+
+        if (fsid >= gsi.sifs.length) {
+            return null;
+        }
+
+        if (GPhoto.CameraStorageInfoFields.BASE in gsi.sifs[fsid].fields) {
+            return (string) gsi.sifs[fsid].basedir;
+        }
+
+        return "/";
+    }
+    
+    private static string chomp_ch(string str, char ch) {
+        long offset = str.length;
+        while (--offset >= 0) {
+            if (str[offset] != ch)
+                return str.slice(0, offset);
+        }
+        
+        return "";
+    }
+
+    public static string append_path(string basepath, string addition) {
+        if (!basepath.has_suffix("/") && !addition.has_prefix("/"))
+            return basepath + "/" + addition;
+        else if (basepath.has_suffix("/") && addition.has_prefix("/"))
+            return chomp_ch(basepath, '/') + addition;
+        else
+            return basepath + addition;
+    }
+
+    public async string? get_fulldir(int fsid, string folder) {
+        var basedir = yield get_fs_basedir(fsid);
+        if (basedir == null) {
+            debug("Unable to find base directory for %s fsid %d", display_name, fsid);
+            
+            return folder;
+        }
+        
+        return append_path(basedir, folder);
+    }
+
+    private class ListFiles : ResultCameraJob {
+        public GPhoto.CameraList files;
+        public string fulldir;
+
+        public ListFiles(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.fulldir = fulldir;
+        }
+
+        public override void execute() {
+            this.result = GPhoto.CameraList.create(out this.files);
+            if (this.result != GPhoto.Result.OK) {
+                warning("Unable to create file list: %s", result.to_full_string());
+
+                return;
+            }
+
+            this.result = camera.list_files(this.fulldir, this.files, this.context);
+        }
+    }
+
+    private class ListFolders : ResultCameraJob {
+        public GPhoto.CameraList folders;
+        public string fulldir;
+
+        public ListFolders(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.fulldir = fulldir;
+        }
+
+        public override void execute() {
+            this.result = GPhoto.CameraList.create(out this.folders);
+            if (this.result != GPhoto.Result.OK) {
+                warning("Unable to create file list: %s", result.to_full_string());
+
+                return;
+            }
+
+            this.result = camera.list_folders(this.fulldir, this.folders, this.context);
+        }
+    }
+
+    private class GetFileInfo : ResultCameraJob {
+        public GPhoto.CameraFileInfo info;
+        public string fulldir;
+        public string file_name;
+
+        public GetFileInfo(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, string file_name, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.fulldir = fulldir;
+            this.file_name = file_name;
+        }
+
+        public override void execute() {
+            this.result = this.camera.get_file_info (this.fulldir, this.file_name, out this.info, this.context);
+        }
+    }
+
+    public async GPhoto.Result enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
+        string? fulldir = yield get_fulldir(fsid, dir);
+        if (fulldir == null) {
+            warning("Skipping enumerating %s: invalid folder name", dir);
+            
+            return GPhoto.Result.OK;
+        }
+                
+        var list_files = new ListFiles(this, context, gcamera, fulldir, this.cancellable);
+        var result = yield list_files.run(workers);
+        if (list_files.result != GPhoto.Result.OK) {
+            warning("Unable to list files in %s: %s", fulldir, result.to_full_string());
+            
+            // Although an error, don't abort the import because of this
+            return GPhoto.Result.OK;
+        }
+        list_files.files.sort();
+
+        for (int ctr = 0; ctr < list_files.files.count(); ctr++) {
+            string filename;
+            result = list_files.files.get_name(ctr, out filename);
+            if (result != GPhoto.Result.OK) {
+                warning("Unable to get the name of file %d in %s: %s", ctr, fulldir,
+                    result.to_full_string());
+                
+                return result;
+            }
+            
+            var info = new GetFileInfo(this, context, gcamera, fulldir, filename, this.cancellable);
+            result = yield info.run(workers);
+            if (result != GPhoto.Result.OK) {
+                warning("Skipping import of %s/%s: name too long", fulldir, filename);
+                continue;
+            }
+            
+            if ((info.info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
+                message("Skipping %s/%s: No file (file=%02Xh)", fulldir, filename,
+                    info.info.file.fields);
+                    
+                continue;
+            }
+            
+            if (VideoReader.is_supported_video_filename(filename)) {
+                VideoImportSource video_source = new VideoImportSource(display_name, gcamera,
+                    fsid, fulldir, dir, filename, info.info.file.size, new DateTime.from_unix_utc(info.info.file.mtime));
+                import_list.add(video_source);
+            } else {
+                // determine file format from type, and then from file extension
+                string file_type = (string)info.info.file.type;
+                PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(file_type);               
+                if (file_format == PhotoFileFormat.UNKNOWN) {
+                    file_format = PhotoFileFormat.get_by_basename_extension(filename);
+                    if (file_format == PhotoFileFormat.UNKNOWN) {
+                        message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
+                            filename, file_type);
+                        
+                        continue;
+                    }
+                }
+                import_list.add(new PhotoImportSource(display_name, gcamera, fsid, fulldir, dir, filename,
+                    info.info.file.size, new DateTime.from_unix_utc(info.info.file.mtime), file_format));
+            }
+        }
+        
+        var list_folders = new ListFolders(this, context, gcamera, fulldir, this.cancellable);
+        result = yield list_folders.run(workers);
+        if (list_folders.result != GPhoto.Result.OK) {
+            warning("Unable to list folders in %s: %s", fulldir, result.to_full_string());
+            
+            // Although an error, don't abort the import because of this
+            return GPhoto.Result.OK;
+        }
+        
+        for (int ctr = 0; ctr < list_folders.folders.count(); ctr++) {
+            string subdir;
+            result = list_folders.folders.get_name(ctr, out subdir);
+            if (result != GPhoto.Result.OK) {
+                warning("Unable to get name of folder %d: %s", ctr, result.to_full_string());
+                
+                return result;
+            }
+            
+            if (subdir.has_prefix(".")) {
+                debug("Skipping hidden sub-folder %s in %s", subdir, dir);
+            } else {
+                result = yield enumerate_files(fsid, append_path(dir, subdir), import_list);
+                if (result != GPhoto.Result.OK) {
+                    return result;
+                }
+            }
+        }
+        
+        return GPhoto.Result.OK;
+    }
+
+    /**
+     * @brief Returns whether the current device has a given directory or not.
+     *
+     * @param fsid The file system id of the camera or other device to search.
+     * @param dir The path to start searching from.
+     * @param search_target The name of the directory to look for.
+     */
+    public async bool check_directory_exists(int fsid, string dir, string search_target) {
+        string? fulldir = yield get_fulldir(fsid, dir);
+
+        var lf = new ListFolders(this, context, gcamera, fulldir, null);
+        var result = yield lf.run(workers);
+        if (result != GPhoto.Result.OK) {
+            // fetching the list failed - can't determine whether specified dir is present
+            return false;
+        }
+
+        int list_len = lf.folders.count();
+
+        for (int list_index = 0; list_index < list_len; list_index++) {
+            string tmp;
+
+            lf.folders.get_name(list_index, out tmp);
+            if (tmp == search_target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public async GPhoto.Result get_storage_information(out GPhoto.CameraStorageInformation[] sifs) {
+        var storage_information = new GetStorageInfo(this, context, gcamera, null);
+        var result = yield storage_information.run(workers);
+        sifs = storage_information.sifs;
+
+        return result;
+    }
+
+    private class LoadMetadata : ThrowingCameraJob {
+        public PhotoMetadata metadata;
+        public string folder;
+        public string file_name;
+
+        public LoadMetadata(Object owner, GPhoto.Context context, GPhoto.Camera camera, string folder, string file_name, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.folder = folder;
+            this.file_name = file_name;
+        }
+
+        public override void execute() {
+            try {
+                this.metadata = GPhoto.load_metadata(this.context,this.camera, this.folder,
+                        this.file_name);
+                } catch (Error e) {
+                    this.error = e;
+                }
+        }
+    }
+    
+    public async PhotoMetadata load_metadata(string fulldir, string filename) throws Error {
+        var lmd = new LoadMetadata(this, context, gcamera, fulldir, filename, null);
+        yield lmd.run(workers);
+
+        return lmd.metadata;
+    }
+
+    private class LoadPreview : ThrowingCameraJob {
+        public string folder;
+        public string file_name;
+        public Gdk.Pixbuf preview;
+        public string md5;
+
+        public LoadPreview(Object owner, GPhoto.Context context, GPhoto.Camera camera, string folder, string file_name, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.folder = folder;
+            this.file_name = file_name;
+        }
+
+        public override void execute() {
+            try {
+                this.preview = GPhoto.load_preview(this.context, this.camera, this.folder, this.file_name, out this.md5);
+            } catch (Error e) {
+                this.error = e;
+            }
+        }
+    }
+
+    public async Gdk.Pixbuf load_preview(string fulldir, string filename, out string md5) throws Error {
+        var lmd = new LoadPreview(this, context, gcamera, fulldir, filename, null);
+        yield lmd.run(workers);
+        md5 = lmd.md5;
+
+        return lmd.preview;
+    }
+
+    private class ExitCamera : ResultCameraJob {
+        public ExitCamera(Object owner, GPhoto.Context context, GPhoto.Camera camera, Cancellable? cancellable = null) {
+            base(owner, context, camera, cancellable);
+        }
+
+        public override void execute() {
+            this.result = camera.exit(this.context);
+        }
+    }
+
+    public async GPhoto.Result shutdown() {
+        var exit = new ExitCamera(this, context, gcamera, null);
+        return yield exit.run(workers);
+    }
+
+    private class DeleteFile : ResultCameraJob {
+        public string fulldir;
+        public string file_name;
+
+        public DeleteFile(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, string file_name, Cancellable? cancellable) {
+            base(owner, context, camera, cancellable);
+            this.fulldir = fulldir;
+            this.file_name = file_name;
+        }
+
+        public override void execute() {
+            this.result = this.camera.delete_file(this.fulldir, this.file_name, this.context);
+        }
+    }
+
+    public async GPhoto.Result delete_file(string fulldir, string filename) {
+        var del = new DeleteFile(this, context, gcamera, fulldir, filename, this.cancellable);
+        return yield del.run(workers);
+    }
 }
 
 

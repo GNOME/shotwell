@@ -25,6 +25,11 @@ regexp_replace_test = executable('regexp-replace-test',
                                  ['RegexpReplace.vala', 'DatabaseTable.vala'],
                                  dependencies: [gee, gio, sqlite])
 
+asyncable_background_job_test = executable('asyncable-background-job-test',
+  ['testAsyncableBackgroundJob.vala'],
+  dependencies: [gee, gio, threads_lib_dep])
+
 test('natural-collate', natural_collate_test)
 test('jfif-support', jfif_support_test)
 test('regexp-replace', regexp_replace_test)
+test('asyncable-background-job', asyncable_background_job_test)
