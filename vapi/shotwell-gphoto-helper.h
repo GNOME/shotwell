@@ -13,6 +13,6 @@
 
 #define GPHOTO_REF_LIST(c)      (gp_list_ref(c) == GP_OK ? c : NULL)
 
-#define GPHOTO_REF_CONTEXT(c)   (gp_context_ref(c) == GP_OK ? c : NULL)
+#define GPHOTO_REF_CONTEXT(c)   (gp_context_ref(c), c)
 
 #endif /* GPHOTO_H */

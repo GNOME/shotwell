@@ -244,13 +244,14 @@ public abstract class BackgroundJob : Object {
 
 public abstract class AsyncableBackgroundJob : BackgroundJob {
     protected AsyncableBackgroundJob(Object? owner, Cancellable? cancellable = null) {
-        base(owner, this.on_job_finished, cancellable, this.on_job_finished, null);
+        base(owner, AsyncableBackgroundJob.on_job_finished, cancellable, AsyncableBackgroundJob.on_job_finished, null);
         print("%s created\n", this.get_type().name());
     }
 
     protected unowned SourceFunc function_callback;
 
-    private void on_job_finished(BackgroundJob job) {
-        this.function_callback;
+    private static void on_job_finished(BackgroundJob job) {
+        assert(job is AsyncableBackgroundJob);
+        ((AsyncableBackgroundJob)job).function_callback();
     }
 }
