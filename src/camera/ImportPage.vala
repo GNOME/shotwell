@@ -1041,8 +1041,8 @@ public class ImportPage : CheckerboardPage {
      * @param dir The path to start searching from.
      * @param search_target The name of the directory to look for.
      */
-    private async bool check_directory_exists(int fsid, string dir, string search_target) {
-        string? fulldir = yield get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
+    private async bool check_directory_exists(GPhoto.Context context, int fsid, string dir, string search_target) {
+        string? fulldir = yield get_fulldir(context, dcamera.gcamera, dcamera.display_name, fsid, dir);
         GPhoto.Result result;
         GPhoto.CameraList folders;
 
@@ -1078,21 +1078,25 @@ public class ImportPage : CheckerboardPage {
     class InitCameraJob : AsyncableBackgroundJob {
         public GPhoto.Result result;
         public GPhoto.Camera camera;
+        public GPhoto.Context context;
 
         public InitCameraJob(Object owner, GPhoto.Camera camera, Cancellable? cancellable = null) {
             base(owner, cancellable);
             this.camera = camera;
+            this.context = new GPhoto.Context();
         }
 
         public override void execute() {
-            this.result = camera.init(new GPhoto.Context());
+            this.result = camera.init(this.context);
             print("====> %s inited\n", get_type().name());
         }
 
         public async GPhoto.Result run(Workers camera_workers) {
             this.function_callback = run.callback;
             Idle.add(() => {camera_workers.enqueue(this); return false;});
+            print("Waiting for job to run...\n");
             yield;
+            print("Done waiting...\n");
 
             return this.result;
         }
@@ -1102,14 +1106,16 @@ public class ImportPage : CheckerboardPage {
         public GPhoto.Result result;
         public GPhoto.Camera camera;
         public GPhoto.CameraStorageInformation[] sifs = null;
+        public GPhoto.Context context;
 
-        public GetStorageInfo(Object? owner, GPhoto.Camera camera, Cancellable? cancellable) {
+        public GetStorageInfo(Object? owner, GPhoto.Context context, GPhoto.Camera camera, Cancellable? cancellable) {
             base(owner, cancellable);
             this.camera = camera;
+            this.context = context;
         }
 
         public override void execute() {
-            this.result = camera.get_storageinfo(out this.sifs, new GPhoto.Context());
+            this.result = camera.get_storageinfo(out this.sifs, this.context);
         }
 
         public async GPhoto.Result run(Workers camera_workers) {
@@ -1124,12 +1130,15 @@ public class ImportPage : CheckerboardPage {
         public GPhoto.Result result;
         public GPhoto.Camera camera;
         public GPhoto.CameraList files;
+        public GPhoto.Context context;
         public string fulldir;
 
-        public ListFiles(Object owner, GPhoto.Camera camera, string fulldir, Cancellable? cancellable) {
+        public ListFiles(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, Cancellable? cancellable) {
             base(owner, cancellable);
+            this.context = context;
             this.camera = camera;
             this.fulldir = fulldir;
+            print("ListFiles %s\n", this.fulldir);
         }
 
         public override void execute() {
@@ -1140,7 +1149,8 @@ public class ImportPage : CheckerboardPage {
                 return;
             }
 
-            this.result = camera.list_files(this.fulldir, this.files, new GPhoto.Context());
+            this.result = camera.list_files(this.fulldir, this.files, this.context);
+            print("this.result: %d", this.result);
         }
 
         public async GPhoto.Result run(Workers camera_workers) {
@@ -1156,18 +1166,20 @@ public class ImportPage : CheckerboardPage {
         public GPhoto.Result result;
         public GPhoto.Camera camera;
         public GPhoto.CameraFileInfo info;
+        public GPhoto.Context context;
         public string fulldir;
         public string file_name;
 
-        public GetFileInfo(Object owner, GPhoto.Camera camera, string fulldir, string file_name, Cancellable? cancellable) {
+        public GetFileInfo(Object owner, GPhoto.Context context, GPhoto.Camera camera, string fulldir, string file_name, Cancellable? cancellable) {
             base(owner, cancellable);
             this.camera = camera;
             this.fulldir = fulldir;
             this.file_name = file_name;
+            print("GetFileInfo %s %s\n", this.fulldir, this.file_name);
         }
 
         public override void execute() {
-            this.result = this.camera.get_file_info (this.fulldir, this.file_name, out this.info, new GPhoto.Context());
+            this.result = this.camera.get_file_info (this.fulldir, this.file_name, out this.info, this.context);
         }
 
         public async GPhoto.Result run(Workers camera_workers) {
@@ -1183,11 +1195,15 @@ public class ImportPage : CheckerboardPage {
         var init_job = new InitCameraJob(this, dcamera.gcamera, null);
 
         while (claim_timeout < 4000) {
-            yield init_job.run(camera_workers);
-            if (init_job.result == GPhoto.Result.IO_USB_CLAIM) {
+            var result = yield init_job.run(camera_workers);
+            if (result == GPhoto.Result.IO_USB_CLAIM) {
+                print("Couldn not claim, doing exponential back-off re-try");
                 claim_timeout *= 2;
                 Timeout.add (claim_timeout, () => {refresh_camera.callback(); return false;});
                 yield;
+            } else {
+                print("Not USB claim, exiting loop");
+                break;
             }
         }
         claim_timeout = 500;
@@ -1211,7 +1227,7 @@ public class ImportPage : CheckerboardPage {
         
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         
-        var storage_information = new GetStorageInfo(this, dcamera.gcamera, null);
+        var storage_information = new GetStorageInfo(this, init_job.context, dcamera.gcamera, null);
         yield storage_information.run(camera_workers);
         if (storage_information.result == GPhoto.Result.OK) {
             unowned GPhoto.CameraStorageInformation[] sifs = storage_information.sifs;
@@ -1222,63 +1238,63 @@ public class ImportPage : CheckerboardPage {
                 bool got_well_known_dir = false;
 
                 // Check common paths for most primarily-still cameras, many (most?) smartphones
-                if (yield check_directory_exists(fsid, "/", "DCIM")) {
-                    yield enumerate_files(fsid, "/DCIM", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "DCIM")) {
+                    yield enumerate_files(init_job.context, fsid, "/DCIM", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/", "dcim")) {
-                    yield enumerate_files(fsid, "/dcim", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "dcim")) {
+                    yield enumerate_files(init_job.context, fsid, "/dcim", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common paths for AVCHD camcorders, primarily-still
                 // cameras that shoot .mts video files
-                if (yield check_directory_exists(fsid, "/PRIVATE/", "AVCHD")) {
-                    yield enumerate_files(fsid, "/PRIVATE/AVCHD", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/PRIVATE/", "AVCHD")) {
+                    yield enumerate_files(init_job.context, fsid, "/PRIVATE/AVCHD", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/private/", "avchd")) {
-                    yield enumerate_files(fsid, "/private/avchd", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/private/", "avchd")) {
+                    yield enumerate_files(init_job.context, fsid, "/private/avchd", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/", "AVCHD")) {
-                    yield enumerate_files(fsid, "/AVCHD", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "AVCHD")) {
+                    yield enumerate_files(init_job.context, fsid, "/AVCHD", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/", "avchd")) {
-                    yield enumerate_files(fsid, "/avchd", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "avchd")) {
+                    yield enumerate_files(init_job.context, fsid, "/avchd", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common video paths for some Sony primarily-still
                 // cameras
-                if (yield check_directory_exists(fsid, "/PRIVATE/", "SONY")) {
-                    yield enumerate_files(fsid, "/PRIVATE/SONY", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/PRIVATE/", "SONY")) {
+                    yield enumerate_files(init_job.context, fsid, "/PRIVATE/SONY", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/PRIVATE/M4ROOT/", "CLIP")) {
-                    yield enumerate_files(fsid, "/PRIVATE/M4ROOT/CLIP", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/PRIVATE/M4ROOT/", "CLIP")) {
+                    yield enumerate_files(init_job.context, fsid, "/PRIVATE/M4ROOT/CLIP", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/private/", "sony")) {
-                    yield enumerate_files(fsid, "/private/sony", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/private/", "sony")) {
+                    yield enumerate_files(init_job.context, fsid, "/private/sony", import_list);
                     got_well_known_dir = true;
                 }
 
                 // Check common video paths for Sony NEX3, PSP addon camera 
-                if (yield check_directory_exists(fsid, "/", "MP_ROOT")) {
-                    yield enumerate_files(fsid, "/MP_ROOT", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "MP_ROOT")) {
+                    yield enumerate_files(init_job.context, fsid, "/MP_ROOT", import_list);
                     got_well_known_dir = true;
                 }
-                if (yield check_directory_exists(fsid, "/", "mp_root")) {
-                    yield enumerate_files(fsid, "/mp_root", import_list);
+                if (yield check_directory_exists(init_job.context, fsid, "/", "mp_root")) {
+                    yield enumerate_files(init_job.context, fsid, "/mp_root", import_list);
                     got_well_known_dir = true;
                 }
                 
                 // Didn't find any of the common directories we know about
                 // already - try scanning from device root.
                 if (!got_well_known_dir) {
-                    if (!yield enumerate_files(fsid, "/", import_list))
+                    if (!yield enumerate_files(init_job.context, fsid, "/", import_list))
                         break;
                 }
             }
@@ -1349,8 +1365,8 @@ public class ImportPage : CheckerboardPage {
 
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
-    public static async string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
-        var gsi = new GetStorageInfo(null, camera, null);
+    public static async string? get_fs_basedir(GPhoto.Context context, GPhoto.Camera camera, int fsid) {
+        var gsi = new GetStorageInfo(null, context, camera, null);
         yield gsi.run(camera_workers);
         if (gsi.result != GPhoto.Result.OK) {
             return null;
@@ -1367,8 +1383,8 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    public static async string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {        
-        var basedir = yield get_fs_basedir(camera, fsid);
+    public static async string? get_fulldir(GPhoto.Context context, GPhoto.Camera camera, string camera_name, int fsid, string folder) {        
+        var basedir = yield get_fs_basedir(context, camera, fsid);
         if (basedir == null) {
             debug("Unable to find base directory for %s fsid %d", camera_name, fsid);
             
@@ -1378,23 +1394,15 @@ public class ImportPage : CheckerboardPage {
         return append_path(basedir, folder);
     }
 
-    private async bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
-        string? fulldir = yield get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
+    private async bool enumerate_files(GPhoto.Context context, int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
+        string? fulldir = yield get_fulldir(context, dcamera.gcamera, dcamera.display_name, fsid, dir);
         if (fulldir == null) {
             warning("Skipping enumerating %s: invalid folder name", dir);
             
             return true;
         }
-        
-        GPhoto.CameraList files;
-        refresh_result = GPhoto.CameraList.create(out files);
-        if (refresh_result != GPhoto.Result.OK) {
-            warning("Unable to create file list: %s", refresh_result.to_full_string());
-            
-            return false;
-        }
-        
-        var list_files = new ListFiles(this, dcamera.gcamera, fulldir, null);
+                
+        var list_files = new ListFiles(this, context, dcamera.gcamera, fulldir, null);
         yield list_files.run(camera_workers);
         if (list_files.result != GPhoto.Result.OK) {
             warning("Unable to list files in %s: %s", fulldir, refresh_result.to_full_string());
@@ -1405,10 +1413,12 @@ public class ImportPage : CheckerboardPage {
             return true;
         }
         list_files.files.sort();
+        print("Got %d files\n", list_files.files.count());
 
-        for (int ctr = 0; ctr < files.count(); ctr++) {
+        for (int ctr = 0; ctr < list_files.files.count(); ctr++) {
             string filename;
-            refresh_result = files.get_name(ctr, out filename);
+            refresh_result = list_files.files.get_name(ctr, out filename);
+            print("Looking at %s\n", filename);
             if (refresh_result != GPhoto.Result.OK) {
                 warning("Unable to get the name of file %d in %s: %s", ctr, fulldir,
                     refresh_result.to_full_string());
@@ -1417,7 +1427,7 @@ public class ImportPage : CheckerboardPage {
             }
             
             try {
-                var info = new GetFileInfo(this, dcamera.gcamera, fulldir, filename, null);
+                var info = new GetFileInfo(this, context, dcamera.gcamera, fulldir, filename, null);
                 var result = yield info.run(camera_workers);
                 if (result != GPhoto.Result.OK) {
                     warning("Skipping import of %s/%s: name too long", fulldir, filename);
@@ -1455,7 +1465,6 @@ public class ImportPage : CheckerboardPage {
                 progress_bar.pulse();
                 
                 // spin the event loop so the UI doesn't freeze
-                spin_event_loop();
             } catch (Error err) {
                 warning("Error while enumerating files in %s: %s", fulldir, err.message);
                 
@@ -1495,7 +1504,7 @@ public class ImportPage : CheckerboardPage {
             if (subdir.has_prefix(".")) {
                 debug("Skipping hidden sub-folder %s in %s", subdir, dir);
             } else {
-                if (!yield enumerate_files(fsid, append_path(dir, subdir), import_list))
+                if (!yield enumerate_files(context, fsid, append_path(dir, subdir), import_list))
                     return false;
             }
         }
