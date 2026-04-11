@@ -113,6 +113,7 @@ public abstract class BackgroundJob : Object {
     protected BackgroundJob(Object? owner = null, CompletionCallback? callback = null,
         Cancellable? cancellable = null, CancellationCallback? cancellation = null,
         AbstractSemaphore? completion_semaphore = null) {
+        Object();
         this.owner = owner;
         this.callback = callback;
         this.cancellable = cancellable;
