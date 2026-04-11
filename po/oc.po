@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2026-03-30 18:25+0000\n"
-"PO-Revision-Date: 2026-04-11 11:53+0200\n"
+"PO-Revision-Date: 2026-04-11 11:56+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -923,13 +923,11 @@ msgstr "Se verai, lo títol de las fòtos es imprimit al moment de l’impressio
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "titles font"
-msgstr "poliça dels títols"
+msgstr "polissa dels títols"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:685
-#, fuzzy
-#| msgid "The name of the font to use for photo titles when they are printed."
 msgid "The name of the font to use for photo titles when they are printed"
-msgstr "Lo nom de la poliça d'utilizar pels títols de las fòtos al moment de lor impression."
+msgstr "Lo nom de la polissa d'utilizar pels títols de las fòtos al moment de lor impression."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:696
 msgid "enable flickr publishing plugin"
