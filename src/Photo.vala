@@ -18,6 +18,10 @@ public enum BackingFetchMode {
     UNMODIFIED
 }
 
+public errordomain PhotoError {
+    EXPORT_FAILED,
+  }
+
 public class PhotoImportParams {
     // IN:
     public File file;
@@ -3550,6 +3554,9 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             timer.start();
 #endif
             pixbuf = pixbuf.scale_simple(scaled_to_viewport.width, scaled_to_viewport.height, Gdk.InterpType.BILINEAR);
+            if (pixbuf == null) {
+                throw new PhotoError.EXPORT_FAILED("Scaling failed. Dimensions too large");
+            }
 #if MEASURE_PIPELINE
             scale_time = timer.elapsed();
 #endif
