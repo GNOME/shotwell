@@ -116,6 +116,8 @@ public class ExportDialog : Gtk.Dialog {
         ok_button = add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
 
+        response.connect(on_response);
+
         if (current_constraint == ScaleConstraint.ORIGINAL) {
             pixels_entry.sensitive = false;
             quality_combo.sensitive = false;
@@ -123,6 +125,13 @@ public class ExportDialog : Gtk.Dialog {
 
         ok_button.add_css_class("suggested-action");
         ok_button.grab_focus();
+    }
+
+    private void on_response(int res) {
+        // Prevent Dialog to close by "Enter" when the sanity check forbids it
+        if (res == Gtk.ResponseType.OK && !ok_button.sensitive) {
+            Signal.stop_emission_by_name(this, "response");
+        }
     }
 
     private void format_add_option(string format_name) {
