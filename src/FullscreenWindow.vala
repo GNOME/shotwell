@@ -256,7 +256,8 @@ public class FullscreenWindow : PageWindow {
     
     private void hide_toolbar() {
         // Save location of toolbar before hiding
-        toolbar.get_allocation(out toolbar_alloc);
+        toolbar_alloc.width = toolbar.get_width();
+        toolbar_alloc.height = toolbar.get_height();
         toolbar.set_visible(false);
         is_toolbar_shown = false;
     }

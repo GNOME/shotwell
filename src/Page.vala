@@ -918,8 +918,9 @@ public abstract class Page : Gtk.Box {
         if ((now_ms() - last_configure_ms) < CONSIDER_CONFIGURE_HALTED_MSEC)
             return true;
         
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
+        Gtk.Allocation allocation = Gtk.Allocation();
+        allocation.width = get_width();
+        allocation.height = get_height();
                 
         if (report_resize_finished)
             on_resize_finished((Gdk.Rectangle) allocation);

@@ -84,10 +84,8 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
             width = get_surface().get_width();
             height = get_surface().get_height();
         } else {
-            Gtk.Allocation allocation;
-            get_allocation (out allocation);
-            width = allocation.width;
-            height = allocation.height;
+            width = get_width();
+            height = get_height();
         }
         configure_event(width, height);
     }
