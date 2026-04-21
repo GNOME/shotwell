@@ -158,7 +158,6 @@ public class Application {
     private void on_show_folder(SimpleAction action, Variant? parameter) {
         if (parameter == null) {
             return;
-            launcher.launch.begin(AppWindow.get_instance(), null, null);
         }
 
         var launcher = new Gtk.FileLauncher(File.new_for_uri(parameter.get_string()));
