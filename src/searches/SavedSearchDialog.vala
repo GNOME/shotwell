@@ -59,7 +59,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box.margin_bottom = 2;
             box.margin_start = 8;
             box.margin_end = 8;
-            box.show();
+            box.set_visible(true);
         }
         
         private void on_type_changed() {
@@ -180,7 +180,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(text_context);
             box.append(entry);
-            box.show();
+            box.set_visible(true);
         }
         
         ~SearchRowText() {
@@ -219,13 +219,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private void on_changed() {
-            if (get_text_context() == SearchConditionText.Context.IS_NOT_SET
-                || get_text_context() == SearchConditionText.Context.IS_SET) {
-                entry.set_visible(false);
-            } else {
-                entry.set_visible(true);
-            }
-            
+            entry.set_visible(!is_complete());
+
             parent.changed(parent);
         }
     }
@@ -258,7 +253,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(media_context);
             box.append(media_type);
-            box.show();
+            box.set_visible(true);
         }
         
         ~SearchRowMediaType() {
@@ -322,7 +317,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(modified_context);
             box.append(modified_state);
-            box.show();
+            box.set_visible(true);
         }
         
         ~SearchRowModified() {
@@ -378,7 +373,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.append(new Gtk.Label(_("is")));
             box.append(flagged_state);
-            box.show();
+            box.set_visible(true);
         }
         
         ~SearchRowFlagged() {
@@ -448,7 +443,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box.append(new Gtk.Label(_("is")));
             box.append(rating);
             box.append(context);
-            box.show();
+            box.set_visible(true);
         }
         
         ~SearchRowRating() {
@@ -533,7 +528,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             box.append(and);
             box.append(label_two);
             
-            box.show();
+            box.set_visible(true);
             update_date_labels();
         }
         
@@ -546,9 +541,9 @@ public class SavedSearchDialog : Gtk.Dialog {
             
             // Only show "and" and 2nd date label for between mode.
             if (c == SearchConditionDate.Context.BETWEEN) {
-                label_one.show();
-                and.show();
-                label_two.show();
+                label_one.set_visible(true);
+                and.set_visible(true);
+                label_two.set_visible(true);
             } else if (c == SearchConditionDate.Context.IS_NOT_SET) {
                 label_one.set_visible(false);
                 and.set_visible(false);

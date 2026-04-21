@@ -176,7 +176,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         set_standard_window_mode();
         
-        show();
+        set_visible(true);
     }
     
     private static Spit.Publishing.Service[] load_all_services() {
@@ -306,7 +306,7 @@ public class PublishingDialog : Gtk.Dialog {
     private bool on_window_close() {
         host.stop_publishing();
         host = null;
-        hide();
+        set_visible(false);
         destroy();
         
         return true;
@@ -355,7 +355,7 @@ public class PublishingDialog : Gtk.Dialog {
         
         host.stop_publishing();
         host = null;
-        hide();
+        set_visible(false);
         destroy();
     }
     
@@ -422,7 +422,7 @@ public class PublishingDialog : Gtk.Dialog {
         }
 
         central_area_layouter.prepend(pane.get_widget());
-        show();
+        set_visible(true);
 
         Spit.Publishing.DialogPane.GeometryOptions geometry_options =
             pane.get_preferred_geometry();

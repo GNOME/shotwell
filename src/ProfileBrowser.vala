@@ -252,7 +252,7 @@ namespace Shotwell {
                     }
                     editor.destroy();
                 });
-                editor.set_visible(true);
+                editor.present();
             });
             append(group);
             set_visible(true);
