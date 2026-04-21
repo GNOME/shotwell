@@ -615,13 +615,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         int text_width, text_height;
         pango_layout.get_pixel_size(out text_width, out text_height);
         
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
+        Graphene.Rect rect;
+        compute_bounds(this, out rect);
+        rect.normalize();
         
-        int x = allocation.width - text_width;
+        int x = (int)rect.get_width() - text_width;
         x = (x > 0) ? x / 2 : 0;
         
-        int y = allocation.height - text_height;
+        int y = (int)rect.get_height() - text_height;
         y = (y > 0) ? y / 2 : 0;
         
         paint_text(pango_layout, x, y);

@@ -163,19 +163,16 @@ public class CheckerboardLayout : Gtk.Widget {
         Gtk.Requisition req;
         get_preferred_size(null, out req);
         
-        Gtk.Allocation parent_allocation;
-        parent.get_allocation(out parent_allocation);
-        
         // set the layout's new size to be the same as the parent's width but maintain
         // it's own height
 #if TRACE_REFLOW
         debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
-              size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
+              size_allocate_due_to_reflow.to_string(), parent.get_width(), req.height);
 #endif
         // But if the current height is 0, don't request a size yet. Delay
         // it to do_reflow (bgo#766864)
         if (req.height != 0) {
-            set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
+            set_size_request(parent.get_width() - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
         }
 
         // possible for this widget's size_allocate not to be called, so need to update the page
@@ -489,9 +486,6 @@ public class CheckerboardLayout : Gtk.Widget {
     public Gee.List<CheckerboardItem> intersection(Gdk.Rectangle area) {
         Gee.ArrayList<CheckerboardItem> intersects = new Gee.ArrayList<CheckerboardItem>();
         
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
         foreach (LayoutRow row in item_rows) {
             if (row == null)
@@ -511,7 +505,7 @@ public class CheckerboardLayout : Gtk.Widget {
             Gdk.Rectangle row_rect = Gdk.Rectangle();
             row_rect.x = 0;
             row_rect.y = row.y;
-            row_rect.width = allocation.width;
+            row_rect.width = get_width();
             row_rect.height = row.height;
             
             if (area.intersect(row_rect, out bitbucket)) {
@@ -610,20 +604,14 @@ public class CheckerboardLayout : Gtk.Widget {
     
     public void set_drag_select_origin(int x, int y) {
         clear_drag_select();
-        
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        
-        drag_origin.x = x.clamp(0, allocation.width);
-        drag_origin.y = y.clamp(0, allocation.height);
+                
+        drag_origin.x = x.clamp(0, get_width());
+        drag_origin.y = y.clamp(0, get_height());
     }
     
-    public void set_drag_select_endpoint(double x, double y) {
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        
-        drag_endpoint.x = (int) x.clamp(0, allocation.width);
-        drag_endpoint.y = (int) y.clamp(0, allocation.height);
+    public void set_drag_select_endpoint(double x, double y) {        
+        drag_endpoint.x = (int) x.clamp(0, get_width());
+        drag_endpoint.y = (int) y.clamp(0, get_height());
         
         // drag_origin and drag_endpoint are maintained only to generate selection_band; all reporting
         // and drawing functions refer to it, not drag_origin and drag_endpoint
@@ -727,11 +715,8 @@ public class CheckerboardLayout : Gtk.Widget {
     
     private void reflow(string caller) {
         reflow_needed = false;
-        
-        Gtk.Allocation allocation;
-        get_allocation(out allocation);
-        
-        int visible_width = (visible_page.width > 0) ? visible_page.width : allocation.width;
+
+        int visible_width = (visible_page.width > 0) ? visible_page.width : get_width();
         
 #if TRACE_REFLOW
         debug("reflow: Using visible page width of %d (allocated: %d)", visible_width,
@@ -1025,7 +1010,7 @@ public class CheckerboardLayout : Gtk.Widget {
         // Step 6: Define the total size of the page as the size of the visible width (to avoid
         // the horizontal scrollbar from appearing) and the height of all the items plus padding
         int total_height = y + row_heights[row] + BOTTOM_PADDING;
-        if (visible_width != allocation.width || total_height != allocation.height) {
+        if (visible_width != parent.get_width() || total_height != parent.get_height()) {
 #if TRACE_REFLOW
             debug("reflow %s: Changing layout dimensions from %dx%d to %dx%d", page_name, 
                 allocation.width, allocation.height, visible_width, total_height);

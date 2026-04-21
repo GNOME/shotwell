@@ -209,7 +209,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void set_time(DateTime time) {
-        calendar.select_day(time);
+        calendar.set_date(time);
         calendar.notify_property("year");
         calendar.notify_property("month");
 
