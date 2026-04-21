@@ -388,7 +388,7 @@ public abstract class AppWindow : PageWindow {
         // Need to call this before hide() otherwise we will always get 
         // the left-most monitor
         var monitor = get_display().get_monitor_at_surface(get_surface());
-        hide();
+        set_visible(false);
         
         FullscreenWindow fsw = new FullscreenWindow(page, monitor);
         
@@ -402,9 +402,7 @@ public abstract class AppWindow : PageWindow {
     public void end_fullscreen() {
         if (fullscreen_window == null)
             return;
-        
-        present();
-        
+                
         if (get_current_page() != null)
             get_current_page().returning_from_fullscreen(fullscreen_window);
         

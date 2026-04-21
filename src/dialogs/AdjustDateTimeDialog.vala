@@ -257,7 +257,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         int dialog_result = Gtk.ResponseType.CANCEL;
         SourceFunc execute_cb = execute.callback;
         response.connect((source, res) => {
-            hide();
+            set_visible(false);
 
             dialog_result = res;
             execute_cb();

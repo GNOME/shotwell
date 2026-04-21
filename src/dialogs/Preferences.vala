@@ -296,7 +296,7 @@ public class PreferencesDialog : Gtk.Dialog {
             preferences_dialog = new PreferencesDialog();
 
         preferences_dialog.populate_preference_options();
-        preferences_dialog.show();
+        preferences_dialog.present();
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
@@ -333,7 +333,7 @@ public class PreferencesDialog : Gtk.Dialog {
         if (!get_allow_closing())
             return;
 
-        hide();
+        set_visible(false);
         commit_on_close();
     }
 

@@ -119,7 +119,7 @@ public class ProgressDialog : Gtk.Window {
     }
 
     public new void close() {
-        hide();
+        set_visible(false);
         destroy();
     }
 

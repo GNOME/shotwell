@@ -142,7 +142,7 @@ public class WelcomeDialog : Gtk.Dialog {
         if (resp == Gtk.ResponseType.CLOSE) {
             ok_clicked = true;
         }
-        hide();
+        set_visible(false);
         loop.quit();
     }
 
