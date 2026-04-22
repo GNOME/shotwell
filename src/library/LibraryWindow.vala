@@ -1077,6 +1077,8 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.set_start_child(top_section);
         sidebar_paned.set_end_child(bottom_frame);
         sidebar_paned.set_position(700);
+        sidebar_paned.set_shrink_end_child(false);
+        sidebar_paned.set_resize_end_child(false);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_vbox.set_name("mainwindow-content");
@@ -1092,6 +1094,8 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.set_end_child(toast_host);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
+        client_paned.set_shrink_start_child(false);
+        client_paned.set_shrink_end_child(false);
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
         var scrolled = new Gtk.ScrolledWindow();
