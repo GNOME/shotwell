@@ -62,6 +62,7 @@ public abstract class CheckerboardPage : Page {
         layout.set_adjustments(scrolled.get_hadjustment(), scrolled.get_vadjustment());
 
         scrolled.set_child(stack);
+        ((Gtk.Viewport)scrolled.get_child()).set_scroll_to_focus(false);
 
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);
