@@ -584,14 +584,6 @@ public class CustomPrintTab : Gtk.Box {
         }
     }
 
-    private static bool standard_sizes_combo_separator_func(Gtk.TreeModel model,
-        Gtk.TreeIter iter) {
-        Value val;
-        model.get_value(iter, 0, out val);
-
-        return (val.get_string() == "-");
-    }
-
     private void set_content_layout(ContentLayout content_layout) {
         set_content_layout_control_state(content_layout);
         switch (content_layout) {
