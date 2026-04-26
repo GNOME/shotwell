@@ -63,7 +63,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.CheckButton transparent_solid_radio;
     [GtkChild]
-    private unowned Gtk.ColorButton transparent_solid_color;
+    private unowned Gtk.ColorDialogButton transparent_solid_color;
     [GtkChild]
     private unowned Gtk.CheckButton transparent_none_radio;
 
@@ -86,8 +86,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         Gdk.RGBA color = Gdk.RGBA();
         color.parse(Config.Facade.get_instance().get_transparent_background_color());
-        ((Gtk.ColorChooser) transparent_solid_color).rgba = color;
-        transparent_solid_color.color_set.connect(on_color_changed);
+        transparent_solid_color.rgba = color;
+        transparent_solid_color.notify["rgba"].connect(on_color_changed);
 
         switch (Config.Facade.get_instance().get_transparent_background_type()) {
             case "checkered":
@@ -201,8 +201,8 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_color_changed() {
-        var color = ((Gtk.ColorChooser) transparent_solid_color).rgba.to_string();
-        Config.Facade.get_instance().set_transparent_background_color(color);
+        var color = transparent_solid_color.get_rgba();
+        Config.Facade.get_instance().set_transparent_background_color(color.to_string());
     }
 
     // Ticket #3162, part II - if we're not yet installed, then we have to manually launch

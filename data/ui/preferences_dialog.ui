@@ -302,9 +302,14 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkColorButton" id="transparent_solid_color">
+                                  <object class="GtkColorDialogButton" id="transparent_solid_color">
                                     <property name="focusable">1</property>
                                     <property name="receives-default">1</property>
+                                    <property name="dialog">
+                                      <object class="GtkColorDialog">
+                                        <property name="with-alpha">0</property>
+                                      </object>
+                                    </property>
                                   </object>
                                 </child>
                               </object>
