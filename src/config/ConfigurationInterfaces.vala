@@ -82,6 +82,8 @@ public enum ConfigurableProperty {
     PRINTING_PRINT_TITLES,
     PRINTING_SIZE_SELECTION,
     PRINTING_TITLES_FONT,
+    PRINTING_SYSTEM_SETTINGS,
+    PRINTING_SYSTEM_PAGE_SETUP,
     RAW_DEVELOPER_DEFAULT,
     SHOW_WELCOME_DIALOG,
     SIDEBAR_POSITION,
@@ -283,6 +285,12 @@ public enum ConfigurableProperty {
                 
             case PRINTING_TITLES_FONT:
                 return "PRINTING_TITLES_FONT";
+
+            case PRINTING_SYSTEM_SETTINGS:
+                return "PRINTING_SYSTEM_SETTINGS";
+
+            case PRINTING_SYSTEM_PAGE_SETUP:
+                return "PRINTING_SYSTEM_PAGE_SETUP";
                 
             case RAW_DEVELOPER_DEFAULT:
                 return "RAW_DEVELOPER_DEFAULT";
@@ -339,6 +347,9 @@ public interface ConfigurationEngine : GLib.Object {
     
     public abstract double get_double_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_double_property(ConfigurableProperty p, double val) throws ConfigurationError;
+
+    public abstract void set_variant_property(ConfigurableProperty p, Variant v) throws ConfigurationError;
+    public abstract Variant get_variant_property(ConfigurableProperty p) throws ConfigurationError;
     
     public abstract bool get_plugin_bool(string domain, string id, string key, bool def);   
     public abstract void set_plugin_bool(string domain, string id, string key, bool val);
@@ -1652,6 +1663,51 @@ public abstract class ConfigurationFacade : Object {
         }
     }
 
+    //
+    // printing system settings
+    //
+    public virtual Gtk.PrintSettings get_printing_system_print_settings() {
+        try {
+            var value = get_engine().get_variant_property(ConfigurableProperty.PRINTING_SYSTEM_SETTINGS);
+            return new Gtk.PrintSettings.from_gvariant(value);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return new Gtk.PrintSettings();
+        }
+    }
+
+    public virtual void set_printing_system_print_settings(Gtk.PrintSettings settings) {
+        try {
+            var value = settings.to_gvariant();
+            get_engine().set_variant_property(ConfigurableProperty.PRINTING_SYSTEM_SETTINGS, value);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // printing page job settings
+    //
+    public virtual Gtk.PageSetup get_printing_system_page_setup() {
+        try {
+            var value = get_engine().get_variant_property(ConfigurableProperty.PRINTING_SYSTEM_PAGE_SETUP);
+            return new Gtk.PageSetup.from_gvariant(value);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return new Gtk.PageSetup();
+        }
+    }
+
+    public virtual void set_printing_system_page_setup(Gtk.PageSetup page_setup) {
+        try {
+            var value = page_setup.to_gvariant();
+            get_engine().set_variant_property(ConfigurableProperty.PRINTING_SYSTEM_PAGE_SETUP, value);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
     //
     // show welcome dialog
     //

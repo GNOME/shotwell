@@ -10,7 +10,7 @@ public enum ContentLayout {
     IMAGE_PER_PAGE
 }
 
-public class PrintSettings {
+public class ShotwellPrintSettings {
     public const int MIN_CONTENT_PPI = 72;    /* 72 ppi is the pixel resolution of a 14" VGA
                                                  display -- it's standard for historical reasons */
     public const int MAX_CONTENT_PPI = 1200;  /* 1200 ppi is appropriate for a 3600 dpi imagesetter
@@ -27,7 +27,7 @@ public class PrintSettings {
     private bool print_titles;
     private string print_titles_font;
 
-    public PrintSettings() {
+    public ShotwellPrintSettings() {
         Config.Facade config = Config.Facade.get_instance();
 
         MeasurementUnit units = (MeasurementUnit) config.get_printing_content_units();
@@ -644,8 +644,8 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private void set_content_ppi(int content_ppi) {
-        local_content_ppi = content_ppi.clamp(PrintSettings.MIN_CONTENT_PPI,
-            PrintSettings.MAX_CONTENT_PPI);
+        local_content_ppi = content_ppi.clamp(ShotwellPrintSettings.MIN_CONTENT_PPI,
+            ShotwellPrintSettings.MAX_CONTENT_PPI);
 
         ppi_entry.set_text("%d".printf(local_content_ppi));
     }
@@ -699,8 +699,8 @@ public class CustomPrintTab : Gtk.Box {
         return source_job;
     }
 
-    public PrintSettings get_local_settings() {
-        PrintSettings result = new PrintSettings();
+    public ShotwellPrintSettings get_local_settings() {
+        ShotwellPrintSettings result = new ShotwellPrintSettings();
 
         result.set_content_width(get_content_width());
         result.set_content_height(get_content_height());
@@ -717,11 +717,15 @@ public class CustomPrintTab : Gtk.Box {
 }
 
 public class PrintJob : Gtk.PrintOperation {
-    private PrintSettings settings;
+    private ShotwellPrintSettings settings;
     private Gee.ArrayList<Photo> photos = new Gee.ArrayList<Photo>();
     
     public PrintJob(Gee.Collection<Photo> to_print) {
         this.settings = PrintManager.get_instance().get_global_settings();
+        var facade = Config.Facade.get_instance();
+
+        this.set_print_settings(facade.get_printing_system_print_settings());
+
         photos.add_all(to_print);
         
         set_embed_page_setup (true);
@@ -743,11 +747,11 @@ public class PrintJob : Gtk.PrintOperation {
         return (aspect_ratio < 1.0) ? (1.0 / aspect_ratio) : aspect_ratio;
     }
 
-    public PrintSettings get_local_settings() {
+    public ShotwellPrintSettings get_local_settings() {
         return settings;
     }
 
-    public void set_local_settings(PrintSettings settings) {
+    public void set_local_settings(ShotwellPrintSettings settings) {
         this.settings = settings;
     }
 }
@@ -769,7 +773,7 @@ public class PrintManager {
     
     private static PrintManager instance = null;
     
-    private PrintSettings settings;
+    private ShotwellPrintSettings settings;
     private Gtk.PageSetup user_page_setup;
     private CustomPrintTab custom_tab;
     private ProgressDialog? progress_dialog = null;
@@ -777,8 +781,8 @@ public class PrintManager {
     private StandardPrintSize[] standard_sizes = null;
     
     private PrintManager() {
-        user_page_setup = new Gtk.PageSetup();
-        settings = new PrintSettings();
+        user_page_setup = Config.Facade.get_instance().get_printing_system_page_setup();
+        settings = new ShotwellPrintSettings();
     }
 
     public unowned StandardPrintSize[] get_standard_sizes() {
@@ -863,8 +867,11 @@ public class PrintManager {
         try {
             Gtk.PrintOperationResult result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
                 AppWindow.get_instance());
-            if (result == Gtk.PrintOperationResult.APPLY)
+            if (result == Gtk.PrintOperationResult.APPLY) {
                 user_page_setup = job.get_default_page_setup();
+                Config.Facade.get_instance().set_printing_system_print_settings(job.get_print_settings());
+                Config.Facade.get_instance().set_printing_system_page_setup(user_page_setup);
+            }
         } catch (Error e) {
             job.cancel();
             err_msg = e.message;
@@ -882,7 +889,6 @@ public class PrintManager {
 
     private void on_begin_print(Gtk.PrintOperation emitting_object, Gtk.PrintContext job_context) {
         debug("on_begin_print");
-        
         PrintJob job = (PrintJob) emitting_object;
         
         // cancel() can only be called from "begin-print", "paginate", or "draw-page"
@@ -1117,11 +1123,11 @@ public class PrintManager {
         return (Math.fabs(val1 - val2) <= accept_err);
     }
 
-    public PrintSettings get_global_settings() {
+    public ShotwellPrintSettings get_global_settings() {
         return settings;
     }
 
-    public void set_global_settings(PrintSettings settings) {
+    public void set_global_settings(ShotwellPrintSettings settings) {
         this.settings = settings;
         settings.save();
     }

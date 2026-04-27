@@ -684,6 +684,18 @@
         <summary>titles font</summary>
         <description>The name of the font to use for photo titles when they are printed</description>
     </key>
+
+    <key name="print-settings" type="a{sv}">
+        <default>@a{sv} {}</default>
+        <summary>Stored system printing settings</summary>
+        <description>The stored settings of the system print dialog</description>
+    </key>
+
+    <key name="page-settings" type="a{sv}">
+        <default>@a{sv} {}</default>
+        <summary>Stored page settings</summary>
+        <description>The stored settings of the print dialog page settings</description>
+    </key>
 </schema>
 
 <schema id="org.gnome.shotwell.plugins" path="/org/gnome/shotwell/plugins/" >
