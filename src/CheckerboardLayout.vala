@@ -110,6 +110,7 @@ public class CheckerboardLayout : Gtk.Widget {
     }
     
     ~CheckerboardLayout() {
+        rubber_band.unparent();
 #if TRACE_DTORS
         debug("DTOR: CheckerboardLayout for %s", view.to_string());
 #endif
