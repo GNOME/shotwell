@@ -32,6 +32,10 @@ public class Sidebar.Tree : Gtk.TreeView {
             
             return iter;
         }
+
+        public bool draggable() {
+            return entry.draggable();
+        }
     }
     
     private class RootWrapper : EntryWrapper {
@@ -52,12 +56,63 @@ public class Sidebar.Tree : Gtk.TreeView {
         N_COLUMNS
     }
     
-    private Gtk.TreeStore store = new Gtk.TreeStore(Columns.N_COLUMNS,
-        typeof (string),            // NAME
-        typeof (string?),           // TOOLTIP
-        typeof (EntryWrapper),      // WRAPPER
-        typeof (Icon?)             // ICON
-    );
+    private class TreeStore : Gtk.TreeStore, Gtk.TreeDragDest, Gtk.TreeDragSource {
+        public TreeStore() {
+            set_column_types({typeof(string), typeof(string?), typeof(EntryWrapper), typeof(Icon?)});
+        }
+        public bool row_draggable(Gtk.TreePath path) {
+            var wrapper = get_wrapper_at_path(path);
+            var draggable = wrapper.entry.draggable();
+            print("Can we drag this: %s?\n", draggable.to_string());
+            return draggable;
+        }
+
+        public Gdk.ContentProvider? drag_data_get(Gtk.TreePath path) {
+            print("I want the data!!\n");
+
+            var wrapper =  get_wrapper_at_path(path);
+
+            var provider = new Gdk.ContentProvider.for_value(wrapper);
+            print("%s\n", provider.ref_formats().to_string());
+
+            return provider;
+        }
+
+        public bool row_drop_possible(Gtk.TreePath dest, GLib.Value value) {
+            print("Can we actually drop here!??!\n");
+            return true;
+        }
+
+        public bool drag_data_received (Gtk.TreePath dest, GLib.Value value) {
+            print("Look, some data!: %s\n", value.type_name());
+
+            return false;
+        }
+
+        public EntryWrapper? get_wrapper_at_path(Gtk.TreePath path) {
+            Gtk.TreeIter iter;
+            if (!get_iter(out iter, path)) {
+                message("No entry found in sidebar at %s", path.to_string());
+            
+                return null;
+            }
+        
+            return get_wrapper_at_iter(iter);
+        }
+
+        public EntryWrapper? get_wrapper_at_iter(Gtk.TreeIter iter) {
+            Value val;
+            get_value(iter, Columns.WRAPPER, out val);
+            
+            EntryWrapper? wrapper = (EntryWrapper?) val;
+            if (wrapper == null)
+                message("No entry found in sidebar at %s", get_path(iter).to_string());
+            
+            return wrapper;
+        }        
+    }
+
+    private TreeStore store = new TreeStore();
     
     private Gtk.Builder builder = new Gtk.Builder ();
     private Gtk.CellRendererText text_renderer;
@@ -118,7 +173,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         set_headers_visible(false);
         set_enable_search(false);
         set_show_expanders(true);
-        set_reorderable(false);
         set_enable_tree_lines(false);
         set_grid_lines(Gtk.TreeViewGridLines.NONE);
         set_tooltip_column(Columns.TOOLTIP);
@@ -134,15 +188,15 @@ public class Sidebar.Tree : Gtk.TreeView {
         // Sidebar.Entry as it was added, but that's a tad too complicated for our needs
         // currently
         //enable_model_drag_dest(target_entries, actions);
+        var formats = new Gdk.ContentFormats.for_gtype(typeof(EntryWrapper));
+        enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, formats, Gdk.DragAction.COPY);
 
-        #if 0
-        Gtk.TargetEntry[] source_entries = new Gtk.TargetEntry[0];
-        source_entries += target_entries[LibraryWindow.TargetType.TAG_PATH];
-        enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, source_entries,
-            Gdk.DragAction.COPY);
-
-        this.drop_handler = drop_handler;
-        #endif
+        // FIXME: This is an ugly hack to force the TreeView to handle the hightlighting when
+        // doing an internal drag/drop, the actual drop is done by the drop target
+        enable_model_drag_dest(formats, Gdk.DragAction.COPY);
+        var target = new Gtk.DropTarget(typeof(EntryWrapper), Gdk.DragAction.COPY);
+        target.set_gtypes({typeof(EntryWrapper)});
+        add_controller(target);
 
         var click = new Gtk.GestureClick();
         click.set_name ("Sidebar Tree click source");
@@ -156,12 +210,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         add_controller(key);
 
         setup_default_context_menu();
-        
-        #if 0
-        drag_begin.connect(on_drag_begin);
-        drag_end.connect(on_drag_end);
-        drag_motion.connect(on_drag_motion);
-        #endif
     }
     
     ~Tree() {
@@ -188,33 +236,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         }
         renderer.visible = !(wrapper.entry is Sidebar.Header);
     }
-    
-    #if 0
-    private void on_drag_begin(Gdk.DragContext ctx) {
-        is_internal_drag_in_progress = true;
-    }
-    
-    private void on_drag_end(Gdk.DragContext ctx) {
-        is_internal_drag_in_progress = false;
-        internal_drag_source_entry = null;
-    }
-    
-    private bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time_) {
-        if (is_internal_drag_in_progress && internal_drag_source_entry == null) {
-            Gtk.TreePath? path;
-            Gtk.TreeViewDropPosition position;
-            get_dest_row_at_pos(x, y, out path, out position);
-            
-            if (path != null) {
-                EntryWrapper wrapper = get_wrapper_at_path(path);
-                if (wrapper != null)
-                    internal_drag_source_entry = wrapper.entry;
-            }
-        }
-        
-        return false;
-    }
-    #endif
 
     private const GLib.ActionEntry[] entries = {
         { "tag.new", on_new_tag },
@@ -250,25 +271,11 @@ public class Sidebar.Tree : Gtk.TreeView {
     }
     
     private EntryWrapper? get_wrapper_at_iter(Gtk.TreeIter iter) {
-        Value val;
-        store.get_value(iter, Columns.WRAPPER, out val);
-        
-        EntryWrapper? wrapper = (EntryWrapper?) val;
-        if (wrapper == null)
-            message("No entry found in sidebar at %s", store.get_path(iter).to_string());
-        
-        return wrapper;
+        return store.get_wrapper_at_iter(iter);
     }
     
     private EntryWrapper? get_wrapper_at_path(Gtk.TreePath path) {
-        Gtk.TreeIter iter;
-        if (!store.get_iter(out iter, path)) {
-            message("No entry found in sidebar at %s", path.to_string());
-            
-            return null;
-        }
-        
-        return get_wrapper_at_iter(iter);
+        return store.get_wrapper_at_path(path);
     }
     
     // Note that this method will result in the "entry-selected" signal to fire if mask_signal
@@ -1045,111 +1052,43 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         return true;
     }
-
-#if 0
-    public override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
-        uint info, uint time) {
-        InternalDragSourceEntry? drag_source = null;
-        
-        if (internal_drag_source_entry != null) {
-            Sidebar.SelectableEntry selectable =
-                internal_drag_source_entry as Sidebar.SelectableEntry;
-            if (selectable == null) {
-                drag_source = internal_drag_source_entry as InternalDragSourceEntry;
-            }
-        }
-        
-        if (drag_source == null) {
-            Gtk.TreePath? selected_path = get_selected_path();
-            if (selected_path == null)
-                return;
-
-            EntryWrapper? wrapper = get_wrapper_at_path(selected_path);
-            if (wrapper == null)
-                return;
-            
-            drag_source = wrapper.entry as InternalDragSourceEntry;
-            if (drag_source == null)
-                return;
-        }
-        
-        drag_source.prepare_selection_data(selection_data);
-    }
     
-    public override void drag_data_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time) {
+    public bool on_drop(Gtk.DropTarget target, Value value, double x, double y) {
         
         Gtk.TreePath path;
         Gtk.TreeViewDropPosition pos;
-        if (!get_dest_row_at_pos(x, y, out path, out pos)) {
-            // If an external drop, hand it off to the handler
-            if (Gtk.drag_get_source_widget(context) == null)
-                drop_handler(context, null, selection_data, info, time);
-            else
-                Gtk.drag_finish(context, false, false, time);
-            
-            return;
+        if (!get_dest_row_at_pos((int)x, (int)y, out path, out pos)) {
+            return false;
         }
         
         // Note that a drop outside a sidebar entry is legal if an external drop.
         EntryWrapper? wrapper = get_wrapper_at_path(path);
         
-        // If an external drop, hand it off to the handler
-        if (Gtk.drag_get_source_widget(context) == null) {
-            drop_handler(context, (wrapper != null) ? wrapper.entry : null, selection_data,
-                info, time);
-            
-            return;
-        }
-        
         // An internal drop only applies to DropTargetEntry's
         if (wrapper == null) {
-            Gtk.drag_finish(context, false, false, time);
-            
-            return;
+            return false;
         }
         
-        Sidebar.InternalDropTargetEntry? targetable = wrapper.entry as Sidebar.InternalDropTargetEntry;
-        if (targetable == null) {
-            Gtk.drag_finish(context, false, false, time);
-            
-            return;
+        if (!(wrapper.entry is Sidebar.InternalDropTargetEntry)) {
+            return false;
         }
-        
+
+        var targetable = (Sidebar.InternalDropTargetEntry)wrapper.entry;
+
         bool success = false;
         
-        if (selection_data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
-            success = targetable.internal_drop_received_arbitrary(selection_data);
+        if (value.holds(typeof(EntryWrapper))) {
+            var source_wrapper = (EntryWrapper)value.get_object();
+            success = targetable.internal_drop_received_arbitrary(source_wrapper.entry);
         } else {
-            Gee.List<MediaSource>? media = unserialize_media_sources(selection_data.get_data(),
-                selection_data.get_length());
-            if (media != null && media.size > 0)
-                success = targetable.internal_drop_received(media);
+            Gee.List<MediaSource>? media = null;
+            // FIXME: Need to transport that list of media sources somehow
+            success = targetable.internal_drop_received(media);
         }
         
-        Gtk.drag_finish(context, success, false, time);
+        return success;
     }
 
-    public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
-        // call the base signal to get rows with children to spring open
-        base.drag_motion(context, x, y, time);
-
-        Gtk.TreePath path;
-        Gtk.TreeViewDropPosition pos;
-        bool has_dest = get_dest_row_at_pos(x, y, out path, out pos);
-        
-        // we don't want to insert between rows, only select the rows themselves
-        if (!has_dest || pos == Gtk.TreeViewDropPosition.BEFORE)
-            set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_BEFORE);
-        else if (pos == Gtk.TreeViewDropPosition.AFTER)
-            set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_AFTER);
-        
-        Gdk.drag_status(context, context.get_suggested_action(), time);
-        
-        return has_dest;
-    }
-    #endif
-    
     // Returns true if path is renameable, and selects the path as well.
     private bool can_rename_path(Gtk.TreePath path) {
         if (editing_disabled > 0)

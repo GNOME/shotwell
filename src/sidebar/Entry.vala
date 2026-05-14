@@ -22,6 +22,10 @@ public interface Sidebar.Entry : Object {
     
     internal virtual void pruned(Sidebar.Tree tree) {
     }
+
+    internal virtual bool draggable() {
+        return false;
+    }
 }
 
 public interface Sidebar.ExpandableEntry : Sidebar.Entry {
@@ -65,13 +69,7 @@ public interface Sidebar.DestroyableEntry : Sidebar.Entry {
 public interface Sidebar.InternalDropTargetEntry : Sidebar.Entry {
     // Returns true if drop was successful
     public abstract bool internal_drop_received(Gee.List<MediaSource> sources);
-    #if 0
-    public abstract bool internal_drop_received_arbitrary(Gtk.SelectionData data);
-    #endif
+    public abstract bool internal_drop_received_arbitrary(Sidebar.Entry source_entry);
+    
 }
 
-#if 0
-public interface Sidebar.InternalDragSourceEntry : Sidebar.Entry {
-    public abstract void prepare_selection_data(Gtk.SelectionData data);
-}
-#endif

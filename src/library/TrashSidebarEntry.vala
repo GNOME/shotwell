@@ -45,11 +45,10 @@ public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Intern
         return true;
     }
 
-#if DOES_NOT_WORK_WITH_GTK4
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+    public bool internal_drop_received_arbitrary(Sidebar.Entry source_entry) {
+        // FIXME: One could actually use this to delete tags and such
         return false;
     }
-    #endif
 
     protected override Page create_page() {
         return new TrashPage();

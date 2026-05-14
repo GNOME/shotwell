@@ -88,7 +88,7 @@ public class Faces.Grouping : Sidebar.Header {
     }
 }
 
-public class Faces.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
+public class Faces.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry {
     private static string single_face_icon = Resources.ICON_ONE_FACE;
     
@@ -107,7 +107,7 @@ public class Faces.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEnt
     public Face for_face() {
         return face;
     }
-    
+
     public bool is_user_renameable() {
         return true;
     }

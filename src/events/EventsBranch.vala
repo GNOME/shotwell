@@ -508,11 +508,9 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return true;
     }
     
-    #if 0
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+    public bool internal_drop_received_arbitrary(Sidebar.Entry source_entry) {
         return false;
     }
-    #endif
 }
 
 

@@ -73,7 +73,9 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         drag_source.drag_cancel.connect ((source_origin, drag, reason) => {
             return false;
         });
-        ((Gtk.Widget)this).add_controller(drag_source);
+
+        // This should live on the content widget, not the whole application
+        //((Gtk.Widget)this).add_controller(drag_source);
         // for drag and drop END
     }
 
