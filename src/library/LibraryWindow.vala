@@ -1072,7 +1072,6 @@ public class LibraryWindow : AppWindow {
 
         sidebar_paned.set_start_child(top_section);
         sidebar_paned.set_end_child(bottom_frame);
-        sidebar_paned.set_position(700);
         sidebar_paned.set_shrink_end_child(false);
         sidebar_paned.set_resize_end_child(false);
         
