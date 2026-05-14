@@ -129,10 +129,9 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
         this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
-        print("\t%p\n", this.context_menu.get_parent());
     }
 
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AddTagsDialog dialog = new AddTagsDialog();
         dialog.execute.begin((source, res) => {
             string[]? tags = dialog.execute.end(res);
@@ -144,36 +143,36 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
         return true;
     }
 
-#if 0
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
-        if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
-            string old_tag_path = (string) data.get_data();
-            assert (Tag.global.exists(old_tag_path));
-
-            // if this is already a top-level tag, do a short-circuit return
-            if (HierarchicalTagUtilities.enumerate_path_components(old_tag_path).size < 2)
-                return true;
-
-            AppWindow.get_command_manager().execute(
-                new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
-            
-            return true;
+    public bool internal_drop_received_arbitrary(Sidebar.Entry entry) {
+        if (!(entry is Tags.SidebarEntry)) {
+            return false;
         }
+
+        var tag_entry = (Tags.SidebarEntry) entry;
+        var old_tag_path = tag_entry.for_tag().get_path();
+
+        if (!Tag.global.exists(old_tag_path)) {
+            warning ("Tag at path does not exist");
+            return false;
+        }
+
+        // if this is already a top-level tag, do a short-circuit return
+        if (HierarchicalTagUtilities.enumerate_path_components(old_tag_path).size < 2)
+            return true;
+
+        AppWindow.get_command_manager().execute(
+            new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
         
-        return false;
+        return true;
     }
     
-    public void prepare_selection_data(Gtk.SelectionData data) {
-        ;
-    }
-    #endif
 
     public Gtk.PopoverMenu? get_sidebar_context_menu() {
         return context_menu;
     }
 }
 
-public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
+public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry
      {
     private string single_tag_icon = Resources.ICON_ONE_TAG;
@@ -188,6 +187,10 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     internal static void terminate() {
+    }
+
+    public override bool draggable() {
+        return true;
     }
     
     public Tag for_tag() {
@@ -234,56 +237,61 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         });
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new TagUntagPhotosCommand(tag, media, media.size,
             true));
         
         return true;
     }
 
-#if 0
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
-        if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
-            string old_tag_path = (string) data.get_data();
 
-            // if we're dragging onto ourself, it's a no-op
-            if (old_tag_path == tag.get_path())
+    public bool internal_drop_received_arbitrary(Sidebar.Entry entry) {
+        print("Got drop on %s\n", tag.get_path());
+
+        if (!(entry is Tags.SidebarEntry)) {
+            return false;
+        }
+
+        print("Drag source was a Tag entry, good.\n");
+
+        var tag_entry = (Tags.SidebarEntry) entry;
+        var old_tag_path = tag_entry.for_tag().get_path();
+
+        // This should be prevented by the drag & drop mechanics
+        if (old_tag_path == tag.get_path()) {
+            print("We're dragging to ourselves...\n");
+            return true;
+        }
+
+        // if we're dragging onto one of our children, it's a no-op
+        foreach (var parent_path in HierarchicalTagUtilities.enumerate_parent_paths(tag.get_path())) {
+            if (parent_path == old_tag_path) {
+                print("We're dragging on top of one of our children\n");
                 return true;
-
-            // if we're dragging onto one of our children, it's a no-op
-            foreach (string parent_path in HierarchicalTagUtilities.enumerate_parent_paths(tag.get_path())) {
-                if (parent_path == old_tag_path)
-                    return true;
             }
+        }
 
-            assert (Tag.global.exists(old_tag_path));
-            
-            // if we're dragging onto our parent, it's a no-op
-            Tag old_tag = Tag.for_path(old_tag_path);
-            Tag old_tag_parent = old_tag.get_hierarchical_parent();
-            if (old_tag_parent != null && old_tag_parent.get_path() == tag.get_path())
-                return true;
-            
-            AppWindow.get_command_manager().execute(
-                new ReparentTagCommand(old_tag, tag.get_path()));
-            
+        if (!Tag.global.exists(old_tag_path)) {
+            print ("Tag at path does not exist");
+            return false;
+        }
+
+        // if we're dragging onto our parent, it's a no-op
+        Tag old_tag = Tag.for_path(old_tag_path);
+        Tag old_tag_parent = old_tag.get_hierarchical_parent();
+        if (old_tag_parent != null && old_tag_parent.get_path() == tag.get_path()) {
+            print("Dragging on top of our own parent, ignoring");
             return true;
         }
         
-        return false;
+        AppWindow.get_command_manager().execute(
+            new ReparentTagCommand(old_tag, tag.get_path()));
+        
+        return true;
     }
-    #endif
 
     public bool expand_on_select() {
         return false;
     }
-
-
-#if 0
-    public void prepare_selection_data(Gtk.SelectionData data) {
-        data.set(Gdk.Atom.intern_static_string(LibraryWindow.TAG_PATH_MIME_TYPE), 0,
-            tag.get_path().data);
-    }
-    #endif
 }
 

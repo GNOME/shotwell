@@ -203,6 +203,7 @@ executable(
         'Dialogs.vala',
         'Resources.vala',
         'Debug.vala',
+        'DragAndDropHandler.vala',
         'Properties.vala',
         'Event.vala',
         'International.vala',

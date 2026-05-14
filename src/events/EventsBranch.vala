@@ -496,7 +496,7 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
             AppWindow.get_command_manager().execute(new RenameEventCommand(event, prepped));
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         // ugh ... some early Commands expected DataViews instead of DataSources (to make life
         // easier for Pages) and this is one of the prices paid for that
         Gee.ArrayList<DataView> views = new Gee.ArrayList<DataView>();
@@ -508,11 +508,9 @@ public class Events.EventEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return true;
     }
     
-    #if 0
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+    public bool internal_drop_received_arbitrary(Sidebar.Entry source_entry) {
         return false;
     }
-    #endif
 }
 
 

@@ -29,18 +29,16 @@ public class Library.FlaggedSidebarEntry : Library.HideablePageEntry, Sidebar.In
         return new FlaggedPage();
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new FlagUnflagCommand(media, true));
         
         return true;
     }
     
 
-#if 0
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+    public bool internal_drop_received_arbitrary(Sidebar.Entry source_entry) {
         return false;
     }
-#endif
 
     private void on_flagged_contents_altered() {
         visible = (get_total_flagged() != 0);

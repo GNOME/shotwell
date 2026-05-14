@@ -39,17 +39,16 @@ public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Intern
         return Resources.ICON_TRASH_EMPTY;
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new TrashUntrashPhotosCommand(media, true));
         
         return true;
     }
 
-#if DOES_NOT_WORK_WITH_GTK4
-    public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
+    public bool internal_drop_received_arbitrary(Sidebar.Entry source_entry) {
+        // FIXME: One could actually use this to delete tags and such
         return false;
     }
-    #endif
 
     protected override Page create_page() {
         return new TrashPage();
