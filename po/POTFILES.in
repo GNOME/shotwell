@@ -80,9 +80,6 @@ src/camera/ImportPage.vala
 src/CheckerboardPage.vala
 src/CollectionPage.vala
 src/Commands.vala
-src/data_imports/DataImportsPluginHost.vala
-src/data_imports/DataImportsUI.vala
-src/data_imports/DataImports.vala
 src/db/DatabaseTable.vala
 src/DesktopIntegration.vala
 src/dialogs/AdjustDateTimeDialog.vala

@@ -41,9 +41,6 @@ src/camera/ImportPage.c
 src/CheckerboardPage.c
 src/CollectionPage.c
 src/Commands.c
-src/data_imports/DataImports.c
-src/data_imports/DataImportsPluginHost.c
-src/data_imports/DataImportsUI.c
 src/db/DatabaseTable.c
 src/DesktopIntegration.c
 src/dialogs/AdjustDateTimeDialog.c
