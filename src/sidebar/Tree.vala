@@ -63,29 +63,20 @@ public class Sidebar.Tree : Gtk.TreeView {
         public bool row_draggable(Gtk.TreePath path) {
             var wrapper = get_wrapper_at_path(path);
             var draggable = wrapper.entry.draggable();
-            print("Can we drag this: %s?\n", draggable.to_string());
             return draggable;
         }
 
         public Gdk.ContentProvider? drag_data_get(Gtk.TreePath path) {
-            print("I want the data!!\n");
-
             var wrapper =  get_wrapper_at_path(path);
-
             var provider = new Gdk.ContentProvider.for_value(wrapper);
-            print("%s\n", provider.ref_formats().to_string());
-
             return provider;
         }
 
         public bool row_drop_possible(Gtk.TreePath dest, GLib.Value value) {
-            print("Can we actually drop here!??!\n");
             return true;
         }
 
         public bool drag_data_received (Gtk.TreePath dest, GLib.Value value) {
-            print("Look, some data!: %s\n", value.type_name());
-
             return false;
         }
 
@@ -116,7 +107,6 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     private Gtk.Builder builder = new Gtk.Builder ();
     private Gtk.CellRendererText text_renderer;
-    //private unowned ExternalDropHandler drop_handler;
     private Gtk.Entry? text_entry = null;
     private Gee.HashMap<Sidebar.Entry, EntryWrapper> entry_map =
         new Gee.HashMap<Sidebar.Entry, EntryWrapper>();
