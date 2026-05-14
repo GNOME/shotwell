@@ -141,7 +141,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     private ZoomSliderAssembly? connected_slider = null;
-    //private DragAndDropHandler dnd_handler = null;
+    private DragAndDropHandler dnd_handler = null;
     private MediaViewTracker tracker;
     
     protected MediaPage(string page_name) {
@@ -164,7 +164,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().thaw_notifications();
 
         // enable drag-and-drop export of media
-        //TODO dnd_handler = new DragAndDropHandler(this);
+        dnd_handler = new DragAndDropHandler(this);
     }
    
     private static int compute_zoom_scale_increase(int current_scale) {

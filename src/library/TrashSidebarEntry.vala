@@ -39,7 +39,7 @@ public class Library.TrashSidebarEntry : Sidebar.SimplePageEntry, Sidebar.Intern
         return Resources.ICON_TRASH_EMPTY;
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new TrashUntrashPhotosCommand(media, true));
         
         return true;

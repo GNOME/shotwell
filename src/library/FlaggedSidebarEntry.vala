@@ -29,7 +29,7 @@ public class Library.FlaggedSidebarEntry : Library.HideablePageEntry, Sidebar.In
         return new FlaggedPage();
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new FlagUnflagCommand(media, true));
         
         return true;

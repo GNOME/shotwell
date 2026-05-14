@@ -44,9 +44,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache master_cache = null;
-    #if 0
     private DragAndDropHandler dnd_handler = null;
-    #endif
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
     private bool is_pan_in_progress = false;
@@ -278,8 +276,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.set_container(container);
         
         // DnD not available in fullscreen mode
-        //if (!(container is FullscreenWindow))
-          //  dnd_handler = new DragAndDropHandler(this);
+        if (!(container is FullscreenWindow))
+          dnd_handler = new DragAndDropHandler(this);
     }
     
     public ViewCollection? get_parent_view() {

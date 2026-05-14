@@ -193,9 +193,13 @@ public class Sidebar.Tree : Gtk.TreeView {
 
         // FIXME: This is an ugly hack to force the TreeView to handle the hightlighting when
         // doing an internal drag/drop, the actual drop is done by the drop target
-        enable_model_drag_dest(formats, Gdk.DragAction.COPY);
-        var target = new Gtk.DropTarget(typeof(EntryWrapper), Gdk.DragAction.COPY);
-        target.set_gtypes({typeof(EntryWrapper)});
+        var builder = new Gdk.ContentFormatsBuilder();
+        builder.add_gtype(typeof(EntryWrapper));
+        builder.add_gtype(typeof(DragAndDropHandler.MediaListWrapper));
+        enable_model_drag_dest(builder.to_formats(), Gdk.DragAction.COPY);
+        var target = new Gtk.DropTarget(Type.NONE, Gdk.DragAction.COPY);
+        target.set_gtypes({typeof(EntryWrapper), typeof(DragAndDropHandler.MediaListWrapper)});
+        target.drop.connect(on_drop);
         add_controller(target);
 
         var click = new Gtk.GestureClick();
@@ -1079,14 +1083,15 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         if (value.holds(typeof(EntryWrapper))) {
             var source_wrapper = (EntryWrapper)value.get_object();
-            success = targetable.internal_drop_received_arbitrary(source_wrapper.entry);
-        } else {
-            Gee.List<MediaSource>? media = null;
-            // FIXME: Need to transport that list of media sources somehow
-            success = targetable.internal_drop_received(media);
+            return targetable.internal_drop_received_arbitrary(source_wrapper.entry);
         }
         
-        return success;
+        if (value.holds(typeof(DragAndDropHandler.MediaListWrapper))) {
+            var media = ((DragAndDropHandler.MediaListWrapper)value.get_object()).unwrap();
+            return targetable.internal_drop_received(media);
+        }
+        
+        return false;
     }
 
     // Returns true if path is renameable, and selects the path as well.

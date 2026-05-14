@@ -131,7 +131,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
         this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
     }
 
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AddTagsDialog dialog = new AddTagsDialog();
         dialog.execute.begin((source, res) => {
             string[]? tags = dialog.execute.end(res);
@@ -237,7 +237,7 @@ public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar
         });
     }
     
-    public bool internal_drop_received(Gee.List<MediaSource> media) {
+    public bool internal_drop_received(Gee.Collection<MediaSource> media) {
         AppWindow.get_command_manager().execute(new TagUntagPhotosCommand(tag, media, media.size,
             true));
         
