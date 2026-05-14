@@ -184,19 +184,6 @@ public class LibraryWindow : AppWindow {
             media_sources.items_altered.connect(on_media_altered);
         }
         
-        #if DOES_NOT_WORK_WITH_GTK4
-        // set up main window as a drag-and-drop destination (rather than each page; assume
-        // a drag and drop is for general library import, which means it goes to library_page)
-        Gtk.TargetEntry[] main_window_dnd_targets = {
-            DND_TARGET_ENTRIES[TargetType.URI_LIST],
-            DND_TARGET_ENTRIES[TargetType.MEDIA_LIST]
-            /* the main window accepts URI lists and media lists but not tag paths -- yet; we
-               might wish to support dropping tags onto photos at some future point */
-        };
-        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, main_window_dnd_targets,
-            Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
-            #endif
-        
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         
         LibraryMonitor? monitor = LibraryMonitorPool.get_instance().get_monitor();
@@ -212,6 +199,13 @@ public class LibraryWindow : AppWindow {
         // by the menu
         const string[] accels = { "<Primary>f", "F8", null };
         Application.set_accels_for_action("win.CommonDisplaySearchbar", accels);
+
+
+        // Drop target for import through drag and drop
+        var drop_target = new Gtk.DropTargetAsync(new Gdk.ContentFormats.for_gtype(typeof(Gdk.FileList)),
+                Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
+        drop_target.drop.connect (on_drop); 
+        ((Gtk.Widget)this).add_controller(drop_target);
     }
 
     ~LibraryWindow() {
@@ -238,7 +232,7 @@ public class LibraryWindow : AppWindow {
         
         CameraTable.get_instance().camera_added.disconnect(on_camera_added);
     }
-    
+
     private void on_library_monitor_installed(LibraryMonitor monitor) {
         debug("on_library_monitor_installed: %s", monitor.get_root().get_path());
         
@@ -843,39 +837,39 @@ public class LibraryWindow : AppWindow {
     #endif
     
 
-    #if 0
-    public override void drag_data_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time) {
-        if (selection_data.get_data().length < 0)
-            debug("failed to retrieve SelectionData");
-        
-        // If an external drop, piggyback on the sidebar ExternalDropHandler, otherwise it's an
-        // internal drop, which isn't handled by the main window
-        if (Gtk.drag_get_source_widget(context) == null)
-            external_drop_handler(context, null, selection_data, info, time);
-        else
-            Gtk.drag_finish(context, false, false, time);
+    private bool on_drop(Gtk.DropTargetAsync drop_target, Gdk.Drop drop, double x, double y) {
+        external_drop_handler.begin(drop_target, drop);
+
+        return true;
+    }
+
+    private class FileListModelWrapper : Object, ListModel {
+        Gdk.FileList list;
+        SList<weak File> files;
+
+        public FileListModelWrapper(Gdk.FileList list) {
+            Object();
+            this.list = list;
+            this.files = list.get_files();
+        }
+
+		public GLib.Object? get_item (uint position) {
+            return position < this.files.length() ? this.files.nth_data(position) : null;
+        }
+		public GLib.Type get_item_type () {
+            return typeof(File);
+        }
+		public uint get_n_items () {
+            return files.length();
+        }
     }
     
-    private void external_drop_handler(Gdk.DragContext context, Sidebar.Entry? entry,
-        Gtk.SelectionData data, uint info, uint time) {
-        string[] uris_array = data.get_uris();
-        
-        GLib.SList<string> uris = new GLib.SList<string>();
-        foreach (string uri in uris_array)
-            uris.append(uri);
-        
-        Gdk.DragAction selected_action = context.get_selected_action();
-        if (selected_action == Gdk.DragAction.ASK) {
+    private async void external_drop_handler(Gtk.DropTargetAsync drop_target, Gdk.Drop drop) {
+        var selected_action = drop.get_actions();
+
+        if (selected_action == Gdk.DragAction.ASK || !selected_action.is_unique()) {
             // Default action is to link, unless one or more URIs are external to the library
-            Gtk.ResponseType result = Gtk.ResponseType.REJECT;
-            foreach (string uri in uris) {
-                if (!AppDirs.is_in_import_dir(File.new_for_uri(uri))) {
-                    result = copy_files_dialog();
-                    
-                    break;
-                }
-            }
+            var result = yield copy_files_dialog();
             
             switch (result) {
                 case Gtk.ResponseType.ACCEPT:
@@ -887,18 +881,20 @@ public class LibraryWindow : AppWindow {
                 break;
                 
                 default:
-                    // cancelled
-                    Gtk.drag_finish(context, false, false, time);
-                    
                     return;
             }
         }
-        
-        dispatch_import_jobs(uris, "drag-and-drop", selected_action == Gdk.DragAction.COPY, true);
-        
-        Gtk.drag_finish(context, true, false, time);
+        try {
+            var value = yield drop.read_value_async(typeof(Gdk.FileList), Priority.DEFAULT, null);
+            var file_list = (Gdk.FileList)value.get_boxed();
+            
+            yield dispatch_import_jobs(new FileListModelWrapper(file_list), "drag-and-drop", selected_action == Gdk.DragAction.COPY, true);
+            drop.finish(selected_action);
+        } catch (Error err) {
+            warning("Failed to read the drop data: %s", err.message);
+            drop.finish(Gdk.DragAction.NONE);
+        }
     }
-    #endif
     
     public void switch_to_library_page() {
         switch_to_page(library_branch.photos_entry.get_page());
