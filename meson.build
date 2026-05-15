@@ -1,5 +1,5 @@
 project('shotwell', ['vala', 'c'],
-        version : '33.alpha',
+        version : '33.alpha.2',
         meson_version : '>= 0.59.0',
         default_options : ['buildtype=debugoptimized'])
 
@@ -56,7 +56,7 @@ add_global_arguments(['-DHAVE_CONFIG_H=1'],
 add_global_arguments(disabled_warning_flags, language: 'c')
 add_global_arguments(
     [
-        '--target-glib=2.78',
+        '--target-glib=2.88',
         '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
         '--enable-checking',
         '--enable-experimental',
@@ -77,9 +77,9 @@ endif
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
-gtk = dependency('gtk4', version : '>= 4.10')
-gio = dependency('gio-2.0', version: '>= 2.78')
-gmodule = dependency('gmodule-2.0', version: '>= 2.78')
+gtk = dependency('gtk4', version : '>= 4.22')
+gio = dependency('gio-2.0', version: '>= 2.88')
+gmodule = dependency('gmodule-2.0', version: '>= 2.88')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
 soup = dependency('libsoup-3.0')
 json_glib = dependency('json-glib-1.0')

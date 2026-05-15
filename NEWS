@@ -1,3 +1,113 @@
+Shotwell 33.alpha.2
+===================
+
+Changes in dependencies:
+ * GExiv2 >= 0.16.0
+ * GTK4 >= 4.22
+
+Other changes:
+ * Forward-port of bugfixes from stable branch
+ * Rename Appdata -> Metainfo
+ * Introduce Toasts to replace simple dialogs
+ * Add support for opening URIs with the viewer
+ * Translation updates
+ * Fix image oversion jumping to top on first use
+ * Remove loads of deprecated GTK api where possible
+ * Remove deprecated calls to GExiv2
+ * Remove import from application infrastructure
+ * Fix missing default menu on sidebar
+ * Fix showing help when running from build folder
+ * Re-add all drag and drop based features
+ * "Asyncify" a lot of functions
+ * Clean up stray debug output left all over the code
+ 
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/83
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/181
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/207
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/209
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/319
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/339
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4894
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5095
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5150
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5154
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5157
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5159
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5160
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5161
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5173
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5174
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5180
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/106
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/105
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/104
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/100
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/98
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/96
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/95
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - luzpaz <luzpaz@pm.me>
+ - Jordi Mas <jmas@softcatala.org>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Марко Костић <marko.m.kostic@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Martin <miles@filmsi.net>
+ - Álvaro Burns <ahoradocafezinho@gmail.com>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Daniel Rusek <mail@asciiwolf.com>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - AsciiWolf <mail@asciiwolf.com>
+ - Artur S0 <arturios05@bk.ru>
+ - Luming Zh <lumingzh@qq.com>
+ - Alan Mortensen <oversaet@proton.me>
+ - Sergej A. <asvmail.as@gmail.com>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - luming zh <lumingzh@qq.com>
+ - Asier Saratsua Garmendia <asiersarasua@ni.eus>
+ - Efstathios Iosifidis <eiosifidis@gnome.org>
+ - Sabri Ünal <137977-yakushabb@users.noreply.gitlab.gnome.org>
+ - Jake Dane <jakedane@mailcan.com>
+ - Nathan Follens <nfollens@gnome.org>
+ - BoF ButterflyOfFire <butterflyoffire@protonmail.com>
+ - Sabri Ünal <yakushabb@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+ - Yaron Shahrabani <sh.yaron@gmail.com>
+
+Added/updated translations:
+ - ca.po, courtesy of Jaume Jorba
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - pt_BR.po, courtesy of Álvaro Burns
+ - sr.po, courtesy of Марко Костић
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Daniel Rusek
+ - da.po, courtesy of Alan Mortensen
+ - el.po, courtesy of Tom Tryfonidis
+ - eu.po, courtesy of Asier Saratsua Garmendia
+ - he.po, courtesy of Yaron Shahrabani
+ - hu.po, courtesy of Balázs Úr
+ - ka.po, courtesy of Ekaterine Papava
+ - kab.po, courtesy of ButterflyOfFire
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - lt.po, courtesy of Aurimas Černius
+ - nl.po, courtesy of Nathan Follens
+ - pt_BR.po, courtesy of Álvaro Burns
+ - ru.po, courtesy of Ser82-png
+ - sl.po, courtesy of Martin Srebotnjak
+ - sr.po, courtesy of Мирослав Николић
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+ - zh_CN.po, courtesy of lumingzh
+
 Shotwell 33.alpha - 27 Jan 2025
  * Port to GTK4
 
