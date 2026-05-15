@@ -106,7 +106,10 @@ public abstract class PhotoFileWriter : PhotoFileAdapter {
         return get_file_format().create_reader(get_filepath());
     }
     
+    [Version (deprecated="true")]
     public abstract void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error;
+
+    public abstract async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error;
 }
 
 //

@@ -522,6 +522,12 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             null, null);
     }
 
+    public async void export_async(File dest_file, int io_priority, Cancellable? cancellable) throws Error {
+        File source_file = File.new_for_path(get_filename());
+        yield source_file.copy_async (dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS,
+            io_priority, cancellable, null);
+    }
+
     public double get_clip_duration() {
         lock (backing_row) {
             return backing_row.clip_duration;

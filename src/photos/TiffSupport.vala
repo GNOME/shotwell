@@ -139,6 +139,13 @@ private class TiffWriter : PhotoFileWriter {
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
         pixbuf.save(get_filepath(), "tiff", "compression", COMPRESSION_LZW);
     }
+
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        var file = File.new_for_path(get_filepath());
+        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
+        yield pixbuf.save_to_stream_async(os, "tiff", cancellable, "compression", COMPRESSION_LZW, null);
+    }
+
 }
 
 private class TiffMetadataWriter : PhotoFileMetadataWriter {
