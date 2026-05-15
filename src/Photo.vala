@@ -3620,6 +3620,81 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
+    private async bool export_fullsized_backing_async(File file, bool export_metadata = true, int io_priority = Priority.DEFAULT, GLib.Cancellable? cancellable = null) throws Error {
+        // See if the native reader supports writing ... if no matches, need to fall back
+        // on a "regular" export, which requires decoding then encoding
+        PhotoFileReader export_reader = null;
+        bool is_master = true;
+        lock (readers) {
+            if (readers.editable != null && readers.editable.get_file_format().can_write_metadata()) {
+                export_reader = readers.editable;
+                is_master = false;
+            } else if (readers.developer != null && readers.developer.get_file_format().can_write_metadata()) {
+                export_reader = readers.developer;
+                is_master = false;
+            } else if (readers.master.get_file_format().can_write_metadata()) {
+                export_reader = readers.master;
+            }
+        }
+        
+        if (export_reader == null)
+            return false;
+        
+        PhotoFileFormatProperties format_properties = export_reader.get_file_format().get_properties();
+        
+        // Build a destination file with the caller's name but the appropriate extension
+        File dest_file = format_properties.convert_file_extension(file);
+        
+        // Create a PhotoFileMetadataWriter that matches the PhotoFileReader's file format
+        PhotoFileMetadataWriter writer = export_reader.get_file_format().create_metadata_writer(
+            dest_file.get_path());
+        
+        debug("Exporting full-sized copy of %s to %s", to_string(), writer.get_filepath());
+        
+        yield export_reader.get_file().copy_async(dest_file, 
+            FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS, io_priority, cancellable, null);
+
+        // If asking for an full-sized file and there are no alterations (transformations or EXIF)
+        // *and* this is a copy of the original backing *and* there's no user metadata or title *and* metadata should be exported, then done
+        if (!has_alterations() && is_master && !has_user_generated_metadata() &&
+            (get_title() == null) && (get_comment() == null) && export_metadata)
+            return true;
+        
+        // copy over relevant metadata if possible, otherwise generate new metadata
+        PhotoMetadata? metadata = export_reader.read_metadata();
+        if (metadata == null)
+            metadata = export_reader.get_file_format().create_metadata();
+        
+        debug("Updating metadata of %s", writer.get_filepath());
+        
+        if (get_exposure_time() != null)
+            metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
+        else
+            metadata.set_exposure_date_time(null);
+        
+        if(export_metadata) {
+            //set metadata
+            metadata.set_title(get_title());
+            metadata.set_comment(get_comment());
+            metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
+            metadata.set_orientation(get_orientation());
+            metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+        
+            if (get_orientation() != get_original_orientation())
+                metadata.remove_exif_thumbnail();
+
+            set_user_metadata_for_export(metadata);
+        }
+        else
+            //delete metadata
+            metadata.clear();
+
+        writer.write_metadata(metadata);
+        
+        return true;
+    }
+
+    [Version (deprecated="true")]
     private bool export_fullsized_backing(File file, bool export_metadata = true) throws Error {
         // See if the native reader supports writing ... if no matches, need to fall back
         // on a "regular" export, which requires decoding then encoding
@@ -3705,6 +3780,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     //
     // This method is thread-safe.
+    [Version (deprecated="true")]
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
         PhotoFileFormat export_format, bool direct_copy_unmodified = false, bool export_metadata = true) throws Error {
         if (direct_copy_unmodified) {
@@ -3797,6 +3873,98 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);
     }
     
+    public async void export_async(File dest_file, Scaling scaling, Jpeg.Quality quality,
+        PhotoFileFormat export_format, int io_priority, GLib.Cancellable? cancellable, bool direct_copy_unmodified = false, bool export_metadata = true) throws Error {
+        if (direct_copy_unmodified) {
+            yield get_master_file().copy_async(dest_file, FileCopyFlags.OVERWRITE |
+                FileCopyFlags.TARGET_DEFAULT_PERMS, io_priority, cancellable, null);
+            return;
+        }
+
+        // Attempt to avoid decode/encoding cycle when exporting original-sized photos for lossy
+        // formats, as that degrades image quality. If alterations exist, but only EXIF has
+        // changed and the user hasn't requested conversion between image formats, then just copy
+        // the original file and update relevant EXIF.
+        if (scaling.is_unscaled() && (!has_alterations() || only_metadata_changed()) &&
+            (export_format == get_file_format()) && (get_file_format() == PhotoFileFormat.JFIF)) {
+            if (yield export_fullsized_backing_async(dest_file, export_metadata, io_priority, cancellable))
+                return;
+        }
+
+        // Copy over existing metadata from source if available, or create new metadata and 
+        // save it for later export below.  This has to happen before the format writer writes
+        // out the modified image, as that write will strip the existing exif data.
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata == null)
+            metadata = export_format.create_metadata();       
+
+        if (!export_format.can_write_image())
+            export_format = PhotoFileFormat.get_system_default_format();
+
+        PhotoFileWriter writer = export_format.create_writer(dest_file.get_path());
+
+        debug("Saving transformed version of %s to %s in file format %s", to_string(),
+            writer.get_filepath(), export_format.to_string());
+        
+        Gdk.Pixbuf pixbuf;
+        
+        // Since JPEGs can store their own orientation, we save the pixels
+        // directly and let the orientation field do the rotation...
+        if ((get_file_format() == PhotoFileFormat.JFIF) || 
+            (get_file_format() == PhotoFileFormat.RAW)) {
+            pixbuf = get_pixbuf_with_options(scaling, Exception.ORIENTATION,
+                BackingFetchMode.SOURCE);
+        } else {
+            // Non-JPEG image - we'll need to save the rotated pixels.
+            pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
+                BackingFetchMode.SOURCE);
+        }
+        
+        yield writer.write_async(pixbuf, quality, io_priority, cancellable);
+        
+        debug("Setting EXIF for %s", writer.get_filepath());
+        
+        // Do we need to save metadata to this file?
+        if (export_metadata) {
+            //Yes, set metadata obtained above.
+            metadata.set_title(get_title());
+            metadata.set_comment(get_comment());
+            metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+            
+            if (get_exposure_time() != null)
+                metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
+            else
+                metadata.set_exposure_date_time(null);
+            
+            metadata.remove_tag("Exif.Iop.RelatedImageWidth");
+            metadata.remove_tag("Exif.Iop.RelatedImageHeight");
+            metadata.remove_exif_thumbnail();
+            
+            if (has_user_generated_metadata())
+                set_user_metadata_for_export(metadata);
+        }
+        else {
+            //No, delete metadata.
+            metadata.clear();
+        }
+        
+        // Even if we were told to trash camera-identifying data, we need
+        // to make sure the orientation propagates. Also, because JPEGs
+        // can store their own orientation, we'll save the original dimensions
+        // directly and let the orientation field do the rotation there.
+        if ((get_file_format() == PhotoFileFormat.JFIF) || 
+            (get_file_format() == PhotoFileFormat.RAW)) {
+            metadata.set_pixel_dimensions(get_dimensions(Exception.ORIENTATION));
+            metadata.set_orientation(get_orientation());
+        } else {
+            // Non-JPEG image - we'll need to save the rotated dimensions.
+            metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
+            metadata.set_orientation(Orientation.TOP_LEFT);
+        }
+        
+        export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);        
+    }
+
     private File generate_new_editable_file(out PhotoFileFormat file_format) throws Error {
         File backing;
         lock (row) {

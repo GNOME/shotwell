@@ -196,6 +196,18 @@ public class JfifWriter : PhotoFileWriter {
             pixbuf.save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
         }
     }
+
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        var file = File.new_for_path(get_filepath());
+        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
+        var output = pixbuf;
+        if (pixbuf.has_alpha) {
+            output = apply_alpha_channel(pixbuf);
+        }        
+        
+        yield output.save_to_stream_async(os, "jpeg", cancellable, "quality", quality.get_pct_text(), cancellable);
+    }
+
 }
 
 public class JfifMetadataWriter : PhotoFileMetadataWriter {

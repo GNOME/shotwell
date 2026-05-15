@@ -81,6 +81,12 @@ public class AvifWriter : PhotoFileWriter {
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
         pixbuf.save(get_filepath(), "avif", "quality", quality.get_pct_text(), null);
     }
+
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        var file = File.new_for_path(get_filepath());
+        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
+        yield pixbuf.save_to_stream_async(os, "avif", cancellable, "quality", quality.get_pct_text(), null);
+    }
 }
 
 public class AvifMetadataWriter : PhotoFileMetadataWriter {
