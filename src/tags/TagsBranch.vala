@@ -163,8 +163,10 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
         AppWindow.get_command_manager().execute(
             new ReparentTagCommand(Tag.for_path(old_tag_path), "/"));
 
+            
+        var new_path = "/" + HierarchicalTagUtilities.enumerate_path_components(old_tag_path).last();            
         var lw = (LibraryWindow)AppWindow.get_instance();
-        lw.switch_to_tag(tag);
+        lw.switch_to_tag(Tag.for_path(new_path));
 
         return true;
     }
@@ -283,9 +285,9 @@ public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar
         
         AppWindow.get_command_manager().execute(
             new ReparentTagCommand(old_tag, tag.get_path()));
-            
+        var new_path = tag.get_path() + HierarchicalTagUtilities.enumerate_path_components(old_tag_path).last();
         var lw = (LibraryWindow)AppWindow.get_instance();
-        lw.switch_to_tag(tag);
+        lw.switch_to_tag(Tag.for_path(new_path));
         
         return true;
     }
