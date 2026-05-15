@@ -438,7 +438,6 @@ public abstract class CheckerboardItem : ThumbnailView {
     protected virtual void paint_border(Gtk.Snapshot snapshot, Gdk.RGBA color, Dimensions object_dimensions,
         Gdk.Point object_origin, int border_width) {
         if (border_width == 1) {
-            print("Simple boarder\n");
             var border_rect = Graphene.Rect();
             border_rect.init(object_origin.x - border_width, object_origin.y - border_width,
                 object_dimensions.width + (border_width * 2),

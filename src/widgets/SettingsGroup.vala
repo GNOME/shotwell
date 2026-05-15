@@ -35,7 +35,6 @@ public class Shotwell.SettingsGroup : Gtk.Box {
         label = new Gtk.Label(null);
         bind_property("subtitle", label, "label", GLib.BindingFlags.SYNC_CREATE);
         bind_property("subtitle", label, "visible", GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-            print("%s\n", from.get_string());
             to = from.get_string() != null && from.get_string() != "";
 
             return true;

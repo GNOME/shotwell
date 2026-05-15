@@ -181,7 +181,6 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
-        print("=>>>>>>>>>>>>> Theme variant changes to %s", switch_dark.active.to_string());
         var config = Config.Facade.get_instance();
         config.set_gtk_theme_variant(switch_dark.active);
 

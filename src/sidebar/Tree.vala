@@ -1068,8 +1068,6 @@ public class Sidebar.Tree : Gtk.TreeView {
 
         var targetable = (Sidebar.InternalDropTargetEntry)wrapper.entry;
 
-        bool success = false;
-        
         if (value.holds(typeof(EntryWrapper))) {
             var source_wrapper = (EntryWrapper)value.get_object();
             return targetable.internal_drop_received_arbitrary(source_wrapper.entry);

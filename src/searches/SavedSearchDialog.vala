@@ -63,7 +63,6 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private void on_type_changed() {
-            print("Search type changes\n");
             set_type(get_search_type());
             changed(this);
         }

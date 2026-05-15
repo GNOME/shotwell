@@ -271,7 +271,6 @@ public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar
         }
 
         if (!Tag.global.exists(old_tag_path)) {
-            print ("Tag at path does not exist");
             return false;
         }
 

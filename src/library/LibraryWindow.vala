@@ -43,23 +43,6 @@ public class LibraryWindow : AppWindow {
         FACES,
         TAGS
     }
-    
-    public enum TargetType {
-        URI_LIST,
-        MEDIA_LIST,
-        TAG_PATH
-    }
-    
-    public const string TAG_PATH_MIME_TYPE = "shotwell/tag-path";
-    public const string MEDIA_LIST_MIME_TYPE = "shotwell/media-id-atom";
-    
-    #if 0
-    public const Gtk.TargetEntry[] DND_TARGET_ENTRIES = {
-        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
-        { MEDIA_LIST_MIME_TYPE, Gtk.TargetFlags.SAME_APP, TargetType.MEDIA_LIST },
-        { TAG_PATH_MIME_TYPE, Gtk.TargetFlags.SAME_WIDGET, TargetType.TAG_PATH }
-    };
-    #endif
 
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
     // esp. regarding when the widget is realized and when it should first try and throw them image
@@ -123,9 +106,6 @@ public class LibraryWindow : AppWindow {
     
     private bool is_search_toolbar_visible = false;
     
-    // Want to instantiate this in the constructor rather than here because the search bar has its
-    // own UIManager which will suck up the accelerators, and we want them to be associated with
-    // AppWindows instead.
     private SearchFilterActions search_actions = new SearchFilterActions();
     private Gtk.Revealer search_toolbar;
     

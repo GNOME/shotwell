@@ -403,7 +403,6 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-        print("On_App_key_pressed: %s\n", Gdk.keyval_name(keyval));
         bool handled = true;
         string? format = null; // Workaround for missing annotation
         switch (Gdk.keyval_name(keyval)) {

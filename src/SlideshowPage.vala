@@ -64,7 +64,6 @@ class SlideshowPage : SinglePhotoPage {
                 TransitionEffectsManager.NULL_EFFECT_ID);
             var model = new Gtk.StringList({});
             model.append(null_display_name);
-            print("Stored effect ID: %s\n", effect_id);
             var selected_id = 0;
             
             int i = 1;

@@ -53,7 +53,6 @@ namespace Shotwell {
             this.bind_property("button_text", button, "label", GLib.BindingFlags.DEFAULT);
             this.bind_property("action", button, "visible", GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
                 to = from.get_string() != "";
-                print("%s %s".printf(from.get_string(), (from.get_string() != "").to_string()));
 
                 return true;
             });
