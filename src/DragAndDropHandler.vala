@@ -48,7 +48,13 @@ public class DragAndDropHandler {
             return new Gdk.ContentFormats({"text/uri-list"});
         }
 
-        public async string? serialize_for_dnd(MediaSource source, int io_priority, Cancellable? cancellable) throws Error {
+        private async string? serialize_for_dnd(MediaSource source, int io_priority, Cancellable? cancellable) throws Error {
+            string basename;
+            string extension;
+
+            disassemble_filename(source.get_basename(), out basename, out extension);
+            var file = AppDirs.get_temp_dir().get_child("dnd-%s.%s".printf(GLib.Uuid.string_random(), extension));            
+
             if (source is LibraryPhoto) {
 
                 // Shortcut. If we do not have anything changed on it, just pass on the original URI
@@ -57,21 +63,11 @@ public class DragAndDropHandler {
                     return photo.get_master_file().get_uri();
                 }
 
-                string basename;
-                string extension;
-
-                disassemble_filename(source.get_basename(), out basename, out extension);
-                var file = AppDirs.get_temp_dir().get_child("dnd-%s.%s".printf(GLib.Uuid.string_random(), extension));
                 yield photo.export_async(file, Scaling.for_original(), Jpeg.Quality.MAXIMUM, photo.get_file_format(), io_priority, cancellable);
                 this.serialized_files.add(file);
 
                 return file.get_uri();
             } else if (source is Video) {
-                string basename;
-                string extension;
-
-                disassemble_filename(source.get_basename(), out basename, out extension);
-                var file = AppDirs.get_temp_dir().get_child("dnd-%s.%s".printf(GLib.Uuid.string_random(), extension));
                 var video = (Video)source;
                 yield video.export_async(file, io_priority, cancellable);
             } else {
@@ -115,8 +111,6 @@ public class DragAndDropHandler {
 
         drag_source.drag_begin.connect(on_drag_begin);
         drag_source.prepare.connect(on_drag_prepare);
-        drag_source.drag_cancel.connect(on_drag_cancel);
-
 
         // attach to the event source's DnD signals, not the Page's, which is a NO_WINDOW widget
         // and does not emit them
@@ -143,11 +137,6 @@ public class DragAndDropHandler {
         } catch (Error err) {
             warning("Unable to fetch icon for drag-and-drop from %s: %s", thumb.to_string(), err.message);
         }
-    }
-
-    private bool on_drag_cancel(Gtk.DragSource source, Gdk.Drag drag, Gdk.DragCancelReason reason) {
-        print("Drag was cancelled : %s\n", reason.to_string());
-        return false;
     }
 
     private Gdk.ContentProvider? on_drag_prepare(Gtk.DragSource source, double x, double y) {

@@ -246,27 +246,21 @@ public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar
 
 
     public bool internal_drop_received_arbitrary(Sidebar.Entry entry) {
-        print("Got drop on %s\n", tag.get_path());
-
         if (!(entry is Tags.SidebarEntry)) {
             return false;
         }
-
-        print("Drag source was a Tag entry, good.\n");
 
         var tag_entry = (Tags.SidebarEntry) entry;
         var old_tag_path = tag_entry.for_tag().get_path();
 
         // This should be prevented by the drag & drop mechanics
         if (old_tag_path == tag.get_path()) {
-            print("We're dragging to ourselves...\n");
             return true;
         }
 
         // if we're dragging onto one of our children, it's a no-op
         foreach (var parent_path in HierarchicalTagUtilities.enumerate_parent_paths(tag.get_path())) {
             if (parent_path == old_tag_path) {
-                print("We're dragging on top of one of our children\n");
                 return true;
             }
         }
@@ -280,7 +274,6 @@ public class Tags.SidebarEntry : Sidebar.Entry, Sidebar.SimplePageEntry, Sidebar
         Tag old_tag = Tag.for_path(old_tag_path);
         Tag old_tag_parent = old_tag.get_hierarchical_parent();
         if (old_tag_parent != null && old_tag_parent.get_path() == tag.get_path()) {
-            print("Dragging on top of our own parent, ignoring");
             return true;
         }
         
