@@ -177,7 +177,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         // It Would Be Nice if the target entries and actions were gleaned by querying each 
         // Sidebar.Entry as it was added, but that's a tad too complicated for our needs
         // currently
-        //enable_model_drag_dest(target_entries, actions);
         var formats = new Gdk.ContentFormats.for_gtype(typeof(EntryWrapper));
         enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK, formats, Gdk.DragAction.COPY);
 
@@ -1047,7 +1046,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         return true;
     }
     
-    public bool on_drop(Gtk.DropTarget target, Value value, double x, double y) {
+    private bool on_drop(Gtk.DropTarget target, Value value, double x, double y) {
         
         Gtk.TreePath path;
         Gtk.TreeViewDropPosition pos;

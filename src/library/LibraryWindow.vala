@@ -204,7 +204,8 @@ public class LibraryWindow : AppWindow {
         // Drop target for import through drag and drop
         var drop_target = new Gtk.DropTargetAsync(new Gdk.ContentFormats.for_gtype(typeof(Gdk.FileList)),
                 Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
-        drop_target.drop.connect (on_drop); 
+        drop_target.drop.connect (on_drop);
+        drop_target.accept.connect (on_accept_drop);
         ((Gtk.Widget)this).add_controller(drop_target);
     }
 
@@ -840,6 +841,15 @@ public class LibraryWindow : AppWindow {
     private bool on_drop(Gtk.DropTargetAsync drop_target, Gdk.Drop drop, double x, double y) {
         external_drop_handler.begin(drop_target, drop);
 
+        return true;
+    }
+
+    private bool on_accept_drop(Gtk.DropTargetAsync drop_target, Gdk.Drop drop) {
+        if (drop.get_formats().contain_gtype(typeof(DragAndDropHandler.MediaListWrapper))) {
+            debug ("This drop is our own drop, will not accept");
+            return false;
+        }
+        
         return true;
     }
 
