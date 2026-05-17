@@ -135,7 +135,11 @@ src/photos/WebPSupport.vala
 src/Photo.vala
 src/plugins/ManifestWidget.vala
 src/plugins/SpitInterfaces.vala
-src/Printing.vala
+src/printing/Job.vala
+src/printing/Manager.vala
+src/printing/Measurement.vala
+src/printing/Preview.vala
+src/printing/Settings.vala
 src/ProfileBrowser.vala
 src/Profiles.vala
 src/Properties.vala
