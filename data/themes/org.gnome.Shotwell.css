@@ -7,3 +7,19 @@ label.map-attribution {
 }
 
 .shotwell-plain-link { padding: 0px; }
+
+.shotwell-print-preview {
+    background-color: @theme_bg_color;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 16px;
+}
+
+/* HACKHACKHACK: Remove the buttons from a spinbutton */
+spinbutton#print-preview-current-page button {
+	min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    opacity: 0;
+}

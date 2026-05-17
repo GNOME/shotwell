@@ -2,9 +2,20 @@
 // SPDX-FileCopyrightText: 2016 Software Freedom Convervancy Inc.
 
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/printing_widget.ui")]
-public class CustomPrintTab : Gtk.Box {
+public class PrintPreview : Gtk.Window {
+
+    public enum Result {
+        PRINT,
+        BACK,
+        CANCEL,
+        UNDEFINED,
+    }
+
     private const int INCHES_COMBO_CHOICE = 0;
     private const int CENTIMETERS_COMBO_CHOICE = 1;
+    private const int SCREEN_PPI = 72;
+
+    public int current_page {get; set; default = 1;}
 
     [GtkChild]
     private unowned Gtk.CheckButton standard_size_radio;
@@ -23,13 +34,36 @@ public class CustomPrintTab : Gtk.Box {
     [GtkChild]
     private unowned Gtk.Entry custom_height_entry;
     [GtkChild]
-    private unowned Gtk.Entry ppi_entry;
+    private unowned Gtk.SpinButton ppi_entry;
     [GtkChild]
-    private unowned Gtk.CheckButton aspect_ratio_check;
+    private unowned Gtk.ToggleButton aspect_ratio_check;
     [GtkChild]
     private unowned Gtk.CheckButton title_print_check;
     [GtkChild]
-    private unowned Gtk.FontButton title_print_font;
+    private unowned Gtk.FontDialogButton title_print_font;
+    [GtkChild]
+    private unowned Gtk.DrawingArea preview;
+    [GtkChild]
+    private unowned Gtk.Label pages;
+    [GtkChild]
+    private unowned Gtk.Button next_page;
+    [GtkChild]
+    private unowned Gtk.Button prev_page;
+    [GtkChild]
+    private unowned Gtk.Button first_page;
+    [GtkChild]
+    private unowned Gtk.Button last_page;
+    [GtkChild]
+    private unowned Gtk.Button btn_back;
+    [GtkChild]
+    private unowned Gtk.Button btn_print;
+    [GtkChild]
+    private unowned Gtk.EventControllerKey event_ctrl_key;
+    [GtkChild]
+    private unowned Gtk.SpinButton lbl_current_page;
+
+
+    private unowned PrintManager manager;
 
     private Measurement local_content_width = Measurement(5.0, MeasurementUnit.INCHES);
     private Measurement local_content_height = Measurement(5.0, MeasurementUnit.INCHES);
@@ -37,26 +71,58 @@ public class CustomPrintTab : Gtk.Box {
     private bool is_text_insertion_in_progress = false;
     private PrintJob source_job;
 
-    public CustomPrintTab(PrintJob source_job) {
+    private SourceFunc? run_callback = null;
+    private Result run_result = Result.UNDEFINED;
+
+    public PrintPreview(Gtk.Window parent, PrintJob source_job, PrintManager manager) {
+        Object();
+
         this.source_job = source_job;
+        this.manager = manager;
+        
+        set_transient_for(parent);
+        sync_state_from_job(source_job);
+
+        btn_back.clicked.connect(on_back_clicked);
+        btn_print.clicked.connect(on_print_clicked);
+        event_ctrl_key.key_pressed.connect(on_key_pressed);
 
         standard_size_radio.toggled.connect(on_radio_group_click);
         custom_size_radio.toggled.connect(on_radio_group_click);
         image_per_page_radio.toggled.connect(on_radio_group_click);
+        pages.label = " / %d".printf(source_job.n_pages);
 
+        first_page.clicked.connect(on_first_page);
+        prev_page.clicked.connect(on_prev_page);
+        next_page.clicked.connect(on_next_page);
+        last_page.clicked.connect(on_last_page);
+
+        // Technically, force-relayout does too much here, but that's better than to duplicate 99% of the code
+        title_print_check.toggled.connect(force_relayout);
+        title_print_font.notify["font-desc"].connect(force_relayout);
+   
+        // Limit the entry to the maximum number of pages we can have + one order of magnitude for some space
+        lbl_current_page.max_width_chars = (int)Math.ceil(Math.log10(source_job.get_photos().size)) + 1;
+        lbl_current_page.set_range(1, source_job.n_pages);
+        lbl_current_page.value_changed.connect_after(on_page_value_changed);
+        bind_property("current_page", lbl_current_page, "value", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+
+        image_per_page_combo.notify["selected-item"].connect(force_relayout);
         var model = (Gtk.StringList)image_per_page_combo.model;
         foreach (PrintLayout layout in PrintLayout.get_all()) {
             model.append(layout.to_string());
         }
 
-        unowned StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
+        unowned StandardPrintSize[] standard_sizes = manager.get_standard_sizes();
         model = (Gtk.StringList)standard_sizes_combo.model;
-        //standard_sizes_combo.set_row_separator_func(standard_sizes_combo_separator_func);
         foreach (StandardPrintSize size in standard_sizes) {
             model.append(size.name);
         }
 
         standard_sizes_combo.set_selected(9 * Resources.get_default_measurement_unit());
+        standard_sizes_combo.notify["selected-item"].connect(force_relayout);
+ 
+        var page_setup = source_job.page_setup;
 
         var focus = new Gtk.EventControllerFocus();
         focus.leave.connect(on_width_entry_focus_out);
@@ -71,25 +137,127 @@ public class CustomPrintTab : Gtk.Box {
         units_combo.notify["selected-item"].connect(on_units_combo_changed);
         units_combo.set_selected(Resources.get_default_measurement_unit());
 
-        ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
-        focus = new Gtk.EventControllerFocus();
-        focus.leave.connect(on_ppi_entry_focus_out);
-        ppi_entry.add_controller(focus);
-
-        sync_state_from_job(source_job);
-
-        set_visible(true);
+        image_per_page_combo.notify["selected-item"].connect(force_relayout);
 
         /* connect this signal after state is sync'd */
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);
+
+        source_job.relayout_images();
+        print("Orientation: %s\n", page_setup.get_orientation().to_string());;
+        double page_width = page_setup.get_page_width(Gtk.Unit.POINTS);
+        double page_height = page_setup.get_page_height(Gtk.Unit.POINTS);
+
+        preview.set_content_height((int)(page_height));
+        print(">content_height: %d %d\n", (int)page_height, (int) page_width);
+        preview.set_content_width((int)(page_width));
+        preview.set_visible(true);
+        preview.set_draw_func(preview_draw_func);
+        on_page_value_changed();
+    }
+
+    private void on_first_page() {
+        lbl_current_page.value = 1;
+    }
+
+    private void on_next_page() {
+        lbl_current_page.value++;
+    }
+
+    private void on_prev_page() {
+        lbl_current_page.value--;
+    }
+
+    private void on_last_page() {
+        lbl_current_page.value = source_job.n_pages;
+    }
+
+    private void preview_draw_func(Gtk.DrawingArea da, Cairo.Context ctx, int w, int h) {
+        var page_setup = source_job.page_setup;
+        // Force the on-screen rendering to 72ppi 
+        // FIXME: Need to fix for scaled displays as well
+        var ppi = source_job.get_local_settings().get_content_ppi();
+        source_job.get_local_settings().set_content_ppi(SCREEN_PPI);
+        double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
+        double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
+        double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
+        double right = page_setup.get_right_margin(Gtk.Unit.POINTS);
+        draw_margins(ctx, w, h);
+        ctx.save();
+        ctx.translate(left, top);
+        ctx.rectangle(0, 0, w - left - right, h - top - bottom);
+        ctx.clip();
+        double inv_dpi = 1.0 / SCREEN_PPI;
+        source_job.draw_page(ctx, current_page - 1, (w - left - right) * inv_dpi, (h - top - bottom) * inv_dpi);
+        ctx.restore();
+        source_job.get_local_settings().set_content_ppi(ppi);
+    }
+
+    public async Result run() {
+        run_callback = run.callback;
+        present();
+        yield;
+
+        return run_result;
+    }
+
+    private void draw_margins(Cairo.Context ctx, double w, double h) {
+        var page_setup = source_job.page_setup;
+
+        double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
+        double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
+        double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
+        double right = page_setup.get_right_margin(Gtk.Unit.POINTS);
+        ctx.save();
+        ctx.set_source_rgb(1.0, 1.0, 1.0);
+        ctx.rectangle(0, 0, w, h);
+        ctx.fill();
+        ctx.set_source_rgb(0.0, 0.0, 0.0);
+        ctx.rectangle(0, 0, w, h);
+        ctx.stroke();
+
+        ctx.set_line_width(1.0);
+        ctx.set_source_rgba(0.4, 0.7, 1.0, 0.8);
+        double[] dashes = {2.0};
+        ctx.set_dash(dashes, 0);
+
+        // top-left marker
+        ctx.move_to(top - 10, left);
+        ctx.line_to(top, left);
+        ctx.line_to(top, left - 10);
+        ctx.stroke();
+
+        // top-right marker
+        ctx.move_to(w - right, top - 10);
+        ctx.line_to(w - right, top);
+        ctx.line_to(w - right + 10, top);
+        ctx.stroke();
+
+        // bottom-left marker
+        ctx.move_to(left, h - bottom + 10);
+        ctx.line_to(left, h - bottom);
+        ctx.line_to(left - 10, h - bottom);
+        ctx.stroke();
+
+        // bottom-right marker
+        ctx.move_to(w - right, h - bottom + 10);
+        ctx.line_to(w - right, h - bottom);
+        ctx.line_to(w - right + 10, h - bottom);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.save();
     }
 
     private void on_aspect_ratio_check_clicked() {
         if (aspect_ratio_check.get_active()) {
+            var old = custom_width_entry.get_text();
             local_content_width =
                 Measurement(local_content_height.value * source_job.get_source_aspect_ratio(),
                 local_content_height.unit);
             custom_width_entry.set_text(format_measurement(local_content_width));
+            if (old != custom_width_entry.get_text()) {
+                force_relayout();
+            }
         }
     }
 
@@ -117,7 +285,7 @@ public class CustomPrintTab : Gtk.Box {
 
         local_content_width = new_width;
         custom_width_entry.set_text(format_measurement(new_width));
-        return;
+        Idle.add_once(force_relayout);
     }
 
     private string format_measurement(Measurement measurement) {
@@ -128,36 +296,6 @@ public class CustomPrintTab : Gtk.Box {
         Measurement converted_measurement = (measurement.unit == to_unit) ? measurement :
             measurement.convert_to(to_unit);
         return format_measurement(converted_measurement);
-    }
-
-    private void on_ppi_entry_focus_out(Gtk.EventControllerFocus event) {
-        set_content_ppi(int.parse(ppi_entry.get_text()));
-    }
-
-    private void on_ppi_entry_insert_text(Gtk.Editable editable, string text, int length,
-        ref int position) {
-        Gtk.Entry sender = (Gtk.Entry) editable;
-        
-        if (is_text_insertion_in_progress)
-            return;
-
-        is_text_insertion_in_progress = true;
-        
-        if (length == -1)
-            length = (int) text.length;
-
-        string new_text = "";
-        for (int ctr = 0; ctr < length; ctr++) {
-            if (text[ctr].isdigit())
-                new_text += ((char) text[ctr]).to_string();
-        }
-
-        if (new_text.length > 0)
-            sender.insert_text(new_text, (int) new_text.length, ref position);
-
-        Signal.stop_emission_by_name(sender, "insert-text");
-
-        is_text_insertion_in_progress = false;
     }
 
     private void on_height_entry_focus_out(Gtk.EventControllerFocus event) {
@@ -184,6 +322,7 @@ public class CustomPrintTab : Gtk.Box {
 
         local_content_height = new_height;
         custom_height_entry.set_text(format_measurement(new_height));
+        Idle.add_once(force_relayout);
     }
 
     private MeasurementUnit get_user_unit_choice() {
@@ -246,13 +385,14 @@ public class CustomPrintTab : Gtk.Box {
         Signal.stop_emission_by_name(sender, "insert-text");
 
         is_text_insertion_in_progress = false;
+        Idle.add_once(force_relayout);
     }
 
     private void sync_state_from_job(PrintJob job) {
         assert(job.get_local_settings().get_content_width().unit ==
             job.get_local_settings().get_content_height().unit);
         
-        Measurement constrained_width = job.get_local_settings().get_content_width();
+        var constrained_width = job.get_local_settings().get_content_width();
         if (job.get_local_settings().is_match_aspect_ratio_enabled())
             constrained_width = Measurement(job.get_local_settings().get_content_height().value *
                 job.get_source_aspect_ratio(), job.get_local_settings().get_content_height().unit);
@@ -277,6 +417,7 @@ public class CustomPrintTab : Gtk.Box {
         } else if (sender == image_per_page_radio) {
             set_content_layout_control_state(ContentLayout.IMAGE_PER_PAGE);
         }
+        Idle.add_once(force_relayout);
     }
 
     private void on_units_combo_changed() {
@@ -383,10 +524,11 @@ public class CustomPrintTab : Gtk.Box {
         local_content_ppi = content_ppi.clamp(PrintSettings.MIN_CONTENT_PPI,
             PrintSettings.MAX_CONTENT_PPI);
 
-        ppi_entry.set_text("%d".printf(local_content_ppi));
+        ppi_entry.value = local_content_ppi;
     }
 
     private int get_content_ppi() {
+        local_content_ppi = (int)ppi_entry.value;
         return local_content_ppi;
     }
 
@@ -415,7 +557,7 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private void set_print_titles_font(string fontname) {
-        ((Gtk.FontChooser) title_print_font).set_font(fontname);
+        title_print_font.set_font_desc(Pango.FontDescription.from_string(fontname));
     }
 
 
@@ -428,7 +570,7 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private string get_print_titles_font() {
-        return ((Gtk.FontChooser) title_print_font).get_font();
+        return title_print_font.get_font_desc().to_string();
     }
 
     public PrintJob get_source_job() {
@@ -449,5 +591,55 @@ public class CustomPrintTab : Gtk.Box {
         result.set_print_titles_font(get_print_titles_font());
 
         return result;
+    }
+
+    private void force_relayout() {
+        source_job.set_local_settings(get_local_settings());
+        var size = get_size_selection();
+        if (size != -1) {
+            source_job.set_print_size(PrintManager.get_instance().get_standard_sizes()[size]);
+        }
+        source_job.relayout_images();
+        pages.label = " / %d".printf(source_job.n_pages);
+        lbl_current_page.set_range(1, source_job.n_pages);
+        current_page = int.min(current_page, source_job.n_pages);
+        preview.queue_draw();
+    }
+
+    private void trigger_yield() {
+        run_callback();
+    }
+
+    private void on_back_clicked() requires (run_callback != null) {
+        run_result = Result.BACK;
+        close();
+        Idle.add_once(trigger_yield);
+    }
+
+    private void on_print_clicked() requires (run_callback != null) {
+        run_result = Result.PRINT;
+        close();
+        Idle.add_once(trigger_yield);
+    }
+
+    private bool on_key_pressed(Gtk.EventControllerKey ctrl, uint keyval, uint keycode, Gdk.ModifierType state)
+    requires (run_callback != null) {
+        if (keyval == Gdk.Key.Escape) {
+            run_result = Result.CANCEL;
+            close();
+            Idle.add_once(trigger_yield);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void on_page_value_changed() {
+        print("Value changed!!!!! %f %d\n", lbl_current_page.value, current_page);
+        first_page.sensitive = lbl_current_page.value != 1;
+        prev_page.sensitive = lbl_current_page.value != 1;
+        last_page.sensitive = lbl_current_page.value != source_job.n_pages;
+        next_page.sensitive = lbl_current_page.value != source_job.n_pages;
+        preview.queue_draw();
     }
 }

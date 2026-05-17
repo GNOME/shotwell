@@ -11,6 +11,10 @@ namespace Shotwell {
         public Toast(string label, string button_text = "", string action_name = "", Variant? action_target = null) {
             Object(label: label, button_text: button_text, action_name: action_name, action_target: action_target);
         }
+
+        public Toast.from_error(string context, Error error) {
+            Object(label: "%s: %s".printf(context, error.message));
+        }
     }
 
     public class ToastOverlay : Object {

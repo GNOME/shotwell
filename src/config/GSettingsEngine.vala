@@ -94,7 +94,9 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.PRINTING_PRINT_TITLES] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_SIZE_SELECTION] = PRINTING_SCHEMA_NAME;
         schema_names[ConfigurableProperty.PRINTING_TITLES_FONT] = PRINTING_SCHEMA_NAME;
-        schema_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = FILES_PREFS_SCHEMA_NAME;;
+        schema_names[ConfigurableProperty.PRINTING_SYSTEM_SETTINGS] = PRINTING_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.PRINTING_SYSTEM_PAGE_SETUP] = PRINTING_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SIDEBAR_POSITION] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_DELAY] = SLIDESHOW_PREFS_SCHEMA_NAME;
@@ -169,6 +171,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.PRINTING_PRINT_TITLES] = "print-titles";
         key_names[ConfigurableProperty.PRINTING_SIZE_SELECTION] = "size-selection";
         key_names[ConfigurableProperty.PRINTING_TITLES_FONT] = "titles-font";
+        key_names[ConfigurableProperty.PRINTING_SYSTEM_SETTINGS] = "print-settings";
+        key_names[ConfigurableProperty.PRINTING_SYSTEM_PAGE_SETUP] = "page-settings";
         key_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = "raw-developer-default";
         key_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = "show-welcome-dialog";
         key_names[ConfigurableProperty.SIDEBAR_POSITION] = "sidebar-position";
@@ -287,6 +291,19 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
         schema_object.set_string(key, value);
     }
+
+    private void set_gs_variant(string schema, string key, Variant value) throws ConfigurationError {
+        check_key_valid(schema, key);
+
+        var schema_object = get_settings(schema);
+        schema_object.set_value(key, value);
+    }
+
+    private Variant get_gs_variant(string schema, string key) throws ConfigurationError {
+        check_key_valid(schema, key);
+        var schema_object = get_settings(schema);
+        return schema_object.get_value(key);
+    }
     
     private void reset_gs_to_default(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
@@ -396,6 +413,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     
     public void set_double_property(ConfigurableProperty p, double val) throws ConfigurationError {
         set_gs_double(schema_names[p], key_names[p], val);
+        property_changed(p);
+    }
+
+    public GLib.Variant get_variant_property(ConfigurableProperty p) throws ConfigurationError {
+        return get_gs_variant(schema_names[p], key_names[p]);
+    }
+
+    public void set_variant_property(ConfigurableProperty p, GLib.Variant v) throws ConfigurationError {
+        set_gs_variant(schema_names[p], key_names[p], v);
         property_changed(p);
     }
 

@@ -1,213 +1,384 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
-  <requires lib="gtk" version="4.0"/>
-  <template class="CustomPrintTab" parent="GtkBox">
-    <property name="margin-start">12</property>
-    <property name="margin-end">12</property>
-    <property name="margin_top">12</property>
-    <property name="margin_bottom">12</property>
-    <property name="orientation">vertical</property>
-    <child>
-      <object class="GtkLabel" id="lbl_PrintedImageSize">
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">&lt;b&gt;Printed Image Size&lt;/b&gt;</property>
-        <property name="use_markup">1</property>
+  <requires lib="gtk" version="4.0" />
+  <template class="PrintPreview" parent="GtkWindow">
+    <property name="modal">true</property>
+    <property name="titlebar">
+      <object class="GtkHeaderBar">
+        <property name="show-title-buttons">false</property>
+        <child type="start">
+          <object class="GtkButton" id="btn_back">
+            <property name="label">Back</property>
+            <style>
+              <class name="text-button" />
+            </style>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkButton" id="btn_print">
+            <property name="label">Print</property>
+            <property name="receives-default">true</property>
+            <style>
+              <class name="suggested-action" />
+              <class name="text-button" />
+            </style>
+          </object>
+        </child>
       </object>
+    </property>
+    <child>
+      <object class="GtkEventControllerKey" id="event_ctrl_key" />
     </child>
     <child>
-      <object class="GtkGrid" id="box2">
+      <object class="GtkBox">
         <property name="margin-start">12</property>
-        <property name="margin_top">2</property>
-        <property name="row_spacing">6</property>
-        <property name="column_spacing">6</property>
-        <property name="row_homogeneous">1</property>
-        <child>
-          <object class="GtkCheckButton" id="standard_size_radio">
-            <property name="label" translatable="yes">Use a _standard size:</property>
-            <property name="focusable">1</property>
-            <property name="halign">start</property>
-            <property name="use_underline">1</property>
-            <property name="active">1</property>
-            <property name="group">custom_size_radio</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkDropDown" id="standard_sizes_combo">
-            <layout>
-              <property name="column">1</property>
-              <property name="row">0</property>
-            </layout>
-            <property name="model">
-              <object class="GtkStringList"></object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="custom_size_radio">
-            <property name="label" translatable="yes">Use a c_ustom size:</property>
-            <property name="focusable">1</property>
-            <property name="halign">start</property>
-            <property name="use_underline">1</property>
-            <property name="active">0</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="box4">
-            <property name="spacing">4</property>
-            <child>
-              <object class="GtkEntry" id="custom_width_entry">
-                <property name="focusable">1</property>
-                <property name="invisible_char">●</property>
-                <property name="width_chars">10</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="lbl_MultSymbol">
-                <property name="label">×</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkEntry" id="custom_height_entry">
-                <property name="focusable">1</property>
-                <property name="invisible_char">●</property>
-                <property name="width_chars">10</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkDropDown" id="units_combo">
-                <property name="selected">0</property>
-                <property name="model">
-                  <object class="GtkStringList">
-                    <items>
-                      <item translatable="yes" comments="Abbreviation for &quot;inch&quot;">in.</item>
-                      <item translatable="yes" comments="Abbreviation for &quot;centimeters&quot;">cm</item>
-                    </items>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="aspect_ratio_check">
-            <property name="label" translatable="yes">_Match photo aspect ratio</property>
-            <property name="focusable">1</property>
-            <property name="halign">start</property>
-            <property name="use_underline">1</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="image_per_page_radio">
-            <property name="label" translatable="yes">_Autosize:</property>
-            <property name="focusable">1</property>
-            <property name="halign">start</property>
-            <property name="use_underline">1</property>
-            <property name="active">0</property>
-            <property name="group">custom_size_radio</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">3</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkDropDown" id="image_per_page_combo">
-            <layout>
-              <property name="column">1</property>
-              <property name="row">3</property>
-            </layout>
-            <property name="model">
-              <object class="GtkStringList"></object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="lbl_Titles">
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">&lt;b&gt;Titles&lt;/b&gt;</property>
-        <property name="use_markup">1</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkBox" id="box6">
-        <property name="margin-start">12</property>
-        <property name="margin_top">2</property>
-        <child>
-          <object class="GtkCheckButton" id="title_print_check">
-            <property name="label" translatable="yes">Print image _title</property>
-            <property name="focusable">1</property>
-            <property name="halign">start</property>
-            <property name="use_underline">1</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkFontButton" id="title_print_font">
-            <property name="focusable">1</property>
-            <property name="receives_default">1</property>
-            <property name="margin-start">49</property>
-            <property name="font">Sans 12</property>
-            <property name="preview_text"></property>
-            <property name="show_preview_entry">0</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="lbl_PixelResolution">
-        <property name="halign">start</property>
+        <property name="margin-end">12</property>
         <property name="margin_top">12</property>
-        <property name="label" translatable="yes">&lt;b&gt;Pixel Resolution&lt;/b&gt;</property>
-        <property name="use_markup">1</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkBox" id="box7">
-        <property name="margin-start">12</property>
-        <property name="margin_top">2</property>
+        <property name="margin_bottom">12</property>
+        <property name="orientation">horizontal</property>
         <child>
-          <object class="GtkLabel" id="lbl_OutputPhotoAt">
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">_Output photo at:</property>
-            <property name="use_underline">1</property>
-            <property name="mnemonic_widget">ppi_entry</property>
-            <property name="ellipsize">start</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="box8">
-            <property name="margin-start">65</property>
+          <object class="GtkBox">
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin_top">12</property>
+            <property name="margin_bottom">12</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkEntry" id="ppi_entry">
-                <property name="focusable">1</property>
-                <property name="margin-end">8</property>
-                <property name="invisible_char">●</property>
-                <property name="width_chars">13</property>
+              <object class="GtkLabel" id="lbl_PrintedImageSize">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">&lt;b&gt;Printed Image Size&lt;/b&gt;</property>
+                <property name="use_markup">1</property>
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="lbl_PixelsPerInch">
-                <property name="label" translatable="yes">pixels per inch</property>
+              <object class="GtkGrid" id="box2">
+                <property name="margin-start">12</property>
+                <property name="margin_top">2</property>
+                <property name="row_spacing">6</property>
+                <property name="column_spacing">6</property>
+                <property name="row_homogeneous">1</property>
+                <child>
+                  <object class="GtkCheckButton" id="standard_size_radio">
+                    <property name="label" translatable="yes">Use a _standard size:</property>
+                    <property name="focusable">1</property>
+                    <property name="halign">start</property>
+                    <property name="use_underline">1</property>
+                    <property name="active">1</property>
+                    <property name="group">custom_size_radio</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkDropDown" id="standard_sizes_combo">
+                    <layout>
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                    <property name="model">
+                      <object class="GtkStringList"></object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="custom_size_radio">
+                    <property name="label" translatable="yes">Use a c_ustom size:</property>
+                    <property name="focusable">1</property>
+                    <property name="halign">start</property>
+                    <property name="use_underline">1</property>
+                    <property name="active">0</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box4">
+                    <property name="spacing">4</property>
+                    <child>
+                      <object class="GtkSpinButton"></object>
+                      <object class="GtkEntry" id="custom_width_entry">
+                        <property name="focusable">1</property>
+                        <property name="invisible_char">●</property>
+                        <property name="max-width-chars">6</property>
+                        <property name="xalign">0.5</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_MultSymbol">
+                        <property name="label">×</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="custom_height_entry">
+                        <property name="focusable">1</property>
+                        <property name="invisible_char">●</property>
+                        <property name="max-width-chars">6</property>
+                        <property name="xalign">0.5</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkDropDown" id="units_combo">
+                        <property name="selected">0</property>
+                        <property name="model">
+                          <object class="GtkStringList">
+                            <items>
+                              <item translatable="yes" comments="Abbreviation for &quot;inch&quot;">in.</item>
+                              <item translatable="yes" comments="Abbreviation for &quot;centimeters&quot;">cm</item>
+                            </items>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="aspect_ratio_check">
+                        <property name="tooltip_text" translatable="yes">Automatically keep image's
+                          aspect ratio</property>
+                        <child>
+                          <object class="GtkStack">
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">TRUE</property>
+                                <property name="child">
+                                  <object class="GtkImage">
+                                    <property name="icon-name">chain-link-symbolic</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">FALSE</property>
+                                <property name="child">
+                                  <object class="GtkImage">
+                                    <property name="icon-name">chain-link-loose-symbolic</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <binding name="visible-child-name">
+                              <lookup name="active">aspect_ratio_check</lookup>
+                            </binding>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <layout>
+                      <property name="column">1</property>
+                      <property name="row">1</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="image_per_page_radio">
+                    <property name="label" translatable="yes">_Autosize:</property>
+                    <property name="focusable">1</property>
+                    <property name="halign">start</property>
+                    <property name="use_underline">1</property>
+                    <property name="active">0</property>
+                    <property name="group">custom_size_radio</property>
+                    <layout>
+                      <property name="column">0</property>
+                      <property name="row">3</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkDropDown" id="image_per_page_combo">
+                    <layout>
+                      <property name="column">1</property>
+                      <property name="row">3</property>
+                    </layout>
+                    <property name="model">
+                      <object class="GtkStringList"></object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lbl_Titles">
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">&lt;b&gt;Titles&lt;/b&gt;</property>
+                <property name="use_markup">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="box6">
+                <property name="margin-start">12</property>
+                <property name="margin_top">2</property>
+                <child>
+                  <object class="GtkCheckButton" id="title_print_check">
+                    <property name="label" translatable="yes">Print image _title</property>
+                    <property name="focusable">1</property>
+                    <property name="halign">start</property>
+                    <property name="use_underline">1</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFontDialogButton" id="title_print_font">
+                    <property name="focusable">1</property>
+                    <property name="receives_default">1</property>
+                    <property name="margin-start">39</property>
+                    <property name="use-font">true</property>
+                    <property name="dialog">
+                      <object class="GtkFontDialog">
+                        <property name="modal">true</property>
+                      </object>
+                    </property>
+                    <binding name="sensitive">
+                      <lookup name="active">title_print_check</lookup>
+                    </binding>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="lbl_PixelResolution">
+                <property name="halign">start</property>
+                <property name="margin_top">12</property>
+                <property name="label" translatable="yes">&lt;b&gt;Pixel Resolution&lt;/b&gt;</property>
+                <property name="use_markup">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="box7">
+                <property name="margin-start">12</property>
+                <property name="margin_top">2</property>
+                <child>
+                  <object class="GtkLabel" id="lbl_OutputPhotoAt">
+                    <property name="halign">start</property>
+                    <property name="hexpand">false</property>
+                    <property name="label" translatable="yes">_Output photo at:</property>
+                    <property name="use_underline">1</property>
+                    <property name="mnemonic_widget">ppi_entry</property>
+                    <property name="ellipsize">start</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box8">
+                    <property name="margin-start">65</property>
+                    <child>
+                      <object class="GtkSpinButton" id="ppi_entry">
+                        <property name="focusable">1</property>
+                        <property name="margin-end">8</property>
+                        <property name="digits">0</property>
+                        <property name="snap-to-ticks">true</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment">
+                            <property name="lower">72</property>
+                            <property name="upper">1200</property>
+                            <property name="page-size">100</property>
+                            <property name="step-increment">1</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="lbl_PixelsPerInch">
+                        <property name="label" translatable="yes">pixels per inch</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkDrawingArea" id="preview">
+                <style>
+                  <class name="shotwell-print-preview" />
+                </style>
+                <property name="hexpand">true</property>
+                <property name="vexpand">true</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="halign">center</property>
+                <style>
+                  <class name="toolbar" />
+                  <class name="bottom-toolbar" />
+                </style>
+                <child>
+                  <object class="GtkButton" id="first_page">
+                    <style>
+                      <class name="connected" />
+                    </style>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="icon-name">media-skip-backward-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="prev_page">
+                    <style>
+                      <class name="connected" />
+                    </style>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="icon-name">media-seek-backward-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="lbl_current_page">
+                    <property name="name">print-preview-current-page</property>
+                    <property name="snap-to-ticks">true</property>
+                    <property name="numeric">true</property>
+                    <style>
+                      <class name="connected" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="pages">
+                    <property name="label"> / 1234</property>
+                    <style>
+                      <class name="connected" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="next_page">
+                    <style>
+                      <class name="connected" />
+                    </style>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="icon-name">media-seek-forward-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="last_page">
+                    <style>
+                      <class name="connected" />
+                    </style>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="icon-name">media-skip-forward-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
