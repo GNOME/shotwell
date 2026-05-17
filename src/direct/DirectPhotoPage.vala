@@ -489,7 +489,7 @@ public class DirectPhotoPage : EditingHostPage {
     
     private void on_print() {
         if (get_view().get_selected_count() > 0) {
-            PrintManager.get_instance().spool_photo(
+            PrintManager.get_instance().spool_photo.begin(
                 (Gee.Collection<Photo>) get_view().get_selected_sources_of_type(typeof(Photo)));
         }
     }
