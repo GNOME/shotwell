@@ -96,7 +96,11 @@ src/photos/TiffSupport.c
 src/photos/WebPSupport.c
 src/plugins/ManifestWidget.c
 src/plugins/SpitInterfaces.c
-src/Printing.c
+src/printing/Job.c
+src/printing/Manager.c
+src/printing/Measurement.c
+src/printing/Preview.c
+src/printing/Settings.c
 src/ProfileBrowser.c
 src/Profiles.c
 src/Properties.c
