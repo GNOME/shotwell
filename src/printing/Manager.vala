@@ -113,14 +113,8 @@ public class PrintManager {
 
 
         PrintJob job = new PrintJob(to_print);
-        job.set_custom_tab_label(_("Image Settings"));
-        job.set_unit(Gtk.Unit.INCH);
-        job.set_n_pages(1);
-        job.set_job_name(job.get_source_photo().get_name());
-        job.set_default_page_setup(user_page_setup);
-        job.begin_print.connect(on_begin_print);
-        job.draw_page.connect(on_draw_page);
-        job.status_changed.connect(on_status_changed);
+        job.n_pages = 1;
+        job.page_setup = user_page_setup;
 
         var window = new Gtk.Window();
         window.set_child(new CustomPrintTab(job, this));
@@ -185,9 +179,9 @@ public class PrintManager {
         var photos = job.get_photos();
         if (job.get_local_settings().get_content_layout() == ContentLayout.IMAGE_PER_PAGE){
             PrintLayout layout = (PrintLayout) job.get_local_settings().get_image_per_page_selection();
-            job.set_n_pages((int) Math.ceil((double) photos.size / (double) layout.get_per_page()));
+            job.n_pages = (int) Math.ceil((double) photos.size / (double) layout.get_per_page());
         } else {
-            job.set_n_pages(photos.size);
+            job.n_pages = photos.size;
         }
 
     }

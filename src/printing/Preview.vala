@@ -56,7 +56,7 @@ public class CustomPrintTab : Gtk.Box {
         standard_size_radio.toggled.connect(on_radio_group_click);
         custom_size_radio.toggled.connect(on_radio_group_click);
         image_per_page_radio.toggled.connect(on_radio_group_click);
-        pages.label = " / %d".printf(source_job.get_n_pages_to_print());
+        pages.label = " / %d".printf(source_job.n_pages);
 
         next_page.clicked.connect(()=>{current_page++; preview.queue_draw();});
 
@@ -72,6 +72,12 @@ public class CustomPrintTab : Gtk.Box {
         }
 
         standard_sizes_combo.set_selected(9 * Resources.get_default_measurement_unit());
+        standard_sizes_combo.notify["selected-item"].connect(() => { 
+            source_job.set_local_settings(get_local_settings());
+            manager.relayout_images(source_job);
+            pages.label = " / %d".printf(source_job.n_pages);
+            preview.queue_draw();
+        });
 
         var focus = new Gtk.EventControllerFocus();
         focus.leave.connect(on_width_entry_focus_out);
@@ -89,7 +95,7 @@ public class CustomPrintTab : Gtk.Box {
         image_per_page_combo.notify["selected-item"].connect(() => { 
             source_job.get_local_settings().set_image_per_page_selection((int)image_per_page_combo.get_selected());
             manager.relayout_images(source_job);
-            pages.label = " / %d".printf(source_job.get_n_pages_to_print());
+            pages.label = " / %d".printf(source_job.n_pages);
             preview.queue_draw();
         });
 
@@ -103,18 +109,10 @@ public class CustomPrintTab : Gtk.Box {
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);
 
         manager.relayout_images(source_job);
-        var page_setup = source_job.get_default_page_setup();
+        var page_setup = source_job.page_setup;
         print("Orientation: %s\n", page_setup.get_orientation().to_string());;
         double page_width = page_setup.get_page_width(Gtk.Unit.POINTS);
         double page_height = page_setup.get_page_height(Gtk.Unit.POINTS);
-        double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
-        double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
-        double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
-        double right = page_setup.get_right_margin(Gtk.Unit.POINTS);
-        source_job.get_local_settings().set_print_titles_enabled(true);
-
-        print("Margins: t: %f b: %f l: %f r: %f\n", top, bottom, left, right);
-
 
         preview.set_content_height((int)(page_width));
         print(">content_height: %d %d\n", (int)page_height, (int) page_width);
@@ -124,44 +122,11 @@ public class CustomPrintTab : Gtk.Box {
         preview.set_visible(true);
         source_job.get_local_settings().set_content_ppi(72);
         preview.set_draw_func((da, ctx, w, h) => {
-            ctx.save();
-            ctx.set_source_rgb(1.0, 1.0, 1.0);
-            ctx.rectangle(0, 0, w, h);
-            ctx.fill();
-            ctx.set_source_rgb(0.0, 0.0, 0.0);
-            ctx.rectangle(0, 0, w, h);
-            ctx.stroke();
-
-            ctx.set_line_width(1.0);
-            ctx.set_source_rgba(0.4, 0.7, 1.0, 0.8);
-            double[] dashes = {2.0};
-            ctx.set_dash(dashes, 0);
-
-            // top-left marker
-            ctx.move_to(top - 10, left);
-            ctx.line_to(top, left);
-            ctx.line_to(top, left - 10);
-            ctx.stroke();
-
-            // top-right marker
-            ctx.move_to(w - right, top - 10);
-            ctx.line_to(w - right, top);
-            ctx.line_to(w - right + 10, top);
-            ctx.stroke();
-
-            // bottom-left marker
-            ctx.move_to(left, h - bottom + 10);
-            ctx.line_to(left, h - bottom);
-            ctx.line_to(left - 10, h - bottom);
-            ctx.stroke();
-
-            // bottom-right marker
-            ctx.move_to(w - right, h - bottom + 10);
-            ctx.line_to(w - right, h - bottom);
-            ctx.line_to(w - right + 10, h - bottom);
-            ctx.stroke();
-            ctx.restore();
-
+            double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
+            double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
+            double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
+            double right = page_setup.get_right_margin(Gtk.Unit.POINTS);
+            draw_margins(ctx, w, h);
             ctx.save();
             ctx.translate(left, top);
             ctx.rectangle(0, 0, w - left - right, h - top - bottom);
@@ -174,6 +139,54 @@ public class CustomPrintTab : Gtk.Box {
         sync_state_from_job(source_job);
 
         set_visible(true);
+    }
+
+    private void draw_margins(Cairo.Context ctx, double w, double h) {
+        var page_setup = source_job.page_setup;
+
+        double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
+        double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
+        double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
+        double right = page_setup.get_right_margin(Gtk.Unit.POINTS);
+        ctx.save();
+        ctx.set_source_rgb(1.0, 1.0, 1.0);
+        ctx.rectangle(0, 0, w, h);
+        ctx.fill();
+        ctx.set_source_rgb(0.0, 0.0, 0.0);
+        ctx.rectangle(0, 0, w, h);
+        ctx.stroke();
+
+        ctx.set_line_width(1.0);
+        ctx.set_source_rgba(0.4, 0.7, 1.0, 0.8);
+        double[] dashes = {2.0};
+        ctx.set_dash(dashes, 0);
+
+        // top-left marker
+        ctx.move_to(top - 10, left);
+        ctx.line_to(top, left);
+        ctx.line_to(top, left - 10);
+        ctx.stroke();
+
+        // top-right marker
+        ctx.move_to(w - right, top - 10);
+        ctx.line_to(w - right, top);
+        ctx.line_to(w - right + 10, top);
+        ctx.stroke();
+
+        // bottom-left marker
+        ctx.move_to(left, h - bottom + 10);
+        ctx.line_to(left, h - bottom);
+        ctx.line_to(left - 10, h - bottom);
+        ctx.stroke();
+
+        // bottom-right marker
+        ctx.move_to(w - right, h - bottom + 10);
+        ctx.line_to(w - right, h - bottom);
+        ctx.line_to(w - right + 10, h - bottom);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.save();
     }
 
     private void on_aspect_ratio_check_clicked() {
@@ -277,6 +290,7 @@ public class CustomPrintTab : Gtk.Box {
 
         local_content_height = new_height;
         custom_height_entry.set_text(format_measurement(new_height));
+        preview.queue_draw();
     }
 
     private MeasurementUnit get_user_unit_choice() {
@@ -371,6 +385,7 @@ public class CustomPrintTab : Gtk.Box {
         } else if (sender == image_per_page_radio) {
             set_content_layout_control_state(ContentLayout.IMAGE_PER_PAGE);
         }
+        preview.queue_draw();
     }
 
     private void on_units_combo_changed() {
