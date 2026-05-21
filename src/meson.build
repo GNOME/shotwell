@@ -30,7 +30,7 @@ face_sources = (['faces/FacesBranch.vala',
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo,
-                 portal, math, soup]
+                 portal, math, soup, glycin]
 
 subdir('metadata')
 subdir('publishing')
@@ -83,6 +83,7 @@ executable(
         'photos/PhotoMetadata.vala',
         'photos/GRaw.vala',
         'photos/GdkSupport.vala',
+        'photos/GlycinSupport.vala',
         'photos/GifSupport.vala',
         'photos/JfifSupport.vala',
         'photos/BmpSupport.vala',
