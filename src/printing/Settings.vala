@@ -60,6 +60,7 @@ public class PrintSettings {
         switch (get_content_layout()) {
             case ContentLayout.STANDARD_SIZE:
             case ContentLayout.IMAGE_PER_PAGE:
+                print("%p\n", PrintManager.get_instance());
                 return (PrintManager.get_instance().get_standard_sizes()[
                     get_size_selection()]).width;
 

@@ -20,7 +20,6 @@ public class PrintManager {
     
     private PrintSettings settings;
     private Gtk.PageSetup user_page_setup;
-    private CustomPrintTab custom_tab;
     private ProgressDialog? progress_dialog = null;
     private Cancellable? cancellable = null;
     private StandardPrintSize[] standard_sizes = null;
@@ -91,37 +90,47 @@ public class PrintManager {
         return instance;
     }
 
-    public async void spool_photo(Gee.Collection<Photo> to_print) {
+    public async void spool_photo(Gee.Collection<Photo> to_print, Cancellable? cancellable = null) {
         var dialog = new Gtk.PrintDialog();
         dialog.set_accept_label(_("Continue..."));
         dialog.set_page_setup(user_page_setup);
         // FIXME: Set print settings
         // dialog.set_print_settings(user_print_settings);
 
-        try {
-            var setup = yield dialog.setup(AppWindow.get_instance(), null);
-            user_page_setup = setup.get_page_setup();
-        } catch (Error err) {
-            if (err is Gtk.DialogError.DISMISSED) {
+        PrintPreview.Result result = PrintPreview.Result.UNDEFINED;
+        do {
+            try {
+                var setup = yield dialog.setup(AppWindow.get_instance(), null);
+                user_page_setup = setup.get_page_setup();
+            } catch (Error err) {
+                if (err is Gtk.DialogError.DISMISSED) {
+                    return;
+                }
+
+                var toast = new Shotwell.Toast("Printing failed: %s".printf(err.message));
+                AppWindow.get_instance().add_toast(toast);
                 return;
             }
 
-            var toast = new Shotwell.Toast("Printing failed: %s".printf(err.message));
-            AppWindow.get_instance().add_toast(toast);
-            return;
-        }
+            PrintJob job = new PrintJob(to_print);
+            job.n_pages = 1;
+            job.page_setup = user_page_setup;
 
+            var preview = new PrintPreview(AppWindow.get_instance(), job, this);
+            var size = job.get_photos().size;
+            if (size > 1) {
+                preview.set_title(ngettext("Print preview for a photo", "Print preview for %d photos", size).printf(size));
+            } else {
+                preview.set_title(_("Print preview for %s").printf(job.get_source_photo().get_name()));
+            }
 
-        PrintJob job = new PrintJob(to_print);
-        job.n_pages = 1;
-        job.page_setup = user_page_setup;
+            result = yield preview.run();
+            if (result == PrintPreview.Result.CANCEL) {
+                return;
+            }
+        } while (result == PrintPreview.Result.BACK);
 
-        var window = new Gtk.Window();
-        window.set_child(new CustomPrintTab(job, this));
-        window.set_transient_for(AppWindow.get_instance());
-        window.set_modal(true);
-        window.present();
-
+        // Do the actual print
         /* 
         PrintJob job = new PrintJob(to_print);
         job.set_custom_tab_label(_("Image Settings"));
@@ -302,12 +311,6 @@ public class PrintManager {
             default:
                 error("unknown or unsupported layout mode");
         }
-    }
-
-    private void on_custom_widget_apply(Gtk.Widget custom_widget) {
-        CustomPrintTab tab = (CustomPrintTab) custom_widget;
-        tab.get_source_job().set_local_settings(tab.get_local_settings());
-        set_global_settings(tab.get_local_settings());
     }
 
     private void fit_image_to_canvas(Photo photo, double x, double y, double canvas_width, double canvas_height, bool crop, PrintJob job, Cairo.Context dc) {
