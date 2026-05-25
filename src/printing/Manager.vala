@@ -22,7 +22,7 @@ public class PrintManager {
     private Gtk.PageSetup user_page_setup;
     private ProgressDialog? progress_dialog = null;
     private Cancellable? cancellable = null;
-    private StandardPrintSize[] standard_sizes = null;
+    private StandardPrintSize[]? standard_sizes = null;
     
     private PrintManager() {
         user_page_setup = new Gtk.PageSetup();
@@ -32,54 +32,70 @@ public class PrintManager {
     public unowned StandardPrintSize[] get_standard_sizes() {
         if (standard_sizes == null) {
             standard_sizes = new StandardPrintSize[0];
+            print("%p\n", standard_sizes);
 
             standard_sizes += new StandardPrintSize(_("Wallet (2 × 3 in.)"),
                     Measurement(3, MeasurementUnit.INCHES),
                     Measurement(2, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("Notecard (3 × 5 in.)"),
                     Measurement(5, MeasurementUnit.INCHES),
                     Measurement(3, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("4 × 6 in."),
                     Measurement(6, MeasurementUnit.INCHES),
                     Measurement(4, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("5 × 7 in."),
                     Measurement(7, MeasurementUnit.INCHES),
                     Measurement(5, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("8 × 10 in."),
                     Measurement(10, MeasurementUnit.INCHES),
                     Measurement(8, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("11 × 14 in."),
                     Measurement(14, MeasurementUnit.INCHES),
                     Measurement(11, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("16 × 20 in."),
                     Measurement(20, MeasurementUnit.INCHES),
                     Measurement(16, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(("-"),
                     Measurement(0, MeasurementUnit.INCHES),
                     Measurement(0, MeasurementUnit.INCHES));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("Metric Wallet (9 × 13 cm)"),
                     Measurement(13, MeasurementUnit.CENTIMETERS),
                     Measurement(9, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("Postcard (10 × 15 cm)"),
                     Measurement(15, MeasurementUnit.CENTIMETERS),
                     Measurement(10, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("13 × 18 cm"),
                     Measurement(18, MeasurementUnit.CENTIMETERS),
                     Measurement(13, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("18 × 24 cm"),
                     Measurement(24, MeasurementUnit.CENTIMETERS),
                     Measurement(18, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("20 × 30 cm"),
                     Measurement(30, MeasurementUnit.CENTIMETERS),
                     Measurement(20, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("24 × 40 cm"),
                     Measurement(40, MeasurementUnit.CENTIMETERS),
                     Measurement(24, MeasurementUnit.CENTIMETERS));
+            print("%p\n", standard_sizes);
             standard_sizes += new StandardPrintSize(_("30 × 40 cm"),
                     Measurement(40, MeasurementUnit.CENTIMETERS),
                     Measurement(30, MeasurementUnit.CENTIMETERS));
         }
 
+        print("%p\n", standard_sizes);
         return standard_sizes;
     }
 
@@ -103,7 +119,7 @@ public class PrintManager {
                 var setup = yield dialog.setup(AppWindow.get_instance(), null);
                 user_page_setup = setup.get_page_setup();
             } catch (Error err) {
-                if (err is Gtk.DialogError.DISMISSED) {
+                if (err is Gtk.DialogError.DISMISSED || err is Gtk.DialogError.CANCELLED) {
                     return;
                 }
 
@@ -168,22 +184,6 @@ public class PrintManager {
         */
     }
 
-    private void on_begin_print(Gtk.PrintOperation emitting_object, Gtk.PrintContext job_context) {
-        debug("on_begin_print");
-        
-        PrintJob job = (PrintJob) emitting_object;
-        
-        // cancel() can only be called from "begin-print", "paginate", or "draw-page"
-        if (cancellable != null && cancellable.is_cancelled()) {
-            job.cancel();
-            
-            return;
-        }
-
-        relayout_images(job);
-        spin_event_loop();
-    }
-    
     public void relayout_images(PrintJob job) {
         var photos = job.get_photos();
         if (job.get_local_settings().get_content_layout() == ContentLayout.IMAGE_PER_PAGE){
@@ -192,7 +192,6 @@ public class PrintManager {
         } else {
             job.n_pages = photos.size;
         }
-
     }
 
     private void on_status_changed(Gtk.PrintOperation job) {
