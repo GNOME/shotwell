@@ -132,6 +132,10 @@
     </child>
     <child>
       <object class="GtkBox">
+        <property name="valign">center</property>
+        <property name="halign">center</property>
+        <property name="spacing">48</property>
+        <property name="homogeneous">1</property>
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="yes">_Logout</property>
