@@ -13,6 +13,7 @@ public class PrintPreview : Gtk.Window {
 
     private const int INCHES_COMBO_CHOICE = 0;
     private const int CENTIMETERS_COMBO_CHOICE = 1;
+    private const int SCREEN_PPI = 72;
 
     public int current_page {get; set; default = 1;}
 
@@ -81,7 +82,6 @@ public class PrintPreview : Gtk.Window {
         
         set_transient_for(parent);
         sync_state_from_job(source_job);
-        source_job.get_local_settings().set_content_ppi(72);
 
         btn_back.clicked.connect(on_back_clicked);
         btn_print.clicked.connect(on_print_clicked);
@@ -160,7 +160,7 @@ public class PrintPreview : Gtk.Window {
         // Force the on-screen rendering to 72ppi 
         // FIXME: Need to fix for scaled displays as well
         var ppi = source_job.get_local_settings().get_content_ppi();
-        source_job.get_local_settings().set_content_ppi(72);
+        source_job.get_local_settings().set_content_ppi(SCREEN_PPI);
         double top = page_setup.get_top_margin(Gtk.Unit.POINTS);
         double bottom = page_setup.get_bottom_margin(Gtk.Unit.POINTS);
         double left = page_setup.get_left_margin(Gtk.Unit.POINTS);
@@ -170,7 +170,7 @@ public class PrintPreview : Gtk.Window {
         ctx.translate(left, top);
         ctx.rectangle(0, 0, w - left - right, h - top - bottom);
         ctx.clip();
-        double inv_dpi = 1.0 / 72;
+        double inv_dpi = 1.0 / SCREEN_PPI;
         manager.draw_page(source_job, ctx, current_page - 1, (w - left - right) * inv_dpi, (h - top - bottom) * inv_dpi);
         ctx.restore();
         source_job.get_local_settings().set_content_ppi(ppi);
@@ -508,10 +508,11 @@ public class PrintPreview : Gtk.Window {
         local_content_ppi = content_ppi.clamp(PrintSettings.MIN_CONTENT_PPI,
             PrintSettings.MAX_CONTENT_PPI);
 
-        ppi_entry.set_text("%d".printf(local_content_ppi));
+        ppi_entry.value = local_content_ppi;
     }
 
     private int get_content_ppi() {
+        local_content_ppi = (int)ppi_entry.value;
         return local_content_ppi;
     }
 

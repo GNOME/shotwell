@@ -23,6 +23,7 @@ public class PrintManager {
     private ProgressDialog? progress_dialog = null;
     private Cancellable? cancellable = null;
     private StandardPrintSize[]? standard_sizes = null;
+    private GLib.OutputStream? temp_printstream = null;
     
     private PrintManager() {
         user_page_setup = new Gtk.PageSetup();
@@ -114,21 +115,22 @@ public class PrintManager {
         // dialog.set_print_settings(user_print_settings);
 
         PrintPreview.Result result = PrintPreview.Result.UNDEFINED;
+        PrintJob? job = null;
+        Gtk.PrintSetup? user_print_setup = null;
         do {
             try {
-                var setup = yield dialog.setup(AppWindow.get_instance(), null);
-                user_page_setup = setup.get_page_setup();
+                user_print_setup = yield dialog.setup(AppWindow.get_instance(), null);
+                user_page_setup = user_print_setup.get_page_setup();
             } catch (Error err) {
                 if (err is Gtk.DialogError.DISMISSED || err is Gtk.DialogError.CANCELLED) {
                     return;
                 }
 
-                var toast = new Shotwell.Toast("Printing failed: %s".printf(err.message));
-                AppWindow.get_instance().add_toast(toast);
+                AppWindow.get_instance().add_toast(new Shotwell.Toast.from_error(_("Printing failed"), err));
                 return;
             }
 
-            PrintJob job = new PrintJob(to_print);
+            job = new PrintJob(to_print);
             job.n_pages = 1;
             job.page_setup = user_page_setup;
 
@@ -146,42 +148,53 @@ public class PrintManager {
             }
         } while (result == PrintPreview.Result.BACK);
 
+        // If we landed here, the user definitely wants to print
+
         // Do the actual print
-        /* 
-        PrintJob job = new PrintJob(to_print);
-        job.set_custom_tab_label(_("Image Settings"));
-        job.set_unit(Gtk.Unit.INCH);
-        job.set_n_pages(1);
-        job.set_job_name(job.get_source_photo().get_name());
-        job.set_default_page_setup(user_page_setup);
-        job.begin_print.connect(on_begin_print);
-        job.draw_page.connect(on_draw_page);
-        job.status_changed.connect(on_status_changed);
         AppWindow.get_instance().set_busy_cursor();
         
-        cancellable = new Cancellable();
         progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing…"), cancellable);
         
-        string? err_msg = null;
+        // Create an PDF
         try {
-            Gtk.PrintOperationResult result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
-                AppWindow.get_instance());
-            if (result == Gtk.PrintOperationResult.APPLY)
-                user_page_setup = job.get_default_page_setup();
-        } catch (Error e) {
-            job.cancel();
-            err_msg = e.message;
+            temp_printstream = yield dialog.print(AppWindow.get_instance(), (!)user_print_setup, cancellable);
+        } catch (Error err) {
+            AppWindow.get_instance().add_toast(new Shotwell.Toast.from_error(_("Printing failed"), err));
+            return;            
         }
-        
-        progress_dialog.close();
-        progress_dialog = null;
-        cancellable = null;
-        
+        var ppi = ((!)job).get_local_settings().get_content_ppi();
+        double inv_ppi = 1.0/ppi;
+        var page_width = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
+        var page_height = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
+        var surface = new Cairo.PdfSurface.for_stream(pdf_write, page_width, page_height);
+        double top = job.page_setup.get_top_margin(Gtk.Unit.INCH) * ppi;
+        double bottom = job.page_setup.get_bottom_margin(Gtk.Unit.INCH) * ppi;
+        double left = job.page_setup.get_left_margin(Gtk.Unit.INCH) * ppi;
+        double right = job.page_setup.get_right_margin(Gtk.Unit.INCH) * ppi;
+        double w = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
+        double h = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
+        var ctx = new Cairo.Context(surface);
+        var effective_page_width = w - left - right;
+        var effetcive_page_height = h - top - bottom;
+        ctx.translate(left, top);
+        ctx.rectangle(0, 0, effective_page_width, effetcive_page_height);
+        ctx.clip();
+        for (int i = 0; i < job.n_pages; i++) {
+            draw_page(job, ctx, i, effective_page_width * inv_ppi, effetcive_page_height * inv_ppi);
+            spin_event_loop();
+            ctx.show_page();
+        }
         AppWindow.get_instance().set_normal_cursor();
-        
-        if (err_msg != null)
-            AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(err_msg));
-        */
+    }
+
+    private Cairo.Status pdf_write(uchar[] data) {
+        try {
+            size_t written;
+            temp_printstream.write_all(data, out written, null);
+            return Cairo.Status.SUCCESS;
+        } catch (Error error) {
+            return Cairo.Status.WRITE_ERROR;
+        }
     }
 
     public void relayout_images(PrintJob job) {
@@ -194,42 +207,9 @@ public class PrintManager {
         }
     }
 
-    private void on_status_changed(Gtk.PrintOperation job) {
-        debug("on_status_changed: %s", job.get_status_string());
-        
-        if (progress_dialog != null) {
-            progress_dialog.set_status(job.get_status_string());
-            spin_event_loop();
-        }
-    }
-    
-    private void on_draw_page(Gtk.PrintOperation emitting_object, Gtk.PrintContext job_context,
-        int page_num) {
-        debug("on_draw_page");
-        
-        PrintJob job = (PrintJob) emitting_object;
-        
-        // cancel() can only be called from "begin-print", "paginate", or "draw-page"
-        if (cancellable != null && cancellable.is_cancelled()) {
-            job.cancel();
-            
-            return;
-        }
-        
-        spin_event_loop();
-        Gtk.PageSetup page_setup = job_context.get_page_setup();
-        double page_width = page_setup.get_page_width(Gtk.Unit.INCH);
-        double page_height = page_setup.get_page_height(Gtk.Unit.INCH);
-
-        double dpi = job.get_local_settings().get_content_ppi();
-        double inv_dpi = 1.0 / dpi;
-        Cairo.Context dc = job_context.get_cairo_context();
-        dc.scale(inv_dpi, inv_dpi);
-
-        draw_page(job, dc, page_num, page_width, page_height);
-    }
-
+    // Draws the page given in the space page_width, page_height, must be INCHES
     public void draw_page(PrintJob job, Cairo.Context dc, int page_num, double page_width, double page_height) {
+        print("dp: page_num: %d, pw: %f, ph: %f\n", page_num, page_width, page_height);
         Gee.List<Photo> photos = job.get_photos();
         
         ContentLayout content_layout = job.get_local_settings().get_content_layout();
