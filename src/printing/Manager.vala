@@ -21,7 +21,7 @@ public class PrintManager {
     private PrintSettings settings;
     private Gtk.PageSetup user_page_setup;
     private ProgressDialog? progress_dialog = null;
-    private Cancellable? cancellable = null;
+    private Cancellable? inner_cancellable = null;
     private StandardPrintSize[]? standard_sizes = null;
     private GLib.OutputStream? temp_printstream = null;
     
@@ -153,36 +153,55 @@ public class PrintManager {
         // Do the actual print
         AppWindow.get_instance().set_busy_cursor();
         
-        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing…"), cancellable);
+        inner_cancellable = new Cancellable();
+        ulong id = 0;
+        if (cancellable != null) {
+            id = cancellable.connect(() => {inner_cancellable.cancel(); });
+        }
+        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing…"), inner_cancellable);
         
         // Create an PDF
         try {
-            temp_printstream = yield dialog.print(AppWindow.get_instance(), (!)user_print_setup, cancellable);
+            temp_printstream = yield dialog.print(AppWindow.get_instance(), (!)user_print_setup, null);
         } catch (Error err) {
             AppWindow.get_instance().add_toast(new Shotwell.Toast.from_error(_("Printing failed"), err));
             return;            
         }
-        var ppi = ((!)job).get_local_settings().get_content_ppi();
-        double inv_ppi = 1.0/ppi;
-        var page_width = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
-        var page_height = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
-        var surface = new Cairo.PdfSurface.for_stream(pdf_write, page_width, page_height);
-        double top = job.page_setup.get_top_margin(Gtk.Unit.INCH) * ppi;
-        double bottom = job.page_setup.get_bottom_margin(Gtk.Unit.INCH) * ppi;
-        double left = job.page_setup.get_left_margin(Gtk.Unit.INCH) * ppi;
-        double right = job.page_setup.get_right_margin(Gtk.Unit.INCH) * ppi;
-        double w = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
-        double h = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
-        var ctx = new Cairo.Context(surface);
-        var effective_page_width = w - left - right;
-        var effetcive_page_height = h - top - bottom;
-        ctx.translate(left, top);
-        ctx.rectangle(0, 0, effective_page_width, effetcive_page_height);
-        ctx.clip();
-        for (int i = 0; i < job.n_pages; i++) {
-            draw_page(job, ctx, i, effective_page_width * inv_ppi, effetcive_page_height * inv_ppi);
-            spin_event_loop();
-            ctx.show_page();
+
+        var thread = new Thread<void>(null, () => {
+            var ppi = ((!)job).get_local_settings().get_content_ppi();
+            double inv_ppi = 1.0/ppi;
+            var page_width = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
+            var page_height = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
+            var surface = new Cairo.PdfSurface.for_stream(pdf_write, page_width, page_height);
+            double top = job.page_setup.get_top_margin(Gtk.Unit.INCH) * ppi;
+            double bottom = job.page_setup.get_bottom_margin(Gtk.Unit.INCH) * ppi;
+            double left = job.page_setup.get_left_margin(Gtk.Unit.INCH) * ppi;
+            double right = job.page_setup.get_right_margin(Gtk.Unit.INCH) * ppi;
+            double w = job.page_setup.get_page_width(Gtk.Unit.INCH) * ppi;
+            double h = job.page_setup.get_page_height(Gtk.Unit.INCH) * ppi;
+            var ctx = new Cairo.Context(surface);
+            var effective_page_width = w - left - right;
+            var effetcive_page_height = h - top - bottom;
+            ctx.translate(left, top);
+            ctx.rectangle(0, 0, effective_page_width, effetcive_page_height);
+            ctx.clip();
+            for (int i = 0; i < job.n_pages; i++) {
+                draw_page(job, ctx, i, effective_page_width * inv_ppi, effetcive_page_height * inv_ppi);
+                if (inner_cancellable.is_cancelled()) {
+                    break;
+                }
+                ctx.show_page();
+            }
+            var idle_id = Idle.add(spool_photo.callback);
+            Source.set_name_by_id(idle_id, "Async callback");
+        });
+        yield;
+        thread.join();
+        progress_dialog.close();
+        progress_dialog = null;
+        if (id != 0) {
+            cancellable.disconnect(id);
         }
         AppWindow.get_instance().set_normal_cursor();
     }
@@ -190,7 +209,7 @@ public class PrintManager {
     private Cairo.Status pdf_write(uchar[] data) {
         try {
             size_t written;
-            temp_printstream.write_all(data, out written, null);
+            temp_printstream.write_all(data, out written, inner_cancellable);
             return Cairo.Status.SUCCESS;
         } catch (Error error) {
             return Cairo.Status.WRITE_ERROR;
@@ -250,8 +269,12 @@ public class PrintManager {
                     }
                 }
                 
-                if (progress_dialog != null)
-                    progress_dialog.monitor(page_num, photos.size);
+                if (progress_dialog != null) {
+                    var id = Idle.add_once(() => {
+                        progress_dialog.monitor(page_num, photos.size);
+                    });
+                    Source.set_name_by_id(id, "Printing progress push");
+                }
             break;
             
             case ContentLayout.IMAGE_PER_PAGE:
