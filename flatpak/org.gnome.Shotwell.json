@@ -1,7 +1,7 @@
 {
     "app-id" : "org.gnome.Shotwell",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
+    "runtime-version" : "50",
     "sdk" : "org.gnome.Sdk",
     "command" : "shotwell",
     "tags" : [
