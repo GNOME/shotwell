@@ -49,6 +49,8 @@ public class PrintSettings {
     public void save() {
         Config.Facade config = Config.Facade.get_instance();
 
+        print("=>>>>>>>>> Saving print settings\n");
+
         config.set_printing_content_units(content_width.unit);
         config.set_printing_content_width(content_width.value);
         config.set_printing_content_height(content_height.value);

@@ -19,6 +19,7 @@ public class PrintManager {
     private static PrintManager instance = null;
     
     private PrintSettings settings;
+    private Gtk.PrintSettings print_settings;
     private Gtk.PageSetup user_page_setup;
     private ProgressDialog? progress_dialog = null;
     private Cancellable? inner_cancellable = null;
@@ -26,8 +27,9 @@ public class PrintManager {
     private GLib.OutputStream? temp_printstream = null;
     
     private PrintManager() {
-        user_page_setup = new Gtk.PageSetup();
+        user_page_setup = Config.Facade.get_instance().get_printing_system_page_setup();
         settings = new PrintSettings();
+        print_settings = Config.Facade.get_instance().get_printing_system_print_settings();
     }
 
     public unowned StandardPrintSize[] get_standard_sizes() {
@@ -111,8 +113,7 @@ public class PrintManager {
         var dialog = new Gtk.PrintDialog();
         dialog.set_accept_label(_("Continue..."));
         dialog.set_page_setup(user_page_setup);
-        // FIXME: Set print settings
-        // dialog.set_print_settings(user_print_settings);
+        dialog.set_print_settings(print_settings);
 
         PrintPreview.Result result = PrintPreview.Result.UNDEFINED;
         PrintJob? job = null;
@@ -121,6 +122,7 @@ public class PrintManager {
             try {
                 user_print_setup = yield dialog.setup(AppWindow.get_instance(), null);
                 user_page_setup = user_print_setup.get_page_setup();
+                print_settings = user_print_setup.get_print_settings();
             } catch (Error err) {
                 if (err is Gtk.DialogError.DISMISSED || err is Gtk.DialogError.CANCELLED) {
                     return;
@@ -149,6 +151,10 @@ public class PrintManager {
         } while (result == PrintPreview.Result.BACK);
 
         // If we landed here, the user definitely wants to print
+        set_global_settings(settings);
+        var config = Config.Facade.get_instance();
+        config.set_printing_system_print_settings(print_settings);
+        config.set_printing_system_page_setup(user_page_setup);
 
         // Do the actual print
         AppWindow.get_instance().set_busy_cursor();
@@ -194,7 +200,7 @@ public class PrintManager {
                 ctx.show_page();
             }
             var idle_id = Idle.add(spool_photo.callback);
-            Source.set_name_by_id(idle_id, "Async callback");
+            Source.set_name_by_id(idle_id, "spool_photo Async callback");
         });
         yield;
         thread.join();
@@ -390,8 +396,6 @@ public class PrintManager {
     }
     
     private void add_title_to_canvas(double x, double y, string title, PrintJob job, Cairo.Context dc) {
-        // FIXME: This should probably use the functions from Gtk.PrintContext, not rolling this on our own
-        // But this is how it was, and it works nicely with the preview
         double dpi = job.get_local_settings().get_content_ppi();
         var title_font_description = Pango.FontDescription.from_string(job.get_local_settings().get_print_titles_font());
         var title_layout = Pango.cairo_create_layout(dc);
@@ -427,6 +431,7 @@ public class PrintManager {
     }
 
     public void set_global_settings(PrintSettings settings) {
+        print("=========> Setting global settings...\n");
         this.settings = settings;
         settings.save();
     }
