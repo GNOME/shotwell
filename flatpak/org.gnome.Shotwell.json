@@ -230,6 +230,20 @@
             ]
         },
         {
+            "name" : "gcr-3",
+            "buildsystem" : "meson",
+            "config-opts" : [
+              "-Dgtk_doc=false"   
+            ],
+            "sources" : [
+              {
+                "type": "archive",
+                "url": "https://download.gnome.org/sources/gcr/3.41/gcr-3.41.2.tar.xz",
+                "sha256": "bad10f3c553a0e1854649ab59c5b2434da22ca1a54ae6138f1f53961567e1ab7" 
+              }
+          ]
+        },
+        {
             "name" : "libheif",
             "buildsystem" : "cmake-ninja",
             "config-opts": [
