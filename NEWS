@@ -1,3 +1,29 @@
+Shotwell 0.32.16 (stabe) - 01 Jun 2026
+
+ * Translation updates
+ * Fix crashes on invalid dimensions in export
+ * Support GExiv2 0.16
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5180
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Марко Костић <marko.m.kostic@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Asier Saratsua Garmendia <asiersarasua@ni.eus>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Daniel Rusek <mail@asciiwolf.com>
+
+Added/updated translations:
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - sr.po, courtesy of Марко Костић
+ - cs.po, courtesy of Daniel Rusek
+ - eu.po, courtesy of Asier Saratsua Garmendia
+ - hu.po, courtesy of Balázs Úr
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - sr.po, courtesy of Мирослав Николић
+
 Shotwell 0.32.15 (stable) - 01 Mar 2025
  * Translation updates
  * Fix writable detection for AVIF files

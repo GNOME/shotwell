@@ -56,6 +56,14 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+    <release version="0.32.16" date="2026-06-01" urgency="low" type="stable">
+      <description>
+        <ul>
+          <li>Updates translations</li>
+          <li>Fixes a rare crash in the export dialog</li>
+        </ul>
+      </description>
+    </release>"
     <release version="0.32.15" date="2026-03-01" urgency="low" type="stable">
       <description>
         <ul>
