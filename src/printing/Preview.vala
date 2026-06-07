@@ -92,10 +92,10 @@ public class PrintPreview : Gtk.Window {
         image_per_page_radio.toggled.connect(on_radio_group_click);
         pages.label = " / %d".printf(source_job.n_pages);
 
-        first_page.clicked.connect(()=>{lbl_current_page.value = 1;});
-        prev_page.clicked.connect(()=>{lbl_current_page.value--;});
-        next_page.clicked.connect(()=>{lbl_current_page.value++;});
-        last_page.clicked.connect(()=>{lbl_current_page.value = source_job.n_pages; });
+        first_page.clicked.connect(on_first_page);
+        prev_page.clicked.connect(on_prev_page);
+        next_page.clicked.connect(on_next_page);
+        last_page.clicked.connect(on_last_page);
 
         // Technically, force-relayout does too much here, but that's better than to duplicate 99% of the code
         title_print_check.toggled.connect(force_relayout);
@@ -142,7 +142,7 @@ public class PrintPreview : Gtk.Window {
         /* connect this signal after state is sync'd */
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);
 
-        manager.relayout_images(source_job);
+        source_job.relayout_images();
         print("Orientation: %s\n", page_setup.get_orientation().to_string());;
         double page_width = page_setup.get_page_width(Gtk.Unit.POINTS);
         double page_height = page_setup.get_page_height(Gtk.Unit.POINTS);
@@ -153,6 +153,22 @@ public class PrintPreview : Gtk.Window {
         preview.set_visible(true);
         preview.set_draw_func(preview_draw_func);
         on_page_value_changed();
+    }
+
+    private void on_first_page() {
+        lbl_current_page.value = 1;
+    }
+
+    private void on_next_page() {
+        lbl_current_page.value++;
+    }
+
+    private void on_prev_page() {
+        lbl_current_page.value--;
+    }
+
+    private void on_last_page() {
+        lbl_current_page.value = source_job.n_pages;
     }
 
     private void preview_draw_func(Gtk.DrawingArea da, Cairo.Context ctx, int w, int h) {
@@ -171,7 +187,7 @@ public class PrintPreview : Gtk.Window {
         ctx.rectangle(0, 0, w - left - right, h - top - bottom);
         ctx.clip();
         double inv_dpi = 1.0 / SCREEN_PPI;
-        manager.draw_page(source_job, ctx, current_page - 1, (w - left - right) * inv_dpi, (h - top - bottom) * inv_dpi);
+        source_job.draw_page(ctx, current_page - 1, (w - left - right) * inv_dpi, (h - top - bottom) * inv_dpi);
         ctx.restore();
         source_job.get_local_settings().set_content_ppi(ppi);
     }
@@ -376,7 +392,7 @@ public class PrintPreview : Gtk.Window {
         assert(job.get_local_settings().get_content_width().unit ==
             job.get_local_settings().get_content_height().unit);
         
-        Measurement constrained_width = job.get_local_settings().get_content_width();
+        var constrained_width = job.get_local_settings().get_content_width();
         if (job.get_local_settings().is_match_aspect_ratio_enabled())
             constrained_width = Measurement(job.get_local_settings().get_content_height().value *
                 job.get_source_aspect_ratio(), job.get_local_settings().get_content_height().unit);
@@ -579,7 +595,7 @@ public class PrintPreview : Gtk.Window {
 
     private void force_relayout() {
         source_job.set_local_settings(get_local_settings());
-        manager.relayout_images(source_job);
+        source_job.relayout_images();
         pages.label = " / %d".printf(source_job.n_pages);
         lbl_current_page.set_range(1, source_job.n_pages);
         current_page = int.min(current_page, source_job.n_pages);
