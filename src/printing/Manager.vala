@@ -179,7 +179,6 @@ public class PrintManager {
     }
 
     public void set_global_settings(PrintSettings settings) {
-        print("=========> Setting global settings...\n");
         this.settings = settings;
         settings.save();
     }

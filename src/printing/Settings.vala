@@ -32,24 +32,16 @@ public class PrintSettings {
         content_width = Measurement(config.get_printing_content_width(), units);
         content_height = Measurement(config.get_printing_content_height(), units);
         size_selection = config.get_printing_size_selection();
-        print("================> Size selection is %d\n", size_selection);
         content_layout = (ContentLayout) config.get_printing_content_layout();
         match_aspect_ratio = config.get_printing_match_aspect_ratio();
         print_titles = config.get_printing_print_titles();
         print_titles_font = config.get_printing_titles_font();
         image_per_page_selection = config.get_printing_images_per_page();
         content_ppi = config.get_printing_content_ppi();
-        print("creating print settings %p\n", this);
-    }
-
-    ~PrintSettings() {
-        print("Deleting print settings %p\n", this);
     }
 
     public void save() {
         Config.Facade config = Config.Facade.get_instance();
-
-        print("=>>>>>>>>> Saving print settings\n");
 
         config.set_printing_content_units(content_width.unit);
         config.set_printing_content_width(content_width.value);
@@ -68,9 +60,7 @@ public class PrintSettings {
         switch (get_content_layout()) {
             case ContentLayout.STANDARD_SIZE:
             case ContentLayout.IMAGE_PER_PAGE:
-                print("Print manager: %p, Self: %p, sz: %p\n", PrintManager.get_instance(), this, PrintManager.get_instance().get_standard_sizes());
                 var sel = get_size_selection();
-                print("  %d %d:\n", sel, PrintManager.get_instance().get_standard_sizes().length);
                 return (PrintManager.get_instance().get_standard_sizes()[
                     get_size_selection()]).width;
 

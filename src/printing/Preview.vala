@@ -143,12 +143,10 @@ public class PrintPreview : Gtk.Window {
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);
 
         source_job.relayout_images();
-        print("Orientation: %s\n", page_setup.get_orientation().to_string());;
         double page_width = page_setup.get_page_width(Gtk.Unit.POINTS);
         double page_height = page_setup.get_page_height(Gtk.Unit.POINTS);
 
         preview.set_content_height((int)(page_height));
-        print(">content_height: %d %d\n", (int)page_height, (int) page_width);
         preview.set_content_width((int)(page_width));
         preview.set_visible(true);
         preview.set_draw_func(preview_draw_func);
@@ -635,7 +633,6 @@ public class PrintPreview : Gtk.Window {
     }
 
     private void on_page_value_changed() {
-        print("Value changed!!!!! %f %d\n", lbl_current_page.value, current_page);
         first_page.sensitive = lbl_current_page.value != 1;
         prev_page.sensitive = lbl_current_page.value != 1;
         last_page.sensitive = lbl_current_page.value != source_job.n_pages;

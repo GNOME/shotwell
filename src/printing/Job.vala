@@ -65,7 +65,6 @@ public class PrintJob : Object {
 
     // Draws the page given in the space page_width, page_height, must be INCHES
     public void draw_page(Cairo.Context dc, int page_num, double page_width, double page_height) {
-        print("dp: page_num: %d, pw: %f, ph: %f\n", page_num, page_width, page_height);
         var photos = get_photos();
         
         var content_layout = get_local_settings().get_content_layout();
@@ -118,23 +117,17 @@ public class PrintJob : Object {
                 PrintLayout layout = (PrintLayout) get_local_settings().get_image_per_page_selection();
                 int nx = layout.get_x();
                 int ny = layout.get_y();
-                print("%s: nx / ny: %d / %d\n", layout.to_string(), nx, ny);
                 int start = page_num * layout.get_per_page();
                 double canvas_width = (double) (page_width - IMAGE_DISTANCE * (nx - 1)) / nx;
                 double canvas_height = (double) (page_height - IMAGE_DISTANCE * (ny - 1)) / ny;
-                print("start: %d cw: %f ch: %f\n", start, canvas_width, canvas_height);
-                print("photos.size: %d\n", photos.size);
                 for (int y = 0; y < ny; y++){
-                    print("y = %d ",y);
                     for (int x = 0; x < nx; x++){
                         int i = start + y * nx + x;
-                        print("x = %d, i = %d \n",y, i);
                         if (i < photos.size) {
                             double dx = x * (canvas_width) + x * IMAGE_DISTANCE;
                             double dy = y * (canvas_height) + y * IMAGE_DISTANCE;
                             fit_image_to_canvas(photos[i], dx, dy, canvas_width, canvas_height, false,
                                 dc);
-                            print("Putting image at %f %f %f %f\n", dx, dy, canvas_width, canvas_height);
                             if (get_local_settings().is_print_titles_enabled()) {
                                 add_title_to_canvas(dx + canvas_width / 2, dy + canvas_height, 
                                     photos[i].get_name(), dc);
@@ -153,14 +146,9 @@ public class PrintJob : Object {
     }
 
     private void fit_image_to_canvas(Photo photo, double x, double y, double canvas_width, double canvas_height, bool crop, Cairo.Context dc) {
-        print("Fitting to canvas: %f %f %f %f, %s\n", x, y, canvas_width, canvas_height, crop.to_string());
         Dimensions photo_dimensions = photo.get_dimensions();
         double photo_aspect_ratio = photo_dimensions.get_aspect_ratio();
         double canvas_aspect_ratio = ((double) canvas_width) / canvas_height;
-
-        print("Dimensions (photo) %s\n", photo_dimensions.to_string());
-        print("ARs: P %f c %f\n", photo_aspect_ratio, canvas_aspect_ratio);
-
 
         double target_width = 0.0;
         double target_height = 0.0;
@@ -178,12 +166,9 @@ public class PrintJob : Object {
             y += (canvas_height - target_height) / 2.0;
         }
 
-        print("-> dpi %f tw %f th %f x %f y %f\n", dpi,  target_width, target_height, x, y);
-        
         double x_offset = dpi * x;
         double y_offset = dpi * y;
 
-        print("xo: %f, yo: %f\n", x_offset, y_offset);
         dc.save();
         dc.translate(x_offset, y_offset);
 
@@ -191,12 +176,9 @@ public class PrintJob : Object {
         int h = (int) (dpi * canvas_height);
         Dimensions viewport = Dimensions(w, h);
 
-        print("viewport: %s\n", viewport.to_string());
-
         try {
             if (crop && !are_approximately_equal(canvas_aspect_ratio, photo_aspect_ratio)) {
                 Scaling pixbuf_scaling = Scaling.to_fill_viewport(viewport);
-                print("a) Putting pixbuf at %s\n", pixbuf_scaling.to_string());
                 Gdk.Pixbuf photo_pixbuf = photo.get_pixbuf(pixbuf_scaling);
                 Dimensions scaled_photo_dimensions = Dimensions.for_pixbuf(photo_pixbuf);
                 int shave_vertical = 0;
@@ -212,7 +194,6 @@ public class PrintJob : Object {
                 Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
             } else {
                 Scaling pixbuf_scaling = Scaling.for_viewport(viewport, true);
-                print("b) Putting pixbuf at %s\n", pixbuf_scaling.to_string());
                 Gdk.Pixbuf photo_pixbuf = photo.get_pixbuf(pixbuf_scaling);
                 photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.HYPER, true);
                 Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
