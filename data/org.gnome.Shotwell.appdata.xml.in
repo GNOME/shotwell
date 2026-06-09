@@ -56,6 +56,13 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+    <release version="0.32.17" date="2026-06-09" urgency="low" type="stable">
+      <description>
+        <ul>
+          <li>Fixes an issue where uploading images to Flickr would fail if the title contained non-latin characters</li>
+        </ul>
+      </description>
+    </release>"
     <release version="0.32.16" date="2026-06-01" urgency="low" type="stable">
       <description>
         <ul>

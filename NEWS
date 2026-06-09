@@ -1,4 +1,14 @@
-Shotwell 0.32.16 (stabe) - 01 Jun 2026
+Shotwell 0.32.17 (stable) - 09 Jun 2026
+
+ * Fix issue with Flicker and non-latin titles
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5191
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
+Shotwell 0.32.16 (stable) - 01 Jun 2026
 
  * Translation updates
  * Fix crashes on invalid dimensions in export
