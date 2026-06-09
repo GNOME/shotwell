@@ -995,6 +995,8 @@ public abstract class Page : Gtk.Box {
             return false;
 
         context_menu.set_pointing_to ({(int)x, (int)y, 1, 1});
+        context_menu.position = Gtk.PositionType.BOTTOM;
+        context_menu.halign = Gtk.Align.START;
         context_menu.popup();
 
         return true;

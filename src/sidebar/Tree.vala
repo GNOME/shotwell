@@ -861,6 +861,8 @@ public class Sidebar.Tree : Gtk.TreeView {
         context_menu.set_parent (this);
 
         context_menu.set_pointing_to ({(int)x, (int)y, 1, 1});
+        context_menu.position = Gtk.PositionType.BOTTOM;
+        context_menu.halign = Gtk.Align.START;
         context_menu.popup();
 
         // Fixme: Awful. Probably better to hand out the model, not the menu
