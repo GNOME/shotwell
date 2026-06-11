@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-03-02 20:46+0000\n"
-"PO-Revision-Date: 2026-03-11 14:05+0800\n"
+"POT-Creation-Date: 2026-06-09 19:55+0000\n"
+"PO-Revision-Date: 2026-06-11 08:12+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Gtranslator 50.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -945,142 +945,158 @@ msgstr "标题字体"
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "照片标题打印时使用的字体名称"
 
+#: data/gsettings/org.gnome.shotwell.gschema.xml:690
+msgid "Stored system printing settings"
+msgstr "存储的系统打印设置"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:691
+msgid "The stored settings of the system print dialog"
+msgstr "存储的系统打印对话框设置"
+
 #: data/gsettings/org.gnome.shotwell.gschema.xml:696
+msgid "Stored page settings"
+msgstr "存储的页面设置"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+msgid "The stored settings of the print dialog page settings"
+msgstr "存储的打印对话框页面设置"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
 msgstr "启用 flickr 发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 Flickr 发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:702
-#: data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable Google Photos publishing plugin"
 msgstr "启用 Google 相册发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:703
-#: data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 Google 相册发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable youtube publishing plugin"
 msgstr "启用 youtube 发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 YouTube 发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:720
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable piwigo publishing plugin"
 msgstr "启用 piwigo 发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:721
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 Piwigo 发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:726
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
 msgstr "启用 tumblr 发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:727
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 Tumblr 发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:732
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable gallery3 publishing plugin"
 msgstr "启用 gallery3 发布插件"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:733
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "如果要启用 Gallery3 发布插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:738
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow crumble transition"
 msgstr "启用幻灯片碎纸变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:739
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用碎纸幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:744
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow fade transition"
 msgstr "启用幻灯片淡出变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:745
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用淡出幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:750
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow slide transition"
 msgstr "启用幻灯片滑动变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:751
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用滑动幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:756
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow clock transition"
 msgstr "主要幻灯片时钟变换"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:757
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用时钟幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:762
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow circle transition"
 msgstr "启用幻灯片单圆圈变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:763
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用单圆圈幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:768
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow circles transition"
 msgstr "启用幻灯片多圆圈变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:769
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用多圆圈幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:774
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow blinds transition"
 msgstr "启用幻灯片百叶窗变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:775
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用百叶窗幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:780
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow squares transition"
 msgstr "启用幻灯片方格变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:781
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用方格幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:786
+#: data/gsettings/org.gnome.shotwell.gschema.xml:798
 msgid "enable slideshow stripes transition"
 msgstr "启用幻灯片条纹变换效果"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:787
+#: data/gsettings/org.gnome.shotwell.gschema.xml:799
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr "如果要启用条纹幻灯片变换插件，设为 true；否则设为 false"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:792
+#: data/gsettings/org.gnome.shotwell.gschema.xml:804
 msgid "enable slideshow chess transition"
 msgstr "主要幻灯片棋盘变换"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:793
+#: data/gsettings/org.gnome.shotwell.gschema.xml:805
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1325,7 +1341,7 @@ msgid "Publish to various websites"
 msgstr "将所选照片发布到各种网站上"
 
 #: data/ui/collection.ui:229
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 #: src/Resources.vala:262
 msgid "Publish"
 msgstr "发布"
@@ -1550,11 +1566,11 @@ msgstr "标注照片中的人脸"
 msgid "Faces"
 msgstr "面部"
 
-#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:157
+#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:159
 msgid "Go to the previous photo"
 msgstr "跳到上一张照片"
 
-#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:171
+#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:173
 msgid "Go to the next photo"
 msgstr "跳到下一张照片"
 
@@ -1804,16 +1820,14 @@ msgstr "导入选定的媒体文件到您的媒体库"
 msgid "Import all media files into the library"
 msgstr "导入所有媒体文件到您的媒体库"
 
-#: data/ui/login_welcome_pane_widget.ui:22
+#: data/ui/login_welcome_pane_widget.ui:27
 msgid "_Log in"
 msgstr "登录(_L)"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:221 src/AppWindow.vala:247
-#: src/data_imports/DataImportsUI.vala:310
-#: src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20
+#: src/AppWindow.vala:221 src/AppWindow.vala:246 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:761
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:736
 #: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
 #: src/Resources.vala:124
 msgid "_Cancel"
@@ -1853,156 +1867,160 @@ msgstr "粘贴颜色调整(_P)"
 msgid "Library"
 msgstr "媒体库"
 
-#: data/ui/preferences_dialog.ui:81
+#: data/ui/preferences_dialog.ui:84
 msgid "Library Location"
 msgstr "媒体库位置"
 
-#: data/ui/preferences_dialog.ui:95
+#: data/ui/preferences_dialog.ui:98
 msgid "_Import photos to:"
 msgstr "导入照片到(_I)："
 
-#: data/ui/preferences_dialog.ui:106
+#: data/ui/preferences_dialog.ui:109
 msgid "_Watch library directory for new files"
 msgstr "监视媒体库文件夹中的新文件(_W)"
 
-#: data/ui/preferences_dialog.ui:123
+#: data/ui/preferences_dialog.ui:126
 msgid "Importing"
 msgstr "导入中"
 
-#: data/ui/preferences_dialog.ui:137
+#: data/ui/preferences_dialog.ui:140
 msgid "_Directory structure:"
 msgstr "目录结构(_D)："
 
-#: data/ui/preferences_dialog.ui:149
+#: data/ui/preferences_dialog.ui:152
 msgid "Example:"
 msgstr "例如："
 
-#: data/ui/preferences_dialog.ui:158
+#: data/ui/preferences_dialog.ui:161
 msgid "R_ename imported files to lowercase"
 msgstr "将导入文件以小写重命名(_E)"
 
-#: data/ui/preferences_dialog.ui:174
+#: data/ui/preferences_dialog.ui:177
 msgid "Metadata"
 msgstr "元数据"
 
-#: data/ui/preferences_dialog.ui:187
+#: data/ui/preferences_dialog.ui:190
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "写入标签、标题和其他元数据到照片文件(_M)"
 
-#: data/ui/preferences_dialog.ui:203
+#: data/ui/preferences_dialog.ui:206
 msgid "RAW Developer"
 msgstr "RAW 开发工具"
 
-#: data/ui/preferences_dialog.ui:217
+#: data/ui/preferences_dialog.ui:220
 msgid "De_fault:"
 msgstr "默认(_F)："
 
-#: data/ui/preferences_dialog.ui:261
+#: data/ui/preferences_dialog.ui:267
 msgid "_Pattern:"
 msgstr "范例(_P)："
 
-#: data/ui/preferences_dialog.ui:284
+#: data/ui/preferences_dialog.ui:290
 msgid "Checkered"
 msgstr "方格"
 
-#: data/ui/preferences_dialog.ui:293
+#: data/ui/preferences_dialog.ui:299
 msgid "Solid color"
 msgstr "纯色"
 
-#: data/ui/preferences_dialog.ui:308 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:319 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "无"
 
-#: data/ui/preferences_dialog.ui:321
+#: data/ui/preferences_dialog.ui:332
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "查看透明图像时，它们将在此背景上绘制。"
 
-#: data/ui/preferences_dialog.ui:324
+#: data/ui/preferences_dialog.ui:335
 msgid "Transparent Background:"
 msgstr "透明背景："
 
-#: data/ui/preferences_dialog.ui:334
+#: data/ui/preferences_dialog.ui:345
 msgid "Use dark theme"
 msgstr "使用暗色主题"
 
-#: data/ui/preferences_dialog.ui:356
+#: data/ui/preferences_dialog.ui:367
 msgid "Display"
 msgstr "显示"
 
-#: data/ui/preferences_dialog.ui:419
+#: data/ui/preferences_dialog.ui:430
 msgid "External Editors"
 msgstr "外部编辑器"
 
-#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24
+#: data/ui/preferences_dialog.ui:452 data/ui/search_bar.ui:24
 #: src/library/LibraryBranch.vala:97
 msgid "Photos"
 msgstr "照片"
 
-#: data/ui/preferences_dialog.ui:470 src/photos/RawSupport.vala:136
+#: data/ui/preferences_dialog.ui:481 src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:494
+#: data/ui/preferences_dialog.ui:505
 msgid "Plugins"
 msgstr "插件"
 
-#: data/ui/preferences_dialog.ui:505 src/ProfileBrowser.vala:231
+#: data/ui/preferences_dialog.ui:516 src/ProfileBrowser.vala:231
 msgid "Profiles"
 msgstr "配置"
 
-#: data/ui/preferences_dialog.ui:532
+#: data/ui/preferences_dialog.ui:543
 msgid "Shotwell Preferences"
 msgstr "Shotwell 首选项"
 
-#: data/ui/printing_widget.ui:13
+#: data/ui/printing_widget.ui:49
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>印刷尺寸</b>"
 
-#: data/ui/printing_widget.ui:26
+#: data/ui/printing_widget.ui:62
 msgid "Use a _standard size:"
 msgstr "使用标准尺寸(_S)："
 
-#: data/ui/printing_widget.ui:48
+#: data/ui/printing_widget.ui:87
 msgid "Use a c_ustom size:"
 msgstr "使用自定义尺寸(_U)："
 
 #. Abbreviation for "inch"
-#: data/ui/printing_widget.ui:85
+#: data/ui/printing_widget.ui:129
 msgid "in."
 msgstr "英寸"
 
 #. Abbreviation for "centimeters"
-#: data/ui/printing_widget.ui:86
+#: data/ui/printing_widget.ui:130
 msgid "cm"
 msgstr "厘米"
 
-#: data/ui/printing_widget.ui:98
-msgid "_Match photo aspect ratio"
-msgstr "匹配照片长宽比(_M)"
+#: data/ui/printing_widget.ui:138
+msgid ""
+"Automatically keep image's\n"
+"                          aspect ratio"
+msgstr ""
+"自动保持图像的\n"
+"            宽高比"
 
-#: data/ui/printing_widget.ui:110
+#: data/ui/printing_widget.ui:177
 msgid "_Autosize:"
 msgstr "自动(_A)："
 
-#: data/ui/printing_widget.ui:138
+#: data/ui/printing_widget.ui:208
 msgid "<b>Titles</b>"
 msgstr "<b>标题</b>"
 
-#: data/ui/printing_widget.ui:148
+#: data/ui/printing_widget.ui:218
 msgid "Print image _title"
 msgstr "打印图像标题(_T)"
 
-#: data/ui/printing_widget.ui:170
+#: data/ui/printing_widget.ui:246
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>像素分辨率</b>"
 
-#: data/ui/printing_widget.ui:181
+#: data/ui/printing_widget.ui:258
 msgid "_Output photo at:"
 msgstr "输出照片于(_O)："
 
-#: data/ui/printing_widget.ui:200
+#: data/ui/printing_widget.ui:285
 msgid "pixels per inch"
 msgstr "每英寸像素数"
 
@@ -2018,28 +2036,28 @@ msgstr "搜索名称(_N)："
 msgid "_Match"
 msgstr "匹配(_M)"
 
-#: data/ui/saved_search_dialog.ui:66
+#: data/ui/saved_search_dialog.ui:68
 msgid "any"
 msgstr "任何"
 
-#: data/ui/saved_search_dialog.ui:67
+#: data/ui/saved_search_dialog.ui:69
 msgid "all"
 msgstr "全部"
 
-#: data/ui/saved_search_dialog.ui:68
+#: data/ui/saved_search_dialog.ui:70
 msgid "none"
 msgstr "无"
 
-#: data/ui/saved_search_dialog.ui:74
+#: data/ui/saved_search_dialog.ui:78
 msgid "of the following:"
 msgstr "以下这些："
 
-#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20
+#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:20
 #: src/ProfileBrowser.vala:208
 msgid "Cancel"
 msgstr "取消"
 
-#: data/ui/saved_search_dialog.ui:137
+#: data/ui/saved_search_dialog.ui:141
 msgid "OK"
 msgstr "确定"
 
@@ -2155,7 +2173,7 @@ msgstr "照片间每个变换效果的显示时间（秒）"
 msgid "Show t_itle"
 msgstr "显示标题(_I)"
 
-#: data/ui/slideshow_settings.ui:141 data/ui/slideshow_settings.ui:150
+#: data/ui/slideshow_settings.ui:137 data/ui/slideshow_settings.ui:146
 msgid "seconds"
 msgstr "秒"
 
@@ -2188,7 +2206,7 @@ msgstr "将选定照片移回至媒体库"
 msgid "Delete all photos in the trash"
 msgstr "删除在回收站中的全部照片"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:553
 msgid "Empty Trash"
 msgstr "清空回收站"
 
@@ -2311,7 +2329,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "访问 Shotwell 主页"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:312
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:311
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2389,7 +2407,7 @@ msgid ""
 msgstr "⚫ 此站点的证书尚未到生效时间。检查计算机的时间是不是正确。"
 
 #: plugins/common/RESTSupport.vala:582
-#: plugins/shotwell-publishing/TumblrPublishing.vala:560
+#: plugins/shotwell-publishing/TumblrPublishing.vala:562
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "用于发布需要的临时文件不可用"
@@ -2435,24 +2453,24 @@ msgstr "继续"
 msgid "Photo _size"
 msgstr "照片尺寸(_S)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:75
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:57
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr "上传前去除照片的地理位置、相机型号和其他可供辨认的信息(_R)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:98
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:82
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:48
 msgid "_Logout"
 msgstr "登出(_L)"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:107
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:149
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:91
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:56
 #: src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
 msgid "_Publish"
 msgstr "发布(_P)"
@@ -2530,29 +2548,29 @@ msgstr "仅限朋友"
 msgid "Just me"
 msgstr "仅有我"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 #: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 像素"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 #: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 像素"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 像素"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/FlickrPublishing.vala:646
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 像素"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/FlickrPublishing.vala:647
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -2567,15 +2585,15 @@ msgstr ""
 "Shotwell 只能发布到它自己创建的影集，因此尽管你的 Google 相册帐户已经有影集，"
 "但此列表也可能为空"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:73
 msgid "Photo _size preset"
 msgstr "预设照片尺寸(_S)"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:88
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "An existing album"
 msgstr "已有影集"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:107
 msgid "A new album named"
 msgstr "新建影集"
 
@@ -2631,7 +2649,7 @@ msgstr "照片将出现在："
 
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:107
 msgid "Default album"
 msgstr "默认相册"
 
@@ -2655,39 +2673,39 @@ msgstr "记住密码"
 msgid "An _existing category"
 msgstr "已有分类(_E)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:84
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:100
 msgid "A _new album named"
 msgstr "新建相册(_N)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:109
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:125
 msgid "within category"
 msgstr "在分类"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:120
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:136
 msgid "Album comment"
 msgstr "相册备注"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:130
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:146
 msgid "Photos will be _visible by"
 msgstr "照片将公开给(_V)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:158
 msgid "Photo size"
 msgstr "照片尺寸"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr "如果有标题而没有备注，将标题作为备注(_I)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:191
 msgid "_Do no upload tags"
 msgstr "不上传标签(_D)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:199
 msgid "_Do not upload ratings"
 msgstr "不上传评分(_D)"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:196
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:212
 msgid "Logout"
 msgstr "登出"
 
@@ -2798,15 +2816,15 @@ msgstr "一个发布所需要的文件不存在。无法继续发布至 YouTube�
 msgid "You are logged into YouTube as %s."
 msgstr "你已经作为 %s 登录 YouTube。"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:330
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Public"
 msgstr "公开"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:331
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "Private"
 msgstr "私人"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:332
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "unlisted"
 msgstr "未列出"
 
@@ -2901,32 +2919,32 @@ msgstr "无法将 %s 目录设为可写状态：%s"
 msgid "Ok"
 msgstr "确定"
 
-#: src/AppWindow.vala:238
+#: src/AppWindow.vala:237
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "文件 %s 已存在。是否替换？"
 
-#: src/AppWindow.vala:241
+#: src/AppWindow.vala:240
 msgid "Export file conflict"
 msgstr "导出文件冲突"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:244
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "对所有冲突应用此解决方式"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "Rename"
 msgstr "重命名"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: src/AppWindow.vala:270
+#: src/AppWindow.vala:269
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2938,21 +2956,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:309
+#: src/AppWindow.vala:308
 msgid "Visit the Shotwell web site"
 msgstr "访问 Shotwell 网站"
 
-#: src/AppWindow.vala:321
+#: src/AppWindow.vala:320
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "无法显示帮助 %s"
 
-#: src/AppWindow.vala:329
+#: src/AppWindow.vala:328
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "无法转向 Bug 数据库：%s"
 
-#: src/AppWindow.vala:337
+#: src/AppWindow.vala:336
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "无法显示常见问题 %s"
@@ -3151,11 +3169,11 @@ msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "由于错误无法从相机中删除 %d 个照片/视频。"
 
-#: src/CheckerboardPage.vala:131
+#: src/CheckerboardPage.vala:132
 msgid "No photos/videos"
 msgstr "没有照片/视频"
 
-#: src/CheckerboardPage.vala:135
+#: src/CheckerboardPage.vala:136
 msgid "No photos/videos found which match the current filter"
 msgstr "没有找到符合当前筛选条件的照片/视频"
 
@@ -3397,61 +3415,6 @@ msgstr "标记"
 msgid "Unflag"
 msgstr "取消标记"
 
-#. Send an empty job to the queue to mark the end of the import
-#: src/data_imports/DataImportsPluginHost.vala:65
-#: src/data_imports/DataImportsPluginHost.vala:78
-#, c-format
-msgid "%s Database"
-msgstr "%s 数据库"
-
-#: src/data_imports/DataImportsPluginHost.vala:148
-#: src/data_imports/DataImportsPluginHost.vala:294
-#, c-format
-msgid "Importing from %s can’t continue because an error occurred:"
-msgstr "无法继续从 %s 导入，由于发生错误："
-
-#: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
-msgstr "要尝试从其他服务导入，请从上面的菜单中选择一个。"
-
-#: src/data_imports/DataImportsUI.vala:10
-msgid ""
-"You do not have any data imports plugins enabled.\n"
-"\n"
-"In order to use the Import From Application functionality, you need to have "
-"at least one data imports plugin enabled. Plugins can be enabled in the "
-"Preferences dialog."
-msgstr ""
-"你没有启用任何数据导入插件。\n"
-"\n"
-"要使用从应用程序导入数据的功能，你需要至少启用一个数据导入插件。你可在首选想"
-"对话框中启用插件。"
-
-#: src/data_imports/DataImportsUI.vala:100
-#: src/data_imports/DataImportsUI.vala:102
-msgid "Database file"
-msgstr "数据库文件"
-
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
-msgid "_Import"
-msgstr "导入(_I)"
-
-#: src/data_imports/DataImportsUI.vala:229
-msgid "Import From Application"
-msgstr "从应用程序导入"
-
-#: src/data_imports/DataImportsUI.vala:230
-msgid "Import media _from:"
-msgstr "从以下位置导入媒体(_F)："
-
-#: src/data_imports/DataImportsUI.vala:423 src/publishing/PublishingUI.vala:396
-msgid "_Close"
-msgstr "关闭(_C)"
-
-#: src/data_imports/DataImports.vala:22
-msgid "Data Imports"
-msgstr "数据导入"
-
 #: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
@@ -3528,37 +3491,37 @@ msgstr "下午"
 msgid "24 Hr"
 msgstr "24 小时"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:98
+#: src/dialogs/AdjustDateTimeDialog.vala:99
 msgid "_Shift photos/videos by the same amount"
 msgstr "按照同样时间量调整照片/视频(_S)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:103
+#: src/dialogs/AdjustDateTimeDialog.vala:104
 msgid "Set _all photos/videos to this time"
 msgstr "设置所有照片/视频到这个时间(_A)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:110
+#: src/dialogs/AdjustDateTimeDialog.vala:111
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "修改原始照片文件(_M)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:114
+#: src/dialogs/AdjustDateTimeDialog.vala:115
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "修改原始文件(_M)"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:233
+#: src/dialogs/AdjustDateTimeDialog.vala:235
 msgid "Original: "
 msgstr "原始："
 
-#: src/dialogs/AdjustDateTimeDialog.vala:234
+#: src/dialogs/AdjustDateTimeDialog.vala:236
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y/%m/%d %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:235
+#: src/dialogs/AdjustDateTimeDialog.vala:237
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y/%m/%d %p%I:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:327
+#: src/dialogs/AdjustDateTimeDialog.vala:329
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3567,7 +3530,7 @@ msgstr ""
 "曝光时间将会向较早时改变 \n"
 "%d %s、%d %s、%d %s 和 %d %s。"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:328
+#: src/dialogs/AdjustDateTimeDialog.vala:330
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3576,22 +3539,22 @@ msgstr ""
 "曝光时间将会向较晚时改变 \n"
 "%d %s、%d %s、%d %s 和 %d %s。"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:330
+#: src/dialogs/AdjustDateTimeDialog.vala:332
 msgid "day"
 msgid_plural "days"
 msgstr[0] "日"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:331
+#: src/dialogs/AdjustDateTimeDialog.vala:333
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "小时"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:332
+#: src/dialogs/AdjustDateTimeDialog.vala:334
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分钟"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:333
+#: src/dialogs/AdjustDateTimeDialog.vala:335
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "秒"
@@ -3608,23 +3571,23 @@ msgid "Current"
 msgstr "当前"
 
 #. layout controls
-#: src/dialogs/ExportDialog.vala:91
+#: src/dialogs/ExportDialog.vala:94
 msgid "_Format:"
 msgstr "格式(_F)："
 
-#: src/dialogs/ExportDialog.vala:94
+#: src/dialogs/ExportDialog.vala:97
 msgid "_Quality:"
 msgstr "质量(_Q)："
 
-#: src/dialogs/ExportDialog.vala:97
+#: src/dialogs/ExportDialog.vala:100
 msgid "_Scaling constraint:"
 msgstr "缩放限制(_S)："
 
-#: src/dialogs/ExportDialog.vala:100
+#: src/dialogs/ExportDialog.vala:103
 msgid "_Pixels:"
 msgstr "像素(_P)："
 
-#: src/dialogs/ExportDialog.vala:104
+#: src/dialogs/ExportDialog.vala:107
 msgid "Export _metadata:"
 msgstr "导出元数据(_M)："
 
@@ -3659,7 +3622,7 @@ msgid "Custom"
 msgstr "自定义"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:359
+#: src/dialogs/Preferences.vala:360
 msgid "Invalid pattern"
 msgstr "无效的样式"
 
@@ -4254,44 +4217,44 @@ msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "%d 个照片/视频无法删除。"
 
-#: src/dialogs/WelcomeDialog.vala:36
+#: src/dialogs/WelcomeDialog.vala:34
 msgid "Welcome!"
 msgstr "欢迎！"
 
-#: src/dialogs/WelcomeDialog.vala:42
+#: src/dialogs/WelcomeDialog.vala:40
 msgid "Welcome to Shotwell!"
 msgstr "欢迎使用 Shotwell ！"
 
-#: src/dialogs/WelcomeDialog.vala:47
+#: src/dialogs/WelcomeDialog.vala:45
 msgid "To get started, import photos in any of these ways:"
 msgstr "要开始使用，请用以下任意一种方式导入照片："
 
-#: src/dialogs/WelcomeDialog.vala:65
+#: src/dialogs/WelcomeDialog.vala:63
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "从文件菜单中选择\"从文件夹导入\""
 
-#: src/dialogs/WelcomeDialog.vala:66
+#: src/dialogs/WelcomeDialog.vala:64
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "拖放照片到 Shotwell 窗口中"
 
-#: src/dialogs/WelcomeDialog.vala:67
+#: src/dialogs/WelcomeDialog.vala:65
 msgid "Connect a camera to your computer and import"
 msgstr "连接相机到电脑上并导入"
 
-#: src/dialogs/WelcomeDialog.vala:78
+#: src/dialogs/WelcomeDialog.vala:76
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "从你的 %s 文件夹导入照片(_I)"
 
-#: src/dialogs/WelcomeDialog.vala:85
+#: src/dialogs/WelcomeDialog.vala:83
 msgid "You can also import photos in any of these ways:"
 msgstr "你可以使用以下任意方式导入照片："
 
-#: src/dialogs/WelcomeDialog.vala:96
+#: src/dialogs/WelcomeDialog.vala:94
 msgid "_Don’t show this message again"
 msgstr "不再显示该消息(_D)"
 
-#: src/dialogs/WelcomeDialog.vala:133
+#: src/dialogs/WelcomeDialog.vala:129
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "从你的 %s 照片库导入照片"
@@ -4366,11 +4329,7 @@ msgstr "所有文件"
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "无法监视 %s：不是目录（%s）"
 
-#: src/DragAndDropHandler.vala:161
-msgid "Photos cannot be exported to this directory."
-msgstr "照片不可以被导出到该文件夹。"
-
-#: src/EditingHostPage.vala:1321
+#: src/EditingHostPage.vala:1320
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "照片源文件丢失：%s"
@@ -4488,23 +4447,23 @@ msgstr "标清视频（4 ∶ 3）"
 msgid "HD Video (16 ∶ 9)"
 msgstr "高清视频（16 ∶ 9）"
 
-#: src/editing_tools/CropTool.vala:183 src/Printing.vala:794
+#: src/editing_tools/CropTool.vala:183 src/printing/Manager.vala:37
 msgid "Wallet (2 × 3 in.)"
 msgstr "钱包照（2 × 3 英寸）"
 
-#: src/editing_tools/CropTool.vala:184 src/Printing.vala:797
+#: src/editing_tools/CropTool.vala:184 src/printing/Manager.vala:40
 msgid "Notecard (3 × 5 in.)"
 msgstr "留言卡（3 × 5 英寸）"
 
-#: src/editing_tools/CropTool.vala:185 src/Printing.vala:800
+#: src/editing_tools/CropTool.vala:185 src/printing/Manager.vala:43
 msgid "4 × 6 in."
 msgstr "4 × 6 英寸"
 
-#: src/editing_tools/CropTool.vala:186 src/Printing.vala:803
+#: src/editing_tools/CropTool.vala:186 src/printing/Manager.vala:46
 msgid "5 × 7 in."
 msgstr "5 × 7 英寸"
 
-#: src/editing_tools/CropTool.vala:187 src/Printing.vala:806
+#: src/editing_tools/CropTool.vala:187 src/printing/Manager.vala:49
 msgid "8 × 10 in."
 msgstr "8 × 10 英寸"
 
@@ -4512,7 +4471,7 @@ msgstr "8 × 10 英寸"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "信纸（8.5 × 11 英寸）"
 
-#: src/editing_tools/CropTool.vala:189 src/Printing.vala:809
+#: src/editing_tools/CropTool.vala:189 src/printing/Manager.vala:52
 msgid "11 × 14 in."
 msgstr "11 × 14 英寸"
 
@@ -4520,23 +4479,23 @@ msgstr "11 × 14 英寸"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "小报（11 × 17 英寸）"
 
-#: src/editing_tools/CropTool.vala:191 src/Printing.vala:812
+#: src/editing_tools/CropTool.vala:191 src/printing/Manager.vala:55
 msgid "16 × 20 in."
 msgstr "16 × 20 英寸"
 
-#: src/editing_tools/CropTool.vala:193 src/Printing.vala:818
+#: src/editing_tools/CropTool.vala:193 src/printing/Manager.vala:61
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "钱包照（9 × 13 厘米）"
 
-#: src/editing_tools/CropTool.vala:194 src/Printing.vala:821
+#: src/editing_tools/CropTool.vala:194 src/printing/Manager.vala:64
 msgid "Postcard (10 × 15 cm)"
 msgstr "明信片（10 × 15 厘米）"
 
-#: src/editing_tools/CropTool.vala:195 src/Printing.vala:824
+#: src/editing_tools/CropTool.vala:195 src/printing/Manager.vala:67
 msgid "13 × 18 cm"
 msgstr "13 × 18 厘米"
 
-#: src/editing_tools/CropTool.vala:196 src/Printing.vala:827
+#: src/editing_tools/CropTool.vala:196 src/printing/Manager.vala:70
 msgid "18 × 24 cm"
 msgstr "18 × 24 厘米"
 
@@ -4544,15 +4503,15 @@ msgstr "18 × 24 厘米"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4（210 × 297 毫米）"
 
-#: src/editing_tools/CropTool.vala:198 src/Printing.vala:830
+#: src/editing_tools/CropTool.vala:198 src/printing/Manager.vala:73
 msgid "20 × 30 cm"
 msgstr "20 × 30 厘米"
 
-#: src/editing_tools/CropTool.vala:199 src/Printing.vala:833
+#: src/editing_tools/CropTool.vala:199 src/printing/Manager.vala:76
 msgid "24 × 40 cm"
 msgstr "24 × 40 厘米"
 
-#: src/editing_tools/CropTool.vala:200 src/Printing.vala:836
+#: src/editing_tools/CropTool.vala:200 src/printing/Manager.vala:79
 msgid "30 × 40 cm"
 msgstr "30 × 40 厘米"
 
@@ -4727,19 +4686,19 @@ msgstr "最近导入"
 msgid "Organize and browse your photos"
 msgstr "整理和浏览你的照片"
 
-#: src/library/LibraryWindow.vala:515
+#: src/library/LibraryWindow.vala:490
 msgid "Import From Folder"
 msgstr "从文件夹导入"
 
-#: src/library/LibraryWindow.vala:527
+#: src/library/LibraryWindow.vala:502
 msgid "Recurse Into Subfolders"
 msgstr "递归到子文件夹"
 
-#: src/library/LibraryWindow.vala:578
+#: src/library/LibraryWindow.vala:553
 msgid "Emptying Trash…"
 msgstr "正在清空回收站……"
 
-#: src/library/LibraryWindow.vala:758
+#: src/library/LibraryWindow.vala:733
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4750,24 +4709,28 @@ msgstr ""
 "我们推荐你在“编辑 %s 首选项”中更改此设置。\n"
 "你想继续导入照片吗？"
 
+#: src/library/LibraryWindow.vala:736
+msgid "_Import"
+msgstr "导入(_I)"
+
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:781
+#: src/library/LibraryWindow.vala:756
 msgid "Photos cannot be imported from this directory."
 msgstr "无法从此文件夹导入照片。"
 
-#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
+#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
 msgid "Updating library…"
 msgstr "正在更新媒体库……"
 
-#: src/library/LibraryWindow.vala:1026
+#: src/library/LibraryWindow.vala:1012
 msgid "Preparing to auto-import photos…"
 msgstr "正在准备自动导入照片……"
 
-#: src/library/LibraryWindow.vala:1031
+#: src/library/LibraryWindow.vala:1017
 msgid "Auto-importing photos…"
 msgstr "正在自动导入照片……"
 
-#: src/library/LibraryWindow.vala:1039
+#: src/library/LibraryWindow.vala:1025
 msgid "Writing metadata to files…"
 msgstr "正在将元数据写入文件……"
 
@@ -4958,22 +4921,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:260
+#: src/photos/JfifSupport.vala:272
 #, c-format
 msgid "Low (%d%%)"
 msgstr "低（%d%%）"
 
-#: src/photos/JfifSupport.vala:263
+#: src/photos/JfifSupport.vala:275
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "中（%d%%）"
 
-#: src/photos/JfifSupport.vala:266
+#: src/photos/JfifSupport.vala:278
 #, c-format
 msgid "High (%d%%)"
 msgstr "高（%d%%）"
 
-#: src/photos/JfifSupport.vala:269
+#: src/photos/JfifSupport.vala:281
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "最高（%d%%）"
@@ -4995,7 +4958,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3985
 msgid "modified"
 msgstr "修改"
 
@@ -5004,24 +4967,24 @@ msgid "Enable or disable the plugin"
 msgstr "启用或禁用插件"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:156
+#: src/plugins/ManifestWidget.vala:157
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "管理 %s 账号"
 
-#: src/plugins/ManifestWidget.vala:181
+#: src/plugins/ManifestWidget.vala:183
 msgid "Authors"
 msgstr "作者"
 
-#: src/plugins/ManifestWidget.vala:191
+#: src/plugins/ManifestWidget.vala:193
 msgid "Version"
 msgstr "版本"
 
-#: src/plugins/ManifestWidget.vala:201
+#: src/plugins/ManifestWidget.vala:203
 msgid "License"
 msgstr "许可证"
 
-#: src/plugins/ManifestWidget.vala:213
+#: src/plugins/ManifestWidget.vala:215
 msgid "Website"
 msgstr "网站"
 
@@ -5029,43 +4992,8 @@ msgstr "网站"
 msgid "LGPL v2.1 or later"
 msgstr "LGPL v2.1 或更新"
 
-#: src/Printing.vala:255
-msgid "Fill the entire page"
-msgstr "填充整个页面"
-
-#: src/Printing.vala:256
-msgid "2 images per page"
-msgstr "每页 2 张"
-
-#: src/Printing.vala:257
-msgid "4 images per page"
-msgstr "每页 4 张"
-
-#: src/Printing.vala:258
-msgid "6 images per page"
-msgstr "每页 6 张"
-
-#: src/Printing.vala:259
-msgid "8 images per page"
-msgstr "每页 8 张"
-
-#: src/Printing.vala:260
-msgid "16 images per page"
-msgstr "每页 16 张"
-
-#: src/Printing.vala:261
-msgid "32 images per page"
-msgstr "每页 32 张"
-
-#: src/Printing.vala:853
-msgid "Image Settings"
-msgstr "图像设置"
-
-#: src/Printing.vala:866
-msgid "Printing…"
-msgstr "正在打印…"
-
-#: src/Printing.vala:886 src/Printing.vala:1089
+#. FIXME: Meh
+#: src/printing/Job.vala:224
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5075,6 +5003,62 @@ msgstr ""
 "无法打印照片：\n"
 "\n"
 "%s"
+
+#: src/printing/Manager.vala:96
+msgid "Continue..."
+msgstr "继续…"
+
+#: src/printing/Manager.vala:114 src/printing/Manager.vala:161
+msgid "Printing failed"
+msgstr "打印失败"
+
+#: src/printing/Manager.vala:125
+#, c-format
+msgid "Print preview for a photo"
+msgid_plural "Print preview for %d photos"
+msgstr[0] "打印 %d 张照片的预览"
+
+#: src/printing/Manager.vala:127
+#, c-format
+msgid "Print preview for %s"
+msgstr "打印 %s 的预览"
+
+#: src/printing/Manager.vala:152
+msgid "Printing…"
+msgstr "正在打印…"
+
+#: src/printing/Manager.vala:159
+#, c-format
+msgid "Printing to “%s” succeeded"
+msgstr "打印至“%s”成功"
+
+#: src/printing/Settings.vala:214
+msgid "Fill the entire page"
+msgstr "填充整个页面"
+
+#: src/printing/Settings.vala:215
+msgid "2 images per page"
+msgstr "每页 2 张"
+
+#: src/printing/Settings.vala:216
+msgid "4 images per page"
+msgstr "每页 4 张"
+
+#: src/printing/Settings.vala:217
+msgid "6 images per page"
+msgstr "每页 6 张"
+
+#: src/printing/Settings.vala:218
+msgid "8 images per page"
+msgstr "每页 8 张"
+
+#: src/printing/Settings.vala:219
+msgid "16 images per page"
+msgstr "每页 16 张"
+
+#: src/printing/Settings.vala:220
+msgid "32 images per page"
+msgstr "每页 32 张"
 
 #: src/ProfileBrowser.vala:20
 msgid "Create"
@@ -5329,6 +5313,10 @@ msgid ""
 msgstr ""
 "Shotwell 无法发布选定项目，因为你尚未启用兼容的发布插件。要修复此问题，请选择"
 "“编辑 %s 首选项”，并且在“插件”标签页中启用一个或多个发布插件。"
+
+#: src/publishing/PublishingUI.vala:396
+msgid "_Close"
+msgstr "关闭(_C)"
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5878,116 +5866,116 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%-m月%-d日（周%a）"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:132
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:134
 msgid "Slideshow"
 msgstr "幻灯片放映"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:167
+#: src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "包含"
 
 #. Ordering must correspond with Context
 #: src/searches/SavedSearchDialog.vala:168
-#: src/searches/SavedSearchDialog.vala:499
+#: src/searches/SavedSearchDialog.vala:498
 msgid "is exactly"
 msgstr "必须有"
 
-#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:168
 msgid "starts with"
 msgstr "以开始"
 
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:169
 msgid "ends with"
 msgstr "结束以"
 
-#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:169
 msgid "does not contain"
 msgstr "不包含"
 
-#: src/searches/SavedSearchDialog.vala:172
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is not set"
 msgstr "未设"
 
-#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:170
 msgid "is set"
 msgstr "已设"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:247
-#: src/searches/SavedSearchDialog.vala:378
-#: src/searches/SavedSearchDialog.vala:443
+#: src/searches/SavedSearchDialog.vala:239
+#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:442
 msgid "is"
 msgstr "是"
 
-#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:239
 msgid "is not"
 msgstr "不是"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:254
+#: src/searches/SavedSearchDialog.vala:246
 msgid "any photo"
 msgstr "任意照片"
 
-#: src/searches/SavedSearchDialog.vala:255
+#: src/searches/SavedSearchDialog.vala:247
 msgid "a raw photo"
 msgstr "一个 RAW 照片"
 
-#: src/searches/SavedSearchDialog.vala:256
+#: src/searches/SavedSearchDialog.vala:248
 msgid "a video"
 msgstr "一个视频"
 
-#: src/searches/SavedSearchDialog.vala:310
+#: src/searches/SavedSearchDialog.vala:302
 msgid "has"
 msgstr "有"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:303
 msgid "has no"
 msgstr "没有"
 
-#: src/searches/SavedSearchDialog.vala:316
+#: src/searches/SavedSearchDialog.vala:309
 msgid "modifications"
 msgstr "修改"
 
-#: src/searches/SavedSearchDialog.vala:317
+#: src/searches/SavedSearchDialog.vala:310
 msgid "internal modifications"
 msgstr "内部修改"
 
-#: src/searches/SavedSearchDialog.vala:318
+#: src/searches/SavedSearchDialog.vala:311
 msgid "external modifications"
 msgstr "外部修改"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:372
+#: src/searches/SavedSearchDialog.vala:366
 msgid "flagged"
 msgstr "已标记"
 
-#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:367
 msgid "not flagged"
 msgstr "未标记"
 
-#: src/searches/SavedSearchDialog.vala:436
+#: src/searches/SavedSearchDialog.vala:434
 msgid "and higher"
 msgstr "及更高"
 
-#: src/searches/SavedSearchDialog.vala:437
+#: src/searches/SavedSearchDialog.vala:435
 msgid "only"
 msgstr "仅"
 
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and lower"
 msgstr "及更低"
 
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is after"
 msgstr "晚于"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is before"
 msgstr "先于"
 
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is between"
 msgstr "介于"
 
@@ -6069,40 +6057,40 @@ msgstr "★★★★★+ 评分"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:155
+#: src/SlideshowPage.vala:157
 msgid "Back"
 msgstr "后退"
 
-#: src/SlideshowPage.vala:162 src/SlideshowPage.vala:271
+#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:273
 msgid "Pause"
 msgstr "暂停"
 
-#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:272
+#: src/SlideshowPage.vala:166 src/SlideshowPage.vala:274
 msgid "Pause the slideshow"
 msgstr "暂停幻灯片放映"
 
-#: src/SlideshowPage.vala:169
+#: src/SlideshowPage.vala:171
 msgid "Next"
 msgstr "前进"
 
-#: src/SlideshowPage.vala:178
+#: src/SlideshowPage.vala:180
 msgid "Settings"
 msgstr "设置"
 
-#: src/SlideshowPage.vala:179
+#: src/SlideshowPage.vala:181
 msgid "Change slideshow settings"
 msgstr "改变幻灯片放映设置"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:235
+#: src/SlideshowPage.vala:237
 msgid "All photo source files are missing."
 msgstr "所有的照片源文件丢失。"
 
-#: src/SlideshowPage.vala:267
+#: src/SlideshowPage.vala:269
 msgid "Play"
 msgstr "播放"
 
-#: src/SlideshowPage.vala:268
+#: src/SlideshowPage.vala:270
 msgid "Continue the slideshow"
 msgstr "继续幻灯片放映"
 
@@ -6142,6 +6130,48 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "导出视频"
+
+#~ msgid "_Match photo aspect ratio"
+#~ msgstr "匹配照片长宽比(_M)"
+
+#, c-format
+#~ msgid "%s Database"
+#~ msgstr "%s 数据库"
+
+#, c-format
+#~ msgid "Importing from %s can’t continue because an error occurred:"
+#~ msgstr "无法继续从 %s 导入，由于发生错误："
+
+#~ msgid ""
+#~ "To try importing from another service, select one from the above menu."
+#~ msgstr "要尝试从其他服务导入，请从上面的菜单中选择一个。"
+
+#~ msgid ""
+#~ "You do not have any data imports plugins enabled.\n"
+#~ "\n"
+#~ "In order to use the Import From Application functionality, you need to "
+#~ "have at least one data imports plugin enabled. Plugins can be enabled in "
+#~ "the Preferences dialog."
+#~ msgstr ""
+#~ "你没有启用任何数据导入插件。\n"
+#~ "\n"
+#~ "要使用从应用程序导入数据的功能，你需要至少启用一个数据导入插件。你可在首选"
+#~ "想对话框中启用插件。"
+
+#~ msgid "Database file"
+#~ msgstr "数据库文件"
+
+#~ msgid "Import From Application"
+#~ msgstr "从应用程序导入"
+
+#~ msgid "Import media _from:"
+#~ msgstr "从以下位置导入媒体(_F)："
+
+#~ msgid "Data Imports"
+#~ msgstr "数据导入"
+
+#~ msgid "Photos cannot be exported to this directory."
+#~ msgstr "照片不可以被导出到该文件夹。"
 
 #~ msgid "The Shotwell developers"
 #~ msgstr "Shotwell 开发者"
