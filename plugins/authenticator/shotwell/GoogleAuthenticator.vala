@@ -171,9 +171,8 @@ namespace Publishing.Authenticator.Shotwell.Google {
             });
             host.register_auth_callback(REVERSE_CLIENT_ID, auth_callback);
             try {
-                debug("Launching external authentication on URI %s", user_authorization_url);
-                AppInfo.launch_default_for_uri(user_authorization_url, null);
-                host.install_login_wait_pane();
+                var pane = new Common.ExternalWebPane(user_authorization_url);
+                host.install_dialog_pane(pane);
                 yield;
 
                 // FIXME throw error missing scopes
