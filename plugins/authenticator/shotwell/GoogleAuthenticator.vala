@@ -5,7 +5,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
     private const string OAUTH_CLIENT_ID = "534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67.apps.googleusercontent.com";
     private const string REVERSE_CLIENT_ID = "com.googleusercontent.apps.534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67";
     private const string OAUTH_CLIENT_SECRET = "pwpzZ7W1TCcD5uIfYCu8sM7x";
-    private const string OAUTH_CALLBACK_URI = REVERSE_CLIENT_ID + ":/localhost";
 
     private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
     private const string SCHEMA_KEY_ACCOUNTNAME = "accountname";
@@ -29,13 +28,13 @@ namespace Publishing.Authenticator.Shotwell.Google {
     private class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
         private const string ENDPOINT_URL = "https://oauth2.googleapis.com/token";
 
-        public GetAccessTokensTransaction(Session session, string auth_code) {
+        public GetAccessTokensTransaction(Session session, string auth_code, string callback_uri) {
             base.with_endpoint_url(session, ENDPOINT_URL);
 
             add_argument("code", auth_code);
             add_argument("client_id", OAUTH_CLIENT_ID);
             add_argument("client_secret", OAUTH_CLIENT_SECRET);
-            add_argument("redirect_uri", OAUTH_CALLBACK_URI);
+            add_argument("redirect_uri", callback_uri);
             add_argument("grant_type", "authorization_code");
         }
     }
@@ -147,10 +146,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
         private async void do_hosted_web_authentication() {
             debug("ACTION: running OAuth authentication flow in hosted web pane.");
 
+            string callback_uri = host.get_auth_callback_uri();
+
             string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
                 "response_type=code&" +
                 "client_id=" + OAUTH_CLIENT_ID + "&" +
-                "redirect_uri=" + GLib.Uri.escape_string(OAUTH_CALLBACK_URI, null) + "&" +
+                "redirect_uri=" + GLib.Uri.escape_string(callback_uri, null) + "&" +
                 "scope=" + GLib.Uri.escape_string(get_scopes(" "), null) + "+" +
                 GLib.Uri.escape_string("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
                 "state=connect&" +
@@ -177,7 +178,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
                 // FIXME throw error missing scopes
 
-                yield do_get_access_tokens(web_auth_code);
+                yield do_get_access_tokens(web_auth_code, callback_uri);
             } catch (Error err) {
                 host.post_error(err);
             } finally {
@@ -185,12 +186,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
             }
         }
 
-        private async void do_get_access_tokens(string auth_code) {
+        private async void do_get_access_tokens(string auth_code, string callback_uri) {
             debug("ACTION: exchanging authorization code for access & refresh tokens");
 
             host.install_login_wait_pane();
 
-            GetAccessTokensTransaction tokens_txn = new GetAccessTokensTransaction(session, auth_code);
+            GetAccessTokensTransaction tokens_txn = new GetAccessTokensTransaction(session, auth_code, callback_uri);
 
             try {
                 yield tokens_txn.execute_async();

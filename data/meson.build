@@ -28,15 +28,6 @@ i18n.merge_file(input : 'org.gnome.Shotwell-Viewer.desktop.in',
                 install : true,
                 install_dir : join_paths(get_option('datadir'), 'applications'))
 
-auth_conf = configuration_data()
-auth_conf.set('libexecdir', join_paths(get_option('prefix'), get_option('libexecdir')))
-configure_file(
-    input : 'org.gnome.Shotwell.Auth.desktop.in',
-    output: 'org.gnome.Shotwell.Auth.desktop',
-    configuration: auth_conf,
-    install: true,
-    install_dir : join_paths(get_option('datadir'), 'applications')
-)
-
 shotwell_resources = gnome.compile_resources('shotwell-resources',
-        'org.gnome.Shotwell.gresource.xml')
+        'org.gnome.Shotwell.gresource.xml',
+        source_dir : [meson.current_source_dir(), meson.current_build_dir()])

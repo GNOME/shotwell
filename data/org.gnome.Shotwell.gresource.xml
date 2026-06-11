@@ -82,5 +82,6 @@
       <file>themes/org.gnome.Shotwell.css</file>
       <!-- Misc stuff -->
       <file>misc/canary.avif</file>
+      <file>auth-callback.html</file>
   </gresource>
 </gresources>

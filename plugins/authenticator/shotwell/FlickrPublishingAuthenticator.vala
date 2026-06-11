@@ -18,20 +18,20 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string SERVICE_DISCLAIMER = "<b>This product uses the Flickr API but is not endorsed or certified by SmugMug, Inc.</b>";
 
     internal class AuthenticationRequestTransaction : Publishing.RESTSupport.OAuth1.Transaction {
-        public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session, string cookie) {
+        public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session, string callback_url) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
-            add_argument("oauth_callback", "shotwell-oauth2://localhost?sw_auth_cookie=%s".printf(cookie));
+            add_argument("oauth_callback", callback_url);
         }
     }
 
     internal class AccessTokenFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
-        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string user_verifier, string cookie) {
+        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string user_verifier, string callback_url) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);
             add_argument("oauth_token", session.get_request_phase_token());
-            add_argument("oauth_callback", "shotwell-oauth2://localhost?sw_auth_cookie=%s".printf(cookie));
+            add_argument("oauth_callback", callback_url);
         }
     }
 
@@ -41,6 +41,10 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
         public Flickr(Spit.Publishing.PluginHost host) {
             base("Flickr", API_KEY, API_SECRET, host);
+        }
+
+        private string get_callback_url() {
+            return host.get_auth_callback_uri() + "?sw_auth_cookie=%s".printf(auth_cookie);
         }
 
         public override void authenticate() {
@@ -87,7 +91,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             host.set_service_locked(true);
             host.install_static_message_pane(_("Preparing for login…"));
 
-            AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session, auth_cookie);
+            AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session, get_callback_url());
             try {
                 yield txn.execute_async();
                 debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
@@ -160,7 +164,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             host.set_service_locked(true);
             host.install_static_message_pane(_("Verifying authorization…"));
 
-            AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session, pin, auth_cookie);
+            var txn = new AccessTokenFetchTransaction(session, pin, get_callback_url());
 
             try {
                 yield txn.execute_async();

@@ -18,15 +18,6 @@ processor = executable('shotwell-graphics-processor',
                        link_with: sw_graphics_processor)
 
 shotwell_libs = [sw_graphics_processor]
-executable('shotwell-authenticator',
-  [
-    'authenticator.vala'
-  ],
-  dependencies: [gio],
-  include_directories: config_incdir,
-  install: true,
-  install_dir : join_paths(get_option('libexecdir'), 'shotwell')
-)
 
 
 face_sources = (['faces/FacesBranch.vala',
@@ -39,7 +30,7 @@ face_sources = (['faces/FacesBranch.vala',
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo,
-                 portal, math]
+                 portal, math, soup]
 
 subdir('metadata')
 subdir('publishing')
@@ -226,6 +217,7 @@ executable(
         'Tombstone.vala',
         'MetadataWriter.vala',
         'Application.vala',
+        'AuthCallbackServer.vala',
         'TimedQueue.vala',
         'MediaPage.vala',
         'MediaDataRepresentation.vala',

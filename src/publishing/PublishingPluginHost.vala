@@ -41,6 +41,10 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         Application.unregister_auth_callback(cookie);
     }
 
+    public string get_auth_callback_uri() {
+        return Application.get_auth_callback_uri();
+    }
+
     public string get_current_profile_id() {
         return Shotwell.ProfileManager.get_instance().id();
     }

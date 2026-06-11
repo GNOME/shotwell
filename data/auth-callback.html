@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+/* GNOME Color Palette */
+:root {
+  --green5: #26a269;
+  --green3: #33d17a;
+  --light1: #ffffff;
+  --light3: #deddda;
+  --dark3: #3d3846;
+  --fg-color: #241f31;
+  --bg-color: #f6f5f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg-color: #eee;
+    --bg-color: #29384c;
+    --green: var(--green3);
+  }
+}
+:root {
+  --green: var(--green5);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: "Inter Var", "Inter", -apple-system, sans-serif;
+  font-size: 16px;
+  color: var(--fg-color);
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  text-align: center;
+  background: var(--light1);
+  border-radius: 12px;
+  padding: 3rem 4rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  max-width: 420px;
+  width: 90%;
+}
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #1f2a38;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.logo {
+  display: block;
+  width: 72px;
+  height: 72px;
+}
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--fg-color);
+}
+.check-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-bottom: 1.5rem;
+}
+.check-symbol {
+  color: var(--light1);
+  font-size: 32px;
+  line-height: 1;
+}
+h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+p {
+  color: var(--dark3);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+.clear {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header-row">
+    <img src="/shotwell-logo.svg">
+    <span class="logo-text">Shotwell</span>
+  </div>
+  <div class="check-circle"><span class="check-symbol">✓</span></div>
+  <h1>{{AUTH_COMPLETE_HEADING}}</h1>
+  <p>{{AUTH_COMPLETE_BODY}}</p>
+  <p class="clear">{{AUTH_CLOSE_PROMPT}}</p>
+</div>
+</body>
+</html>

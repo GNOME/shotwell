@@ -510,6 +510,13 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
     public abstract void register_auth_callback(string cookie, AuthenticatedCallback callback);
     public abstract void unregister_auth_callback(string cookie);
 
+    /**
+     * Returns the localhost HTTP redirect URI for OAuth callbacks.
+     *
+     * The server listens on 127.0.0.1 with a random port.
+     */
+    public abstract string get_auth_callback_uri();
+
     public abstract Gtk.Window get_dialog();
 
     //

@@ -20,6 +20,14 @@ namespace Resources {
     public const string BUG_DB_URL = "https://gitlab.gnome.org/GNOME/shotwell/issues";
     public const string DIR_PATTERN_URI_SYSWIDE = "help:shotwell/other-files";
 
+    // Translatable strings used in the OAuth callback HTML page
+
+    // TRANSLATORS: This is the title of the webpage shown to the user
+    public const string AUTH_CALLBACK_TITLE = _("Authentication - Shotwell");
+    public const string AUTH_CALLBACK_HEADING = _("Authentication complete");
+    public const string AUTH_CALLBACK_BODY = _("You have successfully signed in to your account.");
+    public const string AUTH_CALLBACK_CLOSE_PROMPT = _("You may close this page manually.");
+
     private const string LIB = _LIB;
     private const string LIBEXECDIR = _LIBEXECDIR;
 
