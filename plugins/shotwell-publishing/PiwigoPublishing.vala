@@ -1022,7 +1022,7 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
 
     private Gtk.Entry url_entry;
     private Gtk.Entry username_entry;
-    private Gtk.Entry password_entry;
+    private Gtk.PasswordEntry password_entry;
     private Gtk.Switch remember_password_checkbutton;
     private Gtk.Button login_button;
 
@@ -1067,7 +1067,7 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
         if (persistent_username != null) {
             username_entry.set_text(persistent_username);
         }
-        password_entry = builder.get_object ("password_entry") as Gtk.Entry;
+        password_entry = builder.get_object ("password_entry") as Gtk.PasswordEntry;
         string? persistent_password = publisher.get_persistent_password(persistent_url, persistent_username);
         if (persistent_password != null) {
             password_entry.set_text(persistent_password);
@@ -1106,14 +1106,13 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
     private void update_login_button_sensitivity() {
         login_button.set_sensitive(url_entry.text_length != 0 &&
                                    username_entry.text_length != 0 &&
-                                   password_entry.text_length != 0);
+                                   password_entry.text != null && password_entry.text.length != 0);
     }
     
     public override void on_pane_installed() {
         base.on_pane_installed ();
 
         url_entry.grab_focus();
-        password_entry.set_activates_default(true);
         update_login_button_sensitivity();
     }
 }

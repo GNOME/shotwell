@@ -48,11 +48,11 @@
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="password_entry">
+              <object class="GtkPasswordEntry" id="password_entry">
                 <property name="focusable">1</property>
                 <property name="hexpand">1</property>
-                <property name="visibility">0</property>
-                <property name="invisible_char">●</property>
+                <property name="activates-default">1</property>
+                <property name="show-peek-icon">1</property>
                 <layout>
                   <property name="column">1</property>
                   <property name="row">2</property>
