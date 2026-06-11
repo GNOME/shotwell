@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-03-02 20:46+0000\n"
+"POT-Creation-Date: 2026-06-09 19:55+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
@@ -804,131 +804,147 @@ msgstr "pisava naslova"
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Pisava, ki naj bo uporabljena za izpis naslovov fotografij pri tiskanju"
 
+#: data/gsettings/org.gnome.shotwell.gschema.xml:690
+msgid "Stored system printing settings"
+msgstr "Shranjene nastavitve sistema tiskanja"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:691
+msgid "The stored settings of the system print dialog"
+msgstr "Shranjene nastavitve sistemskega pogovornega okna za tiskanje"
+
 #: data/gsettings/org.gnome.shotwell.gschema.xml:696
+msgid "Stored page settings"
+msgstr "Shranjene nastavitve slike"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+msgid "The stored settings of the print dialog page settings"
+msgstr "Shranjene nastavitve strani pogovornega okna za tiskanje"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
 msgstr "omogoči vstavek za objavljanje na flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:702 data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714 data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable Google Photos publishing plugin"
 msgstr "omogoči vstavek za objavljanje na fotografije Google"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:703 data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715 data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na Google Photos"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable youtube publishing plugin"
 msgstr "omogoči vstavek za objavljanje na youtube"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na YouTube"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:720
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable piwigo publishing plugin"
 msgstr "omogoči vstavek za objavljanje na piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:721
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:726
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
 msgstr "omogoči vstavek za objavljanje na tumblr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:727
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na Tumblr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:732
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable gallery3 publishing plugin"
 msgstr "omogoči vstavek za objavljanje na gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:733
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za objavljanje fotografij na Gallery3"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:738
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow crumble transition"
 msgstr "omogoči prehod drobljenja v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:739
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za uvažanje F-Spot"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:744
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow fade transition"
 msgstr "omogoči prehod bledenja v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:745
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod bledenja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:750
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow slide transition"
 msgstr "omogoči prehod drsenja v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:751
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod drsenja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:756
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow clock transition"
 msgstr "omogoči prehod urnega brisalca v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:757
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod urnega brisalca"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:762
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow circle transition"
 msgstr "omogoči krožni prehod v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:763
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za krožni prehod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:768
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow circles transition"
 msgstr "omogoči večkrožni prehod v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:769
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za večkrožni prehod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:774
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow blinds transition"
 msgstr "omogoči prehod senčenja v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:775
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod senčenja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:780
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow squares transition"
 msgstr "omogoči kvadratni prehod v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:781
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za kvadratni prehod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:786
+#: data/gsettings/org.gnome.shotwell.gschema.xml:798
 msgid "enable slideshow stripes transition"
 msgstr "omogoči prehod prog v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:787
+#: data/gsettings/org.gnome.shotwell.gschema.xml:799
 msgid "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod prog"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:792
+#: data/gsettings/org.gnome.shotwell.gschema.xml:804
 msgid "enable slideshow chess transition"
 msgstr "omogoči prehod šahovnice v predstavitvi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:793
+#: data/gsettings/org.gnome.shotwell.gschema.xml:805
 msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
 msgstr "Izbrana možnost določa, da je omogočen vstavek za prehod šahovnice"
 
@@ -1114,7 +1130,7 @@ msgstr "Izboljšaj"
 msgid "Publish to various websites"
 msgstr "Objavi na različnih spletnih straneh"
 
-#: data/ui/collection.ui:229 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203 src/Resources.vala:262
+#: data/ui/collection.ui:229 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219 src/Resources.vala:262
 msgid "Publish"
 msgstr "Objavi"
 
@@ -1294,11 +1310,11 @@ msgstr "Označi obraze oseb na fotografijah"
 msgid "Faces"
 msgstr "Obrazi"
 
-#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:157
+#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:159
 msgid "Go to the previous photo"
 msgstr "Skoči na predhodno sliko"
 
-#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:171
+#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:173
 msgid "Go to the next photo"
 msgstr "Skoči na naslednjo fotografijo"
 
@@ -1488,12 +1504,12 @@ msgstr "Uvozi izbrane predstavnostne datoteke v knjižnico"
 msgid "Import all media files into the library"
 msgstr "Uvozi vse predstavnostne datoteke v knjižnico"
 
-#: data/ui/login_welcome_pane_widget.ui:22
+#: data/ui/login_welcome_pane_widget.ui:27
 msgid "_Log in"
 msgstr "_Prijava"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:247 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63
-#: src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:246 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:736
+#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -1529,153 +1545,157 @@ msgstr "_Prilepi prilagoditve barve"
 msgid "Library"
 msgstr "Knjižnica"
 
-#: data/ui/preferences_dialog.ui:81
+#: data/ui/preferences_dialog.ui:84
 msgid "Library Location"
 msgstr "Mesto knjižnice"
 
-#: data/ui/preferences_dialog.ui:95
+#: data/ui/preferences_dialog.ui:98
 msgid "_Import photos to:"
 msgstr "_Uvozi fotografije v:"
 
-#: data/ui/preferences_dialog.ui:106
+#: data/ui/preferences_dialog.ui:109
 msgid "_Watch library directory for new files"
 msgstr "_Spremljaj mapo zbirke za nove datoteke"
 
-#: data/ui/preferences_dialog.ui:123
+#: data/ui/preferences_dialog.ui:126
 msgid "Importing"
 msgstr "Poteka uvažanje …"
 
-#: data/ui/preferences_dialog.ui:137
+#: data/ui/preferences_dialog.ui:140
 msgid "_Directory structure:"
 msgstr "_Poimenovanje map:"
 
-#: data/ui/preferences_dialog.ui:149
+#: data/ui/preferences_dialog.ui:152
 msgid "Example:"
 msgstr "Primer:"
 
-#: data/ui/preferences_dialog.ui:158
+#: data/ui/preferences_dialog.ui:161
 msgid "R_ename imported files to lowercase"
 msgstr "Preimenuj uvožene datoteke v _male črke"
 
-#: data/ui/preferences_dialog.ui:174
+#: data/ui/preferences_dialog.ui:177
 msgid "Metadata"
 msgstr "Metapodatki"
 
-#: data/ui/preferences_dialog.ui:187
+#: data/ui/preferences_dialog.ui:190
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Zapiši oznake, naslove in druge _metapodatke slikovnih datotek"
 
-#: data/ui/preferences_dialog.ui:203
+#: data/ui/preferences_dialog.ui:206
 msgid "RAW Developer"
 msgstr "Razvijalnik RAW"
 
-#: data/ui/preferences_dialog.ui:217
+#: data/ui/preferences_dialog.ui:220
 msgid "De_fault:"
 msgstr "_Privzeto:"
 
-#: data/ui/preferences_dialog.ui:261
+#: data/ui/preferences_dialog.ui:267
 msgid "_Pattern:"
 msgstr "_Vzorec:"
 
-#: data/ui/preferences_dialog.ui:284
+#: data/ui/preferences_dialog.ui:290
 msgid "Checkered"
 msgstr "Karo vzorec"
 
-#: data/ui/preferences_dialog.ui:293
+#: data/ui/preferences_dialog.ui:299
 msgid "Solid color"
 msgstr "Enobarvno"
 
-#: data/ui/preferences_dialog.ui:308 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:319 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "Brez"
 
-#: data/ui/preferences_dialog.ui:321
+#: data/ui/preferences_dialog.ui:332
 msgid "When viewing images that are transparent, they will be drawn against this background."
 msgstr "Pri prikazu slik s prosojnimi deli, bo ozadje ustrezalo izbrani barvi."
 
-#: data/ui/preferences_dialog.ui:324
+#: data/ui/preferences_dialog.ui:335
 msgid "Transparent Background:"
 msgstr "Prosojno ozadje:"
 
-#: data/ui/preferences_dialog.ui:334
+#: data/ui/preferences_dialog.ui:345
 msgid "Use dark theme"
 msgstr "Uporabi temno temo"
 
-#: data/ui/preferences_dialog.ui:356
+#: data/ui/preferences_dialog.ui:367
 msgid "Display"
 msgstr "Zaslon"
 
-#: data/ui/preferences_dialog.ui:419
+#: data/ui/preferences_dialog.ui:430
 msgid "External Editors"
 msgstr "Zunanji urejevalniki"
 
-#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24 src/library/LibraryBranch.vala:97
+#: data/ui/preferences_dialog.ui:452 data/ui/search_bar.ui:24 src/library/LibraryBranch.vala:97
 msgid "Photos"
 msgstr "Fotografije"
 
-#: data/ui/preferences_dialog.ui:470 src/photos/RawSupport.vala:136
+#: data/ui/preferences_dialog.ui:481 src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:494
+#: data/ui/preferences_dialog.ui:505
 msgid "Plugins"
 msgstr "Vstavki"
 
-#: data/ui/preferences_dialog.ui:505 src/ProfileBrowser.vala:231
+#: data/ui/preferences_dialog.ui:516 src/ProfileBrowser.vala:231
 msgid "Profiles"
 msgstr "Profili"
 
-#: data/ui/preferences_dialog.ui:532
+#: data/ui/preferences_dialog.ui:543
 msgid "Shotwell Preferences"
 msgstr "Možnosti Shotwell"
 
-#: data/ui/printing_widget.ui:13
+#: data/ui/printing_widget.ui:49
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Velikost natisnjene slike</b>"
 
-#: data/ui/printing_widget.ui:26
+#: data/ui/printing_widget.ui:62
 msgid "Use a _standard size:"
 msgstr "Uporabi _običajno velikost pisave:"
 
-#: data/ui/printing_widget.ui:48
+#: data/ui/printing_widget.ui:87
 msgid "Use a c_ustom size:"
 msgstr "Uporabi velikost pisave po _meri:"
 
 #. Abbreviation for "inch"
-#: data/ui/printing_widget.ui:85
+#: data/ui/printing_widget.ui:129
 msgid "in."
 msgstr "pal"
 
 #. Abbreviation for "centimeters"
-#: data/ui/printing_widget.ui:86
+#: data/ui/printing_widget.ui:130
 msgid "cm"
 msgstr "cm"
 
-#: data/ui/printing_widget.ui:98
-msgid "_Match photo aspect ratio"
-msgstr "_Ujemanje razmerja stranic fotografije"
+#: data/ui/printing_widget.ui:138
+msgid ""
+"Automatically keep image's\n"
+"                          aspect ratio"
+msgstr ""
+"Samodejno ohrani razmerje\n"
+"                          stranic slike"
 
-#: data/ui/printing_widget.ui:110
+#: data/ui/printing_widget.ui:177
 msgid "_Autosize:"
 msgstr "_Samodejna velikost:"
 
-#: data/ui/printing_widget.ui:138
+#: data/ui/printing_widget.ui:208
 msgid "<b>Titles</b>"
 msgstr "<b>Naslovi</b>"
 
-#: data/ui/printing_widget.ui:148
+#: data/ui/printing_widget.ui:218
 msgid "Print image _title"
 msgstr "Natisni naslov slike"
 
-#: data/ui/printing_widget.ui:170
+#: data/ui/printing_widget.ui:246
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Točkovna ločljivost</b>"
 
-#: data/ui/printing_widget.ui:181
+#: data/ui/printing_widget.ui:258
 msgid "_Output photo at:"
 msgstr "_Izvozi fotografijo na:"
 
-#: data/ui/printing_widget.ui:200
+#: data/ui/printing_widget.ui:285
 msgid "pixels per inch"
 msgstr "točk na palec"
 
@@ -1691,27 +1711,27 @@ msgstr "_Naziv iskanja:"
 msgid "_Match"
 msgstr "_Poišči"
 
-#: data/ui/saved_search_dialog.ui:66
+#: data/ui/saved_search_dialog.ui:68
 msgid "any"
 msgstr "katerekoli predmete"
 
-#: data/ui/saved_search_dialog.ui:67
+#: data/ui/saved_search_dialog.ui:69
 msgid "all"
 msgstr "vse predmete"
 
-#: data/ui/saved_search_dialog.ui:68
+#: data/ui/saved_search_dialog.ui:70
 msgid "none"
 msgstr "predmete, ki niso skladni"
 
-#: data/ui/saved_search_dialog.ui:74
+#: data/ui/saved_search_dialog.ui:78
 msgid "of the following:"
 msgstr "s spodnjimi pravili:"
 
-#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20 src/ProfileBrowser.vala:208
+#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:20 src/ProfileBrowser.vala:208
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: data/ui/saved_search_dialog.ui:137
+#: data/ui/saved_search_dialog.ui:141
 msgid "OK"
 msgstr "V redu"
 
@@ -1820,7 +1840,7 @@ msgstr "Čas trajanja prehoda med slikami (v sekundah)"
 msgid "Show t_itle"
 msgstr "Pokaži _naslov"
 
-#: data/ui/slideshow_settings.ui:141 data/ui/slideshow_settings.ui:150
+#: data/ui/slideshow_settings.ui:137 data/ui/slideshow_settings.ui:146
 msgid "seconds"
 msgstr "sekund"
 
@@ -1852,7 +1872,7 @@ msgstr "Premakne izbrane fotografije nazaj v zbirko"
 msgid "Delete all photos in the trash"
 msgstr "Izbriše vse fotografije v smeteh"
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:553
 msgid "Empty Trash"
 msgstr "Izprazni smeti"
 
@@ -1942,7 +1962,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Obiščite domačo stran programa Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:311 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
@@ -1983,7 +2003,7 @@ msgstr "⚫ Podatkom istovetnosti spletnega mesta ni mogoče zaupati, ker so za�
 msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
 msgstr "⚫ Podatki istovetnosti spletnega mesta bodo veljavni šele v prihodnosti. Preverite datum, ki je nastavljen na računalniku."
 
-#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:560 plugins/shotwell-publishing/YoutubeUploader.vala:65
+#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:562 plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Začasna datoteka, nujna za objavljanje, ni na voljo."
 
@@ -2022,17 +2042,17 @@ msgstr "Nadaljuj"
 msgid "Photo _size"
 msgstr "Velikost _fotografij"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:75 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:57 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid "_Remove location, camera, and other identifying information before uploading"
 msgstr "_Pred objavo odstrani geolokacijske podatke, podatke kamere in zasebne podatke"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:98 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:141 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:82
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:48
 msgid "_Logout"
 msgstr "_Odjava"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:107 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:149 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:91
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:56 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
 msgid "_Publish"
 msgstr "O_bjavi"
 
@@ -2103,23 +2123,23 @@ msgstr "le prijateljem"
 msgid "Just me"
 msgstr "le meni"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:641 plugins/shotwell-publishing/PiwigoPublishing.vala:1246 plugins/shotwell-publishing/TumblrPublishing.vala:92
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643 plugins/shotwell-publishing/PiwigoPublishing.vala:1246 plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 točk"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:642 plugins/shotwell-publishing/PiwigoPublishing.vala:1247 plugins/shotwell-publishing/TumblrPublishing.vala:93
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644 plugins/shotwell-publishing/PiwigoPublishing.vala:1247 plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 točk"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:643 plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645 plugins/shotwell-publishing/PiwigoPublishing.vala:1248
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 točk"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:644 plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+#: plugins/shotwell-publishing/FlickrPublishing.vala:646 plugins/shotwell-publishing/PiwigoPublishing.vala:1249
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 točk"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:645 plugins/shotwell-publishing/PiwigoPublishing.vala:1250 src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:647 plugins/shotwell-publishing/PiwigoPublishing.vala:1250 src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Izvirna velikost"
 
@@ -2127,15 +2147,15 @@ msgstr "Izvirna velikost"
 msgid "Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account"
 msgstr "Program omogoča objavljanje le v albumih, ki jih je ustvaril sam, zato je seznam morda prazen, čeprav v računu storitve Fotografije Google albumi že obstajajo."
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:73
 msgid "Photo _size preset"
 msgstr "Predložena _velikost slike"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:88
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "An existing album"
 msgstr "Obstoječi album"
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:107
 msgid "A new album named"
 msgstr "Nov album z imenom"
 
@@ -2183,7 +2203,7 @@ msgstr "Fotografije se bodo pojavile v:"
 
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:107
 msgid "Default album"
 msgstr "Privzeti album"
 
@@ -2207,39 +2227,39 @@ msgstr "Zapomni si geslo"
 msgid "An _existing category"
 msgstr "_Obstoječa kategorija"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:84
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:100
 msgid "A _new album named"
 msgstr "_Nov albumu z imenom"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:109
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:125
 msgid "within category"
 msgstr "znotraj kategorije"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:120
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:136
 msgid "Album comment"
 msgstr "Opomba albuma"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:130
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:146
 msgid "Photos will be _visible by"
 msgstr "Fotografije so _vidne:"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:158
 msgid "Photo size"
 msgstr "Velikost slike"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr "_Če je naslov nastavljen, opomb pa ni, uporabi naslov kot opombo"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:191
 msgid "_Do no upload tags"
 msgstr "_Ne pošiljaj oznak"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:199
 msgid "_Do not upload ratings"
 msgstr "_Ne pošiljaj ocen"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:196
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:212
 msgid "Logout"
 msgstr "Odjava"
 
@@ -2343,15 +2363,15 @@ msgstr "Datoteka, zahtevana za objavo, ni na voljo. Objavljanja v YouTube ni mog
 msgid "You are logged into YouTube as %s."
 msgstr "V storitev YouTube ste prijavljeni kot %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:330
+#: plugins/shotwell-publishing/YouTubePublishing.vala:331
 msgid "Public"
 msgstr "Javno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:331
+#: plugins/shotwell-publishing/YouTubePublishing.vala:332
 msgid "Private"
 msgstr "Zasebno"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:332
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "unlisted"
 msgstr "Neizpostavljeno"
 
@@ -2446,32 +2466,32 @@ msgstr "Mape %s ni mogoče pripraviti za zapisovanje: %s"
 msgid "Ok"
 msgstr "V redu"
 
-#: src/AppWindow.vala:238
+#: src/AppWindow.vala:237
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Datoteka %s že obstaja. Ali jo želite zamenjati?"
 
-#: src/AppWindow.vala:241
+#: src/AppWindow.vala:240
 msgid "Export file conflict"
 msgstr "Spor pri izvozu datotek"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:244
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Uveljavi to razrešitev spora pri vseh nadaljnjih sporih"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: src/AppWindow.vala:270
+#: src/AppWindow.vala:269
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n"
@@ -2482,21 +2502,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:309
+#: src/AppWindow.vala:308
 msgid "Visit the Shotwell web site"
 msgstr "Obišči spletišče Shotwell"
 
-#: src/AppWindow.vala:321
+#: src/AppWindow.vala:320
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ni mogoče prikazati pomoči: %s"
 
-#: src/AppWindow.vala:329
+#: src/AppWindow.vala:328
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ni se mogoče povezati s podatkovno zbirko hroščev: %s"
 
-#: src/AppWindow.vala:337
+#: src/AppWindow.vala:336
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ni mogoče prikazati pogostih vprašanj: %s"
@@ -2702,11 +2722,11 @@ msgstr[1] "Zaradi napak ni mogoče izbrisati %d fotografije oziroma posnetka."
 msgstr[2] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 msgstr[3] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 
-#: src/CheckerboardPage.vala:131
+#: src/CheckerboardPage.vala:132
 msgid "No photos/videos"
 msgstr "Ni fotografij in posnetkov"
 
-#: src/CheckerboardPage.vala:135
+#: src/CheckerboardPage.vala:136
 msgid "No photos/videos found which match the current filter"
 msgstr "Ni najdenih fotografij ali posnetkov, skladnih s trenutno uveljavljenim filtrom"
 
@@ -2961,55 +2981,6 @@ msgstr "Dodaj zastavico"
 msgid "Unflag"
 msgstr "Počisti zastavico"
 
-#. Send an empty job to the queue to mark the end of the import
-#: src/data_imports/DataImportsPluginHost.vala:65 src/data_imports/DataImportsPluginHost.vala:78
-#, c-format
-msgid "%s Database"
-msgstr "Podatkovna zbirka %s"
-
-#: src/data_imports/DataImportsPluginHost.vala:148 src/data_imports/DataImportsPluginHost.vala:294
-#, c-format
-msgid "Importing from %s can’t continue because an error occurred:"
-msgstr "Uvoza z naprave %s zaradi napake ni mogoče nadaljevati:"
-
-#: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
-msgstr "Poskusite uvoziti z druge storitve, ki je na voljo iz zgornjega menija."
-
-#: src/data_imports/DataImportsUI.vala:10
-msgid ""
-"You do not have any data imports plugins enabled.\n"
-"\n"
-"In order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog."
-msgstr ""
-"Ni omogočenega nobenega vstavka za uvoz podatkov.\n"
-"\n"
-"Za uporabo možnosti uvoza iz programa, je treba omogočiti vsaj en tak vstavek. Ti so zbrani v pogovornem oknu nastavitev."
-
-#: src/data_imports/DataImportsUI.vala:100 src/data_imports/DataImportsUI.vala:102
-msgid "Database file"
-msgstr "Datoteka zbirke podatkov"
-
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
-msgid "_Import"
-msgstr "_Uvozi"
-
-#: src/data_imports/DataImportsUI.vala:229
-msgid "Import From Application"
-msgstr "Uvozi iz programa"
-
-#: src/data_imports/DataImportsUI.vala:230
-msgid "Import media _from:"
-msgstr "Uvozi predstavno vsebino _iz:"
-
-#: src/data_imports/DataImportsUI.vala:423 src/publishing/PublishingUI.vala:396
-msgid "_Close"
-msgstr "_Zapri"
-
-#: src/data_imports/DataImports.vala:22
-msgid "Data Imports"
-msgstr "Uvoz podatkov"
-
 #: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
@@ -3086,15 +3057,15 @@ msgstr "POP"
 msgid "24 Hr"
 msgstr "24 urna"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:98
+#: src/dialogs/AdjustDateTimeDialog.vala:99
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Premakni fotografije za enako vrednost"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:103
+#: src/dialogs/AdjustDateTimeDialog.vala:104
 msgid "Set _all photos/videos to this time"
 msgstr "Nastavi _vse fotografije na določen čas"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:110
+#: src/dialogs/AdjustDateTimeDialog.vala:111
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Spremeni izvorne datoteke"
@@ -3102,7 +3073,7 @@ msgstr[1] "_Spremeni izvorno datoteko"
 msgstr[2] "_Spremeni izvorni datoteki"
 msgstr[3] "_Spremeni izvorne datoteke"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:114
+#: src/dialogs/AdjustDateTimeDialog.vala:115
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Spremeni izvorne datoteke"
@@ -3110,21 +3081,21 @@ msgstr[1] "_Spremeni izvorno datoteko"
 msgstr[2] "_Spremeni izvorni datoteki"
 msgstr[3] "_Spremeni izvorne datoteke"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:233
+#: src/dialogs/AdjustDateTimeDialog.vala:235
 msgid "Original: "
 msgstr "Izvirno: "
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
-#: src/dialogs/AdjustDateTimeDialog.vala:234
+#: src/dialogs/AdjustDateTimeDialog.vala:236
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d.%m.%Y, %H.%M.%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
-#: src/dialogs/AdjustDateTimeDialog.vala:235
+#: src/dialogs/AdjustDateTimeDialog.vala:237
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d.%m.%Y, %H.%M.%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:327
+#: src/dialogs/AdjustDateTimeDialog.vala:329
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3133,7 +3104,7 @@ msgstr ""
 "Čas osvetlitve bo premaknjen naprej za\n"
 "%d %s, %d %s, %d %s in %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:328
+#: src/dialogs/AdjustDateTimeDialog.vala:330
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3142,7 +3113,7 @@ msgstr ""
 "Čas osvetlitve bo premaknjen nazaj za\n"
 "%d %s, %d %s, %d %s in %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:330
+#: src/dialogs/AdjustDateTimeDialog.vala:332
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dni"
@@ -3150,7 +3121,7 @@ msgstr[1] "dan"
 msgstr[2] "dni"
 msgstr[3] "dni"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:331
+#: src/dialogs/AdjustDateTimeDialog.vala:333
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "ur"
@@ -3158,7 +3129,7 @@ msgstr[1] "ura"
 msgstr[2] "uri"
 msgstr[3] "ure"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:332
+#: src/dialogs/AdjustDateTimeDialog.vala:334
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
@@ -3166,7 +3137,7 @@ msgstr[1] "minuta"
 msgstr[2] "minuti"
 msgstr[3] "minute"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:333
+#: src/dialogs/AdjustDateTimeDialog.vala:335
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "sekund"
@@ -3186,23 +3157,23 @@ msgid "Current"
 msgstr "Trenutno"
 
 #. layout controls
-#: src/dialogs/ExportDialog.vala:91
+#: src/dialogs/ExportDialog.vala:94
 msgid "_Format:"
 msgstr "_Vrsta zapisa:"
 
-#: src/dialogs/ExportDialog.vala:94
+#: src/dialogs/ExportDialog.vala:97
 msgid "_Quality:"
 msgstr "_Kakovost:"
 
-#: src/dialogs/ExportDialog.vala:97
+#: src/dialogs/ExportDialog.vala:100
 msgid "_Scaling constraint:"
 msgstr "Omejitev _spremembe velikosti:"
 
-#: src/dialogs/ExportDialog.vala:100
+#: src/dialogs/ExportDialog.vala:103
 msgid "_Pixels:"
 msgstr "_Točke:"
 
-#: src/dialogs/ExportDialog.vala:104
+#: src/dialogs/ExportDialog.vala:107
 msgid "Export _metadata:"
 msgstr "Izvozi _metapodatke:"
 
@@ -3237,7 +3208,7 @@ msgid "Custom"
 msgstr "Po meri"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:359
+#: src/dialogs/Preferences.vala:360
 msgid "Invalid pattern"
 msgstr "Neveljaven vzorec"
 
@@ -4017,44 +3988,44 @@ msgstr[1] "%d predstavne datoteke ni mogoče izbrisati."
 msgstr[2] "%d predstavnih datotek ni mogoče izbrisati."
 msgstr[3] "%d predstavnih datotek ni mogoče izbrisati."
 
-#: src/dialogs/WelcomeDialog.vala:36
+#: src/dialogs/WelcomeDialog.vala:34
 msgid "Welcome!"
 msgstr "Dobrodošli!"
 
-#: src/dialogs/WelcomeDialog.vala:42
+#: src/dialogs/WelcomeDialog.vala:40
 msgid "Welcome to Shotwell!"
 msgstr "Dobrodošli v Shotwell!"
 
-#: src/dialogs/WelcomeDialog.vala:47
+#: src/dialogs/WelcomeDialog.vala:45
 msgid "To get started, import photos in any of these ways:"
 msgstr "Za začetek uvozite fotografije na enega od naslednjih načinov:"
 
-#: src/dialogs/WelcomeDialog.vala:65
+#: src/dialogs/WelcomeDialog.vala:63
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Izberite možnost »Uvozi iz mape« iz menija Datoteke"
 
-#: src/dialogs/WelcomeDialog.vala:66
+#: src/dialogs/WelcomeDialog.vala:64
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Povlecite in spustite fotografije na okno Shotwell"
 
-#: src/dialogs/WelcomeDialog.vala:67
+#: src/dialogs/WelcomeDialog.vala:65
 msgid "Connect a camera to your computer and import"
 msgstr "Povežite fotoaparat s svojim računalnikom in uvozite fotografije"
 
-#: src/dialogs/WelcomeDialog.vala:78
+#: src/dialogs/WelcomeDialog.vala:76
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Uvozi fotografije iz mape %s"
 
-#: src/dialogs/WelcomeDialog.vala:85
+#: src/dialogs/WelcomeDialog.vala:83
 msgid "You can also import photos in any of these ways:"
 msgstr "Fotografije lahko uvozite tudi na enega od naslednjih načinov:"
 
-#: src/dialogs/WelcomeDialog.vala:96
+#: src/dialogs/WelcomeDialog.vala:94
 msgid "_Don’t show this message again"
 msgstr "_Sporočila ne pokaži več"
 
-#: src/dialogs/WelcomeDialog.vala:133
+#: src/dialogs/WelcomeDialog.vala:129
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Uvozi fotografije iz knjižnice %s"
@@ -4131,11 +4102,7 @@ msgstr "Vse datoteke"
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Ni mogoče spremljati %s: to ni mapa (%s)"
 
-#: src/DragAndDropHandler.vala:161
-msgid "Photos cannot be exported to this directory."
-msgstr "Fotografij ni mogoče izvoziti v to mapo."
-
-#: src/EditingHostPage.vala:1321
+#: src/EditingHostPage.vala:1320
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Izvirna datoteka fotografije manjka: %s"
@@ -4250,23 +4217,23 @@ msgstr "SD Video (4 : 3)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD Video (16 : 9)"
 
-#: src/editing_tools/CropTool.vala:183 src/Printing.vala:794
+#: src/editing_tools/CropTool.vala:183 src/printing/Manager.vala:37
 msgid "Wallet (2 × 3 in.)"
 msgstr "Denarnica (2 × 3 palce)"
 
-#: src/editing_tools/CropTool.vala:184 src/Printing.vala:797
+#: src/editing_tools/CropTool.vala:184 src/printing/Manager.vala:40
 msgid "Notecard (3 × 5 in.)"
 msgstr "Beležka (3 × 5 palcev)"
 
-#: src/editing_tools/CropTool.vala:185 src/Printing.vala:800
+#: src/editing_tools/CropTool.vala:185 src/printing/Manager.vala:43
 msgid "4 × 6 in."
 msgstr "4 × 6 palcev"
 
-#: src/editing_tools/CropTool.vala:186 src/Printing.vala:803
+#: src/editing_tools/CropTool.vala:186 src/printing/Manager.vala:46
 msgid "5 × 7 in."
 msgstr "5 × 7 palcev"
 
-#: src/editing_tools/CropTool.vala:187 src/Printing.vala:806
+#: src/editing_tools/CropTool.vala:187 src/printing/Manager.vala:49
 msgid "8 × 10 in."
 msgstr "8 × 10 palcev"
 
@@ -4274,7 +4241,7 @@ msgstr "8 × 10 palcev"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Pismo (8.5 × 11 in.)"
 
-#: src/editing_tools/CropTool.vala:189 src/Printing.vala:809
+#: src/editing_tools/CropTool.vala:189 src/printing/Manager.vala:52
 msgid "11 × 14 in."
 msgstr "11 × 14 palcev"
 
@@ -4282,23 +4249,23 @@ msgstr "11 × 14 palcev"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 in.)"
 
-#: src/editing_tools/CropTool.vala:191 src/Printing.vala:812
+#: src/editing_tools/CropTool.vala:191 src/printing/Manager.vala:55
 msgid "16 × 20 in."
 msgstr "16 × 20 palcev"
 
-#: src/editing_tools/CropTool.vala:193 src/Printing.vala:818
+#: src/editing_tools/CropTool.vala:193 src/printing/Manager.vala:61
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Metrična denarnica (9 × 13 cm)"
 
-#: src/editing_tools/CropTool.vala:194 src/Printing.vala:821
+#: src/editing_tools/CropTool.vala:194 src/printing/Manager.vala:64
 msgid "Postcard (10 × 15 cm)"
 msgstr "Razglednica (10 × 15 cm)"
 
-#: src/editing_tools/CropTool.vala:195 src/Printing.vala:824
+#: src/editing_tools/CropTool.vala:195 src/printing/Manager.vala:67
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/CropTool.vala:196 src/Printing.vala:827
+#: src/editing_tools/CropTool.vala:196 src/printing/Manager.vala:70
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
@@ -4306,15 +4273,15 @@ msgstr "18 × 24 cm"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/CropTool.vala:198 src/Printing.vala:830
+#: src/editing_tools/CropTool.vala:198 src/printing/Manager.vala:73
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/CropTool.vala:199 src/Printing.vala:833
+#: src/editing_tools/CropTool.vala:199 src/printing/Manager.vala:76
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/CropTool.vala:200 src/Printing.vala:836
+#: src/editing_tools/CropTool.vala:200 src/printing/Manager.vala:79
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
@@ -4490,19 +4457,19 @@ msgstr "Zadnji uvoz"
 msgid "Organize and browse your photos"
 msgstr "Urejanje in brskanje med fotografijami"
 
-#: src/library/LibraryWindow.vala:515
+#: src/library/LibraryWindow.vala:490
 msgid "Import From Folder"
 msgstr "Uvozi iz mape"
 
-#: src/library/LibraryWindow.vala:527
+#: src/library/LibraryWindow.vala:502
 msgid "Recurse Into Subfolders"
 msgstr "Izvedi po strukturi map"
 
-#: src/library/LibraryWindow.vala:578
+#: src/library/LibraryWindow.vala:553
 msgid "Emptying Trash…"
 msgstr "Poteka praznjenje smeti …"
 
-#: src/library/LibraryWindow.vala:758
+#: src/library/LibraryWindow.vala:733
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4513,24 +4480,28 @@ msgstr ""
 "Priporočljivo je spremeniti nastavitev med možnostmi %s.\n"
 "Ali želite nadaljevati z uvažanjem?"
 
+#: src/library/LibraryWindow.vala:736
+msgid "_Import"
+msgstr "_Uvozi"
+
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:781
+#: src/library/LibraryWindow.vala:756
 msgid "Photos cannot be imported from this directory."
 msgstr "Iz te mape ni mogoče uvoziti fotografij."
 
-#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
+#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
 msgid "Updating library…"
 msgstr "Poteka posodabljanje knjižnice …"
 
-#: src/library/LibraryWindow.vala:1026
+#: src/library/LibraryWindow.vala:1012
 msgid "Preparing to auto-import photos…"
 msgstr "Poteka priprava na samodejno uvažanje slik …"
 
-#: src/library/LibraryWindow.vala:1031
+#: src/library/LibraryWindow.vala:1017
 msgid "Auto-importing photos…"
 msgstr "Samodejno uvažanje fotografij …"
 
-#: src/library/LibraryWindow.vala:1039
+#: src/library/LibraryWindow.vala:1025
 msgid "Writing metadata to files…"
 msgstr "Poteka zapisovanje metapodatkov v datoteke …"
 
@@ -4705,22 +4676,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:260
+#: src/photos/JfifSupport.vala:272
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Nizka (%d%%)"
 
-#: src/photos/JfifSupport.vala:263
+#: src/photos/JfifSupport.vala:275
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Srednja (%d%%)"
 
-#: src/photos/JfifSupport.vala:266
+#: src/photos/JfifSupport.vala:278
 #, c-format
 msgid "High (%d%%)"
 msgstr "Visoka (%d%%)"
 
-#: src/photos/JfifSupport.vala:269
+#: src/photos/JfifSupport.vala:281
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Največja (%d%%)"
@@ -4742,7 +4713,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3985
 msgid "modified"
 msgstr "spremenjeno"
 
@@ -4751,24 +4722,24 @@ msgid "Enable or disable the plugin"
 msgstr "Omogočite ali onemogočite vtičnik"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:156
+#: src/plugins/ManifestWidget.vala:157
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Upravljaj račune za %s"
 
-#: src/plugins/ManifestWidget.vala:181
+#: src/plugins/ManifestWidget.vala:183
 msgid "Authors"
 msgstr "Avtorji"
 
-#: src/plugins/ManifestWidget.vala:191
+#: src/plugins/ManifestWidget.vala:193
 msgid "Version"
 msgstr "Različica"
 
-#: src/plugins/ManifestWidget.vala:201
+#: src/plugins/ManifestWidget.vala:203
 msgid "License"
 msgstr "Dovoljenje"
 
-#: src/plugins/ManifestWidget.vala:213
+#: src/plugins/ManifestWidget.vala:215
 msgid "Website"
 msgstr "Spletišče"
 
@@ -4776,43 +4747,8 @@ msgstr "Spletišče"
 msgid "LGPL v2.1 or later"
 msgstr "LGPL v2.1 ali novejša"
 
-#: src/Printing.vala:255
-msgid "Fill the entire page"
-msgstr "Zapolni celotno stran"
-
-#: src/Printing.vala:256
-msgid "2 images per page"
-msgstr "2 sliki na stran"
-
-#: src/Printing.vala:257
-msgid "4 images per page"
-msgstr "4 slike na stran"
-
-#: src/Printing.vala:258
-msgid "6 images per page"
-msgstr "6 slik na stran"
-
-#: src/Printing.vala:259
-msgid "8 images per page"
-msgstr "8 slik na stran"
-
-#: src/Printing.vala:260
-msgid "16 images per page"
-msgstr "16 slik na stran"
-
-#: src/Printing.vala:261
-msgid "32 images per page"
-msgstr "32 slik na stran"
-
-#: src/Printing.vala:853
-msgid "Image Settings"
-msgstr "Nastavitve slike"
-
-#: src/Printing.vala:866
-msgid "Printing…"
-msgstr "Tiskanje …"
-
-#: src/Printing.vala:886 src/Printing.vala:1089
+#. FIXME: Meh
+#: src/printing/Job.vala:224
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -4822,6 +4758,65 @@ msgstr ""
 "Fotografije ni mogoče natisniti:\n"
 "\n"
 "%s"
+
+#: src/printing/Manager.vala:96
+msgid "Continue..."
+msgstr "Nadaljuj ..."
+
+#: src/printing/Manager.vala:114 src/printing/Manager.vala:161
+msgid "Printing failed"
+msgstr "Tiskanje ni uspelo"
+
+#: src/printing/Manager.vala:125
+#, c-format
+msgid "Print preview for a photo"
+msgid_plural "Print preview for %d photos"
+msgstr[0] "Predogled tiskanja za %d fotografij"
+msgstr[1] "Predogled tiskanja za %d fotografijo"
+msgstr[2] "Predogled tiskanja za %d fotografiji"
+msgstr[3] "Predogled tiskanja za %d fotografije"
+
+#: src/printing/Manager.vala:127
+#, c-format
+msgid "Print preview for %s"
+msgstr "Predogled tiskanja za %s"
+
+#: src/printing/Manager.vala:152
+msgid "Printing…"
+msgstr "Tiskanje …"
+
+#: src/printing/Manager.vala:159
+#, c-format
+msgid "Printing to “%s” succeeded"
+msgstr "Tiskanje na »%s« je uspelo"
+
+#: src/printing/Settings.vala:214
+msgid "Fill the entire page"
+msgstr "Zapolni celotno stran"
+
+#: src/printing/Settings.vala:215
+msgid "2 images per page"
+msgstr "2 sliki na stran"
+
+#: src/printing/Settings.vala:216
+msgid "4 images per page"
+msgstr "4 slike na stran"
+
+#: src/printing/Settings.vala:217
+msgid "6 images per page"
+msgstr "6 slik na stran"
+
+#: src/printing/Settings.vala:218
+msgid "8 images per page"
+msgstr "8 slik na stran"
+
+#: src/printing/Settings.vala:219
+msgid "16 images per page"
+msgstr "16 slik na stran"
+
+#: src/printing/Settings.vala:220
+msgid "32 images per page"
+msgstr "32 slik na stran"
 
 #: src/ProfileBrowser.vala:20
 msgid "Create"
@@ -5077,6 +5072,10 @@ msgstr "Fotografije ni mogoče objaviti"
 #, c-format
 msgid "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the Plugins tab."
 msgstr "Izbranih predmetov ni mogoče objaviti, ker ni omogočenega ustreznega skladnega vstavka za objavljanje. Napako je mogoče odpraviti z urejanjem možnosti %s in omogočanjem enega ali več vstavkov za objavo na zavihku Vstavki."
+
+#: src/publishing/PublishingUI.vala:396
+msgid "_Close"
+msgstr "_Zapri"
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5655,112 +5654,112 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %d. %m. %Y"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:132
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:134
 msgid "Slideshow"
 msgstr "Predstavitev"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:167
+#: src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "vsebuje"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:499
+#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:498
 msgid "is exactly"
 msgstr "je"
 
-#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:168
 msgid "starts with"
 msgstr "se začne na"
 
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:169
 msgid "ends with"
 msgstr "konča na"
 
-#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:169
 msgid "does not contain"
 msgstr "ne vsebuje"
 
-#: src/searches/SavedSearchDialog.vala:172 src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:169 src/searches/SavedSearchDialog.vala:502
 msgid "is not set"
 msgstr "ni nastavljeno"
 
-#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:170
 msgid "is set"
 msgstr "je nastavljeno"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:247 src/searches/SavedSearchDialog.vala:378 src/searches/SavedSearchDialog.vala:443
+#: src/searches/SavedSearchDialog.vala:239 src/searches/SavedSearchDialog.vala:373 src/searches/SavedSearchDialog.vala:442
 msgid "is"
 msgstr "je"
 
-#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:239
 msgid "is not"
 msgstr "ni"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:254
+#: src/searches/SavedSearchDialog.vala:246
 msgid "any photo"
 msgstr "katerakoli fotografija"
 
-#: src/searches/SavedSearchDialog.vala:255
+#: src/searches/SavedSearchDialog.vala:247
 msgid "a raw photo"
 msgstr "surova fotografija"
 
-#: src/searches/SavedSearchDialog.vala:256
+#: src/searches/SavedSearchDialog.vala:248
 msgid "a video"
 msgstr "video"
 
-#: src/searches/SavedSearchDialog.vala:310
+#: src/searches/SavedSearchDialog.vala:302
 msgid "has"
 msgstr "ima"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:303
 msgid "has no"
 msgstr "nima"
 
-#: src/searches/SavedSearchDialog.vala:316
+#: src/searches/SavedSearchDialog.vala:309
 msgid "modifications"
 msgstr "spremembe"
 
-#: src/searches/SavedSearchDialog.vala:317
+#: src/searches/SavedSearchDialog.vala:310
 msgid "internal modifications"
 msgstr "notranje spremembe"
 
-#: src/searches/SavedSearchDialog.vala:318
+#: src/searches/SavedSearchDialog.vala:311
 msgid "external modifications"
 msgstr "zunanje spremembe"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:372
+#: src/searches/SavedSearchDialog.vala:366
 msgid "flagged"
 msgstr "označeno"
 
-#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:367
 msgid "not flagged"
 msgstr "ni označeno"
 
-#: src/searches/SavedSearchDialog.vala:436
+#: src/searches/SavedSearchDialog.vala:434
 msgid "and higher"
 msgstr "in večja"
 
-#: src/searches/SavedSearchDialog.vala:437
+#: src/searches/SavedSearchDialog.vala:435
 msgid "only"
 msgstr "le"
 
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and lower"
 msgstr "in nižja"
 
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is after"
 msgstr "je po"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is before"
 msgstr "je pred"
 
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is between"
 msgstr "je med"
 
@@ -5843,40 +5842,40 @@ msgstr "★★★★★+ Ocena"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:155
+#: src/SlideshowPage.vala:157
 msgid "Back"
 msgstr "Nazaj"
 
-#: src/SlideshowPage.vala:162 src/SlideshowPage.vala:271
+#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:273
 msgid "Pause"
 msgstr "Premor"
 
-#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:272
+#: src/SlideshowPage.vala:166 src/SlideshowPage.vala:274
 msgid "Pause the slideshow"
 msgstr "Naredi premor predstavitve"
 
-#: src/SlideshowPage.vala:169
+#: src/SlideshowPage.vala:171
 msgid "Next"
 msgstr "Naslednja"
 
-#: src/SlideshowPage.vala:178
+#: src/SlideshowPage.vala:180
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: src/SlideshowPage.vala:179
+#: src/SlideshowPage.vala:181
 msgid "Change slideshow settings"
 msgstr "Spremeni nastavitve predstavitve"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:235
+#: src/SlideshowPage.vala:237
 msgid "All photo source files are missing."
 msgstr "Manjkajo vse izvorne datoteke fotografije."
 
-#: src/SlideshowPage.vala:267
+#: src/SlideshowPage.vala:269
 msgid "Play"
 msgstr "Predvajaj"
 
-#: src/SlideshowPage.vala:268
+#: src/SlideshowPage.vala:270
 msgid "Continue the slideshow"
 msgstr "Nadaljuj s predstavitvijo"
 
