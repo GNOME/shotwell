@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
   <requires lib="gtk" version="4.0"/>
-  <object class="GtkBox" id="tumblr_pane">
+  <template class="PublishingTumblrTumblrPublisherPublishingOptionsPane" parent="GtkBox">
     <property name="spacing">16</property>
     <property name="homogeneous">1</property>
     <child>
@@ -99,5 +99,5 @@ so changes made here will not display)</property>
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

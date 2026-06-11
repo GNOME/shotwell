@@ -393,7 +393,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             new AuthenticationPane(this, mode);
         authentication_pane.login.connect(on_authentication_pane_login_clicked);
         host.install_dialog_pane(authentication_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-        host.set_dialog_default_widget(authentication_pane.get_default_widget());
     }
 
     private void do_show_ssl_downgrade_pane (SessionLoginTransaction trans,
@@ -411,18 +410,24 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             this.session = new Session ();
             this.session.set_insecure ();
 
-            string? persistent_url = get_persistent_url();
-            string? persistent_username = get_persistent_username();
-            string? persistent_password = get_persistent_password(persistent_url, persistent_username);
-            if (persistent_url != null && persistent_username != null && persistent_password != null)
-                do_network_login.begin(persistent_url, persistent_username,
-                    persistent_password, get_remember_password());
+            string login_url = trans.get_endpoint_url();
+            string? login_username = null;
+            string? login_password = null;
+            foreach (var arg in trans.get_arguments()) {
+                if (arg.key == "username")
+                    login_username = Uri.unescape_string(arg.value);
+                else if (arg.key == "password")
+                    login_password = Uri.unescape_string(arg.value);
+            }
+
+            if (login_username != null && login_password != null)
+                do_network_login.begin(login_url, login_username,
+                    login_password, get_remember_password());
             else
                 do_show_authentication_pane();
         });
         host.install_dialog_pane (ssl_pane,
                                   Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-        host.set_dialog_default_widget (ssl_pane.get_default_widget ());
     }
 
     /**
@@ -735,7 +740,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         opts_pane.logout.connect(() => { on_publishing_options_pane_logout_clicked.begin(); });
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-        host.set_dialog_default_widget(opts_pane.get_default_widget());
     }
     
     /**
@@ -1006,7 +1010,8 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
  * The authentication pane used when asking service URL, user name and password
  * from the user.
  */
-internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
+[GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/piwigo_authentication_pane.ui")]
+internal class AuthenticationPane : Gtk.Box, Spit.Publishing.DialogPane {
     public enum Mode {
         INTRO,
         FAILED_RETRY_URL,
@@ -1020,27 +1025,29 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
     private static string FAILED_RETRY_URL_MESSAGE = _("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
     private static string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
-    private Gtk.Entry url_entry;
-    private Gtk.Entry username_entry;
-    private Gtk.PasswordEntry password_entry;
-    private Gtk.Switch remember_password_checkbutton;
-    private Gtk.Button login_button;
+    [GtkChild]
+    private unowned Gtk.Label message_label;
+    [GtkChild]
+    private unowned Gtk.Entry url_entry;
+    [GtkChild]
+    private unowned Gtk.Entry username_entry;
+    [GtkChild]
+    private unowned Gtk.PasswordEntry password_entry;
+    [GtkChild]
+    private unowned Gtk.Switch remember_password_checkbutton;
+    [GtkChild]
+    private unowned Gtk.Button login_button;
 
     public signal void login(string url, string user, string password, bool remember_password);
 
     public AuthenticationPane (PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
-        Object (resource_path : Resources.RESOURCE_PATH +
-                                "/piwigo_authentication_pane.ui",
-                default_id : "login_button",
-                mode : mode,
+        Object (mode : mode,
                 publisher : publisher);
     }
 
     public override void constructed () {
         base.constructed ();
 
-        var builder = this.get_builder ();
-        var message_label = builder.get_object("message_label") as Gtk.Label;
         switch (mode) {
             case Mode.INTRO:
                 message_label.set_text(INTRO_MESSAGE);
@@ -1057,31 +1064,25 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
                 break;
         }
 
-        url_entry = builder.get_object ("url_entry") as Gtk.Entry;
         string? persistent_url = publisher.get_persistent_url();
         if (persistent_url != null) {
             url_entry.set_text(persistent_url);
         }
-        username_entry = builder.get_object ("username_entry") as Gtk.Entry;
         string? persistent_username = publisher.get_persistent_username();
         if (persistent_username != null) {
             username_entry.set_text(persistent_username);
         }
-        password_entry = builder.get_object ("password_entry") as Gtk.PasswordEntry;
         string? persistent_password = publisher.get_persistent_password(persistent_url, persistent_username);
         if (persistent_password != null) {
             password_entry.set_text(persistent_password);
         }
-        remember_password_checkbutton =
-            builder.get_object ("remember_password_checkbutton") as Gtk.Switch;
         remember_password_checkbutton.set_active(publisher.get_remember_password());
 
-        login_button = builder.get_object("login_button") as Gtk.Button;
+        login_button.clicked.connect(on_login_button_clicked);
 
         username_entry.changed.connect(on_user_changed);
         url_entry.changed.connect(on_url_changed);
         password_entry.changed.connect(on_password_changed);
-        login_button.clicked.connect(on_login_button_clicked);
 
         publisher.get_host().set_dialog_default_widget(login_button);
     }
@@ -1103,15 +1104,25 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
         update_login_button_sensitivity();
     }
     
+    // DialogPane interface
+    public Gtk.Widget get_widget() {
+        return this;
+    }
+
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+
+    public void on_pane_uninstalled() {
+    }
+
     private void update_login_button_sensitivity() {
         login_button.set_sensitive(url_entry.text_length != 0 &&
                                    username_entry.text_length != 0 &&
                                    password_entry.text != null && password_entry.text.length != 0);
     }
     
-    public override void on_pane_installed() {
-        base.on_pane_installed ();
-
+    public void on_pane_installed() {
         url_entry.grab_focus();
         update_login_button_sensitivity();
     }
@@ -1120,26 +1131,43 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
 /**
  * The publishing options pane.
  */
-internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
+[GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/piwigo_publishing_options_pane.ui")]
+internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
 
     private static string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
-    private Gtk.CheckButton use_existing_radio;
-    private Gtk.CheckButton create_new_radio;
-    private Gtk.DropDown existing_categories_combo;
-    private Gtk.Entry new_category_entry;
-    private Gtk.Label within_existing_label;
-    private Gtk.DropDown within_existing_combo;
-    private Gtk.DropDown perms_combo;
-    private Gtk.DropDown size_combo;
-    private Gtk.CheckButton strip_metadata_check = null;
-    private Gtk.CheckButton title_as_comment_check = null;
-    private Gtk.CheckButton no_upload_tags_check = null;
-    private Gtk.CheckButton no_upload_ratings_check = null;
-    private Gtk.Button logout_button;
-    private Gtk.Button publish_button;
-    private Gtk.TextView album_comment;
-    private Gtk.Label album_comment_label;
+    [GtkChild]
+    private unowned Gtk.CheckButton use_existing_radio;
+    [GtkChild]
+    private unowned Gtk.CheckButton create_new_radio;
+    [GtkChild]
+    private unowned Gtk.DropDown existing_categories_combo;
+    [GtkChild]
+    private unowned Gtk.Entry new_category_entry;
+    [GtkChild]
+    private unowned Gtk.Label within_existing_label;
+    [GtkChild]
+    private unowned Gtk.DropDown within_existing_combo;
+    [GtkChild]
+    private unowned Gtk.DropDown perms_combo;
+    [GtkChild]
+    private unowned Gtk.DropDown size_combo;
+    [GtkChild]
+    private unowned Gtk.CheckButton strip_metadata_check;
+    [GtkChild]
+    private unowned Gtk.CheckButton title_as_comment_check;
+    [GtkChild]
+    private unowned Gtk.CheckButton no_upload_tags_check;
+    [GtkChild]
+    private unowned Gtk.CheckButton no_upload_ratings_check;
+    [GtkChild]
+    private unowned Gtk.Button logout_button;
+    [GtkChild]
+    private unowned Gtk.Button publish_button;
+    [GtkChild]
+    private unowned Gtk.TextView album_comment;
+    [GtkChild]
+    private unowned Gtk.Label album_comment_label;
 
     private PermissionLevel[] perm_levels;
     private SizeEntry[] photo_sizes;
@@ -1153,6 +1181,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
     public bool strip_metadata_enabled { private get; construct; }
     public Gee.List<Category> existing_categories { private get; construct; }
     public string default_comment { private get; construct; }
+    public unowned PiwigoPublisher publisher { get; construct; }
 
     public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
@@ -1166,9 +1195,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                                  bool last_no_upload_tags,
                                  bool last_no_upload_ratings,
                                  bool strip_metadata_enabled) {
-        Object (resource_path : Resources.RESOURCE_PATH +
-                                "/piwigo_publishing_options_pane.ui",
-                default_id : "publish_button",
+        Object (
                 last_category : last_category,
                 last_permission_level : last_permission_level,
                 last_photo_size : last_photo_size,
@@ -1178,44 +1205,26 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                 strip_metadata_enabled : strip_metadata_enabled,
                 existing_categories : new Gee.ArrayList<Category>.wrap (categories,
                                                           Category.equal),
-                default_comment : get_common_comment_if_possible (publisher));
+                default_comment : get_common_comment_if_possible (publisher),
+                publisher : publisher);
     }
 
     public override void constructed () {
         base.constructed ();
-        var builder = this.get_builder ();
 
-        use_existing_radio = builder.get_object("use_existing_radio") as Gtk.CheckButton;
-        create_new_radio = builder.get_object("create_new_radio") as Gtk.CheckButton;
-        existing_categories_combo = (Gtk.DropDown)builder.get_object("existing_categories_combo");
-        new_category_entry = (Gtk.Entry)builder.get_object ("new_category_entry");
-        within_existing_label = (Gtk.Label)builder.get_object ("within_existing_label");
-        within_existing_combo = (Gtk.DropDown)builder.get_object ("within_existing_combo");
-
-        album_comment = (Gtk.TextView)builder.get_object ("album_comment");
-        album_comment.buffer = new Gtk.TextBuffer(null);
-        album_comment_label = (Gtk.Label)builder.get_object ("album_comment_label");
-
-        perms_combo = (Gtk.DropDown)builder.get_object("perms_combo");
-        size_combo = (Gtk.DropDown)builder.get_object("size_combo");
-
-        strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
         strip_metadata_check.set_active(strip_metadata_enabled);
 
-        title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
         title_as_comment_check.set_active(last_title_as_comment);
 
-        no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
         no_upload_tags_check.set_active(last_no_upload_tags);
 
-        no_upload_ratings_check = builder.get_object("no_upload_ratings_check") as Gtk.CheckButton;
         no_upload_ratings_check.set_active(last_no_upload_ratings);
 
-        logout_button = builder.get_object("logout_button") as Gtk.Button;
         logout_button.clicked.connect(on_logout_button_clicked);
 
-        publish_button = builder.get_object("publish_button") as Gtk.Button;
         publish_button.clicked.connect(on_publish_button_clicked);
+
+        publisher.get_host().set_dialog_default_widget(publish_button);
 
         use_existing_radio.toggled.connect(on_use_existing_radio_clicked);
         create_new_radio.toggled.connect(on_create_new_radio_clicked);
@@ -1224,6 +1233,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
         this.perm_levels = create_perm_levels();
         this.photo_sizes = create_sizes();
+        this.album_comment.buffer = new Gtk.TextBuffer(null);
         this.album_comment.buffer.set_text(this.default_comment);
     }
 
@@ -1249,6 +1259,18 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         result += new SizeEntry(ORIGINAL_SIZE, _("Original size"));
 
         return result;
+    }
+
+    // DialogPane interface
+    public Gtk.Widget get_widget() {
+        return this;
+    }
+
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+
+    public void on_pane_uninstalled() {
     }
 
     private void on_logout_button_clicked() {
@@ -1332,9 +1354,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         );
     }
 
-    public override void on_pane_installed() {
-        base.on_pane_installed ();
-
+    public void on_pane_installed() {
         create_categories_combo();
         create_within_categories_combo();
         create_permissions_combo();

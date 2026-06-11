@@ -387,25 +387,23 @@ namespace Publishing.Tumblr {
 
         // UI elements
 
-
         /**
          * The publishing options pane.
          */
-
-
-        internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
-
-
-
-            private Gtk.Builder builder;
-            private Gtk.Box pane_widget = null;
-            private Gtk.Label upload_info_label = null;
-            private Gtk.Label size_label = null;
-            private Gtk.Label blog_label = null;
-            private Gtk.Button logout_button = null;
-            private Gtk.Button publish_button = null;
-            private Gtk.DropDown size_combo = null;
-            private Gtk.DropDown blog_combo = null;
+        [GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/tumblr_publishing_options_pane.ui")]
+        internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
+            [GtkChild]
+            private unowned Gtk.Label upload_info_label;
+            [GtkChild]
+            private unowned Gtk.Label size_label;
+            [GtkChild]
+            private unowned Gtk.Button logout_button;
+            [GtkChild]
+            private unowned Gtk.Button publish_button;
+            [GtkChild]
+            private unowned Gtk.DropDown size_combo;
+            [GtkChild]
+            private unowned Gtk.DropDown blog_combo;
             private SizeEntry[] sizes = null;
             private BlogEntry[] blogs = null;
             private string username = "";
@@ -416,50 +414,31 @@ namespace Publishing.Tumblr {
             public signal void logout();
 
             public PublishingOptionsPane(TumblrPublisher publisher, Spit.Publishing.Publisher.MediaType media_type, SizeEntry[] sizes, BlogEntry[] blogs, string username) {
+                Object();
 
-                this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
                 this.username = username;
                 this.publisher = publisher;
                 this.media_type = media_type;
                 this.sizes = sizes;
                 this.blogs=blogs;
 
-                try {
-                    builder = new Gtk.Builder();
-                    builder.add_from_resource (Resources.RESOURCE_PATH +
-                            "/tumblr_publishing_options_pane.ui");
+                string upload_label_text = _("You are logged into Tumblr as %s.\n\n").printf(this.username);
+                upload_info_label.set_label(upload_label_text);
 
-                    // pull in the necessary widgets from the glade file
-                    pane_widget = (Gtk.Box) this.builder.get_object("tumblr_pane");
-                    upload_info_label = (Gtk.Label) this.builder.get_object("upload_info_label");
-                    logout_button = (Gtk.Button) this.builder.get_object("logout_button");
-                    publish_button = (Gtk.Button) this.builder.get_object("publish_button");
-                    size_combo = (Gtk.DropDown) this.builder.get_object("size_combo");
-                    size_label = (Gtk.Label) this.builder.get_object("size_label");
-                    blog_combo = (Gtk.DropDown) this.builder.get_object("blog_combo");
-                    blog_label = (Gtk.Label) this.builder.get_object("blog_label");
+                populate_blog_combo();
+                blog_combo.notify["selected-item"].connect(on_blog_changed);
 
-
-                    string upload_label_text = _("You are logged into Tumblr as %s.\n\n").printf(this.username);
-                    upload_info_label.set_label(upload_label_text);
-
-                    populate_blog_combo();
-                    blog_combo.notify["selected-item"].connect(on_blog_changed);
-
-                    if ((media_type != Spit.Publishing.Publisher.MediaType.VIDEO)) {
-                        populate_size_combo();
-                        size_combo.notify["selected-item"].connect(on_size_changed);
-                    } else {
-                        // publishing -only- video - don't let the user manipulate the photo size choices.
-                        size_combo.set_sensitive(false);
-                        size_label.set_sensitive(false);
-                    }
-
-                    logout_button.clicked.connect(on_logout_clicked);
-                    publish_button.clicked.connect(on_publish_clicked);
-                } catch (Error e) {
-                    warning(_("Could not load UI: %s"), e.message);
+                if ((media_type != Spit.Publishing.Publisher.MediaType.VIDEO)) {
+                    populate_size_combo();
+                    size_combo.notify["selected-item"].connect(on_size_changed);
+                } else {
+                    // publishing -only- video - don't let the user manipulate the photo size choices.
+                    size_combo.set_sensitive(false);
+                    size_label.set_sensitive(false);
                 }
+
+                logout_button.clicked.connect(on_logout_clicked);
+                publish_button.clicked.connect(on_publish_clicked);
             }
 
             private void on_logout_clicked() {
@@ -507,7 +486,7 @@ namespace Publishing.Tumblr {
             }
 
             public Gtk.Widget get_widget() {
-                return pane_widget;
+                return this;
             }
 
             public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {

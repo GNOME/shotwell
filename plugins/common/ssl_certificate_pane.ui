@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
   <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow">
-    <property name="child">
-      <object class="GtkBox" id="content">
+  <template class="ShotwellPluginsCommonSslCertificatePane" parent="GtkBox">
+    <property name="margin-start">12</property>
+    <property name="margin-end">12</property>
+    <property name="margin_top">12</property>
+    <property name="margin_bottom">12</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">12</property>
+    <child>
+      <object class="GtkLabel">
+        <property name="label" translatable="1">This connection is not secure</property>
+        <attributes>
+          <attribute name="weight" value="bold"></attribute>
+        </attributes>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="main_text">
+        <property name="label">This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).</property>
+        <property name="use_markup">1</property>
+        <property name="wrap">1</property>
+        <property name="width_chars">40</property>
+        <property name="max_width_chars">40</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="ssl_errors">
+        <property name="halign">start</property>
         <property name="margin-start">12</property>
-        <property name="margin-end">12</property>
-        <property name="margin_top">12</property>
-        <property name="margin_bottom">12</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="label" translatable="1">This connection is not secure</property>
-            <attributes>
-              <attribute name="weight" value="bold"></attribute>
-            </attributes>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="main_text">
-            <property name="label">This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).</property>
-            <property name="use_markup">1</property>
-            <property name="wrap">1</property>
-            <property name="width_chars">40</property>
-            <property name="max_width_chars">40</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="ssl_errors">
-            <property name="halign">start</property>
-            <property name="margin-start">12</property>
-            <property name="label">⚫ This website presented identification that belongs to a different website.
+        <property name="label">⚫ This website presented identification that belongs to a different website.
 ⚫ This website’s identification could not be processed. It may be corrupted.</property>
-            <property name="wrap">1</property>
-            <property name="width_chars">52</property>
-            <property name="max_width_chars">52</property>
+        <property name="wrap">1</property>
+        <property name="width_chars">52</property>
+        <property name="max_width_chars">52</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkButton" id="default_button">
+            <property name="label" translatable="1">Show the certificate…</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">horizontal</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkButton" id="default">
-                <property name="label" translatable="1">Show the certificate…</property>
-                <property name="focusable">1</property>
-                <property name="receives_default">1</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="proceed_button">
-                <property name="label" translatable="1">I understand, please _proceed.</property>
-                <property name="focusable">1</property>
-                <property name="receives_default">1</property>
-                <property name="use_underline">1</property>
-              </object>
-            </child>
+          <object class="GtkButton" id="proceed_button">
+            <property name="label" translatable="1">I understand, please _proceed.</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
+            <property name="use_underline">1</property>
           </object>
         </child>
       </object>
-    </property>
-  </object>
+    </child>
+  </template>
 </interface>

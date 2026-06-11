@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
   <requires lib="gtk" version="4.0"/>
-  <object class="GtkBox" id="flickr_pane">
+  <template class="PublishingFlickrPublishingOptionsPane" parent="GtkBox">
+    <property name="margin_start">18</property>
+    <property name="margin_end">18</property>
+    <property name="margin_top">18</property>
+    <property name="margin_bottom">18</property>
     <property name="spacing">16</property>
     <property name="homogeneous">1</property>
     <child>
@@ -115,5 +119,5 @@ so changes made here will not display)</property>
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

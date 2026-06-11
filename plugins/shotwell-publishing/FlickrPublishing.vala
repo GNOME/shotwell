@@ -266,23 +266,8 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(false);
 
-        Gtk.Builder builder = new Gtk.Builder();
-
-        try {
-            // the trailing get_path() is required, since add_from_file can't cope
-            // with File objects directly and expects a pathname instead.
-            builder.add_from_resource(Resources.RESOURCE_PATH + "/" +
-                    "flickr_publishing_options_pane.ui");
-        } catch (Error e) {
-            warning("Could not parse UI file! Error: %s.", e.message);
-            host.post_error(
-                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Flickr can’t continue.")));
-            return;
-        }
-
         publishing_options_pane = new PublishingOptionsPane(this, parameters,
-            host.get_publishable_media_type(), builder, get_persistent_strip_metadata());
+            host.get_publishable_media_type(), get_persistent_strip_metadata());
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         host.install_dialog_pane(publishing_options_pane);
@@ -493,7 +478,8 @@ private class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransactio
     }
 }
 
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
+[GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/flickr_publishing_options_pane.ui")]
+internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     private class SizeEntry {
         public string title;
         public int size;
@@ -514,16 +500,22 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         }
     }
 
-    private Gtk.Builder builder;
-    private Gtk.Box pane_widget = null;
-    private Gtk.Label visibility_label = null;
-    private Gtk.Label upload_info_label = null;
-    private Gtk.Label size_label = null;
-    private Gtk.Button logout_button = null;
-    private Gtk.Button publish_button = null;
-    private Gtk.DropDown visibility_combo = null;
-    private Gtk.DropDown size_combo = null;
-    private Gtk.CheckButton strip_metadata_check = null;
+    [GtkChild]
+    private unowned Gtk.Label visibility_label;
+    [GtkChild]
+    private unowned Gtk.Label upload_info_label;
+    [GtkChild]
+    private unowned Gtk.Label size_label;
+    [GtkChild]
+    private unowned Gtk.Button logout_button;
+    [GtkChild]
+    private unowned Gtk.Button publish_button;
+    [GtkChild]
+    private unowned Gtk.DropDown visibility_combo;
+    [GtkChild]
+    private unowned Gtk.DropDown size_combo;
+    [GtkChild]
+    private unowned Gtk.CheckButton strip_metadata_check;
     private VisibilityEntry[] visibilities = null;
     private SizeEntry[] sizes = null;
     private PublishingParameters parameters = null;
@@ -534,21 +526,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void logout();
 
     public PublishingOptionsPane(FlickrPublisher publisher, PublishingParameters parameters,
-        Spit.Publishing.Publisher.MediaType media_type, Gtk.Builder builder, bool strip_metadata) {
-        this.builder = builder;
-        assert(builder != null);
-        assert(builder.get_objects().length() > 0);
-        
-        // pull in the necessary widgets from the glade file
-        pane_widget = (Gtk.Box) this.builder.get_object("flickr_pane");
-        visibility_label = (Gtk.Label) this.builder.get_object("visibility_label");
-        upload_info_label = (Gtk.Label) this.builder.get_object("upload_info_label");
-        logout_button = (Gtk.Button) this.builder.get_object("logout_button");
-        publish_button = (Gtk.Button) this.builder.get_object("publish_button");
-        visibility_combo = (Gtk.DropDown) this.builder.get_object("visibility_combo");
-        size_combo = (Gtk.DropDown) this.builder.get_object("size_combo");
-        size_label = (Gtk.Label) this.builder.get_object("size_label");
-        strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
+        Spit.Publishing.Publisher.MediaType media_type, bool strip_metadata) {
+        Object();
 
         if (!publisher.get_authenticator().can_logout()) {
             logout_button.unparent();
@@ -678,7 +657,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public Gtk.Widget get_widget() {
-        return pane_widget;
+        return this;
     }
     
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {

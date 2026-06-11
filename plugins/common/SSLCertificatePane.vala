@@ -121,7 +121,17 @@ private class GcrDetailsDialog : Gtk.Window {
     }
 }
 
-public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
+[GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/Common/ssl_certificate_pane.ui")]
+public class Shotwell.Plugins.Common.SslCertificatePane : Gtk.Box, Spit.Publishing.DialogPane {
+
+    [GtkChild]
+    private unowned Gtk.Label main_text;
+    [GtkChild]
+    private unowned Gtk.Label ssl_errors;
+    [GtkChild]
+    private unowned Gtk.Button default_button;
+    [GtkChild]
+    private unowned Gtk.Button proceed_button;
 
     public signal void proceed ();
     public string host { owned get; construct; }
@@ -134,10 +144,7 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
                          string host) {
         TlsCertificate cert;
         var text = transaction.detailed_error_from_tls_flags (out cert);
-        Object (resource_path : Resources.RESOURCE_PATH +
-                                "/ssl_certificate_pane.ui",
-                default_id: "default",
-                cert : cert,
+        Object (cert : cert,
                 error_text : text,
                 plugin_host : plugin_host,
                 host : host);
@@ -146,27 +153,41 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
     public override void constructed () {
         base.constructed ();
 
-        var label = this.get_builder ().get_object ("main_text") as Gtk.Label;
         var bold_host = "<b>%s</b>".printf(host);
         // %s is the host name that we tried to connect to
-        label.set_text (_("This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf(bold_host));
-        label.use_markup = true;
+        main_text.set_text (_("This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf(bold_host));
+        main_text.use_markup = true;
 
-        label = this.get_builder ().get_object ("ssl_errors") as Gtk.Label;
-        label.set_text (error_text);
+        ssl_errors.set_text (error_text);
 
-        var info = this.get_builder ().get_object ("default") as Gtk.Button;
         if (cert != null) {
-            info.clicked.connect (() => {
+            default_button.clicked.connect (() => {
                 var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
                 var widget = new GcrDetailsDialog(plugin_host.get_dialog(), host, simple_cert);
                 widget.set_visible(true);
             });
         } else {
-            info.unparent();
+            default_button.unparent();
         }
 
-        var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
-        proceed.clicked.connect (() => { this.proceed (); });
+        proceed_button.clicked.connect(on_proceed_button_clicked);
+    }
+
+    private void on_proceed_button_clicked() {
+        proceed();
+    }
+
+    public Gtk.Widget get_widget() {
+        return this;
+    }
+
+    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+    }
+
+    public void on_pane_installed() {
+    }
+
+    public void on_pane_uninstalled() {
     }
 }

@@ -166,20 +166,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
 
-        Gtk.Builder builder = new Gtk.Builder();
-
-        try {
-            builder.add_from_resource (Resources.RESOURCE_PATH +
-                    "/youtube_publishing_options_pane.ui");
-        } catch (Error e) {
-            warning("Could not parse UI file! Error: %s.", e.message);
-            get_host().post_error(
-                new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to YouTube can’t continue.")));
-            return;
-        }
-
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(authenticator, get_host(), builder, publishing_parameters);
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(authenticator, get_host(), publishing_parameters);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         get_host().install_dialog_pane(opts_pane);
@@ -249,7 +236,8 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     }
 }
 
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
+[GtkTemplate (ui = "/org/gnome/Shotwell/Publishing/youtube_publishing_options_pane.ui")]
+internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     private class PrivacyDescription {
         public string description;
         public PrivacySetting privacy_setting;
@@ -263,33 +251,26 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void publish();
     public signal void logout();
 
-    private Gtk.Box pane_widget = null;
-    private Gtk.DropDown privacy_combo = null;
-    private Gtk.Label login_identity_label = null;
-    private Gtk.Button publish_button = null;
-    private Gtk.Button logout_button = null;
-    private Gtk.Builder builder = null;
-    private Gtk.Label privacy_label = null;
+    [GtkChild]
+    private unowned Gtk.DropDown privacy_combo;
+    [GtkChild]
+    private unowned Gtk.Label login_identity_label;
+    [GtkChild]
+    private unowned Gtk.Button publish_button;
+    [GtkChild]
+    private unowned Gtk.Button logout_button;
+    [GtkChild]
+    private unowned Gtk.Label privacy_label;
     private PrivacyDescription[] privacy_descriptions;
     private PublishingParameters publishing_parameters;
 
     public PublishingOptionsPane(Spit.Publishing.Authenticator authenticator,
                                  Spit.Publishing.PluginHost host,
-                                 Gtk.Builder builder,
                                  PublishingParameters publishing_parameters) {
+        Object();
+
         this.privacy_descriptions = create_privacy_descriptions();
         this.publishing_parameters = publishing_parameters;
-
-        this.builder = builder;
-        assert(builder != null);
-        assert(builder.get_objects().length() > 0);
-
-        login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
-        privacy_combo = (Gtk.DropDown)this.builder.get_object("privacy_combo");
-        publish_button = this.builder.get_object("publish_button") as Gtk.Button;
-        logout_button = this.builder.get_object("logout_button") as Gtk.Button;
-        pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
-        privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
 
         if (!authenticator.can_logout()) {
             logout_button.unparent();
@@ -336,8 +317,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     public Gtk.Widget get_widget() {
-        assert (pane_widget != null);
-        return pane_widget;
+        return this;
     }
 
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
