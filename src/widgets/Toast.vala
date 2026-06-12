@@ -21,6 +21,7 @@ namespace Shotwell {
         private Gtk.Overlay overlay;
         private Gtk.Revealer revealer;
         private uint autodismiss_timeout = 0;
+
         public string text { set; get; }
         public string action { set; get; default="";}
         public string button_text { set; get; }
@@ -55,11 +56,7 @@ namespace Shotwell {
             button.set_valign(Gtk.Align.END);
             button.clicked.connect(on_action);
             this.bind_property("button_text", button, "label", GLib.BindingFlags.DEFAULT);
-            this.bind_property("action", button, "visible", GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-                to = from.get_string() != "";
-
-                return true;
-            });
+            this.bind_property("action", button, "visible", GLib.BindingFlags.SYNC_CREATE, bind_string_to_bool);
             this.bind_property("action", button, "action-name");
             this.bind_property("action-target", button, "action-target");
             box.append(button);

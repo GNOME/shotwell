@@ -34,11 +34,7 @@ public class Shotwell.SettingsGroup : Gtk.Box {
 
         label = new Gtk.Label(null);
         bind_property("subtitle", label, "label", GLib.BindingFlags.SYNC_CREATE);
-        bind_property("subtitle", label, "visible", GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-            to = from.get_string() != null && from.get_string() != "";
-
-            return true;
-        });
+        bind_property("subtitle", label, "visible", GLib.BindingFlags.SYNC_CREATE, bind_string_to_bool);
         label.add_css_class("dim-label");
         label.halign = Gtk.Align.START;
         label.hexpand = true;

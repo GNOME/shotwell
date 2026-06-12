@@ -101,15 +101,7 @@ public class PreferencesDialog : Gtk.Dialog {
             break;
         }
 
-        library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
-            var src = from.get_object();
-            if (src != null) {
-                var file = (File)src;
-                to = file.get_path();
-            }
-
-            return true;
-        }, null);
+        library_dir_button.bind_property("folder", library_dir_text, "label", GLib.BindingFlags.DEFAULT | GLib.BindingFlags.SYNC_CREATE, bind_file_to_path, null);
 
         // First set the initial folder, then connect the property
         library_dir_button.folder = AppDirs.get_import_dir();
