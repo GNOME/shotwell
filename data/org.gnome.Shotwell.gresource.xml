@@ -18,6 +18,7 @@
       <file preprocess="xml-stripblanks">ui/photo_context.ui</file>
       <file preprocess="xml-stripblanks">ui/photo.ui</file>
       <file preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/profile_editor_dialog.ui</file>
       <file preprocess="xml-stripblanks">ui/printing_widget.ui</file>
       <file preprocess="xml-stripblanks">ui/savedsearch.ui</file>
       <file preprocess="xml-stripblanks">ui/search_bar.ui</file>

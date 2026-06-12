@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="shotwell">
+  <requires lib="gtk" version="4.0"/>
+  <template class="ShotwellProfileEditor" parent="GtkDialog">
+    <property name="title" translatable="yes">Create new Profile</property>
+    <property name="resizable">0</property>
+    <property name="default-width">640</property>
+    <child internal-child="content_area">
+      <object class="GtkBox">
+        <child>
+          <object class="GtkGrid" id="editor_grid">
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="row-spacing">12</property>
+            <property name="column-spacing">12</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Name</property>
+                <property name="css-classes">dim-label</property>
+                <property name="halign">end</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="name_entry">
+                <property name="hexpand">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                  <property name="column-span">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Library Folder</property>
+                <property name="css-classes">dim-label</property>
+                <property name="halign">end</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="library_entry">
+                <property name="hexpand">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Data Folder</property>
+                <property name="css-classes">dim-label</property>
+                <property name="halign">end</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="data_entry">
+                <property name="hexpand">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-5" default="true">create_button</action-widget>
+      <action-widget response="-6">cancel_button</action-widget>
+    </action-widgets>
+    <child type="action">
+      <object class="GtkButton" id="create_button">
+        <property name="label" translatable="yes">Create</property>
+        <property name="focusable">1</property>
+        <property name="receives_default">1</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="cancel_button">
+        <property name="label" translatable="yes">Cancel</property>
+        <property name="focusable">1</property>
+        <property name="receives_default">1</property>
+      </object>
+    </child>
+  </template>
+</interface>

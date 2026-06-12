@@ -2,22 +2,23 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 namespace Shotwell {
+    [GtkTemplate (ui = "/org/gnome/Shotwell/ui/profile_editor_dialog.ui")]
     class ProfileEditor : Gtk.Dialog {
         public string profile_name {get; set;}
         public string id{get; default = Uuid.string_random();}
         public string library_folder{get; set;}
         public string data_folder{get; set;}
 
-        private static bool non_empty_string_binding(GLib.Binding binding, GLib.Value from, ref GLib.Value to) {
-            to = from.get_string() != "";
-            return true;
-        }
-
-        private static bool folder_path_binding(GLib.Binding binding, GLib.Value from, ref GLib.Value to) {
-            var file = (File)from.get_object();
-            to = file.get_path();
-            return true;
-        }
+        [GtkChild]
+        private unowned Gtk.Entry name_entry;
+        [GtkChild]
+        private unowned Gtk.Entry library_entry;
+        [GtkChild]
+        private unowned Gtk.Entry data_entry;
+        [GtkChild]
+        private unowned Gtk.Button create_button;
+        [GtkChild]
+        private unowned Gtk.Grid editor_grid;
 
         public ProfileEditor() {
             Object(use_header_bar : Resources.use_header_bar());
@@ -28,70 +29,35 @@ namespace Shotwell {
 
             set_size_request(640, -1);
 
-            add_buttons(_("Create"), Gtk.ResponseType.OK, _("Cancel"), Gtk.ResponseType.CANCEL, null);
-            var create_button = get_widget_for_response(Gtk.ResponseType.OK);
-            create_button.add_css_class("suggested-action");
-            create_button.sensitive = false;
             set_title(_("Create new Profile"));
 
             data_folder = Path.build_filename(Environment.get_user_data_dir(), "shotwell", "profiles", id);
             library_folder = Environment.get_user_special_dir(UserDirectory.PICTURES);
 
-            var grid = new Gtk.Grid();
-            grid.hexpand = true;
-            grid.vexpand = true;
-            grid.margin_top = 6;
-            grid.margin_bottom = 6;
-            grid.margin_start = 6;
-            grid.margin_end = 6;
-            grid.set_row_spacing(12);
-            grid.set_column_spacing(12);
-            var label = new Gtk.Label(_("Name"));
-            label.add_css_class("dim-label");
-            label.halign = Gtk.Align.END;
-            grid.attach(label, 0, 0, 1, 1);
+            name_entry.bind_property("text", this, "profile-name", GLib.BindingFlags.DEFAULT);
 
-            var entry = new Gtk.Entry();
-            entry.hexpand = true;
-            entry.bind_property("text", this, "profile-name", GLib.BindingFlags.DEFAULT);
-            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, non_empty_string_binding);
-            grid.attach(entry, 1, 0, 2, 1);
+            bind_property("library-folder", library_entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 
-            label = new Gtk.Label(_("Library Folder"));
-            label.add_css_class("dim-label");
-            label.halign = Gtk.Align.END;
-            grid.attach(label, 0, 1, 1, 1);
+            data_entry.set_text(Environment.get_user_special_dir(UserDirectory.PICTURES));
+            bind_property("data-folder", data_entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 
-            entry = new Gtk.Entry();
-            entry.hexpand = true;
-            grid.attach(entry, 1, 1, 1, 1);
-            bind_property("library-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
-            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, non_empty_string_binding);
+            name_entry.changed.connect(update_create_button_sensitivity);
+            library_entry.changed.connect(update_create_button_sensitivity);
+            data_entry.changed.connect(update_create_button_sensitivity);
 
-            var button = new FolderButton(File.new_for_commandline_arg (library_folder), _("Choose Library Folder"));
-            button.bind_property("folder", this, "library-folder", GLib.BindingFlags.DEFAULT, folder_path_binding, null);
-            grid.attach(button, 2, 1, 1, 1);
+            var library_button = new FolderButton(File.new_for_commandline_arg(library_folder), _("Choose Library Folder"));
+            library_button.bind_property("folder", this, "library-folder", GLib.BindingFlags.DEFAULT, bind_file_to_path, null);
+            editor_grid.attach(library_button, 2, 1, 1, 1);
 
-
-            label = new Gtk.Label(_("Data Folder"));
-            label.add_css_class("dim-label");
-            label.halign = Gtk.Align.END;
-            grid.attach(label, 0, 2, 1, 1);
-
-            entry = new Gtk.Entry();
-            entry.set_text(Environment.get_user_special_dir(UserDirectory.PICTURES));
-            entry.hexpand = true;
-            bind_property("data-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
-            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, non_empty_string_binding);
-            grid.attach(entry, 1, 2, 1, 1);
-
-            button = new FolderButton(File.new_for_commandline_arg (data_folder), _("Choose Data Folder"));
-            button.bind_property("folder", this, "data-folder", GLib.BindingFlags.DEFAULT, folder_path_binding, null);
-            grid.attach(button, 2, 2, 1, 1);
-
-            get_content_area().append(grid);
+            var data_button = new FolderButton(File.new_for_commandline_arg(data_folder), _("Choose Data Folder"));
+            data_button.bind_property("folder", this, "data-folder", GLib.BindingFlags.DEFAULT, bind_file_to_path, null);
+            editor_grid.attach(data_button, 2, 2, 1, 1);
 
             set_visible(true);
+        }
+
+        private void update_create_button_sensitivity() {
+            create_button.sensitive = name_entry.text != "" && library_entry.text != "" && data_entry.text != "";
         }
     }
 
