@@ -33,3 +33,39 @@ public void terminate() {
 
 }
 
+namespace Direct {
+
+private static bool _entry_initialized = false;
+
+public void init_entry() throws Error {
+    if (_entry_initialized)
+        return;
+    _entry_initialized = true;
+
+    Unit.init_entry(); Db.init_entry(); Util.init_entry(); Photos.init_entry(); Slideshow.init_entry(); Core.init_entry();
+
+    Direct.init();
+}
+
+public void terminate_entry() {
+
+
+    Direct.terminate();
+
+    Unit.terminate_entry(); Db.terminate_entry(); Util.terminate_entry(); Photos.terminate_entry(); Slideshow.terminate_entry(); Core.terminate_entry();
+}
+
+}
+
+namespace Direct {
+
+public void app_init() throws Error {
+    Direct.init_entry();
+}
+
+public void app_terminate() {
+    Direct.terminate_entry();
+}
+
+}
+

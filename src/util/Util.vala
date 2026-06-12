@@ -17,3 +17,27 @@ namespace Util {
     }
 }
 
+namespace Util {
+
+private static bool _entry_initialized = false;
+
+public void init_entry() throws Error {
+    if (_entry_initialized)
+        return;
+    _entry_initialized = true;
+
+    Unit.init_entry();
+
+    Util.init();
+}
+
+public void terminate_entry() {
+
+
+    Util.terminate();
+
+    Unit.terminate_entry();
+}
+
+}
+

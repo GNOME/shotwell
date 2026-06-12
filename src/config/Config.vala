@@ -56,3 +56,27 @@ public void terminate() {
 
 }
 
+namespace Config {
+
+private static bool _entry_initialized = false;
+
+public void init_entry() throws Error {
+    if (_entry_initialized)
+        return;
+    _entry_initialized = true;
+
+    Unit.init_entry();
+
+    Config.init();
+}
+
+public void terminate_entry() {
+
+
+    Config.terminate();
+
+    Unit.terminate_entry();
+}
+
+}
+

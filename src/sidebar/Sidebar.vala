@@ -14,3 +14,27 @@ public void terminate() {
 
 }
 
+namespace Sidebar {
+
+private static bool _entry_initialized = false;
+
+public void init_entry() throws Error {
+    if (_entry_initialized)
+        return;
+    _entry_initialized = true;
+
+    Unit.init_entry();
+
+    Sidebar.init();
+}
+
+public void terminate_entry() {
+
+
+    Sidebar.terminate();
+
+    Unit.terminate_entry();
+}
+
+}
+

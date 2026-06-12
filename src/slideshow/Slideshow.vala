@@ -30,3 +30,27 @@ public void terminate() {
 
 }
 
+namespace Slideshow {
+
+private static bool _entry_initialized = false;
+
+public void init_entry() throws Error {
+    if (_entry_initialized)
+        return;
+    _entry_initialized = true;
+
+    Unit.init_entry(); Plugins.init_entry();
+
+    Slideshow.init();
+}
+
+public void terminate_entry() {
+
+
+    Slideshow.terminate();
+
+    Unit.terminate_entry(); Plugins.terminate_entry();
+}
+
+}
+
