@@ -19,8 +19,6 @@ authenticator = library('shotwell-authenticator',
                         dependencies : authenticator_shotwell_deps,
                         include_directories : config_incdir,
                         version: so_version,
-                        vala_args : ['--gresources',
-                        'org.gnome.Shotwell.Authenticator.gresource.xml'],
                         c_args :
                         ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Authenticator"',
                         '-DGCR_API_SUBJECT_TO_CHANGE'],

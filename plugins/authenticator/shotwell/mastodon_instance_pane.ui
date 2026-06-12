@@ -1,106 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
-  <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow" id="authentication_pane">
-    <property name="child">
-      <object class="GtkBox" id="content">
-        <property name="margin-start">30</property>
-        <property name="margin-end">30</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">8</property>
+  <requires lib="gtk" version="4.0" />
+  <template class="PublishingAuthenticatorShotwellMastodonInstancePane" parent="GtkBox">
+    <property name="margin-start">30</property>
+    <property name="margin-end">30</property>
+    <property name="orientation">vertical</property>
+    <property name="spacing">8</property>
+    <child>
+      <object class="GtkLabel" id="message_label">
+        <property name="halign">start</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">0</property>
+        <property name="label">Enter your Mastodon/Pixelfed instance and user name</property>
+        <property name="wrap">1</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkGrid" id="field_table">
+        <property name="vexpand">1</property>
+        <property name="row-spacing">2</property>
+        <property name="column-spacing">8</property>
         <child>
-          <object class="GtkLabel" id="message_label">
-            <property name="halign">start</property>
+          <object class="GtkEntry" id="instance_entry">
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="placeholder-text" translatable="1">Enter instance...</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">end</property>
+            <property name="label" translatable="1">https://</property>
+            <style>
+                  <class name="dim-label"/>
+                </style>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="user_entry">
+            <property name="focusable">1</property>
             <property name="hexpand">1</property>
             <property name="vexpand">0</property>
-            <property name="label">Enter your Mastodon/Pixelfed instance and user name</property>
-            <property name="wrap">1</property>
+            <property name="placeholder-text" translatable="1">Enter username...</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">1</property>
+            </layout>
           </object>
         </child>
         <child>
-          <object class="GtkGrid" id="field_table">
-            <property name="vexpand">1</property>
-            <property name="row-spacing">2</property>
-            <property name="column-spacing">8</property>
-            <child>
-              <object class="GtkEntry" id="instance_entry">
-                <property name="focusable">1</property>
-                <property name="hexpand">1</property>
-                <property name="placeholder-text" translatable="1">Enter instance...</property>
-                <layout>
-                  <property name="column">1</property>
-                  <property name="row">0</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="halign">end</property>
-                <property name="label" translatable="1">https://</property>
-                <style>
+          <object class="GtkLabel">
+            <property name="halign">end</property>
+            <property name="label" translatable="1">@</property>
+            <style>
                   <class name="dim-label"/>
                 </style>
-                <layout>
-                  <property name="column">0</property>
-                  <property name="row">0</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="GtkEntry" id="user_entry">
-                <property name="focusable">1</property>
-                <property name="hexpand">1</property>
-                <property name="vexpand">0</property>
-                <property name="placeholder-text" translatable="1">Enter username...</property>
-                <layout>
-                  <property name="column">1</property>
-                  <property name="row">1</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="halign">end</property>
-                <property name="label" translatable="1">@</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
-                <layout>
-                  <property name="column">0</property>
-                  <property name="row">1</property>
-                </layout>
-              </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+            </layout>
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="hbuttonbox1">
-            <property name="vexpand">0</property>
-            <child>
-              <object class="GtkButton" id="login_button">
-                <property name="label" translatable="1">Log in</property>
-                <property name="focusable">1</property>
-                <property name="receives-default">1</property>
-              </object>
-            </child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="hbuttonbox1">
+        <property name="vexpand">0</property>
+        <child>
+          <object class="GtkButton" id="login_button">
+            <property name="label" translatable="1">Log in</property>
+            <property name="focusable">1</property>
+            <property name="receives-default">1</property>
           </object>
         </child>
       </object>
-    </property>
-  </object>
+    </child>
+  </template>
 </interface>

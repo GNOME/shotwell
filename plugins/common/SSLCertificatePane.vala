@@ -140,25 +140,15 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Gtk.Box, Spit.Publishi
     public Spit.Publishing.PluginHost plugin_host {get; construct; }
 
     public SslCertificatePane (Publishing.RESTSupport.Transaction transaction,
-        Spit.Publishing.PluginHost plugin_host,
+                               Spit.Publishing.PluginHost plugin_host,
                                string host) {
         TlsCertificate cert;
         var flags = transaction.get_tls_error_details(out cert);
-        Object (cert : cert,
-        Object (resource_path : Resources.RESOURCE_PATH +
-                                "/ssl_certificate_pane.ui",
-                default_id: "default",
-                cert : cert,
-                error_text : text,
-                host : host);
-    }
-
-    public SslCertificatePane.plain (TlsCertificate cert, TlsCertificateFlags flags, string host) {
         var text = SslCertificatePane.get_certificate_error_details (flags);
-
-        error_text : text,
+        Object (cert : cert,
+                error_text : text,
                 plugin_host : plugin_host,
-        host : host);
+                host : host);
     }
 
     public override void constructed () {
@@ -200,6 +190,10 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Gtk.Box, Spit.Publishi
     }
 
     public void on_pane_uninstalled() {
+    }
+
+    public Gtk.Widget get_default_widget() {
+        return default_button;
     }
 
     public static string get_certificate_error_details(TlsCertificateFlags tls_errors) {
