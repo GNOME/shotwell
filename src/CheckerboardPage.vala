@@ -657,7 +657,10 @@ public abstract class CheckerboardPage : Page {
     }
 
     public void cursor_to_item(CheckerboardItem item) {
-        assert(get_view().contains(item));
+        if (item == null || !get_view().contains(item)) {
+            warning("cursor_to_item: item %p not in view", item);
+            return;
+        }
 
         current_cursor = item;
 
