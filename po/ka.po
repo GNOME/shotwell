@@ -1,14 +1,14 @@
 # Georgian translation for shotwell.
-# Copyright (C) 2023 shotwell authors
+# Copyright (C) 2023 shotwell's authors
 # This file is distributed under the same license as the shotwell package.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023-2026
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-03-02 20:46+0000\n"
-"PO-Revision-Date: 2026-03-19 09:35+0100\n"
+"POT-Creation-Date: 2026-06-12 19:14+0000\n"
+"PO-Revision-Date: 2026-06-13 04:22+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -798,137 +798,149 @@ msgstr "სათაურის ფონტი"
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr ""
 
+#: data/gsettings/org.gnome.shotwell.gschema.xml:690
+msgid "Stored system printing settings"
+msgstr ""
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:691
+msgid "The stored settings of the system print dialog"
+msgstr ""
+
 #: data/gsettings/org.gnome.shotwell.gschema.xml:696
+msgid "Stored page settings"
+msgstr "გვერდის დამახსოვრებული პარამეტრები"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+msgid "The stored settings of the print dialog page settings"
+msgstr ""
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:697
+#: data/gsettings/org.gnome.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:702 data/gsettings/org.gnome.shotwell.gschema.xml:708
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714 data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "enable Google Photos publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:703 data/gsettings/org.gnome.shotwell.gschema.xml:709
+#: data/gsettings/org.gnome.shotwell.gschema.xml:715 data/gsettings/org.gnome.shotwell.gschema.xml:721
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:714
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "enable youtube publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:715
+#: data/gsettings/org.gnome.shotwell.gschema.xml:727
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:720
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid "enable piwigo publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:721
+#: data/gsettings/org.gnome.shotwell.gschema.xml:733
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:726
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:727
+#: data/gsettings/org.gnome.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:732
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid "enable gallery3 publishing plugin"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:733
+#: data/gsettings/org.gnome.shotwell.gschema.xml:745
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:738
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid "enable slideshow crumble transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:739
+#: data/gsettings/org.gnome.shotwell.gschema.xml:751
 msgid "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:744
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid "enable slideshow fade transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:745
+#: data/gsettings/org.gnome.shotwell.gschema.xml:757
 msgid "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:750
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid "enable slideshow slide transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:751
+#: data/gsettings/org.gnome.shotwell.gschema.xml:763
 msgid "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:756
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid "enable slideshow clock transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:757
+#: data/gsettings/org.gnome.shotwell.gschema.xml:769
 msgid "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:762
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid "enable slideshow circle transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:763
+#: data/gsettings/org.gnome.shotwell.gschema.xml:775
 msgid "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:768
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid "enable slideshow circles transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:769
+#: data/gsettings/org.gnome.shotwell.gschema.xml:781
 msgid "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:774
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid "enable slideshow blinds transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:775
+#: data/gsettings/org.gnome.shotwell.gschema.xml:787
 msgid "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:780
+#: data/gsettings/org.gnome.shotwell.gschema.xml:792
 msgid "enable slideshow squares transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:781
+#: data/gsettings/org.gnome.shotwell.gschema.xml:793
 msgid "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:786
+#: data/gsettings/org.gnome.shotwell.gschema.xml:798
 msgid "enable slideshow stripes transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:787
+#: data/gsettings/org.gnome.shotwell.gschema.xml:799
 msgid "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:792
+#: data/gsettings/org.gnome.shotwell.gschema.xml:804
 msgid "enable slideshow chess transition"
 msgstr ""
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:793
+#: data/gsettings/org.gnome.shotwell.gschema.xml:805
 msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-
-#: data/org.gnome.Shotwell.Auth.desktop.in:3
-msgid "Shotwell Authentication helper"
-msgstr "Shotwell-ის ავთენტიკაციის დამხმარე"
 
 #: data/org.gnome.Shotwell.desktop.in:3 data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84 data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352 data/ui/media.ui:352
 #: data/ui/photo_context.ui:91 data/ui/photo.ui:345 data/ui/tags.ui:352 src/photos/RawSupport.vala:313
@@ -998,19 +1010,19 @@ msgstr ""
 msgid "Photo Viewer"
 msgstr "სურათების დამთვალიერებელი"
 
-#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136 data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221 src/CollectionPage.vala:108 src/Resources.vala:153
+#: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136 data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221 src/CollectionPage.vala:108 src/Resources.vala:161
 msgid "_Enhance"
 msgstr ""
 
-#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163 data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248 src/CollectionPage.vala:109 src/Resources.vala:181
+#: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163 data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248 src/CollectionPage.vala:109 src/Resources.vala:189
 msgid "Re_vert to Original"
 msgstr ""
 
-#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454 data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373 data/ui/tags.ui:386 src/Resources.vala:279
+#: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454 data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373 data/ui/tags.ui:386 src/Resources.vala:287
 msgid "Add _Tags…"
 msgstr "_ჭდეების დამატება…"
 
-#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459 data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22 data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
+#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459 data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22 data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:359
 msgid "Modif_y Tags…"
 msgstr "ჭდეების _ჩასწორება…"
 
@@ -1018,23 +1030,23 @@ msgstr "ჭდეების _ჩასწორება…"
 msgid "Toggle _Flag"
 msgstr "_ალმის გადართვა"
 
-#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474 data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35 data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
+#: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474 data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35 data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:221
 msgid "_Set Rating"
 msgstr "შეფასების _დაყენება"
 
-#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497 data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63 data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
+#: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497 data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63 data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:231
 msgid "_Unrated"
 msgstr "რეიტინგის _გარეშე"
 
-#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501 data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68 data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
+#: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501 data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68 data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:237
 msgid "_Rejected"
 msgstr ""
 
-#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507 data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75 data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
+#: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507 data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75 data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:225
 msgid "_Increase"
 msgstr "_გაზრდა"
 
-#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511 data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80 data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
+#: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511 data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80 data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:228
 msgid "_Decrease"
 msgstr "_შემცირება"
 
@@ -1047,20 +1059,20 @@ msgstr ""
 msgid "Camera"
 msgstr "კამერა"
 
-#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533 data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105 data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
+#: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533 data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105 data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:273
 msgid "Edit _Title…"
 msgstr ""
 
 #: data/ui/collection.ui:102 data/ui/events_directory.ui:140 data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394 data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341 src/Resources.vala:269
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341 src/Resources.vala:277
 msgid "Edit _Comment…"
 msgstr ""
 
-#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115 data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:286
+#: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115 data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:294
 msgid "Open With E_xternal Editor"
 msgstr ""
 
-#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120 data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:288
+#: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120 data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:296
 msgid "Open With RA_W Editor"
 msgstr ""
 
@@ -1069,47 +1081,47 @@ msgid "View Eve_nt for Photo"
 msgstr ""
 
 #: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23 data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
-#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:774
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:782
 msgid "Show in File Mana_ger"
 msgstr ""
 
-#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23 data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:72 src/Resources.vala:290
+#: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23 data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:72 src/Resources.vala:298
 msgid "Send _To…"
 msgstr ""
 
-#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569 data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141 data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:783
+#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569 data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141 data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:791
 msgid "_Move to Trash"
 msgstr "_სანაგვე ყუთში გადატანა"
 
-#: data/ui/collection.ui:149 data/ui/editing-toolbar.ui:13 src/Resources.vala:109
+#: data/ui/collection.ui:149 data/ui/editing-toolbar.ui:13 src/Resources.vala:117
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr ""
 
-#: data/ui/collection.ui:167 data/ui/editing-toolbar.ui:31 src/Resources.vala:107 src/Resources.vala:112
+#: data/ui/collection.ui:167 data/ui/editing-toolbar.ui:31 src/Resources.vala:115 src/Resources.vala:120
 msgid "Rotate"
 msgstr "შემობრუნება"
 
-#: data/ui/collection.ui:177 data/ui/editing-toolbar.ui:158 src/Resources.vala:155
+#: data/ui/collection.ui:177 data/ui/editing-toolbar.ui:158 src/Resources.vala:163
 msgid "Automatically improve the photo’s appearance"
 msgstr ""
 
-#: data/ui/collection.ui:195 data/ui/editing-toolbar.ui:176 src/Resources.vala:154
+#: data/ui/collection.ui:195 data/ui/editing-toolbar.ui:176 src/Resources.vala:162
 msgid "Enhance"
 msgstr "გაუმჯობესება"
 
-#: data/ui/collection.ui:211 src/Resources.vala:263
+#: data/ui/collection.ui:211 src/Resources.vala:271
 msgid "Publish to various websites"
 msgstr ""
 
-#: data/ui/collection.ui:229 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203 src/Resources.vala:262
+#: data/ui/collection.ui:229 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:223 src/Resources.vala:270
 msgid "Publish"
 msgstr "გამოქვეყნება"
 
-#: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:225 data/ui/trash.ui:302 src/Resources.vala:295
+#: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:225 data/ui/trash.ui:302 src/Resources.vala:303
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 
-#: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:243 data/ui/trash.ui:295 src/Resources.vala:294
+#: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:243 data/ui/trash.ui:295 src/Resources.vala:302
 msgid "Find"
 msgstr "ძებნა"
 
@@ -1118,7 +1130,7 @@ msgstr "ძებნა"
 msgid "_File"
 msgstr "_ფაილი"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/direct/DirectPhotoPage.vala:324 src/Resources.vala:150
 msgid "_Save"
 msgstr "_შენახვა"
 
@@ -1127,22 +1139,22 @@ msgid "Save _As…"
 msgstr "_შენახვა, როგორც…"
 
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36 data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29 data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
-#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
+#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:146
 msgid "_Quit"
 msgstr "დატოვება"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43 data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43 data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
-#: data/ui/trash.ui:34 src/Resources.vala:126
+#: data/ui/trash.ui:34 src/Resources.vala:134
 msgid "_Edit"
 msgstr "_დამუშავება"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46 data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46 data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
-#: data/ui/trash.ui:37 src/Resources.vala:191
+#: data/ui/trash.ui:37 src/Resources.vala:199
 msgid "_Undo"
 msgstr "_დაბრუნება"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51 data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51 data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
-#: data/ui/trash.ui:42 src/Resources.vala:194
+#: data/ui/trash.ui:42 src/Resources.vala:202
 msgid "_Redo"
 msgstr "_გამეორება"
 
@@ -1151,15 +1163,15 @@ msgstr "_გამეორება"
 msgid "_View"
 msgstr "_ხედი"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171 src/Resources.vala:128
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171 src/Resources.vala:136
 msgid "Fulls_creen"
 msgstr "_მთელ ეკრანზე"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256 data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256 src/Resources.vala:150
+#: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256 data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256 src/Resources.vala:158
 msgid "Zoom _In"
 msgstr "გა_დიდება"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261 data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261 src/Resources.vala:151
+#: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261 data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261 src/Resources.vala:159
 msgid "Zoom _Out"
 msgstr "და_პატარავება"
 
@@ -1187,19 +1199,19 @@ msgstr "_წინა ფოტო"
 msgid "_Next Photo"
 msgstr "_შემდეგი ფოტო"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:99 src/Resources.vala:106
+#: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:99 src/Resources.vala:114
 msgid "Rotate _Right"
 msgstr "მარჯვნივ მოტრია_ლება"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:102 src/Resources.vala:111
+#: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:102 src/Resources.vala:119
 msgid "Rotate _Left"
 msgstr "მარცხნივ მოტრია_ლება"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:105 src/Resources.vala:116
+#: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:105 src/Resources.vala:124
 msgid "Flip Hori_zontally"
 msgstr "_ჰორიზონტალურად გადაბრუნება"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:106 src/Resources.vala:119
+#: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:106 src/Resources.vala:127
 msgid "Flip Verti_cally"
 msgstr "_ვერტიკალურად გადაბრუნება"
 
@@ -1207,29 +1219,29 @@ msgstr "_ვერტიკალურად გადაბრუნება"
 msgid "T_ools"
 msgstr "_ხელსაწყოები"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:165
+#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:173
 msgid "_Crop"
 msgstr "_ამოჭრა"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:231 src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
+#: data/ui/direct.ui:146 data/ui/photo.ui:231 src/editing_tools/StraightenTool.vala:100 src/Resources.vala:177
 msgid "_Straighten"
 msgstr ""
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:173
+#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:181
 msgid "_Red-eye"
 msgstr "_წითელი თვალი"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:177
+#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:185
 msgid "_Adjust"
 msgstr "_მორგება"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:276
+#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:284
 msgid "_Adjust Date and Time…"
 msgstr "_დროისა და თარიღის გასწორება…"
 
 #: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:146 data/ui/events_directory.ui:149 data/ui/event.ui:416 data/ui/event.ui:419 data/ui/faces.ui:426 data/ui/faces.ui:429
 #: data/ui/import_queue.ui:61 data/ui/import_queue.ui:64 data/ui/import.ui:179 data/ui/import.ui:182 data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177 data/ui/offline.ui:180 data/ui/photo.ui:385
-#: data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:129
+#: data/ui/photo.ui:388 data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186 data/ui/trash.ui:189 src/Resources.vala:137
 msgid "_Help"
 msgstr "დახმარება"
 
@@ -1244,55 +1256,55 @@ msgid "_Report a Problem…"
 msgstr ""
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434 data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197 data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
-#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
+#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:130
 msgid "_About"
 msgstr "შესახებ"
 
-#: data/ui/editing-toolbar.ui:42 src/Resources.vala:167
+#: data/ui/editing-toolbar.ui:42 src/Resources.vala:175
 msgid "Crop the photo’s size"
 msgstr ""
 
-#: data/ui/editing-toolbar.ui:60 src/Resources.vala:166
+#: data/ui/editing-toolbar.ui:60 src/Resources.vala:174
 msgid "Crop"
 msgstr "ამოჭრა"
 
-#: data/ui/editing-toolbar.ui:71 src/Resources.vala:171
+#: data/ui/editing-toolbar.ui:71 src/Resources.vala:179
 msgid "Straighten the photo"
 msgstr ""
 
-#: data/ui/editing-toolbar.ui:89 src/Resources.vala:170
+#: data/ui/editing-toolbar.ui:89 src/Resources.vala:178
 msgid "Straighten"
 msgstr "გასწორება"
 
-#: data/ui/editing-toolbar.ui:100 src/Resources.vala:175
+#: data/ui/editing-toolbar.ui:100 src/Resources.vala:183
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr ""
 
-#: data/ui/editing-toolbar.ui:118 src/Resources.vala:174
+#: data/ui/editing-toolbar.ui:118 src/Resources.vala:182
 msgid "Red-eye"
 msgstr "წითელი თვალი"
 
-#: data/ui/editing-toolbar.ui:129 src/Resources.vala:179
+#: data/ui/editing-toolbar.ui:129 src/Resources.vala:187
 msgid "Adjust the photo’s color and tone"
 msgstr ""
 
-#: data/ui/editing-toolbar.ui:147 src/Resources.vala:178
+#: data/ui/editing-toolbar.ui:147 src/Resources.vala:186
 msgid "Adjust"
 msgstr "მორგება"
 
-#: data/ui/editing-toolbar.ui:187 src/Resources.vala:303
+#: data/ui/editing-toolbar.ui:187 src/Resources.vala:311
 msgid "Mark faces of people in the photo"
 msgstr ""
 
-#: data/ui/editing-toolbar.ui:206 data/ui/faces.ui:399 src/faces/FacesBranch.vala:87 src/Resources.vala:301 src/Resources.vala:302
+#: data/ui/editing-toolbar.ui:206 data/ui/faces.ui:399 src/faces/FacesBranch.vala:87 src/Resources.vala:309 src/Resources.vala:310
 msgid "Faces"
 msgstr "სახეები"
 
-#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:157
+#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:159
 msgid "Go to the previous photo"
 msgstr "წინა სურათზე გადასვლა"
 
-#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:171
+#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:173
 msgid "Go to the next photo"
 msgstr "შემდეგ სურათზე გადასვლა"
 
@@ -1315,12 +1327,12 @@ msgstr "_ძებნა"
 msgid "Ne_w Saved Search…"
 msgstr ""
 
-#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82 data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62 data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:785
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82 data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62 data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:793
 msgid "Select _All"
 msgstr "ყველაფრის _მონიშვნა"
 
 #: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89 data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69 data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
-#: src/Resources.vala:135 src/Resources.vala:284
+#: src/Resources.vala:143 src/Resources.vala:292
 msgid "_Preferences"
 msgstr "_მორგება"
 
@@ -1367,19 +1379,19 @@ msgstr "_დაღმავალი"
 msgid "Even_ts"
 msgstr "მოვლენები"
 
-#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173 src/Resources.vala:209
+#: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173 src/Resources.vala:217
 msgid "_Merge Events"
 msgstr "მოვლენების _შერწყმა"
 
-#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177 data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177 data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:205
 msgid "Re_name Event…"
 msgstr ""
 
-#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
+#: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:265
 msgid "_Export…"
 msgstr "_გატანა…"
 
-#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70 data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218 data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:781
+#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70 data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218 data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:789
 msgid "R_emove From Library"
 msgstr "ბიბლიოთეკიდან _წაშლა"
 
@@ -1391,23 +1403,23 @@ msgstr "_სათაურები"
 msgid "Ta_gs"
 msgstr "_ჭდეები"
 
-#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140 data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
+#: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140 data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:254
 msgid "_Ratings"
 msgstr ""
 
-#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107 data/ui/media.ui:147 data/ui/offline.ui:105 data/ui/tags.ui:147 data/ui/trash.ui:114 src/Resources.vala:249
+#: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107 data/ui/media.ui:147 data/ui/offline.ui:105 data/ui/tags.ui:147 data/ui/trash.ui:114 src/Resources.vala:257
 msgid "_Filter Photos"
 msgstr "სურათების _გაფილტვრა"
 
-#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140 data/ui/media.ui:180 data/ui/offline.ui:138 data/ui/search_bar.ui:185 data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
+#: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140 data/ui/media.ui:180 data/ui/offline.ui:138 data/ui/search_bar.ui:185 data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:250
 msgid "_All Photos"
 msgstr "_ყველა სურათი"
 
-#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146 data/ui/media.ui:186 data/ui/offline.ui:144 data/ui/search_bar.ui:179 data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
+#: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146 data/ui/media.ui:186 data/ui/offline.ui:144 data/ui/search_bar.ui:179 data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:247
 msgid "All + _Rejected"
 msgstr ""
 
-#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152 data/ui/media.ui:192 data/ui/offline.ui:150 data/ui/search_bar.ui:173 data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
+#: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152 data/ui/media.ui:192 data/ui/offline.ui:150 data/ui/search_bar.ui:173 data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:243
 msgid "Rejected _Only"
 msgstr ""
 
@@ -1439,15 +1451,15 @@ msgstr "დაღმავალი"
 msgid "_Photos"
 msgstr "_ფოტოები"
 
-#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:200
+#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:208
 msgid "Make _Key Photo for Event"
 msgstr ""
 
-#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372 data/ui/tags.ui:372 src/Resources.vala:203
+#: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372 data/ui/tags.ui:372 src/Resources.vala:211
 msgid "_New Event"
 msgstr "ახალი _მოვლენა"
 
-#: data/ui/event.ui:588 src/Resources.vala:273
+#: data/ui/event.ui:588 src/Resources.vala:281
 msgid "Edit Event _Comment…"
 msgstr ""
 
@@ -1487,29 +1499,28 @@ msgstr ""
 msgid "Import all media files into the library"
 msgstr ""
 
-#: data/ui/login_welcome_pane_widget.ui:22
+#: data/ui/login_welcome_pane_widget.ui:27
 msgid "_Log in"
 msgstr "_შესვლა"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:247 src/data_imports/DataImportsUI.vala:310 src/data_imports/DataImportsUI.vala:427
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:761 src/publishing/PublishingUI.vala:172
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:124
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:246 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
+#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:736 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:132
 msgid "_Cancel"
 msgstr "გაუქმება"
 
-#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:133 src/widgets/FolderButton.vala:17
+#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:141 src/widgets/FolderButton.vala:17
 msgid "_OK"
 msgstr "_დიახ"
 
-#: data/ui/offline.ui:216 src/Resources.vala:769
+#: data/ui/offline.ui:216 src/Resources.vala:777
 msgid "Remove the selected photos from the library"
 msgstr ""
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:280
+#: data/ui/photo_context.ui:17 src/Resources.vala:288
 msgid "_Add Tags…"
 msgstr "_ჭდეების დამატება…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:291
+#: data/ui/photo_context.ui:135 src/Resources.vala:299
 msgid "Send T_o…"
 msgstr ""
 
@@ -1517,11 +1528,11 @@ msgstr ""
 msgid "S_lideshow"
 msgstr "ს_ლაიდშოუ"
 
-#: data/ui/photo.ui:254 src/CollectionPage.vala:111 src/Resources.vala:157
+#: data/ui/photo.ui:254 src/CollectionPage.vala:111 src/Resources.vala:165
 msgid "_Copy Color Adjustments"
 msgstr ""
 
-#: data/ui/photo.ui:259 src/CollectionPage.vala:114 src/Resources.vala:161
+#: data/ui/photo.ui:259 src/CollectionPage.vala:114 src/Resources.vala:169
 msgid "_Paste Color Adjustments"
 msgstr ""
 
@@ -1529,153 +1540,155 @@ msgstr ""
 msgid "Library"
 msgstr "ბიბლიოთეკა"
 
-#: data/ui/preferences_dialog.ui:81
+#: data/ui/preferences_dialog.ui:84
 msgid "Library Location"
 msgstr "ბიბლიოთეკის მდებარეობა"
 
-#: data/ui/preferences_dialog.ui:95
+#: data/ui/preferences_dialog.ui:98
 msgid "_Import photos to:"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:106
+#: data/ui/preferences_dialog.ui:109
 msgid "_Watch library directory for new files"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:123
+#: data/ui/preferences_dialog.ui:126
 msgid "Importing"
 msgstr "შემოტანა"
 
-#: data/ui/preferences_dialog.ui:137
+#: data/ui/preferences_dialog.ui:140
 msgid "_Directory structure:"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:149
+#: data/ui/preferences_dialog.ui:152
 msgid "Example:"
 msgstr "მაგალითი:"
 
-#: data/ui/preferences_dialog.ui:158
+#: data/ui/preferences_dialog.ui:161
 msgid "R_ename imported files to lowercase"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:174
+#: data/ui/preferences_dialog.ui:177
 msgid "Metadata"
 msgstr "მეტამონაცემები"
 
-#: data/ui/preferences_dialog.ui:187
+#: data/ui/preferences_dialog.ui:190
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:203
+#: data/ui/preferences_dialog.ui:206
 msgid "RAW Developer"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:217
+#: data/ui/preferences_dialog.ui:220
 msgid "De_fault:"
 msgstr "_ნაგულისხმები:"
 
-#: data/ui/preferences_dialog.ui:261
+#: data/ui/preferences_dialog.ui:267
 msgid "_Pattern:"
 msgstr "_შაბლონი:"
 
-#: data/ui/preferences_dialog.ui:284
+#: data/ui/preferences_dialog.ui:290
 msgid "Checkered"
 msgstr "დაღარული"
 
-#: data/ui/preferences_dialog.ui:293
+#: data/ui/preferences_dialog.ui:299
 msgid "Solid color"
 msgstr "მყარი ფერი"
 
-#: data/ui/preferences_dialog.ui:308 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:319 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "არაფერი"
 
-#: data/ui/preferences_dialog.ui:321
+#: data/ui/preferences_dialog.ui:332
 msgid "When viewing images that are transparent, they will be drawn against this background."
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:324
+#: data/ui/preferences_dialog.ui:335
 msgid "Transparent Background:"
 msgstr ""
 
-#: data/ui/preferences_dialog.ui:334
+#: data/ui/preferences_dialog.ui:345
 msgid "Use dark theme"
 msgstr "მუქი თემის გამოყენება"
 
-#: data/ui/preferences_dialog.ui:356
+#: data/ui/preferences_dialog.ui:367
 msgid "Display"
 msgstr "ეკრანი"
 
-#: data/ui/preferences_dialog.ui:419
+#: data/ui/preferences_dialog.ui:430
 msgid "External Editors"
 msgstr "გარე რედაქტორები"
 
-#: data/ui/preferences_dialog.ui:441 data/ui/search_bar.ui:24 src/library/LibraryBranch.vala:97
+#: data/ui/preferences_dialog.ui:452 data/ui/search_bar.ui:24 src/library/LibraryBranch.vala:97
 msgid "Photos"
 msgstr "ფოტოები"
 
-#: data/ui/preferences_dialog.ui:470 src/photos/RawSupport.vala:136
+#: data/ui/preferences_dialog.ui:481 src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:494
+#: data/ui/preferences_dialog.ui:505
 msgid "Plugins"
 msgstr "დამატებები"
 
-#: data/ui/preferences_dialog.ui:505 src/ProfileBrowser.vala:231
+#: data/ui/preferences_dialog.ui:516 src/ProfileBrowser.vala:189
 msgid "Profiles"
 msgstr "პროფილები"
 
-#: data/ui/preferences_dialog.ui:532
+#: data/ui/preferences_dialog.ui:543
 msgid "Shotwell Preferences"
 msgstr ""
 
-#: data/ui/printing_widget.ui:13
+#: data/ui/printing_widget.ui:49
 msgid "<b>Printed Image Size</b>"
 msgstr ""
 
-#: data/ui/printing_widget.ui:26
+#: data/ui/printing_widget.ui:62
 msgid "Use a _standard size:"
 msgstr "_სტანდარტული ზომის გამოყენება:"
 
-#: data/ui/printing_widget.ui:48
+#: data/ui/printing_widget.ui:87
 msgid "Use a c_ustom size:"
 msgstr "_ზომის ხელით მითითება:"
 
 #. Abbreviation for "inch"
-#: data/ui/printing_widget.ui:85
+#: data/ui/printing_widget.ui:129
 msgid "in."
 msgstr ""
 
 #. Abbreviation for "centimeters"
-#: data/ui/printing_widget.ui:86
+#: data/ui/printing_widget.ui:130
 msgid "cm"
 msgstr "სმ"
 
-#: data/ui/printing_widget.ui:98
-msgid "_Match photo aspect ratio"
+#: data/ui/printing_widget.ui:138
+msgid ""
+"Automatically keep image's\n"
+"                          aspect ratio"
 msgstr ""
 
-#: data/ui/printing_widget.ui:110
+#: data/ui/printing_widget.ui:177
 msgid "_Autosize:"
 msgstr "-ავტომატური ზომა:"
 
-#: data/ui/printing_widget.ui:138
+#: data/ui/printing_widget.ui:208
 msgid "<b>Titles</b>"
 msgstr "<b>ტრეკები</b>"
 
-#: data/ui/printing_widget.ui:148
+#: data/ui/printing_widget.ui:218
 msgid "Print image _title"
 msgstr ""
 
-#: data/ui/printing_widget.ui:170
+#: data/ui/printing_widget.ui:246
 msgid "<b>Pixel Resolution</b>"
 msgstr ""
 
-#: data/ui/printing_widget.ui:181
+#: data/ui/printing_widget.ui:258
 msgid "_Output photo at:"
 msgstr ""
 
-#: data/ui/printing_widget.ui:200
+#: data/ui/printing_widget.ui:285
 msgid "pixels per inch"
 msgstr ""
 
@@ -1691,40 +1704,40 @@ msgstr ""
 msgid "_Match"
 msgstr "_ემთხვევა"
 
-#: data/ui/saved_search_dialog.ui:66
+#: data/ui/saved_search_dialog.ui:68
 msgid "any"
 msgstr "ნებისმიერი"
 
-#: data/ui/saved_search_dialog.ui:67
+#: data/ui/saved_search_dialog.ui:69
 msgid "all"
 msgstr "ყველა"
 
-#: data/ui/saved_search_dialog.ui:68
+#: data/ui/saved_search_dialog.ui:70
 msgid "none"
 msgstr "არა"
 
-#: data/ui/saved_search_dialog.ui:74
+#: data/ui/saved_search_dialog.ui:78
 msgid "of the following:"
 msgstr ""
 
-#: data/ui/saved_search_dialog.ui:130 src/ProfileBrowser.vala:20 src/ProfileBrowser.vala:208
+#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:166
 msgid "Cancel"
 msgstr "გაუქმენა"
 
-#: data/ui/saved_search_dialog.ui:137
+#: data/ui/saved_search_dialog.ui:141
 msgid "OK"
 msgstr "დიახ"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:392
+#: data/ui/savedsearch.ui:6 src/Resources.vala:400
 msgid "Re_name…"
 msgstr "_სახელის გადარქმევა…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:391
+#: data/ui/savedsearch.ui:10 src/Resources.vala:399
 msgid "_Edit…"
 msgstr "_ჩასწორება…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
-#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337 src/Resources.vala:390 src/Resources.vala:767
+#: src/Resources.vala:133 src/Resources.vala:314 src/Resources.vala:345 src/Resources.vala:398 src/Resources.vala:775
 msgid "_Delete"
 msgstr "წაშლა"
 
@@ -1752,9 +1765,9 @@ msgstr "შეფასება"
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 
-#: data/ui/search_bar.ui:148 src/Resources.vala:386
+#: data/ui/search_bar.ui:148 src/Resources.vala:394
 msgid "Saved Search"
-msgstr ""
+msgstr "დამახსოვრებული ძებნა"
 
 #: data/ui/search_bar.ui:164
 msgid "Type to filter in current view"
@@ -1762,7 +1775,7 @@ msgstr ""
 
 #: data/ui/set_background_dialog.ui:6
 msgid "Set as Desktop Background"
-msgstr ""
+msgstr "სამუშაო მაგიდის ფონად დაყენება"
 
 #: data/ui/set_background_dialog.ui:16 data/ui/set_background_slideshow_dialog.ui:49
 msgid "Use for Desktop"
@@ -1820,15 +1833,15 @@ msgstr ""
 msgid "Show t_itle"
 msgstr ""
 
-#: data/ui/slideshow_settings.ui:141 data/ui/slideshow_settings.ui:150
+#: data/ui/slideshow_settings.ui:137 data/ui/slideshow_settings.ui:146
 msgid "seconds"
 msgstr "წამი"
 
-#: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
+#: data/ui/tags.ui:446 src/Resources.vala:139 src/Resources.vala:347
 msgid "_New"
 msgstr "_ახალი"
 
-#: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
+#: data/ui/tags.ui:452 src/Resources.vala:315 src/Resources.vala:357
 msgid "_Rename…"
 msgstr "_გადარქმევა…"
 
@@ -1836,15 +1849,15 @@ msgstr "_გადარქმევა…"
 msgid "label"
 msgstr "ჭდე"
 
-#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263 src/Resources.vala:771
+#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263 src/Resources.vala:779
 msgid "_Restore"
 msgstr "_აღდგენა"
 
-#: data/ui/trash.ui:252 src/Resources.vala:768
+#: data/ui/trash.ui:252 src/Resources.vala:776
 msgid "Remove the selected photos from the trash"
 msgstr ""
 
-#: data/ui/trash.ui:261 src/Resources.vala:772
+#: data/ui/trash.ui:261 src/Resources.vala:780
 msgid "Move the selected photos back into the library"
 msgstr ""
 
@@ -1852,7 +1865,7 @@ msgstr ""
 msgid "Delete all photos in the trash"
 msgstr ""
 
-#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:578
+#: data/ui/trash.ui:272 src/library/LibraryWindow.vala:553
 msgid "Empty Trash"
 msgstr "ნაგვის დაცარიელება"
 
@@ -1863,11 +1876,11 @@ msgid ""
 "Click Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88 plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:92 plugins/authenticator/shotwell/TumblrAuthenticator.vala:101
 msgid "Preparing for login…"
 msgstr "მომზადება შესასვლელად…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161 plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:165 plugins/authenticator/shotwell/TumblrAuthenticator.vala:173
 msgid "Verifying authorization…"
 msgstr "ავტორიზაციის გადამოწმება…"
 
@@ -1901,11 +1914,11 @@ msgstr ""
 msgid "_Email address"
 msgstr "ელფოსტის _მისამართი"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64 plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64 plugins/shotwell-publishing/piwigo_authentication_pane.ui:95
 msgid "_Password"
 msgstr "პაროლი"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80 plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80 plugins/shotwell-publishing/piwigo_authentication_pane.ui:122
 msgid "Log in"
 msgstr "შესვლა"
 
@@ -1920,7 +1933,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr ""
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:311 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
@@ -1959,19 +1972,19 @@ msgstr ""
 msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
 msgstr ""
 
-#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:560 plugins/shotwell-publishing/YoutubeUploader.vala:65
+#: plugins/common/RESTSupport.vala:582 plugins/shotwell-publishing/TumblrPublishing.vala:541 plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 
-#: plugins/common/ssl_certificate_pane.ui:15
+#: plugins/common/ssl_certificate_pane.ui:13
 msgid "This connection is not secure"
 msgstr "შეერთება დაუცველია"
 
-#: plugins/common/ssl_certificate_pane.ui:50
+#: plugins/common/ssl_certificate_pane.ui:48
 msgid "Show the certificate…"
 msgstr ""
 
-#: plugins/common/ssl_certificate_pane.ui:57
+#: plugins/common/ssl_certificate_pane.ui:55
 msgid "I understand, please _proceed."
 msgstr ""
 
@@ -1981,7 +1994,7 @@ msgid "TLS Certificate details for %s"
 msgstr ""
 
 #. %s is the host name that we tried to connect to
-#: plugins/common/SSLCertificatePane.vala:152
+#: plugins/common/SSLCertificatePane.vala:158
 #, c-format
 msgid "This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords)."
 msgstr ""
@@ -1994,21 +2007,21 @@ msgstr ""
 msgid "Continue"
 msgstr "გაგრძელება"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:46 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
 msgid "Photo _size"
 msgstr ""
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:69 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:53 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:79 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:57 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid "_Remove location, camera, and other identifying information before uploading"
 msgstr ""
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:129 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:76
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:44
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:141 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:82
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:48
 msgid "_Logout"
 msgstr "_გასვლა"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:101 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:137 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:85
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:52 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:111 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:149 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:91
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:56 src/CollectionPage.vala:71 src/LibraryPhotoPage.vala:136
 msgid "_Publish"
 msgstr "_გამოქვეყნება"
 
@@ -2016,80 +2029,76 @@ msgstr "_გამოქვეყნება"
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:280
-msgid "A file required for publishing is unavailable. Publishing to Flickr can’t continue."
-msgstr ""
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:564
+#: plugins/shotwell-publishing/FlickrPublishing.vala:543
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:566
+#: plugins/shotwell-publishing/FlickrPublishing.vala:545
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the service.\n"
 "You have uploaded %llu out of your %lld file limit."
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:568
+#: plugins/shotwell-publishing/FlickrPublishing.vala:547
 #, c-format
 msgid "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded a file"
 msgid_plural "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %d files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:573
+#: plugins/shotwell-publishing/FlickrPublishing.vala:552
 msgid "Photos _visible to"
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:575
+#: plugins/shotwell-publishing/FlickrPublishing.vala:554
 msgid "Videos _visible to"
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:578
+#: plugins/shotwell-publishing/FlickrPublishing.vala:557
 msgid "Photos and videos _visible to"
 msgstr ""
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:619 plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FlickrPublishing.vala:598 plugins/shotwell-publishing/PiwigoPublishing.vala:1243
 msgid "Everyone"
 msgstr "ყველა"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:620
+#: plugins/shotwell-publishing/FlickrPublishing.vala:599
 msgid "Friends & family only"
 msgstr "მხოლოდ მეგობრები და ოჯახი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:621
+#: plugins/shotwell-publishing/FlickrPublishing.vala:600
 msgid "Family only"
 msgstr "მხოლოდ ოჯახი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/FlickrPublishing.vala:601
 msgid "Friends only"
 msgstr "მხოლოდ მეგობრები"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#: plugins/shotwell-publishing/FlickrPublishing.vala:602
 msgid "Just me"
 msgstr "Მხოლოდ მე"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:641 plugins/shotwell-publishing/PiwigoPublishing.vala:1246 plugins/shotwell-publishing/TumblrPublishing.vala:92
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622 plugins/shotwell-publishing/PiwigoPublishing.vala:1255 plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 პიქსელი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:642 plugins/shotwell-publishing/PiwigoPublishing.vala:1247 plugins/shotwell-publishing/TumblrPublishing.vala:93
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623 plugins/shotwell-publishing/PiwigoPublishing.vala:1256 plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 პიქსელი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:643 plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+#: plugins/shotwell-publishing/FlickrPublishing.vala:624 plugins/shotwell-publishing/PiwigoPublishing.vala:1257
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 პიქსელი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:644 plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+#: plugins/shotwell-publishing/FlickrPublishing.vala:625 plugins/shotwell-publishing/PiwigoPublishing.vala:1258
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 პიქსელი"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:645 plugins/shotwell-publishing/PiwigoPublishing.vala:1250 src/Dimensions.vala:17
+#: plugins/shotwell-publishing/FlickrPublishing.vala:626 plugins/shotwell-publishing/PiwigoPublishing.vala:1259 src/Dimensions.vala:17
 msgid "Original size"
 msgstr "საწყისი ზომა"
 
@@ -2097,19 +2106,19 @@ msgstr "საწყისი ზომა"
 msgid "Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account"
 msgstr ""
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:69
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:73
 msgid "Photo _size preset"
 msgstr ""
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:88
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "An existing album"
 msgstr ""
 
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:107
 msgid "A new album named"
 msgstr ""
 
-#: plugins/shotwell-publishing/PhotosPublisher.vala:9 plugins/shotwell-publishing/PiwigoPublishing.vala:1126
+#: plugins/shotwell-publishing/PhotosPublisher.vala:9 plugins/shotwell-publishing/PiwigoPublishing.vala:1137
 msgid "Shotwell Connect"
 msgstr ""
 
@@ -2153,7 +2162,7 @@ msgstr ""
 
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:107
 msgid "Default album"
 msgstr ""
 
@@ -2161,15 +2170,15 @@ msgstr ""
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:30
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:28
 msgid "_URL of your Piwigo photo library"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:75
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:73
 msgid "User _name"
 msgstr "_მომხმარებლის სახელი"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:109
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:107
 msgid "Remember Password"
 msgstr "პაროლის დამასოვრება"
 
@@ -2177,84 +2186,84 @@ msgstr "პაროლის დამასოვრება"
 msgid "An _existing category"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:84
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:100
 msgid "A _new album named"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:109
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:125
 msgid "within category"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:120
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:136
 msgid "Album comment"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:130
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:146
 msgid "Photos will be _visible by"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:158
 msgid "Photo size"
 msgstr "ფოტოს ზომა"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
 msgid "_If a title is set and comment unset, use title as comment"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:191
 msgid "_Do no upload tags"
 msgstr "ჭდეები _არ აიტვირთება"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:183
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:199
 msgid "_Do not upload ratings"
 msgstr ""
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:196
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:216
 msgid "Logout"
 msgstr "გასვლა"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:813
 #, c-format
 msgid "Creating album %s…"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:949
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1019
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
 msgid "Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library."
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1020
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1025
 msgid "Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1058
 msgid "Invalid URL"
 msgstr "არასწორი ბმული"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
 msgid "Invalid User Name or Password"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1244
 msgid "Admins, Family, Friends, Contacts"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1245
 msgid "Admins, Family, Friends"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 msgid "Admins, Family"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "Admins"
 msgstr "ადმინები"
 
@@ -2278,17 +2287,12 @@ msgstr "1280 x 853 პიქსელი"
 msgid "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:443
+#: plugins/shotwell-publishing/TumblrPublishing.vala:425
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
 msgstr ""
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:461
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "UI-ის ჩატვირთვის შეცდომა: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:25
 msgid "Video privacy _setting"
@@ -2300,24 +2304,20 @@ msgid ""
 "Copyright 2022 Jens Georg <mail@jensge.org>"
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:178
-msgid "A file required for publishing is unavailable. Publishing to YouTube can’t continue."
-msgstr ""
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:298
+#: plugins/shotwell-publishing/YouTubePublishing.vala:279
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr ""
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:330
+#: plugins/shotwell-publishing/YouTubePublishing.vala:312
 msgid "Public"
 msgstr "საჯარო"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:331
+#: plugins/shotwell-publishing/YouTubePublishing.vala:313
 msgid "Private"
 msgstr "პირადი"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:332
+#: plugins/shotwell-publishing/YouTubePublishing.vala:314
 msgid "unlisted"
 msgstr ""
 
@@ -2410,32 +2410,32 @@ msgstr ""
 msgid "Ok"
 msgstr "დიახ"
 
-#: src/AppWindow.vala:238
+#: src/AppWindow.vala:237
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "ფაილი სახელით \"%s\" უკვე არსებობს. ჩავანაცვლო?"
 
-#: src/AppWindow.vala:241
+#: src/AppWindow.vala:240
 msgid "Export file conflict"
 msgstr "გასატანი ფაილის კონფლიქტი"
 
-#: src/AppWindow.vala:245
+#: src/AppWindow.vala:244
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr ""
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Skip"
 msgstr "_გამოტოვება"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "Rename"
 msgstr "სახელის გადარქმევა"
 
-#: src/AppWindow.vala:247
+#: src/AppWindow.vala:246
 msgid "_Replace"
 msgstr "_ჩანაცვლება"
 
-#: src/AppWindow.vala:270
+#: src/AppWindow.vala:269
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n"
@@ -2443,21 +2443,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/AppWindow.vala:309
+#: src/AppWindow.vala:308
 msgid "Visit the Shotwell web site"
 msgstr ""
 
-#: src/AppWindow.vala:321
+#: src/AppWindow.vala:320
 #, c-format
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/AppWindow.vala:329
+#: src/AppWindow.vala:328
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr ""
 
-#: src/AppWindow.vala:337
+#: src/AppWindow.vala:336
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr ""
@@ -2651,23 +2651,23 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CheckerboardPage.vala:131
+#: src/CheckerboardPage.vala:132
 msgid "No photos/videos"
 msgstr ""
 
-#: src/CheckerboardPage.vala:135
+#: src/CheckerboardPage.vala:136
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 
-#: src/CollectionPage.vala:69 src/direct/DirectPhotoPage.vala:78 src/LibraryPhotoPage.vala:131 src/Resources.vala:137
+#: src/CollectionPage.vala:69 src/direct/DirectPhotoPage.vala:78 src/LibraryPhotoPage.vala:131 src/Resources.vala:145
 msgid "_Print"
 msgstr "_ბეჭდვა"
 
-#: src/CollectionPage.vala:73 src/direct/DirectPhotoPage.vala:83 src/LibraryPhotoPage.vala:141 src/Resources.vala:187
+#: src/CollectionPage.vala:73 src/direct/DirectPhotoPage.vala:83 src/LibraryPhotoPage.vala:141 src/Resources.vala:195
 msgid "Set as _Desktop Background"
 msgstr "სურათის ფონზე _დაყენება"
 
-#: src/CollectionPage.vala:81 src/Resources.vala:253
+#: src/CollectionPage.vala:81 src/Resources.vala:261
 msgid "_Duplicate"
 msgstr "_დუბლირება"
 
@@ -2679,7 +2679,7 @@ msgstr "მთელს ეკრანზე"
 msgid "Adjust Date and Time…"
 msgstr "დროისა და თარიღის გასწორება…"
 
-#: src/CollectionPage.vala:138 src/Resources.vala:134
+#: src/CollectionPage.vala:138 src/Resources.vala:142
 msgid "_Play"
 msgstr "_დაკვრა"
 
@@ -2897,52 +2897,6 @@ msgstr "ალამი"
 msgid "Unflag"
 msgstr "ალმის მოხსნა"
 
-#. Send an empty job to the queue to mark the end of the import
-#: src/data_imports/DataImportsPluginHost.vala:65 src/data_imports/DataImportsPluginHost.vala:78
-#, c-format
-msgid "%s Database"
-msgstr "%s მონაცემთა ბაზა"
-
-#: src/data_imports/DataImportsPluginHost.vala:148 src/data_imports/DataImportsPluginHost.vala:294
-#, c-format
-msgid "Importing from %s can’t continue because an error occurred:"
-msgstr ""
-
-#: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
-msgstr ""
-
-#: src/data_imports/DataImportsUI.vala:10
-msgid ""
-"You do not have any data imports plugins enabled.\n"
-"\n"
-"In order to use the Import From Application functionality, you need to have at least one data imports plugin enabled. Plugins can be enabled in the Preferences dialog."
-msgstr ""
-
-#: src/data_imports/DataImportsUI.vala:100 src/data_imports/DataImportsUI.vala:102
-msgid "Database file"
-msgstr "მონაცემთა ბაზის ფაილი"
-
-#: src/data_imports/DataImportsUI.vala:121 src/library/LibraryWindow.vala:761
-msgid "_Import"
-msgstr "_იმპორტირება"
-
-#: src/data_imports/DataImportsUI.vala:229
-msgid "Import From Application"
-msgstr ""
-
-#: src/data_imports/DataImportsUI.vala:230
-msgid "Import media _from:"
-msgstr ""
-
-#: src/data_imports/DataImportsUI.vala:423 src/publishing/PublishingUI.vala:396
-msgid "_Close"
-msgstr "დახურვა"
-
-#: src/data_imports/DataImports.vala:22
-msgid "Data Imports"
-msgstr ""
-
 #: src/db/DatabaseTable.vala:88
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
@@ -3012,71 +2966,71 @@ msgstr "PM"
 msgid "24 Hr"
 msgstr "24 სთ"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:98
+#: src/dialogs/AdjustDateTimeDialog.vala:99
 msgid "_Shift photos/videos by the same amount"
 msgstr ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:103
+#: src/dialogs/AdjustDateTimeDialog.vala:104
 msgid "Set _all photos/videos to this time"
 msgstr ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:110
+#: src/dialogs/AdjustDateTimeDialog.vala:111
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:114
+#: src/dialogs/AdjustDateTimeDialog.vala:115
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:233
+#: src/dialogs/AdjustDateTimeDialog.vala:235
 msgid "Original: "
 msgstr ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:234
+#: src/dialogs/AdjustDateTimeDialog.vala:236
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%m/%d/%Y, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:235
+#: src/dialogs/AdjustDateTimeDialog.vala:237
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%m/%d/%Y, %I:%M:%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:327
+#: src/dialogs/AdjustDateTimeDialog.vala:329
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:328
+#: src/dialogs/AdjustDateTimeDialog.vala:330
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:330
+#: src/dialogs/AdjustDateTimeDialog.vala:332
 msgid "day"
 msgid_plural "days"
 msgstr[0] "დღე"
 msgstr[1] "დღე"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:331
+#: src/dialogs/AdjustDateTimeDialog.vala:333
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "საათი"
 msgstr[1] "საათი"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:332
+#: src/dialogs/AdjustDateTimeDialog.vala:334
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "წუთი"
 msgstr[1] "წუთი"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:333
+#: src/dialogs/AdjustDateTimeDialog.vala:335
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "წამი"
@@ -3094,58 +3048,58 @@ msgid "Current"
 msgstr "მიმდინარე"
 
 #. layout controls
-#: src/dialogs/ExportDialog.vala:91
+#: src/dialogs/ExportDialog.vala:94
 msgid "_Format:"
 msgstr "_ფორატი:"
 
-#: src/dialogs/ExportDialog.vala:94
+#: src/dialogs/ExportDialog.vala:97
 msgid "_Quality:"
 msgstr "_ხარისხი:"
 
-#: src/dialogs/ExportDialog.vala:97
+#: src/dialogs/ExportDialog.vala:100
 msgid "_Scaling constraint:"
 msgstr ""
 
-#: src/dialogs/ExportDialog.vala:100
+#: src/dialogs/ExportDialog.vala:103
 msgid "_Pixels:"
 msgstr "_პიქსელები:"
 
-#: src/dialogs/ExportDialog.vala:104
+#: src/dialogs/ExportDialog.vala:107
 msgid "Export _metadata:"
 msgstr ""
 
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
+#: src/dialogs/Preferences.vala:118 src/dialogs/Preferences.vala:122
 msgid "(Help)"
 msgstr "(დახმარება)"
 
-#: src/dialogs/Preferences.vala:134
+#: src/dialogs/Preferences.vala:126
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr ""
 
-#: src/dialogs/Preferences.vala:136
+#: src/dialogs/Preferences.vala:128
 #, c-format
 msgid "Year%sMonth"
 msgstr ""
 
-#: src/dialogs/Preferences.vala:138
+#: src/dialogs/Preferences.vala:130
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr ""
 
-#: src/dialogs/Preferences.vala:140
+#: src/dialogs/Preferences.vala:132
 msgid "Year-Month-Day"
 msgstr "წელი-თვე-დღე"
 
-#: src/dialogs/Preferences.vala:141 src/editing_tools/CropTool.vala:203
+#: src/dialogs/Preferences.vala:133 src/editing_tools/CropTool.vala:203
 msgid "Custom"
 msgstr "განსხვავებული"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:359
+#: src/dialogs/Preferences.vala:352
 msgid "Invalid pattern"
 msgstr "არასწორი ნიმუში"
 
@@ -3550,7 +3504,7 @@ msgstr ""
 msgid "Import Complete"
 msgstr "შემოტანა დასრულდა"
 
-#: src/Dialogs.vala:671 src/Resources.vala:198
+#: src/Dialogs.vala:671 src/Resources.vala:206
 msgid "Rename Event"
 msgstr "მოვლენის სახელის გადარქმევა"
 
@@ -3569,7 +3523,7 @@ msgid "Title:"
 msgstr "სათაური:"
 
 #. Dialog title
-#: src/Dialogs.vala:699 src/Resources.vala:274
+#: src/Dialogs.vala:699 src/Resources.vala:282
 msgid "Edit Event Comment"
 msgstr ""
 
@@ -3621,7 +3575,7 @@ msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:820 src/Resources.vala:140
+#: src/Dialogs.vala:820 src/Resources.vala:148
 msgid "_Remove"
 msgstr "_ამოშლა"
 
@@ -3732,44 +3686,44 @@ msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/dialogs/WelcomeDialog.vala:36
+#: src/dialogs/WelcomeDialog.vala:34
 msgid "Welcome!"
 msgstr "მოგესალმებით!"
 
-#: src/dialogs/WelcomeDialog.vala:42
+#: src/dialogs/WelcomeDialog.vala:40
 msgid "Welcome to Shotwell!"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:47
+#: src/dialogs/WelcomeDialog.vala:45
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:65
+#: src/dialogs/WelcomeDialog.vala:63
 msgid "Choose “Import From Folder” from the File menu"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:66
+#: src/dialogs/WelcomeDialog.vala:64
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:67
+#: src/dialogs/WelcomeDialog.vala:65
 msgid "Connect a camera to your computer and import"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:78
+#: src/dialogs/WelcomeDialog.vala:76
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:85
+#: src/dialogs/WelcomeDialog.vala:83
 msgid "You can also import photos in any of these ways:"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:96
+#: src/dialogs/WelcomeDialog.vala:94
 msgid "_Don’t show this message again"
 msgstr ""
 
-#: src/dialogs/WelcomeDialog.vala:133
+#: src/dialogs/WelcomeDialog.vala:129
 #, c-format
 msgid "Import photos from your %s library"
 msgstr ""
@@ -3844,11 +3798,7 @@ msgstr "ყველა ფაილი"
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr ""
 
-#: src/DragAndDropHandler.vala:161
-msgid "Photos cannot be exported to this directory."
-msgstr ""
-
-#: src/EditingHostPage.vala:1321
+#: src/EditingHostPage.vala:1320
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr ""
@@ -3963,23 +3913,23 @@ msgstr ""
 msgid "HD Video (16 ∶ 9)"
 msgstr ""
 
-#: src/editing_tools/CropTool.vala:183 src/Printing.vala:794
+#: src/editing_tools/CropTool.vala:183 src/printing/Manager.vala:37
 msgid "Wallet (2 × 3 in.)"
 msgstr "საფულე (2 × 3 დმ.)"
 
-#: src/editing_tools/CropTool.vala:184 src/Printing.vala:797
+#: src/editing_tools/CropTool.vala:184 src/printing/Manager.vala:40
 msgid "Notecard (3 × 5 in.)"
 msgstr "შენიშვნა (3 × 5 დმ.)"
 
-#: src/editing_tools/CropTool.vala:185 src/Printing.vala:800
+#: src/editing_tools/CropTool.vala:185 src/printing/Manager.vala:43
 msgid "4 × 6 in."
 msgstr "4 × 6 დუიმ."
 
-#: src/editing_tools/CropTool.vala:186 src/Printing.vala:803
+#: src/editing_tools/CropTool.vala:186 src/printing/Manager.vala:46
 msgid "5 × 7 in."
 msgstr "5 × 7 დუიმ."
 
-#: src/editing_tools/CropTool.vala:187 src/Printing.vala:806
+#: src/editing_tools/CropTool.vala:187 src/printing/Manager.vala:49
 msgid "8 × 10 in."
 msgstr "8 × 10 დუიმ."
 
@@ -3987,7 +3937,7 @@ msgstr "8 × 10 დუიმ."
 msgid "Letter (8.5 × 11 in.)"
 msgstr "წერილი (8.5 x 11 დმ.)"
 
-#: src/editing_tools/CropTool.vala:189 src/Printing.vala:809
+#: src/editing_tools/CropTool.vala:189 src/printing/Manager.vala:52
 msgid "11 × 14 in."
 msgstr "11 × 14 დუიმ."
 
@@ -3995,23 +3945,23 @@ msgstr "11 × 14 დუიმ."
 msgid "Tabloid (11 × 17 in.)"
 msgstr "მორბენალი სტრიქონი (11 × 17 დუიმ.)"
 
-#: src/editing_tools/CropTool.vala:191 src/Printing.vala:812
+#: src/editing_tools/CropTool.vala:191 src/printing/Manager.vala:55
 msgid "16 × 20 in."
 msgstr "16 × 20 დუიმ."
 
-#: src/editing_tools/CropTool.vala:193 src/Printing.vala:818
+#: src/editing_tools/CropTool.vala:193 src/printing/Manager.vala:61
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "მეტრული საფულე (9 x 13 სმ)"
 
-#: src/editing_tools/CropTool.vala:194 src/Printing.vala:821
+#: src/editing_tools/CropTool.vala:194 src/printing/Manager.vala:64
 msgid "Postcard (10 × 15 cm)"
 msgstr "საფოსტო ბარათი (10 x 15 სმ)"
 
-#: src/editing_tools/CropTool.vala:195 src/Printing.vala:824
+#: src/editing_tools/CropTool.vala:195 src/printing/Manager.vala:67
 msgid "13 × 18 cm"
 msgstr "13 x 18 სმ"
 
-#: src/editing_tools/CropTool.vala:196 src/Printing.vala:827
+#: src/editing_tools/CropTool.vala:196 src/printing/Manager.vala:70
 msgid "18 × 24 cm"
 msgstr "18 x 24 სმ"
 
@@ -4019,15 +3969,15 @@ msgstr "18 x 24 სმ"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 მმ)"
 
-#: src/editing_tools/CropTool.vala:198 src/Printing.vala:830
+#: src/editing_tools/CropTool.vala:198 src/printing/Manager.vala:73
 msgid "20 × 30 cm"
 msgstr "20 x 30 სმ"
 
-#: src/editing_tools/CropTool.vala:199 src/Printing.vala:833
+#: src/editing_tools/CropTool.vala:199 src/printing/Manager.vala:76
 msgid "24 × 40 cm"
 msgstr "24 x 40 სმ"
 
-#: src/editing_tools/CropTool.vala:200 src/Printing.vala:836
+#: src/editing_tools/CropTool.vala:200 src/printing/Manager.vala:79
 msgid "30 × 40 cm"
 msgstr "30 x 40 სმ"
 
@@ -4202,19 +4152,19 @@ msgstr "ბოლო შემოტანა"
 msgid "Organize and browse your photos"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:515
+#: src/library/LibraryWindow.vala:490
 msgid "Import From Folder"
 msgstr "საქაღალდიდან შემოტანა"
 
-#: src/library/LibraryWindow.vala:527
+#: src/library/LibraryWindow.vala:502
 msgid "Recurse Into Subfolders"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:578
+#: src/library/LibraryWindow.vala:553
 msgid "Emptying Trash…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:758
+#: src/library/LibraryWindow.vala:733
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4222,24 +4172,28 @@ msgid ""
 "Do you want to continue importing photos?"
 msgstr ""
 
+#: src/library/LibraryWindow.vala:736
+msgid "_Import"
+msgstr "_იმპორტირება"
+
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:781
+#: src/library/LibraryWindow.vala:756
 msgid "Photos cannot be imported from this directory."
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1009 src/library/LibraryWindow.vala:1020
+#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
 msgid "Updating library…"
 msgstr "ბიბლიოთეკის განახლება…"
 
-#: src/library/LibraryWindow.vala:1026
+#: src/library/LibraryWindow.vala:1012
 msgid "Preparing to auto-import photos…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1031
+#: src/library/LibraryWindow.vala:1017
 msgid "Auto-importing photos…"
 msgstr ""
 
-#: src/library/LibraryWindow.vala:1039
+#: src/library/LibraryWindow.vala:1025
 msgid "Writing metadata to files…"
 msgstr ""
 
@@ -4414,22 +4368,22 @@ msgstr "HEIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:260
+#: src/photos/JfifSupport.vala:272
 #, c-format
 msgid "Low (%d%%)"
 msgstr "დაბალი (%d%%)"
 
-#: src/photos/JfifSupport.vala:263
+#: src/photos/JfifSupport.vala:275
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "საშუალო (%d%%)"
 
-#: src/photos/JfifSupport.vala:266
+#: src/photos/JfifSupport.vala:278
 #, c-format
 msgid "High (%d%%)"
 msgstr "მაღალი (%d%%)"
 
-#: src/photos/JfifSupport.vala:269
+#: src/photos/JfifSupport.vala:281
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "მაქსიმუმი (%d%%)"
@@ -4451,7 +4405,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3985
 msgid "modified"
 msgstr "შეიცვალა"
 
@@ -4460,24 +4414,24 @@ msgid "Enable or disable the plugin"
 msgstr ""
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:156
+#: src/plugins/ManifestWidget.vala:157
 #, c-format
 msgid "Manage accounts for %s"
 msgstr ""
 
-#: src/plugins/ManifestWidget.vala:181
+#: src/plugins/ManifestWidget.vala:183
 msgid "Authors"
 msgstr "ავტორები"
 
-#: src/plugins/ManifestWidget.vala:191
+#: src/plugins/ManifestWidget.vala:193
 msgid "Version"
 msgstr "ვერსია"
 
-#: src/plugins/ManifestWidget.vala:201
+#: src/plugins/ManifestWidget.vala:203
 msgid "License"
 msgstr "ლიცენზია"
 
-#: src/plugins/ManifestWidget.vala:213
+#: src/plugins/ManifestWidget.vala:215
 msgid "Website"
 msgstr "ვებგვერდი"
 
@@ -4485,43 +4439,8 @@ msgstr "ვებგვერდი"
 msgid "LGPL v2.1 or later"
 msgstr ""
 
-#: src/Printing.vala:255
-msgid "Fill the entire page"
-msgstr "მთელი გვერდის შევსება"
-
-#: src/Printing.vala:256
-msgid "2 images per page"
-msgstr "2 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:257
-msgid "4 images per page"
-msgstr "4 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:258
-msgid "6 images per page"
-msgstr "6 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:259
-msgid "8 images per page"
-msgstr "8 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:260
-msgid "16 images per page"
-msgstr "16 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:261
-msgid "32 images per page"
-msgstr "32 გამოსახულება გვერდზე"
-
-#: src/Printing.vala:853
-msgid "Image Settings"
-msgstr "გამოსახულების პარამეტრები"
-
-#: src/Printing.vala:866
-msgid "Printing…"
-msgstr "დაბეჭდვა…"
-
-#: src/Printing.vala:886 src/Printing.vala:1089
+#. FIXME: Meh
+#: src/printing/Job.vala:205
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -4532,64 +4451,113 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/ProfileBrowser.vala:20
-msgid "Create"
-msgstr "შექმნა"
+#: src/printing/Manager.vala:96
+msgid "Continue..."
+msgstr "გაგრძელება..."
 
-#: src/ProfileBrowser.vala:24
+#: src/printing/Manager.vala:114 src/printing/Manager.vala:161
+msgid "Printing failed"
+msgstr "ბეჭდვა ჩავარდა"
+
+#: src/printing/Manager.vala:125
+#, c-format
+msgid "Print preview for a photo"
+msgid_plural "Print preview for %d photos"
+msgstr[0] "ბეჭდვისწინა გადახედვა სურათისთვის"
+msgstr[1] "ბეჭდვისწინა გადახედვა %d სურათისთვის"
+
+#: src/printing/Manager.vala:127
+#, c-format
+msgid "Print preview for %s"
+msgstr ""
+
+#: src/printing/Manager.vala:152
+msgid "Printing…"
+msgstr "დაბეჭდვა…"
+
+#: src/printing/Manager.vala:159
+#, c-format
+msgid "Printing to “%s” succeeded"
+msgstr ""
+
+#: src/printing/Settings.vala:204
+msgid "Fill the entire page"
+msgstr "მთელი გვერდის შევსება"
+
+#: src/printing/Settings.vala:205
+msgid "2 images per page"
+msgstr "2 გამოსახულება გვერდზე"
+
+#: src/printing/Settings.vala:206
+msgid "4 images per page"
+msgstr "4 გამოსახულება გვერდზე"
+
+#: src/printing/Settings.vala:207
+msgid "6 images per page"
+msgstr "6 გამოსახულება გვერდზე"
+
+#: src/printing/Settings.vala:208
+msgid "8 images per page"
+msgstr "8 გამოსახულება გვერდზე"
+
+#: src/printing/Settings.vala:209
+msgid "16 images per page"
+msgstr "16 გამოსახულება გვერდზე"
+
+#: src/printing/Settings.vala:210
+msgid "32 images per page"
+msgstr "32 გამოსახულება გვერდზე"
+
+#: src/ProfileBrowser.vala:32
 msgid "Create new Profile"
 msgstr "ახალი პროფილის შექმნა"
 
-#: src/ProfileBrowser.vala:38
-msgid "Name"
-msgstr "სახელი"
-
-#: src/ProfileBrowser.vala:52 src/ProfileBrowser.vala:166
-msgid "Library Folder"
-msgstr "ბიბლიოთეკის საქაღალდე"
-
-#: src/ProfileBrowser.vala:66
+#: src/ProfileBrowser.vala:48
 msgid "Choose Library Folder"
 msgstr ""
 
-#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:178
-msgid "Data Folder"
-msgstr "მონაცემების საქაღალდე"
-
-#: src/ProfileBrowser.vala:91
+#: src/ProfileBrowser.vala:52
 msgid "Choose Data Folder"
 msgstr ""
 
-#: src/ProfileBrowser.vala:133
+#: src/ProfileBrowser.vala:91
 msgid "This is the currently active profile"
 msgstr ""
 
-#: src/ProfileBrowser.vala:192
+#: src/ProfileBrowser.vala:124
+msgid "Library Folder"
+msgstr "ბიბლიოთეკის საქაღალდე"
+
+#: src/ProfileBrowser.vala:136
+msgid "Data Folder"
+msgstr "მონაცემების საქაღალდე"
+
+#: src/ProfileBrowser.vala:150
 msgid "Remove Profile"
 msgstr "პროფილის წაშლა"
 
-#: src/ProfileBrowser.vala:194
+#: src/ProfileBrowser.vala:152
 msgid "Remove this profile"
 msgstr ""
 
-#: src/ProfileBrowser.vala:206
+#: src/ProfileBrowser.vala:164
 #, c-format
 msgid "Remove profile “%s”"
 msgstr ""
 
-#: src/ProfileBrowser.vala:207
+#: src/ProfileBrowser.vala:165
 msgid "None of the options will remove any of the images associated with this profile"
 msgstr ""
 
-#: src/ProfileBrowser.vala:208
+#: src/ProfileBrowser.vala:166
 msgid "Remove profile and files"
 msgstr ""
 
-#: src/ProfileBrowser.vala:208
+#: src/ProfileBrowser.vala:166
 msgid "Remove profile only"
 msgstr ""
 
-#: src/ProfileBrowser.vala:241
+#: src/ProfileBrowser.vala:199
 msgid "Add a new profile"
 msgstr "ახალი პროფილის შექმნა"
 
@@ -4737,12 +4705,12 @@ msgstr "მომზადება ატვირთვისთვის"
 msgid "Uploading %d of %d"
 msgstr "ატვირთვა %d %d-დან"
 
-#: src/publishing/PublishingPluginHost.vala:93
+#: src/publishing/PublishingPluginHost.vala:97
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr ""
 
-#: src/publishing/PublishingPluginHost.vala:96
+#: src/publishing/PublishingPluginHost.vala:100
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 
@@ -4783,6 +4751,10 @@ msgid ""
 "Plugins tab."
 msgstr ""
 
+#: src/publishing/PublishingUI.vala:396
+msgid "_Close"
+msgstr "დახურვა"
+
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
 msgstr "გამოცემა"
@@ -4813,400 +4785,419 @@ msgstr[1] ""
 msgid "The selected photos/videos were successfully published."
 msgstr ""
 
-#: src/Resources.vala:108
+#. Translatable strings used in the OAuth callback HTML page
+#. TRANSLATORS: This is the title of the webpage shown to the user
+#: src/Resources.vala:26
+#| msgid "Shotwell Authentication helper"
+msgid "Authentication - Shotwell"
+msgstr "ავთენტიკაცია - Shotwell"
+
+#: src/Resources.vala:27
+msgid "Authentication complete"
+msgstr "ავთენტიკაცია დასრულდა"
+
+#: src/Resources.vala:28
+msgid "You have successfully signed in to your account."
+msgstr ""
+
+#: src/Resources.vala:29
+msgid "You may close this page manually."
+msgstr ""
+
+#: src/Resources.vala:116
 msgid "Rotate Right"
 msgstr "მარჯვნივ შებრუნება"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:121
 msgid "Rotate Left"
 msgstr "მარცხნივ შებრუნება"
 
-#: src/Resources.vala:114
+#: src/Resources.vala:122
 msgid "Rotate the photos left"
 msgstr ""
 
-#: src/Resources.vala:117
+#: src/Resources.vala:125
 msgid "Flip Horizontally"
 msgstr "ჰორიზონტალურად გადაბრუნება"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:128
 msgid "Flip Vertically"
 msgstr "ვერტიკალურად გადაბრუნება"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:131
 msgid "_Apply"
 msgstr "_გადატარება"
 
-#: src/Resources.vala:127
+#: src/Resources.vala:135
 msgid "_Forward"
 msgstr "_გადაგზავნა"
 
-#: src/Resources.vala:130
+#: src/Resources.vala:138
 msgid "Leave _Fullscreen"
 msgstr "სრული ეკრანის დატოვება"
 
-#: src/Resources.vala:132
+#: src/Resources.vala:140
 msgid "_Next"
 msgstr "_შემდეგი"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:144
 msgid "_Previous"
 msgstr "_წინა"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:147
 msgid "_Refresh"
 msgstr "_განახლება"
 
-#: src/Resources.vala:141
+#: src/Resources.vala:149
 msgid "_Revert"
 msgstr "და_ბრუნება"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:151
 msgid "Save _As"
 msgstr "შენახვა როგორც"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:152
 msgid "Sort _Ascending"
 msgstr ""
 
-#: src/Resources.vala:145
+#: src/Resources.vala:153
 msgid "Sort _Descending"
 msgstr ""
 
-#: src/Resources.vala:146
+#: src/Resources.vala:154
 msgid "_Stop"
 msgstr "_შეჩერება"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:155
 msgid "_Undelete"
 msgstr "წაშლის _გაუქმება"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:156
 msgid "_Normal Size"
 msgstr "_ნორმალური ზომა"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:157
 msgid "Best _Fit"
 msgstr "საუკეთესოდ _ჩატევა"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:166
 msgid "Copy Color Adjustments"
 msgstr ""
 
-#: src/Resources.vala:159
+#: src/Resources.vala:167
 msgid "Copy the color adjustments applied to the photo"
 msgstr ""
 
-#: src/Resources.vala:162
+#: src/Resources.vala:170
 msgid "Paste Color Adjustments"
 msgstr ""
 
-#: src/Resources.vala:163
+#: src/Resources.vala:171
 msgid "Apply copied color adjustments to the selected photos"
 msgstr ""
 
-#: src/Resources.vala:182
+#: src/Resources.vala:190
 msgid "Revert to Original"
 msgstr ""
 
-#: src/Resources.vala:184
+#: src/Resources.vala:192
 msgid "Revert External E_dits"
 msgstr ""
 
-#: src/Resources.vala:185
+#: src/Resources.vala:193
 msgid "Revert to the master photo"
 msgstr ""
 
-#: src/Resources.vala:188
+#: src/Resources.vala:196
 msgid "Set selected image to be the new desktop background"
 msgstr ""
 
-#: src/Resources.vala:189
+#: src/Resources.vala:197
 msgid "Set as _Desktop Slideshow…"
 msgstr ""
 
-#: src/Resources.vala:192
+#: src/Resources.vala:200
 msgid "Undo"
 msgstr "ბრძანების გაუქმება"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:203
 msgid "Redo"
 msgstr "ბრძანების აღდგენა"
 
-#: src/Resources.vala:201
+#: src/Resources.vala:209
 msgid "Make Key Photo for Event"
 msgstr ""
 
-#: src/Resources.vala:204
+#: src/Resources.vala:212
 msgid "New Event"
 msgstr "ახალი მოვლენა"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:214
 msgid "Move Photos"
 msgstr "სურათების გადატანა"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:215
 msgid "Move photos to an event"
 msgstr ""
 
-#: src/Resources.vala:210
+#: src/Resources.vala:218
 msgid "Merge"
 msgstr "შერწყმა"
 
-#: src/Resources.vala:211
+#: src/Resources.vala:219
 msgid "Combine events into a single event"
 msgstr ""
 
-#: src/Resources.vala:214
+#: src/Resources.vala:222
 msgid "Set Rating"
 msgstr "რეიტინგის დაყენება"
 
-#: src/Resources.vala:215
+#: src/Resources.vala:223
 msgid "Change the rating of your photo"
 msgstr ""
 
-#: src/Resources.vala:218
+#: src/Resources.vala:226
 msgid "Increase Rating"
 msgstr ""
 
-#: src/Resources.vala:221
+#: src/Resources.vala:229
 msgid "Decrease Rating"
 msgstr ""
 
-#: src/Resources.vala:224
+#: src/Resources.vala:232
 msgid "Unrated"
 msgstr "რეიტინგის გარეშე"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:233
 msgid "Rate Unrated"
 msgstr ""
 
-#: src/Resources.vala:226
+#: src/Resources.vala:234
 msgid "Setting as unrated"
 msgstr ""
 
-#: src/Resources.vala:227
+#: src/Resources.vala:235
 msgid "Remove any ratings"
 msgstr ""
 
-#: src/Resources.vala:230
+#: src/Resources.vala:238
 msgid "Rejected"
 msgstr "უარყოფილია"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:239
 msgid "Rate Rejected"
 msgstr ""
 
-#: src/Resources.vala:232
+#: src/Resources.vala:240
 msgid "Setting as rejected"
 msgstr ""
 
-#: src/Resources.vala:233
+#: src/Resources.vala:241
 msgid "Set rating to rejected"
 msgstr ""
 
-#: src/Resources.vala:236
+#: src/Resources.vala:244
 msgid "Rejected Only"
 msgstr ""
 
-#: src/Resources.vala:237
+#: src/Resources.vala:245
 msgid "Show only rejected photos"
 msgstr ""
 
-#: src/Resources.vala:240
+#: src/Resources.vala:248
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr ""
 
 #. Button tooltip
-#: src/Resources.vala:244
+#: src/Resources.vala:252
 msgid "Show all photos"
 msgstr ""
 
-#: src/Resources.vala:247
+#: src/Resources.vala:255
 msgid "Display each photo’s rating"
 msgstr ""
 
-#: src/Resources.vala:250
+#: src/Resources.vala:258
 msgid "Filter Photos"
 msgstr ""
 
-#: src/Resources.vala:251
+#: src/Resources.vala:259
 msgid "Limit the number of photos displayed based on a filter"
 msgstr ""
 
-#: src/Resources.vala:254
+#: src/Resources.vala:262
 msgid "Duplicate"
 msgstr "დუბლიკაცია"
 
-#: src/Resources.vala:255
+#: src/Resources.vala:263
 msgid "Make a duplicate of the photo"
 msgstr ""
 
-#: src/Resources.vala:259
+#: src/Resources.vala:267
 msgid "_Print…"
 msgstr "_ბეჭდვა…"
 
-#: src/Resources.vala:261
+#: src/Resources.vala:269
 msgid "Pu_blish…"
 msgstr "_გამოქვეყნება…"
 
 #. Button label
-#: src/Resources.vala:267
+#: src/Resources.vala:275
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "სათაურის ჩასწორება"
 
 #. Button label
-#: src/Resources.vala:271
+#: src/Resources.vala:279
 msgid "Edit Comment"
 msgstr "კომენტარის ჩასწორება"
 
-#: src/Resources.vala:277
+#: src/Resources.vala:285
 msgid "Adjust Date and Time"
 msgstr "დროისა და თარიღის გასწორება"
 
 #. Dialog title
-#: src/Resources.vala:282
+#: src/Resources.vala:290
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "ჭდეების დამატება"
 
-#: src/Resources.vala:293
+#: src/Resources.vala:301
 msgid "_Find…"
 msgstr "_ძიება…"
 
-#: src/Resources.vala:297
+#: src/Resources.vala:305
 msgid "_Flag"
 msgstr "_ალამი"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:307
 msgid "Un_flag"
 msgstr "_ალმის მოხსნა"
 
-#: src/Resources.vala:304
+#: src/Resources.vala:312
 msgid "Modify Faces"
 msgstr ""
 
-#: src/Resources.vala:305
+#: src/Resources.vala:313
 msgid "Delete Face"
 msgstr ""
 
-#: src/Resources.vala:311
+#: src/Resources.vala:319
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr ""
 
-#: src/Resources.vala:316
+#: src/Resources.vala:324
 #, c-format
 msgid "Add Tag “%s”"
 msgstr ""
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:319
+#: src/Resources.vala:327
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr ""
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:324
+#: src/Resources.vala:332
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "ჭდეების დამატება"
 
-#: src/Resources.vala:329
+#: src/Resources.vala:337
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr ""
 
-#: src/Resources.vala:333
+#: src/Resources.vala:341
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr ""
 
-#: src/Resources.vala:336
+#: src/Resources.vala:344
 msgid "Delete Tag"
 msgstr "ჭდის წაშლა"
 
-#: src/Resources.vala:342
+#: src/Resources.vala:350
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr ""
 
-#: src/Resources.vala:346
+#: src/Resources.vala:354
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:352
+#: src/Resources.vala:360
 msgid "Modify Tags"
 msgstr "ჭდეების შეცვლა"
 
-#: src/Resources.vala:355
+#: src/Resources.vala:363
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:361
+#: src/Resources.vala:369
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:367
+#: src/Resources.vala:375
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:373
+#: src/Resources.vala:381
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:379
+#: src/Resources.vala:387
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 
-#: src/Resources.vala:383
+#: src/Resources.vala:391
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
 
-#: src/Resources.vala:388
+#: src/Resources.vala:396
 msgid "Delete Search"
 msgstr "ძებნის წაშლა"
 
-#: src/Resources.vala:395
+#: src/Resources.vala:403
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:399
+#: src/Resources.vala:407
 #, c-format
 msgid "Delete Search “%s”"
 msgstr ""
 
-#: src/Resources.vala:403
+#: src/Resources.vala:411
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 
-#: src/Resources.vala:407
+#: src/Resources.vala:415
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:412
+#: src/Resources.vala:420
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -5214,81 +5205,81 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:418 src/Resources.vala:423
+#: src/Resources.vala:426 src/Resources.vala:431
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr ""
 
-#: src/Resources.vala:431
+#: src/Resources.vala:439
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr ""
 
-#: src/Resources.vala:435
+#: src/Resources.vala:443
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:439
+#: src/Resources.vala:447
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr ""
 
-#: src/Resources.vala:443
+#: src/Resources.vala:451
 #, c-format
 msgid "Delete Face “%s”"
 msgstr ""
 
-#: src/Resources.vala:669
+#: src/Resources.vala:677
 #, c-format
 msgid "Rate %s"
 msgstr ""
 
-#: src/Resources.vala:670
+#: src/Resources.vala:678
 #, c-format
 msgid "Set rating to %s"
 msgstr ""
 
-#: src/Resources.vala:671
+#: src/Resources.vala:679
 #, c-format
 msgid "Setting rating to %s"
 msgstr ""
 
-#: src/Resources.vala:673
+#: src/Resources.vala:681
 #, c-format
 msgid "Display %s"
 msgstr "ეკრანი %s"
 
-#: src/Resources.vala:674
+#: src/Resources.vala:682
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr ""
 
-#: src/Resources.vala:675
+#: src/Resources.vala:683
 #, c-format
 msgid "%s or Better"
 msgstr ""
 
-#: src/Resources.vala:676
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s or Better"
 msgstr ""
 
-#: src/Resources.vala:677
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr ""
 
-#: src/Resources.vala:775
+#: src/Resources.vala:783
 msgid "Open the selected photo’s directory in the file manager"
 msgstr ""
 
-#: src/Resources.vala:778
+#: src/Resources.vala:786
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "ფაილების მმართველში გახსნის შეცდომა: %s"
 
-#: src/Resources.vala:786
+#: src/Resources.vala:794
 msgid "Select all items"
 msgstr "ყველაფრის მონიშვნა"
 
@@ -5301,14 +5292,14 @@ msgstr "ყველაფრის მონიშვნა"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:845
+#: src/Resources.vala:853
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:851
+#: src/Resources.vala:859
 #, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
@@ -5317,7 +5308,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5325,7 +5316,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:870
 #, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
@@ -5334,117 +5325,117 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:875
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:132
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:134
 msgid "Slideshow"
 msgstr "სლაიდშოუ"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:167
+#: src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "შეიცავს"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:499
+#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:498
 msgid "is exactly"
 msgstr "არის ზუსტად"
 
-#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:168
 msgid "starts with"
 msgstr "იწყება"
 
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:169
 msgid "ends with"
 msgstr "მთავრდება"
 
-#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:169
 msgid "does not contain"
 msgstr "არ შეიცავს"
 
-#: src/searches/SavedSearchDialog.vala:172 src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:169 src/searches/SavedSearchDialog.vala:502
 msgid "is not set"
 msgstr "დაყენებული არაა"
 
-#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:170
 msgid "is set"
 msgstr "დაყენებულია"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:247 src/searches/SavedSearchDialog.vala:378 src/searches/SavedSearchDialog.vala:443
+#: src/searches/SavedSearchDialog.vala:239 src/searches/SavedSearchDialog.vala:373 src/searches/SavedSearchDialog.vala:442
 msgid "is"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:239
 msgid "is not"
 msgstr ""
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:254
+#: src/searches/SavedSearchDialog.vala:246
 msgid "any photo"
 msgstr "ნებისმიერი სურათი"
 
-#: src/searches/SavedSearchDialog.vala:255
+#: src/searches/SavedSearchDialog.vala:247
 msgid "a raw photo"
 msgstr "დაუმუშავებელი სურათი"
 
-#: src/searches/SavedSearchDialog.vala:256
+#: src/searches/SavedSearchDialog.vala:248
 msgid "a video"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:310
+#: src/searches/SavedSearchDialog.vala:302
 msgid "has"
 msgstr "აქვს"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:303
 msgid "has no"
 msgstr "არ აქვს"
 
-#: src/searches/SavedSearchDialog.vala:316
+#: src/searches/SavedSearchDialog.vala:309
 msgid "modifications"
 msgstr "ცვლილებები"
 
-#: src/searches/SavedSearchDialog.vala:317
+#: src/searches/SavedSearchDialog.vala:310
 msgid "internal modifications"
 msgstr "შიდა ცვლილებები"
 
-#: src/searches/SavedSearchDialog.vala:318
+#: src/searches/SavedSearchDialog.vala:311
 msgid "external modifications"
 msgstr "გარე ცვლილებები"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:372
+#: src/searches/SavedSearchDialog.vala:366
 msgid "flagged"
 msgstr "აქვს ალამი"
 
-#: src/searches/SavedSearchDialog.vala:373
+#: src/searches/SavedSearchDialog.vala:367
 msgid "not flagged"
 msgstr "არ აქვს ალამი"
 
-#: src/searches/SavedSearchDialog.vala:436
+#: src/searches/SavedSearchDialog.vala:434
 msgid "and higher"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:437
+#: src/searches/SavedSearchDialog.vala:435
 msgid "only"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and lower"
 msgstr ""
 
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is after"
 msgstr "არის შემდეგ"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is before"
 msgstr "არის მანამდე"
 
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is between"
 msgstr "არის შუალედში"
 
@@ -5526,40 +5517,40 @@ msgstr "★★★★★+ რეიტინგი"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:155
+#: src/SlideshowPage.vala:157
 msgid "Back"
 msgstr "უკან"
 
-#: src/SlideshowPage.vala:162 src/SlideshowPage.vala:271
+#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:273
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:272
+#: src/SlideshowPage.vala:166 src/SlideshowPage.vala:274
 msgid "Pause the slideshow"
 msgstr "სლაიდშოუს შეჩერება"
 
-#: src/SlideshowPage.vala:169
+#: src/SlideshowPage.vala:171
 msgid "Next"
 msgstr "შემდეგი"
 
-#: src/SlideshowPage.vala:178
+#: src/SlideshowPage.vala:180
 msgid "Settings"
 msgstr "პარამეტრები"
 
-#: src/SlideshowPage.vala:179
+#: src/SlideshowPage.vala:181
 msgid "Change slideshow settings"
 msgstr ""
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:235
+#: src/SlideshowPage.vala:237
 msgid "All photo source files are missing."
 msgstr ""
 
-#: src/SlideshowPage.vala:267
+#: src/SlideshowPage.vala:269
 msgid "Play"
 msgstr "დაკვრა"
 
-#: src/SlideshowPage.vala:268
+#: src/SlideshowPage.vala:270
 msgid "Continue the slideshow"
 msgstr ""
 
@@ -5598,11 +5589,25 @@ msgstr ""
 msgid "Export Videos"
 msgstr "ვიდეოების გატანა"
 
+#, c-format
+#~ msgid "Could not load UI: %s"
+#~ msgstr "UI-ის ჩატვირთვის შეცდომა: %s"
+
+#, c-format
+#~ msgid "%s Database"
+#~ msgstr "%s მონაცემთა ბაზა"
+
+#~ msgid "Database file"
+#~ msgstr "მონაცემთა ბაზის ფაილი"
+
+#~ msgid "Create"
+#~ msgstr "შექმნა"
+
+#~ msgid "Name"
+#~ msgstr "სახელი"
+
 #~ msgid "Select Library Folder"
 #~ msgstr "აირჩიეთ ბიბლიოთეკის საქაღალდე"
-
-#~ msgid "Previous photo"
-#~ msgstr "წინა ფოტო"
 
 #~ msgid "Next photo"
 #~ msgstr "შემდეგი ფოტო"
