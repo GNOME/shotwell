@@ -1117,8 +1117,14 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
         view.mirror(media_views, mirroring_ctor, null);
     }
     
+    private bool in_contents_altered = false;
+
     private void on_media_views_contents_altered(Gee.Iterable<DataView>? added,
         Gee.Iterable<DataView>? removed) {
+        if (in_contents_altered)
+            return;
+        in_contents_altered = true;
+
         Gee.Collection<MediaSource> added_sources = null;
         if (added != null) {
             added_sources = new Gee.ArrayList<MediaSource>();
@@ -1168,6 +1174,8 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
             global.notify_container_contents_altered(this, added_sources, relinking, removed_sources,
                 unlinking);
         }
+
+        in_contents_altered = false;
     }
     
     private void on_sources_destroyed(Gee.Collection<DataSource> sources) {
