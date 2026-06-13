@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-09 19:55+0000\n"
-"PO-Revision-Date: 2026-06-10 22:48+0300\n"
+"POT-Creation-Date: 2026-06-13 15:21+0000\n"
+"PO-Revision-Date: 2026-06-13 21:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1054,12 +1054,10 @@ msgid "The stored settings of the system print dialog"
 msgstr "Збережені параметри з вікна друку системи"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:696
-#| msgid "Image Settings"
 msgid "Stored page settings"
 msgstr "Збережені параметри сторінки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:697
-#| msgid "The height of the printed emulsion on the page when printing"
 msgid "The stored settings of the print dialog page settings"
 msgstr "Збережені параметри зі сторінки параметрів вікна друку"
 
@@ -1226,10 +1224,6 @@ msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом шахівниці у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/org.gnome.Shotwell.Auth.desktop.in:3
-msgid "Shotwell Authentication helper"
-msgstr "Помічник розпізнавання Shotwell"
-
 #: data/org.gnome.Shotwell.desktop.in:3
 #: data/org.gnome.Shotwell.metainfo.xml.in:9 data/ui/collection.ui:84
 #: data/ui/event.ui:352 data/ui/event.ui:520 data/ui/faces.ui:352
@@ -1332,25 +1326,25 @@ msgstr "Переглядач фотографій"
 
 #: data/ui/collection.ui:7 data/ui/direct_context.ui:7 data/ui/direct.ui:136
 #: data/ui/event.ui:443 data/ui/photo_context.ui:6 data/ui/photo.ui:221
-#: src/CollectionPage.vala:108 src/Resources.vala:153
+#: src/CollectionPage.vala:108 src/Resources.vala:161
 msgid "_Enhance"
 msgstr "По_кращити"
 
 #: data/ui/collection.ui:12 data/ui/direct_context.ui:12 data/ui/direct.ui:163
 #: data/ui/event.ui:448 data/ui/photo_context.ui:11 data/ui/photo.ui:248
-#: src/CollectionPage.vala:109 src/Resources.vala:181
+#: src/CollectionPage.vala:109 src/Resources.vala:189
 msgid "Re_vert to Original"
 msgstr "Пове_рнутися до початкової"
 
 #: data/ui/collection.ui:18 data/ui/event.ui:403 data/ui/event.ui:454
 #: data/ui/faces.ui:386 data/ui/media.ui:386 data/ui/photo.ui:373
-#: data/ui/tags.ui:386 src/Resources.vala:279
+#: data/ui/tags.ui:386 src/Resources.vala:287
 msgid "Add _Tags…"
 msgstr "Додати _мітки…"
 
 #: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459
 #: data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:351
+#: data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:359
 msgid "Modif_y Tags…"
 msgstr "З_мінити мітки…"
 
@@ -1362,31 +1356,31 @@ msgstr "Перемкнути п_рапорець"
 
 #: data/ui/collection.ui:38 data/ui/event.ui:282 data/ui/event.ui:474
 #: data/ui/faces.ui:282 data/ui/media.ui:282 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:213
+#: data/ui/photo.ui:271 data/ui/tags.ui:282 src/Resources.vala:221
 msgid "_Set Rating"
 msgstr "_Оцінити"
 
 #: data/ui/collection.ui:61 data/ui/event.ui:310 data/ui/event.ui:497
 #: data/ui/faces.ui:310 data/ui/media.ui:310 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:223
+#: data/ui/photo.ui:299 data/ui/tags.ui:310 src/Resources.vala:231
 msgid "_Unrated"
 msgstr "_Без оцінки"
 
 #: data/ui/collection.ui:65 data/ui/event.ui:315 data/ui/event.ui:501
 #: data/ui/faces.ui:315 data/ui/media.ui:315 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:229
+#: data/ui/photo.ui:304 data/ui/tags.ui:315 src/Resources.vala:237
 msgid "_Rejected"
 msgstr "Від_кинуті"
 
 #: data/ui/collection.ui:71 data/ui/event.ui:322 data/ui/event.ui:507
 #: data/ui/faces.ui:322 data/ui/media.ui:322 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:217
+#: data/ui/photo.ui:311 data/ui/tags.ui:322 src/Resources.vala:225
 msgid "_Increase"
 msgstr "З_більшити"
 
 #: data/ui/collection.ui:75 data/ui/event.ui:327 data/ui/event.ui:511
 #: data/ui/faces.ui:327 data/ui/media.ui:327 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:220
+#: data/ui/photo.ui:316 data/ui/tags.ui:327 src/Resources.vala:228
 msgid "_Decrease"
 msgstr "З_меншити"
 
@@ -1405,7 +1399,7 @@ msgstr "Фотоапарат"
 
 #: data/ui/collection.ui:97 data/ui/event.ui:336 data/ui/event.ui:533
 #: data/ui/faces.ui:336 data/ui/media.ui:336 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:265
+#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:273
 msgid "Edit _Title…"
 msgstr "Змінити за_головок…"
 
@@ -1413,17 +1407,17 @@ msgstr "Змінити за_головок…"
 #: data/ui/events_directory.ui:182 data/ui/event.ui:341 data/ui/event.ui:394
 #: data/ui/event.ui:538 data/ui/faces.ui:341 data/ui/media.ui:341
 #: data/ui/photo_context.ui:110 data/ui/photo.ui:330 data/ui/tags.ui:341
-#: src/Resources.vala:269
+#: src/Resources.vala:277
 msgid "Edit _Comment…"
 msgstr "Змінити _коментар…"
 
 #: data/ui/collection.ui:107 data/ui/event.ui:543 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:286
+#: data/ui/photo.ui:359 src/CollectionPage.vala:132 src/Resources.vala:294
 msgid "Open With E_xternal Editor"
 msgstr "Відкрити за допомогою з_овнішнього редактора"
 
 #: data/ui/collection.ui:112 data/ui/event.ui:548 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:288
+#: data/ui/photo.ui:364 src/CollectionPage.vala:135 src/Resources.vala:296
 msgid "Open With RA_W Editor"
 msgstr "Відкрити за допомогою р_едактора цифрових негативів"
 
@@ -1437,59 +1431,59 @@ msgstr "Переглянути п_одію, пов’язану з фотогр�
 #: data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23
 #: data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
 #: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224
-#: src/Resources.vala:774
+#: src/Resources.vala:782
 msgid "Show in File Mana_ger"
 msgstr "Показати у _менеджері файлів"
 
 #: data/ui/collection.ui:127 data/ui/direct_context.ui:23 data/ui/direct.ui:23
 #: data/ui/event.ui:563 data/ui/photo.ui:26 src/CollectionPage.vala:72
-#: src/Resources.vala:290
+#: src/Resources.vala:298
 msgid "Send _To…"
 msgstr "_Надіслати…"
 
 #: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569
 #: data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:783
+#: data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:791
 msgid "_Move to Trash"
 msgstr "П_ересунути до смітника"
 
 #: data/ui/collection.ui:149 data/ui/editing-toolbar.ui:13
-#: src/Resources.vala:109
+#: src/Resources.vala:117
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Обернути фотографії праворуч (натисніть Ctrl для обертання ліворуч)"
 
 #: data/ui/collection.ui:167 data/ui/editing-toolbar.ui:31
-#: src/Resources.vala:107 src/Resources.vala:112
+#: src/Resources.vala:115 src/Resources.vala:120
 msgid "Rotate"
 msgstr "Обертати"
 
 #: data/ui/collection.ui:177 data/ui/editing-toolbar.ui:158
-#: src/Resources.vala:155
+#: src/Resources.vala:163
 msgid "Automatically improve the photo’s appearance"
 msgstr "Автоматично покращити вигляд фотографій"
 
 #: data/ui/collection.ui:195 data/ui/editing-toolbar.ui:176
-#: src/Resources.vala:154
+#: src/Resources.vala:162
 msgid "Enhance"
 msgstr "Підвищити якість"
 
-#: data/ui/collection.ui:211 src/Resources.vala:263
+#: data/ui/collection.ui:211 src/Resources.vala:271
 msgid "Publish to various websites"
 msgstr "Оприлюднити на одному з сайтів"
 
 #: data/ui/collection.ui:229
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
-#: src/Resources.vala:262
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:223
+#: src/Resources.vala:270
 msgid "Publish"
 msgstr "Оприлюднити"
 
 #: data/ui/collection.ui:245 data/ui/import.ui:248 data/ui/offline.ui:225
-#: data/ui/trash.ui:302 src/Resources.vala:295
+#: data/ui/trash.ui:302 src/Resources.vala:303
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Знайти зображення за вказаним рядком з назви або міток зображення"
 
 #: data/ui/collection.ui:263 data/ui/import.ui:266 data/ui/offline.ui:243
-#: data/ui/trash.ui:295 src/Resources.vala:294
+#: data/ui/trash.ui:295 src/Resources.vala:302
 msgid "Find"
 msgstr "Знайти"
 
@@ -1501,7 +1495,7 @@ msgid "_File"
 msgstr "_Файл"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
-#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:142
+#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:150
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -1512,28 +1506,28 @@ msgstr "Зберегти _як…"
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:21 data/ui/event.ui:36
 #: data/ui/faces.ui:36 data/ui/import_queue.ui:27 data/ui/import.ui:29
 #: data/ui/media.ui:36 data/ui/offline.ui:22 data/ui/photo.ui:46
-#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:138
+#: data/ui/tags.ui:36 data/ui/trash.ui:27 src/Resources.vala:146
 msgid "_Quit"
 msgstr "Ви_йти"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:28 data/ui/event.ui:43
 #: data/ui/faces.ui:43 data/ui/import.ui:36 data/ui/media.ui:43
 #: data/ui/offline.ui:29 data/ui/photo.ui:53 data/ui/tags.ui:43
-#: data/ui/trash.ui:34 src/Resources.vala:126
+#: data/ui/trash.ui:34 src/Resources.vala:134
 msgid "_Edit"
 msgstr "З_міни"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:31 data/ui/event.ui:46
 #: data/ui/faces.ui:46 data/ui/import.ui:39 data/ui/media.ui:46
 #: data/ui/offline.ui:32 data/ui/photo.ui:56 data/ui/tags.ui:46
-#: data/ui/trash.ui:37 src/Resources.vala:191
+#: data/ui/trash.ui:37 src/Resources.vala:199
 msgid "_Undo"
 msgstr "В_ернути"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:36 data/ui/event.ui:51
 #: data/ui/faces.ui:51 data/ui/import.ui:44 data/ui/media.ui:51
 #: data/ui/offline.ui:37 data/ui/photo.ui:61 data/ui/tags.ui:51
-#: data/ui/trash.ui:42 src/Resources.vala:194
+#: data/ui/trash.ui:42 src/Resources.vala:202
 msgid "_Redo"
 msgstr "Повт_орити"
 
@@ -1545,19 +1539,19 @@ msgid "_View"
 msgstr "П_ерегляд"
 
 #: data/ui/direct.ui:62 data/ui/events_directory.ui:121 data/ui/photo.ui:171
-#: src/Resources.vala:128
+#: src/Resources.vala:136
 msgid "Fulls_creen"
 msgstr "На весь _екран"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:256 data/ui/faces.ui:256
 #: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
-#: src/Resources.vala:150
+#: src/Resources.vala:158
 msgid "Zoom _In"
 msgstr "З_більшити"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:261 data/ui/faces.ui:261
 #: data/ui/media.ui:261 data/ui/photo.ui:147 data/ui/tags.ui:261
-#: src/Resources.vala:151
+#: src/Resources.vala:159
 msgid "Zoom _Out"
 msgstr "З_меншити"
 
@@ -1586,22 +1580,22 @@ msgid "_Next Photo"
 msgstr "_Наступна фотографія"
 
 #: data/ui/direct.ui:113 data/ui/photo.ui:198 src/CollectionPage.vala:99
-#: src/Resources.vala:106
+#: src/Resources.vala:114
 msgid "Rotate _Right"
 msgstr "Обернути п_раворуч"
 
 #: data/ui/direct.ui:118 data/ui/photo.ui:203 src/CollectionPage.vala:102
-#: src/Resources.vala:111
+#: src/Resources.vala:119
 msgid "Rotate _Left"
 msgstr "Обернути _ліворуч"
 
 #: data/ui/direct.ui:123 data/ui/photo.ui:208 src/CollectionPage.vala:105
-#: src/Resources.vala:116
+#: src/Resources.vala:124
 msgid "Flip Hori_zontally"
 msgstr "Віддзеркалити _горизонтально"
 
 #: data/ui/direct.ui:127 data/ui/photo.ui:212 src/CollectionPage.vala:106
-#: src/Resources.vala:119
+#: src/Resources.vala:127
 msgid "Flip Verti_cally"
 msgstr "Віддзеркалити _вертикально"
 
@@ -1609,24 +1603,24 @@ msgstr "Віддзеркалити _вертикально"
 msgid "T_ools"
 msgstr "_Інструменти"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:165
+#: data/ui/direct.ui:141 data/ui/photo.ui:226 src/Resources.vala:173
 msgid "_Crop"
 msgstr "_Обрізати"
 
 #: data/ui/direct.ui:146 data/ui/photo.ui:231
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:177
 msgid "_Straighten"
 msgstr "Вип_рямити"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:173
+#: data/ui/direct.ui:151 data/ui/photo.ui:236 src/Resources.vala:181
 msgid "_Red-eye"
 msgstr "_Усування червоних очей"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:177
+#: data/ui/direct.ui:156 data/ui/photo.ui:241 src/Resources.vala:185
 msgid "_Adjust"
 msgstr "С_коригувати"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:276
+#: data/ui/direct.ui:169 data/ui/photo.ui:335 src/Resources.vala:284
 msgid "_Adjust Date and Time…"
 msgstr "С_коригувати дату і час…"
 
@@ -1637,7 +1631,7 @@ msgstr "С_коригувати дату і час…"
 #: data/ui/media.ui:399 data/ui/media.ui:402 data/ui/offline.ui:177
 #: data/ui/offline.ui:180 data/ui/photo.ui:385 data/ui/photo.ui:388
 #: data/ui/tags.ui:418 data/ui/tags.ui:421 data/ui/trash.ui:186
-#: data/ui/trash.ui:189 src/Resources.vala:129
+#: data/ui/trash.ui:189 src/Resources.vala:137
 msgid "_Help"
 msgstr "_Довідка"
 
@@ -1658,49 +1652,49 @@ msgstr "_Повідомити про проблему…"
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:164 data/ui/event.ui:434
 #: data/ui/faces.ui:444 data/ui/import_queue.ui:79 data/ui/import.ui:197
 #: data/ui/media.ui:417 data/ui/offline.ui:195 data/ui/photo.ui:403
-#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:122
+#: data/ui/tags.ui:436 data/ui/trash.ui:204 src/Resources.vala:130
 msgid "_About"
 msgstr "_Про програму"
 
-#: data/ui/editing-toolbar.ui:42 src/Resources.vala:167
+#: data/ui/editing-toolbar.ui:42 src/Resources.vala:175
 msgid "Crop the photo’s size"
 msgstr "Обрізати фотографію"
 
-#: data/ui/editing-toolbar.ui:60 src/Resources.vala:166
+#: data/ui/editing-toolbar.ui:60 src/Resources.vala:174
 msgid "Crop"
 msgstr "Обрізати"
 
-#: data/ui/editing-toolbar.ui:71 src/Resources.vala:171
+#: data/ui/editing-toolbar.ui:71 src/Resources.vala:179
 msgid "Straighten the photo"
 msgstr "Виправити нахил фотографії"
 
-#: data/ui/editing-toolbar.ui:89 src/Resources.vala:170
+#: data/ui/editing-toolbar.ui:89 src/Resources.vala:178
 msgid "Straighten"
 msgstr "Випрямити"
 
-#: data/ui/editing-toolbar.ui:100 src/Resources.vala:175
+#: data/ui/editing-toolbar.ui:100 src/Resources.vala:183
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr ""
 "Зменшити або усунути будь-які наслідки ефекту «червоних очей» на фотографії"
 
-#: data/ui/editing-toolbar.ui:118 src/Resources.vala:174
+#: data/ui/editing-toolbar.ui:118 src/Resources.vala:182
 msgid "Red-eye"
 msgstr "Червоні очі"
 
-#: data/ui/editing-toolbar.ui:129 src/Resources.vala:179
+#: data/ui/editing-toolbar.ui:129 src/Resources.vala:187
 msgid "Adjust the photo’s color and tone"
 msgstr "Скоригувати колір і тон фотографії"
 
-#: data/ui/editing-toolbar.ui:147 src/Resources.vala:178
+#: data/ui/editing-toolbar.ui:147 src/Resources.vala:186
 msgid "Adjust"
 msgstr "Скоригувати"
 
-#: data/ui/editing-toolbar.ui:187 src/Resources.vala:303
+#: data/ui/editing-toolbar.ui:187 src/Resources.vala:311
 msgid "Mark faces of people in the photo"
 msgstr "Позначити обличчя людей на фотографії"
 
 #: data/ui/editing-toolbar.ui:206 data/ui/faces.ui:399
-#: src/faces/FacesBranch.vala:87 src/Resources.vala:301 src/Resources.vala:302
+#: src/faces/FacesBranch.vala:87 src/Resources.vala:309 src/Resources.vala:310
 msgid "Faces"
 msgstr "Обличчя"
 
@@ -1740,14 +1734,14 @@ msgstr "С_творити збережений пошук…"
 
 #: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82
 #: data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62
-#: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:785
+#: data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:793
 msgid "Select _All"
 msgstr "Позначити _всі"
 
 #: data/ui/events_directory.ui:61 data/ui/event.ui:89 data/ui/faces.ui:89
 #: data/ui/import.ui:64 data/ui/media.ui:89 data/ui/offline.ui:69
 #: data/ui/photo.ui:87 data/ui/tags.ui:89 data/ui/trash.ui:78
-#: src/Resources.vala:135 src/Resources.vala:284
+#: src/Resources.vala:143 src/Resources.vala:292
 msgid "_Preferences"
 msgstr "_Налаштування"
 
@@ -1814,23 +1808,23 @@ msgid "Even_ts"
 msgstr "Поді_ї"
 
 #: data/ui/events_directory.ui:131 data/ui/events_directory.ui:173
-#: src/Resources.vala:209
+#: src/Resources.vala:217
 msgid "_Merge Events"
 msgstr "_Об’єднати події"
 
 #: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
-#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:197
+#: data/ui/event.ui:389 data/ui/event.ui:584 src/Resources.vala:205
 msgid "Re_name Event…"
 msgstr "Пере_йменувати подію…"
 
 #: data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/media.ui:13
-#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:257
+#: data/ui/photo.ui:13 data/ui/tags.ui:13 src/Resources.vala:265
 msgid "_Export…"
 msgstr "_Експортувати…"
 
 #: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70
 #: data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218
-#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:781
+#: data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:789
 msgid "R_emove From Library"
 msgstr "Ви_лучити з бібліотеки"
 
@@ -1846,31 +1840,31 @@ msgid "Ta_gs"
 msgstr "_Мітки"
 
 #: data/ui/event.ui:140 data/ui/faces.ui:140 data/ui/media.ui:140
-#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:246
+#: data/ui/photo.ui:118 data/ui/tags.ui:140 src/Resources.vala:254
 msgid "_Ratings"
 msgstr "_Оцінки"
 
 #: data/ui/event.ui:147 data/ui/faces.ui:147 data/ui/import.ui:107
 #: data/ui/media.ui:147 data/ui/offline.ui:105 data/ui/tags.ui:147
-#: data/ui/trash.ui:114 src/Resources.vala:249
+#: data/ui/trash.ui:114 src/Resources.vala:257
 msgid "_Filter Photos"
 msgstr "_Фільтрувати фотографії"
 
 #: data/ui/event.ui:180 data/ui/faces.ui:180 data/ui/import.ui:140
 #: data/ui/media.ui:180 data/ui/offline.ui:138 data/ui/search_bar.ui:185
-#: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:242
+#: data/ui/tags.ui:180 data/ui/trash.ui:147 src/Resources.vala:250
 msgid "_All Photos"
 msgstr "Вс_і фотографії"
 
 #: data/ui/event.ui:186 data/ui/faces.ui:186 data/ui/import.ui:146
 #: data/ui/media.ui:186 data/ui/offline.ui:144 data/ui/search_bar.ui:179
-#: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:239
+#: data/ui/tags.ui:186 data/ui/trash.ui:153 src/Resources.vala:247
 msgid "All + _Rejected"
 msgstr "Всі + в_ідкинуті"
 
 #: data/ui/event.ui:192 data/ui/faces.ui:192 data/ui/import.ui:152
 #: data/ui/media.ui:192 data/ui/offline.ui:150 data/ui/search_bar.ui:173
-#: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:235
+#: data/ui/tags.ui:192 data/ui/trash.ui:159 src/Resources.vala:243
 msgid "Rejected _Only"
 msgstr "Лише від_кинуті"
 
@@ -1909,16 +1903,16 @@ msgstr "За с_паданням"
 msgid "_Photos"
 msgstr "_Фотографії"
 
-#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:200
+#: data/ui/event.ui:369 data/ui/event.ui:576 src/Resources.vala:208
 msgid "Make _Key Photo for Event"
 msgstr "Зробити _ключовою фотографією події"
 
 #: data/ui/event.ui:378 data/ui/faces.ui:372 data/ui/media.ui:372
-#: data/ui/tags.ui:372 src/Resources.vala:203
+#: data/ui/tags.ui:372 src/Resources.vala:211
 msgid "_New Event"
 msgstr "С_творити запис події"
 
-#: data/ui/event.ui:588 src/Resources.vala:273
+#: data/ui/event.ui:588 src/Resources.vala:281
 msgid "Edit Event _Comment…"
 msgstr "Змінити _коментар до події…"
 
@@ -1967,24 +1961,24 @@ msgstr "_Увійти"
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
 #: src/Dialogs.vala:819 src/library/LibraryWindow.vala:736
 #: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
-#: src/Resources.vala:124
+#: src/Resources.vala:132
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:133
+#: data/ui/multitextentrydialog.ui:45 src/Resources.vala:141
 #: src/widgets/FolderButton.vala:17
 msgid "_OK"
 msgstr "_Гаразд"
 
-#: data/ui/offline.ui:216 src/Resources.vala:769
+#: data/ui/offline.ui:216 src/Resources.vala:777
 msgid "Remove the selected photos from the library"
 msgstr "Вилучити позначені фотографії з бібліотеки"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:280
+#: data/ui/photo_context.ui:17 src/Resources.vala:288
 msgid "_Add Tags…"
 msgstr "_Додати мітки…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:291
+#: data/ui/photo_context.ui:135 src/Resources.vala:299
 msgid "Send T_o…"
 msgstr "Надіс_лати…"
 
@@ -1992,11 +1986,11 @@ msgstr "Надіс_лати…"
 msgid "S_lideshow"
 msgstr "По_каз слайдів"
 
-#: data/ui/photo.ui:254 src/CollectionPage.vala:111 src/Resources.vala:157
+#: data/ui/photo.ui:254 src/CollectionPage.vala:111 src/Resources.vala:165
 msgid "_Copy Color Adjustments"
 msgstr "_Копіювати коригування кольорів"
 
-#: data/ui/photo.ui:259 src/CollectionPage.vala:114 src/Resources.vala:161
+#: data/ui/photo.ui:259 src/CollectionPage.vala:114 src/Resources.vala:169
 msgid "_Paste Color Adjustments"
 msgstr "_Вставити коригування кольорів"
 
@@ -2102,7 +2096,7 @@ msgstr "RAW"
 msgid "Plugins"
 msgstr "Додатки"
 
-#: data/ui/preferences_dialog.ui:516 src/ProfileBrowser.vala:231
+#: data/ui/preferences_dialog.ui:516 src/ProfileBrowser.vala:189
 msgid "Profiles"
 msgstr "Профілі"
 
@@ -2192,8 +2186,7 @@ msgstr "жодна"
 msgid "of the following:"
 msgstr "за такими ознаками:"
 
-#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:208
+#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:166
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -2201,19 +2194,19 @@ msgstr "Скасувати"
 msgid "OK"
 msgstr "Гаразд"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:392
+#: data/ui/savedsearch.ui:6 src/Resources.vala:400
 msgid "Re_name…"
 msgstr "Пере_йменувати…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:391
+#: data/ui/savedsearch.ui:10 src/Resources.vala:399
 msgid "_Edit…"
 msgstr "З_мінити…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60
 #: data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
-#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
-#: src/Resources.vala:390 src/Resources.vala:767
+#: src/Resources.vala:133 src/Resources.vala:314 src/Resources.vala:345
+#: src/Resources.vala:398 src/Resources.vala:775
 msgid "_Delete"
 msgstr "В_илучити"
 
@@ -2245,7 +2238,7 @@ msgstr ""
 "Використати збережений пошук для фільтрування записів у поточній області "
 "перегляду"
 
-#: data/ui/search_bar.ui:148 src/Resources.vala:386
+#: data/ui/search_bar.ui:148 src/Resources.vala:394
 msgid "Saved Search"
 msgstr "Збережений пошук"
 
@@ -2319,11 +2312,11 @@ msgstr "Показати за_головок"
 msgid "seconds"
 msgstr "секунд"
 
-#: data/ui/tags.ui:446 src/Resources.vala:131 src/Resources.vala:339
+#: data/ui/tags.ui:446 src/Resources.vala:139 src/Resources.vala:347
 msgid "_New"
 msgstr "С_творити"
 
-#: data/ui/tags.ui:452 src/Resources.vala:307 src/Resources.vala:349
+#: data/ui/tags.ui:452 src/Resources.vala:315 src/Resources.vala:357
 msgid "_Rename…"
 msgstr "Пере_йменувати…"
 
@@ -2332,15 +2325,15 @@ msgid "label"
 msgstr "мітка"
 
 #: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263
-#: src/Resources.vala:771
+#: src/Resources.vala:779
 msgid "_Restore"
 msgstr "Від_новити"
 
-#: data/ui/trash.ui:252 src/Resources.vala:768
+#: data/ui/trash.ui:252 src/Resources.vala:776
 msgid "Remove the selected photos from the trash"
 msgstr "Вилучити позначені фотографії до смітника"
 
-#: data/ui/trash.ui:261 src/Resources.vala:772
+#: data/ui/trash.ui:261 src/Resources.vala:780
 msgid "Move the selected photos back into the library"
 msgstr "Пересунути позначені фотографії назад до бібліотеки"
 
@@ -2365,13 +2358,13 @@ msgstr ""
 "інтернету. Вам слід уповноважити інструмент Shotwell Connect, щоб встановити "
 "зв’язок програми з вашим обліковим записом Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:88
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:97
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:92
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:101
 msgid "Preparing for login…"
 msgstr "Приготування до входу…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:161
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:169
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:165
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:173
 msgid "Verifying authorization…"
 msgstr "Перевіряємо уповноваження…"
 
@@ -2458,12 +2451,12 @@ msgid "_Email address"
 msgstr "_Адреса ел. пошти"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:64
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:97
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:95
 msgid "_Password"
 msgstr "_Пароль"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:80
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:124
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:122
 msgid "Log in"
 msgstr "Увійти"
 
@@ -2548,20 +2541,20 @@ msgstr ""
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
 #: plugins/common/RESTSupport.vala:582
-#: plugins/shotwell-publishing/TumblrPublishing.vala:562
+#: plugins/shotwell-publishing/TumblrPublishing.vala:541
 #: plugins/shotwell-publishing/YoutubeUploader.vala:65
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
 
-#: plugins/common/ssl_certificate_pane.ui:15
+#: plugins/common/ssl_certificate_pane.ui:13
 msgid "This connection is not secure"
 msgstr "Це з’єднання не захищено"
 
-#: plugins/common/ssl_certificate_pane.ui:50
+#: plugins/common/ssl_certificate_pane.ui:48
 msgid "Show the certificate…"
 msgstr "Показати сертифікат…"
 
-#: plugins/common/ssl_certificate_pane.ui:57
+#: plugins/common/ssl_certificate_pane.ui:55
 msgid "I understand, please _proceed."
 msgstr "Зрозуміло, будь ласка, п_родовжуйте."
 
@@ -2571,7 +2564,7 @@ msgid "TLS Certificate details for %s"
 msgstr "Подробиці сертифіката TLS для %s"
 
 #. %s is the host name that we tried to connect to
-#: plugins/common/SSLCertificatePane.vala:152
+#: plugins/common/SSLCertificatePane.vala:158
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2591,12 +2584,12 @@ msgstr ""
 msgid "Continue"
 msgstr "Продовжити"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:42
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:46
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
 msgid "Photo _size"
 msgstr "_Розмір фотографії"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:75
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:79
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:57
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:175
 msgid ""
@@ -2605,14 +2598,14 @@ msgstr ""
 "Ви_лучити дані щодо місця, фотоапарата та інші ідентифікаційні дані перед "
 "вивантаженням"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:98
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:82
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:48
 msgid "_Logout"
 msgstr "Ви_йти з системи"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:107
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:149
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:91
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:56
@@ -2625,15 +2618,7 @@ msgstr "_Оприлюднити"
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "© Software Freedom Conservancy Inc., 2016"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:280
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Не виявлено потрібного для оприлюднення файла. Продовження дій з "
-"оприлюднення на Flickr неможливе."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:564
+#: plugins/shotwell-publishing/FlickrPublishing.vala:543
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2642,7 +2627,7 @@ msgstr ""
 "Ви увійшли до облікового запису %s на Flickr.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:566
+#: plugins/shotwell-publishing/FlickrPublishing.vala:545
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2653,7 +2638,7 @@ msgstr ""
 "кількість фотографій, які ви можете вивантажувати.\n"
 "Вами вивантажено %llu (обмеження складає — %lld)."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:568
+#: plugins/shotwell-publishing/FlickrPublishing.vala:547
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2674,63 +2659,63 @@ msgstr[3] ""
 "За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
 "довільний об’єм даних. Зараз ви вивантажили один файл."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:573
+#: plugins/shotwell-publishing/FlickrPublishing.vala:552
 msgid "Photos _visible to"
 msgstr "Фотографії зможе _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:575
+#: plugins/shotwell-publishing/FlickrPublishing.vala:554
 msgid "Videos _visible to"
 msgstr "Відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:578
+#: plugins/shotwell-publishing/FlickrPublishing.vala:557
 msgid "Photos and videos _visible to"
 msgstr "Фотографії і відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:619
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/FlickrPublishing.vala:598
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1243
 msgid "Everyone"
 msgstr "Будь-хто"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:620
+#: plugins/shotwell-publishing/FlickrPublishing.vala:599
 msgid "Friends & family only"
 msgstr "Лише друзі і родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:621
+#: plugins/shotwell-publishing/FlickrPublishing.vala:600
 msgid "Family only"
 msgstr "Лише родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/FlickrPublishing.vala:601
 msgid "Friends only"
 msgstr "Лише друзі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#: plugins/shotwell-publishing/FlickrPublishing.vala:602
 msgid "Just me"
 msgstr "Лише я"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:643
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1255
 #: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:644
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1256
 #: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:645
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1248
+#: plugins/shotwell-publishing/FlickrPublishing.vala:624
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1257
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:646
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1249
+#: plugins/shotwell-publishing/FlickrPublishing.vala:625
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1258
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:647
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1250
+#: plugins/shotwell-publishing/FlickrPublishing.vala:626
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1259
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Початковий розмір"
@@ -2758,7 +2743,7 @@ msgid "A new album named"
 msgstr "Новому альбомі з назвою"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1126
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1137
 msgid "Shotwell Connect"
 msgstr "З’єднувач Shotwell"
 
@@ -2819,15 +2804,15 @@ msgstr "Типовий альбом"
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "© Jens Georg <mail@jensge.org>, 2019"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:30
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:28
 msgid "_URL of your Piwigo photo library"
 msgstr "_Адреса вашої бібліотеки фотографій Piwigo"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:75
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:73
 msgid "User _name"
 msgstr "_Користувач"
 
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:109
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:107
 msgid "Remember Password"
 msgstr "Запам'ятати пароль"
 
@@ -2869,22 +2854,22 @@ msgstr "_Не вивантажувати мітки"
 msgid "_Do not upload ratings"
 msgstr "_Не вивантажувати оцінки"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:212
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:216
 msgid "Logout"
 msgstr "Вийти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:813
 #, c-format
 msgid "Creating album %s…"
 msgstr "Створюємо альбом %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:949
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Під час спроби оприлюднення даних на Piwigo сталася помилка. Будь ласка, "
 "повторіть спробу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1019
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2893,7 +2878,7 @@ msgstr ""
 "і пароль, пов’язані з вашим обліковим записом Piwigo, до якого прив’язано "
 "бібліотеку."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1020
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1025
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2901,33 +2886,33 @@ msgstr ""
 "Shotwell не вдалося встановити зв’язок з вашою бібліотекою фотографій "
 "Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Некоректні значення імені користувача і/або пароля. Будь ласка, повторіть "
 "спробу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1058
 msgid "Invalid URL"
 msgstr "Некоректна адреса"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
 msgid "Invalid User Name or Password"
 msgstr "Некоректне ім’я користувача або пароль"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1235
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1244
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Адміністратори, родичі, друзі, контакти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1236
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1245
 msgid "Admins, Family, Friends"
 msgstr "Адміністратори, родичі, друзі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1237
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1246
 msgid "Admins, Family"
 msgstr "Адміністратори, родичі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1238
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "Admins"
 msgstr "Адміністратори"
 
@@ -2954,7 +2939,7 @@ msgstr ""
 "TumblrPublisher: start( ): не вдалося розпочати; цей засіб оприлюднення не "
 "можна перезапускати."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:443
+#: plugins/shotwell-publishing/TumblrPublishing.vala:425
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2962,11 +2947,6 @@ msgid ""
 msgstr ""
 "Ви увійшли до системи Tumblr від імені %s.\n"
 "\n"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:461
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Не вдалося завантажити інтерфейс: %s"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:25
 msgid "Video privacy _setting"
@@ -2980,28 +2960,20 @@ msgstr ""
 "© Software Freedom Conservancy Inc., 2016\n"
 "© Jens Georg <mail@jensge.org>, 2022"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:178
-msgid ""
-"A file required for publishing is unavailable. Publishing to YouTube can’t "
-"continue."
-msgstr ""
-"Не виявлено потрібного для оприлюднення файла. Продовження дій з "
-"оприлюднення на Youtube неможливе."
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:298
+#: plugins/shotwell-publishing/YouTubePublishing.vala:279
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:331
+#: plugins/shotwell-publishing/YouTubePublishing.vala:312
 msgid "Public"
 msgstr "Відкритий доступ"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:332
+#: plugins/shotwell-publishing/YouTubePublishing.vala:313
 msgid "Private"
 msgstr "Конфіденційне"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:333
+#: plugins/shotwell-publishing/YouTubePublishing.vala:314
 msgid "unlisted"
 msgstr "поза списком"
 
@@ -3388,16 +3360,16 @@ msgstr ""
 "фільтрування"
 
 #: src/CollectionPage.vala:69 src/direct/DirectPhotoPage.vala:78
-#: src/LibraryPhotoPage.vala:131 src/Resources.vala:137
+#: src/LibraryPhotoPage.vala:131 src/Resources.vala:145
 msgid "_Print"
 msgstr "_Надрукувати"
 
 #: src/CollectionPage.vala:73 src/direct/DirectPhotoPage.vala:83
-#: src/LibraryPhotoPage.vala:141 src/Resources.vala:187
+#: src/LibraryPhotoPage.vala:141 src/Resources.vala:195
 msgid "Set as _Desktop Background"
 msgstr "Зробити _тлом стільниці"
 
-#: src/CollectionPage.vala:81 src/Resources.vala:253
+#: src/CollectionPage.vala:81 src/Resources.vala:261
 msgid "_Duplicate"
 msgstr "_Дублювати"
 
@@ -3409,7 +3381,7 @@ msgstr "На весь екран"
 msgid "Adjust Date and Time…"
 msgstr "Скоригувати дату і час…"
 
-#: src/CollectionPage.vala:138 src/Resources.vala:134
+#: src/CollectionPage.vala:138 src/Resources.vala:142
 msgid "_Play"
 msgstr "_Відтворити"
 
@@ -3847,35 +3819,35 @@ msgstr "Експорт _метаданих:"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:126 src/dialogs/Preferences.vala:130
+#: src/dialogs/Preferences.vala:118 src/dialogs/Preferences.vala:122
 msgid "(Help)"
 msgstr "(Довідка)"
 
-#: src/dialogs/Preferences.vala:134
+#: src/dialogs/Preferences.vala:126
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Рік%sМісяць%sДень"
 
-#: src/dialogs/Preferences.vala:136
+#: src/dialogs/Preferences.vala:128
 #, c-format
 msgid "Year%sMonth"
 msgstr "Рік%sМісяць"
 
-#: src/dialogs/Preferences.vala:138
+#: src/dialogs/Preferences.vala:130
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Рік%sМісяць-День"
 
-#: src/dialogs/Preferences.vala:140
+#: src/dialogs/Preferences.vala:132
 msgid "Year-Month-Day"
 msgstr "Рік-Місяць-День"
 
-#: src/dialogs/Preferences.vala:141 src/editing_tools/CropTool.vala:203
+#: src/dialogs/Preferences.vala:133 src/editing_tools/CropTool.vala:203
 msgid "Custom"
 msgstr "Нетиповий"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:360
+#: src/dialogs/Preferences.vala:352
 msgid "Invalid pattern"
 msgstr "Некоректний шаблон"
 
@@ -4487,7 +4459,7 @@ msgstr "Не імпортовано жодної фотографії або в�
 msgid "Import Complete"
 msgstr "Імпортування завершено"
 
-#: src/Dialogs.vala:671 src/Resources.vala:198
+#: src/Dialogs.vala:671 src/Resources.vala:206
 msgid "Rename Event"
 msgstr "Перейменувати подію"
 
@@ -4506,7 +4478,7 @@ msgid "Title:"
 msgstr "Заголовок:"
 
 #. Dialog title
-#: src/Dialogs.vala:699 src/Resources.vala:274
+#: src/Dialogs.vala:699 src/Resources.vala:282
 msgid "Edit Event Comment"
 msgstr "Змінити коментар до події"
 
@@ -4573,7 +4545,7 @@ msgstr[1] "З бібліотеки буде вилучено %d фотограф
 msgstr[2] "З бібліотеки буде вилучено %d фотографій. Продовжувати?"
 msgstr[3] "З бібліотеки буде вилучено %d фотографію. Продовжувати?"
 
-#: src/Dialogs.vala:820 src/Resources.vala:140
+#: src/Dialogs.vala:820 src/Resources.vala:148
 msgid "_Remove"
 msgstr "В_илучити"
 
@@ -5587,7 +5559,7 @@ msgid "LGPL v2.1 or later"
 msgstr "LGPL v2.1 або пізніша"
 
 #. FIXME: Meh
-#: src/printing/Job.vala:224
+#: src/printing/Job.vala:205
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5599,18 +5571,15 @@ msgstr ""
 "%s"
 
 #: src/printing/Manager.vala:96
-#| msgid "Continue"
 msgid "Continue..."
 msgstr "Продовжити…"
 
 #: src/printing/Manager.vala:114 src/printing/Manager.vala:161
-#| msgid "Print image _title"
 msgid "Printing failed"
 msgstr "Не вдалося надрукувати"
 
 #: src/printing/Manager.vala:125
 #, c-format
-#| msgid "Fetching preview for %s"
 msgid "Print preview for a photo"
 msgid_plural "Print preview for %d photos"
 msgstr[0] "Попередній перегляд друку для %d фотографії"
@@ -5620,7 +5589,6 @@ msgstr[3] "Попередній перегляд друку для фотогр�
 
 #: src/printing/Manager.vala:127
 #, c-format
-#| msgid "Fetching preview for %s"
 msgid "Print preview for %s"
 msgstr "Попередній перегляд друку для %s"
 
@@ -5633,95 +5601,87 @@ msgstr "Друк…"
 msgid "Printing to “%s” succeeded"
 msgstr "Успішний друк до «%s»"
 
-#: src/printing/Settings.vala:214
+#: src/printing/Settings.vala:204
 msgid "Fill the entire page"
 msgstr "Заповнити всю площу сторінки"
 
-#: src/printing/Settings.vala:215
+#: src/printing/Settings.vala:205
 msgid "2 images per page"
 msgstr "2 зображення на сторінку"
 
-#: src/printing/Settings.vala:216
+#: src/printing/Settings.vala:206
 msgid "4 images per page"
 msgstr "4 зображення на сторінку"
 
-#: src/printing/Settings.vala:217
+#: src/printing/Settings.vala:207
 msgid "6 images per page"
 msgstr "6 зображень на сторінку"
 
-#: src/printing/Settings.vala:218
+#: src/printing/Settings.vala:208
 msgid "8 images per page"
 msgstr "8 зображень на сторінку"
 
-#: src/printing/Settings.vala:219
+#: src/printing/Settings.vala:209
 msgid "16 images per page"
 msgstr "16 зображень на сторінку"
 
-#: src/printing/Settings.vala:220
+#: src/printing/Settings.vala:210
 msgid "32 images per page"
 msgstr "32 зображення на сторінку"
 
-#: src/ProfileBrowser.vala:20
-msgid "Create"
-msgstr "Створити"
-
-#: src/ProfileBrowser.vala:24
+#: src/ProfileBrowser.vala:32
 msgid "Create new Profile"
 msgstr "Створити профіль"
 
-#: src/ProfileBrowser.vala:38
-msgid "Name"
-msgstr "Назва"
-
-#: src/ProfileBrowser.vala:52 src/ProfileBrowser.vala:166
-msgid "Library Folder"
-msgstr "Тека бібліотеки"
-
-#: src/ProfileBrowser.vala:66
+#: src/ProfileBrowser.vala:48
 msgid "Choose Library Folder"
 msgstr "Виберіть теку бібліотеки"
 
-#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:178
-msgid "Data Folder"
-msgstr "Тека даних"
-
-#: src/ProfileBrowser.vala:91
+#: src/ProfileBrowser.vala:52
 msgid "Choose Data Folder"
 msgstr "Виберіть теку даних"
 
-#: src/ProfileBrowser.vala:133
+#: src/ProfileBrowser.vala:91
 msgid "This is the currently active profile"
 msgstr "Це поточний активний профіль"
 
-#: src/ProfileBrowser.vala:192
+#: src/ProfileBrowser.vala:124
+msgid "Library Folder"
+msgstr "Тека бібліотеки"
+
+#: src/ProfileBrowser.vala:136
+msgid "Data Folder"
+msgstr "Тека даних"
+
+#: src/ProfileBrowser.vala:150
 msgid "Remove Profile"
 msgstr "Вилучити профіль"
 
-#: src/ProfileBrowser.vala:194
+#: src/ProfileBrowser.vala:152
 msgid "Remove this profile"
 msgstr "Вилучити цей профіль"
 
-#: src/ProfileBrowser.vala:206
+#: src/ProfileBrowser.vala:164
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "Вилучити профіль «%s»"
 
-#: src/ProfileBrowser.vala:207
+#: src/ProfileBrowser.vala:165
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
 msgstr ""
 "Жоден з варіантів не вилучить жодних зображень, пов'язаних із цим профілем"
 
-#: src/ProfileBrowser.vala:208
+#: src/ProfileBrowser.vala:166
 msgid "Remove profile and files"
 msgstr "Вилучити профіль і файли"
 
-#: src/ProfileBrowser.vala:208
+#: src/ProfileBrowser.vala:166
 msgid "Remove profile only"
 msgstr "Вилучити лише профіль"
 
-#: src/ProfileBrowser.vala:241
+#: src/ProfileBrowser.vala:199
 msgid "Add a new profile"
 msgstr "Додати новий профіль"
 
@@ -5875,12 +5835,12 @@ msgstr "Приготування до вивантаження"
 msgid "Uploading %d of %d"
 msgstr "Вивантаження %d з %d"
 
-#: src/publishing/PublishingPluginHost.vala:93
+#: src/publishing/PublishingPluginHost.vala:97
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "Неможливо продовжувати оприлюднення на %s, оскільки сталася помилка:"
 
-#: src/publishing/PublishingPluginHost.vala:96
+#: src/publishing/PublishingPluginHost.vala:100
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "Щоб спробувати оприлюднити фотографії за допомогою іншої служби, виберіть "
@@ -5967,336 +5927,356 @@ msgstr[3] "Позначену фотографію було успішно оп�
 msgid "The selected photos/videos were successfully published."
 msgstr "Позначені фотографії або відео було успішно оприлюднено."
 
-#: src/Resources.vala:108
+#. Translatable strings used in the OAuth callback HTML page
+#. TRANSLATORS: This is the title of the webpage shown to the user
+#: src/Resources.vala:26
+#| msgid "Shotwell Authentication helper"
+msgid "Authentication - Shotwell"
+msgstr "Розпізнавання – Shotwell"
+
+#: src/Resources.vala:27
+#| msgid "Shotwell Authentication helper"
+msgid "Authentication complete"
+msgstr "Розпізнавання завершено"
+
+#: src/Resources.vala:28
+msgid "You have successfully signed in to your account."
+msgstr "Ви успішно увійшли до вашого облікового запису."
+
+#: src/Resources.vala:29
+msgid "You may close this page manually."
+msgstr "Ви можете закрити цю сторінку вручну."
+
+#: src/Resources.vala:116
 msgid "Rotate Right"
 msgstr "Обернути праворуч"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:121
 msgid "Rotate Left"
 msgstr "Обернути ліворуч"
 
-#: src/Resources.vala:114
+#: src/Resources.vala:122
 msgid "Rotate the photos left"
 msgstr "Обернути фотографії ліворуч"
 
-#: src/Resources.vala:117
+#: src/Resources.vala:125
 msgid "Flip Horizontally"
 msgstr "Віддзеркалити горизонтально"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:128
 msgid "Flip Vertically"
 msgstr "Віддзеркалити вертикально"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:131
 msgid "_Apply"
 msgstr "_Застосувати"
 
-#: src/Resources.vala:127
+#: src/Resources.vala:135
 msgid "_Forward"
 msgstr "_Далі"
 
-#: src/Resources.vala:130
+#: src/Resources.vala:138
 msgid "Leave _Fullscreen"
 msgstr "Вийти з _повноекранного режиму"
 
-#: src/Resources.vala:132
+#: src/Resources.vala:140
 msgid "_Next"
 msgstr "_Далі"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:144
 msgid "_Previous"
 msgstr "_Назад"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:147
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: src/Resources.vala:141
+#: src/Resources.vala:149
 msgid "_Revert"
 msgstr "_Відновити"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:151
 msgid "Save _As"
 msgstr "Зберегти _як"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:152
 msgid "Sort _Ascending"
 msgstr "Впорядкувати за з_ростанням"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:153
 msgid "Sort _Descending"
 msgstr "Впорядкувати за сп_аданням"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:154
 msgid "_Stop"
 msgstr "З_упинити"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:155
 msgid "_Undelete"
 msgstr "Від_новити"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:156
 msgid "_Normal Size"
 msgstr "З_вичайний розмір"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:157
 msgid "Best _Fit"
 msgstr "П_ідібрати розмір"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:166
 msgid "Copy Color Adjustments"
 msgstr "Копіювати коригування кольорів"
 
-#: src/Resources.vala:159
+#: src/Resources.vala:167
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Копіювати коригування кольорів, застосоване до фотографії"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:170
 msgid "Paste Color Adjustments"
 msgstr "Вставити коригування кольорів"
 
-#: src/Resources.vala:163
+#: src/Resources.vala:171
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Застосувати скопійоване коригування кольорів до позначених фотографій"
 
-#: src/Resources.vala:182
+#: src/Resources.vala:190
 msgid "Revert to Original"
 msgstr "Повернутися до початкової"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:192
 msgid "Revert External E_dits"
 msgstr "Скасувати зовнішні з_міни"
 
-#: src/Resources.vala:185
+#: src/Resources.vala:193
 msgid "Revert to the master photo"
 msgstr "Повернутися до початкової фотографії"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:196
 msgid "Set selected image to be the new desktop background"
 msgstr "Зробити позначене зображення новим зображенням тла стільниці"
 
-#: src/Resources.vala:189
+#: src/Resources.vala:197
 msgid "Set as _Desktop Slideshow…"
 msgstr "Зробити _показом слайдів стільниці…"
 
-#: src/Resources.vala:192
+#: src/Resources.vala:200
 msgid "Undo"
 msgstr "Вернути"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:203
 msgid "Redo"
 msgstr "Повторити"
 
-#: src/Resources.vala:201
+#: src/Resources.vala:209
 msgid "Make Key Photo for Event"
 msgstr "Зробити ключовою фотографією події"
 
-#: src/Resources.vala:204
+#: src/Resources.vala:212
 msgid "New Event"
 msgstr "Створити запис події"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:214
 msgid "Move Photos"
 msgstr "Пересунути фотографії"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:215
 msgid "Move photos to an event"
 msgstr "Пересунути фотографії до події"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:218
 msgid "Merge"
 msgstr "Об’єднати"
 
-#: src/Resources.vala:211
+#: src/Resources.vala:219
 msgid "Combine events into a single event"
 msgstr "Поєднати події у спільну групу подій"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:222
 msgid "Set Rating"
 msgstr "Оцінити"
 
-#: src/Resources.vala:215
+#: src/Resources.vala:223
 msgid "Change the rating of your photo"
 msgstr "Змінити оцінку вашої фотографії"
 
-#: src/Resources.vala:218
+#: src/Resources.vala:226
 msgid "Increase Rating"
 msgstr "Збільшити оцінку"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:229
 msgid "Decrease Rating"
 msgstr "Зменшити оцінку"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:232
 msgid "Unrated"
 msgstr "Без оцінки"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:233
 msgid "Rate Unrated"
 msgstr "Оцінити фотографії без оцінки"
 
-#: src/Resources.vala:226
+#: src/Resources.vala:234
 msgid "Setting as unrated"
 msgstr "Зняти оцінки"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:235
 msgid "Remove any ratings"
 msgstr "Вилучити всі оцінки"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:238
 msgid "Rejected"
 msgstr "Відкинуто"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:239
 msgid "Rate Rejected"
 msgstr "Оцінку відкинуто"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:240
 msgid "Setting as rejected"
 msgstr "Позначити як відкинуту"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:241
 msgid "Set rating to rejected"
 msgstr "Позначити оцінку як відкинуту"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:244
 msgid "Rejected Only"
 msgstr "Лише відкинуті"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:245
 msgid "Show only rejected photos"
 msgstr "Показати лише відкинуті фотографії"
 
-#: src/Resources.vala:240
+#: src/Resources.vala:248
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Показати всі фотографії, зокрема відкинуті"
 
 #. Button tooltip
-#: src/Resources.vala:244
+#: src/Resources.vala:252
 msgid "Show all photos"
 msgstr "Показати всі фотографії"
 
-#: src/Resources.vala:247
+#: src/Resources.vala:255
 msgid "Display each photo’s rating"
 msgstr "Показувати оцінки всіх фотографій"
 
-#: src/Resources.vala:250
+#: src/Resources.vala:258
 msgid "Filter Photos"
 msgstr "Фільтрувати фотографії"
 
-#: src/Resources.vala:251
+#: src/Resources.vala:259
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Обмежити кількість показаних фотографій за допомогою фільтра"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:262
 msgid "Duplicate"
 msgstr "Дублювати"
 
-#: src/Resources.vala:255
+#: src/Resources.vala:263
 msgid "Make a duplicate of the photo"
 msgstr "Створити дублікат фотографії"
 
-#: src/Resources.vala:259
+#: src/Resources.vala:267
 msgid "_Print…"
 msgstr "Над_рукувати…"
 
-#: src/Resources.vala:261
+#: src/Resources.vala:269
 msgid "Pu_blish…"
 msgstr "О_прилюднити…"
 
 #. Button label
-#: src/Resources.vala:267
+#: src/Resources.vala:275
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Змінити заголовок"
 
 #. Button label
-#: src/Resources.vala:271
+#: src/Resources.vala:279
 msgid "Edit Comment"
 msgstr "Зміна коментаря"
 
-#: src/Resources.vala:277
+#: src/Resources.vala:285
 msgid "Adjust Date and Time"
 msgstr "Скоригувати дату і час"
 
 #. Dialog title
-#: src/Resources.vala:282
+#: src/Resources.vala:290
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Додавання міток"
 
-#: src/Resources.vala:293
+#: src/Resources.vala:301
 msgid "_Find…"
 msgstr "З_найти…"
 
-#: src/Resources.vala:297
+#: src/Resources.vala:305
 msgid "_Flag"
 msgstr "_Позначити"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:307
 msgid "Un_flag"
 msgstr "Зн_яти позначення"
 
-#: src/Resources.vala:304
+#: src/Resources.vala:312
 msgid "Modify Faces"
 msgstr "Змінити обличчя"
 
-#: src/Resources.vala:305
+#: src/Resources.vala:313
 msgid "Delete Face"
 msgstr "Вилучити обличчя"
 
-#: src/Resources.vala:311
+#: src/Resources.vala:319
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Не вдалося запустити редактор: %s"
 
-#: src/Resources.vala:316
+#: src/Resources.vala:324
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Додати мітку «%s»"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:319
+#: src/Resources.vala:327
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Додати мітки «%s» і «%s»"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:324
+#: src/Resources.vala:332
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "додавання міток"
 
-#: src/Resources.vala:329
+#: src/Resources.vala:337
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "Ви_лучити мітку «%s»"
 
-#: src/Resources.vala:333
+#: src/Resources.vala:341
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Вилучити мітку «%s»"
 
-#: src/Resources.vala:336
+#: src/Resources.vala:344
 msgid "Delete Tag"
 msgstr "Вилучити мітку"
 
-#: src/Resources.vala:342
+#: src/Resources.vala:350
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Пере_йменувати мітку «%s»…"
 
-#: src/Resources.vala:346
+#: src/Resources.vala:354
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Перейменувати мітку «%s» на «%s»"
 
-#: src/Resources.vala:352
+#: src/Resources.vala:360
 msgid "Modify Tags"
 msgstr "Змінити мітки"
 
-#: src/Resources.vala:355
+#: src/Resources.vala:363
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
@@ -6305,7 +6285,7 @@ msgstr[1] "Додати до фотографій мітку «%s»"
 msgstr[2] "Додати до фотографій мітку «%s»"
 msgstr[3] "Додати до фотографії мітку «%s»"
 
-#: src/Resources.vala:361
+#: src/Resources.vala:369
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
@@ -6314,7 +6294,7 @@ msgstr[1] "Додати до позначених фотографій мітк�
 msgstr[2] "Додати до позначених фотографій мітку «%s»"
 msgstr[3] "Додати до позначеної фотографії мітку «%s»"
 
-#: src/Resources.vala:367
+#: src/Resources.vala:375
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
@@ -6323,7 +6303,7 @@ msgstr[1] "Вилучити мітку «%s» з _фотографій"
 msgstr[2] "Вилучити мітку «%s» з _фотографій"
 msgstr[3] "Вилучити мітку «%s» з _фотографії"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:381
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
@@ -6332,42 +6312,42 @@ msgstr[1] "Вилучення мітки «%s» з фотографій"
 msgstr[2] "Вилучення мітки «%s» з фотографій"
 msgstr[3] "Вилучення мітки «%s» з фотографії"
 
-#: src/Resources.vala:379
+#: src/Resources.vala:387
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "Не вдалося перейменувати мітку на «%s», оскільки мітка з такою назвою вже "
 "існує."
 
-#: src/Resources.vala:383
+#: src/Resources.vala:391
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
 "Не вдалося перейменувати пошук на «%s», оскільки пошук з такою назвою вже "
 "існує."
 
-#: src/Resources.vala:388
+#: src/Resources.vala:396
 msgid "Delete Search"
 msgstr "Вилучити пошук"
 
-#: src/Resources.vala:395
+#: src/Resources.vala:403
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Перейменувати пошук «%s» на «%s»"
 
-#: src/Resources.vala:399
+#: src/Resources.vala:407
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Вилучити пошук «%s»"
 
-#: src/Resources.vala:403
+#: src/Resources.vala:411
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 "Не вдалося перейменувати обличчя на «%s», оскільки обличчя з такою назвою "
 "вже існує."
 
-#: src/Resources.vala:407
+#: src/Resources.vala:415
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
@@ -6376,7 +6356,7 @@ msgstr[1] "Вилучити обличчя «%s» з _фотографій"
 msgstr[2] "Вилучити обличчя «%s» з _фотографій"
 msgstr[3] "Вилучити обличчя «%s» з _фотографії"
 
-#: src/Resources.vala:412
+#: src/Resources.vala:420
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -6386,81 +6366,81 @@ msgstr[2] "Вилучення обличчя «%s» з фотографій"
 msgstr[3] "Вилучення обличчя «%s» з фотографії"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:418 src/Resources.vala:423
+#: src/Resources.vala:426 src/Resources.vala:431
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "Вив_чити обличчя «%s» з фотографій"
 
-#: src/Resources.vala:431
+#: src/Resources.vala:439
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Пере_йменувати обличчя «%s»…"
 
-#: src/Resources.vala:435
+#: src/Resources.vala:443
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Перейменувати обличчя «%s» на «%s»"
 
-#: src/Resources.vala:439
+#: src/Resources.vala:447
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "Ви_лучити обличчя «%s»"
 
-#: src/Resources.vala:443
+#: src/Resources.vala:451
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Вилучити обличчя «%s»"
 
-#: src/Resources.vala:669
+#: src/Resources.vala:677
 #, c-format
 msgid "Rate %s"
 msgstr "Оцінка %s"
 
-#: src/Resources.vala:670
+#: src/Resources.vala:678
 #, c-format
 msgid "Set rating to %s"
 msgstr "Встановити оцінку %s"
 
-#: src/Resources.vala:671
+#: src/Resources.vala:679
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Встановлення оцінки %s"
 
-#: src/Resources.vala:673
+#: src/Resources.vala:681
 #, c-format
 msgid "Display %s"
 msgstr "Показати %s"
 
-#: src/Resources.vala:674
+#: src/Resources.vala:682
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Показати лише фотографії з оцінкою %s"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:683
 #, c-format
 msgid "%s or Better"
 msgstr "%s або краща"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s or Better"
 msgstr "Показати %s або кращі"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Показати лише фотографії з оцінкою %s або кращою"
 
-#: src/Resources.vala:775
+#: src/Resources.vala:783
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Відкрити вказаний каталог фотографій у програмі для керування файлами"
 
-#: src/Resources.vala:778
+#: src/Resources.vala:786
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Не вдалося відкрити у програмі для керування файлами: %s"
 
-#: src/Resources.vala:786
+#: src/Resources.vala:794
 msgid "Select all items"
 msgstr "Позначити всі пункти"
 
@@ -6473,14 +6453,14 @@ msgstr "Позначити всі пункти"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:845
+#: src/Resources.vala:853
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:851
+#: src/Resources.vala:859
 #, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
@@ -6489,7 +6469,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6497,7 +6477,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:870
 #, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
@@ -6506,7 +6486,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:875
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d %Y"
@@ -6776,6 +6756,30 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid ""
+#~ "A file required for publishing is unavailable. Publishing to Flickr can’t "
+#~ "continue."
+#~ msgstr ""
+#~ "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
+#~ "оприлюднення на Flickr неможливе."
+
+#, c-format
+#~ msgid "Could not load UI: %s"
+#~ msgstr "Не вдалося завантажити інтерфейс: %s"
+
+#~ msgid ""
+#~ "A file required for publishing is unavailable. Publishing to YouTube "
+#~ "can’t continue."
+#~ msgstr ""
+#~ "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
+#~ "оприлюднення на Youtube неможливе."
+
+#~ msgid "Create"
+#~ msgstr "Створити"
+
+#~ msgid "Name"
+#~ msgstr "Назва"
 
 #~ msgid "_Match photo aspect ratio"
 #~ msgstr "З_берігати пропорції фотографій"
