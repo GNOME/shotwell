@@ -8,24 +8,28 @@
 		<title type="text">Shotwell</title>
 
 		<credit type="author">
-			<name>Jim Nelson</name>
+			<name its:translate="no">Jim Nelson</name>
 			<email>jim@yorba.org</email>
 		</credit>
 		<credit type="author">
-			<name>Allison Barlow</name>
+			<name its:translate="no">Allison Barlow</name>
 			<email>allison@yorba.org</email>
 		</credit>
 		<credit type="author">
-			<name>Robert Ancell</name>
+			<name its:translate="no">Robert Ancell</name>
 			<email>robert.ancell@canonical.com</email>
 		</credit>
 		<credit type="author">
-			<name>Peter Smith</name>
+			<name its:translate="no">Peter Smith</name>
 			<email>pdo.smith@gmail.com</email>
 		</credit>
 		<credit type="author">
-			<name>Phil Bull</name>
+			<name its:translate="no">Phil Bull</name>
 			<email>philbull@gmail.com</email>
+		</credit>
+		<credit type="author">
+			<name its:translate="no">Jens Georg</name>
+			<email>mail@jensge.org</email>
 		</credit>
 	</info>
 

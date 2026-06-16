@@ -1,0 +1,200 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="keyboard-shortcuts">
+
+    <info>
+        <link type="guide" xref="index#other"/>
+        <desc>Complete list of all keyboard shortcuts available in Shotwell.</desc>
+        
+        <link type="prev" xref="other-plugins"/>
+        <link type="next" xref="other-missing"/>
+    </info>
+
+    <title>Keyboard Shortcuts</title>
+
+    <p>Shotwell provides a variety of keyboard shortcuts to help you navigate, organize, and edit your photo library. Below is a comprehensive listing organized by category.</p>
+
+    <section id="global">
+    <title>Global Shortcuts</title>
+    <table rules="rows" frame="top bottom">
+        <tr><td><p><keyseq><key>Ctrl</key><key>Q</key></keyseq></p></td><td><p>Quit Shotwell</p></td></tr>
+        <tr><td><p><key>F1</key></p></td><td><p>Open Help</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>F</key></keyseq> / <key>F8</key></p></td><td><p>Toggle Search Bar</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>S</key></keyseq></p></td><td><p>New Saved Search</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Z</key></keyseq></p></td><td><p>Undo</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>Z</key></keyseq></p></td><td><p>Redo</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>A</key></keyseq></p></td><td><p>Select All</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>I</key></keyseq></p></td><td><p>Import From Folder</p></td></tr>
+    </table>
+    </section>
+
+    <section id="navigation-single">
+    <title>Navigation - Single photo view</title>
+    <table rules="rows" frame="top bottom">
+        <tr><td><p><key>Left</key> / <key>BackSpace</key></p></td><td><p>Previous photo (single-photo view)</p></td></tr>
+        <tr><td><p><key>Right</key> / <key>Space</key></p></td><td><p>Next photo (single-photo view)</p></td></tr>
+        <tr><td><p><key>Esc</key></p></td><td><p>Return to collection (single-photo view)</p></td></tr>
+        <tr><td><p><key>Return</key></p></td><td><p>Return to collection (single-photo view, unless in fullscreen)</p></td></tr>
+    </table>
+    </section>
+    <section id="navigation-thumbs">
+    <title>Navigation - Thumbnail grid</title>
+    <table rules="rows" frame="top bottom">
+        <tr><td><p><key>Up</key></p></td><td><p>Move cursor up</p></td></tr>
+        <tr><td><p><key>Down</key></p></td><td><p>Move cursor down</p></td></tr>
+        <tr><td><p><key>Home</key></p></td><td><p>Jump to first item</p></td></tr>
+        <tr><td><p><key>End</key></p></td><td><p>Jump to last item</p></td></tr>
+        <tr><td><p><key>Page_Up</key></p></td><td><p>Page up</p></td></tr>
+        <tr><td><p><key>Page_Down</key></p></td><td><p>Page down</p></td></tr>
+        <tr><td><p><key>Return</key></p></td><td><p>Open selected photo</p></td></tr>
+        <tr><td><p><key>Space</key></p></td><td><p>Toggle selection of item under cursor</p></td></tr>
+    </table>
+    <p>Extends the current selection when used with <key>Shift</key>.</p>
+    </section>
+
+    <section id="view">
+    <title>View &amp; Display</title>
+    <table rules="rows" frame="top bottom">
+        <tr><td><p><key>F11</key></p></td><td><p>Toggle fullscreen</p></td></tr>
+        <tr><td><p><key>F5</key></p></td><td><p>Start slideshow</p></td></tr>
+        <tr><td><p><key>Esc</key></p></td><td><p>Leave fullscreen and slideshow</p></td></tr>
+        <tr><td><p><key>F9</key></p></td><td><p>Toggle sidebar</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>F9</key></keyseq></p></td><td><p>Toggle toolbar</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>I</key></keyseq></p></td><td><p>Toggle basic information panel</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>X</key></keyseq></p></td><td><p>Toggle extended information window</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>T</key></keyseq></p></td><td><p>Toggle titles display</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>C</key></keyseq></p></td><td><p>Toggle comments display</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>G</key></keyseq></p></td><td><p>Toggle tags display</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>N</key></keyseq></p></td><td><p>Toggle ratings display</p></td></tr>
+    </table>
+    </section>
+
+    <section id="zoom">
+    <title>Zoom &amp; Thumbnail Size</title>
+    <table rules="rows" frame="top bottom">
+        <tr><td><p><keyseq><key>Ctrl</key><key>+</key></keyseq> / <key>=</key> / <key>+</key></p></td><td><p>Zoom in / increase thumbnail size</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>-</key></keyseq> / <key>-</key> / <key>_</key></p></td><td><p>Zoom out / decrease thumbnail size</p></td></tr>
+        <tr><td><p><key>Ctrl</key> + mouse scroll wheel</p></td><td><p>Adjust thumbnail size / zoom</p></td></tr>
+    </table>
+    </section>
+
+    <section id="editing">
+    <title>Single Photo</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><key>Left</key> / <key>KP_4</key></p></td><td><p>Pan left</p></td></tr>
+        <tr><td><p><key>Right</key> / <key>KP_6</key></p></td><td><p>Pan right</p></td></tr>
+        <tr><td><p><key>Up</key> / <key>KP_8</key></p></td><td><p>Pan up</p></td></tr>
+        <tr><td><p><key>Down</key> / <key>KP_2</key></p></td><td><p>Pan down</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>0</key></keyseq></p></td><td><p>Fit to page</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>1</key></keyseq> / <key>KP_Divide</key></p></td><td><p>Zoom to 100%</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>2</key></keyseq> / <key>KP_Multiply</key></p></td><td><p>Zoom to 200%</p></td></tr>
+    </table>
+    <p>Holding <key>Shift</key> will show the unmodified photo, if exists</p>
+    </section>
+
+    <section id="rating-filtering">
+    <title>Rating &amp; Filtering</title>
+    <p>Filter photos by rating:</p>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>0</key></keyseq></p></td><td><p>Show all photos</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>1</key></keyseq></p></td><td><p>Filter by ★</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>2</key></keyseq></p></td><td><p>Filter by ★★</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>3</key></keyseq></p></td><td><p>Filter by ★★★</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>4</key></keyseq></p></td><td><p>Filter by ★★★★</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>5</key></keyseq></p></td><td><p>Filter by ★★★★★</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>8</key></keyseq></p></td><td><p>Show rejected only</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>9</key></keyseq></p></td><td><p>Show all + rejected</p></td></tr>
+    </table>
+    <p>Set rating on selected photos:</p>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><key>1</key></p></td><td><p>Rate ★</p></td></tr>
+        <tr><td><p><key>2</key></p></td><td><p>Rate ★★</p></td></tr>
+        <tr><td><p><key>3</key></p></td><td><p>Rate ★★★</p></td></tr>
+        <tr><td><p><key>4</key></p></td><td><p>Rate ★★★★</p></td></tr>
+        <tr><td><p><key>5</key></p></td><td><p>Rate ★★★★★</p></td></tr>
+        <tr><td><p><key>0</key></p></td><td><p>Clear rating (unrated)</p></td></tr>
+        <tr><td><p><key>9</key></p></td><td><p>Mark as rejected</p></td></tr>
+        <tr><td><p><key>&gt;</key> / <key>.</key></p></td><td><p>Increase rating</p></td></tr>
+        <tr><td><p><key>&lt;</key> / <key>,</key></p></td><td><p>Decrease rating</p></td></tr>
+    </table>
+    </section>
+
+    <section id="photo-operations">
+    <title>Photo Operations</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>G</key></keyseq> / <key>/</key></p></td><td><p>Toggle flag on selected photos</p></td></tr>
+        <tr><td><p><key>Delete</key></p></td><td><p>Move to trash</p></td></tr>
+        <tr><td><p><keyseq><key>Shift</key><key>Delete</key></keyseq></p></td><td><p>Remove from library</p></td></tr>
+        <tr><td><p><key>F2</key></p></td><td><p>Edit title</p></td></tr>
+        <tr><td><p><key>F3</key></p></td><td><p>Edit comment</p></td></tr>
+        <tr><td><p><key>F4</key></p></td><td><p>Adjust date and time</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>M</key></keyseq></p></td><td><p>Show in file manager</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>E</key></keyseq></p></td><td><p>Export selected photos</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Return</key></keyseq></p></td><td><p>Open with external editor</p></td></tr>
+    </table>
+    </section>
+
+    <section id="rotate">
+    <title>Rotate</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>R</key></keyseq> / <key>]</key></p></td><td><p>Rotate clockwise (right)</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>R</key></keyseq> / <key>[</key></p></td><td><p>Rotate counter-clockwise (left)</p></td></tr>
+    </table>
+    </section>
+
+    <section id="editing-tools">
+    <title>Editing Tools</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>E</key></keyseq></p></td><td><p>Enhance</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>O</key></keyseq></p></td><td><p>Crop</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>A</key></keyseq></p></td><td><p>Straighten</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Y</key></keyseq></p></td><td><p>Red-eye reduction</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>D</key></keyseq></p></td><td><p>Adjust (colors, levels)</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>C</key></keyseq></p></td><td><p>Copy color adjustments</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>Shift</key><key>V</key></keyseq></p></td><td><p>Paste color adjustments</p></td></tr>
+        <tr><td><p><key>Return</key> / <key>KP_Enter</key></p></td><td><p>Apply current editing tool (crop, straighten, red-eye, adjust)</p></td></tr>
+        <tr><td><p><key>Esc</key></p></td><td><p>Cancel current editing operation</p></td></tr>
+    </table>
+    </section>
+
+    <section id="histogram">
+    <title>Histogram Adjustment</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><key>Left</key> / <key>Up</key></p></td><td><p>Move left nub left</p></td></tr>
+        <tr><td><p><key>Right</key> / <key>Down</key></p></td><td><p>Move left nub right</p></td></tr>
+        <tr><td><p><keyseq><key>Shift</key><key>Left</key></keyseq></p></td><td><p><keyseq><key>Shift</key><key>Up</key></keyseq></p></td><td><p>Move right nub left</p></td></tr>
+        <tr><td><p><keyseq><key>Shift</key><key>Right</key></keyseq></p></td><td><p><keyseq><key>Shift</key><key>Down</key></keyseq></p></td><td><p>Move right nub right</p></td></tr>
+    </table>
+    <p>Hold <key>Ctrl</key> while pressing arrow keys to move by 5 units instead of 1</p>
+    </section>
+
+    <section id="tags-events">
+    <title>Tags &amp; Events</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>T</key></keyseq></p></td><td><p>Add tags</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>M</key></keyseq></p></td><td><p>Modify tags</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>N</key></keyseq></p></td><td><p>New event</p></td></tr>
+        <tr><td><p><key>F2</key></p></td><td><p>Rename tag (sidebar tree, single selected)</p></td></tr>
+        <tr><td><p><key>Delete</key></p></td><td><p>Delete tag/entry (sidebar tree)</p></td></tr>
+        <tr><td><p><key>Return</key></p></td><td><p>Toggle branch expansion (sidebar tree)</p></td></tr>
+    </table>
+    </section>
+
+    <section id="slideshow">
+    <title>Slideshow</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><key>Space</key></p></td><td><p>Play / pause slideshow</p></td></tr>
+        <tr><td><p><key>Esc</key></p></td><td><p>Leave slideshow</p></td></tr>
+    </table>
+    </section>
+
+    <section id="faces">
+    <title>Face Tagging</title>
+    <table rules="rows" frame="top bottom">        
+        <tr><td><p><keyseq><key>Ctrl</key><key>R</key></keyseq></p></td><td><p>Remove face from photo (face browser)</p></td></tr>
+        <tr><td><p><keyseq><key>Ctrl</key><key>E</key></keyseq></p></td><td><p>Rename face (face browser)</p></td></tr>
+        <tr><td><p><key>Esc</key></p></td><td><p>Cancel face editing / delete face shape</p></td></tr>
+        <tr><td><p><key>Return</key></p></td><td><p>Confirm face shape / apply faces</p></td></tr>
+    </table>
+    </section>
+</page>
