@@ -312,19 +312,10 @@ public class DirectPhotoPage : EditingHostPage {
         }
 
         // Check if we can write the target format
-        bool is_writeable = get_photo().get_file_format().can_write();
         var file = photo.get_file();
-        try {
-           var info = yield file.query_info_async(FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE, Priority.DEFAULT, null);
-           is_writeable = is_writeable && info.get_attribute_boolean(FileAttribute.ACCESS_CAN_WRITE);
-        } catch (Error error) {
-            critical("Failed to get writeable status: %s", error.message);
-        }
-        
-        string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
 
-        var dialog = new Gtk.AlertDialog(_("Lose changes to %s?"), photo.get_basename());
-        dialog.set_buttons({save_option, _("Close _without Saving")});
+        var dialog = new Gtk.AlertDialog(_("%s has unsaved changes. If you quit now, these changes will be lost."), photo.get_basename());
+        dialog.set_buttons({_("Discard changes"), _("_Cancel")});
         int result = -1;
         try {
             result = yield dialog.choose(AppWindow.get_instance(), null);
@@ -332,21 +323,9 @@ public class DirectPhotoPage : EditingHostPage {
             critical("Failed to get an answer from dialog: %s", error.message);
         }
 
-        if (result == -1) {
+        if (result == -1 || result == 1) {
             in_shutdown = false;
             return false;
-        }
-
-        if (result == 0) {
-            if (is_writeable)
-                save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
-                    get_photo().get_file_format());
-            else
-                yield save_as();
-        }
-        
-        if (result == 1) {
-            photo.remove_all_transformations(notify);
         }
 
         return true;
