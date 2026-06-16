@@ -126,12 +126,6 @@ public abstract class AppWindow : PageWindow {
         command_manager = new CommandManager();
         command_manager.altered.connect(on_command_manager_altered);
         
-        // Because the first UIManager to associated with an ActionGroup claims the accelerators,
-        // need to create the AppWindow's ActionGroup early on and add it to an application-wide
-        // UIManager.  In order to activate those accelerators, we need to create a dummy UI string
-        // that lists all the common actions.  We build it on-the-fly from the actions associated
-        // with each ActionGroup while we're adding the groups to the UIManager.
-
         add_actions ();
 
         notify["maximized"].connect(on_maximized);
