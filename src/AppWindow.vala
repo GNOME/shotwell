@@ -41,16 +41,23 @@ public abstract class AppWindow : PageWindow {
         Variant value;
         Gtk.ShortcutAction? action = null;
         Gtk.ShortcutTrigger? trigger = null;
+        Variant? target = null;
         while (iter.get_next(out key, out value)) {
             if (key == "action") {
                 action = new Gtk.NamedAction(value.get_string());
             } else if (key == "accel") {
                 trigger = Gtk.ShortcutTrigger.parse_string(value.get_string());
+            } else if (key == "target") {
+                // We always assume targets are string here in this code.
+                target = value;
             }
         }
 
         if (action != null && trigger != null) {
-            controller.add_shortcut(new Gtk.Shortcut(trigger, action));
+            var shortcut = new Gtk.Shortcut(trigger, action);
+            shortcut.set_arguments(target);
+
+            controller.add_shortcut(shortcut);
         }
     }
 
