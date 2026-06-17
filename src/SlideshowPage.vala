@@ -35,8 +35,6 @@ class SlideshowPage : SinglePhotoPage {
         [GtkChild]
         unowned Gtk.DropDown transition_effect_selector;
         [GtkChild]
-        unowned Gtk.Scale transition_effect_hscale;
-        [GtkChild]
         unowned Gtk.SpinButton transition_effect_entry;
         [GtkChild]
         unowned Gtk.Adjustment transition_effect_adjustment;
@@ -98,7 +96,6 @@ class SlideshowPage : SinglePhotoPage {
             bool sensitive = selected != null 
                && selected.get_string() != TransitionEffectsManager.NULL_EFFECT_ID;
            
-            transition_effect_hscale.sensitive = sensitive;
             transition_effect_entry.sensitive = sensitive;
         }
 
