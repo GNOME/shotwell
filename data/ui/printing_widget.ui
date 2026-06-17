@@ -135,8 +135,7 @@
                     </child>
                     <child>
                       <object class="GtkToggleButton" id="aspect_ratio_check">
-                        <property name="tooltip_text" translatable="yes">Automatically keep image's
-                          aspect ratio</property>
+                        <property name="tooltip_text" translatable="yes">Automatically keep image's aspect ratio</property>
                         <child>
                           <object class="GtkStack">
                             <child>
