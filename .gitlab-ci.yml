@@ -1,38 +1,3 @@
-include:
-  - project: 'gnome/citemplates'
-    file: 'flatpak/flatpak_ci_initiative.yml'
-  - component: 'gitlab.gnome.org/GNOME/citemplates/release-service@master'
-    inputs:
-      dist-job-name: 'flatpak@x86_64'
-      tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
-
-variables:
-  FLATPAK_MODULE: "shotwell"
-  TARBALL_ARTIFACT_PATH: ".flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-dist/${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tar.xz"
-  GIT_SUBMODULE_STRATEGY: recursive
-
-.vars-devel:
-  variables:
-    BUNDLE: "org.gnome.Shotwell.Devel.flatpak"
-    MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
-    RUNTIME_REPO: "https://flathub.org/repo/flathub.flatpakrepo"
-    APP_ID: "org.gnome.Shotwell"
-    TARBALL_ARTIFACT_PATH: ""
-
-flatpak@x86_64:
-    extends: ['.flatpak@x86_64', '.vars-devel']
-
-flatpak@aarch64:
-    extends: ['.flatpak@aarch64', '.vars-devel']
-
-nightly@x86_64:
-    extends: '.publish_nightly'
-    needs: ['flatpak@x86_64']
-
-nightly@aarch64:
-    extends: '.publish_nightly'
-    needs: ['flatpak@aarch64']
-
 docs:
   image: alpine:latest
   script:
@@ -42,13 +7,9 @@ docs:
     - eval `ssh-agent`
     - echo -n $SSH_PRIVATE_KEY | base64 -d | ssh-add -
     - bash build-aux/render-help.sh
-    - scp -r doc-build/html scponly-shotwell-deploy@webstreams.de:doc
+    - scp -v -r doc-build/html scponly-shotwell-deploy@webstreams.de:doc
   artifacts:
     paths:
       - docs.tar
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      changes:
-        - help/**/*
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == "wip/ci"
