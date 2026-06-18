@@ -12,14 +12,16 @@ EOF
 
 ln -s ../help .
 echo "C" >LINGUAS
-cat help/LINGUAS >> LINGUAS
+cat help/LINGUAS >>LINGUAS
 meson setup build
 ninja -C build
 cp -a help/C build/help
-while read -r lang ; do
-    cp -a help/C/figures "build/help/$lang"
-    mkdir -p "html/$lang"
-    yelp-build html -o "html/$lang" build/help/"$lang"/*.page
-done < LINGUAS
+while read -r lang; do
+  cp -a help/C/figures "build/help/$lang"
+  mkdir -p "html/$lang"
+  yelp-build html -o "html/$lang" build/help/"$lang"/*.page
+done <LINGUAS
 mv html/C html/en
+# Temporary fix until the language serving is implemented proper
+cp -a html/en/* html
 tar cf ../docs.tar html
