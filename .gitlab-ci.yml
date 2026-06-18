@@ -47,7 +47,8 @@ docs:
     paths:
       - docs.tar
   rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - help/**/*
-
+    - if: $CI_COMMIT_TAG
