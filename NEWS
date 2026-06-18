@@ -1,3 +1,50 @@
+Shotwell 33.beta
+================
+
+ * Rework printing
+ * Work-around lambda memory leaks
+ * Some clean-up of the codebase
+ * Work-arounds for potential crashes
+ * Fix slideshow settings panel
+ * Fix rating filter selection by keyboard
+ * Add a help overview of the keyboard shortcuts
+ 
+ Publishing:
+  * Add "peek password" icon to Piwigo
+  * Move manual Gtk.Builder code to templated
+  * Show the external authentication wait panel everywhere
+  * Replace the dedicated auth helper app with a simple web
+    server on localhost
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/190
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/243
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/332
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4939
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5191
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/957
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/109
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Martin <miles@filmsi.net>
+ - luming zh <lumingzh@qq.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Aurimas Aurimas Černius <aurimas.cernius@mailo.com>
+ - J-Paul Bérard <arverne@wanadoo.fr>
+
+Added/updated translations:
+ - fr.po, courtesy of Guillaume Bernard
+ - ka.po, courtesy of Ekaterine Papava
+ - lt.po, courtesy of Aurimas Černius
+ - sl.po, courtesy of Martin Srebotnjak
+ - uk.po, courtesy of Yuri Chornoivan
+ - zh_CN.po, courtesy of lumingzh
+
 Shotwell 33.alpha.2
 ===================
 

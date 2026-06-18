@@ -1,5 +1,5 @@
 project('shotwell', ['vala', 'c'],
-        version : '33.alpha.2',
+        version : '33.beta',
         meson_version : '>= 0.59.0',
         default_options : ['buildtype=debugoptimized'])
 
