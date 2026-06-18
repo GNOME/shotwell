@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-12 19:14+0000\n"
+"POT-Creation-Date: 2026-06-17 21:54+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -1142,7 +1142,7 @@ msgstr "Najdi"
 msgid "_File"
 msgstr "_Datoteka"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/direct/DirectPhotoPage.vala:324 src/Resources.vala:150
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/Resources.vala:150
 msgid "_Save"
 msgstr "_Shrani"
 
@@ -1306,11 +1306,11 @@ msgstr "Označi obraze oseb na fotografijah"
 msgid "Faces"
 msgstr "Obrazi"
 
-#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:159
+#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:156
 msgid "Go to the previous photo"
 msgstr "Skoči na predhodno sliko"
 
-#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:173
+#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:170
 msgid "Go to the next photo"
 msgstr "Skoči na naslednjo fotografijo"
 
@@ -1504,8 +1504,8 @@ msgstr "Uvozi vse predstavnostne datoteke v knjižnico"
 msgid "_Log in"
 msgstr "_Prijava"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:221 src/AppWindow.vala:246 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/library/LibraryWindow.vala:736
-#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:132
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:222 src/AppWindow.vala:247 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788 src/Dialogs.vala:819 src/direct/DirectPhotoPage.vala:318
+#: src/library/LibraryWindow.vala:736 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:132
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -1664,34 +1664,30 @@ msgid "cm"
 msgstr "cm"
 
 #: data/ui/printing_widget.ui:138
-msgid ""
-"Automatically keep image's\n"
-"                          aspect ratio"
-msgstr ""
-"Samodejno ohrani razmerje\n"
-"                          stranic slike"
+msgid "Automatically keep image's aspect ratio"
+msgstr "Samodejno ohrani razmerje stranic slike"
 
-#: data/ui/printing_widget.ui:177
+#: data/ui/printing_widget.ui:176
 msgid "_Autosize:"
 msgstr "_Samodejna velikost:"
 
-#: data/ui/printing_widget.ui:208
+#: data/ui/printing_widget.ui:207
 msgid "<b>Titles</b>"
 msgstr "<b>Naslovi</b>"
 
-#: data/ui/printing_widget.ui:218
+#: data/ui/printing_widget.ui:217
 msgid "Print image _title"
 msgstr "Natisni naslov slike"
 
-#: data/ui/printing_widget.ui:246
+#: data/ui/printing_widget.ui:245
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Točkovna ločljivost</b>"
 
-#: data/ui/printing_widget.ui:258
+#: data/ui/printing_widget.ui:257
 msgid "_Output photo at:"
 msgstr "_Izvozi fotografijo na:"
 
-#: data/ui/printing_widget.ui:285
+#: data/ui/printing_widget.ui:284
 msgid "pixels per inch"
 msgstr "točk na palec"
 
@@ -1836,7 +1832,7 @@ msgstr "Čas trajanja prehoda med slikami (v sekundah)"
 msgid "Show t_itle"
 msgstr "Pokaži _naslov"
 
-#: data/ui/slideshow_settings.ui:137 data/ui/slideshow_settings.ui:146
+#: data/ui/slideshow_settings.ui:118 data/ui/slideshow_settings.ui:127
 msgid "seconds"
 msgstr "sekund"
 
@@ -1958,7 +1954,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Obiščite domačo stran programa Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:311 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
@@ -2445,36 +2441,36 @@ msgstr "Mape %s ni mogoče pripraviti za zapisovanje."
 msgid "Could not make directory %s writable: %s"
 msgstr "Mape %s ni mogoče pripraviti za zapisovanje: %s"
 
-#: src/AppWindow.vala:185
+#: src/AppWindow.vala:186
 msgid "Ok"
 msgstr "V redu"
 
-#: src/AppWindow.vala:237
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Datoteka %s že obstaja. Ali jo želite zamenjati?"
 
-#: src/AppWindow.vala:240
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "Spor pri izvozu datotek"
 
-#: src/AppWindow.vala:244
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "Uveljavi to razrešitev spora pri vseh nadaljnjih sporih"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "Pre_skoči"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
-#: src/AppWindow.vala:269
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n"
@@ -2485,21 +2481,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:308
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "Obišči spletišče Shotwell"
 
-#: src/AppWindow.vala:320
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ni mogoče prikazati pomoči: %s"
 
-#: src/AppWindow.vala:328
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ni se mogoče povezati s podatkovno zbirko hroščev: %s"
 
-#: src/AppWindow.vala:336
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ni mogoče prikazati pogostih vprašanj: %s"
@@ -4049,33 +4045,30 @@ msgstr ""
 msgid "Unable to open photo %s. Sorry."
 msgstr "Fotografije %s ni mogoče odpreti. Oprostite."
 
-#: src/direct/DirectPhotoPage.vala:324
-msgid "_Save a Copy"
-msgstr "_Shrani kopijo"
-
-#: src/direct/DirectPhotoPage.vala:326
+#. Check if we can write the target format
+#: src/direct/DirectPhotoPage.vala:317
 #, c-format
-msgid "Lose changes to %s?"
-msgstr "Zavrzi spremembe %s?"
+msgid "%s has unsaved changes. If you quit now, these changes will be lost."
+msgstr "%s ima neshranjene spremembe. Če zdaj zaprete program, se bodo te spremembe izgubile."
 
-#: src/direct/DirectPhotoPage.vala:327
-msgid "Close _without Saving"
-msgstr "Zapri _brez shranjevanja"
+#: src/direct/DirectPhotoPage.vala:318
+msgid "Discard changes"
+msgstr "Zavrzi spremembe"
 
-#: src/direct/DirectPhotoPage.vala:372
+#: src/direct/DirectPhotoPage.vala:351
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Napaka med shranjevanjem v: %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:408
+#: src/direct/DirectPhotoPage.vala:387
 msgid "Save As"
 msgstr "Shrani kot"
 
-#: src/direct/DirectPhotoPage.vala:424
+#: src/direct/DirectPhotoPage.vala:403
 msgid "Supported image formats"
 msgstr "Podprte vrste datotek"
 
-#: src/direct/DirectPhotoPage.vala:433
+#: src/direct/DirectPhotoPage.vala:412
 msgid "All files"
 msgstr "Vse datoteke"
 
@@ -5647,7 +5640,7 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %d. %m. %Y"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:134
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:131
 msgid "Slideshow"
 msgstr "Predstavitev"
 
@@ -5835,40 +5828,40 @@ msgstr "★★★★★+ Ocena"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:157
+#: src/SlideshowPage.vala:154
 msgid "Back"
 msgstr "Nazaj"
 
-#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:273
+#: src/SlideshowPage.vala:161 src/SlideshowPage.vala:270
 msgid "Pause"
 msgstr "Premor"
 
-#: src/SlideshowPage.vala:166 src/SlideshowPage.vala:274
+#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:271
 msgid "Pause the slideshow"
 msgstr "Naredi premor predstavitve"
 
-#: src/SlideshowPage.vala:171
+#: src/SlideshowPage.vala:168
 msgid "Next"
 msgstr "Naslednja"
 
-#: src/SlideshowPage.vala:180
+#: src/SlideshowPage.vala:177
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: src/SlideshowPage.vala:181
+#: src/SlideshowPage.vala:178
 msgid "Change slideshow settings"
 msgstr "Spremeni nastavitve predstavitve"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:237
+#: src/SlideshowPage.vala:234
 msgid "All photo source files are missing."
 msgstr "Manjkajo vse izvorne datoteke fotografije."
 
-#: src/SlideshowPage.vala:269
+#: src/SlideshowPage.vala:266
 msgid "Play"
 msgstr "Predvajaj"
 
-#: src/SlideshowPage.vala:270
+#: src/SlideshowPage.vala:267
 msgid "Continue the slideshow"
 msgstr "Nadaljuj s predstavitvijo"
 
