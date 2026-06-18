@@ -33,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-13 15:21+0000\n"
-"PO-Revision-Date: 2026-06-14 07:48+0800\n"
+"POT-Creation-Date: 2026-06-17 21:54+0000\n"
+"PO-Revision-Date: 2026-06-18 08:03+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -1359,8 +1359,7 @@ msgstr "查找"
 msgid "_File"
 msgstr "文件(_F)"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50
-#: src/direct/DirectPhotoPage.vala:324 src/Resources.vala:150
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:50 src/Resources.vala:150
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -1562,11 +1561,11 @@ msgstr "标注照片中的人脸"
 msgid "Faces"
 msgstr "面部"
 
-#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:159
+#: data/ui/editing-toolbar.ui:256 src/SlideshowPage.vala:156
 msgid "Go to the previous photo"
 msgstr "跳到上一张照片"
 
-#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:173
+#: data/ui/editing-toolbar.ui:264 src/SlideshowPage.vala:170
 msgid "Go to the next photo"
 msgstr "跳到下一张照片"
 
@@ -1821,11 +1820,11 @@ msgid "_Log in"
 msgstr "登录(_L)"
 
 #: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43
-#: src/AppWindow.vala:221 src/AppWindow.vala:246 src/Dialogs.vala:20
+#: src/AppWindow.vala:222 src/AppWindow.vala:247 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/library/LibraryWindow.vala:736
-#: src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401
-#: src/Resources.vala:132
+#: src/Dialogs.vala:819 src/direct/DirectPhotoPage.vala:318
+#: src/library/LibraryWindow.vala:736 src/publishing/PublishingUI.vala:172
+#: src/publishing/PublishingUI.vala:401 src/Resources.vala:132
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -1989,34 +1988,30 @@ msgid "cm"
 msgstr "厘米"
 
 #: data/ui/printing_widget.ui:138
-msgid ""
-"Automatically keep image's\n"
-"                          aspect ratio"
-msgstr ""
-"自动保持图像的\n"
-"            宽高比"
+msgid "Automatically keep image's aspect ratio"
+msgstr "自动保持图像的宽高比"
 
-#: data/ui/printing_widget.ui:177
+#: data/ui/printing_widget.ui:176
 msgid "_Autosize:"
 msgstr "自动(_A)："
 
-#: data/ui/printing_widget.ui:208
+#: data/ui/printing_widget.ui:207
 msgid "<b>Titles</b>"
 msgstr "<b>标题</b>"
 
-#: data/ui/printing_widget.ui:218
+#: data/ui/printing_widget.ui:217
 msgid "Print image _title"
 msgstr "打印图像标题(_T)"
 
-#: data/ui/printing_widget.ui:246
+#: data/ui/printing_widget.ui:245
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>像素分辨率</b>"
 
-#: data/ui/printing_widget.ui:258
+#: data/ui/printing_widget.ui:257
 msgid "_Output photo at:"
 msgstr "输出照片于(_O)："
 
-#: data/ui/printing_widget.ui:285
+#: data/ui/printing_widget.ui:284
 msgid "pixels per inch"
 msgstr "每英寸像素数"
 
@@ -2168,7 +2163,7 @@ msgstr "照片间每个变换效果的显示时间（秒）"
 msgid "Show t_itle"
 msgstr "显示标题(_I)"
 
-#: data/ui/slideshow_settings.ui:137 data/ui/slideshow_settings.ui:146
+#: data/ui/slideshow_settings.ui:118 data/ui/slideshow_settings.ui:127
 msgid "seconds"
 msgstr "秒"
 
@@ -2324,7 +2319,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "访问 Shotwell 主页"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:311
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:312
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2893,36 +2888,36 @@ msgstr "无法将 %s 目录设为可写状态"
 msgid "Could not make directory %s writable: %s"
 msgstr "无法将 %s 目录设为可写状态：%s"
 
-#: src/AppWindow.vala:185
+#: src/AppWindow.vala:186
 msgid "Ok"
 msgstr "确定"
 
-#: src/AppWindow.vala:237
+#: src/AppWindow.vala:238
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "文件 %s 已存在。是否替换？"
 
-#: src/AppWindow.vala:240
+#: src/AppWindow.vala:241
 msgid "Export file conflict"
 msgstr "导出文件冲突"
 
-#: src/AppWindow.vala:244
+#: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
 msgstr "对所有冲突应用此解决方式"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "Rename"
 msgstr "重命名"
 
-#: src/AppWindow.vala:246
+#: src/AppWindow.vala:247
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: src/AppWindow.vala:269
+#: src/AppWindow.vala:270
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2934,21 +2929,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:308
+#: src/AppWindow.vala:309
 msgid "Visit the Shotwell web site"
 msgstr "访问 Shotwell 网站"
 
-#: src/AppWindow.vala:320
+#: src/AppWindow.vala:321
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "无法显示帮助 %s"
 
-#: src/AppWindow.vala:328
+#: src/AppWindow.vala:329
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "无法转向 Bug 数据库：%s"
 
-#: src/AppWindow.vala:336
+#: src/AppWindow.vala:337
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "无法显示常见问题 %s"
@@ -4271,33 +4266,30 @@ msgstr "%s 不支持 %s 类型的文件。"
 msgid "Unable to open photo %s. Sorry."
 msgstr "无法打开照片 %s。抱歉。"
 
-#: src/direct/DirectPhotoPage.vala:324
-msgid "_Save a Copy"
-msgstr "保存副本(_S)"
-
-#: src/direct/DirectPhotoPage.vala:326
+#. Check if we can write the target format
+#: src/direct/DirectPhotoPage.vala:317
 #, c-format
-msgid "Lose changes to %s?"
-msgstr "放弃对 %s 的更改？"
+msgid "%s has unsaved changes. If you quit now, these changes will be lost."
+msgstr "%s 有未保存更改。如果您现在退出，这些更改将会丢失。"
 
-#: src/direct/DirectPhotoPage.vala:327
-msgid "Close _without Saving"
-msgstr "关闭但不保存(_W)"
+#: src/direct/DirectPhotoPage.vala:318
+msgid "Discard changes"
+msgstr "丢弃更改"
 
-#: src/direct/DirectPhotoPage.vala:372
+#: src/direct/DirectPhotoPage.vala:351
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "保存 %s 时出错：%s"
 
-#: src/direct/DirectPhotoPage.vala:408
+#: src/direct/DirectPhotoPage.vala:387
 msgid "Save As"
 msgstr "另存为"
 
-#: src/direct/DirectPhotoPage.vala:424
+#: src/direct/DirectPhotoPage.vala:403
 msgid "Supported image formats"
 msgstr "支持的图像格式"
 
-#: src/direct/DirectPhotoPage.vala:433
+#: src/direct/DirectPhotoPage.vala:412
 msgid "All files"
 msgstr "所有文件"
 
@@ -5854,7 +5846,7 @@ msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%-m月%-d日（周%a）"
 
-#: src/Screensaver.vala:18 src/SlideshowPage.vala:134
+#: src/Screensaver.vala:18 src/SlideshowPage.vala:131
 msgid "Slideshow"
 msgstr "幻灯片放映"
 
@@ -6045,40 +6037,40 @@ msgstr "★★★★★+ 评分"
 
 #. Set up toolbar
 #. add toolbar buttons
-#: src/SlideshowPage.vala:157
+#: src/SlideshowPage.vala:154
 msgid "Back"
 msgstr "后退"
 
-#: src/SlideshowPage.vala:164 src/SlideshowPage.vala:273
+#: src/SlideshowPage.vala:161 src/SlideshowPage.vala:270
 msgid "Pause"
 msgstr "暂停"
 
-#: src/SlideshowPage.vala:166 src/SlideshowPage.vala:274
+#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:271
 msgid "Pause the slideshow"
 msgstr "暂停幻灯片放映"
 
-#: src/SlideshowPage.vala:171
+#: src/SlideshowPage.vala:168
 msgid "Next"
 msgstr "前进"
 
-#: src/SlideshowPage.vala:180
+#: src/SlideshowPage.vala:177
 msgid "Settings"
 msgstr "设置"
 
-#: src/SlideshowPage.vala:181
+#: src/SlideshowPage.vala:178
 msgid "Change slideshow settings"
 msgstr "改变幻灯片放映设置"
 
 #. An entire slideshow set might be missing, so check for a loop.
-#: src/SlideshowPage.vala:237
+#: src/SlideshowPage.vala:234
 msgid "All photo source files are missing."
 msgstr "所有的照片源文件丢失。"
 
-#: src/SlideshowPage.vala:269
+#: src/SlideshowPage.vala:266
 msgid "Play"
 msgstr "播放"
 
-#: src/SlideshowPage.vala:270
+#: src/SlideshowPage.vala:267
 msgid "Continue the slideshow"
 msgstr "继续幻灯片放映"
 
@@ -6118,6 +6110,16 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "导出视频"
+
+#~ msgid "_Save a Copy"
+#~ msgstr "保存副本(_S)"
+
+#, c-format
+#~ msgid "Lose changes to %s?"
+#~ msgstr "放弃对 %s 的更改？"
+
+#~ msgid "Close _without Saving"
+#~ msgstr "关闭但不保存(_W)"
 
 #~ msgid ""
 #~ "A file required for publishing is unavailable. Publishing to Flickr can’t "
