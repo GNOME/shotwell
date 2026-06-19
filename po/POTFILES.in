@@ -22,6 +22,7 @@ data/ui/photo_context.ui
 data/ui/photo.ui
 data/ui/preferences_dialog.ui
 data/ui/printing_widget.ui
+data/ui/profile_editor_dialog.ui
 data/ui/saved_search_dialog.ui
 data/ui/savedsearch.ui
 data/ui/search_bar.ui
