@@ -235,27 +235,17 @@ public abstract class AppWindow : PageWindow {
     }
 
 	public static async int resolve_export_conflict(File file) {
-        var message = _("File %s already exists. Replace?").printf(file.get_basename());
-        var dialog = new Gtk.MessageDialog(get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = _("Export file conflict");
-        dialog.set_transient_for(get_instance());
-        dialog.set_modal(true);
-        var content = (Gtk.Box)dialog.get_message_area();
-        var c = new Gtk.CheckButton.with_label(_("Apply this conflict resolution to all further conflicts"));
-        content.append(c);
-        dialog.add_buttons(_("_Skip"), 1, _("Rename"), 2, _("_Replace"), 4, _("_Cancel"), 6);
+        var dialog = new Adw.AlertDialog(_("Export file conflict"), null);
+        dialog.format_body (_("File %s already exists. Replace?"), file.get_basename());
 
-        SourceFunc callback = resolve_export_conflict.callback;
-        int response = Gtk.ResponseType.CANCEL;
-        dialog.present();
-        // Lambda is checked.
-        dialog.response.connect((r) => {
-            response = r;
-            dialog.set_visible(false);
-            callback();
-        });
-        yield;
+        var c = new Gtk.CheckButton.with_label(_("Apply this conflict resolution to all further conflicts"));
+        dialog.set_extra_child(c);
+        dialog.add_responses("6", _("_Cancel"), "1", _("_Skip"), "2", _("Rename"), "4", _("_Replace"));
+        dialog.set_prefer_wide_layout(true);
+
+        var result = yield dialog.choose(AppWindow.get_instance(), null);
+
+        var response = int.parse(result);
         
         if (c.get_active()) {
             response |= 0x80;

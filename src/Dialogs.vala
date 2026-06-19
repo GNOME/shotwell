@@ -1000,29 +1000,18 @@ public class ModifyTagsDialog : TagsDialog {
 
 // This function is used to determine whether or not files should be copied or linked when imported.
 // Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-public async Gtk.ResponseType copy_files_dialog() {
+public async string? copy_files_dialog() {
     string msg = _("Shotwell can copy the photos into your library folder or it can import them without copying.");
 
-    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
+    var dialog = new Adw.AlertDialog(_("Import to Library"), msg);
+    dialog.add_responses ("cancel", _("_Cancel"),
+                          "copy", _("Co_py Photos"),
+                          "in-place",_("_Import in Place"));
 
-    dialog.add_button(_("Co_py Photos"), Gtk.ResponseType.ACCEPT);
-    dialog.add_button(_("_Import in Place"), Gtk.ResponseType.REJECT);
-    dialog.title = _("Import to Library");
-    dialog.set_transient_for(AppWindow.get_instance());
-    dialog.present();
-    
-    int result =  0;
-    SourceFunc continue_cb = copy_files_dialog.callback;
-    dialog.response.connect((source, res) => {
-        dialog.set_visible(false);
-        result = res;
-        dialog.destroy();
-        continue_cb();
-    });
-    yield;    
-
-    return result;
+    dialog.set_default_response ("cancel");
+    dialog.set_close_response ("cancel");
+    dialog.prefer_wide_layout = true;
+    return yield dialog.choose(AppWindow.get_instance(), null);
 }
 
 public async void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {

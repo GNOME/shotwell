@@ -78,6 +78,7 @@ version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in'
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
 gtk = dependency('gtk4', version : '>= 4.22')
+adwaita = dependency('libadwaita-1', version : '>= 1.4')
 gio = dependency('gio-2.0', version: '>= 2.88')
 gmodule = dependency('gmodule-2.0', version: '>= 2.88')
 gee = dependency('gee-0.8', version: '>= 0.8.5')

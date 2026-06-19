@@ -27,7 +27,7 @@ face_sources = (['faces/FacesBranch.vala',
                      'faces/Faces.vala',
                      'faces/FacesTool.vala'])
 
-shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+shotwell_deps = [gio, gee, sqlite, gtk, adwaita, sqlite, posix, gphoto2,
                  gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo,
                  portal, math, soup]

@@ -480,9 +480,9 @@ public class LibraryWindow : AppWindow {
 
     async void do_file_import(ListModel files, bool recursive) {
         var result = yield copy_files_dialog();
-        if (result != Gtk.ResponseType.CANCEL) {
+        if (result != "cancel") {
             yield dispatch_import_jobs(files, "folders",
-                result == Gtk.ResponseType.ACCEPT, recursive);
+                result == "copy", recursive);
         }
     }
 
@@ -862,11 +862,11 @@ public class LibraryWindow : AppWindow {
             var result = yield copy_files_dialog();
             
             switch (result) {
-                case Gtk.ResponseType.ACCEPT:
+                case "copy":
                     selected_action = Gdk.DragAction.COPY;
                 break;
                 
-                case Gtk.ResponseType.REJECT:
+                case "in-place":
                     selected_action = Gdk.DragAction.LINK;
                 break;
                 

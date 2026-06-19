@@ -7,7 +7,7 @@
 public class Application {
     private static Application instance = null;
     public static TimeZone timezone = null;
-    private Gtk.Application system_app = null;
+    private Adw.Application system_app = null;
     private Shotwell.AuthCallbackServer auth_server;
     private int system_app_run_retval = 0;
     private bool direct;
@@ -40,7 +40,7 @@ public class Application {
         return fixup_raw_thumbs;
     }
 
-    public Gtk.Application get_system_app () {
+    public Adw.Application get_system_app () {
         return system_app;
     }
 
@@ -52,13 +52,13 @@ public class Application {
             // attempt to be unique.  We don't request any command-line handling
             // here because this is processed elsewhere, and we don't need to handle
             // command lines from remote instances, since we don't care about them.
-            system_app = new Gtk.Application("org.gnome.Shotwell-Viewer", GLib.ApplicationFlags.HANDLES_OPEN |
+            system_app = new Adw.Application("org.gnome.Shotwell-Viewer", GLib.ApplicationFlags.HANDLES_OPEN |
                 GLib.ApplicationFlags.NON_UNIQUE);
         } else {
             // we've been invoked in library mode; set up for uniqueness and handling
             // of incoming command lines from remote instances (needed for getting
             // storage device and camera mounts).
-            system_app = new Gtk.Application("org.gnome.Shotwell", GLib.ApplicationFlags.HANDLES_OPEN |
+            system_app = new Adw.Application("org.gnome.Shotwell", GLib.ApplicationFlags.HANDLES_OPEN |
                 GLib.ApplicationFlags.HANDLES_COMMAND_LINE);
             // Start the OAuth callback HTTP server on localhost
             try {

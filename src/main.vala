@@ -407,7 +407,7 @@ void main(string[] args) {
             "/data/gsettings", true);
     }
 
-    Gtk.init();
+    Adw.init();
     try {
         // TODO: Let GApplication handle the arguments
         var context = new GLib.OptionContext("");
