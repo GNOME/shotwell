@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-17 21:54+0000\n"
+"POT-Creation-Date: 2026-06-19 17:27+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -1691,6 +1691,30 @@ msgstr "_Izvozi fotografijo na:"
 msgid "pixels per inch"
 msgstr "točk na palec"
 
+#: data/ui/profile_editor_dialog.ui:5 src/ProfileBrowser.vala:32
+msgid "Create new Profile"
+msgstr "Ustvari nov profil"
+
+#: data/ui/profile_editor_dialog.ui:22
+msgid "Name"
+msgstr "Ime"
+
+#: data/ui/profile_editor_dialog.ui:43 src/ProfileBrowser.vala:124
+msgid "Library Folder"
+msgstr "Mapa knjižnice"
+
+#: data/ui/profile_editor_dialog.ui:63 src/ProfileBrowser.vala:136
+msgid "Data Folder"
+msgstr "Mapa s podatki"
+
+#: data/ui/profile_editor_dialog.ui:91
+msgid "Create"
+msgstr "Ustvari"
+
+#: data/ui/profile_editor_dialog.ui:101 data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:166
+msgid "Cancel"
+msgstr "Prekliči"
+
 #: data/ui/saved_search_dialog.ui:5
 msgid "Search"
 msgstr "Iskalnik"
@@ -1718,10 +1742,6 @@ msgstr "predmete, ki niso skladni"
 #: data/ui/saved_search_dialog.ui:78
 msgid "of the following:"
 msgstr "s spodnjimi pravili:"
-
-#: data/ui/saved_search_dialog.ui:134 src/ProfileBrowser.vala:166
-msgid "Cancel"
-msgstr "Prekliči"
 
 #: data/ui/saved_search_dialog.ui:141
 msgid "OK"
@@ -4794,10 +4814,6 @@ msgstr "16 slik na stran"
 msgid "32 images per page"
 msgstr "32 slik na stran"
 
-#: src/ProfileBrowser.vala:32
-msgid "Create new Profile"
-msgstr "Ustvari nov profil"
-
 #: src/ProfileBrowser.vala:48
 msgid "Choose Library Folder"
 msgstr "Izberite mapo knjižnice"
@@ -4809,14 +4825,6 @@ msgstr "Izberite mapo s podatki"
 #: src/ProfileBrowser.vala:91
 msgid "This is the currently active profile"
 msgstr "To je trenutno aktivni profil"
-
-#: src/ProfileBrowser.vala:124
-msgid "Library Folder"
-msgstr "Mapa knjižnice"
-
-#: src/ProfileBrowser.vala:136
-msgid "Data Folder"
-msgstr "Mapa s podatki"
 
 #: src/ProfileBrowser.vala:150
 msgid "Remove Profile"
