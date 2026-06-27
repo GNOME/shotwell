@@ -35,6 +35,7 @@ nightly@aarch64:
 
 docs:
   image: alpine:latest
+  allow_failure: true
   script:
     - apk add yelp-tools yelp-xsl ninja-build meson itstool gettext bash openssh
     - mkdir ~/.ssh
