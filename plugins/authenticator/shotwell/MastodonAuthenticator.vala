@@ -124,16 +124,29 @@ internal class Account : Object, Spit.Publishing.Account {
     /**
      * Ui panel to get basic instance infortmation (instance name and user)
      */
-    internal class InstancePane : Common.BuilderPane {
+    [GtkTemplate (ui = "/org/gnome/Shotwell/Authenticator/mastodon_instance_pane.ui")]
+    internal class InstancePane : Gtk.Box, Spit.Publishing.DialogPane {
         public Account? account {get; set; default = null; }
-        private Gtk.Button login_button;
-        private Gtk.Entry user_entry;
-        private Gtk.Entry instance_entry;
+        [GtkChild]
+        private unowned Gtk.Button login_button;
+        [GtkChild]
+        private unowned Gtk.Entry user_entry;
+        [GtkChild]
+        private unowned Gtk.Entry instance_entry;
 
         public InstancePane(Account? account) {
-            Object(resource_path : "/org/gnome/Shotwell/Authenticator/mastodon_instance_pane.ui",
-                   default_id : "login_button",
-                   account: account);
+            Object(account: account);
+        }
+
+        public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
+            return Spit.Publishing.DialogPane.GeometryOptions.NONE;
+        }
+
+        public Gtk.Widget get_widget() {
+            return this;
+        }
+
+        public void on_pane_uninstalled() {    
         }
 
         public signal void login(Account account);
@@ -144,14 +157,11 @@ internal class Account : Object, Spit.Publishing.Account {
                 account = new Account(null, null);
             }
 
-            var builder = this.get_builder();
-            this.login_button = (Gtk.Button)builder.get_object("login_button");
             this.login_button.clicked.connect(() => {
                 this.login(new Account(this.instance_entry.get_text(),
                  this.user_entry.get_text()));
             });
 
-            this.instance_entry = (Gtk.Entry)builder.get_object("instance_entry");
             if (account.instance != null) {
                 this.instance_entry.set_text(account.instance);
             }
@@ -159,7 +169,6 @@ internal class Account : Object, Spit.Publishing.Account {
                 update_login_button();
             });
 
-            this.user_entry = (Gtk.Entry)builder.get_object("user_entry");
             if (account.user != null) {
                 this.user_entry.set_text(account.user);
             }
@@ -174,7 +183,7 @@ internal class Account : Object, Spit.Publishing.Account {
             login_button.set_sensitive(user_entry.text_length != 0 && instance_entry.text_length != 0);
         }
 
-        public override void on_pane_installed() {
+        public void on_pane_installed() {
             this.instance_entry.grab_focus();
             this.user_entry.set_activates_default(true);
             update_login_button();
@@ -378,7 +387,6 @@ internal class Account : Object, Spit.Publishing.Account {
             debug ("Showing SSL downgrade pane");
             host.install_dialog_pane (ssl_pane,
                                     Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-            host.set_dialog_default_widget (ssl_pane.get_default_widget ());
 
             yield;
         }        
@@ -444,7 +452,6 @@ internal class Account : Object, Spit.Publishing.Account {
         private async void get_account_details() {
             var p = new InstancePane(this.account);
             host.install_dialog_pane(p);
-            host.set_dialog_default_widget(p.get_default_widget());
 
             p.login.connect((account) => {
                 this.account = account;
