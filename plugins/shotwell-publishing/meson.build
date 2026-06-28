@@ -20,7 +20,6 @@ shared_module('shotwell-publishing',
               dependencies : [gtk, soup, gexiv2, gee, sw_plugin, json_glib,
                               sw_plugin_common_dep, xml, gcr,
                               authenticator_dep, secret],
-              c_args : ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Publishing"',
-                        '-DGCR_API_SUBJECT_TO_CHANGE'],
+              c_args : ['-DGCR_API_SUBJECT_TO_CHANGE'],
               install: true,
               install_dir : shotwell_plugin_dir)

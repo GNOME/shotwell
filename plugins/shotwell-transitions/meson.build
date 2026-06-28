@@ -20,10 +20,9 @@ libm = cc.find_library('m', required : false)
 shared_module('shotwell-transitions',
               shotwell_transitions_sources + shotwell_transitions_resources,
               dependencies : [gio, gdk_pixbuf, cairo, gtk, xml, sw_plugin,
-                              sw_plugin_common_dep, gee, soup, libm],
+                              sw_plugin_common_dep, gee, soup, libm, json_glib],
               vala_args : [
                   '--gresources', 'org.gnome.Shotwell.Transitions.gresource.xml',
                   ],
-              c_args : ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Transitions"'],
               install: true,
               install_dir : shotwell_plugin_dir)

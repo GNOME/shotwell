@@ -6,9 +6,6 @@
 
 namespace Resources {
 
-[CCode (cname = "PLUGIN_RESOURCE_PATH")]
-public extern const string RESOURCE_PATH;
-
 public const string WEBSITE_NAME = _("Visit the Shotwell home page");
 public const string WEBSITE_URL = "https://wiki.gnome.org/Apps/Shotwell";
 
