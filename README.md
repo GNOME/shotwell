@@ -7,7 +7,7 @@ environment.  It allows you to import photos from disk or camera,
 organize them by keywords and events, view them in full-window or fullscreen
 mode, and share them with others via social networking and more.
 
-Visit https://wiki.gnome.org/Apps/Shotwell to read about the current state of
+Visit https://shotwell-project.org to read about the current state of
 Shotwell's development and to make sure you're running the latest version.
 
 ## Installation & Licensing
@@ -35,11 +35,10 @@ from the chooser dialog box.  Shotwell will scan the directory and all
 sub-directories for photo files and automatically import them.
 
 Once your photos are in Shotwell's library, you can view, edit, and export
-them.  More features are planned, so check https://wiki.gnome.org/Apps/Shotwell
-regularly for updates.
+them. 
 
 
-Shotwell project page:      https://wiki.gnome.org/Apps/Shotwell
+Shotwell project page:      https://shotwell-project.org/
 Shotwell documentation:     http://shotwell-project.org/doc/html/
 GNOME Gitlab Project:       https://gitlab.gnome.org/GNOME/shotwell
 
