@@ -46,10 +46,10 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
     private unowned Gtk.Entry cw;
 
     [GtkChild]
-    private unowned Gtk.Entry post;
+    private unowned Gtk.TextView post;
 
     [GtkChild]
-    private unowned Gtk.Entry alt_text;
+    private unowned Gtk.TextView alt_text;
 
     public signal void publish();
     public signal void logout();
@@ -82,9 +82,16 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
 
     private void on_publish_clicked() {
         parameters.sensitive = sensitive_checkbox.active;
-        parameters.post = post.get_text();
+        var buffer = post.get_buffer();
+        Gtk.TextIter start;
+        Gtk.TextIter end;
+        buffer.get_bounds(out start, out end);
+        parameters.post = buffer.get_text(start, end, false);
         parameters.cw = cw.get_text();
-        parameters.alt_text = alt_text.get_text();
+
+        buffer = alt_text.get_buffer();
+        buffer.get_bounds(out start, out end);
+        parameters.alt_text = buffer.get_text(start, end, false);
         publish();
     }
 

@@ -14,6 +14,13 @@ label.map-attribution {
     margin-bottom: 16px;
 }
 
+.shotwell-text-indicator {
+   border-radius: 6px;
+   padding: 2px;
+   font-size: 75%;
+   font-weight: bold;
+}
+
 /* HACKHACKHACK: Remove the buttons from a spinbutton */
 spinbutton#print-preview-current-page button {
 	min-width: 0;
