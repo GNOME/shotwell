@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtk" version="4.0" />
+  <requires lib="gtk" version="4.0" />
   <template class="PublishingMastodonOptions" parent="GtkBox">
     <property name="margin-start">18</property>
     <property name="margin-end">18</property>
@@ -10,14 +10,15 @@
     <property name="orientation">vertical</property>
     <property name="spacing">1</property>
     <child>
-      <placeholder/>
+      <placeholder />
     </child>
     <child>
       <object class="GtkLabel" id="login_identity_label">
         <property name="halign">start</property>
         <property name="margin-top">12</property>
         <property name="margin-bottom">32</property>
-        <property name="label">&apos;you are logged in as $name&apos; (populated in the application code)</property>
+        <property name="label">&apos;you are logged in as $name&apos; (populated in the application
+          code)</property>
       </object>
     </child>
     <child>
@@ -97,9 +98,16 @@
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="post">
-                <property name="focusable">1</property>
-                <property name="max-length">500</property>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkTextView" id="post">
+                    <property name="focusable">1</property>
+                    <layout>
+                      <property name="column">1</property>
+                      <property name="row">0</property>
+                    </layout>
+                  </object>
+                </child>
                 <layout>
                   <property name="column">1</property>
                   <property name="row">0</property>
@@ -107,9 +115,31 @@
               </object>
             </child>
             <child>
-              <object class="GtkEntry" id="alt_text">
-                <property name="focusable">1</property>
-                <property name="max-length">1500</property>
+              <object class="GtkOverlay">
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <child>
+                      <object class="GtkTextView" id="alt_text">
+                        <property name="focusable">1</property>
+                        <layout>
+                          <property name="column">1</property>
+                          <property name="row">2</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="overlay">
+                  <object class="GtkLabel">
+                    <property name="halign">end</property>
+                    <property name="valign">end</property>
+                    <property name="label">500</property>
+                    <style>
+                      <class name="osd"/>                      
+                      <class name="shotwell-text-indicator" />
+                    </style>
+                  </object>
+                </child>
                 <layout>
                   <property name="column">1</property>
                   <property name="row">2</property>
@@ -150,16 +180,16 @@
           </object>
         </child>
         <child>
-          <placeholder/>
+          <placeholder />
         </child>
       </object>
     </child>
     <child>
-      <placeholder/>
+      <placeholder />
     </child>
     <child>
       <object class="GtkBox">
-	<property name="orientation">horizontal</property>
+        <property name="orientation">horizontal</property>
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="1">_Logout</property>
@@ -179,5 +209,5 @@
       </object>
     </child>
   </template>
-  <object class="GtkSizeGroup"/>
+  <object class="GtkSizeGroup" />
 </interface>
