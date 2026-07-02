@@ -263,11 +263,9 @@ class SlideshowPage : SinglePhotoPage {
     private void on_play_pause() {
         if (playing) {
             play_pause_button.set_icon_name("media-playback-start-symbolic");
-            play_pause_button.set_label(_("Play"));
             play_pause_button.set_tooltip_text(_("Continue the slideshow"));
         } else {
             play_pause_button.set_icon_name("media-playback-pause-symbolic");
-            play_pause_button.set_label(_("Pause"));
             play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         }
         
