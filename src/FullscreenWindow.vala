@@ -13,7 +13,7 @@ public class FullscreenWindow : PageWindow {
     private bool switched_to = false;
     private bool is_toolbar_dismissal_enabled;
     private bool pointer_in_toolbar = false;
-    Gtk.Allocation toolbar_alloc;
+    Graphene.Rect toolbar_alloc;
 
     private const GLib.ActionEntry[] entries = {
         { "LeaveFullscreen", on_close }
@@ -193,9 +193,10 @@ public class FullscreenWindow : PageWindow {
         }
         
         double py = 0;
-        get_surface().get_device_position(seat.get_pointer(), null, out py, null);
+        double px = 0;
+        get_surface().get_device_position(seat.get_pointer(), out px, out py, null);
         
-        return py >= toolbar_alloc.y;
+        return toolbar_alloc.contains_point({(float)px, (float)py});
     }
     
     private bool on_check_toolbar_invocation() {
@@ -256,8 +257,7 @@ public class FullscreenWindow : PageWindow {
     
     private void hide_toolbar() {
         // Save location of toolbar before hiding
-        toolbar_alloc.width = toolbar.get_width();
-        toolbar_alloc.height = toolbar.get_height();
+        toolbar.compute_bounds (overlay, out toolbar_alloc);
         toolbar.set_visible(false);
         is_toolbar_shown = false;
     }
