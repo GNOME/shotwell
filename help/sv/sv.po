@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2025 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2026 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2024-11-26 20:27+0000\n"
-"PO-Revision-Date: 2025-01-10 20:36+0100\n"
+"POT-Creation-Date: 2026-07-07 18:40+0000\n"
+"PO-Revision-Date: 2026-07-07 21:36+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.9\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -284,6 +284,1019 @@ msgid ""
 msgstr ""
 "På liknande sätt kräver Flickr, YouTube eller Google Foto att du loggar in "
 "och tillåter Shotwell Connect att komma åt ditt konto."
+
+#. (itstool) path: info/desc
+#: C/keyboard-shortcuts.page:7
+msgid "Complete list of all keyboard shortcuts available in Shotwell."
+msgstr ""
+"Fullständig lista över alla tillgängliga tangentbordsgenvägar i Shotwell."
+
+#. (itstool) path: page/title
+#: C/keyboard-shortcuts.page:13
+msgid "Keyboard Shortcuts"
+msgstr "Tangentbordsgenvägar"
+
+#. (itstool) path: page/p
+#: C/keyboard-shortcuts.page:15
+msgid ""
+"Shotwell provides a variety of keyboard shortcuts to help you navigate, "
+"organize, and edit your photo library. Below is a comprehensive listing "
+"organized by category."
+msgstr ""
+"Shotwell tillhandahåller en mängd tangentbordskommandon som hjälper dig "
+"navigera, organisera och redigera ditt bildbibliotek. Nedan finns en "
+"heltäckande lista organiserad efter kategori."
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:18
+msgid "Global Shortcuts"
+msgstr "Globala kortkommandon"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:20
+msgid "<keyseq><key>Ctrl</key><key>Q</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Q</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:20
+msgid "Quit Shotwell"
+msgstr "Avsluta Shotwell"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:21
+msgid "<key>F1</key>"
+msgstr "<key>F1</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:21
+msgid "Open Help"
+msgstr "Öppna hjälp"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:22
+msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq> / <key>F8</key>"
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq> / <key>F8</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:22
+msgid "Toggle Search Bar"
+msgstr "Växla visning av sökfält"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:23
+msgid "<keyseq><key>Ctrl</key><key>S</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>S</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:23
+msgid "New Saved Search"
+msgstr "Ny sparad sökning"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:24
+msgid "<keyseq><key>Ctrl</key><key>Z</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Z</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:24
+msgid "Undo"
+msgstr "Ångra"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:25
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>Z</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>Z</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:25
+msgid "Redo"
+msgstr "Gör om"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:26 C/keyboard-shortcuts.page:150
+msgid "<keyseq><key>Ctrl</key><key>A</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>A</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:26
+msgid "Select All"
+msgstr "Markera alla"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:27
+msgid "<keyseq><key>Ctrl</key><key>I</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>I</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:27
+msgid "Import From Folder"
+msgstr "Importera från mapp"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:32
+msgid "Navigation - Single photo view"
+msgstr "Navigering - Enbildsvy"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:34
+msgid "<key>Left</key> / <key>BackSpace</key>"
+msgstr "<key>Vänster</key> / <key>Backsteg</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:34
+msgid "Previous photo (single-photo view)"
+msgstr "Föregående bild (enbildsvy)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:35
+msgid "<key>Right</key> / <key>Space</key>"
+msgstr "<key>Höger</key> / <key>Blanksteg</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:35
+msgid "Next photo (single-photo view)"
+msgstr "Nästa bild (enbildsvy)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:36 C/keyboard-shortcuts.page:60
+#: C/keyboard-shortcuts.page:156 C/keyboard-shortcuts.page:187
+#: C/keyboard-shortcuts.page:196
+msgid "<key>Esc</key>"
+msgstr "<key>Esc</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:36
+msgid "Return to collection (single-photo view)"
+msgstr "Återgå till samling (enbildsvy)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:37 C/keyboard-shortcuts.page:49
+#: C/keyboard-shortcuts.page:179 C/keyboard-shortcuts.page:197
+msgid "<key>Return</key>"
+msgstr "<key>Retur</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:37
+msgid "Return to collection (single-photo view, unless in fullscreen)"
+msgstr "Återgå till samling (enbildsvy, om inte i helskärmsläge)"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:41
+msgid "Navigation - Thumbnail grid"
+msgstr "Navigering - Miniatyrbildsrutnät"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:43
+msgid "<key>Up</key>"
+msgstr "<key>Upp</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:43
+msgid "Move cursor up"
+msgstr "Flytta markören uppåt"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:44
+msgid "<key>Down</key>"
+msgstr "<key>Ned</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:44
+msgid "Move cursor down"
+msgstr "Flytta markören nedåt"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:45
+msgid "<key>Home</key>"
+msgstr "<key>Home</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:45
+msgid "Jump to first item"
+msgstr "Hoppa till första objektet"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:46
+msgid "<key>End</key>"
+msgstr "<key>End</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:46
+msgid "Jump to last item"
+msgstr "Hoppa till sista objektet"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "<key>Page_Up</key>"
+msgstr "<key>Page_Up</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "Page up"
+msgstr "Upp en sida"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:48
+msgid "<key>Page_Down</key>"
+msgstr "<key>Page_Down</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:48
+msgid "Page down"
+msgstr "Ned en sida"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:49
+msgid "Open selected photo"
+msgstr "Öppna markerad bild"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50 C/keyboard-shortcuts.page:186
+msgid "<key>Space</key>"
+msgstr "<key>Blanksteg</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50
+msgid "Toggle selection of item under cursor"
+msgstr "Växla markering av objekt under markören"
+
+#. (itstool) path: section/p
+#: C/keyboard-shortcuts.page:52
+msgid "Extends the current selection when used with <key>Shift</key>."
+msgstr "Utökar den aktuella markeringen vid användning med <key>Skift</key>."
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:56
+msgid "View &amp; Display"
+msgstr "Vy och visning"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "<key>F11</key>"
+msgstr "<key>F11</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "Toggle fullscreen"
+msgstr "Växla helskärmsläge"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:59
+msgid "<key>F5</key>"
+msgstr "<key>F5</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:59
+msgid "Start slideshow"
+msgstr "Starta bildspel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:60
+msgid "Leave fullscreen and slideshow"
+msgstr "Lämna helskärmsläge och bildspel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:61
+msgid "<key>F9</key>"
+msgstr "<key>F9</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:61
+msgid "Toggle sidebar"
+msgstr "Växla visning av sidopanel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:62
+msgid "<keyseq><key>Ctrl</key><key>F9</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>F9</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:62
+msgid "Toggle toolbar"
+msgstr "Växla visning av verktygsfält"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>I</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>I</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "Toggle basic information panel"
+msgstr "Växla visning av grundläggande informationspanel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:64
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>X</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>X</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:64
+msgid "Toggle extended information window"
+msgstr "Växla visning av utökat informationsfönster"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:65
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>T</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>T</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:65
+msgid "Toggle titles display"
+msgstr "Växla visning av titlar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66 C/keyboard-shortcuts.page:153
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>C</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>C</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66
+msgid "Toggle comments display"
+msgstr "Växla visning av kommentarer"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:67
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>G</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>G</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:67
+msgid "Toggle tags display"
+msgstr "Växla visning av taggar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:68
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>N</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>N</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:68
+msgid "Toggle ratings display"
+msgstr "Växla visning av betyg"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:73
+msgid "Zoom &amp; Thumbnail Size"
+msgstr "Zoom och miniatyrbildsstorlek"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:75
+msgid ""
+"<keyseq><key>Ctrl</key><key>+</key></keyseq> / <key>=</key> / <key>+</key>"
+msgstr ""
+"<keyseq><key>Ctrl</key><key>+</key></keyseq> / <key>=</key> / <key>+</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:75
+msgid "Zoom in / increase thumbnail size"
+msgstr "Zooma in / öka miniatyrbildsstorlek"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:76
+msgid ""
+"<keyseq><key>Ctrl</key><key>-</key></keyseq> / <key>-</key> / <key>_</key>"
+msgstr ""
+"<keyseq><key>Ctrl</key><key>-</key></keyseq> / <key>-</key> / <key>_</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:76
+msgid "Zoom out / decrease thumbnail size"
+msgstr "Zooma ut / minska miniatyrbildsstorlek"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:77
+msgid "<key>Ctrl</key> + mouse scroll wheel"
+msgstr "<key>Ctrl</key> + musens rullhjul"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:77
+msgid "Adjust thumbnail size / zoom"
+msgstr "Justera miniatyrbildsstorlek / zoom"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:82
+msgid "Single Photo"
+msgstr "En bild"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:84
+msgid "<key>Left</key> / <key>KP_4</key>"
+msgstr "<key>Vänster</key> / <key>KP_4</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:84
+msgid "Pan left"
+msgstr "Panorera åt vänster"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:85
+msgid "<key>Right</key> / <key>KP_6</key>"
+msgstr "<key>Höger</key> / <key>KP_6</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:85
+msgid "Pan right"
+msgstr "Panorera åt höger"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:86
+msgid "<key>Up</key> / <key>KP_8</key>"
+msgstr "<key>Upp</key> / <key>KP_8</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:86
+msgid "Pan up"
+msgstr "Panorera uppåt"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:87
+msgid "<key>Down</key> / <key>KP_2</key>"
+msgstr "<key>Ned</key> / <key>KP_2</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:87
+msgid "Pan down"
+msgstr "Panorera nedåt"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:88 C/keyboard-shortcuts.page:99
+msgid "<keyseq><key>Ctrl</key><key>0</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>0</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:88
+msgid "Fit to page"
+msgstr "Anpassa till sidan"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:89
+msgid "<keyseq><key>Ctrl</key><key>1</key></keyseq> / <key>KP_Divide</key>"
+msgstr "<keyseq><key>Ctrl</key><key>1</key></keyseq> / <key>KP_Divide</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:89
+msgid "Zoom to 100%"
+msgstr "Zooma till 100%"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:90
+msgid "<keyseq><key>Ctrl</key><key>2</key></keyseq> / <key>KP_Multiply</key>"
+msgstr "<keyseq><key>Ctrl</key><key>2</key></keyseq> / <key>KP_Multiply</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:90
+msgid "Zoom to 200%"
+msgstr "Zooma till 200%"
+
+#. (itstool) path: section/p
+#: C/keyboard-shortcuts.page:92
+msgid "Holding <key>Shift</key> will show the unmodified photo, if exists"
+msgstr ""
+"Att hålla ner <key>Skift</key> kommer visa den oförändrade bilden, om den "
+"finns"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:96
+msgid "Rating &amp; Filtering"
+msgstr "Betyg och filtrering"
+
+#. (itstool) path: section/p
+#: C/keyboard-shortcuts.page:97
+msgid "Filter photos by rating:"
+msgstr "Filtrera bilder efter betyg:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:99
+msgid "Show all photos"
+msgstr "Visa alla bilder"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:100
+msgid "<keyseq><key>Ctrl</key><key>1</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>1</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:100
+msgid "Filter by ★"
+msgstr "Filtrera efter ★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:101
+msgid "<keyseq><key>Ctrl</key><key>2</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>2</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:101
+msgid "Filter by ★★"
+msgstr "Filtrera efter ★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:102
+msgid "<keyseq><key>Ctrl</key><key>3</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>3</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:102
+msgid "Filter by ★★★"
+msgstr "Filtrera efter ★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:103
+msgid "<keyseq><key>Ctrl</key><key>4</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>4</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:103
+msgid "Filter by ★★★★"
+msgstr "Filtrera efter ★★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:104
+msgid "<keyseq><key>Ctrl</key><key>5</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>5</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:104
+msgid "Filter by ★★★★★"
+msgstr "Filtrera efter ★★★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:105
+msgid "<keyseq><key>Ctrl</key><key>8</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>8</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:105
+msgid "Show rejected only"
+msgstr "Visa enbart avvisade"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:106
+msgid "<keyseq><key>Ctrl</key><key>9</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>9</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:106
+msgid "Show all + rejected"
+msgstr "Visa alla + avvisade"
+
+#. (itstool) path: section/p
+#: C/keyboard-shortcuts.page:108
+msgid "Set rating on selected photos:"
+msgstr "Ange betyg på markerade bilder:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:110
+msgid "<key>1</key>"
+msgstr "<key>1</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:110
+msgid "Rate ★"
+msgstr "Ge betyget ★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:111
+msgid "<key>2</key>"
+msgstr "<key>2</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:111
+msgid "Rate ★★"
+msgstr "Ge betyget ★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:112
+msgid "<key>3</key>"
+msgstr "<key>3</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:112
+msgid "Rate ★★★"
+msgstr "Ge betyget ★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:113
+msgid "<key>4</key>"
+msgstr "<key>4</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:113
+msgid "Rate ★★★★"
+msgstr "Ge betyget ★★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:114
+msgid "<key>5</key>"
+msgstr "<key>5</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:114
+msgid "Rate ★★★★★"
+msgstr "Ge betyget ★★★★★"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:115
+msgid "<key>0</key>"
+msgstr "<key>0</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:115
+msgid "Clear rating (unrated)"
+msgstr "Töm betyg (ej betygsatt)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:116
+msgid "<key>9</key>"
+msgstr "<key>9</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:116
+msgid "Mark as rejected"
+msgstr "Markera som avvisade"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:117
+msgid "<key>&gt;</key> / <key>.</key>"
+msgstr "<key>&gt;</key> / <key>.</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:117
+msgid "Increase rating"
+msgstr "Höj betyg"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:118
+msgid "<key>&lt;</key> / <key>,</key>"
+msgstr "<key>&lt;</key> / <key>,</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:118
+msgid "Decrease rating"
+msgstr "Sänk betyg"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:123
+msgid "Photo Operations"
+msgstr "Bildåtgärder"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:125
+msgid "<keyseq><key>Ctrl</key><key>G</key></keyseq> / <key>/</key>"
+msgstr "<keyseq><key>Ctrl</key><key>G</key></keyseq> / <key>/</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:125
+msgid "Toggle flag on selected photos"
+msgstr "Växla flagga på markerade bilder"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:126 C/keyboard-shortcuts.page:178
+msgid "<key>Delete</key>"
+msgstr "<key>Delete</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:126
+msgid "Move to trash"
+msgstr "Flytta till papperskorgen"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:127
+msgid "<keyseq><key>Shift</key><key>Delete</key></keyseq>"
+msgstr "<keyseq><key>Skift</key><key>Delete</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:127
+msgid "Remove from library"
+msgstr "Ta bort från bibliotek"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:128 C/keyboard-shortcuts.page:177
+msgid "<key>F2</key>"
+msgstr "<key>F2</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:128
+msgid "Edit title"
+msgstr "Redigera titel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:129
+msgid "<key>F3</key>"
+msgstr "<key>F3</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:129
+msgid "Edit comment"
+msgstr "Redigera kommentar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:130
+msgid "<key>F4</key>"
+msgstr "<key>F4</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:130
+msgid "Adjust date and time"
+msgstr "Justera datum och tid"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:131
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>M</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>M</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:131
+msgid "Show in file manager"
+msgstr "Visa i filhanterare"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:132
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>E</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>E</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:132
+msgid "Export selected photos"
+msgstr "Exportera markerade bilder"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:133
+msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Retur</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:133
+msgid "Open with external editor"
+msgstr "Öppna med extern redigerare"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:138
+msgid "Rotate"
+msgstr "Rotera"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:140
+msgid "<keyseq><key>Ctrl</key><key>R</key></keyseq> / <key>]</key>"
+msgstr "<keyseq><key>Ctrl</key><key>R</key></keyseq> / <key>]</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:140
+msgid "Rotate clockwise (right)"
+msgstr "Rotera medurs (höger)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:141
+msgid ""
+"<keyseq><key>Ctrl</key><key>Shift</key><key>R</key></keyseq> / <key>[</key>"
+msgstr ""
+"<keyseq><key>Ctrl</key><key>Skift</key><key>R</key></keyseq> / <key>[</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:141
+msgid "Rotate counter-clockwise (left)"
+msgstr "Rotera moturs (vänster)"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:146
+msgid "Editing Tools"
+msgstr "Redigeringsverktyg"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:148 C/keyboard-shortcuts.page:195
+msgid "<keyseq><key>Ctrl</key><key>E</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>E</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:148
+msgid "Enhance"
+msgstr "Förbättra"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:149
+msgid "<keyseq><key>Ctrl</key><key>O</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>O</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:149
+msgid "Crop"
+msgstr "Beskär"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:150
+msgid "Straighten"
+msgstr "Räta ut"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:151
+msgid "<keyseq><key>Ctrl</key><key>Y</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Y</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:151
+msgid "Red-eye reduction"
+msgstr "Reducering av röda ögon"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:152
+msgid "<keyseq><key>Ctrl</key><key>D</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>D</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:152
+msgid "Adjust (colors, levels)"
+msgstr "Justera (färger, nivåer)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:153
+msgid "Copy color adjustments"
+msgstr "Kopiera färgjusteringar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:154
+msgid "<keyseq><key>Ctrl</key><key>Shift</key><key>V</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Skift</key><key>V</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:154
+msgid "Paste color adjustments"
+msgstr "Klistra in färgjusteringar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:155
+msgid "<key>Return</key> / <key>KP_Enter</key>"
+msgstr "<key>Retur</key> / <key>KP_Enter</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:155
+msgid "Apply current editing tool (crop, straighten, red-eye, adjust)"
+msgstr ""
+"Tillämpa aktuellt redigeringsverktyg (beskär, räta ut, röda ögon, justera)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:156
+msgid "Cancel current editing operation"
+msgstr "Avbryt aktuell redigeringsoperation"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:161
+msgid "Histogram Adjustment"
+msgstr "Histogramjustering"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:163
+msgid "<key>Left</key> / <key>Up</key>"
+msgstr "<key>Vänster</key> / <key>Upp</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:163
+msgid "Move left nub left"
+msgstr "Flytta vänster markör åt vänster"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:164
+msgid "<key>Right</key> / <key>Down</key>"
+msgstr "<key>Höger</key> / <key>Ned</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:164
+msgid "Move left nub right"
+msgstr "Flytta vänster markör åt höger"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:165
+msgid "<keyseq><key>Shift</key><key>Left</key></keyseq>"
+msgstr "<keyseq><key>Skift</key><key>Vänster</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:165
+msgid "<keyseq><key>Shift</key><key>Up</key></keyseq>"
+msgstr "<keyseq><key>Skift</key><key>Upp</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:165
+msgid "Move right nub left"
+msgstr "Flytta höger markör åt vänster"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:166
+msgid "<keyseq><key>Shift</key><key>Right</key></keyseq>"
+msgstr "<keyseq><key>Skift</key><key>Höger</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:166
+msgid "<keyseq><key>Shift</key><key>Down</key></keyseq>"
+msgstr "<keyseq><key>Skift</key><key>Ned</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:166
+msgid "Move right nub right"
+msgstr "Flytta höger markör åt höger"
+
+#. (itstool) path: section/p
+#: C/keyboard-shortcuts.page:168
+msgid ""
+"Hold <key>Ctrl</key> while pressing arrow keys to move by 5 units instead of "
+"1"
+msgstr ""
+"Håll ner <key>Ctrl</key> under tryck med piltangenterna för förflyttning med "
+"5 enheter i stället för 1"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:172
+msgid "Tags &amp; Events"
+msgstr "Taggar och händelser"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:174
+msgid "<keyseq><key>Ctrl</key><key>T</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>T</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:174
+msgid "Add tags"
+msgstr "Lägg till taggar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:175
+msgid "<keyseq><key>Ctrl</key><key>M</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>M</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:175
+msgid "Modify tags"
+msgstr "Ändra taggar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:176
+msgid "<keyseq><key>Ctrl</key><key>N</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>N</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:176
+msgid "New event"
+msgstr "Ny händelse"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:177
+msgid "Rename tag (sidebar tree, single selected)"
+msgstr "Byt namn på tagg (sidopanelsträd, en markerad)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:178
+msgid "Delete tag/entry (sidebar tree)"
+msgstr "Ta bort tagg/post (sidopanelsträd)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:179
+msgid "Toggle branch expansion (sidebar tree)"
+msgstr "Växla grenexpansion (sidopanelsträd)"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:184
+msgid "Slideshow"
+msgstr "Bildspel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:186
+msgid "Play / pause slideshow"
+msgstr "Spela upp / pausa bildspel"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:187
+msgid "Leave slideshow"
+msgstr "Lämna bildspel"
+
+#. (itstool) path: section/title
+#: C/keyboard-shortcuts.page:192
+msgid "Face Tagging"
+msgstr "Ansiktstaggning"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:194
+msgid "<keyseq><key>Ctrl</key><key>R</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>R</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:194
+msgid "Remove face from photo (face browser)"
+msgstr "Ta bort ansikte från bild (ansiktsbläddrare)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:195
+msgid "Rename face (face browser)"
+msgstr "Byt namn på ansikte (ansiktsbläddrare)"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:196
+msgid "Cancel face editing / delete face shape"
+msgstr "Avbryt ansiktsredigering / ta bort ansiktsform"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:197
+msgid "Confirm face shape / apply faces"
+msgstr "Bekräfta ansiktsform / tillämpa ansikten"
 
 #. (itstool) path: info/desc
 #: C/share-print.page:7
@@ -644,12 +1657,12 @@ msgstr ""
 "den som saknad."
 
 #. (itstool) path: page/title
-#: C/other-missing.page:12
+#: C/other-missing.page:13
 msgid "Missing photos"
 msgstr "Saknade bilder"
 
 #. (itstool) path: page/p
-#: C/other-missing.page:14
+#: C/other-missing.page:15
 msgid ""
 "Each time Shotwell starts up, it scans your photo library to verify that all "
 "photo files still exist on your hard drive. If Shotwell finds that any photo "
@@ -664,7 +1677,7 @@ msgstr ""
 "visas i sidopanelen."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:16
+#: C/other-missing.page:17
 msgid ""
 "If you no longer want the missing files to be part of your Shotwell "
 "collection (perhaps because you deleted them), go to the Missing Files view, "
@@ -675,7 +1688,7 @@ msgstr ""
 "filer, välj bilder och klicka sedan <gui>Ta bort från bibliotek</gui>."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:18
+#: C/other-missing.page:19
 msgid ""
 "If you have photos on a removable disk, such as a CD or USB flash drive, and "
 "<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
@@ -691,7 +1704,7 @@ msgstr ""
 "flyttbar enhet till din dator."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:20
+#: C/other-missing.page:21
 msgid ""
 "If any missing photo files become available again, Shotwell will notice this "
 "the next time it starts. The photos will once again appear in the Photos, "
@@ -3346,63 +4359,38 @@ msgctxt "text"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: credit/name
-#: C/index.page:11
-msgid "Jim Nelson"
-msgstr "Jim Nelson"
-
-#. (itstool) path: credit/name
-#: C/index.page:15
-msgid "Allison Barlow"
-msgstr "Allison Barlow"
-
-#. (itstool) path: credit/name
-#: C/index.page:19
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:23
-msgid "Peter Smith"
-msgstr "Peter Smith"
-
-#. (itstool) path: credit/name
-#: C/index.page:27
-msgid "Phil Bull"
-msgstr "Phil Bull"
-
 #. (itstool) path: page/title
-#: C/index.page:33
+#: C/index.page:37
 msgid "<_:media-1/> Shotwell Photo Manager"
 msgstr "<_:media-1/> Shotwell Bildhanterare"
 
 #. (itstool) path: section/title
-#: C/index.page:39
+#: C/index.page:43
 msgid "Importing Photos"
 msgstr "Importera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:43
+#: C/index.page:47
 msgid "Viewing Photos"
 msgstr "Visa bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:47
+#: C/index.page:51
 msgid "Organizing Photos"
 msgstr "Ordna bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:51
+#: C/index.page:55
 msgid "Editing Photos"
 msgstr "Redigera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:55
+#: C/index.page:59
 msgid "Sharing Photos"
 msgstr "Dela bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:59
+#: C/index.page:63
 msgid "Other Features"
 msgstr "Andra egenskaper"
 
@@ -3489,11 +4477,11 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/formats.page:7
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and RAW photo files as "
-"well as video files."
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP, JPEG-XL, AVIF, HEIC and "
+"various RAW photo files as well as video files."
 msgstr ""
-"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP- och RAW-bilder såväl "
-"som filmfiler."
+"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP-, JPEG-XL-, AVIF-, "
+"HEIC-bilder och diverse RAW-bilder såväl som filmfiler."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -3503,11 +4491,11 @@ msgstr "Bild- och videoformat som stöds"
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-"
-"raw\">RAW</link> photo files."
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP, JPEG-XL, AVIF, HEIC and "
+"<link xref=\"other-raw\">RAW</link> photo files."
 msgstr ""
-"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP- och <link "
-"xref=\"other-raw\">RAW</link>-bildfiler."
+"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP-, JPEG-XL-, AVIF-, "
+"HEIC- och <link xref=\"other-raw\">RAW</link>-bildfiler."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -3516,13 +4504,13 @@ msgid ""
 "photo, you are actually viewing a JPEG derived from the RAW photo, not the "
 "RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
 "- you can only export edited photos as 8-bit files. Most supported formats "
-"can be used for export (JPEG, PNG, TIFF, BMP)."
+"can be used for export (JPEG, PNG, TIFF, BMP, AVIF)."
 msgstr ""
 "Shotwells RAW-formatstöd är för tillfället begränsat. När du visar en RAW-"
 "bild visar du egentligen en JPEG som härstammar från RAW-bilden, inte själva "
 "RAW-bilden. Dessutom är RAW-redigeringsflödet inte helt 16-bitars - du kan "
 "bara exportera redigerade bilder som 8-bitars filer. De flesta format som "
-"stöds kan användas för export (JPEG, PNG, TIFF, BMP)."
+"stöds kan användas för export (JPEG, PNG, TIFF, BMP, AVIF)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
