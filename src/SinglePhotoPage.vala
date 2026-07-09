@@ -468,9 +468,8 @@ public abstract class SinglePhotoPage : Page {
         new_surface(pixmap_ctx, pixmap_dim);
     }
 
-    protected override bool on_context_keypress() {
-        // return popup_context_menu(get_page_context_menu());
-        return false;
+    protected override bool on_context_keypress(Gtk.Widget source, Variant? args) {
+        return popup_context_menu(get_page_context_menu(), 0, 0);
     }
 
     protected virtual void on_previous_photo() {}

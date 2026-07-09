@@ -106,7 +106,11 @@ public abstract class Page : Gtk.Box {
         
         scrolled.set_can_focus(true);
 
-        //popup_menu.connect(on_context_keypress);
+        var trigger = create_trigger_for_menu();
+        var controller = new Gtk.ShortcutController();
+        var shortcut = new Gtk.Shortcut(trigger, new Gtk.CallbackAction(on_context_keypress));
+        controller.add_shortcut(shortcut);
+        ((Gtk.Widget)this).add_controller(controller);
         
         scrolled.realize.connect(attach_view_signals);
     }
@@ -976,7 +980,7 @@ public abstract class Page : Gtk.Box {
         return false;
     }
     
-    protected virtual bool on_context_keypress() {
+    protected virtual bool on_context_keypress(Gtk.Widget source, Variant? args) {
         return false;
     }
     

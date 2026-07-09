@@ -210,3 +210,17 @@ public DateTime? coarsify_date_time(DateTime? dt) {
 
     return dt.add(-dt.get_microsecond());
 }
+
+// FIXME: Use version from 4.24 once we can rely on that
+static Gtk.ShortcutTrigger? menu_trigger = null;
+Gtk.ShortcutTrigger create_trigger_for_menu() {
+    if (menu_trigger == null) {
+        menu_trigger = new Gtk.AlternativeTrigger(
+            new Gtk.AlternativeTrigger(
+                new Gtk.KeyvalTrigger(Gdk.Key.Menu, Gdk.ModifierType.NO_MODIFIER_MASK),
+                new Gtk.KeyvalTrigger(Gdk.Key.ContextMenu, Gdk.ModifierType.NO_MODIFIER_MASK)),
+            new Gtk.KeyvalTrigger(Gdk.Key.F10, Gdk.ModifierType.SHIFT_MASK));
+    }
+
+    return (!)menu_trigger;
+}

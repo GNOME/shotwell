@@ -119,9 +119,8 @@ public abstract class CheckerboardPage : Page {
         return page_context_menu;
     }
 
-    protected override bool on_context_keypress() {
-        //return popup_context_menu(get_context_menu());
-        return true;
+    protected override bool on_context_keypress(Gtk.Widget source, Variant? args) {
+        return popup_context_menu(get_context_menu(), 0, 0);
     }
 
     protected virtual string get_view_empty_icon() {

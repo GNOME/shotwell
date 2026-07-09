@@ -514,10 +514,8 @@ public class LibraryPhotoPage : EditingHostPage {
         return true;
     }
 
-    protected override bool on_context_keypress() {
-        //popup_context_menu(get_context_menu());
-        
-        return true;
+    protected override bool on_context_keypress(Gtk.Widget source, Variant? args) {
+        return popup_context_menu(get_context_menu(), 0, 0);
     }
 
     private void return_to_collection() {
