@@ -31,7 +31,7 @@ public class SetBackgroundPhotoDialog : Gtk.Dialog {
         int response = 0;
         this.response.connect((source, res) => {
             this.set_visible(false);
-            res = response;
+            response = res;
             continue_cb();
         });
         
