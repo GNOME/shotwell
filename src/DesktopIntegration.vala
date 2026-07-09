@@ -110,7 +110,7 @@ public async void files_send_to(File[] files) {
 
         // Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
         yield portal.compose_email(parent, {null}, null, null,
-            _("Send files per Mail: ")  + file_names.str, null, file_paths, Xdp.EmailFlags.NONE, null);
+            _("Send files per Mail: "),  _("Send files per Mail: ") + file_names.str, file_paths, Xdp.EmailFlags.NONE, null);
     } catch (Error e) {
         // Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
         AppWindow.error_message(_("Unable to send file %s, %s").printf(
