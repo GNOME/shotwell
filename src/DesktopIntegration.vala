@@ -169,6 +169,7 @@ public void set_background(Photo photo, bool desktop, bool screensaver) {
     
     try {
         photo.export(save_as, Scaling.for_original(), Jpeg.Quality.HIGH, file_format);
+        GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
     } catch (Error err) {
         AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), 
             err.message));
@@ -187,8 +188,6 @@ public void set_background(Photo photo, bool desktop, bool screensaver) {
     } catch (Error err) {
         AppWindow.error_message(_("Unable to set background: %s").printf(err.message));
     }
-
-    GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
 
 // Helper class for set_background_slideshow()
