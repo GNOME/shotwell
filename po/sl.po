@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-19 17:27+0000\n"
+"POT-Creation-Date: 2026-07-25 20:09+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -992,6 +992,11 @@ msgstr "Ko so pripravljene, lahko s programom fotografije objavite v različne s
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Program podpira zapise JPEG, PNG, TIFF in različne zapise RAW."
 
+# GNOME Application Name for Direct Edit Mode
+#: data/org.gnome.Shotwell.metainfo.xml.in:35
+msgid "The Shotwell developers"
+msgstr "Razvijalci Shotwella"
+
 #: data/org.gnome.Shotwell.metainfo.xml.in:42
 msgid "Main View with extended information display"
 msgstr "Glavni pogled z izpisom razširjenih podatkov"
@@ -1970,11 +1975,11 @@ msgstr ""
 "V brskalniku se prijavite v Tumblr. Med prijavo je treba overiti povezavo med programom Shotwell (Shotwell Connect) in računom Tumblr."
 
 # GNOME Application Name
-#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
+#: plugins/common/Resources.vala:9 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Obiščite domačo stran programa Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:28 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@src.gnome.org>\n"
@@ -2721,11 +2726,11 @@ msgstr[1] "Zaradi napak ni mogoče izbrisati %d fotografije oziroma posnetka."
 msgstr[2] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 msgstr[3] "Zaradi napak ni mogoče izbrisati %d fotografij oziroma posnetkov."
 
-#: src/CheckerboardPage.vala:132
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Ni fotografij in posnetkov"
 
-#: src/CheckerboardPage.vala:136
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Ni najdenih fotografij ali posnetkov, skladnih s trenutno uveljavljenim filtrom"
 
@@ -3029,17 +3034,17 @@ msgstr "Datoteke %s ni mogoče poslati, %s"
 msgid "Send To"
 msgstr "Pošlji za"
 
-#: src/DesktopIntegration.vala:173
+#: src/DesktopIntegration.vala:174
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Ozadja ni mogoče izvoziti v %s: %s"
 
-#: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
+#: src/DesktopIntegration.vala:189 src/DesktopIntegration.vala:329
 #, c-format
 msgid "Unable to set background: %s"
 msgstr "Ozadja ni mogoče nastaviti: %s"
 
-#: src/DesktopIntegration.vala:315
+#: src/DesktopIntegration.vala:314
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Ni mogoče pripraviti namizne predstavitve: %s"
@@ -3286,7 +3291,7 @@ msgstr[3] "Oznaka »%s« bo odstranjena z označenih %d fotografij. Ali želite 
 msgid "Export Video"
 msgstr "Izvozi posnetke"
 
-#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:666
+#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:664
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Izvozi fotografijo"
@@ -4345,60 +4350,60 @@ msgstr "Ni mogoče ustvariti začasne datoteke za %s: %s"
 msgid "Exporting"
 msgstr "Izvažanje"
 
-#: src/faces/FacesTool.vala:114
+#: src/faces/FacesTool.vala:108
 msgid "Detect faces…"
 msgstr "Zaznaj obraze …"
 
-#: src/faces/FacesTool.vala:139
+#: src/faces/FacesTool.vala:133
 msgid "Detect faces on this photo"
 msgstr "Zaznaj obraze na fotografiji"
 
-#: src/faces/FacesTool.vala:141
+#: src/faces/FacesTool.vala:135
 msgid "Cancel face detection"
 msgstr "Prekliči zaznavanje obrazov"
 
-#: src/faces/FacesTool.vala:144
+#: src/faces/FacesTool.vala:138
 msgid "Close the Faces tool without saving changes"
 msgstr "Zapri orodje za zaznavanje obrazov brez shranjevanja"
 
-#: src/faces/FacesTool.vala:148 src/faces/FacesTool.vala:182
+#: src/faces/FacesTool.vala:142 src/faces/FacesTool.vala:176
 msgid "Click and drag to tag a face"
 msgstr "Kliknite in potegnite za označevanje obraza"
 
-#: src/faces/FacesTool.vala:177
+#: src/faces/FacesTool.vala:171
 #, c-format
 msgid "Click to edit face “%s”"
 msgstr "Kliknite za urejanje obraza »%s«"
 
-#: src/faces/FacesTool.vala:186
+#: src/faces/FacesTool.vala:180
 msgid "Stop dragging to add your face and name it."
 msgstr "Zaustavite poteg za dodajanje obraza in poimenovanje."
 
-#: src/faces/FacesTool.vala:190
+#: src/faces/FacesTool.vala:184
 msgid "Type a name for this face, then press Enter"
 msgstr "Vpišite ime k temu obrazu in pritisnite vnosno tipko"
 
-#: src/faces/FacesTool.vala:194
+#: src/faces/FacesTool.vala:188
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "Premaknite za spreminjanje oblike obraza ali imena in pritisnite vnosno tipko"
 
-#: src/faces/FacesTool.vala:198
+#: src/faces/FacesTool.vala:192
 msgid "Detecting faces"
 msgstr "Zaznavanje obrazov"
 
-#: src/faces/FacesTool.vala:209
+#: src/faces/FacesTool.vala:203
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr "Če ne nastavite imen neznanih obrazov, ti ne bodo shranjeni."
 
-#: src/faces/FacesTool.vala:230
+#: src/faces/FacesTool.vala:224
 msgid "Save changes and close the Faces tool"
 msgstr "Shrani spremembe in zapri orodje za določanje obrazov"
 
-#: src/faces/FacesTool.vala:232
+#: src/faces/FacesTool.vala:226
 msgid "No changes to save"
 msgstr "Ni sprememb za shranjevanje"
 
-#: src/faces/FacesTool.vala:844
+#: src/faces/FacesTool.vala:860
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Prišlo je do napake med začenjanjem programa za zaznavo obrazov:\n"
 
@@ -4509,17 +4514,17 @@ msgstr "Manjkajoče datoteke"
 msgid "Deleting…"
 msgstr "Poteka brisanje …"
 
-#: src/LibraryPhotoPage.vala:537
+#: src/LibraryPhotoPage.vala:535
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Odstrani iz knjižnice"
 
-#: src/LibraryPhotoPage.vala:538
+#: src/LibraryPhotoPage.vala:536
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Odstranjevanje fotografije iz knjižnice"
 
-#: src/LibraryPhotoPage.vala:687
+#: src/LibraryPhotoPage.vala:685
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s ni mogoče izvoziti: %s"
@@ -5840,11 +5845,11 @@ msgstr "★★★★★+ Ocena"
 msgid "Back"
 msgstr "Nazaj"
 
-#: src/SlideshowPage.vala:161 src/SlideshowPage.vala:270
+#: src/SlideshowPage.vala:161
 msgid "Pause"
 msgstr "Premor"
 
-#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:271
+#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:269
 msgid "Pause the slideshow"
 msgstr "Naredi premor predstavitve"
 
@@ -5866,10 +5871,6 @@ msgid "All photo source files are missing."
 msgstr "Manjkajo vse izvorne datoteke fotografije."
 
 #: src/SlideshowPage.vala:266
-msgid "Play"
-msgstr "Predvajaj"
-
-#: src/SlideshowPage.vala:267
 msgid "Continue the slideshow"
 msgstr "Nadaljuj s predstavitvijo"
 
