@@ -266,14 +266,14 @@ public class FacesTool : EditingTools.EditingTool {
 
             face_delete_requested(widget.label.get_text());
 
-            widget.get_parent().destroy();
+            face_widgets_layout.remove(widget);
+            widget.destroy();
 
-            #if 0
-            if (face_widgets_layout.get_children().length() == 1) {
+            if (face_widgets_layout.get_last_child() == face_widgets_layout.get_first_child()) {
+                face_widgets_layout.remove(buttons_text_separator);
                 buttons_text_separator.destroy();
                 buttons_text_separator = null;
             }
-            #endif
         }
 
         private void on_face_hidden() {
