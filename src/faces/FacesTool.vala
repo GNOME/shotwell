@@ -162,7 +162,7 @@ public class FacesTool : EditingTools.EditingTool {
             layout.append(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
             layout.append(response_layout);
 
-            set_child(layout);
+            add(layout);
         }
 
         public void set_editing_phase(EditingPhase phase, FaceShape? face_shape = null) {
@@ -300,7 +300,7 @@ public class FacesTool : EditingTools.EditingTool {
             layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             layout.append(entry);
 
-            set_child(layout);
+            add(layout);
 
             var controller = new Gtk.EventControllerKey();
             ((Gtk.Widget)this).add_controller(controller);
