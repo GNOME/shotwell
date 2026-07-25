@@ -296,19 +296,33 @@ public class FacesTool : EditingTools.EditingTool {
             base(container);
 
             entry = new Gtk.Entry();
+            entry.activates_default = false;
+            var controller = new Gtk.EventControllerKey();
+            controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
+            
+            // Steal Enter from the Entry to close the dialog
+            controller.key_pressed.connect((controller, keyval, keycode, mask) => {
+                if (keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter) {
+                    on_keypress(controller, keyval, keycode, mask);
+                    return true;
+                }
+
+                return false;
+            });
+            entry.add_controller(controller);
 
             layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             layout.append(entry);
 
             add(layout);
 
-            var controller = new Gtk.EventControllerKey();
+            controller = new Gtk.EventControllerKey();
             ((Gtk.Widget)this).add_controller(controller);
             controller.key_pressed.connect(on_keypress);
         }
 
         public bool on_keypress(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-            return key_pressed(event, keyval, keycode, modifiers);
+            return key_pressed(event, keyval, keycode, modifiers) || base.key_press_event(event, keyval, keycode, modifiers);
         }
     }
 
