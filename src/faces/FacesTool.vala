@@ -236,10 +236,12 @@ public class FacesTool : EditingTools.EditingTool {
             face_widget.delete_button.clicked.connect(delete_face);
 
             face_widgets_layout.append(face_widget);
+
             var focus = new Gtk.EventControllerMotion();
             focus.enter.connect(face_widget.on_enter_notify_event);
             focus.leave.connect(face_widget.on_leave_notify_event);
             face_widget.add_controller(focus);
+            face_widget.set_data("focus-controller", focus);
 
             if (buttons_text_separator == null) {
                 buttons_text_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
@@ -257,6 +259,13 @@ public class FacesTool : EditingTools.EditingTool {
 
         private void delete_face(Gtk.Button button) {
             FaceWidget widget = (FaceWidget) button.get_parent();
+
+            // Remove the motion controller before destroying the widget
+            // to prevent leave/enter events from firing on a freed FaceShape
+            var focus = widget.get_data<Gtk.EventControllerMotion>("focus-controller");
+            if (focus != null) {
+                widget.remove_controller(focus);
+            }
 
             face_delete_requested(widget.label.get_text());
 
