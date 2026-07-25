@@ -16,7 +16,7 @@ public abstract class FaceShape : Object {
     
     protected FacesTool.EditingFaceToolWindow face_window;
     protected string current_cursor_type = "se-resize";
-    protected EditingTools.PhotoCanvas canvas;
+    public EditingTools.PhotoCanvas canvas { get; protected set; }
     protected string serialized = null;
     protected double[] face_vec;
     
@@ -312,7 +312,7 @@ public class FaceRectangle : FaceShape {
         canvas.draw_box(wide_white_ctx, box.get_reduced(1));
         canvas.draw_box(wide_white_ctx, box.get_reduced(2));
         
-        //canvas.invalidate_area(box);
+        canvas.invalidate_area(box);
         
         if (!is_editable())
             paint_label();
@@ -323,8 +323,6 @@ public class FaceRectangle : FaceShape {
         
         if (!is_editable())
             erase_label();
-
-//        canvas.repaint();
     }
     
     private void paint_label() {

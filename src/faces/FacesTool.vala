@@ -66,34 +66,28 @@ public class FacesTool : EditingTools.EditingTool {
         public void on_enter_notify_event() {
             activate_label();
 
-            if (face_shape.is_editable())
+            if (face_shape.is_editable()) {
                 return;
+            }
 
             // This check is necessary to avoid painting the face twice --see
             // note in on_leave_notify_event.
-            if (!face_shape.is_visible())
+            if (!face_shape.is_visible()) {
                 face_shape.show();
+                face_shape.canvas.repaint();
+            }
         }
 
         public void on_leave_notify_event() {
-            // This check is necessary because GTK+ will throw enter/leave_notify
-            // events when the pointer passes though windows, even if one window
-            // belongs to a widget that is a child of the widget that throws this
-            // signal. So, this check is necessary to avoid "deactivation" of
-            // the label if the pointer enters one of the buttons in this FaceWidget.
-            #if 0
-            if (!is_pointer_over(get_window())) {
-                deactivate_label();
+            deactivate_label();
 
-                if (face_shape.is_editable())
-                    return;
-
-                face_shape.hide();
-                face_hidden();
+            if (face_shape.is_editable()) {
+                return;
             }
-            #endif
 
-            return;
+            face_shape.hide();
+            face_shape.canvas.repaint();
+            face_hidden();
         }
 
         public void activate_label() {
@@ -242,7 +236,7 @@ public class FacesTool : EditingTools.EditingTool {
             face_widget.delete_button.clicked.connect(delete_face);
 
             face_widgets_layout.append(face_widget);
-            var focus = new Gtk.EventControllerFocus();
+            var focus = new Gtk.EventControllerMotion();
             focus.enter.connect(face_widget.on_enter_notify_event);
             focus.leave.connect(face_widget.on_leave_notify_event);
             face_widget.add_controller(focus);
@@ -629,7 +623,6 @@ public class FacesTool : EditingTools.EditingTool {
             // We need to do this because it could be one of the already
             // created faces being edited, and if that is the case it
             // will not be destroyed.
-            editing_face_shape.hide();
             editing_face_shape.hide();
 
             // This is to allow the user to edit a FaceShape's shape
