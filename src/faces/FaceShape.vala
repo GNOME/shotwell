@@ -201,11 +201,11 @@ public class FaceRectangle : FaceShape {
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
         int half_width = NULL_SIZE, int half_height = NULL_SIZE, double[] vec = {}) {
-	double[] int_vec;
-	if (vec.length == 0)
-	   int_vec = create_empty_vec();
-	else
-	   int_vec = vec;
+	    double[] int_vec;
+	    if (vec.length == 0)
+	        int_vec = create_empty_vec();
+	    else
+	        int_vec = vec;
         base(canvas, int_vec);
         
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
@@ -238,8 +238,8 @@ public class FaceRectangle : FaceShape {
         double[] empty_vec = new double[128];
         for (int i = 0; i < 128; i++) {
             empty_vec[i] = 0;
-	}
-	return empty_vec;
+	    }
+	    return empty_vec;
     }
     
     public static new FaceRectangle from_serialized(EditingTools.PhotoCanvas canvas, string[] args)
