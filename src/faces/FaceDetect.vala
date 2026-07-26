@@ -66,9 +66,9 @@ public class FaceDetect {
                 face_detect_proxy.load_net(net_file);
                 connected = true;
             } catch(IOError e) {
-                AppWindow.error_message(ERROR_MESSAGE);
+                AppWindow.get_instance().add_toast(new Shotwell.Toast(ERROR_MESSAGE));
             } catch(DBusError e) {
-                AppWindow.error_message(ERROR_MESSAGE);
+                AppWindow.get_instance().add_toast(new Shotwell.Toast(ERROR_MESSAGE));
             }
         }
     }
@@ -86,15 +86,14 @@ public class FaceDetect {
                                                   DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
                                                   | DBusProxyFlags.DO_NOT_CONNECT_SIGNALS,
                                                   null);
-            Idle.add(() => {
+            Idle.add_once(() => {
                 try {
                     face_detect_proxy.load_net(net_file);
                     connected = true;
                 } catch (Error error) {
                     critical("Failed to call load_net: %s", error.message);
-                    AppWindow.error_message(ERROR_MESSAGE);
+                    AppWindow.get_instance().add_toast(new Shotwell.Toast(ERROR_MESSAGE));
                 }
-                return false;
             });
 
             return true;
