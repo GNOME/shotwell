@@ -74,7 +74,7 @@ public class FaceLocationTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_text(3, geometry);
         assert(res == Sqlite.OK);
-	if (vec == null) vec = "";
+    	if (vec == null) vec = "";
         res = stmt.bind_text(4, vec);
         assert(res == Sqlite.OK);
         
