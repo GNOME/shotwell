@@ -926,6 +926,11 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     private Face? get_face_match(FaceShape face_shape, double threshold) {
+        // The input face is not from DNN
+        if (face_shape.get_face_vec().length < 128) {
+            return null;
+        }
+
         Gee.List<FaceLocationRow?> face_vecs;
         try {
             Gee.List<FaceRow?> face_rows = FaceTable.get_instance().get_ref_rows();
@@ -938,6 +943,10 @@ public class FacesTool : EditingTools.EditingTool {
         double max_product = threshold;
         foreach (var row in face_vecs) {
             string[] vec_str = row.vec.split(",");
+            // These are either old or manually created faces, skip for comparison
+            if (vec_str.length < 128) {
+                continue;
+            }
             double[] vec = {};
             foreach (var d in vec_str) vec += double.parse(d);
             double product = dot_product(face_shape.get_face_vec(), vec[0:128]);
