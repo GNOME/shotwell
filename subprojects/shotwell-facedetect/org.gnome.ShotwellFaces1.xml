@@ -33,6 +33,16 @@
       <arg type="b" name="ret" direction="out" />
     </method>
 
+    <!-- 
+        CanRead
+        @image: Image file to run face detection on
+        Returns true, if facedetect helper can read the file, false otherwise.
+    -->
+    <method name="CanRead">
+      <arg type="s" name="image" direction="in"/>
+      <arg type="b" name="ret" direction="out" />
+    </method>
+
     <!--
         Terminate
     -->

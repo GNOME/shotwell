@@ -33,6 +33,10 @@ constexpr std::string_view HAARCASCADE_PROFILE{ "haarcascade_profileface.xml" };
 std::vector<cv::Rect> detectFacesMat(const cv::Mat &img);
 std::vector<double> faceToVecMat(const cv::Mat& img);
 
+bool canRead(const cv::String &inputName) {
+    return cv::haveImageReader(inputName);
+}
+
 // Detect faces in a photo
 std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, bool infer = false) {
     if(cascade.empty()) {

@@ -824,14 +824,42 @@ public class FacesTool : EditingTools.EditingTool {
         run_face_detection.begin(on_face_detection_done);
     }
 
-    private async void run_face_detection()  throws Error {
+    private async void run_face_detection() throws Error {
         if (!FaceDetect.connected) {
             throw new SpawnError.INVAL("Face detect process not connected");
         }
         Dimensions dimensions = canvas.get_photo().get_dimensions();
         float scale_factor = (float)dimensions.width / FACE_DETECT_MAX_WIDTH;
-        var rects = yield FaceDetect.face_detect_proxy.detect_faces(canvas.get_photo().get_file().get_path(),
-                    AppDirs.get_haarcascade_file().get_path(), scale_factor, true, face_detection_cancellable);
+        var path = canvas.get_photo().get_file().get_path();
+        File? tmp_file = null;
+        var cr = yield FaceDetect.face_detect_proxy.can_read(path);
+        if (!cr) {
+            string basename;
+            disassemble_filename(canvas.get_photo().get_basename(), out basename, null);
+            tmp_file = AppDirs.get_temp_dir().get_child("facedetect-%s.%s".printf(GLib.Uuid.string_random(), "bmp"));  
+            yield canvas.get_photo().export_async(tmp_file, Scaling.for_original(), Jpeg.Quality.MAXIMUM, PhotoFileFormat.BMP, Priority.DEFAULT, face_detection_cancellable, false, false);
+            path = tmp_file.get_path();
+        }
+        
+        Error? error = null;
+        FaceRect[]? rects = null;
+        try {
+            rects = yield FaceDetect.face_detect_proxy.detect_faces(path,
+                        AppDirs.get_haarcascade_file().get_path(), scale_factor, true, face_detection_cancellable);
+        } catch (Error err) {
+            error = err;
+        } finally {
+            if (tmp_file != null) {
+                try {
+                    tmp_file.delete();
+                } catch (Error err) {};
+                tmp_file = null;
+            }
+        }
+
+        if (error != null) {
+            throw error;
+        }
 
         var faces = new Gee.PriorityQueue<string>();
         for (int i = 0; i < rects.length; i++) {

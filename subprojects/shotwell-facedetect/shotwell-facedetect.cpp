@@ -51,6 +51,12 @@ static gboolean on_handle_load_net(ShotwellFaces1 *object, GDBusMethodInvocation
     return TRUE;
 }
 
+static gboolean on_can_read(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, const gchar *arg_image)
+{
+    shotwell_faces1_complete_can_read(object, invocation, canRead(arg_image) ? TRUE : FALSE);
+    return TRUE;
+}
+
 static gboolean on_handle_terminate(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, gpointer user_data)
 {
     g_debug("Exiting...");
@@ -68,6 +74,7 @@ static void on_name_acquired(GDBusConnection *connection,
     g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), nullptr);
     g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), user_data);
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), nullptr);
+    g_signal_connect(interface, "handle-can-read", G_CALLBACK (on_can_read), nullptr);
 
     g_autoptr(GError) error = nullptr;
     g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH.data(), &error);

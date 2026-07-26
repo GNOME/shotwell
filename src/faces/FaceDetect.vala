@@ -39,6 +39,7 @@ public interface FaceDetectInterface : DBusProxy {
     public abstract bool load_net(string netFile)
         throws IOError, DBusError;
     public abstract void terminate() throws IOError, DBusError;
+    public abstract async bool can_read(string inputName) throws IOError, DBusError;
 }
 
 // Class to communicate with facedetect process over DBus
