@@ -426,11 +426,13 @@ public class FaceRectangle : FaceShape {
         serialized = "%s;%s;%s;%s;%s;".printf(SHAPE_TYPE, x.to_string(),
             y.to_string(), half_width.to_string(), half_height.to_string());
         if (!geometry_only) {
-            string face_vec_str = "";
-            foreach (var d in face_vec[0:-2])
-                face_vec_str += d.to_string() + ",";
-            face_vec_str += face_vec[-1].to_string();
-            serialized += face_vec_str;
+            var face_vec_str = new StringBuilder();
+            foreach (var d in face_vec) {
+                face_vec_str.append(d.to_string());
+                face_vec_str.append_c(',');
+            }
+            face_vec_str.erase(face_vec_str.len - 1, 1);
+            serialized += face_vec_str.str;
         }
         return serialized;
     }
