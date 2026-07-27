@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-01-27 13:01+0000\n"
+"POT-Creation-Date: 2026-06-15 21:14+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
@@ -976,6 +976,11 @@ msgstr "Urejanje barv slik"
 #: data/org.gnome.Shotwell.appdata.xml.in:48
 msgid "Uploading images to online services"
 msgstr "Prenos slik v spletne storitve"
+
+# GNOME Application Name for Direct Edit Mode
+#: data/org.gnome.Shotwell.appdata.xml.in:54
+msgid "The Shotwell developers"
+msgstr "Razvijalci Shotwella"
 
 # GNOME Application Class ("Generic Name")
 #: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
@@ -4656,7 +4661,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3817
 msgid "modified"
 msgstr "spremenjeno"
 
