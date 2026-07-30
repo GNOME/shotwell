@@ -102,6 +102,8 @@ public class CheckerboardLayout : Gtk.Widget {
         // CheckerboardItems offer tooltips
         has_tooltip = true;
 
+        focusable = true;
+
         var focus_controller = new Gtk.EventControllerFocus ();
         focus_controller.set_name ("CheckerboardLayout focus watcher");
         add_controller (focus_controller);
