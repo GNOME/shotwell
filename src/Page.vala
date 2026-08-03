@@ -65,7 +65,7 @@ public abstract class Page : Gtk.Box {
     
     private string page_name;
     private ViewCollection view = null;
-    private Gtk.Window container = null;
+    private weak Gtk.Window container = null;
     private string toolbar_path;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private weak Gtk.Widget event_source = null;
