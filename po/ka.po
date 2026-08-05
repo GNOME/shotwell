@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-01-17 10:22+0000\n"
-"PO-Revision-Date: 2026-01-18 03:23+0100\n"
+"POT-Creation-Date: 2026-06-15 21:14+0000\n"
+"PO-Revision-Date: 2026-08-05 05:18+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6 data/gsettings/org.gnome.shotwell.gschema.xml:438
 msgid "OAuth Access Phase Token"
@@ -953,17 +953,25 @@ msgstr ""
 msgid "Main View with extended information display"
 msgstr ""
 
-#: data/org.gnome.Shotwell.appdata.xml.in:40
+#: data/org.gnome.Shotwell.appdata.xml.in:36
 msgid "Import roll history"
+msgstr "roll-ის ისტორიის შემოტანა"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:40
+msgid "Event-based image organization"
 msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:44
-msgid "Event-based organization"
-msgstr ""
-
-#: data/org.gnome.Shotwell.appdata.xml.in:48
 msgid "Image color editing"
 msgstr "გამოსახულების ფერების ჩასწორება"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:48
+msgid "Uploading images to online services"
+msgstr ""
+
+#: data/org.gnome.Shotwell.appdata.xml.in:54
+msgid "The Shotwell developers"
+msgstr "Shotwell-ის პროგრამიტები"
 
 #: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
@@ -1599,7 +1607,7 @@ msgstr "-ავტომატური ზომა:"
 
 #: data/ui/printing_widget.ui:202
 msgid "<b>Titles</b>"
-msgstr ""
+msgstr "<b>ტრეკები</b>"
 
 #: data/ui/printing_widget.ui:219
 msgid "Print image _title"
@@ -1668,7 +1676,7 @@ msgstr "წაშლა"
 
 #: data/ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
-msgstr ""
+msgstr "სამუშაო მაგიდის ფონად დაყენება"
 
 #: data/ui/set_background_dialog.ui:69 data/ui/set_background_slideshow_dialog.ui:132
 msgid "Use for Desktop"
@@ -4221,7 +4229,7 @@ msgstr ""
 
 #: src/main.vala:423
 msgid "PROFILE"
-msgstr ""
+msgstr "პროფილი"
 
 #: src/main.vala:424
 msgid "Start with a browser of available profiles"
@@ -4365,7 +4373,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3817
 msgid "modified"
 msgstr "შეიცვალა"
 
@@ -4619,7 +4627,7 @@ msgstr ""
 
 #: src/Properties.vala:627
 msgid "Exposure bias:"
-msgstr ""
+msgstr "ექსპოზიციის ოფსეტი:"
 
 #: src/Properties.vala:636
 msgid "GPS latitude:"
@@ -5035,11 +5043,11 @@ msgstr ""
 
 #: src/Resources.vala:304
 msgid "Modify Faces"
-msgstr ""
+msgstr "სახეების შეცვლა"
 
 #: src/Resources.vala:305
 msgid "Delete Face"
-msgstr ""
+msgstr "სახის წაშლა"
 
 #: src/Resources.vala:311
 #, c-format
@@ -5132,7 +5140,7 @@ msgstr ""
 #. Saved search button
 #: src/Resources.vala:386 src/SearchFilter.vala:1145
 msgid "Saved Search"
-msgstr ""
+msgstr "დამახსოვრებული ძებნა"
 
 #: src/Resources.vala:388
 msgid "Delete Search"
@@ -5388,7 +5396,7 @@ msgstr "მხოლოდ"
 
 #: src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
-msgstr ""
+msgstr "და უფრო დაბლა"
 
 #: src/searches/SavedSearchDialog.vala:501
 msgid "is after"
