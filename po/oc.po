@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-06-19 17:27+0000\n"
-"PO-Revision-Date: 2026-06-20 19:40+0200\n"
+"POT-Creation-Date: 2026-07-26 15:08+0000\n"
+"PO-Revision-Date: 2026-08-05 11:48+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -1109,6 +1109,10 @@ msgstr "Un còp prèst, Shotwell pòt enviar vòstras fòtos a mantun site web, 
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell pren en carga los formats JPEG, PNG, TIFF emai una granda varietat de formats de fichièr RAW."
 
+#: data/org.gnome.Shotwell.metainfo.xml.in:35
+msgid "The Shotwell developers"
+msgstr "Los desvolopaires de Shotwell"
+
 #: data/org.gnome.Shotwell.metainfo.xml.in:42
 msgid "Main View with extended information display"
 msgstr ""
@@ -2097,11 +2101,11 @@ msgstr ""
 "\n"
 "Clicatz sus « Se connectar » per aviar la connexion dins vòstre navigador Web. Vos caldrà autorizar Shotwell Connect a se ligar a vòstre compte Flickr."
 
-#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
+#: plugins/common/Resources.vala:9 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Visitar la pagina del projet Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:28 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -2607,10 +2611,8 @@ msgid "File %s already exists. Replace?"
 msgstr "Lo fichièr %s existís ja. Lo cal remplaçar ?"
 
 #: src/AppWindow.vala:241
-#, fuzzy
-#| msgid "Export Video"
 msgid "Export file conflict"
-msgstr "Exportar la vidèo"
+msgstr "Conflicte en exportant la vidèo"
 
 #: src/AppWindow.vala:245
 msgid "Apply this conflict resolution to all further conflicts"
@@ -2850,11 +2852,11 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Impossible de suprimir %d fòto/vidèo de l'aparelh fòto a causa d'errors."
 msgstr[1] "Impossible de suprimir %d fòtos/vidèos de l'aparelh fòto a causa d'errors."
 
-#: src/CheckerboardPage.vala:132
+#: src/CheckerboardPage.vala:131
 msgid "No photos/videos"
 msgstr "Pas de fòto/vidèo"
 
-#: src/CheckerboardPage.vala:136
+#: src/CheckerboardPage.vala:135
 msgid "No photos/videos found which match the current filter"
 msgstr "Cap de fòto o vidèo correspond pas al filtre actual"
 
@@ -3147,17 +3149,17 @@ msgstr "Impossible d'enviar lo fichièr %s, %s"
 msgid "Send To"
 msgstr "Mandar a"
 
-#: src/DesktopIntegration.vala:173
+#: src/DesktopIntegration.vala:174
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Impossible d'exportar lo fons d'ecran cap a %s : %s"
 
-#: src/DesktopIntegration.vala:188 src/DesktopIntegration.vala:330
+#: src/DesktopIntegration.vala:189 src/DesktopIntegration.vala:329
 #, c-format
 msgid "Unable to set background: %s"
 msgstr "Impossible de definir lo fons d'ecran : %s"
 
-#: src/DesktopIntegration.vala:315
+#: src/DesktopIntegration.vala:314
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Impossible de preparar lo diaporama d'ecran : %s"
@@ -3378,7 +3380,7 @@ msgstr[1] "Aquò levarà l'etiqueta « %s » de %d fòtos. Contunhar ?"
 msgid "Export Video"
 msgstr "Exportar la vidèo"
 
-#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:666
+#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:664
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Exportar la fòto"
@@ -4001,10 +4003,9 @@ msgstr ""
 "%s."
 
 #: src/direct/DirectPhotoPage.vala:113
-#, fuzzy, c-format
-#| msgid "Unable open photo %s. Sorry."
+#, c-format
 msgid "Unable to open photo %s. Sorry."
-msgstr "Impossible de dobrir la fòto %s. O planhèm."
+msgstr "Impossible de dobrir la fòto %s."
 
 #. Check if we can write the target format
 #: src/direct/DirectPhotoPage.vala:317
@@ -4286,61 +4287,60 @@ msgstr "Impossible de crear un fichièr temporari per %s : %s"
 msgid "Exporting"
 msgstr "Exportacion"
 
-#: src/faces/FacesTool.vala:114
+#: src/faces/FacesTool.vala:108
 msgid "Detect faces…"
 msgstr "Detectar las caras…"
 
-#: src/faces/FacesTool.vala:139
+#: src/faces/FacesTool.vala:133
 msgid "Detect faces on this photo"
 msgstr "Detectar las caras sus aquesta fòto"
 
-#: src/faces/FacesTool.vala:141
+#: src/faces/FacesTool.vala:135
 msgid "Cancel face detection"
 msgstr "Anullar la deteccion de cara"
 
-#: src/faces/FacesTool.vala:144
+#: src/faces/FacesTool.vala:138
 msgid "Close the Faces tool without saving changes"
 msgstr "Tampar l'aisina caras sens enregistrar las modificacions"
 
-#: src/faces/FacesTool.vala:148 src/faces/FacesTool.vala:182
+#: src/faces/FacesTool.vala:142 src/faces/FacesTool.vala:176
 msgid "Click and drag to tag a face"
 msgstr "Clicar e lisar per etiquetar un cara"
 
-#: src/faces/FacesTool.vala:177
-#, fuzzy, c-format
-#| msgid "Click to edit face <i>%s</i>"
+#: src/faces/FacesTool.vala:171
+#, c-format
 msgid "Click to edit face “%s”"
-msgstr "Clicar per modificar la cara <i>%s</i>"
+msgstr "Clicar per modificar la cara « %s »"
 
-#: src/faces/FacesTool.vala:186
+#: src/faces/FacesTool.vala:180
 msgid "Stop dragging to add your face and name it."
 msgstr "Arrestar de lisar per apondre vòstre cara e lo nomenar."
 
-#: src/faces/FacesTool.vala:190
+#: src/faces/FacesTool.vala:184
 msgid "Type a name for this face, then press Enter"
 msgstr "Picar un nom per aqueste cara, puèi quichar sus Entrada"
 
-#: src/faces/FacesTool.vala:194
+#: src/faces/FacesTool.vala:188
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "Desplaçar o modificar la forma del cara o nomenar e picar Entrada"
 
-#: src/faces/FacesTool.vala:198
+#: src/faces/FacesTool.vala:192
 msgid "Detecting faces"
 msgstr "Deteccion de caras"
 
-#: src/faces/FacesTool.vala:209
+#: src/faces/FacesTool.vala:203
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr "Se donatz pas de nom a las caras desconegudas, seràn pas enregistrats."
 
-#: src/faces/FacesTool.vala:230
+#: src/faces/FacesTool.vala:224
 msgid "Save changes and close the Faces tool"
 msgstr "Enregistrar las modificacions e tampar l'aisina caras"
 
-#: src/faces/FacesTool.vala:232
+#: src/faces/FacesTool.vala:226
 msgid "No changes to save"
 msgstr "Pas cap de modificacion d'enregistrar"
 
-#: src/faces/FacesTool.vala:844
+#: src/faces/FacesTool.vala:888
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Error al moment de l'aviada del programa de deteccion de caras :\n"
 
@@ -4407,18 +4407,14 @@ msgid "Emptying Trash…"
 msgstr "Supression del contengut de l'escobilhièr…"
 
 #: src/library/LibraryWindow.vala:733
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</span>.\n"
-#| "Do you want to continue importing photos?"
+#, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell es configurat per importar de fòtos cap a vòstre repertòri personal.\n"
-"Vos recomandam de modificar aquò dins <span weight=\"bold\">Edicion %s Preferéncias</span>.\n"
+"Vos recomandam de modificar aquò dins Edicion %s Preferéncias.\n"
 "Volètz contunhar l'importacion de las fòtos ?"
 
 #: src/library/LibraryWindow.vala:736
@@ -4454,17 +4450,17 @@ msgstr "Fichièrs mancants"
 msgid "Deleting…"
 msgstr "Supression…"
 
-#: src/LibraryPhotoPage.vala:537
+#: src/LibraryPhotoPage.vala:535
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Suprimir de la fototèca"
 
-#: src/LibraryPhotoPage.vala:538
+#: src/LibraryPhotoPage.vala:536
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Supression de la fòto de la fototèca"
 
-#: src/LibraryPhotoPage.vala:687
+#: src/LibraryPhotoPage.vala:685
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Impossible d'exportar %s : %s"
@@ -4987,16 +4983,13 @@ msgid "Unable to publish"
 msgstr "Impossible de publicar"
 
 #: src/publishing/PublishingUI.vala:284
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose <b>Edit %s Preferences</b> and enable one or more of the publishing plugins "
-#| "on the <b>Plugins</b> tab."
+#, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the "
 "Plugins tab."
 msgstr ""
-"Shotwell pòt pas publicar los elements seleccionats perque cap d'empeuton de publicacion compatible es pas activat. Per corregir aquò, causissètz <b>Edicion %s Preferéncias</b> e activatz un o mantun empeuton "
-"de publicacion dins l'onglet <b>Empeutons</b>."
+"Shotwell pòt pas publicar los elements seleccionats perque cap d'empeuton de publicacion compatible es pas activat. Per corregir aquò, causissètz Edicion %s Preferéncias e activatz un o mantun empeuton de "
+"publicacion dins l'onglet Empeutons."
 
 #: src/publishing/PublishingUI.vala:396
 msgid "_Close"
@@ -5452,11 +5445,9 @@ msgstr[1] "Levar l'etiqueta « %s » de la fòto"
 
 #. Translators: This means to teach the face to the face recognition system
 #: src/Resources.vala:426 src/Resources.vala:431
-#, fuzzy, c-format
-#| msgid "Remove Face “%s” From Photo"
-#| msgid_plural "Remove Face “%s” From Photos"
+#, c-format
 msgid "_Train Face “%s” From Photo"
-msgstr "Levar lo cara « %s » de la fòto"
+msgstr "_Entraïnar la cara « %s » de la fòto"
 
 #: src/Resources.vala:439
 #, c-format
@@ -5769,11 +5760,11 @@ msgstr "Valoracion ★★★★★+"
 msgid "Back"
 msgstr "Precedenta"
 
-#: src/SlideshowPage.vala:161 src/SlideshowPage.vala:270
+#: src/SlideshowPage.vala:161
 msgid "Pause"
 msgstr "Pausa"
 
-#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:271
+#: src/SlideshowPage.vala:163 src/SlideshowPage.vala:269
 msgid "Pause the slideshow"
 msgstr "Metre lo diaporama en pausa"
 
@@ -5795,10 +5786,6 @@ msgid "All photo source files are missing."
 msgstr "Totes los fichièrs fonts de los fòtos son mancants."
 
 #: src/SlideshowPage.vala:266
-msgid "Play"
-msgstr "Aviar"
-
-#: src/SlideshowPage.vala:267
 msgid "Continue the slideshow"
 msgstr "Contunhar lo diaporama"
 
@@ -5838,6 +5825,9 @@ msgstr ""
 #: src/video-support/Video.vala:172
 msgid "Export Videos"
 msgstr "Exportar las vidèos"
+
+#~ msgid "Play"
+#~ msgstr "Aviar"
 
 #~ msgid "_Match photo aspect ratio"
 #~ msgstr "_Conservar las proporcions de la fòto"
@@ -5896,9 +5886,6 @@ msgstr "Exportar las vidèos"
 
 #~ msgid "Photos cannot be exported to this directory."
 #~ msgstr "Las fòtos pòdon pas èsser exportadas dins aquel dorsièr."
-
-#~ msgid "The Shotwell developers"
-#~ msgstr "Los desvolopaires de Shotwell"
 
 #~ msgid "Yandex-Fotki authentication token, if logged in."
 #~ msgstr "Geton d’autentificacion Yandex-Fotki, se connectat."
