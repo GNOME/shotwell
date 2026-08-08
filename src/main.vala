@@ -257,17 +257,40 @@ void library_exec(string[] mounts) {
         // Do nothing
     }
 
-    message("Supported codecs....");
-    message("  WEBP   : yes, builtin");
-    message("  RAW    : yes, builtin");
-    message("  CR3    : %s", can_read_bmff ? "yes" : "no");
-    message("  JPEG   : yes, gdk-pixbuf");
-    message("  PNG    : %s, gdk-pixbuf", png ? "yes" : "no");
-    message("  GIF    : %s, gdk-pixbuf", gif ? "yes" : "no");
-    message("  TIFF   : %s, gdk-pixbuf", tiff ? "yes" : "no");
-    message("  JPEG XL: %s, gdk-pixbuf, %s meta-data", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
-    message("  AVIF   : %s, gdk-pixbuf, %s meta-data", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
-    message("  HEIF   : %s, gdk-pixbuf, %s meta-data", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
+    StringBuilder sb = new StringBuilder("");
+    sb.append_printf("Shotwell Version %s\n", Resources.APP_VERSION);
+    sb.append_printf("  Git hash: %s\n", Resources.GIT_VERSION);
+    sb.append_printf("  Runtime environment: %s\n", AppDirs.get_runtime().to_string());
+    sb.append("\nSupported image codecs....\n");
+    sb.append("  WEBP   : yes, builtin\n");
+    sb.append("  RAW    : yes, builtin\n");
+    sb.append_printf("  CR3    : yes, %s meta-data\n", can_read_bmff ? "yes" : "no");
+    sb.append("  JPEG   : yes, gdk-pixbuf\n");
+    sb.append_printf("  PNG    : %s, gdk-pixbuf\n", png ? "yes" : "no");
+    sb.append_printf("  GIF    : %s, gdk-pixbuf\n", gif ? "yes" : "no");
+    sb.append_printf("  TIFF   : %s, gdk-pixbuf\n", tiff ? "yes" : "no");
+    sb.append_printf("  JPEG XL: %s, gdk-pixbuf, %s meta-data\n", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
+    sb.append_printf("  AVIF   : %s, gdk-pixbuf, %s meta-data\n", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
+    sb.append_printf("  HEIF   : %s, gdk-pixbuf, %s meta-data\n", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
+
+    sb.append_printf("\nSystem information:\n");
+    string content = "Unknown";
+    try {
+        if (FileUtils.get_contents("/run/host/os-release", out content)) {
+            content = "Unknown";
+        }
+    } catch (Error err) {
+        try {
+            if (FileUtils.get_contents("/etc/os-release", out content)) {
+                content = "Unknown";
+            }
+        } catch (Error err) {
+            content = "Unknown";
+        }
+    }
+    sb.append(content);
+    message(sb.str);
+    Resources.SYSTEM_INFORMATION = sb.str;
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     

@@ -313,6 +313,7 @@ public abstract class AppWindow : PageWindow {
             "logo-icon-name", Resources.ICON_ABOUT_LOGO,
             "translator-credits", _("translator-credits"),
             "artists", artists,
+            "system-information", Resources.SYSTEM_INFORMATION,
             null
         );
     }

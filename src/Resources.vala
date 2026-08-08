@@ -315,6 +315,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename…");
     public const string FACES_MENU_SECTION = "FacesMenuPlaceholder";
 
+    public static string SYSTEM_INFORMATION;
+
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
