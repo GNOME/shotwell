@@ -1,3 +1,58 @@
+Shotwell 33.rc
+==============
+
+ * Clean-up old data and debug/dead code
+ * Fix toolbar auto-hide in fullscreen mode
+ * Fix icons disappearing in slideshow toolbar
+ * Fix setting desktop backgrounds
+ * Allow pop-up of context menu with keyboard
+ * Fix send-to failing when sending many images
+ * Fix spacing in editing tools dialogs
+ * Fix adding face names
+ * Fix highlighting faces
+ * Fix matching random faces with random probabilities
+ * Export image if OpenCV cannot read the original format
+ * Fix tab navigation
+ * Fix crash when saving import results
+ * Set release name
+ * Add debug information to About dialog
+ * Updated and added translations
+ 
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5039
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/111
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/110
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Martin <miles@filmsi.net>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Aurimas Aurimas Černius <aurimas.cernius@mailo.com>
+ - Sabri Ünal <yakushabb@gmail.com>
+ - Aryan Karamtoth <aryankmmiv@outlook.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Ondrej Holy <oholy@redhat.com>
+
+Added/updated translations:
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ka.po, courtesy of Ekaterine Papava
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - lt.po, courtesy of Aurimas Černius
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - te.po, courtesy of Aryan Karamtoth
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 33.beta
 ================
 
