@@ -564,11 +564,12 @@ public async bool report_manifest(ImportManifest manifest, bool show_dest_id,
     bool result = false;
     dialog.response.connect((source, res) => {
         if (res == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
-            save_import_results.begin(dialog, create_result_report_from_manifest(manifest));
+            save_import_results.begin(AppWindow.get_instance(), create_result_report_from_manifest(manifest));
+            async_cb();
         }
 
         result = res == Gtk.ResponseType.YES;
-        if (res != ImportUI.SAVE_RESULTS_RESPONSE_ID || question == null) {
+        if (res != ImportUI.SAVE_RESULTS_RESPONSE_ID) {
             async_cb();
         }
     });

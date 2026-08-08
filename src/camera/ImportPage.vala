@@ -281,8 +281,6 @@ class ImportPreview : MediaSourceItem {
             warning("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
         }
 
-        print ("======> pixbuf? %p\n", pixbuf);
-        
         // use placeholder if no preview available
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
@@ -1688,6 +1686,8 @@ public class ImportPage : CheckerboardPage {
                 delete_from_camera(manifest);
             }
         });
+
+        local_ref = null;
     }
 
     void delete_from_camera(ImportManifest manifest) {
