@@ -276,12 +276,12 @@ void library_exec(string[] mounts) {
     sb.append_printf("\nSystem information:\n");
     string content = "Unknown";
     try {
-        if (FileUtils.get_contents("/run/host/os-release", out content)) {
+        if (!FileUtils.get_contents("/run/host/os-release", out content)) {
             content = "Unknown";
         }
     } catch (Error err) {
         try {
-            if (FileUtils.get_contents("/etc/os-release", out content)) {
+            if (!FileUtils.get_contents("/etc/os-release", out content)) {
                 content = "Unknown";
             }
         } catch (Error err) {
