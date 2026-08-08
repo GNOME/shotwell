@@ -23,3 +23,8 @@ spinbutton#print-preview-current-page button {
     border: none;
     opacity: 0;
 }
+
+/* Get back the old size of the about icon */
+window.aboutdialog image.large-icons {
+  -gtk-icon-size: 213px;
+}

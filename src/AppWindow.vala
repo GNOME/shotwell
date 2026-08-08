@@ -300,8 +300,10 @@ public abstract class AppWindow : PageWindow {
                 hash += " (Unknown)";
                 break;
         }
+
+        string[] artists = {"Image of the Elmshorn Townhall by Jens Georg, CC-BY-SA-4.0", null};
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION + hash,
+            "version", Resources.APP_VERSION + hash + " ­— Elmshorn",
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
@@ -310,6 +312,7 @@ public abstract class AppWindow : PageWindow {
             "authors", Resources.AUTHORS,
             "logo-icon-name", Resources.ICON_ABOUT_LOGO,
             "translator-credits", _("translator-credits"),
+            "artists", artists,
             null
         );
     }
