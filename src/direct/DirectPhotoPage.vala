@@ -328,6 +328,8 @@ public class DirectPhotoPage : EditingHostPage {
             return false;
         }
 
+        photo.remove_all_transformations(notify);
+
         return true;
     }
     
