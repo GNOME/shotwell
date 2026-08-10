@@ -185,7 +185,7 @@
       <object class="GtkToggleButton" id="FacesButton">
         <property name="focusable">false</property>
         <property name="tooltip_text" translatable="yes">Mark faces of people in the photo</property>
-        <property name="visible">true</property>
+        <property name="visible">false</property>
         <property name="action_name">win.Faces</property>
         <child>
           <object class="GtkBox">
