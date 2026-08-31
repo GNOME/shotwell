@@ -12,7 +12,7 @@
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2011
 # ZupaDupa <kallerainio@gmail.com>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
-# Timo Jyrinki <timo.jyrinki@gmail.com>, 2015.
+# Timo Jyrinki <timo.jyrinki@gmail.com>, 2015, 2026.
 # Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2011-2013, 2014, 2015, 2017.
 #
 msgid ""
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2026-08-10 18:44+0000\n"
-"PO-Revision-Date: 2019-09-02 23:49+0300\n"
+"PO-Revision-Date: 2026-08-31 15:49+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:30
 msgid "default blog"
-msgstr ""
+msgstr "oletusblogi"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:31
 msgid "The name of the default blog of the user, if any"
@@ -193,10 +193,9 @@ msgid ""
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:94
-#, fuzzy
 #| msgid "Sort _Descending"
 msgid "sort events ascending"
-msgstr "Järjestä _laskevasti"
+msgstr "järjestä tapahtumat nousevasti"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "True if events should be sorted ascending, false if descending"
@@ -1876,16 +1875,14 @@ msgid "Hide photos already imported"
 msgstr "Piilota jo tuodut kuvat"
 
 #: data/ui/import.ui:276
-#, fuzzy
 #| msgid "Import the selected photos into your library"
 msgid "Import the selected media files into the library"
-msgstr "Tuo valitut kuvat kirjastoon"
+msgstr "Tuo valitut mediatiedstot kirjastoon"
 
 #: data/ui/import.ui:306
-#, fuzzy
 #| msgid "Import all the photos into your library"
 msgid "Import all media files into the library"
-msgstr "Tuo kaikki kuvat kirjastoon"
+msgstr "Tuo kaikki mediatiedostot kirjastoon"
 
 #: data/ui/login_welcome_pane_widget.ui:27
 msgid "_Log in"
@@ -2239,10 +2236,9 @@ msgid "New _Tag…"
 msgstr "Uusi _tunniste…"
 
 #: data/ui/slideshow_settings.ui:26
-#, fuzzy
 #| msgid "Duration:"
 msgid "_Duration:"
-msgstr "Kesto:"
+msgstr "_Kesto:"
 
 #: data/ui/slideshow_settings.ui:27
 msgid "The time (in seconds) to show each photo"
@@ -2253,10 +2249,9 @@ msgid "_Transition effect:"
 msgstr "_Siirtymän tehoste:"
 
 #: data/ui/slideshow_settings.ui:51
-#, fuzzy
 #| msgid "Transition d_elay:"
 msgid "Transition d_uration:"
-msgstr "Siirt_ymän viive:"
+msgstr "Siirt_ymän kesto:"
 
 #: data/ui/slideshow_settings.ui:52
 msgid "The time (in seconds) to show each transition between photos"
@@ -2488,10 +2483,9 @@ msgid "Sign in with your browser to setup an account"
 msgstr ""
 
 #: plugins/common/WebAuthenticationPane.vala:37
-#, fuzzy
 #| msgid "Con_tinue"
 msgid "Continue"
-msgstr "_Jatka"
+msgstr "Jatka"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:46
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:41
@@ -2545,8 +2539,8 @@ msgid ""
 "service.\n"
 "You have uploaded %llu out of your %lld file limit."
 msgstr ""
-"Ilmaisessa Flickr-tilissä on kuukausittainen rajoitus datan lähetykselle.\n"
-"Tässä kuussa voit vielä lähettää %s."
+"Ilmaisessa Flickr-tilissä on rajoitettu valokuvian lähetyksen määrää.\n"
+"Tässä kuussa sinulla on jäljellä vielä %s."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:547
 #, fuzzy, c-format
@@ -2637,10 +2631,9 @@ msgid "An existing album"
 msgstr "Olemassa oleva albumi"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:107
-#, fuzzy
 #| msgid "A _new album named"
 msgid "A new album named"
-msgstr "_Uuteen albumiin nimeltä"
+msgstr "Uuteen albumiin nimeltä"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1137
@@ -2748,10 +2741,9 @@ msgid "_Do no upload tags"
 msgstr "_Älä lähetä tunnisteita"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:199
-#, fuzzy
 #| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
-msgstr "_Älä lähetä tunnisteita"
+msgstr "_Älä lähetä arvosteluita"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:216
 msgid "Logout"
@@ -2867,10 +2859,9 @@ msgid "Private"
 msgstr "Yksityinen"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:314
-#, fuzzy
 #| msgid "Public unlisted"
 msgid "unlisted"
-msgstr "Julkinen, luettelematon"
+msgstr "luettelematon"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -2905,7 +2896,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Keskeiset diaesityssiirtymät"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:67
-#, fuzzy
 #| msgid ""
 #| "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom "
 #| "Conservancy Inc."
@@ -2913,8 +2903,8 @@ msgid ""
 "Copyright 2010 Maxim Kartashev\n"
 "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr ""
-"Tekijänoikeus 2010 Maxim Kartashev, Tekijänoikeus 2016 Software Freedom "
-"Conservancy Inc."
+"Tekijänoikeus 2010 Maxim Kartashev\n"
+"Tekijänoikeus 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2987,10 +2977,9 @@ msgid "_Skip"
 msgstr "_Ohita"
 
 #: src/AppWindow.vala:247
-#, fuzzy
 #| msgid "Rename…"
 msgid "Rename"
-msgstr "Ni_meä uudelleen…"
+msgstr "Nimeä uudelleen"
 
 #: src/AppWindow.vala:247
 msgid "_Replace"
@@ -5099,7 +5088,7 @@ msgstr ""
 
 #: src/photos/AvifSupport.vala:30
 msgid "AVIF"
-msgstr ""
+msgstr "AVIF"
 
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
@@ -5111,7 +5100,7 @@ msgstr "GIF"
 
 #: src/photos/HeifSupport.vala:30
 msgid "HEIF"
-msgstr ""
+msgstr "HEIF"
 
 #: src/photos/JfifSupport.vala:84
 msgid "JPEG"
@@ -5170,27 +5159,27 @@ msgstr "käytä picassa-julkaisulaajennusta"
 #: src/plugins/ManifestWidget.vala:157
 #, c-format
 msgid "Manage accounts for %s"
-msgstr ""
+msgstr "Hallitsen palvelun %s tilejä"
 
 #: src/plugins/ManifestWidget.vala:183
 msgid "Authors"
-msgstr ""
+msgstr "Tekiäjt"
 
 #: src/plugins/ManifestWidget.vala:193
 msgid "Version"
-msgstr ""
+msgstr "Versio"
 
 #: src/plugins/ManifestWidget.vala:203
 msgid "License"
-msgstr ""
+msgstr "Lisenssi"
 
 #: src/plugins/ManifestWidget.vala:215
 msgid "Website"
-msgstr ""
+msgstr "Websivusto"
 
 #: src/plugins/SpitInterfaces.vala:173
 msgid "LGPL v2.1 or later"
-msgstr ""
+msgstr "LGPL v2.1 tai myöhempi"
 
 #. FIXME: Meh
 #: src/printing/Job.vala:205
@@ -5225,10 +5214,10 @@ msgstr[0] "Noudetaan esikatseluversiota kuvasta %s"
 msgstr[1] "Noudetaan esikatseluversiota kuvasta %s"
 
 #: src/printing/Manager.vala:127
-#, fuzzy, c-format
+#, c-format
 #| msgid "Fetching preview for %s"
 msgid "Print preview for %s"
-msgstr "Noudetaan esikatseluversiota kuvasta %s"
+msgstr "Tulostuksen esikatselu kohteelle %s"
 
 #: src/printing/Manager.vala:152
 msgid "Printing…"
