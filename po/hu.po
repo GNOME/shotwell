@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-03-01 18:42+0000\n"
-"PO-Revision-Date: 2026-03-05 23:13+0100\n"
+"POT-Creation-Date: 2026-06-15 21:14+0000\n"
+"PO-Revision-Date: 2026-09-01 22:39+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:438
@@ -1211,7 +1211,6 @@ msgid "Main View with extended information display"
 msgstr "Fő nézet kiterjesztett információs megjelenítéssel"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:36
-#| msgid "Import to Library"
 msgid "Import roll history"
 msgstr "Importálás görgetési előzményei"
 
@@ -1220,13 +1219,17 @@ msgid "Event-based image organization"
 msgstr "Eseményalapú képszervezet"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:44
-#| msgid "Image Settings"
 msgid "Image color editing"
 msgstr "Képszínszerkesztés"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:48
 msgid "Uploading images to online services"
 msgstr "Képek feltöltése internetes szolgáltatásokba"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:54
+#| msgid "Shotwell Viewer"
+msgid "The Shotwell developers"
+msgstr "A Shotwell fejlesztői"
 
 #: data/org.gnome.Shotwell.desktop.in:4 src/Resources.vala:9
 msgid "Photo Manager"
@@ -5184,7 +5187,7 @@ msgid "WebP"
 msgstr "WebP"
 
 #. TRANSLATORS: "modified" here is part of a file name that was changed with another image tool outside of Shotwell. Note that there are potential issues with UTF-8 characters
-#: src/Photo.vala:3810
+#: src/Photo.vala:3817
 msgid "modified"
 msgstr "módosítva"
 
