@@ -19,8 +19,6 @@ public void init_entry() throws Error {
         return;
     _entry_initialized = true;
 
-    Unit.init_entry();
-
     Threads.init();
 }
 
@@ -29,7 +27,6 @@ public void terminate_entry() {
 
     Threads.terminate();
 
-    Unit.terminate_entry();
 }
 
 }
