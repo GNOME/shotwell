@@ -25,7 +25,7 @@
     </p>
   </description>
   <url type="homepage">https://shotwell-project.org</url>
-  <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/-/work-items</url>
   <url type="help">https://shotwell-project.org/doc/html</url>
   <url type="translate">https://l10n.gnome.org/module/shotwell/</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/shotwell</url>
@@ -62,8 +62,10 @@
   <releases>
       <release version="33.0" date="2026-09-13" urgency="medium" type="stable">
           <description>
+            <p>
               This release moves Shotwell to GTK4 for better compatiblity with Wayland and
               future-proofing.
+            </p>
           </description>
       </release>
   </releases>
