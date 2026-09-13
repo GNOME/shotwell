@@ -60,22 +60,12 @@
   </screenshots>
   
   <releases>
-      <release version="0.32.2" date="2023-05-09" urgency="medium" type="stable">
+      <release version="33.0" date="2026-09-13" urgency="medium" type="stable">
           <description>
-              <ul>
-                  <li>Makes “Send To” work inside flatpak</li>
-                  <li>Fixes creating broken thumbnails when using an external editor</li>
-                  <li>Fixes detecting images as modified that had not actually changed</li>
-                </ul>
+              This release moves Shotwell to GTK4 for better compatiblity with Wayland and
+              future-proofing.
           </description>
       </release>
-      <release version="0.32.1" date="2023-05-09" urgency="medium" type="stable">
-          <description>
-              <p>This release fixes startup crashes, visual glitches in the “About” screen and translation updates</p>
-          </description>
-      </release>
-      <release version="0.32.0" date="2023-04-22" urgency="medium" type="stable" />
-      <release version="0.30.18" date="2023-04-01" urgency="low" type="stable" />
   </releases>
 
 </component>

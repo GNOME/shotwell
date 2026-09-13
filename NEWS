@@ -1,3 +1,12 @@
+Shotwell 33.0
+=============
+
+ * Updated translations
+ * Fix an issue with system information not showing the OS release
+ * Add system information also to the viewer mode
+ * Fix an issue where "discard" in viewer would not actually discard
+   changes
+
 Shotwell 33.rc
 ==============
 
