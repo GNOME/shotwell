@@ -4209,7 +4209,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 backing.id = editable_id;
                 BackingPhotoTable.get_instance().update(backing);
                 lock (row) {
-                    timestamp_changed = editable.timestamp != backing.timestamp;
+                    timestamp_changed = nullsafe_date_time_comperator(editable.timestamp, backing.timestamp) != 0;
                     filesize_changed = editable.filesize != backing.filesize;
                     
                     editable = backing;
