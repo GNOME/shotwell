@@ -536,7 +536,11 @@ public class LibraryPhotoPage : EditingHostPage {
             GLib.dpgettext2(null, "Dialog Title", "Removing Photo From Library"));
     }
     
-    private void on_move_to_trash() {        
+    private void on_move_to_trash() {
+        do_move_to_trash.begin();     
+    }
+    
+    private async void do_move_to_trash() {
         if (!has_photo())
             return;
         
@@ -555,7 +559,7 @@ public class LibraryPhotoPage : EditingHostPage {
         photos.add(photo);
         
         // move on to next photo before executing
-        on_next_photo();
+        yield do_next_photo();
         
         // this indicates there is only one photo in the controller, or about to be zero, so switch 
         // to the library page, which is guaranteed to be there when this disappears
@@ -588,12 +592,16 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_photo_removed(LibraryPhoto photo) {
+        do_photo_removed.begin(photo);
+    }
+
+    private async void do_photo_removed(LibraryPhoto photo) {
         // only interested in current photo
         if (photo == null || !photo.equals(get_photo()))
             return;
         
         // move on to the next one in the collection
-        on_next_photo();
+        yield do_next_photo();
         
         ViewCollection view = get_view();
         view.remove_marked(view.mark(view.get_view_for_source(photo)));

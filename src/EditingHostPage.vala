@@ -418,7 +418,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> selected) {
         foreach (DataView view in selected) {
-            replace_photo((Photo) view.get_source());
+            replace_photo.begin((Photo) view.get_source());
             break;
         }
     }
@@ -584,7 +584,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             parent_view = controller;
         }
         
-        replace_photo(starting_photo);
+        replace_photo.begin(starting_photo);
     }
     
     protected void display_mirror_of(ViewCollection controller, Photo starting_photo) {
@@ -596,7 +596,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             parent_view = controller;
         }
         
-        replace_photo(starting_photo);
+        replace_photo.begin(starting_photo);
     }
     
     protected virtual void update_ui(bool missing) {
@@ -678,7 +678,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return pixbuf;
     }
 
-    private void replace_photo(Photo new_photo) {
+    private async void replace_photo(Photo new_photo) {
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
         // just need to reload the image for the proper scaling. Of course, the photo's pixels
@@ -690,12 +690,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // only check if okay to replace if there's something to replace and someone's concerned
         if (has_photo() && !new_photo.equals(get_photo())) {
-            confirm_replace_photo.begin(get_photo(), new_photo, (obj, res) => {
-                var result = confirm_replace_photo.end(res);
-                if (result) {
-                    replace_photo_continue(new_photo);
-                }
-            });
+            var result = yield confirm_replace_photo(get_photo(), new_photo);
+            if (result) {
+                replace_photo_continue(new_photo);
+            }
         } else {
             replace_photo_continue(new_photo);
         }
@@ -1671,6 +1669,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void on_next_photo() {
+        do_next_photo.begin();
+    }
+
+    protected async void do_next_photo() {
         deactivate_tool();
         
         if (!has_photo())
@@ -1697,13 +1699,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (next_photo == current_photo)
                 break;
             
-            replace_photo(next_photo);
+            yield replace_photo(next_photo);
             
             break;
         }
     }
     
     protected override void on_previous_photo() {
+        do_previous_photo.begin();
+    }
+
+    private async void do_previous_photo() {
         deactivate_tool();
         
         if (!has_photo())
@@ -1730,7 +1736,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (previous_photo == current_photo)
                 break;
             
-            replace_photo(previous_photo);
+            yield replace_photo(previous_photo);
             
             break;
         }
