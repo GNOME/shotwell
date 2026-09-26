@@ -208,9 +208,7 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         public override bool is_complete() {
-            return entry.text.chomp() != "" ||
-                get_text_context() == SearchConditionText.Context.IS_NOT_SET ||
-                get_text_context() == SearchConditionText.Context.IS_SET;
+            return entry.text.chomp() != "";
         }
         
         private SearchConditionText.Context get_text_context() {
@@ -218,7 +216,8 @@ public class SavedSearchDialog : Gtk.Dialog {
         }
         
         private void on_changed() {
-            entry.set_visible(!is_complete());
+            entry.set_visible(!(get_text_context() == SearchConditionText.Context.IS_NOT_SET
+                                || get_text_context() == SearchConditionText.Context.IS_SET));
 
             parent.changed(parent);
         }
