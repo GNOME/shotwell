@@ -10,6 +10,16 @@ namespace Util {
 
     public const int64 USEC_PER_SEC = 1000000;
 
+    // Returns true if the directory contains a .nomedia file (and thus should be
+    // excluded from media scans/imports). Mirrors Android's .nomedia convention.
+    public bool is_dir_nomedia_ignored(File dir) {
+        try {
+            return dir.get_child(".nomedia").query_exists(null);
+        } catch (Error err) {
+            return false;
+        }
+    }
+
     public void init() throws Error {
     }
     

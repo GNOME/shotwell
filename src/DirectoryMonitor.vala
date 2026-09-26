@@ -879,6 +879,14 @@ public class DirectoryMonitor : Object {
             return;
         }
         
+        if (Util.is_dir_nomedia_ignored(dir)) {
+            debug("Ignoring directory %s (contains .nomedia)", dir.get_path());
+            
+            explore_directory_completed(in_discovery);
+            
+            return;
+        }
+        
         // File ID is required for directory monitoring.  No ID, no ride!
         // So we just fake it by using the URI
         if (get_file_info_id(local_dir_info) == null) {
@@ -920,6 +928,15 @@ public class DirectoryMonitor : Object {
                     // we don't deal with hidden files or directories
                     if (info.has_attribute("standard::is-hidden") && info.get_is_hidden()) {
                         warning("Skipping hidden file/directory %s",
+                            dir.get_child(info.get_name()).get_path());
+                        
+                        continue;
+                    }
+                    
+                    // skip directories that contain a .nomedia file
+                    if ((info.get_file_type() == FileType.DIRECTORY)
+                            && Util.is_dir_nomedia_ignored(dir.get_child(info.get_name()))) {
+                        debug("Skipping directory %s (contains .nomedia)",
                             dir.get_child(info.get_name()).get_path());
                         
                         continue;
