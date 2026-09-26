@@ -61,7 +61,7 @@ public class MetadataDateTime {
         }
 
         // watch for bogosity
-        if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
+        if (tm.year < 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
             return false;
 
         timestamp = new DateTime(local, tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
