@@ -993,10 +993,10 @@ public class PhotoMetadata : MediaMetadata {
     private const string IPHOTO_TITLE_TAG = "Iptc.Application2.ObjectName";
     
     private static string[] STANDARD_TITLE_TAGS = {
-        "Iptc.Application2.Caption",
         "Xmp.dc.title",
-        "Iptc.Application2.Headline",
         "Xmp.photoshop.Headline",
+        "Iptc.Application2.Headline",
+        "Iptc.Application2.Caption",
         "Xmp.acdsee.caption"
     };
     
