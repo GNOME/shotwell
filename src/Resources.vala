@@ -1083,7 +1083,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             uri += anchor;
         }
 
-        new Gtk.UriLauncher(uri).launch.begin(AppWindow.get_instance(), null);
+        AppInfo.launch_default_for_uri_async.begin(uri, AppWindow.get_instance().get_display().get_app_launch_context());
     }
     
     public const int ALL_DATA = -1;
