@@ -1060,8 +1060,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // if no editing tool, then determine whether we should start a pan operation over the
         // zoomed photo or fall through to the default DnD behavior if we're not zoomed
         if ((current_tool == null) && (zoom_slider.get_value() != 0.0)) {
-            zoom_pan_start_point.x = (int) x;
-            zoom_pan_start_point.y = (int) y;
+            zoom_pan_start_point.x = (int) Math.lround(x * Application.get_scale());
+            zoom_pan_start_point.y = (int) Math.lround(y * Application.get_scale());
             is_pan_in_progress = true;
             suspend_cursor_hiding();
 
@@ -1087,8 +1087,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         if (is_pan_in_progress) {
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
-            int delta_x = ((int) x) - zoom_pan_start_point.x;
-            int delta_y = ((int) y) - zoom_pan_start_point.y;
+            int delta_x = (int) Math.lround(x * Application.get_scale()) - zoom_pan_start_point.x;
+            int delta_y = (int) Math.lround(y * Application.get_scale()) - zoom_pan_start_point.y;
             viewport_center.x -= delta_x;
             viewport_center.y -= delta_y;
 
@@ -1177,8 +1177,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_cursor_for_zoom_context();
         
         if (is_pan_in_progress) {
-            int delta_x = (int)x - zoom_pan_start_point.x;
-            int delta_y = (int)y - zoom_pan_start_point.y;
+            int delta_x = (int) Math.lround(x * Application.get_scale()) - zoom_pan_start_point.x;
+            int delta_y = (int) Math.lround(y * Application.get_scale()) - zoom_pan_start_point.y;
 
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
             viewport_center.x -= delta_x;
@@ -1203,30 +1203,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool on_keyboard_pan_event(uint keyval) {
         ZoomState current_zoom_state = get_zoom_state();
         Gdk.Point viewport_center = current_zoom_state.get_viewport_center();
+        int scaled_increment = (int) Math.lround(PAN_INCREMENT_SIZE * Application.get_scale());
 
         switch (Gdk.keyval_name(keyval)) {
             case "Left":
             case "KP_Left":
             case "KP_4":
-                viewport_center.x -= PAN_INCREMENT_SIZE;
+                viewport_center.x -= scaled_increment;
             break;
             
             case "Right":
             case "KP_Right":
             case "KP_6":
-                viewport_center.x += PAN_INCREMENT_SIZE;
+                viewport_center.x += scaled_increment;
             break;
 
             case "Down":
             case "KP_Down":
             case "KP_2":
-                viewport_center.y += PAN_INCREMENT_SIZE;
+                viewport_center.y += scaled_increment;
             break;
             
             case "Up":
             case "KP_Up":
             case "KP_8":
-                viewport_center.y -= PAN_INCREMENT_SIZE;
+                viewport_center.y -= scaled_increment;
             break;
             
             default:
