@@ -356,6 +356,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // The enabled state was set way before we have access to the zoom_slider widget on
         // initial creation. Just copy the state from one of the actions here.
         zoom_slider.sensitive = get_action("Enhance").get_enabled();
+        
+        var drag_gesture = new Gtk.GestureDrag();
+        drag_gesture.set_name("Zoom Slider Drag");
+        zoom_slider.add_controller(drag_gesture);
+        
+        drag_gesture.drag_begin.connect((gesture, start_x, start_y) => {
+            enable_interactive_zoom_refresh = true;
+        });
+        drag_gesture.drag_end.connect((gesture, offset_x, offset_y) => {
+            enable_interactive_zoom_refresh = false;
+        });
         insert_faces_button();
 
         return tb;
