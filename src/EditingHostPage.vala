@@ -129,12 +129,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     private Gdk.Point get_cursor_wrt_viewport(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
-        double x;
-        double y;
-        event.get_current_event().get_position(out x, out y);
-        cursor_wrt_canvas.x = (int) x;
-        cursor_wrt_canvas.y = (int) y;
 
+        // Query the pointer position from the surface and translate it into canvas coordinates
+        double canvas_x;
+        double canvas_y;
+        Gdk.ModifierType mask;
+        if (!get_event_source_pointer(out canvas_x, out canvas_y, out mask))
+            return cursor_wrt_canvas;
+
+        // The canvas is measured in logical pixels, whereas the zoom viewport (pixmap_dim) is
+        // in device pixels, so convert to device pixels as is_inside_pixbuf() does.
+        double scale = Application.get_scale();
+        cursor_wrt_canvas.x = (int) Math.lround(canvas_x * scale);
+        cursor_wrt_canvas.y = (int) Math.lround(canvas_y * scale);
+
+        // Return the cursor position relative to the zoomed image rectangle drawn on the canvas.
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         Gdk.Point result = {0};
         result.x = cursor_wrt_canvas.x - viewport_wrt_canvas.x;
