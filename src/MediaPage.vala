@@ -880,41 +880,33 @@ public abstract class MediaPage : CheckerboardPage {
         
         switch (sort_by) {
             case SortBy.TITLE:
-                if (ascending)
-                    comparator = Thumbnail.title_ascending_comparator;
-                else comparator = Thumbnail.title_descending_comparator;
+                comparator = Thumbnail.title_ascending_comparator;
                 predicate = Thumbnail.title_comparator_predicate;
                 break;
             
             case SortBy.EXPOSURE_DATE:
-                if (ascending)
-                    comparator = Thumbnail.exposure_time_ascending_comparator;
-                else comparator = Thumbnail.exposure_time_descending_comparator;
+                comparator = Thumbnail.exposure_time_ascending_comparator;
                 predicate = Thumbnail.exposure_time_comparator_predicate;
                 break;
             
             case SortBy.RATING:
-                if (ascending)
-                    comparator = Thumbnail.rating_ascending_comparator;
-                else comparator = Thumbnail.rating_descending_comparator;
+                comparator = Thumbnail.rating_ascending_comparator;
                 predicate = Thumbnail.rating_comparator_predicate;
                 break;
             
             case SortBy.FILENAME:
-                if (ascending)
-                    comparator = Thumbnail.filename_ascending_comparator;
-                else comparator = Thumbnail.filename_descending_comparator;
+                comparator = Thumbnail.filename_ascending_comparator;
                 predicate = Thumbnail.filename_comparator_predicate;
                 break;
 
             default:
                 debug("Unknown sort criteria: %s", get_menu_sort_by().to_string());
-                comparator = Thumbnail.title_descending_comparator;
+                comparator = Thumbnail.title_ascending_comparator;
                 predicate = Thumbnail.title_comparator_predicate;
                 break;
         }
         
-        get_view().set_comparator(comparator, predicate);
+        get_view().set_comparator(comparator, predicate, !ascending);
     }
 
     protected void sync_sort() {

@@ -267,7 +267,8 @@ public class ViewCollection : DataCollection {
         mirroring = to_mirror;
         this.mirroring_ctor = mirroring_ctor;
         this.should_mirror = should_mirror;
-        set_comparator(to_mirror.get_comparator(), to_mirror.get_comparator_predicate());
+        set_comparator(to_mirror.get_comparator(), to_mirror.get_comparator_predicate(),
+            to_mirror.is_descending());
         
         // load up with current items
         on_mirror_contents_added(mirroring.get_all());
@@ -679,12 +680,13 @@ public class ViewCollection : DataCollection {
         base.items_altered(map);
     }
     
-    public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
-        selected.set_comparator(comparator, predicate);
+    public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate,
+        bool descending = false) {
+        selected.set_comparator(comparator, predicate, descending);
         if (visible != null)
-            visible.set_comparator(comparator, predicate);
+            visible.set_comparator(comparator, predicate, descending);
         
-        base.set_comparator(comparator, predicate);
+        base.set_comparator(comparator, predicate, descending);
     }
     
     public override void reset_comparator() {

@@ -149,19 +149,9 @@ public class Thumbnail : MediaSourceItem {
         return ((Thumbnail *) a)->media.get_instance_id() - ((Thumbnail *) b)->media.get_instance_id();
     }
 
-    public static int64 photo_id_descending_comparator(void *a, void *b) {
-        return photo_id_ascending_comparator(b, a);
-    }
-    
     public static int64 title_ascending_comparator(void *a, void *b) {
         int64 result = strcmp(((Thumbnail *) a)->get_natural_collation_key(), ((Thumbnail *) b)->get_natural_collation_key());
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
-    }
-    
-    public static int64 title_descending_comparator(void *a, void *b) {
-        int64 result = title_ascending_comparator(b, a);
-        
-        return (result != 0) ? result : photo_id_descending_comparator(a, b);
     }
     
     public static bool title_comparator_predicate(DataObject object, Alteration alteration) {
@@ -175,12 +165,6 @@ public class Thumbnail : MediaSourceItem {
         var result = nullsafe_date_time_comperator(time_a, time_b);
         
         return (result != 0) ? result : filename_ascending_comparator(a, b);
-    }
-    
-    public static int64 exposure_time_descending_comparator(void *a, void *b) {
-        int64 result = exposure_time_ascending_comparator(b, a);
-        
-        return (result != 0) ? result : filename_descending_comparator(a, b);
     }
     
     public static bool exposure_time_comparator_predicate(DataObject object, Alteration alteration) {
@@ -206,24 +190,12 @@ public class Thumbnail : MediaSourceItem {
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
 
-    public static int64 filename_descending_comparator(void *a, void *b) {
-        int64 result = filename_ascending_comparator(b, a);
-        
-        return (result != 0) ? result : photo_id_descending_comparator(a, b);
-    }
-    
     public static int64 rating_ascending_comparator(void *a, void *b) {
         int64 result = ((Thumbnail *) a)->media.get_rating() - ((Thumbnail *) b)->media.get_rating();
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
 
-    public static int64 rating_descending_comparator(void *a, void *b) {
-        int64 result = rating_ascending_comparator(b, a);
-        
-        return (result != 0) ? result : photo_id_descending_comparator(a, b);
-    }
-    
     public static bool rating_comparator_predicate(DataObject object, Alteration alteration) {
         return alteration.has_detail("metadata", "rating");
     }
