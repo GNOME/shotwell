@@ -47,8 +47,8 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         base (page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
-        get_view().set_comparator(get_event_comparator(Config.Facade.get_instance().get_events_sort_ascending()), 
-            event_comparator_predicate);
+        get_view().set_comparator(event_ascending_comparator, event_comparator_predicate,
+            !Config.Facade.get_instance().get_events_sort_ascending());
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
         get_view().set_property(Event.PROP_SHOW_COMMENTS,
@@ -90,17 +90,6 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         DateTime start_b = ((EventDirectoryItem *) b)->event.get_start_time();
         
         return start_a.compare(start_b);
-    }
-    
-    private static int64 event_descending_comparator(void *a, void *b) {
-        return event_ascending_comparator(b, a);
-    }
-    
-    private static Comparator get_event_comparator(bool ascending) {
-        if (ascending)
-            return event_ascending_comparator;
-        else
-            return event_descending_comparator;
     }
 
     private const GLib.ActionEntry[] entries = {
@@ -156,9 +145,9 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
     }
     
     private void on_sort_changed(GLib.SimpleAction action, Variant? value) {
-        get_view().set_comparator(
-            get_event_comparator(value.get_string() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING),
-            event_comparator_predicate);
+        bool ascending = value.get_string() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING;
+        get_view().set_comparator(event_ascending_comparator, event_comparator_predicate,
+            !ascending);
 
         action.set_state (value);
     }

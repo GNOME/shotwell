@@ -170,6 +170,20 @@ public void fallback_copy(File? src, File? dst, FileProgressCallback? callback) 
             critical ("Failed to open %s: %m", dst.get_path());
             throw new IOError.FAILED("Failed to open %s", dst.get_path());
         }
+
+        // Preserve the source's modification time so imports record the same
+        // timestamp regardless of which copy path is used (File.copy() with
+        // ALL_METADATA already does this).
+        try {
+            var src_info = src.query_info(FileAttribute.TIME_MODIFIED,
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            var mtime = src_info.get_modification_date_time();
+            if (mtime != null)
+                dst.set_attribute_uint64(FileAttribute.TIME_MODIFIED,
+                    mtime.to_unix(), FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            warning("Unable to preserve modification time for %s: %s", dst.get_path(), err.message);
+        }
     } else {
         critical ("Failed to open %s: %m", src.get_path());
         throw new IOError.FAILED("Failed to open %s", src.get_path());

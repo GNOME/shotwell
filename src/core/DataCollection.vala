@@ -227,8 +227,13 @@ public class DataCollection {
         return dataset.get_comparator_predicate();
     }
     
-    public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
-        dataset.set_comparator(comparator, predicate);
+    public bool is_descending() {
+        return dataset.is_descending();
+    }
+    
+    public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate,
+        bool descending = false) {
+        dataset.set_comparator(comparator, predicate, descending);
         notify_ordering_changed();
     }
     

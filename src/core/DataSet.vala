@@ -31,6 +31,7 @@ public class DataSet {
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
     private unowned Comparator user_comparator = null;
     private unowned ComparatorPredicate? comparator_predicate = null;
+    private bool descending = false;
     
     public DataSet() {
         reset_comparator();
@@ -59,6 +60,13 @@ public class DataSet {
         if (result == 0)
             result = order_added_comparator(a, b);
         
+        // Reverse the entire result (user comparison and the order-added fallback
+        // alike) so that descending is the exact reverse of ascending, including
+        // for items the user comparator considers equal.  Reversing only the user
+        // comparator would leave the fallback pointing the wrong way for ties.
+        if (descending)
+            result = -result;
+        
         assert(result != 0);
         
         return result;
@@ -75,6 +83,7 @@ public class DataSet {
     public void reset_comparator() {
         user_comparator = null;
         comparator_predicate = order_added_predicate;
+        descending = false;
         list.resort(order_added_comparator);
     }
     
@@ -86,10 +95,16 @@ public class DataSet {
         return comparator_predicate;
     }
     
-    public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate) {
+    public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate,
+        bool descending = false) {
         this.user_comparator = user_comparator;
         this.comparator_predicate = comparator_predicate;
+        this.descending = descending;
         list.resort(comparator_wrapper);
+    }
+    
+    public bool is_descending() {
+        return descending;
     }
     
     public Gee.List<DataObject> get_all() {
