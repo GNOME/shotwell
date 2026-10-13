@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2026-07-26 15:08+0000\n"
-"PO-Revision-Date: 2026-07-27 16:09+0200\n"
+"POT-Creation-Date: 2026-10-10 08:36+0000\n"
+"PO-Revision-Date: 2026-10-13 17:09+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -44,7 +44,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24 data/gsettings/org.gnome.shotwell.gschema.xml:482
 msgid "default size"
-msgstr "ნაგულისხმები ზომა"
+msgstr "ნაგულისხმევი ზომა"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:25
 msgid "A numeric code representing the default size for photos uploaded to Tumblr"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:30
 msgid "default blog"
-msgstr "ნაგულისხმები ბლოგი"
+msgstr "ნაგულისხმევი ბლოგი"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:31
 msgid "The name of the default blog of the user, if any"
@@ -540,7 +540,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:456
 msgid "default size code"
-msgstr "ნაგულისხმები ზომის კოდი"
+msgstr "ნაგულისხმევი ზომის კოდი"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:457
 msgid "A numeric code representing the default size for photos published to Flickr"
@@ -548,7 +548,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:462
 msgid "default visibility"
-msgstr "ნაგულისხმები ხილვადობა"
+msgstr "ნაგულისხმევი ხილვადობა"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:463
 msgid "A numeric code representing the default visibility for photos published to Flickr"
@@ -1026,7 +1026,7 @@ msgstr ""
 msgid "Add _Tags…"
 msgstr "_ჭდეების დამატება…"
 
-#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459 data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22 data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:359
+#: data/ui/collection.ui:23 data/ui/event.ui:408 data/ui/event.ui:459 data/ui/faces.ui:391 data/ui/media.ui:391 data/ui/photo_context.ui:22 data/ui/photo.ui:378 data/ui/tags.ui:391 src/Resources.vala:361
 msgid "Modif_y Tags…"
 msgstr "ჭდეების _ჩასწორება…"
 
@@ -1059,7 +1059,7 @@ msgid "_Developer"
 msgstr ""
 
 #: data/ui/collection.ui:89 data/ui/event.ui:357 data/ui/event.ui:525 data/ui/faces.ui:357 data/ui/media.ui:357 data/ui/photo_context.ui:96 data/ui/photo.ui:350 data/ui/tags.ui:357 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:707 src/photos/RawSupport.vala:316
+#: src/camera/ImportPage.vala:705 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "კამერა"
 
@@ -1085,7 +1085,7 @@ msgid "View Eve_nt for Photo"
 msgstr ""
 
 #: data/ui/collection.ui:122 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:23 data/ui/event.ui:558 data/ui/faces.ui:23 data/ui/media.ui:23 data/ui/photo_context.ui:130 data/ui/photo.ui:33
-#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:782
+#: data/ui/tags.ui:23 data/ui/trash.ui:16 data/ui/trash.ui:224 src/Resources.vala:784
 msgid "Show in File Mana_ger"
 msgstr ""
 
@@ -1093,7 +1093,7 @@ msgstr ""
 msgid "Send _To…"
 msgstr ""
 
-#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569 data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141 data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:791
+#: data/ui/collection.ui:133 data/ui/event.ui:75 data/ui/event.ui:569 data/ui/faces.ui:75 data/ui/media.ui:75 data/ui/photo_context.ui:141 data/ui/photo.ui:80 data/ui/tags.ui:75 src/Resources.vala:793
 msgid "_Move to Trash"
 msgstr "_სანაგვე ყუთში გადატანა"
 
@@ -1331,7 +1331,7 @@ msgstr "_ძებნა"
 msgid "Ne_w Saved Search…"
 msgstr ""
 
-#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82 data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62 data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:793
+#: data/ui/events_directory.ui:54 data/ui/event.ui:82 data/ui/faces.ui:82 data/ui/import.ui:57 data/ui/media.ui:82 data/ui/offline.ui:62 data/ui/tags.ui:82 data/ui/trash.ui:71 src/Resources.vala:795
 msgid "Select _All"
 msgstr "ყველაფრის _მონიშვნა"
 
@@ -1395,7 +1395,7 @@ msgstr ""
 msgid "_Export…"
 msgstr "_გატანა…"
 
-#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70 data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218 data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:789
+#: data/ui/event.ui:70 data/ui/faces.ui:70 data/ui/media.ui:70 data/ui/offline.ui:55 data/ui/offline.ui:204 data/ui/offline.ui:218 data/ui/photo.ui:75 data/ui/tags.ui:70 src/Resources.vala:791
 msgid "R_emove From Library"
 msgstr "ბიბლიოთეკიდან _წაშლა"
 
@@ -1507,8 +1507,8 @@ msgstr ""
 msgid "_Log in"
 msgstr "_შესვლა"
 
-#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:222 src/AppWindow.vala:247 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:788
-#: src/Dialogs.vala:819 src/direct/DirectPhotoPage.vala:318 src/library/LibraryWindow.vala:736 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:132
+#: data/ui/multitextentrydialog.ui:38 data/ui/textentrydialog.ui:43 src/AppWindow.vala:222 src/AppWindow.vala:247 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:789
+#: src/Dialogs.vala:820 src/direct/DirectPhotoPage.vala:318 src/library/LibraryWindow.vala:736 src/publishing/PublishingUI.vala:172 src/publishing/PublishingUI.vala:401 src/Resources.vala:132
 msgid "_Cancel"
 msgstr "გაუქმება"
 
@@ -1516,7 +1516,7 @@ msgstr "გაუქმება"
 msgid "_OK"
 msgstr "_დიახ"
 
-#: data/ui/offline.ui:216 src/Resources.vala:777
+#: data/ui/offline.ui:216 src/Resources.vala:779
 msgid "Remove the selected photos from the library"
 msgstr ""
 
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: data/ui/preferences_dialog.ui:220
 msgid "De_fault:"
-msgstr "_ნაგულისხმები:"
+msgstr "_ნაგულისხმევი:"
 
 #: data/ui/preferences_dialog.ui:267
 msgid "_Pattern:"
@@ -1750,16 +1750,16 @@ msgstr ""
 msgid "OK"
 msgstr "დიახ"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:400
+#: data/ui/savedsearch.ui:6 src/Resources.vala:402
 msgid "Re_name…"
 msgstr "_სახელის გადარქმევა…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:399
+#: data/ui/savedsearch.ui:10 src/Resources.vala:401
 msgid "_Edit…"
 msgstr "_ჩასწორება…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:749
-#: src/Resources.vala:133 src/Resources.vala:314 src/Resources.vala:345 src/Resources.vala:398 src/Resources.vala:775
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:456 data/ui/trash.ui:60 data/ui/trash.ui:213 data/ui/trash.ui:254 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:63 src/Dialogs.vala:750
+#: src/Resources.vala:133 src/Resources.vala:314 src/Resources.vala:347 src/Resources.vala:400 src/Resources.vala:777
 msgid "_Delete"
 msgstr "წაშლა"
 
@@ -1787,7 +1787,7 @@ msgstr "შეფასება"
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 
-#: data/ui/search_bar.ui:148 src/Resources.vala:394
+#: data/ui/search_bar.ui:148 src/Resources.vala:396
 msgid "Saved Search"
 msgstr "დამახსოვრებული ძებნა"
 
@@ -1859,11 +1859,11 @@ msgstr ""
 msgid "seconds"
 msgstr "წამი"
 
-#: data/ui/tags.ui:446 src/Resources.vala:139 src/Resources.vala:347
+#: data/ui/tags.ui:446 src/Resources.vala:139 src/Resources.vala:349
 msgid "_New"
 msgstr "_ახალი"
 
-#: data/ui/tags.ui:452 src/Resources.vala:315 src/Resources.vala:357
+#: data/ui/tags.ui:452 src/Resources.vala:315 src/Resources.vala:359
 msgid "_Rename…"
 msgstr "_გადარქმევა…"
 
@@ -1871,15 +1871,15 @@ msgstr "_გადარქმევა…"
 msgid "label"
 msgstr "ჭდე"
 
-#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263 src/Resources.vala:779
+#: data/ui/trash.ui:65 data/ui/trash.ui:218 data/ui/trash.ui:263 src/Resources.vala:781
 msgid "_Restore"
 msgstr "_აღდგენა"
 
-#: data/ui/trash.ui:252 src/Resources.vala:776
+#: data/ui/trash.ui:252 src/Resources.vala:778
 msgid "Remove the selected photos from the trash"
 msgstr ""
 
-#: data/ui/trash.ui:261 src/Resources.vala:780
+#: data/ui/trash.ui:261 src/Resources.vala:782
 msgid "Move the selected photos back into the library"
 msgstr ""
 
@@ -1889,7 +1889,7 @@ msgstr ""
 
 #: data/ui/trash.ui:272 src/library/LibraryWindow.vala:553
 msgid "Empty Trash"
-msgstr "ნაგვის დაცარიელება"
+msgstr "ნაგვის ყუთის დაცარიელება"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
@@ -1955,7 +1955,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr ""
 
-#: plugins/common/Resources.vala:28 src/AppWindow.vala:312 src/plugins/SpitInterfaces.vala:177
+#: plugins/common/Resources.vala:28 src/AppWindow.vala:314 src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
@@ -2465,21 +2465,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/AppWindow.vala:309
+#: src/AppWindow.vala:311
 msgid "Visit the Shotwell web site"
 msgstr ""
 
-#: src/AppWindow.vala:321
+#: src/AppWindow.vala:325
 #, c-format
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/AppWindow.vala:329
+#: src/AppWindow.vala:333
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr ""
 
-#: src/AppWindow.vala:337
+#: src/AppWindow.vala:341
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr ""
@@ -2560,105 +2560,105 @@ msgstr ""
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/camera/ImportPage.vala:309 src/Properties.vala:242
+#: src/camera/ImportPage.vala:307 src/Properties.vala:242
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:468
+#: src/camera/ImportPage.vala:466
 msgid "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:774
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 
-#: src/camera/ImportPage.vala:780
+#: src/camera/ImportPage.vala:778
 msgid "No new photos/videos found on camera"
 msgstr ""
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:933
+#: src/camera/ImportPage.vala:931
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it. Continue?"
 msgstr ""
 
-#: src/camera/ImportPage.vala:939
+#: src/camera/ImportPage.vala:937
 msgid "_Unmount"
 msgstr "_მოხსნა"
 
-#: src/camera/ImportPage.vala:944
+#: src/camera/ImportPage.vala:942
 msgid "Please unmount the camera."
 msgstr ""
 
-#: src/camera/ImportPage.vala:951
+#: src/camera/ImportPage.vala:949
 msgid "The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again."
 msgstr ""
 
-#: src/camera/ImportPage.vala:961
+#: src/camera/ImportPage.vala:959
 msgid "Please close any other application using the camera."
 msgstr ""
 
-#: src/camera/ImportPage.vala:968
+#: src/camera/ImportPage.vala:966
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
 
-#: src/camera/ImportPage.vala:985
+#: src/camera/ImportPage.vala:983
 msgid "Unmounting…"
 msgstr "მოხსნა…"
 
-#: src/camera/ImportPage.vala:1078
+#: src/camera/ImportPage.vala:1076
 msgid "Connecting to camera, please wait…"
 msgstr ""
 
-#: src/camera/ImportPage.vala:1110
+#: src/camera/ImportPage.vala:1108
 msgid "Starting import, please wait…"
 msgstr ""
 
-#: src/camera/ImportPage.vala:1116
+#: src/camera/ImportPage.vala:1114
 msgid "Fetching photo information"
 msgstr ""
 
-#: src/camera/ImportPage.vala:1471
+#: src/camera/ImportPage.vala:1469
 #, c-format
 msgid "Fetching preview for %s"
 msgstr ""
 
-#: src/camera/ImportPage.vala:1578
+#: src/camera/ImportPage.vala:1576
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr ""
 
-#: src/camera/ImportPage.vala:1667
+#: src/camera/ImportPage.vala:1665
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/camera/ImportPage.vala:1670
+#: src/camera/ImportPage.vala:1668
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/camera/ImportPage.vala:1673
+#: src/camera/ImportPage.vala:1671
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/camera/ImportPage.vala:1676
+#: src/camera/ImportPage.vala:1674
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/camera/ImportPage.vala:1684 src/Dialogs.vala:748
+#: src/camera/ImportPage.vala:1682 src/Dialogs.vala:749
 msgid "_Keep"
 msgstr "დატოვება"
 
@@ -3188,7 +3188,7 @@ msgstr[1] ""
 msgid "Export Video"
 msgstr "ვიდეოს გატანა"
 
-#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:664
+#: src/Dialogs.vala:77 src/LibraryPhotoPage.vala:672
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "სურათის გატანა"
@@ -3526,90 +3526,90 @@ msgstr ""
 msgid "Import Complete"
 msgstr "შემოტანა დასრულდა"
 
-#: src/Dialogs.vala:671 src/Resources.vala:206
+#: src/Dialogs.vala:672 src/Resources.vala:206
 msgid "Rename Event"
 msgstr "მოვლენის სახელის გადარქმევა"
 
-#: src/Dialogs.vala:671
+#: src/Dialogs.vala:672
 msgid "Name:"
 msgstr "სახელი:"
 
 #. Dialog title
-#: src/Dialogs.vala:682
+#: src/Dialogs.vala:683
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "სათაურის ჩასწორება"
 
-#: src/Dialogs.vala:683 src/Properties.vala:355
+#: src/Dialogs.vala:684 src/Properties.vala:355
 msgid "Title:"
 msgstr "სათაური:"
 
 #. Dialog title
-#: src/Dialogs.vala:699 src/Resources.vala:282
+#: src/Dialogs.vala:700 src/Resources.vala:282
 msgid "Edit Event Comment"
 msgstr ""
 
-#: src/Dialogs.vala:700
+#: src/Dialogs.vala:701
 msgid "Edit Photo/Video Comment"
 msgstr ""
 
-#: src/Dialogs.vala:701 src/Properties.vala:653
+#: src/Dialogs.vala:702 src/Properties.vala:653
 msgid "Comment:"
 msgstr "კომენტარი:"
 
-#: src/Dialogs.vala:717
+#: src/Dialogs.vala:718
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:722
+#: src/Dialogs.vala:723
 msgid "_Remove From Library"
 msgstr "_ბიბლიოთეკიდან წაშლა"
 
-#: src/Dialogs.vala:778
+#: src/Dialogs.vala:779
 msgid "Revert External Edit?"
 msgstr ""
 
-#: src/Dialogs.vala:778
+#: src/Dialogs.vala:779
 msgid "Revert External Edits?"
 msgstr ""
 
-#: src/Dialogs.vala:780
+#: src/Dialogs.vala:781
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:784
+#: src/Dialogs.vala:785
 msgid "Re_vert External Edit"
 msgstr ""
 
-#: src/Dialogs.vala:784
+#: src/Dialogs.vala:785
 msgid "Re_vert External Edits"
 msgstr ""
 
-#: src/Dialogs.vala:813
+#: src/Dialogs.vala:814
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:820 src/Resources.vala:148
+#: src/Dialogs.vala:821 src/Resources.vala:148
 msgid "_Remove"
 msgstr "_ამოშლა"
 
-#: src/Dialogs.vala:821
+#: src/Dialogs.vala:822
 msgid "Remove Photo From Library"
 msgstr ""
 
-#: src/Dialogs.vala:821
+#: src/Dialogs.vala:822
 msgid "Remove Photos From Library"
 msgstr ""
 
-#: src/Dialogs.vala:849
+#: src/Dialogs.vala:850
 #, c-format
 msgid ""
 "\n"
@@ -3622,39 +3622,39 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:888 src/Dialogs.vala:925
+#: src/Dialogs.vala:889 src/Dialogs.vala:926
 msgid "Tags (separated by commas):"
 msgstr ""
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:1003
+#: src/Dialogs.vala:1004
 msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
 msgstr ""
 
-#: src/Dialogs.vala:1008
+#: src/Dialogs.vala:1009
 msgid "Co_py Photos"
 msgstr "სურათების _კოპირება"
 
-#: src/Dialogs.vala:1009
+#: src/Dialogs.vala:1010
 msgid "_Import in Place"
 msgstr "_ადგილში შემოტანა"
 
-#: src/Dialogs.vala:1010
+#: src/Dialogs.vala:1011
 msgid "Import to Library"
 msgstr "ბიბლიოთეკაში შემოტანა"
 
-#: src/Dialogs.vala:1028
+#: src/Dialogs.vala:1029
 msgid "Remove From Library"
 msgstr "ბიბლიოთეკიდან წაშლა"
 
-#: src/Dialogs.vala:1029
+#: src/Dialogs.vala:1030
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:1043
+#: src/Dialogs.vala:1044
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
@@ -3667,7 +3667,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:1047
+#: src/Dialogs.vala:1048
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
@@ -3680,7 +3680,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:1051
+#: src/Dialogs.vala:1052
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like to move the file to your desktop trash?\n"
@@ -3693,7 +3693,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:1083
+#: src/Dialogs.vala:1084
 #, c-format
 msgid "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
@@ -3701,7 +3701,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1100
+#: src/Dialogs.vala:1101
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -3794,30 +3794,30 @@ msgstr ""
 msgid "Discard changes"
 msgstr "ცვლილებების გაუქმება"
 
-#: src/direct/DirectPhotoPage.vala:351
+#: src/direct/DirectPhotoPage.vala:353
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr ""
 
-#: src/direct/DirectPhotoPage.vala:387
+#: src/direct/DirectPhotoPage.vala:389
 msgid "Save As"
 msgstr "შენახვა, როგორც"
 
-#: src/direct/DirectPhotoPage.vala:403
+#: src/direct/DirectPhotoPage.vala:405
 msgid "Supported image formats"
 msgstr "გამოსახულების მხარდაჭერილი ფორმატები"
 
-#: src/direct/DirectPhotoPage.vala:412
+#: src/direct/DirectPhotoPage.vala:414
 msgid "All files"
 msgstr "ყველა ფაილი"
 
 #. verify this is a directory
-#: src/DirectoryMonitor.vala:891
+#: src/DirectoryMonitor.vala:899
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr ""
 
-#: src/EditingHostPage.vala:1320
+#: src/EditingHostPage.vala:1318
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr ""
@@ -4033,19 +4033,19 @@ msgstr "მოვლენები"
 msgid "Browse through your events"
 msgstr ""
 
-#: src/events/EventsDirectoryPage.vala:145
+#: src/events/EventsDirectoryPage.vala:134
 msgid "No events"
 msgstr "მოვლენების გარეშე"
 
-#: src/events/EventsDirectoryPage.vala:149
+#: src/events/EventsDirectoryPage.vala:138
 msgid "No events found"
 msgstr "მოვლენები აღმოჩენილი არაა"
 
-#: src/events/EventsDirectoryPage.vala:228
+#: src/events/EventsDirectoryPage.vala:217
 msgid "All Events"
 msgstr "ყველა მოვლენა"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:231
 msgid "Undated"
 msgstr "განახლებულია"
 
@@ -4234,14 +4234,14 @@ msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr ""
 
-#: src/LibraryPhotoPage.vala:685
+#: src/LibraryPhotoPage.vala:693
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s-ის გატანის შეცდომა: %s"
 
 #: src/library/TrashPage.vala:8
 msgid "Trash"
-msgstr "ნაგავი"
+msgstr "ნაგვის ყუთი"
 
 #: src/library/TrashPage.vala:104
 msgid "Trash is empty"
@@ -4281,64 +4281,64 @@ msgstr "Shotwell-ის გაშვება შეუძლებელია"
 msgid "Loading Shotwell"
 msgstr ""
 
-#: src/main.vala:420
+#: src/main.vala:359
 msgid "Path to Shotwell’s private data"
 msgstr ""
 
-#: src/main.vala:420
+#: src/main.vala:359
 msgid "DIRECTORY"
 msgstr "DIRECTORY"
 
-#: src/main.vala:421
+#: src/main.vala:360
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 
-#: src/main.vala:422
+#: src/main.vala:361
 msgid "Don’t display startup progress meter"
 msgstr ""
 
-#: src/main.vala:423
+#: src/main.vala:362
 msgid "Show the application’s version"
 msgstr "აპლიკაციის ვერსიის ჩვენება"
 
-#: src/main.vala:424
+#: src/main.vala:363
 msgid "Start the application in fullscreen mode"
 msgstr ""
 
-#: src/main.vala:425
+#: src/main.vala:364
 msgid "Print the metadata of the image file"
 msgstr ""
 
-#: src/main.vala:426
+#: src/main.vala:365
 msgid "Name for a custom profile"
 msgstr ""
 
-#: src/main.vala:426
+#: src/main.vala:365
 msgid "PROFILE"
 msgstr "პროფილი"
 
-#: src/main.vala:427
+#: src/main.vala:366
 msgid "Start with a browser of available profiles"
 msgstr ""
 
-#: src/main.vala:428
+#: src/main.vala:367
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 
-#: src/main.vala:429
+#: src/main.vala:368
 msgid "Show available profiles"
 msgstr ""
 
-#: src/main.vala:479
+#: src/main.vala:418
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "გაშვების ხელმისაწვდომი პარამეტრების სანახავად გაუშვით \"%s --help\".\n"
 
-#: src/main.vala:487
+#: src/main.vala:426
 msgid "Choose Shotwell's profile"
 msgstr ""
 
-#: src/main.vala:521
+#: src/main.vala:460
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5089,121 +5089,121 @@ msgstr "სახეების შეცვლა"
 msgid "Delete Face"
 msgstr "სახის წაშლა"
 
-#: src/Resources.vala:319
+#: src/Resources.vala:321
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr ""
 
-#: src/Resources.vala:324
+#: src/Resources.vala:326
 #, c-format
 msgid "Add Tag “%s”"
 msgstr ""
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:327
+#: src/Resources.vala:329
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr ""
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:332
+#: src/Resources.vala:334
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "ჭდეების დამატება"
 
-#: src/Resources.vala:337
+#: src/Resources.vala:339
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr ""
 
-#: src/Resources.vala:341
+#: src/Resources.vala:343
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr ""
 
-#: src/Resources.vala:344
+#: src/Resources.vala:346
 msgid "Delete Tag"
 msgstr "ჭდის წაშლა"
 
-#: src/Resources.vala:350
+#: src/Resources.vala:352
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr ""
 
-#: src/Resources.vala:354
+#: src/Resources.vala:356
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:360
+#: src/Resources.vala:362
 msgid "Modify Tags"
 msgstr "ჭდეების შეცვლა"
 
-#: src/Resources.vala:363
+#: src/Resources.vala:365
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:369
+#: src/Resources.vala:371
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:375
+#: src/Resources.vala:377
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:381
+#: src/Resources.vala:383
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:387
+#: src/Resources.vala:389
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 
-#: src/Resources.vala:391
+#: src/Resources.vala:393
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
 
-#: src/Resources.vala:396
+#: src/Resources.vala:398
 msgid "Delete Search"
 msgstr "ძებნის წაშლა"
 
-#: src/Resources.vala:403
+#: src/Resources.vala:405
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:407
+#: src/Resources.vala:409
 #, c-format
 msgid "Delete Search “%s”"
 msgstr ""
 
-#: src/Resources.vala:411
+#: src/Resources.vala:413
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 
-#: src/Resources.vala:415
+#: src/Resources.vala:417
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Resources.vala:420
+#: src/Resources.vala:422
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -5211,81 +5211,81 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:426 src/Resources.vala:431
+#: src/Resources.vala:428 src/Resources.vala:433
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr ""
 
-#: src/Resources.vala:439
+#: src/Resources.vala:441
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr ""
 
-#: src/Resources.vala:443
+#: src/Resources.vala:445
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr ""
 
-#: src/Resources.vala:447
+#: src/Resources.vala:449
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr ""
 
-#: src/Resources.vala:451
+#: src/Resources.vala:453
 #, c-format
 msgid "Delete Face “%s”"
 msgstr ""
 
-#: src/Resources.vala:677
+#: src/Resources.vala:679
 #, c-format
 msgid "Rate %s"
 msgstr ""
 
-#: src/Resources.vala:678
+#: src/Resources.vala:680
 #, c-format
 msgid "Set rating to %s"
 msgstr ""
 
-#: src/Resources.vala:679
+#: src/Resources.vala:681
 #, c-format
 msgid "Setting rating to %s"
 msgstr ""
 
-#: src/Resources.vala:681
+#: src/Resources.vala:683
 #, c-format
 msgid "Display %s"
 msgstr "ეკრანი %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:684
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr ""
 
-#: src/Resources.vala:683
+#: src/Resources.vala:685
 #, c-format
 msgid "%s or Better"
 msgstr ""
 
-#: src/Resources.vala:684
+#: src/Resources.vala:686
 #, c-format
 msgid "Display %s or Better"
 msgstr ""
 
-#: src/Resources.vala:685
+#: src/Resources.vala:687
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr ""
 
-#: src/Resources.vala:783
+#: src/Resources.vala:785
 msgid "Open the selected photo’s directory in the file manager"
 msgstr ""
 
-#: src/Resources.vala:786
+#: src/Resources.vala:788
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "ფაილების მმართველში გახსნის შეცდომა: %s"
 
-#: src/Resources.vala:794
+#: src/Resources.vala:796
 msgid "Select all items"
 msgstr "ყველაფრის მონიშვნა"
 
@@ -5298,14 +5298,14 @@ msgstr "ყველაფრის მონიშვნა"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:853
+#: src/Resources.vala:855
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:859
+#: src/Resources.vala:861
 #, no-c-format
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
@@ -5314,7 +5314,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:864
+#: src/Resources.vala:866
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5322,7 +5322,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:870
+#: src/Resources.vala:872
 #, no-c-format
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
@@ -5331,7 +5331,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:875
+#: src/Resources.vala:877
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -5346,7 +5346,7 @@ msgid "contains"
 msgstr "შეიცავს"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:498
+#: src/searches/SavedSearchDialog.vala:168 src/searches/SavedSearchDialog.vala:497
 msgid "is exactly"
 msgstr "არის ზუსტად"
 
@@ -5362,7 +5362,7 @@ msgstr "მთავრდება"
 msgid "does not contain"
 msgstr "არ შეიცავს"
 
-#: src/searches/SavedSearchDialog.vala:169 src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:169 src/searches/SavedSearchDialog.vala:501
 msgid "is not set"
 msgstr "დაყენებული არაა"
 
@@ -5371,81 +5371,81 @@ msgid "is set"
 msgstr "დაყენებულია"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:239 src/searches/SavedSearchDialog.vala:373 src/searches/SavedSearchDialog.vala:442
+#: src/searches/SavedSearchDialog.vala:238 src/searches/SavedSearchDialog.vala:372 src/searches/SavedSearchDialog.vala:441
 msgid "is"
 msgstr "არის"
 
-#: src/searches/SavedSearchDialog.vala:239
+#: src/searches/SavedSearchDialog.vala:238
 msgid "is not"
 msgstr "არ არის"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:246
+#: src/searches/SavedSearchDialog.vala:245
 msgid "any photo"
 msgstr "ნებისმიერი სურათი"
 
-#: src/searches/SavedSearchDialog.vala:247
+#: src/searches/SavedSearchDialog.vala:246
 msgid "a raw photo"
 msgstr "დაუმუშავებელი სურათი"
 
-#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:247
 msgid "a video"
 msgstr "ვიდეო"
 
-#: src/searches/SavedSearchDialog.vala:302
+#: src/searches/SavedSearchDialog.vala:301
 msgid "has"
 msgstr "აქვს"
 
-#: src/searches/SavedSearchDialog.vala:303
+#: src/searches/SavedSearchDialog.vala:302
 msgid "has no"
 msgstr "არ აქვს"
 
-#: src/searches/SavedSearchDialog.vala:309
+#: src/searches/SavedSearchDialog.vala:308
 msgid "modifications"
 msgstr "ცვლილებები"
 
-#: src/searches/SavedSearchDialog.vala:310
+#: src/searches/SavedSearchDialog.vala:309
 msgid "internal modifications"
 msgstr "შიდა ცვლილებები"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:310
 msgid "external modifications"
 msgstr "გარე ცვლილებები"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:366
+#: src/searches/SavedSearchDialog.vala:365
 msgid "flagged"
 msgstr "აქვს ალამი"
 
-#: src/searches/SavedSearchDialog.vala:367
+#: src/searches/SavedSearchDialog.vala:366
 msgid "not flagged"
 msgstr "არ აქვს ალამი"
 
-#: src/searches/SavedSearchDialog.vala:434
+#: src/searches/SavedSearchDialog.vala:433
 msgid "and higher"
 msgstr "და უფრო მაღლა"
 
-#: src/searches/SavedSearchDialog.vala:435
+#: src/searches/SavedSearchDialog.vala:434
 msgid "only"
 msgstr "მხოლოდ"
 
-#: src/searches/SavedSearchDialog.vala:436
+#: src/searches/SavedSearchDialog.vala:435
 msgid "and lower"
 msgstr "და უფრო დაბლა"
 
-#: src/searches/SavedSearchDialog.vala:499
+#: src/searches/SavedSearchDialog.vala:498
 msgid "is after"
 msgstr "არის შემდეგ"
 
-#: src/searches/SavedSearchDialog.vala:500
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is before"
 msgstr "არის მანამდე"
 
-#: src/searches/SavedSearchDialog.vala:501
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is between"
 msgstr "არის შუალედში"
 
-#: src/searches/SavedSearchDialog.vala:522
+#: src/searches/SavedSearchDialog.vala:521
 msgid "and"
 msgstr "და"
 
