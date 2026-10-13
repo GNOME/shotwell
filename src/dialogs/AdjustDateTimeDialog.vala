@@ -304,6 +304,21 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         return true;
     }
 
+    private static string build_duration_string(int days, int hours, int minutes, int seconds) {
+        var parts = new Gee.ArrayList<string>();
+
+        if (days > 0)
+            parts.add(ngettext("%d day", "%d days", days).printf(days));
+        if (hours > 0)
+            parts.add(ngettext("%d hour", "%d hours", hours).printf(hours));
+        if (minutes > 0)
+            parts.add(ngettext("%d minute", "%d minutes", minutes).printf(minutes));
+        if (seconds > 0)
+            parts.add(ngettext("%d second", "%d seconds", seconds).printf(seconds));
+
+        return string.joinv(", ", (string[]) parts.to_array());
+    }
+
     private void on_time_changed() {
         var time_shift = get_time().difference (original_time);
 
@@ -326,13 +341,11 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             seconds = (int) ((time_shift % TimeSpan.MINUTE) / TimeSpan.SECOND);
 
             string shift_status = (forward) ?
-                _("Exposure time will be shifted forward by\n%d %s, %d %s, %d %s, and %d %s.") :
-                _("Exposure time will be shifted backward by\n%d %s, %d %s, %d %s, and %d %s.");
+                _("Exposure time will be shifted forward by\n%s.") :
+                _("Exposure time will be shifted backward by\n%s.");
 
-            notification.set_text(shift_status.printf(days, ngettext("day", "days", days),
-                hours, ngettext("hour", "hours", hours), minutes,
-                ngettext("minute", "minutes", minutes), seconds,
-                ngettext("second", "seconds", seconds)));
+            notification.set_text(shift_status.printf(
+                build_duration_string(days, hours, minutes, seconds)));
 
             notification.set_visible(true);
         }

@@ -169,7 +169,7 @@ private string? generate_import_failure_list(Gee.List<BatchImportResult> failed,
     
     int remaining = failed.size - REPORT_FAILURE_COUNT;
     if (remaining > 0)
-        list += _("(and %d more)\n").printf(remaining);
+        list += ngettext("(and 1 more)\n", "(and %d more)\n", remaining).printf(remaining);
     
     return list;
 }
@@ -776,13 +776,13 @@ public async bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo>
     if (count == 0)
         return false;
            
-    string headline = (count == 1) ? _("Revert External Edit?") : _("Revert External Edits?");
+    string headline = ngettext("Revert External Edit?", "Revert External Edits?", count);
     string msg = ngettext(
         "This will destroy all changes made to the external file. Continue?",
         "This will destroy all changes made to %d external files. Continue?",
         count).printf(count);
 
-    string action = (count == 1) ? _("Re_vert External Edit") : _("Re_vert External Edits");
+    string action = ngettext("Re_vert External Edit", "Re_vert External Edits", count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
@@ -819,7 +819,7 @@ public async bool remove_offline_dialog(Gtk.Window owner, int count) {
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
     dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
-    dialog.title = (count == 1) ? _("Remove Photo From Library") : _("Remove Photos From Library");
+    dialog.title = ngettext("Remove Photo From Library", "Remove Photos From Library", count);
     dialog.set_transient_for (owner);
     dialog.present();
     
