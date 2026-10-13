@@ -30,27 +30,18 @@ public async bool confirm_delete_saved_search(SavedSearch search) {
 }
 
 public async bool confirm_warn_developer_changed(int number) {
-    Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(AppWindow.get_instance(),
-        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE,
-        "<span weight=\"bold\" size=\"larger\">%s</span>",
+    var dialog = new Adw.AlertDialog(null, null);
+    dialog.format_body_markup("<span weight=\"bold\" size=\"larger\">%s</span>",
         ngettext("Switching developers will undo all changes you have made to this photo in Shotwell",
         "Switching developers will undo all changes you have made to these photos in Shotwell", number));
 
-    dialog.add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
-    dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
-    
-    dialog.present();
-    int result =  0;
-    SourceFunc continue_cb = confirm_warn_developer_changed.callback;
-    dialog.response.connect((source, res) => {
-        dialog.set_visible(false);
-        result = res;
-        continue_cb();
-    });
-    yield;
-    dialog.destroy();
-    
-    return result == Gtk.ResponseType.YES;
+    dialog.add_responses("switch-developer", _("_Switch Developer"),
+                         "cancel", _("_Cancel"));
+    dialog.set_default_response("cancel");
+    dialog.set_close_response("cancel");
+    dialog.prefer_wide_layout = true;
+    var response = yield dialog.choose(AppWindow.get_instance(), null);
+    return response == "switch-developer";
 }
 
 public async bool confirm_delete_face(Face face) {
@@ -539,45 +530,29 @@ public async bool report_manifest(ImportManifest manifest, bool show_dest_id,
     if (total == 0)
         message += _("No photos or videos imported.\n");
     
-    Gtk.MessageDialog dialog = null;
-    dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-    Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-    dialog.title = _("Import Complete");
-    Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
-    ImportUI.SAVE_RESULTS_RESPONSE_ID);
-    save_results_button.set_visible(manifest.success.size < manifest.all.size);
-    dialog.set_transient_for(AppWindow.get_instance());
+    var dialog = new Adw.AlertDialog(_("Import Complete"), null);
+    if (manifest.success.size < manifest.all.size) {
+        dialog.add_response("save-results", ImportUI.SAVE_RESULTS_BUTTON_NAME);
+    }
+
 
     if (question == null) {
-        var ok_button = dialog.add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
-        dialog.set_default_widget(ok_button);
+        dialog.add_response("ok", Resources.OK_LABEL);
+        dialog.set_default_response("ok");
     } else {
         message += ("\n" + question.question);
-        
-        var no_button = dialog.add_button(question.no_button, Gtk.ResponseType.NO);
-        dialog.add_button(question.yes_button, Gtk.ResponseType.YES);
-        dialog.set_default_widget(no_button);        
+        dialog.add_response("no", question.no_button);
+        dialog.set_default_response("no");
     }
-    dialog.text = message;
-    dialog.present();
-    SourceFunc async_cb = report_manifest.callback;
-    bool result = false;
-    dialog.response.connect((source, res) => {
-        if (res == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
-            save_import_results.begin(AppWindow.get_instance(), create_result_report_from_manifest(manifest));
-            async_cb();
-        }
+    dialog.set_body(message);
+    dialog.prefer_wide_layout = true;
 
-        result = res == Gtk.ResponseType.YES;
-        if (res != ImportUI.SAVE_RESULTS_RESPONSE_ID) {
-            async_cb();
-        }
-    });
-
-    yield;
-    dialog.destroy();
+    var result = yield dialog.choose(AppWindow.get_instance(), null);
+    if (result == "save-results") {
+        yield save_import_results(AppWindow.get_instance(), create_result_report_from_manifest(manifest));
+    }
     
-    return result;
+    return result == "yes";
 }
 
 internal async void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
@@ -713,57 +688,38 @@ public class EditCommentDialog : MultiTextEntryDialogMediator {
 
 // Returns: Gtk.ResponseType.YES (trash photos), Gtk.ResponseType.NO (only remove photos) and
 // Gtk.ResponseType.CANCEL.
-public async Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title,
+public async string remove_from_library_dialog(Gtk.Window owner, string title,
     string user_message, int count) {
     string trash_action = ngettext("Remove and _Trash File", "Remove and _Trash Files", count);
     
-    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", user_message);
-    dialog.set_transient_for(owner);
-    dialog.add_button(_("_Remove From Library"), Gtk.ResponseType.NO);
-    dialog.add_button(trash_action, Gtk.ResponseType.YES);
-    // This dialog was previously created outright; we now 'hijack' 
-    // dialog's old title and use it as the primary text, along with
-    // using the message as the secondary text.
-    dialog.set_markup(build_alert_body_text(title, user_message));
-    dialog.present();
+    var dialog = new Adw.AlertDialog(null, null);
+    dialog.add_responses("cancel", _("Cancel"),
+                         "remove", _("_Remove From Library"),
+                         "trash", trash_action);
+    dialog.set_body_use_markup (true);
+    dialog.set_body(build_alert_body_text(title, user_message));
+    dialog.prefer_wide_layout = true;
+    dialog.set_default_response("cancel");
+    dialog.set_close_response("cancel");
+    dialog.set_response_appearance("yes", Adw.ResponseAppearance.DESTRUCTIVE);
 
-    int result =  0;
-    SourceFunc continue_cb = remove_from_library_dialog.callback;
-    dialog.response.connect((source, res) => {
-        dialog.set_visible(false);
-        result = res;
-        dialog.destroy();
-        continue_cb();
-    });
-    yield;
-    
-    return result;
+    return yield dialog.choose(AppWindow.get_instance(), null);
 }
 
 // Returns: Gtk.ResponseType.YES (delete photos), Gtk.ResponseType.NO (keep photos)
-public async Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string title,
+public async string remove_from_filesystem_dialog(Gtk.Window owner, string title,
     string user_message) {
-    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", user_message);
-    dialog.add_button(_("_Keep"), Gtk.ResponseType.NO);
-    dialog.add_button(_("_Delete"), Gtk.ResponseType.YES);
-    dialog.set_default_response( Gtk.ResponseType.NO);
+    var dialog = new Adw.AlertDialog(null, null);
+    dialog.add_responses("keep", _("_Keep"),
+                         "delete", _("_Delete"));
+    dialog.set_default_response("keep");
+    dialog.set_close_response("keep");
+    dialog.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+    dialog.set_body_use_markup(true);
+    dialog.set_body(build_alert_body_text(title, user_message));
+    dialog.prefer_wide_layout = true;
    
-    dialog.set_markup(build_alert_body_text(title, user_message));
-    dialog.present();
-    
-    int result =  0;
-    SourceFunc continue_cb = remove_from_filesystem_dialog.callback;
-    dialog.response.connect((source, res) => {
-        dialog.set_visible(false);
-        result = res;
-        dialog.destroy();
-        continue_cb();
-    });
-    yield;
-    
-    return result;
+    return yield dialog.choose(AppWindow.get_instance(), null);
 }
 
 public async bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photos) {
@@ -1043,12 +999,12 @@ public async void remove_from_app(Gee.Collection<MediaSource> sources, string di
              sources.size).printf(sources.size);
     }
     
-    Gtk.ResponseType result = yield remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
+    var result = yield remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
         user_message, sources.size);
-    if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
+    if (result != "trans" && result != "remove")
         return;
     
-    bool delete_backing = (result == Gtk.ResponseType.YES);
+    bool delete_backing = (result == "trash");
     
     AppWindow.get_instance().set_busy_cursor();
     
@@ -1073,10 +1029,10 @@ public async void remove_from_app(Gee.Collection<MediaSource> sources, string di
             ngettext("The photo or video cannot be moved to your desktop trash. Delete this file?",
                 "%d photos/videos cannot be moved to your desktop trash. Delete these files?",
                 num_not_removed).printf(num_not_removed);
-        Gtk.ResponseType result_delete = yield remove_from_filesystem_dialog(AppWindow.get_instance(), 
+        var result_delete = yield remove_from_filesystem_dialog(AppWindow.get_instance(), 
             dialog_title, not_deleted_message);
             
-        if (Gtk.ResponseType.YES == result_delete) {
+        if ("delete" == result_delete) {
             // Attempt to delete the files.
             Gee.ArrayList<LibraryPhoto> not_deleted_photos = new Gee.ArrayList<LibraryPhoto>();
             Gee.ArrayList<Video> not_deleted_videos = new Gee.ArrayList<Video>();
