@@ -108,7 +108,7 @@ internal class CameraImportJob : BatchImportJob {
         // they should be auto-imported
         LibraryMonitor.blacklist_file(dest_file, "CameraImportJob.prepare");
         try {
-            GPhoto.save_image(context, camera, fulldir, filename, dest_file, cancellable);
+            save_image(fulldir, filename, dest_file, cancellable);
         } catch (Error err) {
             // Remove the (possibly partial) download before propagating a cancellation or failure.
             try_delete_file(dest_file);
@@ -136,8 +136,7 @@ internal class CameraImportJob : BatchImportJob {
             File assoc_dest = File.new_for_path(associated_file.filepath);
             LibraryMonitor.blacklist_file(assoc_dest, "CameraImportJob.prepare");
             try {
-                GPhoto.save_image(context, camera, associated.fulldir, associated.filename, 
-                    assoc_dest, cancellable);
+                save_image(associated.fulldir, associated.filename, assoc_dest, cancellable);
             } catch (Error err) {
                 try_delete_file(assoc_dest);
                 throw err;
@@ -157,6 +156,43 @@ internal class CameraImportJob : BatchImportJob {
             file.delete(null);
         } catch (Error err) {
             warning("Unable to delete partial camera download %s: %s", file.get_path(), err.message);
+        }
+    }
+
+    // Downloads folder/filename off the camera into dest_file.  When cancellable is cancelled,
+    // gphoto2 aborts the in-flight transfer via the context's cancel func and this throws
+    // IOError.CANCELLED.
+    private void save_image(string folder, string filename, File dest_file,
+        Cancellable? cancellable = null) throws Error {
+        var fd = Posix.creat(dest_file.get_path(), 0640);
+        if (fd < 0) {
+            throw new IOError.FAILED("[%d] Error creating file %s: %m", GLib.errno, dest_file.get_path());
+        }
+
+        // gphoto2 invokes the context's cancel func periodically during a transfer; return
+        // CANCEL to abort an in-flight download when the caller has cancelled.
+        if (cancellable != null)
+            context.set_cancel_func((ctx) => cancellable.is_cancelled() ? GPhoto.ContextFeedback.CANCEL : GPhoto.ContextFeedback.OK);
+        else
+            context.set_cancel_func(null);
+
+        GPhoto.CameraFile camera_file;
+        GPhoto.Result res = GPhoto.CameraFile.create_from_fd(out camera_file, fd);
+        if (res != GPhoto.Result.OK) {
+            context.set_cancel_func(null);
+            throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
+        }
+
+        res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
+        // Clear the cancel func so a stale Cancellable isn't referenced by later, unrelated transfers.
+        context.set_cancel_func(null);
+
+        if (cancellable != null && cancellable.is_cancelled())
+            throw new IOError.CANCELLED("Camera download cancelled by user");
+
+        if (res != GPhoto.Result.OK) {
+            throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s",
+                (int) res, folder, filename, res.as_string());
         }
     }
 
@@ -672,11 +708,27 @@ public class DiscoveredCamera : Object {
 
         public override void execute() {
             try {
-                this.metadata = GPhoto.load_metadata(this.context,this.camera, this.folder,
-                        this.file_name);
+                Bytes? camera_raw = null;
+                try {
+                    camera_raw = GPhoto.load_file_into_buffer(this.context, this.camera, this.folder,
+                        this.file_name, GPhoto.CameraFileType.EXIF);
                 } catch (Error e) {
-                    this.error = e;
+                    this.metadata = GPhoto.get_fallback_metadata(this.camera, this.context, this.folder,
+                        this.file_name);
+                    return;
                 }
+
+                if (camera_raw == null || camera_raw.length == 0) {
+                    this.metadata = null;
+                    return;
+                }
+
+                PhotoMetadata metadata = new PhotoMetadata();
+                metadata.read_from_app1_segment(camera_raw);
+                this.metadata = metadata;
+            } catch (Error e) {
+                this.error = e;
+            }
         }
     }
     
@@ -701,7 +753,32 @@ public class DiscoveredCamera : Object {
 
         public override void execute() {
             try {
-                this.preview = GPhoto.load_preview(this.context, this.camera, this.folder, this.file_name, out this.md5);
+                Bytes? raw = null;
+                this.md5 = null;
+
+                try {
+                    raw = GPhoto.load_file_into_buffer(this.context, this.camera, this.folder,
+                        this.file_name, GPhoto.CameraFileType.PREVIEW);
+                } catch (Error e) {
+                    PhotoMetadata metadata = GPhoto.get_fallback_metadata(this.camera, this.context,
+                        this.folder, this.file_name);
+                    if (metadata == null)
+                        return;
+                    if (metadata.get_preview_count() == 0)
+                        return;
+
+                    // Get the smallest preview from meta-data
+                    var preview = metadata.get_preview(metadata.get_preview_count() - 1);
+                    raw = preview.flatten();
+                    this.md5 = Checksum.compute_for_bytes(ChecksumType.MD5, raw);
+                }
+
+                this.md5 = Checksum.compute_for_bytes(ChecksumType.MD5, raw);
+
+                MemoryInputStream mins = new MemoryInputStream.from_bytes(raw);
+
+                this.preview = new Gdk.Pixbuf.from_stream_at_scale(mins, ImportPreview.MAX_SCALE,
+                    ImportPreview.MAX_SCALE, true, null);
             } catch (Error e) {
                 this.error = e;
             }
