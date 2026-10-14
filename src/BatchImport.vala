@@ -186,8 +186,11 @@ public abstract class BatchImportJob {
     // filesize should only be returned if BatchImportJob represents a single file.
     public abstract bool determine_file_size(out uint64 filesize, out File file_or_dir);
     
-    // NOTE: prepare( ) is called from a background thread in the worker pool
-    public abstract bool prepare(out File file_to_import, out bool copy_to_library) throws Error;
+    // NOTE: prepare( ) is called from a background thread in the worker pool.  If the caller
+    // supplied a Cancellable, the job may use it to abort long-running work (e.g. a camera
+    // download) and should throw IOError.CANCELLED when it is cancelled.
+    public abstract bool prepare(out File file_to_import, out bool copy_to_library,
+        Cancellable? cancellable = null) throws Error;
     
     // Completes the import for the new library photo once it's been imported.
     // If the job is directory based, this method will be called for each photo
@@ -255,7 +258,8 @@ public class FileImportJob : BatchImportJob {
         return false;
     }
     
-    public override bool prepare(out File file_to_import, out bool copy) {
+    public override bool prepare(out File file_to_import, out bool copy,
+        Cancellable? cancellable = null) {
         file_to_import = file_or_dir;
         copy = copy_to_library;
         
@@ -1797,7 +1801,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     // If there's no file, call this function to get it from the batch import job.
     private bool create_file(BatchImportJob job, out File file, out bool copy_to_library) {
         try {
-            if (!job.prepare(out file, out copy_to_library)) {
+            if (!job.prepare(out file, out copy_to_library, get_cancellable())) {
                 report_failure(job, null, job.get_source_identifier(), 
                      job.get_dest_identifier(), ImportResult.FILE_ERROR);
                 
