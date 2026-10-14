@@ -183,19 +183,34 @@ namespace GPhoto {
         return new Gdk.Pixbuf.from_stream(ins, null);
     }
 
-    public void save_image(Context context, Camera camera, string folder, string filename, File dest_file) throws Error {
+    public void save_image(Context context, Camera camera, string folder, string filename, File dest_file,
+        Cancellable? cancellable = null) throws Error {
         var fd = Posix.creat(dest_file.get_path(), 0640);
         if (fd < 0) {
             throw new IOError.FAILED("[%d] Error creating file %s: %m", GLib.errno, dest_file.get_path());
         }
 
+        // gphoto2 invokes the context's cancel func periodically during a transfer; return
+        // CANCEL to abort an in-flight download when the caller has cancelled.
+        if (cancellable != null)
+            context.set_cancel_func((ctx) => cancellable.is_cancelled() ? ContextFeedback.CANCEL : ContextFeedback.OK);
+        else
+            context.set_cancel_func(null);
+
         GPhoto.CameraFile camera_file;
         GPhoto.Result res = GPhoto.CameraFile.create_from_fd(out camera_file, fd);
         if (res != Result.OK) {
+            context.set_cancel_func(null);
             throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
         }
         
         res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
+        // Clear the cancel func so a stale Cancellable isn't referenced by later, unrelated transfers.
+        context.set_cancel_func(null);
+
+        if (cancellable != null && cancellable.is_cancelled())
+            throw new IOError.CANCELLED("Camera download cancelled by user");
+
         if (res != Result.OK) {
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 
                 (int) res, folder, filename, res.as_string());

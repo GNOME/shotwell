@@ -520,10 +520,17 @@ public class ImportPage : CheckerboardPage {
     private SourceCollection import_sources = null;
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
+    private Gtk.Button cancel_refresh_button;
+    private Gtk.Image cancel_refresh_icon;
+    private Gtk.Label cancel_refresh_label;
     private Gtk.ProgressBar progress_bar;
     private DiscoveredCamera dcamera;
     private bool busy = false;
     private bool refreshed = false;
+    // True once a scan has been started at least once, so the toolbar button doesn't offer
+    // "Re-scan" during the brief window before the first scan begins.
+    private bool refresh_attempted = false;
+    private Cancellable? refresh_cancellable = null;
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
     private string refresh_error = null;
     private VolumeMonitor volume_monitor = null;
@@ -536,7 +543,8 @@ public class ImportPage : CheckerboardPage {
         OK,
         BUSY,
         LOCKED,
-        LIBRARY_ERROR
+        LIBRARY_ERROR,
+        CANCELLED
     }
     
     public ImportPage(DiscoveredCamera dcamera) {
@@ -583,6 +591,9 @@ public class ImportPage : CheckerboardPage {
         if (toolbar == null) {
             base.get_toolbar();
             progress_bar = (Gtk.ProgressBar)builder.get_object("ImportProgressBar");
+            cancel_refresh_button = (Gtk.Button)builder.get_object("CancelRefresh");
+            cancel_refresh_icon = (Gtk.Image)builder.get_object("CancelRefreshIcon");
+            cancel_refresh_label = (Gtk.Label)builder.get_object("CancelRefreshLabel");
         }
 
         return toolbar;
@@ -630,6 +641,7 @@ public class ImportPage : CheckerboardPage {
     private const GLib.ActionEntry[] entries = {
         { "ImportSelected", on_import_selected },
         { "ImportAll", on_import_all },
+        { "CancelRefresh", on_cancel_refresh },
         // Toggle actions
         { "ViewTitle", on_action_toggle, null, "false", on_display_titles },
         { "HideImported", on_action_toggle, null, "false", on_hide_imported }
@@ -693,6 +705,31 @@ public class ImportPage : CheckerboardPage {
     private void update_toolbar_state() {
         if (hide_imported != null)
             hide_imported.sensitive = !busy && refreshed && (get_view().get_unfiltered_count() > 0);
+
+        // The button doubles as a Cancel affordance while media is being fetched from the camera
+        // and as a Re-scan affordance once a scan has finished (cancelled or errored) without
+        // anything being imported.  The batch import has its own Stop button.
+        if (cancel_refresh_button != null) {
+            bool scanning = busy && !refreshed && refresh_cancellable != null;
+            bool can_rescan = !busy && !refreshed && refresh_attempted && dcamera != null;
+
+            cancel_refresh_button.visible = scanning || can_rescan;
+
+            if (scanning) {
+                cancel_refresh_icon.icon_name = "process-stop-symbolic";
+                cancel_refresh_label.label = _("_Cancel");
+                cancel_refresh_label.use_underline = true;
+                cancel_refresh_button.tooltip_text = _("Stop fetching media from the camera");
+                cancel_refresh_button.sensitive =
+                    refresh_cancellable != null && !refresh_cancellable.is_cancelled();
+            } else if (can_rescan) {
+                cancel_refresh_icon.icon_name = "view-refresh-symbolic";
+                cancel_refresh_label.label = _("_Re-scan");
+                cancel_refresh_label.use_underline = true;
+                cancel_refresh_button.tooltip_text = _("Scan the camera again for media");
+                cancel_refresh_button.sensitive = true;
+            }
+        }
     }
     
     private void on_view_changed() {
@@ -742,6 +779,11 @@ public class ImportPage : CheckerboardPage {
             case ImportPage.RefreshResult.BUSY:
                 // nothing to report; if busy, let it continue doing its thing
                 // (although earlier check should've caught this)
+            break;
+            
+            case ImportPage.RefreshResult.CANCELLED:
+                // The user stopped the scan; leave the page in its (empty) non-busy state.
+                set_page_message(_("Import cancelled."));
             break;
             
             case ImportPage.RefreshResult.LOCKED:
@@ -872,7 +914,19 @@ public class ImportPage : CheckerboardPage {
 
     private async RefreshResult refresh_camera() {
         dcamera.attach(camera_workers);
+
+        refresh_attempted = true;
+
+        // A fresh cancellable for the whole enumeration/preview phase; the Cancel button (shown
+        // while busy) cancels it so the user can stop a long scan, including the claim retries.
+        refresh_cancellable = new Cancellable();
+        dcamera.set_cancellable(refresh_cancellable);
+
         while (claim_timeout < 4000) {
+            if (refresh_cancellable.is_cancelled()) {
+                refresh_result = GPhoto.Result.OK;
+                break;
+            }
             var result = yield dcamera.init();
             refresh_result = result;
             if (result == GPhoto.Result.IO_USB_CLAIM) {
@@ -886,9 +940,18 @@ public class ImportPage : CheckerboardPage {
         }
         claim_timeout = 500;
 
+        if (refresh_cancellable.is_cancelled()) {
+            dcamera.set_cancellable(null);
+            refresh_cancellable = null;
+            return RefreshResult.CANCELLED;
+        }
+
        if (refresh_result != GPhoto.Result.OK) {
             warning("Unable to initialize camera: %s", refresh_result.to_full_string());
             
+            dcamera.set_cancellable(null);
+            refresh_cancellable = null;
+
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
 
@@ -896,6 +959,7 @@ public class ImportPage : CheckerboardPage {
         update_status(true, refreshed);
         
         on_view_changed();
+        update_toolbar_state();
 
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text(_("Fetching photo information"));
@@ -907,8 +971,10 @@ public class ImportPage : CheckerboardPage {
         GPhoto.CameraStorageInformation[] sifs;
         var result = yield dcamera.get_storage_information(out sifs);
 
-        if (result == GPhoto.Result.OK) {
+        if (result == GPhoto.Result.OK && !refresh_cancellable.is_cancelled()) {
             for (int fsid = 0; fsid < sifs.length; fsid++) {
+                if (refresh_cancellable.is_cancelled())
+                    break;
                 // Check well-known video and image paths first to prevent accidental
                 // scanning of undesired directories (which can cause user annoyance with
                 // some smartphones or camera-equipped media players)
@@ -983,12 +1049,18 @@ public class ImportPage : CheckerboardPage {
         // Associate files (for RAW+JPEG)
         auto_match_raw_jpeg(import_list);
                 
-        yield load_previews_and_metadata(import_list);
+        if (!refresh_cancellable.is_cancelled())
+            yield load_previews_and_metadata(import_list);
                 
         progress_bar.visible = false;
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
+
+        // Release the refresh cancellable; shutdown() gets its own (null) cancellable.
+        bool was_cancelled = refresh_cancellable.is_cancelled();
+        dcamera.set_cancellable(null);
+        refresh_cancellable = null;
 
         var res = yield dcamera.shutdown();
         
@@ -997,7 +1069,7 @@ public class ImportPage : CheckerboardPage {
             warning("Unable to unlock camera: %s", res.to_full_string());
         }
         
-        if (refresh_result == GPhoto.Result.OK) {
+        if (refresh_result == GPhoto.Result.OK && !was_cancelled) {
             if (import_sources.get_count () == 0) {
                 this.set_page_message (this.get_view_empty_message ());
             }
@@ -1005,11 +1077,14 @@ public class ImportPage : CheckerboardPage {
         } else {
             update_status(false, false);
             
-            // show 'em all or show none
+            // cancelled or errored: show 'em all or show none
             clear_all_import_sources();
         }
         
         on_view_changed();
+
+        if (was_cancelled)
+            return RefreshResult.CANCELLED;
 
         switch (refresh_result) {
             case GPhoto.Result.OK:
@@ -1068,6 +1143,8 @@ public class ImportPage : CheckerboardPage {
     private async void load_previews_and_metadata(Gee.List<ImportSource> import_list) {
         int loaded_photos = 0;
         foreach (var import_source in import_list) {
+            if (refresh_cancellable != null && refresh_cancellable.is_cancelled())
+                break;
             string filename = import_source.get_filename();
             string? fulldir = import_source.get_fulldir();
             if (fulldir == null) {
@@ -1177,6 +1254,21 @@ public class ImportPage : CheckerboardPage {
     
     private void on_import_all() {
         import.begin(get_view().get_all());
+    }
+    
+    private void on_cancel_refresh() {
+        if (refresh_cancellable != null) {
+            // A scan is in progress: stop it.
+            debug("User cancelled camera refresh");
+            refresh_cancellable.cancel();
+
+            if (cancel_refresh_button != null)
+                cancel_refresh_button.sensitive = false;
+        } else if (!busy && !refreshed && refresh_attempted) {
+            // No scan in progress: the button is acting as "Re-scan".
+            debug("User requested camera re-scan");
+            try_refreshing_camera.begin(false, on_camera_refreshed);
+        }
     }
     
     private async void import(Gee.Iterable<DataObject> items) {

@@ -336,6 +336,7 @@ namespace GPhoto {
             [CCode (delegate_target_pos=3.1)] ContextProgressUpdateFunc updateFunc, 
             [CCode (delegate_target_pos=3.1)] ContextProgressStopFunc stopFunc);
         public void set_error_func([CCode (delegate_target_pos=3.1)] ContextErrorFunc errorFunc);
+        public void set_cancel_func([CCode (delegate_target_pos=3.1)] ContextCancelFunc? cancelFunc);
         public void set_status_func([CCode (delegate_target_pos=3.1)] ContextStatusFunc statusFunc);
         public void set_message_func([CCode (delegate_target_pos=3.1)] ContextMessageFunc messageFunc);
     }
@@ -344,6 +345,20 @@ namespace GPhoto {
         cheader_filename="gphoto2/gphoto2-context.h"
     )]
     public delegate void ContextIdleFunc(Context context);
+    
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h",
+        cprefix="GP_CONTEXT_FEEDBACK_"
+    )]
+    public enum ContextFeedback {
+        OK,
+        CANCEL
+    }
+    
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
+    public delegate ContextFeedback ContextCancelFunc(Context context);
     
     [CCode (
         cheader_filename="gphoto2/gphoto2-context.h"
