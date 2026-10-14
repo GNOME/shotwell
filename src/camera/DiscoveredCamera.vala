@@ -83,7 +83,8 @@ internal class CameraImportJob : BatchImportJob {
         return true;
     }
     
-    public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
+    public override bool prepare(out File file_to_import, out bool copy_to_library,
+        Cancellable? cancellable = null) throws Error {
         file_to_import = null;
         copy_to_library = false;
         
@@ -107,7 +108,11 @@ internal class CameraImportJob : BatchImportJob {
         // they should be auto-imported
         LibraryMonitor.blacklist_file(dest_file, "CameraImportJob.prepare");
         try {
-            GPhoto.save_image(context, camera, fulldir, filename, dest_file);
+            GPhoto.save_image(context, camera, fulldir, filename, dest_file, cancellable);
+        } catch (Error err) {
+            // Remove the (possibly partial) download before propagating a cancellation or failure.
+            try_delete_file(dest_file);
+            throw err;
         } finally {
             LibraryMonitor.unblacklist_file(dest_file);
         }
@@ -132,7 +137,10 @@ internal class CameraImportJob : BatchImportJob {
             LibraryMonitor.blacklist_file(assoc_dest, "CameraImportJob.prepare");
             try {
                 GPhoto.save_image(context, camera, associated.fulldir, associated.filename, 
-                    assoc_dest);
+                    assoc_dest, cancellable);
+            } catch (Error err) {
+                try_delete_file(assoc_dest);
+                throw err;
             } finally {
                 LibraryMonitor.unblacklist_file(assoc_dest);
             }
@@ -142,6 +150,14 @@ internal class CameraImportJob : BatchImportJob {
         copy_to_library = false;
         
         return true;
+    }
+
+    private static void try_delete_file(File file) {
+        try {
+            file.delete(null);
+        } catch (Error err) {
+            warning("Unable to delete partial camera download %s: %s", file.get_path(), err.message);
+        }
     }
 
     public override File? get_associated_file() {
@@ -252,6 +268,14 @@ public class DiscoveredCamera : Object {
         this.workers = workers;
     }
 
+    public void set_cancellable(Cancellable? cancellable) {
+        this.cancellable = cancellable;
+    }
+
+    public bool is_cancelled() {
+        return (this.cancellable != null) && this.cancellable.is_cancelled();
+    }
+
     public Mount? get_mount() {
         foreach (var uri in this.mount_uris) {
             var f = File.new_for_uri(uri);
@@ -276,6 +300,10 @@ public class DiscoveredCamera : Object {
         public GPhoto.Camera camera;
         public GPhoto.Context context;
 
+        // Strong reference to the currently-installed cancel delegate, gphoto2 uses an
+        // unowned blank void* pointer, so we need to keep it alive elsewhere
+        private GPhoto.ContextCancelFunc? cancel_func = null;
+
         protected CameraJob(Object? owner, GPhoto.Context context, GPhoto.Camera camera,
             Cancellable? cancellable) {
             base(owner, cancellable);
@@ -288,10 +316,28 @@ public class DiscoveredCamera : Object {
             return GPhoto.Result.OK;
         }
 
+        protected void install_cancel_handler() {
+            Cancellable? cancellable = get_cancellable();
+            if (cancellable != null) {
+                this.cancel_func = (ctx) => cancellable.is_cancelled() ?
+                    GPhoto.ContextFeedback.CANCEL : GPhoto.ContextFeedback.OK;
+                context.set_cancel_func(this.cancel_func);
+            } else {
+                context.set_cancel_func(null);
+            }
+        }
+
+        protected void clear_cancel_handler() {
+            context.set_cancel_func(null);
+            this.cancel_func = null;
+        }
+
         public async GPhoto.Result run(Workers camera_workers) {
             this.function_callback = run.callback;
+            install_cancel_handler();
             camera_workers.enqueue(this);
             yield;
+            clear_cancel_handler();
 
             return get_result();
         }
@@ -321,8 +367,13 @@ public class DiscoveredCamera : Object {
 
         public new async void run(Workers camera_workers) throws Error {
             this.function_callback = run.callback;
+            install_cancel_handler();
             camera_workers.enqueue(this);
             yield;
+            clear_cancel_handler();
+
+            if (get_cancellable() != null && get_cancellable().is_cancelled() && this.error == null)
+                throw new IOError.CANCELLED("Camera operation cancelled by user");
 
             if (this.error != null)
                 throw this.error;
@@ -368,7 +419,7 @@ public class DiscoveredCamera : Object {
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
     public async string? get_fs_basedir(int fsid) {
-        var gsi = new GetStorageInfo(null, context, gcamera, null);
+        var gsi = new GetStorageInfo(null, context, gcamera, this.cancellable);
         yield gsi.run(this.workers);
         if (gsi.result != GPhoto.Result.OK) {
             return null;
@@ -492,6 +543,8 @@ public class DiscoveredCamera : Object {
         list_files.files.sort();
 
         for (int ctr = 0; ctr < list_files.files.count(); ctr++) {
+            if (is_cancelled())
+                return GPhoto.Result.OK;
             string filename;
             result = list_files.files.get_name(ctr, out filename);
             if (result != GPhoto.Result.OK) {
@@ -578,7 +631,7 @@ public class DiscoveredCamera : Object {
     public async bool check_directory_exists(int fsid, string dir, string search_target) {
         string? fulldir = yield get_fulldir(fsid, dir);
 
-        var lf = new ListFolders(this, context, gcamera, fulldir, null);
+        var lf = new ListFolders(this, context, gcamera, fulldir, this.cancellable);
         var result = yield lf.run(workers);
         if (result != GPhoto.Result.OK) {
             // fetching the list failed - can't determine whether specified dir is present
@@ -628,7 +681,7 @@ public class DiscoveredCamera : Object {
     }
     
     public async PhotoMetadata load_metadata(string fulldir, string filename) throws Error {
-        var lmd = new LoadMetadata(this, context, gcamera, fulldir, filename, null);
+        var lmd = new LoadMetadata(this, context, gcamera, fulldir, filename, this.cancellable);
         yield lmd.run(workers);
 
         return lmd.metadata;
@@ -656,7 +709,7 @@ public class DiscoveredCamera : Object {
     }
 
     public async Gdk.Pixbuf load_preview(string fulldir, string filename, out string md5) throws Error {
-        var lmd = new LoadPreview(this, context, gcamera, fulldir, filename, null);
+        var lmd = new LoadPreview(this, context, gcamera, fulldir, filename, this.cancellable);
         yield lmd.run(workers);
         md5 = lmd.md5;
 
