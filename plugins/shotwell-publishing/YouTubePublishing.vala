@@ -180,7 +180,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().set_service_locked(true);
         get_host().install_account_fetch_wait_pane();
 
-        progress_reporter = get_host().serialize_publishables(-1);
+        progress_reporter = yield get_host().serialize_publishables_async(-1);
 
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it

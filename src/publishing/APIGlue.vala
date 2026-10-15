@@ -43,8 +43,9 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             param_string.set(PARAM_STRING_EVENTCOMMENT, "");
     }
 
-    public GLib.File serialize_for_publishing(int content_major_axis,
-        bool strip_metadata = false) throws Spit.Publishing.PublishingError {
+    public async GLib.File serialize_for_publishing_async(int content_major_axis,
+        bool strip_metadata = false, int io_priority = Priority.DEFAULT,
+        GLib.Cancellable? cancellable = null) throws Spit.Publishing.PublishingError {
 
         if (wrapped is LibraryPhoto) {
             LibraryPhoto photo = (LibraryPhoto) wrapped;
@@ -57,10 +58,11 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             try {
                 Scaling scaling = (content_major_axis > 0) ?
                     Scaling.for_best_fit(content_major_axis, false) : Scaling.for_original();
-                photo.export(to_file, scaling, Jpeg.Quality.HIGH, PhotoFileFormat.JFIF, false, !strip_metadata);
+                yield photo.export_async(to_file, scaling, Jpeg.Quality.HIGH, PhotoFileFormat.JFIF,
+                    io_priority, cancellable, false, !strip_metadata);
             } catch (Error err) {
                 throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    "unable to serialize photo '%s' for publishing.", photo.get_name());
+                    "unable to serialize photo '%s' for publishing: %s", photo.get_name(), err.message);
             }
 
             serialized_file = to_file;
@@ -77,15 +79,15 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
             debug("writing video '%s' to temporary file '%s' for publishing.",
                 video.get_source_id(), to_file.get_path());
             try {
-                video.export(to_file);
+                yield video.export_async(to_file, io_priority, cancellable);
             } catch (Error err) {
                 throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    "unable to serialize video '%s' for publishing.", video.get_name());
+                    "unable to serialize video '%s' for publishing: %s", video.get_name(), err.message);
             }
 
             serialized_file = to_file;
         } else {
-            error("MediaSourcePublishableWrapper.serialize_for_publishing( ): unknown media type.");
+            error("MediaSourcePublishableWrapper.serialize_for_publishing_async( ): unknown media type.");
         }
 
         return serialized_file;

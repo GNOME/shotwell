@@ -869,7 +869,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_last_no_upload_ratings(parameters.no_upload_ratings);
         set_metadata_removal_choice(strip_metadata);
 
-        progress_reporter = host.serialize_publishables(parameters.photo_size.id, this.strip_metadata);
+        progress_reporter = yield host.serialize_publishables_async(parameters.photo_size.id, this.strip_metadata);
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         
         Uploader uploader = new Uploader(session, publishables, parameters);

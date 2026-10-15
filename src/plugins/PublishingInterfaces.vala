@@ -20,7 +20,7 @@ namespace Spit.Publishing {
 /**
  * The current version of the Pluggable Publishing API
  */
-public const int CURRENT_INTERFACE = 0;
+public const int CURRENT_INTERFACE = 1;
 
 /**
  * Defines different kinds of errors that can occur during publishing.
@@ -485,6 +485,11 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
      * After calling this method, the activity status pane that this method installs remains
      * displayed in the on-screen publishing dialog box until you install a new pane.
      *
+     * This method is asynchronous; serialization is performed without blocking the main loop.
+     * Await it (yield) before sending the publishables over the network. If the publishing
+     * interaction is halted while serialization is in progress, the returned
+     * {@link ProgressCallback} is null.
+     *
      * @param content_major_axis when serializing publishable media items that are photos,
      *                           ensure that neither the width nor the height of the serialized
      *                           photo is greater than content_major_axis pixels. The value of
@@ -496,7 +501,7 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
      *                       metadata will be left intact. The value of this parameter has no
      *                       effect on video publishables.
      */
-    public abstract ProgressCallback? serialize_publishables(int content_major_axis,
+    public abstract async ProgressCallback? serialize_publishables_async(int content_major_axis,
         bool strip_metadata = false);
 
     /**

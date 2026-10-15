@@ -388,7 +388,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
 
         get_host().set_service_locked(true);
 
-        progress_reporter = get_host().serialize_publishables(
+        progress_reporter = yield get_host().serialize_publishables_async(
             publishing_parameters.get_major_axis_size_pixels(),
             publishing_parameters.get_strip_metadata());
 

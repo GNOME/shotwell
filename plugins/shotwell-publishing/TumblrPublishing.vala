@@ -242,7 +242,7 @@ namespace Publishing.Tumblr {
                 return;
 
             debug("EVENT: user clicked the 'Publish' button in the publishing options pane");
-            do_publish();
+            do_publish.begin();
         }
 
         private void on_publishing_options_pane_logout() {
@@ -264,12 +264,12 @@ namespace Publishing.Tumblr {
             return a.get_exposure_date_time().compare(b.get_exposure_date_time());
         }
 
-        private void do_publish() {
+        private async void do_publish() {
             debug("ACTION: uploading media items to remote server.");
 
             host.set_service_locked(true);
 
-            progress_reporter = host.serialize_publishables(sizes[get_persistent_default_size()].size);
+            progress_reporter = yield host.serialize_publishables_async(sizes[get_persistent_default_size()].size);
 
             // Serialization is a long and potentially cancellable operation, so before we use
             // the publishables, make sure that the publishing interaction is still running. If it

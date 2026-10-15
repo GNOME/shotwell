@@ -283,7 +283,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: uploading media items to remote server.");
 
         host.set_service_locked(true);
-        progress_reporter = host.serialize_publishables(parameters.photo_major_axis_size, strip_metadata);
+        progress_reporter = yield host.serialize_publishables_async(parameters.photo_major_axis_size, strip_metadata);
 
         // Serialization is a long and potentially cancellable operation, so before we use
         // the publishables, make sure that the publishing interaction is still running. If it

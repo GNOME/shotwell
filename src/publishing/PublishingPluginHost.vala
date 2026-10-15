@@ -212,16 +212,11 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         return dialog;
     }
     
-    public Spit.Publishing.ProgressCallback? serialize_publishables(int content_major_axis,
-        bool strip_metadata = false) {
+    public async Spit.Publishing.ProgressCallback? serialize_publishables_async(
+        int content_major_axis, bool strip_metadata = false) {
         install_progress_pane();
         PublishingUI.ProgressPane progress_pane =
             (PublishingUI.ProgressPane) dialog.get_active_pane();
-
-        // spin the event loop right after installing the progress_pane so that the progress_pane
-        // will appear and let the user know that something is going on while file serialization
-        // takes place
-        spin_event_loop();
 
         int i = 0;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
@@ -231,7 +226,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
             try {
                 global::Publishing.Glue.MediaSourcePublishableWrapper wrapper =
                     (global::Publishing.Glue.MediaSourcePublishableWrapper) publishable;
-                wrapper.serialize_for_publishing(content_major_axis, strip_metadata);
+                yield wrapper.serialize_for_publishing_async(content_major_axis, strip_metadata);
             } catch (Spit.Publishing.PublishingError err) {
                 post_error(err);
                 return null;
@@ -240,11 +235,9 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
             double phase_fraction_complete = ((double) (i + 1)) / ((double) publishables.length);
             double fraction_complete = phase_fraction_complete * STATUS_PREPARATION_FRACTION;
             
-            debug("serialize_publishables( ): fraction_complete = %f.", fraction_complete);
+            debug("serialize_publishables_async( ): fraction_complete = %f.", fraction_complete);
             
             progress_pane.set_status(PREPARE_STATUS_DESCRIPTION, fraction_complete);
-            
-            spin_event_loop();
 
             i++;
         }
