@@ -210,7 +210,6 @@ public class Transaction {
         this.parent_session = parent_session;
 
         message = new Soup.Message(method.to_string(), parent_session.get_endpoint_url());
-        message.wrote_body_data.connect(on_wrote_body_data);
     }
 
     public Transaction.with_endpoint_url(Session parent_session, string endpoint_url,
@@ -218,11 +217,6 @@ public class Transaction {
         this.parent_session = parent_session;
         this.endpoint_url = endpoint_url;
         message = new Soup.Message(method.to_string(), endpoint_url);
-    }
-
-    private void on_wrote_body_data(Soup.Message message, uint chunk_size) {
-        bytes_written += chunk_size;
-        chunk_transmitted(bytes_written, (uint)request_length);
     }
 
     /* Texts copied from epiphany */
@@ -334,8 +328,9 @@ public class Transaction {
     }
 
     protected async void send_async() throws Spit.Publishing.PublishingError {
+        bytes_written = 0;
         var id = message.wrote_body_data.connect((message, chunk_size) => {
-            bytes_written = chunk_size;
+            bytes_written += chunk_size;
 
             chunk_transmitted(bytes_written, (uint)request_length);
         });
