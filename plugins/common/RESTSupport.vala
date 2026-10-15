@@ -28,8 +28,6 @@ public abstract class Session {
     private string? endpoint_url = null;
     private Soup.Session soup_session = null;
     private bool transactions_stopped = false;
-    private Bytes? body = null;
-    private Error? transport_error= null;
     private bool insecure = false;
     
     public signal void wire_message_unqueued(Soup.Message message);
@@ -86,17 +84,12 @@ public abstract class Session {
         return transactions_stopped;
     }
     
-    public async void send_wire_message_async(Soup.Message message) {
+    public async Bytes? send_wire_message_async(Soup.Message message) throws Error {
         if (are_transactions_stopped()) {
-            return;
+            return null;
         }
 
-        try {
-            this.body = yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, null);
-        } catch (Error error) {
-            debug ("Failed to send_and_read: %s", error.message);
-            this.transport_error = error;
-        }
+        return yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, null);
     }
 
     public void set_insecure () {
@@ -105,14 +98,6 @@ public abstract class Session {
 
     public bool get_is_insecure() {
         return this.insecure;
-    }
-
-    public Error? get_transport_error() {
-        return this.transport_error;
-    }
-
-    public Bytes? get_body() {
-        return this.body;
     }
 }
 
@@ -210,6 +195,8 @@ public class Transaction {
     private ulong request_length;
     private string? endpoint_url = null;
     private bool use_custom_payload;
+    private Bytes? response_body = null;
+    private Error? transport_error = null;
     
     public signal void chunk_transmitted(uint bytes_written_so_far, uint total_bytes);
     public signal void completed();
@@ -293,7 +280,7 @@ public class Transaction {
   }
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
-        var transport_error = parent_session.get_transport_error();
+        var transport_error = this.transport_error;
         if (transport_error != null) {
             if (transport_error is GLib.ResolverError) {
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
@@ -323,7 +310,7 @@ public class Transaction {
         }
         
         // All valid communication involves body data in the response
-        var body = parent_session.get_body();
+        var body = this.response_body;
         if (body == null || body.get_size() == 0)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("No response data from %s",
                 get_endpoint_url());
@@ -354,11 +341,17 @@ public class Transaction {
         });
         message.accept_certificate.connect(on_accecpt_certificate);
 
-        yield parent_session.send_wire_message_async(message);
-        check_response(message);
+        try {
+            this.response_body = yield parent_session.send_wire_message_async(message);
+        } catch (Error error) {
+            debug ("Failed to send_and_read: %s", error.message);
+            this.transport_error = error;
+        } finally {
+            message.disconnect(id);
+            message.accept_certificate.disconnect(on_accecpt_certificate);
+        }
 
-        message.disconnect(id);
-        message.accept_certificate.disconnect(on_accecpt_certificate);
+        check_response(message);
         completed();
     }
 
@@ -473,7 +466,7 @@ public class Transaction {
 
     public string get_response() {
         assert(get_is_executed());
-        return parent_session.get_body() == null ? "" : (string) parent_session.get_body().get_data();
+        return this.response_body == null ? "" : (string) this.response_body.get_data();
     }
     
     public unowned Soup.MessageHeaders get_response_headers() {
