@@ -875,6 +875,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         Uploader uploader = new Uploader(session, publishables, parameters);
         try {
             var num_published = yield uploader.upload_async(on_upload_status_updated);
+            if (!parameters.no_upload_ratings)
+                yield uploader.apply_ratings_async();
             on_upload_complete(num_published);
         } catch (Spit.Publishing.PublishingError err) {
             do_show_error(err);
@@ -989,6 +991,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
+    private Gee.ArrayList<RatedImage> rated_images = new Gee.ArrayList<RatedImage>();
 
     public Uploader(Session session, Spit.Publishing.Publishable[] publishables,
         PublishingParameters parameters) {
@@ -999,8 +1002,56 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
 
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
-        return new ImagesAddTransaction((Session) get_session(), parameters,
+        var txn = new ImagesAddTransaction((Session) get_session(), parameters,
             publishable);
+
+        // Recording the image id is pure local work (no HTTP, no yield), so a
+        // synchronous handler is appropriate here. The rating requests
+        // themselves are deferred until the whole batch has been uploaded.
+        txn.completed.connect(on_upload_completed);
+
+        return txn;
+    }
+
+    private void on_upload_completed(Publishing.RESTSupport.Transaction txn) {
+        if (parameters.no_upload_ratings)
+            return;
+
+        var publishable = get_current_publishable();
+        if (publishable.get_rating() <= 0)
+            return;
+
+        string image_id;
+        try {
+            var resp_doc = Publishing.RESTSupport.XmlDocument.parse_string(
+                txn.get_response(), Transaction.validate_xml);
+            var image_node = resp_doc.get_named_child(resp_doc.get_root_node(), "image_id");
+            image_id = image_node->get_content();
+        } catch (Spit.Publishing.PublishingError err) {
+            debug("Response parse error");
+            return;
+        }
+
+        rated_images.add(new RatedImage(publishable, image_id));
+    }
+
+    // Applies the ratings collected during the upload pass. Returns the number
+    // of ratings that could not be applied.
+    public async int apply_ratings_async() {
+        int failures = 0;
+
+        foreach (var rated_image in rated_images) {
+            try {
+                yield new ImagesAddRating((Session) get_session(),
+                    rated_image.publishable, rated_image.image_id).execute_async();
+            } catch (Spit.Publishing.PublishingError err) {
+                failures++;
+                warning("Unable to set rating for uploaded image '%s': %s",
+                    rated_image.publishable.get_publishing_name(), err.message);
+            }
+        }
+
+        return failures;
     }
 }
 
@@ -1751,21 +1802,17 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);
-        base.completed.connect(on_completed);
     }
+}
 
-    private void on_completed() {
-        try{
-            Publishing.RESTSupport.XmlDocument resp_doc = Publishing.RESTSupport.XmlDocument.parse_string(
-                base.get_response(), Transaction.validate_xml);
-            Xml.Node* image_node = resp_doc.get_named_child(resp_doc.get_root_node(), "image_id");
-            string image_id = image_node->get_content();
+// A successful upload's remote image id and the publishable it belongs to, so
+// that ratings can be applied in a second pass once the whole batch is uploaded.
+private class RatedImage : Object {
+    public Spit.Publishing.Publishable publishable { get; construct; }
+    public string image_id { get; construct; }
 
-            if (!parameters.no_upload_ratings && publishable.get_rating() > 0)
-                new ImagesAddRating(session, publishable, image_id);
-        } catch(Spit.Publishing.PublishingError err) {
-            debug("Response parse error");
-        }
+    public RatedImage(Spit.Publishing.Publishable publishable, string image_id) {
+        Object(publishable : publishable, image_id : image_id);
     }
 }
 
@@ -1775,8 +1822,6 @@ private class ImagesAddRating : Transaction {
         add_argument("method", "pwg.images.rate");
         add_argument("image_id", image_id);
         add_argument("rate", publishable.get_rating().to_string());
-
-        base.execute_async.begin();
     }
 }
 
