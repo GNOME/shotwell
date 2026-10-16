@@ -13,6 +13,8 @@ namespace Shotwell.Plugins.Common {
         public string login_uri { owned get; construct; }
         public Gtk.Widget widget;
 
+        private Gtk.Label error_label;
+
         public ExternalWebPane(string uri) {
             Object(login_uri: uri);
         }
@@ -34,16 +36,35 @@ namespace Shotwell.Plugins.Common {
             var label = new Gtk.Label(_("Sign in with your browser to setup an account"));
             label.add_css_class("heading");
             box.append(label);
+
+            error_label = new Gtk.Label(_("Unable to open the web browser. Please open the following address manually:"));
+            error_label.add_css_class("error");
+            error_label.set_wrap(true);
+            error_label.set_justify(Gtk.Justification.CENTER);
+            error_label.set_visible(false);
+            box.append(error_label);
+
             var button = new Gtk.Button.with_label (_("Continue"));
             button.set_halign(Gtk.Align.CENTER);
             button.add_css_class("suggested-actoin");
             button.clicked.connect(() => {
-                AppInfo.launch_default_for_uri_async.begin(login_uri, null);
+                launch_login_uri.begin();
                 browser_toggled();
             });
             box.append(button);
 
             widget = box;
+        }
+
+        private async void launch_login_uri() {
+            try {
+                yield AppInfo.launch_default_for_uri_async(login_uri, null);
+                error_label.set_visible(false);
+            } catch (Error err) {
+                warning("Unable to open browser for %s: %s", login_uri, err.message);
+                error_label.set_text(_("Unable to open the web browser. Please open the following address manually: %s").printf(login_uri));
+                error_label.set_visible(true);
+            }
         }
 
         public DialogPane.GeometryOptions get_preferred_geometry() {
