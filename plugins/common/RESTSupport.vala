@@ -29,6 +29,7 @@ public abstract class Session {
     private Soup.Session soup_session = null;
     private bool transactions_stopped = false;
     private bool insecure = false;
+    private GLib.Cancellable cancellable = new GLib.Cancellable();
     
     public signal void wire_message_unqueued(Soup.Message message);
     public signal void authenticated();
@@ -77,6 +78,7 @@ public abstract class Session {
     
     public void stop_transactions() {
         transactions_stopped = true;
+        cancellable.cancel();
         soup_session.abort();
     }
     
@@ -89,7 +91,7 @@ public abstract class Session {
             return null;
         }
 
-        return yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, null);
+        return yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, cancellable);
     }
 
     public void set_insecure () {

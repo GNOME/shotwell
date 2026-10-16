@@ -18,6 +18,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     private Publishable[] publishables = null;
     private unowned LoginCallback current_login_callback = null;
     private bool publishing_halted = false;
+    private GLib.Cancellable cancellable = new GLib.Cancellable();
     private Spit.Publishing.Publisher.MediaType media_type =
         Spit.Publishing.Publisher.MediaType.NONE;
     
@@ -103,6 +104,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         dialog.set_close_button_mode();
         dialog.unlock_service();
 
+        cancellable.cancel();
         active_publisher.stop();
         
         // post_error( ) tells the active_publisher to stop publishing and displays a
@@ -114,6 +116,8 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     public void stop_publishing() {
         debug("ConcretePublishingHost.stop_publishing( ): invoked.");
         
+        cancellable.cancel();
+
         if (active_publisher.is_running())
             active_publisher.stop();
 
@@ -220,13 +224,14 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
 
         int i = 0;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
-            if (publishing_halted || !active_publisher.is_running())
+            if (publishing_halted || cancellable.is_cancelled() || !active_publisher.is_running())
                 return null;
 
             try {
                 global::Publishing.Glue.MediaSourcePublishableWrapper wrapper =
                     (global::Publishing.Glue.MediaSourcePublishableWrapper) publishable;
-                yield wrapper.serialize_for_publishing_async(content_major_axis, strip_metadata);
+                yield wrapper.serialize_for_publishing_async(content_major_axis, strip_metadata,
+                    Priority.DEFAULT, cancellable);
             } catch (Spit.Publishing.PublishingError err) {
                 post_error(err);
                 return null;
