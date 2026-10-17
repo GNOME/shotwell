@@ -140,7 +140,7 @@ public abstract class SinglePhotoPage : Page {
         pixmap_ctx.paint();
 
         bool old_quality_setting = zoom_high_quality;
-        zoom_high_quality = true;
+        zoom_high_quality = false;
         render_zoomed_to_pixmap(interactive_zoom_state);
         zoom_high_quality = old_quality_setting;
 

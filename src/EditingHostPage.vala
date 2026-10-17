@@ -129,12 +129,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     private Gdk.Point get_cursor_wrt_viewport(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
-        double x;
-        double y;
-        event.get_current_event().get_position(out x, out y);
-        cursor_wrt_canvas.x = (int) x;
-        cursor_wrt_canvas.y = (int) y;
 
+        // Query the pointer position from the surface and translate it into canvas coordinates
+        double canvas_x;
+        double canvas_y;
+        Gdk.ModifierType mask;
+        if (!get_event_source_pointer(out canvas_x, out canvas_y, out mask))
+            return cursor_wrt_canvas;
+
+        // The canvas is measured in logical pixels, whereas the zoom viewport (pixmap_dim) is
+        // in device pixels, so convert to device pixels as is_inside_pixbuf() does.
+        double scale = Application.get_scale();
+        cursor_wrt_canvas.x = (int) Math.lround(canvas_x * scale);
+        cursor_wrt_canvas.y = (int) Math.lround(canvas_y * scale);
+
+        // Return the cursor position relative to the zoomed image rectangle drawn on the canvas.
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         Gdk.Point result = {0};
         result.x = cursor_wrt_canvas.x - viewport_wrt_canvas.x;
@@ -356,6 +365,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // The enabled state was set way before we have access to the zoom_slider widget on
         // initial creation. Just copy the state from one of the actions here.
         zoom_slider.sensitive = get_action("Enhance").get_enabled();
+        
+        var drag_gesture = new Gtk.GestureDrag();
+        drag_gesture.set_name("Zoom Slider Drag");
+        zoom_slider.add_controller(drag_gesture);
+        
+        drag_gesture.drag_begin.connect((gesture, start_x, start_y) => {
+            enable_interactive_zoom_refresh = true;
+        });
+        drag_gesture.drag_end.connect((gesture, offset_x, offset_y) => {
+            enable_interactive_zoom_refresh = false;
+        });
         insert_faces_button();
 
         return tb;
@@ -1040,8 +1060,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // if no editing tool, then determine whether we should start a pan operation over the
         // zoomed photo or fall through to the default DnD behavior if we're not zoomed
         if ((current_tool == null) && (zoom_slider.get_value() != 0.0)) {
-            zoom_pan_start_point.x = (int) x;
-            zoom_pan_start_point.y = (int) y;
+            zoom_pan_start_point.x = (int) Math.lround(x * Application.get_scale());
+            zoom_pan_start_point.y = (int) Math.lround(y * Application.get_scale());
             is_pan_in_progress = true;
             suspend_cursor_hiding();
 
@@ -1067,8 +1087,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         if (is_pan_in_progress) {
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
-            int delta_x = ((int) x) - zoom_pan_start_point.x;
-            int delta_y = ((int) y) - zoom_pan_start_point.y;
+            int delta_x = (int) Math.lround(x * Application.get_scale()) - zoom_pan_start_point.x;
+            int delta_y = (int) Math.lround(y * Application.get_scale()) - zoom_pan_start_point.y;
             viewport_center.x -= delta_x;
             viewport_center.y -= delta_y;
 
@@ -1157,8 +1177,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_cursor_for_zoom_context();
         
         if (is_pan_in_progress) {
-            int delta_x = (int)x - zoom_pan_start_point.x;
-            int delta_y = (int)y - zoom_pan_start_point.y;
+            int delta_x = (int) Math.lround(x * Application.get_scale()) - zoom_pan_start_point.x;
+            int delta_y = (int) Math.lround(y * Application.get_scale()) - zoom_pan_start_point.y;
 
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
             viewport_center.x -= delta_x;
@@ -1183,30 +1203,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool on_keyboard_pan_event(uint keyval) {
         ZoomState current_zoom_state = get_zoom_state();
         Gdk.Point viewport_center = current_zoom_state.get_viewport_center();
+        int scaled_increment = (int) Math.lround(PAN_INCREMENT_SIZE * Application.get_scale());
 
         switch (Gdk.keyval_name(keyval)) {
             case "Left":
             case "KP_Left":
             case "KP_4":
-                viewport_center.x -= PAN_INCREMENT_SIZE;
+                viewport_center.x -= scaled_increment;
             break;
             
             case "Right":
             case "KP_Right":
             case "KP_6":
-                viewport_center.x += PAN_INCREMENT_SIZE;
+                viewport_center.x += scaled_increment;
             break;
 
             case "Down":
             case "KP_Down":
             case "KP_2":
-                viewport_center.y += PAN_INCREMENT_SIZE;
+                viewport_center.y += scaled_increment;
             break;
             
             case "Up":
             case "KP_Up":
             case "KP_8":
-                viewport_center.y -= PAN_INCREMENT_SIZE;
+                viewport_center.y -= scaled_increment;
             break;
             
             default:
