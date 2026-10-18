@@ -49,7 +49,7 @@ class BmpFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class BmpSniffer : GdkSniffer {
+public class BmpSniffer : GlycinSniffer {
     private const uint8[] MAGIC_SEQUENCE = { 0x42, 0x4D };
 
     public BmpSniffer(File file, PhotoFileSniffer.Options options) {
@@ -86,7 +86,7 @@ public class BmpSniffer : GdkSniffer {
     }
 }
 
-public class BmpReader : GdkReader {
+public class BmpReader : GlycinReader {
     public BmpReader(string filepath) {
         base (filepath, PhotoFileFormat.BMP);
     }

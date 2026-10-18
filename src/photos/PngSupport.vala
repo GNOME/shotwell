@@ -47,7 +47,7 @@ class PngFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class PngSniffer : GdkSniffer {
+public class PngSniffer : GlycinSniffer {
     private const uint8[] MAGIC_SEQUENCE = { 137, 80, 78, 71, 13, 10, 26, 10 };
 
     public PngSniffer(File file, PhotoFileSniffer.Options options) {
@@ -84,7 +84,7 @@ public class PngSniffer : GdkSniffer {
     }
 }
 
-public class PngReader : GdkReader {
+public class PngReader : GlycinReader {
     public PngReader(string filepath) {
         base (filepath, PhotoFileFormat.PNG);
     }

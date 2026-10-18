@@ -47,7 +47,7 @@ class AvifFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class AvifSniffer : GdkSniffer {
+public class AvifSniffer : GlycinSniffer {
     public AvifSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
     }
@@ -67,7 +67,7 @@ public class AvifSniffer : GdkSniffer {
     }
 }
 
-public class AvifReader : GdkReader {
+public class AvifReader : GlycinReader {
     public AvifReader(string filepath) {
         base (filepath, PhotoFileFormat.AVIF);
     }

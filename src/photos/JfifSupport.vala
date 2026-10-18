@@ -97,7 +97,7 @@ public class JfifFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class JfifSniffer : GdkSniffer {
+public class JfifSniffer : GlycinSniffer {
     public JfifSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
     }
@@ -178,7 +178,7 @@ public class JfifSniffer : GdkSniffer {
     }
 }
 
-public class JfifReader : GdkReader {
+public class JfifReader : GlycinReader {
     public JfifReader(string filepath) {
         base (filepath, PhotoFileFormat.JFIF);
     }

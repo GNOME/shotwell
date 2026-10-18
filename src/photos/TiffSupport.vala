@@ -99,7 +99,7 @@ private class TiffFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-private class TiffSniffer : GdkSniffer {
+private class TiffSniffer : GlycinSniffer {
     public TiffSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
     }
@@ -119,7 +119,7 @@ private class TiffSniffer : GdkSniffer {
     }
 }
 
-private class TiffReader : GdkReader {
+private class TiffReader : GlycinReader {
     public TiffReader(string filepath) {
         base (filepath, PhotoFileFormat.TIFF);
     }
