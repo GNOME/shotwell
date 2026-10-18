@@ -73,19 +73,23 @@ public class AvifReader : GlycinReader {
     }
 }
 
-public class AvifWriter : PhotoFileWriter {
+public class AvifWriter : GlycinWriter {
     public AvifWriter(string filepath) {
         base (filepath, PhotoFileFormat.AVIF);
     }
     
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "avif", "quality", quality.get_pct_text(), null);
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        prepare_creator(pixbuf);
+        creator.set_encoding_quality((uint8)quality);
+
+        yield do_write_async(io_priority, cancellable);
     }
 
-    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
-        var file = File.new_for_path(get_filepath());
-        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
-        yield pixbuf.save_to_stream_async(os, "avif", cancellable, "quality", quality.get_pct_text(), null);
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        prepare_creator(pixbuf);
+        creator.set_encoding_quality((uint8)quality);
+
+        do_write();
     }
 }
 

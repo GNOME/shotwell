@@ -41,6 +41,70 @@ public abstract class GlycinReader : PhotoFileReader {
     }
 }
 
+public abstract class GlycinWriter : PhotoFileWriter {
+    protected Gly.Creator creator;
+    static string? mime_from_photo_file_format(PhotoFileFormat ffm) {
+        switch (ffm) {
+            case PhotoFileFormat.JFIF:
+                return "image/jpeg";
+            case PhotoFileFormat.PNG:
+                return "image/png";
+            case PhotoFileFormat.TIFF:
+                return "image/tiff";
+            case PhotoFileFormat.BMP:
+                return "image/bmp";
+            case PhotoFileFormat.GIF:
+                return "image/gif";
+            case PhotoFileFormat.WEBP:
+                return "image/webp";
+            case PhotoFileFormat.AVIF:
+                return "image/avif";
+            case PhotoFileFormat.HEIF:
+                return "image/heif";
+            case PhotoFileFormat.JPEGXL:
+                return "image/jxl";
+            default:
+                return null;
+        }
+    }
+
+    protected GlycinWriter(string basepath, PhotoFileFormat ffm) {
+        base(basepath, ffm);
+    }
+
+    protected void prepare_creator(Gdk.Pixbuf pixbuf) throws Error {
+        creator = new Gly.Creator(GlycinWriter.mime_from_photo_file_format(get_file_format()));
+        var data = pixbuf.read_pixel_bytes();
+        var width = pixbuf.get_width();
+        var height = pixbuf.get_height();
+        var stride = pixbuf.get_rowstride();
+        var format = pixbuf.get_n_channels() == 3 ? Gly.MemoryFormat.R8G8B8 : Gly.MemoryFormat.R8G8B8A8;
+
+        creator.add_frame_with_stride(width, height, stride, format, data);
+    }
+
+    protected async void do_write_async(int io_priority, Cancellable? cancellable) throws Error {
+        var image = yield creator.create_async(cancellable);
+        var data = image.get_data();
+
+        var file = File.new_for_path(get_filepath());
+        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
+        unowned uint8[]? raw_data = data.get_data();
+        yield os.write_all_async(raw_data, io_priority, cancellable, null);
+    }
+
+    protected void do_write() throws Error {
+        var image = creator.create();
+        var data = image.get_data();
+
+        var file = File.new_for_path(get_filepath());
+        var os = file.replace(null, false, GLib.FileCreateFlags.NONE);
+        unowned uint8[]? raw_data = data.get_data();
+        os.write_all(raw_data, null);
+    }
+
+}
+
 public abstract class GlycinSniffer : PhotoFileSniffer {
     private DetectedPhotoInformation detected = null;
     

@@ -90,19 +90,21 @@ public class PngReader : GlycinReader {
     }
 }
 
-public class PngWriter : PhotoFileWriter {
+public class PngWriter : GlycinWriter {
     public PngWriter(string filepath) {
         base (filepath, PhotoFileFormat.PNG);
     }
     
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "png", "compression", "9", null);
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        prepare_creator(pixbuf);
+
+        yield do_write_async(io_priority, cancellable);
     }
 
-    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
-        var file = File.new_for_path(get_filepath());
-        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
-        yield pixbuf.save_to_stream_async(os, "png", cancellable, "compression", "9", null);
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        prepare_creator(pixbuf);
+
+        do_write();
     }
     
 }

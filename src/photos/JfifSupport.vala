@@ -184,30 +184,32 @@ public class JfifReader : GlycinReader {
     }
 }
 
-public class JfifWriter : PhotoFileWriter {
+public class JfifWriter : GlycinWriter {
     public JfifWriter(string filepath) {
         base (filepath, PhotoFileFormat.JFIF);
     }
     
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        if (pixbuf.has_alpha) {
-            apply_alpha_channel(pixbuf).save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
-        } else {
-            pixbuf.save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
-        }
-    }
-
     public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
-        var file = File.new_for_path(get_filepath());
-        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
         var output = pixbuf;
         if (pixbuf.has_alpha) {
             output = apply_alpha_channel(pixbuf);
-        }        
-        
-        yield output.save_to_stream_async(os, "jpeg", cancellable, "quality", quality.get_pct_text(), cancellable);
+        }
+        prepare_creator(output);
+        creator.set_encoding_quality((uint8)quality);
+
+        yield do_write_async(io_priority, cancellable);
     }
 
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        var output = pixbuf;
+        if (pixbuf.has_alpha) {
+            output = apply_alpha_channel(pixbuf);
+        }
+        prepare_creator(output);
+        creator.set_encoding_quality((uint8)quality);
+
+        do_write();
+    }
 }
 
 public class JfifMetadataWriter : PhotoFileMetadataWriter {
