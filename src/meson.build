@@ -82,7 +82,6 @@ executable(
         'photos/PhotoFileSniffer.vala',
         'photos/PhotoMetadata.vala',
         'photos/GRaw.vala',
-        'photos/GdkSupport.vala',
         'photos/GlycinSupport.vala',
         'photos/GifSupport.vala',
         'photos/JfifSupport.vala',
