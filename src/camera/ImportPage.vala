@@ -155,7 +155,6 @@ class PhotoImportSource : ImportSource {
     private PhotoFileFormat file_format;
     private string? preview_md5 = null;
     private PhotoMetadata? metadata = null;
-    private string? exif_md5 = null;
     private PhotoImportSource? associated = null; // JPEG source for RAW+JPEG
     
     public PhotoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
@@ -193,11 +192,10 @@ class PhotoImportSource : ImportSource {
     }
 
     // Needed because previews and exif are loaded after other information has been gathered.
-    public void update(Gdk.Pixbuf? preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
+    public void update(Gdk.Pixbuf? preview, string? preview_md5, PhotoMetadata? metadata) {
         set_preview(preview);
         this.preview_md5 = preview_md5;
         this.metadata = metadata;
-        this.exif_md5 = exif_md5;
     }
 
     public override DateTime get_exposure_time() {
@@ -1484,12 +1482,6 @@ public class ImportPage : CheckerboardPage {
                 }
             }
             
-            // calculate EXIF's fingerprint
-            string? exif_only_md5 = null;
-            if (metadata != null) {
-                exif_only_md5 = metadata.exif_hash();
-            }
-            
             // XXX: Cannot use the metadata for the thumbnail preview because libgphoto2
             // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
             // is fixed in 2.4.7, but need to work around this as best we can.  In particular,
@@ -1519,7 +1511,7 @@ public class ImportPage : CheckerboardPage {
             }
             
 #if TRACE_MD5
-            debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
+            debug("camera MD5 %s: preview=%s", filename, preview_md5);
 #endif
 
             var video_import_source = import_source as VideoImportSource;
@@ -1528,13 +1520,13 @@ public class ImportPage : CheckerboardPage {
 
             var photo_import_source = import_source as PhotoImportSource;
             if (photo_import_source != null)
-                photo_import_source.update(preview, preview_md5, metadata, exif_only_md5);
+                photo_import_source.update(preview, preview_md5, metadata);
             
             if (associated != null) {
                 try {
                     PhotoMetadata? associated_metadata = GPhoto.load_metadata(spin_idle_context.context, 
                         dcamera.gcamera, associated.get_fulldir(), associated.get_filename());
-                    associated.update(preview, preview_md5, associated_metadata, null);
+                    associated.update(preview, preview_md5, associated_metadata);
                 } catch (Error err) {
                     warning("Unable to fetch metadata for %s/%s: %s",  associated.get_fulldir(),
                         associated.get_filename(), err.message);

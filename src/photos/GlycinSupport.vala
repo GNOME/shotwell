@@ -172,7 +172,6 @@ public abstract class GlycinSniffer : PhotoFileSniffer {
         }
         
         if (calc_md5 && detected.metadata != null) {
-            detected.exif_md5 = detected.metadata.exif_hash();
             detected.thumbnail_md5 = detected.metadata.thumbnail_hash();
         }
     

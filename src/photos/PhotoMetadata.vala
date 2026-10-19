@@ -252,9 +252,7 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     private GExiv2.Metadata exiv2 = new GExiv2.Metadata();
-    private Exif.Data? exif = null;
     string source_name = "<uninitialized>";
-    private string? metadata_hash = null;
     private string? thumbnail_md5 = null;
     
     public PhotoMetadata() {
@@ -262,10 +260,8 @@ public class PhotoMetadata : MediaMetadata {
     
     public override void read_from_file(File file) throws Error {
         exiv2 = new GExiv2.Metadata();
-        exif = null;
         
         exiv2.open_path(file.get_path());
-        exif = Exif.Data.new_from_file(file.get_path());
         source_name = file.get_basename();
     }
     
@@ -280,19 +276,15 @@ public class PhotoMetadata : MediaMetadata {
         assert(buffer.length >= length);
         
         exiv2 = new GExiv2.Metadata();
-        exif = null;
         
         exiv2.open_buf(buffer[0:length]);
-        exif = Exif.Data.new_from_data(buffer[0:length]);
         source_name = "<memory buffer %d bytes>".printf(length);
     }
     
     public void read_from_app1_segment(Bytes buffer) throws Error {
         exiv2 = new GExiv2.Metadata();
-        exif = null;
         
         exiv2.from_app1_segment(buffer.get_data());
-        exif = Exif.Data.new_from_data(buffer.get_data());
         source_name = "<app1 segment %zu bytes>".printf(buffer.get_size());
     }
     
@@ -744,43 +736,6 @@ public class PhotoMetadata : MediaMetadata {
         set_all_generic(tags, option, (tag) => { set_date_time(tag, date_time); });
     }
     
-    // Returns raw bytes of EXIF metadata, including signature and optionally the preview (if present).
-    public string? exif_hash() {
-        if (exif == null)
-            return null;
-
-        if (this.metadata_hash != null) {
-            return this.metadata_hash;
-        }
-
-        string? hash = null;
-
-        var thumb = exif.data;
-        var thumb_size = exif.size;
-
-        // Strip potential thumbnail
-        exif.data = null;
-        exif.size = 0;
-
-        uchar *saved_data = null;
-        uint saved_size = 0;
-
-        exif.save_data(&saved_data, &saved_size);
-
-        exif.data = thumb;
-        exif.size = thumb_size;
-
-        if (saved_size > 0 && saved_data != null) {
-            var md5 = new Checksum(ChecksumType.MD5);
-            md5.update((uchar []) saved_data, saved_size);
-            Exif.Mem.new_default().free(saved_data);
-
-            this.metadata_hash = md5.get_string ();
-        }
-
-        return hash;
-    }
-    
     // Returns raw bytes of EXIF preview, if present
     public string? thumbnail_hash() {
         if (this.thumbnail_md5 != null) {
@@ -819,12 +774,6 @@ public class PhotoMetadata : MediaMetadata {
         try {
             exiv2.erase_exif_thumbnail();
         } catch (Error err) { }
-
-        if (exif != null) {
-            Exif.Mem.new_default().free(exif.data);
-            exif.data = null;
-            exif.size = 0;
-        }
     }
     
     public void remove_tag(string tag) {
