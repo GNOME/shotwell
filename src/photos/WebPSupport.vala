@@ -31,7 +31,7 @@ public class WebpFileFormatDriver : PhotoFileFormatDriver {
     }
 
     public override bool can_write_image() {
-        return false;
+        return true;
     }
 
     public override bool can_write_metadata() {
@@ -39,7 +39,7 @@ public class WebpFileFormatDriver : PhotoFileFormatDriver {
     }
 
     public override PhotoFileWriter? create_writer(string filepath) {
-        return null;
+        return new WebpWriter(filepath);
     }
 
     public override PhotoFileMetadataWriter? create_metadata_writer(string filepath) {
@@ -149,6 +149,24 @@ public bool is_webp(File file, Cancellable? cancellable = null) throws Error {
     }
 
     return false;
+}
+
+public class WebpWriter : GlycinWriter {
+    public WebpWriter(string filepath) {
+        base (filepath, PhotoFileFormat.WEBP);
+    }
+
+    public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
+        prepare_creator(pixbuf);
+
+        yield do_write_async(io_priority, cancellable);
+    }
+
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        prepare_creator(pixbuf);
+
+        do_write();
+    }    
 }
 
 }
