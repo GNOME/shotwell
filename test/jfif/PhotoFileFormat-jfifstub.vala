@@ -14,6 +14,7 @@ public enum PhotoFileFormat {
     HEIF,
     JPEGXL,
     JPEG2000,
+    SVG,
     UNKNOWN;
 
     public static PhotoFileFormat[] get_supported() {
@@ -23,6 +24,8 @@ public enum PhotoFileFormat {
     public static PhotoFileFormat from_pixbuf_name(string name) {
         if (name == "jpeg") {
             return PhotoFileFormat.JFIF;
+        } else if (name == "svg") {
+            return PhotoFileFormat.SVG;
         } else {
             return PhotoFileFormat.UNKNOWN;
         }
