@@ -1,0 +1,1 @@
+../../src/photos/SvgSupport.vala
