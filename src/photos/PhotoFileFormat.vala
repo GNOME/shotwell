@@ -63,12 +63,13 @@ public enum PhotoFileFormat {
     HEIF,
     JPEGXL,
     JPEG2000,
+    SVG,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP, AVIF, HEIF, JPEGXL, JPEG2000 };
+        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP, AVIF, HEIF, JPEGXL, JPEG2000, SVG };
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -162,6 +163,9 @@ public enum PhotoFileFormat {
             case JPEG2000:
                 return 10;
 
+            case SVG:
+                return 11;
+
             case UNKNOWN:
             default:
                 return -1;
@@ -203,6 +207,9 @@ public enum PhotoFileFormat {
 
             case 10:
                 return JPEG2000;
+
+            case 11:
+                return SVG;
 
             default:
                 return UNKNOWN;
@@ -268,6 +275,9 @@ public enum PhotoFileFormat {
             case "jp2":
                 return PhotoFileFormat.JPEG2000;
 
+            case "svg":
+                return PhotoFileFormat.SVG;
+
             default:
                 return PhotoFileFormat.UNKNOWN;
         }
@@ -319,6 +329,10 @@ public enum PhotoFileFormat {
                 Jpeg2000FileFormatDriver.init();
                 break;
 
+            case SVG:
+                SvgFileFormatDriver.init();
+                break;
+
             default:
                 error("Unsupported file format %s", this.to_string());
         }
@@ -358,6 +372,9 @@ public enum PhotoFileFormat {
 
             case JPEG2000:
                 return Jpeg2000FileFormatDriver.get_instance();
+
+            case SVG:
+                return SvgFileFormatDriver.get_instance();
 
             default:
                 error("Unsupported file format %s", this.to_string());

@@ -181,7 +181,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         "tga", "ilbm", "pcx", "ecw", "img", "sid", "cd5", "fits", "pgf",
         
         // vector
-        "cgm", "svg", "odg", "eps", "pdf", "swf", "wmf", "emf", "xps",
+        "cgm", "svg", "svgz", "odg", "eps", "pdf", "swf", "wmf", "emf", "xps",
         
         // 3D
         "pns", "jps", "mpo",

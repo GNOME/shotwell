@@ -94,6 +94,7 @@ executable(
         'photos/HeifSupport.vala',
         'photos/JpegXLSupport.vala',
         'photos/Jpeg2000Support.vala',
+        'photos/SvgSupport.vala',
         'plugins/Plugins.vala',
         'plugins/StandardHostInterface.vala',
         'plugins/ManifestWidget.vala',
