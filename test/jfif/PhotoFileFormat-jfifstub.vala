@@ -13,6 +13,7 @@ public enum PhotoFileFormat {
     AVIF,
     HEIF,
     JPEGXL,
+    JPEG2000,
     UNKNOWN;
 
     public static PhotoFileFormat[] get_supported() {
