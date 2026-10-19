@@ -98,8 +98,6 @@ secret = dependency('libsecret-1', required: true)
 portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk4', version: '>= 0.5')]
 math = meson.get_compiler('c').find_library('m', required: false)
 pangocairo = dependency('pangocairo', required: true)
-webpdemux = dependency('libwebpdemux')
-webp = dependency('libwebp')
 
 foreach publisher : get_option('publishers')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],
