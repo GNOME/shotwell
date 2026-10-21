@@ -21,7 +21,7 @@ class GifFileFormatProperties : PhotoFileFormatProperties {
     }
 
     public override PhotoFileFormat get_file_format() {
-        return PhotoFileFormat.PNG;
+        return PhotoFileFormat.GIF;
     }
 
     public override PhotoFileFormatFlags get_flags() {
@@ -84,7 +84,7 @@ public class GifSniffer : GlycinSniffer {
 
 public class GifReader : GlycinReader {
     public GifReader(string filepath) {
-        base (filepath, PhotoFileFormat.PNG);
+        base (filepath, PhotoFileFormat.GIF);
     }
 }
 
