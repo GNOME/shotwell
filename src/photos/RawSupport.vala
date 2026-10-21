@@ -196,10 +196,8 @@ public class RawSniffer : PhotoFileSniffer {
             // ignored
         }
         
-        if (calc_md5 && detected.metadata != null) {
-            detected.exif_md5 = detected.metadata.exif_hash();
+        if (calc_md5 && detected.metadata != null)
             detected.thumbnail_md5 = detected.metadata.thumbnail_hash();
-        }
         
         if (calc_md5)
             detected.md5 = md5_file(file);

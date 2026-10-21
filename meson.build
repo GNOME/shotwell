@@ -93,7 +93,6 @@ gphoto2 = dependency('libgphoto2', version : '>= 2.5.0')
 gudev = dependency('gudev-1.0', version : '>= 145', required: get_option('udev'))
 gexiv2 = dependency('gexiv2-0.16', version: '>= 0.15.0')
 libraw = dependency('libraw', version : '>= 0.13.2')
-libexif = dependency('libexif', version : '>= 0.6.16')
 secret = dependency('libsecret-1', required: true)
 portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk4', version: '>= 0.5')]
 math = meson.get_compiler('c').find_library('m', required: false)

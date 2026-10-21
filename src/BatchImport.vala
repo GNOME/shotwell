@@ -1873,7 +1873,6 @@ private class PrepareFilesJob : BackgroundImportJob {
             }
             
             if (metadata != null) {
-                exif_only_md5 = metadata.exif_hash ();
                 thumbnail_md5 = metadata.thumbnail_hash();
             }
         }
