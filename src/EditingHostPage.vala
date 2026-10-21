@@ -389,7 +389,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // check if the photo altered while away
         if (has_photo() && pixbuf_dirty)
-            replace_photo(get_photo());
+            replace_photo.begin(get_photo());
     }
     
     public override void switching_from() {
