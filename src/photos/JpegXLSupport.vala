@@ -47,7 +47,7 @@ class JpegXLFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class JpegXLSniffer : GdkSniffer {
+public class JpegXLSniffer : GlycinSniffer {
     // See https://github.com/ImageMagick/jpeg-xl/blob/main/doc/format_overview.md#file-format
     private const uint8[] CODESTREAM_MAGIC_SEQUENCE = { 0xff, 0x0a };
     private const uint8[] BMFF_MAGIC_SEQUENCE = {0x00, 0x00, 0x00, 0x0C, 0x4A, 0x58, 0x4C, 0x20, 0x0D, 0x0A, 0x87, 0x0A};
@@ -86,7 +86,7 @@ public class JpegXLSniffer : GdkSniffer {
 
 }
 
-public class JpegXLReader : GdkReader {
+public class JpegXLReader : GlycinReader {
     public JpegXLReader(string filepath) {
         base (filepath, PhotoFileFormat.JPEGXL);
     }

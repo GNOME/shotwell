@@ -47,7 +47,7 @@ class HeifFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class HeifSniffer : GdkSniffer {
+public class HeifSniffer : GlycinSniffer {
     private const string[] MAGIC_SEQUENCES = { "heic", "heix", "hevc", "heim", "heis", "hevm", "hevs", "mif1", "msf1"};
 
     public HeifSniffer(File file, PhotoFileSniffer.Options options) {
@@ -78,7 +78,7 @@ public class HeifSniffer : GdkSniffer {
 
 }
 
-public class HeifReader : GdkReader {
+public class HeifReader : GlycinReader {
     public HeifReader(string filepath) {
         base (filepath, PhotoFileFormat.HEIF);
     }

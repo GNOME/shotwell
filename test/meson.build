@@ -7,7 +7,7 @@ jfif_support_test = executable('jfif-support-test',
                                 'jfif/PhotoFileSniffer.vala',
                                 'jfif/PhotoFileAdapter.vala',
                                 'jfif/JfifSupport.vala',
-                                'jfif/GdkSupport.vala',
+                                'jfif/GlycinSupport.vala',
                                 'jfif/KeyValueMap.vala',
                                 'jfif/Dimensions.vala',
                                 'jfif/string.vala',
@@ -17,7 +17,7 @@ jfif_support_test = executable('jfif-support-test',
                                 'jfif/PhotoMetadata-stub.vala',
                                 'jfif/PhotoFileFormat-jfifstub.vala',
                                 'jfif/util_image-stub.vala'],
-                               dependencies : [gio, gee, gtk, gexiv2, math],
+                               dependencies : [gio, gee, gtk, gexiv2, math, glycin],
                                c_args : ['-DTEST_DATA_DIR="@0@"'.format(meson.current_source_dir())]
                              )
 

@@ -85,6 +85,7 @@ soup = dependency('libsoup-3.0')
 json_glib = dependency('json-glib-1.0')
 xml = dependency('libxml-2.0')
 gdk_pixbuf = dependency('gdk-pixbuf-2.0')
+glycin = dependency('glycin-2')
 sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.20')
 gstreamer_pbu = dependency('gstreamer-pbutils-1.0', version : '>= 1.20')
@@ -97,8 +98,6 @@ secret = dependency('libsecret-1', required: true)
 portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk4', version: '>= 0.5')]
 math = meson.get_compiler('c').find_library('m', required: false)
 pangocairo = dependency('pangocairo', required: true)
-webpdemux = dependency('libwebpdemux')
-webp = dependency('libwebp')
 
 foreach publisher : get_option('publishers')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],

@@ -99,7 +99,7 @@ private class TiffFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-private class TiffSniffer : GdkSniffer {
+private class TiffSniffer : GlycinSniffer {
     public TiffSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
     }
@@ -119,13 +119,13 @@ private class TiffSniffer : GdkSniffer {
     }
 }
 
-private class TiffReader : GdkReader {
+private class TiffReader : GlycinReader {
     public TiffReader(string filepath) {
         base (filepath, PhotoFileFormat.TIFF);
     }
 }
 
-private class TiffWriter : PhotoFileWriter {
+private class TiffWriter : GlycinWriter {
     private const string COMPRESSION_NONE = "1";
     private const string COMPRESSION_HUFFMAN = "2";
     private const string COMPRESSION_LZW = "5";
@@ -136,16 +136,17 @@ private class TiffWriter : PhotoFileWriter {
         base (filepath, PhotoFileFormat.TIFF);
     }
     
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "tiff", "compression", COMPRESSION_LZW);
-    }
-
     public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
-        var file = File.new_for_path(get_filepath());
-        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
-        yield pixbuf.save_to_stream_async(os, "tiff", cancellable, "compression", COMPRESSION_LZW, null);
+        prepare_creator(pixbuf);
+
+        yield do_write_async(io_priority, cancellable);
     }
 
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        prepare_creator(pixbuf);
+
+        do_write();
+    }
 }
 
 private class TiffMetadataWriter : PhotoFileMetadataWriter {

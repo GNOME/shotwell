@@ -49,7 +49,7 @@ class BmpFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class BmpSniffer : GdkSniffer {
+public class BmpSniffer : GlycinSniffer {
     private const uint8[] MAGIC_SEQUENCE = { 0x42, 0x4D };
 
     public BmpSniffer(File file, PhotoFileSniffer.Options options) {
@@ -86,25 +86,27 @@ public class BmpSniffer : GdkSniffer {
     }
 }
 
-public class BmpReader : GdkReader {
+public class BmpReader : GlycinReader {
     public BmpReader(string filepath) {
         base (filepath, PhotoFileFormat.BMP);
     }
 }
 
-public class BmpWriter : PhotoFileWriter {
+public class BmpWriter : GlycinWriter {
     public BmpWriter(string filepath) {
         base (filepath, PhotoFileFormat.BMP);
     }
-    
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "bmp", null);
-    }
 
     public override async void write_async(Gdk.Pixbuf pixbuf, Jpeg.Quality quality, int io_priority, Cancellable? cancellable) throws Error {
-        var file = File.new_for_path(get_filepath());
-        var os = yield file.replace_async(null, false, GLib.FileCreateFlags.NONE, io_priority, cancellable);
-        yield pixbuf.save_to_stream_async(os, "bmp", cancellable, null);
+        prepare_creator(pixbuf);
+
+        yield do_write_async(io_priority, cancellable);
+    }
+
+    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
+        prepare_creator(pixbuf);
+
+        do_write();
     }
 
 }

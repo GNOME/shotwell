@@ -49,7 +49,7 @@ class GifFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class GifSniffer : GdkSniffer {
+public class GifSniffer : GlycinSniffer {
     private const uint8[] MAGIC_SEQUENCE = { (uint8)'G', (uint8)'I', (uint8)'F', (uint8)'8' };
 
     public GifSniffer(File file, PhotoFileSniffer.Options options) {
@@ -82,7 +82,7 @@ public class GifSniffer : GdkSniffer {
     }
 }
 
-public class GifReader : GdkReader {
+public class GifReader : GlycinReader {
     public GifReader(string filepath) {
         base (filepath, PhotoFileFormat.PNG);
     }
