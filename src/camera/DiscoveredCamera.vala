@@ -205,9 +205,12 @@ internal class CameraImportJob : BatchImportJob {
     }
 }
     
+
+// A wrapper for a GPhoto.Camera, providing async functions to interact with the camera.
 public class DiscoveredCamera : Object {
     public GPhoto.Camera gcamera;
     private GPhoto.Context context;
+    private GPhoto.CameraStorageInformation[] storage_information;
 
     public string uri;
     public string display_name;
@@ -455,18 +458,18 @@ public class DiscoveredCamera : Object {
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
     public async string? get_fs_basedir(int fsid) {
-        var gsi = new GetStorageInfo(null, context, gcamera, this.cancellable);
-        yield gsi.run(this.workers);
-        if (gsi.result != GPhoto.Result.OK) {
+        // Just to make sure, probably never called?
+        if (this.storage_information == null) {
+            debug("Storage information was not cached, re-getting");
+            yield this.get_storage_information(null);
+        }
+
+        if (fsid >= this.storage_information.length) {
             return null;
         }
 
-        if (fsid >= gsi.sifs.length) {
-            return null;
-        }
-
-        if (GPhoto.CameraStorageInfoFields.BASE in gsi.sifs[fsid].fields) {
-            return (string) gsi.sifs[fsid].basedir;
+        if (GPhoto.CameraStorageInfoFields.BASE in this.storage_information[fsid].fields) {
+            return (string) this.storage_information[fsid].basedir;
         }
 
         return "/";
@@ -690,7 +693,8 @@ public class DiscoveredCamera : Object {
     public async GPhoto.Result get_storage_information(out GPhoto.CameraStorageInformation[] sifs) {
         var storage_information = new GetStorageInfo(this, context, gcamera, null);
         var result = yield storage_information.run(workers);
-        sifs = storage_information.sifs;
+        this.storage_information = storage_information.sifs;
+        sifs = this.storage_information;
 
         return result;
     }
@@ -805,7 +809,11 @@ public class DiscoveredCamera : Object {
 
     public async GPhoto.Result shutdown() {
         var exit = new ExitCamera(this, context, gcamera, null);
-        return yield exit.run(workers);
+        yield exit.run(workers);
+
+        this.storage_information = null;
+
+        return exit.get_result();
     }
 
     private class DeleteFile : ResultCameraJob {
