@@ -920,8 +920,16 @@ public class ImportPage : CheckerboardPage {
         // A fresh cancellable for the whole enumeration/preview phase; the Cancel button (shown
         // while busy) cancels it so the user can stop a long scan, including the claim retries.
         refresh_cancellable = new Cancellable();
-        dcamera.set_cancellable(refresh_cancellable);
 
+        dcamera.set_cancellable(refresh_cancellable);
+        // Setup progressbar here. All camera interaction starting below might take quite some time. 
+        // Keep the user entertained
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
+        progress_bar.set_text(_("Connecting to camera"));
+        progress_bar.set_fraction(0.0);
+        progress_bar.set_pulse_step(0.01);
+        progress_bar.visible = true;
+ 
         while (claim_timeout < 4000) {
             if (refresh_cancellable.is_cancelled()) {
                 refresh_result = GPhoto.Result.OK;
@@ -960,17 +968,13 @@ public class ImportPage : CheckerboardPage {
         
         on_view_changed();
         update_toolbar_state();
-
-        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
-        progress_bar.set_text(_("Fetching photo information"));
-        progress_bar.set_fraction(0.0);
-        progress_bar.set_pulse_step(0.01);
-        progress_bar.visible = true;
         
+        progress_bar.set_text(_("Fetching camera information"));
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         GPhoto.CameraStorageInformation[] sifs;
         var result = yield dcamera.get_storage_information(out sifs);
 
+        progress_bar.set_text(_("Fetching file list"));
         if (result == GPhoto.Result.OK && !refresh_cancellable.is_cancelled()) {
             for (int fsid = 0; fsid < sifs.length; fsid++) {
                 if (refresh_cancellable.is_cancelled())
@@ -1046,9 +1050,10 @@ public class ImportPage : CheckerboardPage {
 
         clear_all_import_sources();
 
-        // Associate files (for RAW+JPEG)
+        progress_bar.set_text(_("Associating files"));
         auto_match_raw_jpeg(import_list);
                 
+        progress_bar.set_text(_("Getting preview images and image metadata"));
         if (!refresh_cancellable.is_cancelled())
             yield load_previews_and_metadata(import_list);
                 
