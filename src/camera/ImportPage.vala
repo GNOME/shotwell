@@ -908,7 +908,7 @@ public class ImportPage : CheckerboardPage {
     private static Workers camera_workers = new Workers(1, false);
 
     private async void timeout_msec(int timeout) {
-        Timeout.add (timeout, () => {timeout_msec.callback(); return Source.REMOVE; });
+        Timeout.add_once(timeout, () => {timeout_msec.callback(); });
         yield;
     }
 
