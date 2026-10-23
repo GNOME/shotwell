@@ -4550,7 +4550,7 @@ msgstr "Metning:"
 
 #: src/editing_tools/AdjustTool.vala:97
 msgid "Tint:"
-msgstr "Tint:"
+msgstr "Fargetone:"
 
 #: src/editing_tools/AdjustTool.vala:112
 msgid "Temperature:"
@@ -4578,7 +4578,7 @@ msgstr "Temperatur"
 
 #: src/editing_tools/AdjustTool.vala:572
 msgid "Tint"
-msgstr "Tint"
+msgstr "Fargetone"
 
 #: src/editing_tools/AdjustTool.vala:584
 msgid "Contrast"
