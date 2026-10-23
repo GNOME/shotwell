@@ -104,6 +104,12 @@ private class CollectionModel<G> : GLib.ListModel, Object {
 
 }
 
+private class AccountRow : DetailedRow {
+    public AccountRow(Spit.Publishing.Account account) {
+        Object(title: account.display_name());
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/account-browser.ui")]
 internal class AccountBrowser : Gtk.Dialog {
     public Gee.Collection<Spit.Publishing.Account> accounts {get; construct;}
@@ -112,14 +118,26 @@ internal class AccountBrowser : Gtk.Dialog {
     private unowned Gtk.ListBox accounts_listbox;
 
     public AccountBrowser(Gee.Collection<Spit.Publishing.Account> accounts) {
-        Object(accounts: accounts, use_header_bar: Resources.use_header_bar());
+        Object(accounts: accounts, use_header_bar: Resources.use_header_bar(),
+               width_request: 120, height_request: 120);
     }
 
     public override void constructed() {
         base.constructed();
 
         accounts_listbox.bind_model(new CollectionModel<Spit.Publishing.Account>(accounts), (item) => {
-            return new Gtk.Label(((Spit.Publishing.Account)item).display_name());
+            var row = new AccountRow((Spit.Publishing.Account)item);
+
+            var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            var log_out = new Gtk.Button.with_label(_("Log out"));
+            box.append(log_out);
+
+            var remove = new Gtk.Button.with_label(_("Remove account"));
+            remove.add_css_class("destructive-action");
+            box.append(remove);
+            row.set_detail_widget(box);
+
+            return row;
         });
     }
 }
@@ -150,23 +168,21 @@ private class PluggableRow : DetailedRow {
         append_widget(plugin_enabled);
 
         if (pluggable is Spit.Publishing.Service) {
-            #if 0
-            var manage = new Gtk.Button.from_icon_name("go-next-symbolic");
+            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic");
             manage.add_css_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
             append_widget(manage);
             manage.clicked.connect(() => {
-                var list = new Gee.ArrayList<Spit.Publishing.Account>();
-                list.add(new Spit.Publishing.DefaultAccount());
+                var service = (Spit.Publishing.Service) pluggable;
+                var list = service.get_accounts(Shotwell.ProfileManager.get_instance().id());
 
                 var dialog = new AccountBrowser(list);
                 dialog.set_modal(true);
                 dialog.set_transient_for((Gtk.Window)(this.get_root()));
                 dialog.response.connect(() => {dialog.destroy(); });
                 dialog.present();
-            });  
-            #endif         
+            });
         }
 
         var info = pluggable.get_info();
