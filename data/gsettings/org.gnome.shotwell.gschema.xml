@@ -364,7 +364,9 @@
     <value value="7" nick="AVIF" />
     <value value="8" nick="HEIF" />
     <value value="9" nick="JPEGXL" />
-    <value value="10" nick="UNKNOWN" />
+    <value value="10" nick="JPEG2000" />
+    <value value="11" nick="SVG" />
+    <value value="12" nick="UNKNOWN" />
 </enum>
 
 <enum id="org.gnome.shotwell.JpegQuality">
