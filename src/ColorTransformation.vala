@@ -895,7 +895,11 @@ public class RGBHistogram {
     private int[] qualitative_blue_counts = null;
     private Gdk.Pixbuf graphic = null;
 
-    public RGBHistogram(Gdk.Pixbuf pixbuf) {
+    public RGBHistogram(Gdk.Pixbuf? pixbuf) {
+        if (pixbuf == null) {
+            return;
+        }
+
         int sample_bytes = pixbuf.get_bits_per_sample() / 8;
         int pixel_bytes = sample_bytes * pixbuf.get_n_channels();
         int row_length_bytes = pixel_bytes * pixbuf.width;

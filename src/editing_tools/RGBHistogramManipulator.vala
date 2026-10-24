@@ -21,6 +21,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int right_nub_min = NUB_SIZE + 1;
 
     private RGBHistogram histogram = null;
+    private bool editable = true;
     private int left_nub_position = 0;
     private int right_nub_position = 255;
     private bool is_left_nub_tracking = false;
@@ -29,29 +30,33 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int track_nub_start_position = 0;
     private int offset = 0;
 
-    public RGBHistogramManipulator( ) {
+    public RGBHistogramManipulator(bool editable = true) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
-        can_focus = true;
-        focusable = true;
+        this.editable = editable;
 
-        var focus = new Gtk.EventControllerFocus();
-        focus.leave.connect(queue_draw);
-        add_controller(focus);
+        if (editable) {
+            can_focus = true;
+            focusable = true;
 
-        var key = new Gtk.EventControllerKey();
-        key.key_pressed.connect(on_key_pressed);
-        add_controller(key);
+            var focus = new Gtk.EventControllerFocus();
+            focus.leave.connect(queue_draw);
+            add_controller(focus);
 
-        var click = new Gtk.GestureClick();
-        click.set_touch_only(false);
-        click.set_button(Gdk.BUTTON_PRIMARY);
-        click.pressed.connect(on_button_press);
-        click.released.connect(on_button_released);
-        add_controller(click);
+            var key = new Gtk.EventControllerKey();
+            key.key_pressed.connect(on_key_pressed);
+            add_controller(key);
 
-        var motion = new Gtk.EventControllerMotion();
-        motion.motion.connect(on_button_motion);
-        add_controller(motion);
+            var click = new Gtk.GestureClick();
+            click.set_touch_only(false);
+            click.set_button(Gdk.BUTTON_PRIMARY);
+            click.pressed.connect(on_button_press);
+            click.released.connect(on_button_released);
+            add_controller(click);
+
+            var motion = new Gtk.EventControllerMotion();
+            motion.motion.connect(on_button_motion);
+            add_controller(motion);
+        }
 
         this.resize.connect(on_resize);
         set_draw_func(on_draw);
@@ -222,8 +227,12 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         }
 
         draw_histogram(ctx, area);
-        draw_nub(ctx, area, left_nub_position);
-        draw_nub(ctx, area, right_nub_position);
+
+        if (this.editable) {
+            draw_nub(ctx, area, left_nub_position);
+            draw_nub(ctx, area, right_nub_position);
+        }
+
         sctx.restore();
     }
     
@@ -274,7 +283,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
 
     public signal void nub_position_changed();
 
-    public void update_histogram(Gdk.Pixbuf source_pixbuf) {
+    public void update_histogram(Gdk.Pixbuf? source_pixbuf) {
         histogram = new RGBHistogram(source_pixbuf);
         force_update();
     }

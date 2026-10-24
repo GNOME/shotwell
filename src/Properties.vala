@@ -490,10 +490,12 @@ private class ExtendedProperties : Properties {
     private bool is_raw;
     private string? development_path;
     private const string OSM_LINK_TEMPLATE = "https://www.openstreetmap.org/?mlat=%1$f&amp;mlon=%2$f#map=16/%1$f/%2$f";
+    private RGBHistogramManipulator histogram_view = new RGBHistogramManipulator(false);
 
     public ExtendedProperties() {
         base();
         grid.row_spacing = 6;
+        append(histogram_view);
     }
 
     // Event stuff
@@ -526,6 +528,7 @@ private class ExtendedProperties : Properties {
         exposure_date = "";
         exposure_time = "";
         comment = "";
+        histogram_view.update_histogram(null);
     }
 
     protected override void get_single_properties(DataView view) {
@@ -586,9 +589,17 @@ private class ExtendedProperties : Properties {
             exposure_date = get_prettyprint_date(exposure_time_obj.to_local());
             exposure_time = get_prettyprint_time_with_seconds(exposure_time_obj.to_local());
             comment = media.get_comment();
+            try {
+                histogram_view.update_histogram(photo.get_pixbuf(Scaling.for_original()));
+                histogram_view.show();
+            } catch (Error e) {
+                histogram_view.update_histogram(null);
+                histogram_view.hide();
+            }
         } else if (source is EventSource) {
             Event event = (Event) source;
             comment = event.get_comment();
+            histogram_view.hide();
         }
     }
 
