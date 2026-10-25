@@ -1103,6 +1103,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
 
     public static void build_system_information(string role) {
+        bool jpeg = false;
         bool heif = false;
         bool jxl = false;
         bool png = false;
@@ -1110,30 +1111,36 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         bool avif = false;
         bool bmp = false;
         bool gif = false;
+        bool webp = false;
 
-        var formats = Gdk.Pixbuf.get_formats();
-        foreach (var format in formats) {
-            if ("image/heif" in format.get_mime_types()) {
-                heif = true;
-            }
-            if ("image/jxl" in format.get_mime_types()) {
-                jxl = true;
-            }
-            if ("image/png" in format.get_mime_types()) {
-                png = true;
-            }
-            if ("image/tiff" in format.get_mime_types()) {
-                tiff = true;
-            }
-            if ("image/avif" in format.get_mime_types()) {
-                avif = true;
-            }
-            if ("image/bmp" in format.get_mime_types()) {
-                bmp = true;
-            }
-            if ("image/gif" in format.get_mime_types()) {
-                gif = true;
-            }
+        
+        var mime_types = Gly.Loader.get_mime_types();
+        if ("image/jpeg" in mime_types) {
+            jpeg = true;
+        }
+        if ("image/heif" in mime_types) {
+            heif = true;
+        }
+        if ("image/jxl" in mime_types) {
+            jxl = true;
+        }
+        if ("image/png" in mime_types) {
+            png = true;
+        }
+        if ("image/tiff" in mime_types) {
+            tiff = true;
+        }
+        if ("image/avif" in mime_types) {
+            avif = true;
+        }
+        if ("image/bmp" in mime_types) {
+            bmp = true;
+        }
+        if ("image/gif" in mime_types) {
+            gif = true;
+        }
+        if ("image/webp" in mime_types) {
+            webp = true;
         }
 
         bool can_read_bmff = false;
@@ -1158,16 +1165,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         sb.append_printf("  Timezone: %s\n", Application.timezone.get_identifier());
         sb.append_printf("  Runtime environment: %s\n", AppDirs.get_runtime().to_string());
         sb.append("\nSupported image codecs....\n");
-        sb.append("  WEBP   : yes, builtin\n");
+        sb.append_printf("  WEBP   : %s (glycin)\n", webp ? "yes" : "no");
         sb.append("  RAW    : yes, builtin\n");
         sb.append_printf("  CR3    : yes, %s meta-data\n", can_read_bmff ? "yes" : "no");
-        sb.append("  JPEG   : yes, gdk-pixbuf\n");
-        sb.append_printf("  PNG    : %s, gdk-pixbuf\n", png ? "yes" : "no");
-        sb.append_printf("  GIF    : %s, gdk-pixbuf\n", gif ? "yes" : "no");
-        sb.append_printf("  TIFF   : %s, gdk-pixbuf\n", tiff ? "yes" : "no");
-        sb.append_printf("  JPEG XL: %s, gdk-pixbuf, %s meta-data\n", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
-        sb.append_printf("  AVIF   : %s, gdk-pixbuf, %s meta-data\n", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
-        sb.append_printf("  HEIF   : %s, gdk-pixbuf, %s meta-data\n", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
+        sb.append_printf("  JPEG   : %s (glycin)\n", jpeg ? "yes" : "no");
+        sb.append_printf("  PNG    : %s (glycin)\n", png ? "yes" : "no");
+        sb.append_printf("  GIF    : %s (glycin)\n", gif ? "yes" : "no");
+        sb.append_printf("  TIFF   : %s (glycin)\n", tiff ? "yes" : "no");
+        sb.append_printf("  JPEG XL: %s (glycin), %s meta-data\n", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
+        sb.append_printf("  AVIF   : %s (glycin), %s meta-data\n", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
+        sb.append_printf("  HEIF   : %s (glycin), %s meta-data\n", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
 
         sb.append_printf("\nSystem information:\n");
         string content = "Unknown";
