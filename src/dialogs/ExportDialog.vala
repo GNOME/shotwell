@@ -113,6 +113,11 @@ public class ExportDialog : Gtk.Dialog {
         table.set_column_spacing(12);
 
         ((Gtk.Box) get_content_area()).append(table);
+        ((Gtk.Box) get_content_area()).margin_bottom = 12;
+        ((Gtk.Box) get_content_area()).margin_top = 12;
+        ((Gtk.Box) get_content_area()).margin_start = 12;
+        ((Gtk.Box) get_content_area()).margin_end = 12;
+
 
         // add buttons to action area
         add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
