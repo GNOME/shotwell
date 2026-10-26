@@ -201,7 +201,7 @@ class SlideshowPage : SinglePhotoPage {
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
         
-        screensaver.inhibit("Playing slideshow");
+        screensaver.inhibit("Slideshow");
     }
     
     public override void switching_from() {
