@@ -1112,7 +1112,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         bool bmp = false;
         bool gif = false;
         bool webp = false;
-
+        bool jp2k = false;
+        bool svg = false;
         
         var mime_types = Gly.Loader.get_mime_types();
         if ("image/jpeg" in mime_types) {
@@ -1141,6 +1142,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         if ("image/webp" in mime_types) {
             webp = true;
+        }
+        if ("image/jp2" in mime_types) {
+            jp2k = true;
+        }
+        if ("image/svg+xml" in mime_types) {
+            svg = true;
         }
 
         bool can_read_bmff = false;
@@ -1175,6 +1182,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         sb.append_printf("  JPEG XL: %s (glycin), %s meta-data\n", jxl  ? "yes" : "no", can_read_bmff ? "read" : "no");
         sb.append_printf("  AVIF   : %s (glycin), %s meta-data\n", avif  ? "yes" : "no", can_read_bmff ? "read" : "no");
         sb.append_printf("  HEIF   : %s (glycin), %s meta-data\n", heif ?  "yes" : "no", can_read_bmff ? "read" : "no");
+        sb.append_printf("  JP2000 : %s (glycin), yes meta-data\n", jp2k ? "yes" : "no");
+        sb.append_printf("  SVG    : %s (glycin)", svg ? "yes" : "no");
 
         sb.append_printf("\nSystem information:\n");
         string content = "Unknown";
