@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: LGPLv2.1-or-later
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 
 [CCode (cname="TEST_DATA_DIR")]
 extern const string TEST_DATA_DIR;

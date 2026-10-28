@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 namespace Shotwell.Widgets {
     /// Registers all custom widgets with the type system
     /// so they can be used in Gtk.Builder

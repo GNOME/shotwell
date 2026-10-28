@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 public class ImportRoll.Branch : Sidebar.Branch {
     private Gee.HashMap<int64?, ImportRoll.SidebarEntry> entries;
 

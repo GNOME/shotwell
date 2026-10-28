@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 project('shotwell', ['vala', 'c'],
         version : '33.0',
         meson_version : '>= 0.59.0',

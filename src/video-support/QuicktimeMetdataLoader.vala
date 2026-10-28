@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 public class QuickTimeMetadataLoader {
 
     // Quicktime calendar date/time format is number of seconds since January 1, 1904.

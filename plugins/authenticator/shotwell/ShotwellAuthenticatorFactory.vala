@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 namespace Publishing.Authenticator {
     public class Factory : Spit.Publishing.AuthenticatorFactory, Object {
         private static Factory instance = null;

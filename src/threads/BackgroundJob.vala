@@ -1,7 +1,5 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- *
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
+/* SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 // This callback is executed when an associated BackgroundJob completes.  It is called from within

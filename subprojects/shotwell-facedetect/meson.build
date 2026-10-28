@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++17'])
 gnome = import('gnome')
 facedetect_dep = dependency('opencv4', version : ['>= 4.0.0'], required : false)

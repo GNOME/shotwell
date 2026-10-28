@@ -1,8 +1,7 @@
-/* Copyright 2012 BJA Electronics
- * Author: Jeroen Arnoldus (b.j.arnoldus@bja-electronics.nl)
+/* SPDX-FileCopyrightText: 2012 BJA Electronics
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
- * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution.
+ * Author: Jeroen Arnoldus (b.j.arnoldus@bja-electronics.nl)
  */
 
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {

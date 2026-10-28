@@ -1,4 +1,4 @@
-// SPDX-License-Identifer: LGPL-2.1-or-later
+// SPDX-License-Identifier: LGPL-2.1-or-later
 // SPDX-FileCopyrightText: 2022 Jens Georg <mail@jensge.org>
 
 using Shotwell;

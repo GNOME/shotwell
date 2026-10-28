@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2017 Jens Georg <mail@jensge.org>
+# SPDX-License-Identifier: MIT
 #
 # Copyright 2017 Jens Georg <mail@jensge.org>
 #

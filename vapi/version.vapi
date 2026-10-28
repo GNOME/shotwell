@@ -1,3 +1,6 @@
+/* SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ */
 [CCode (cheader_filename = "version.h")]
 public const string? _GIT_VERSION;
 [CCode (cheader_filename = "config.h")]

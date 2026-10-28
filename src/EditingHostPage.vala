@@ -1,6 +1,6 @@
-// SPDX-LicenseIdentifier: LGPL-2.1-or-later
-// SPDX-FileCopyrightText: Copyright 2016 Software Freedom Conservancy Inc.
-// SPDX-FileCopryrightText: 2024 Jens Georg <mail@jensge.org>
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+// SPDX-FileCopyrightText: 2024 Jens Georg <mail@jensge.org>
 
 public abstract class EditingHostPage : SinglePhotoPage {
     public const int TRINKET_SCALE = 20;

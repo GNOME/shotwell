@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 // Breaks a uint64 skip amount into several smaller skips.
 public void skip_uint64(InputStream input, uint64 skip_amount) throws GLib.Error {
     while (skip_amount > 0) {

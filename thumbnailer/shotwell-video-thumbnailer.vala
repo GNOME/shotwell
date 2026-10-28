@@ -1,10 +1,8 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- * 
- * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier 
- * work from Wim Taymans.
+/* SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
+ * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier
+ * work from Wim Taymans.
  */
 
 // Shotwell Thumbnailer takes in a video file and returns a thumbnail to stdout.  This is

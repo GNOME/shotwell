@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+     SPDX-License-Identifier: LGPL-2.1-or-later
+-->
 <gresources>
   <gresource prefix="/org/gnome/Shotwell/Authenticator">
       <file>tumblr_authentication_pane.ui</file>

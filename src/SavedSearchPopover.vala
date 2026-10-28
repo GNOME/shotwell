@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 protected class SavedSearchPopover {
     public Gtk.Popover popover = null;
     private Gtk.ListBox list_box = null;

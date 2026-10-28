@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_INVOCATION_MSEC = 250;
     public const int TOOLBAR_DISMISSAL_SEC = 2 * 1000 * 1000;

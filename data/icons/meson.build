@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 icondir = join_paths(get_option('datadir'), 'icons/hicolor')
 
 install_subdir('hicolor/16x16', install_dir : icondir)

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 # Plugin helper library
 
 shotwell_common_resources = gnome.compile_resources('common-resource',

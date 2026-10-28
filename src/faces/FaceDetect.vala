@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2018 Narendra A (narendra_m_a(at)yahoo(dot)com)
+// SPDX-License-Identifier: MIT
 /**
  * Face detection and recognition functions
  * Copyright 2018 Narendra A (narendra_m_a(at)yahoo(dot)com)

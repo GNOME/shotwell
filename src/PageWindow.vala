@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
 // SPDX-License-Identifier: LGPL-2.1-or-later
 //
 // PageWindow is a Gtk.Window with essential functions for hosting a Page.  There may be more than

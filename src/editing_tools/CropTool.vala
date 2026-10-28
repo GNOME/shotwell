@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
 // SPDX-License-Identifier: LGPL-2.1-or-later
 public class EditingTools.CropTool : EditingTool {
     private const double CROP_INIT_X_PCT = 0.15;

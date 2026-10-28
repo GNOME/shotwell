@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+     SPDX-License-Identifier: LGPL-2.1-or-later
+-->
 <gresources>
     <gresource prefix="/org/gnome/Shotwell/Publishing/Common">
       <file alias="ssl_certificate_pane.ui">plugins/common/ssl_certificate_pane.ui</file>

@@ -1,0 +1,201 @@
+# SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+version = 1
+
+# ---------------------------------------------------------------------------
+# Project documentation and other plain-text/configuration files that cannot
+# (or should not) carry a comment header of their own.
+# ---------------------------------------------------------------------------
+
+[[annotations]]
+path = [
+    ".gitignore",
+    ".gitlab/issue_templates/*.md",
+    "AUTHORS",
+    "COPYING",
+    "INSTALL",
+    "MAINTAINERS",
+    "NEWS",
+    "README.md",
+    "THANKS",
+    "help/LINGUAS",
+    "meson_options.txt",
+    "po/LINGUAS",
+    "po/POTFILES.in",
+    "po/POTFILES.skip",
+    "shotwell.doap",
+]
+SPDX-FileCopyrightText = "2016 Software Freedom Conservancy Inc."
+SPDX-License-Identifier = "CC0-1.0"
+
+# ---------------------------------------------------------------------------
+# Translations. The gettext tooling rewrites the leading comment block of
+# .po files, so they are annotated here instead of being tagged inline.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Note: po/ is deliberately left untouched (gettext rewrites the leading
+# comment block of .po files), everything in it is annotated here instead.
+# ---------------------------------------------------------------------------
+
+[[annotations]]
+path = ["po/*.po", "help/*/*.po", "po/meson.build"]
+SPDX-FileCopyrightText = "2016 Translation authors"
+SPDX-License-Identifier = "LGPL-2.1-or-later"
+
+# ---------------------------------------------------------------------------
+# Images. Per COPYING, the icons and graphics are licensed under
+# CC-BY-SA-3.0 by their respective authors, unless noted otherwise below.
+# ---------------------------------------------------------------------------
+
+# Symbolic icons taken from the GNOME icon theme (adwaita-icon-theme,
+# previously called gnome-icon-theme), see COPYING.
+[[annotations]]
+path = [
+    "data/icons/hicolor/scalable/actions/avatar-default-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/crop-pivot-reticle-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/events-merge-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-flagged-disabled-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-flagged-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-photos-disabled-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-photos-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-raw-disabled-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-raw-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-videos-disabled-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/filter-videos-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/image-adjust-color-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/image-auto-adjust-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/image-crop-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/image-zoom-in-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/image-zoom-out-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/multiple-events-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/multiple-tags-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/no-event-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/one-event-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/one-tag-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/stock-eye-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/straighten-symbolic.svg",
+    "data/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg",
+]
+SPDX-FileCopyrightText = "The GNOME Project and the adwaita-icon-theme authors"
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+# The Shotwell application icon artwork; shotwell-source.svg records the
+# original artists in its own metadata.
+[[annotations]]
+path = [
+    "data/icons/hicolor/16x16/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/22x22/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/24x24/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/256x256/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/32x32/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/48x48/apps/org.gnome.Shotwell.png",
+    "data/icons/hicolor/scalable/apps/org.gnome.Shotwell.svg",
+    "data/icons/hicolor/shotwell-source.svg",
+    "help/C/figures/Shotwell.svg",
+]
+SPDX-FileCopyrightText = "Jakub Steiner, Lapo Calamandrei"
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+# Screenshots, sample images, help figures and other graphics produced for
+# Shotwell itself.
+[[annotations]]
+path = [
+    "data/appdata/*.png",
+    "data/icons/*.jpg",
+    "data/icons/*.png",
+    "data/icons/hicolor/scalable/actions/gps-marker-highlighted.svg",
+    "data/icons/hicolor/scalable/actions/gps-marker-selected.svg",
+    "data/icons/hicolor/scalable/actions/gps-marker.svg",
+    "data/icons/hicolor/scalable/actions/gps-markers-many-highlighted.svg",
+    "data/icons/hicolor/scalable/actions/gps-markers-many-selected.svg",
+    "data/icons/hicolor/scalable/actions/gps-markers-many.svg",
+    "data/misc/*.avif",
+    "help/C/figures/crop_thirds.jpg",
+    "help/C/figures/trash_process.png",
+    "help/C/figures/trash_process.svg",
+    "help/de/figures/trash_process.png",
+    "help/lv/figures/trash_process.png",
+    "help/pt_BR/figures/trash_process.png",
+    "help/sv/figures/trash_process.png",
+    "plugins/shotwell-transitions/slideshow-plugin.png",
+    "test/*.jpg",
+]
+SPDX-FileCopyrightText = "Software Freedom Conservancy Inc."
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+# Icons of the online services the publishing plugins connect to. These are
+# the service logos and remain the property of the respective service; they
+# carry no open source license and are shipped only to identify the service.
+# See LICENSES/LicenseRef-ThirdParty-Service-Logos.txt.
+[[annotations]]
+path = [
+    "plugins/shotwell-publishing/google-photos.svg",
+    "plugins/shotwell-publishing/youtube.png",
+]
+SPDX-FileCopyrightText = "Google LLC"
+SPDX-License-Identifier = "LicenseRef-ThirdParty-Service-Logos"
+
+[[annotations]]
+path = [
+    "plugins/shotwell-publishing/tumblr.png",
+    "plugins/shotwell-publishing/tumblr.svg",
+]
+SPDX-FileCopyrightText = "Tumblr, Inc."
+SPDX-License-Identifier = "LicenseRef-ThirdParty-Service-Logos"
+
+[[annotations]]
+path = ["plugins/shotwell-publishing/piwigo.svg"]
+SPDX-FileCopyrightText = "The Piwigo project"
+SPDX-License-Identifier = "LicenseRef-ThirdParty-Service-Logos"
+
+# chain-link{,-loose}-symbolic.svg come from the icon set shipped by the
+# GNOME icon-development-kit (obtained via Bilal Elmoussaoui's icon-library
+# tool); that project's COPYING.md is CC0-1.0.
+[[annotations]]
+path = [
+    "data/icons/hicolor/scalable/actions/chain-link-loose-symbolic.svg",
+    "data/icons/hicolor/scalable/actions/chain-link-symbolic.svg",
+]
+SPDX-FileCopyrightText = "Jakub Steiner and the GNOME icon-development-kit authors"
+SPDX-License-Identifier = "CC0-1.0"
+
+# map-edit-*.svg declare themselves to be from Openclipart.
+[[annotations]]
+path = [
+    "data/icons/hicolor/scalable/actions/map-edit-locked.svg",
+    "data/icons/hicolor/scalable/actions/map-edit-unlocked.svg",
+]
+SPDX-FileCopyrightText = "Openclipart"
+SPDX-License-Identifier = "CC0-1.0"
+
+# ---------------------------------------------------------------------------
+# Flatpak build manifests and patches.
+# ---------------------------------------------------------------------------
+
+[[annotations]]
+path = ["flatpak/*.json", "flatpak/patches/*.patch"]
+SPDX-FileCopyrightText = "2026 Software Freedom Conservancy Inc."
+SPDX-License-Identifier = "LGPL-2.1-or-later"
+
+
+[[annotations]]
+path = ["subprojects/shotwell-facedetect/deploy.prototxt"]
+SPDX-FileCopyrightText = "Intel Corporation, Willow Garage Inc., OpenCV Foundation and other OpenCV contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["subprojects/shotwell-facedetect/openface.nn4.small2.v1.t7"]
+SPDX-FileCopyrightText = "Carnegie Mellon University and the OpenFace contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = [
+    "subprojects/shotwell-facedetect/haarcascade_frontalface_alt.xml",
+    "subprojects/shotwell-facedetect/haarcascade_profileface.xml",
+]
+SPDX-FileCopyrightText = "2000 Intel Corporation, all rights reserved"
+SPDX-License-Identifier = "LicenseRef-Intel-OpenCV"
+

@@ -1,10 +1,9 @@
-/* Copyright 2012 BJA Electronics
- * Copyright 2017 Jens Georg
+/* SPDX-FileCopyrightText: 2012 BJA Electronics
+ * SPDX-FileCopyrightText: 2017 Jens Georg
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * Author: Jeroen Arnoldus (b.j.arnoldus@bja-electronics.nl)
  * Author: Jens Georg <mail@jensge.org>
- *
- * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 using Shotwell.Plugins;

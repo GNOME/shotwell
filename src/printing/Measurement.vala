@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: LGPL-2.0-or-later
-// SPDX-FileCopyrightText: 2016 Software Freedom Convervancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
 
 /* we define our own measurement enum instead of using the Gtk.Unit enum
    provided by Gtk+ 2.0 because Gtk.Unit doesn't define a CENTIMETERS

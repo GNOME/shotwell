@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 // stub class for photo metadata needed by the JFIF Support test
 public class PhotoMetadata {
     public PhotoMetadata() { }

@@ -1,8 +1,6 @@
-/* Copyright 2010 Maxim Kartashev
- * Copyright 2016 Software Freedom Conservancy Inc.
- *
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
+/* SPDX-FileCopyrightText: 2010 Maxim Kartashev
+ * SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 public class TransitionEffectsManager {

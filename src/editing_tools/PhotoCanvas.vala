@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
 // SPDX-License-Identifier: LGPL-2.1-or-later
 // The PhotoCanvas is an interface object between an EditingTool and its host.  It provides objects
 // and primitives for an EditingTool to obtain information about the image, to draw on the host's

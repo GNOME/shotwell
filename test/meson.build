@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 natural_collate_test = executable('natural-collate-test',
                                   ['NaturalCollate-Test.vala', 'NaturalCollate.vala'],
                                   dependencies : gio)

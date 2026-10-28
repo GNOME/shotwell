@@ -1,11 +1,8 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- *
- * Copyright 2011 Valentín Barros Puertas <valentin(at)sanva(dot)net>
- * Copyright 2018 Ricardo Fantin da Costa <ricardofantin(at)gmail(dot)com>
- * Copyright 2018 Narendra A <narendra_m_a(at)yahoo(dot)com>
- * 
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
+/* SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+ * SPDX-FileCopyrightText: 2011 Valentín Barros Puertas <valentin(at)sanva(dot)net>
+ * SPDX-FileCopyrightText: 2018 Ricardo Fantin da Costa <ricardofantin(at)gmail(dot)com>
+ * SPDX-FileCopyrightText: 2018 Narendra A <narendra_m_a(at)yahoo(dot)com>
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include "shotwell-facedetect.hpp"

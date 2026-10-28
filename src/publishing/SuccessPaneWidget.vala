@@ -1,8 +1,6 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- * Copyright 2019 Jens Georg <mail@jensge.org>
- *
- * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution.
+/* SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+ * SPDX-FileCopyrightText: 2019 Jens Georg <mail@jensge.org>
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 namespace PublishingUI {

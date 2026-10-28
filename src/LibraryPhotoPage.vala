@@ -1,5 +1,5 @@
-// SPDX-LicenseIdentifier: LGPL-2.1-or-later
-// SPDX-FileCopyrightText: Copyright 2016 Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
 // SPDX-FileCopyrightText: 2024 Jens Georg <mail@jensge.org>
 //
 // LibraryPhotoPage

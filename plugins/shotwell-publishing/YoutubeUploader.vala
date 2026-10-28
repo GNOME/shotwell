@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 using Spit;
 
 internal class Publishing.YouTube.UploadTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {

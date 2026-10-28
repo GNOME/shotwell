@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 sw_plugin_library_version = '0.33'
 # Plugin helper library
 sw_plugin_dev = library('shotwell-plugin-dev-1.0',

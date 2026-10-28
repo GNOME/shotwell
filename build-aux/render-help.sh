@@ -1,4 +1,6 @@
 #!/usr/bin/bash -e
+# SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+# SPDX-License-Identifier: LGPL-2.1-or-later
 
 mkdir doc-build
 cd doc-build

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Software Freedom Conservancy Inc.
+// SPDX-License-Identifier: LGPL-2.1-or-later
 void add_trailing_numbers_tests () {
     Test.add_func ("/functional/collation/trailing_numbers", () => {
             string a = "100foo";

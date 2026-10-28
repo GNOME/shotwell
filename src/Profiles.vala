@@ -1,7 +1,5 @@
-/* Copyright 2019 Jens Georg.
- *
- * This software is licensed under the GNU LGPL (version 2.1 or later).
- * See the COPYING file in this distribution.
+/* SPDX-FileCopyrightText: 2019 Jens Georg.
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 namespace Shotwell {
