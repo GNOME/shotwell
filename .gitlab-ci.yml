@@ -53,7 +53,9 @@ workflow:
 
 
 reuse:
-  image: fsfe/reuse:latest
+  image:
+    name: fsfe/reuse:latest
+    entrypoint: [""]
   script:
     # subprojects/shotwell-facedetect is part of this project, so lint it too
     - reuse --include-meson-subprojects lint
