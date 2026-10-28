@@ -146,7 +146,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gexiv2.git/"
+                    "url" : "https://gitlab.gnome.org/GNOME/gexiv2.git/",
+                    "branch": "main"
                 }
             ]
         },
