@@ -7,6 +7,19 @@ Shotwell 33.0
  * Fix an issue where "discard" in viewer would not actually discard
    changes
 
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Timo Jyrinki <timo.jyrinki@iki.fi>
+ - Alan Mortensen <oversaet@proton.me>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Yaron Shahrabani <sh.yaron@gmail.com>
+
+Added/updated translations:
+ - da.po, courtesy of Alan Mortensen
+ - fi.po, courtesy of Jiri Grönroos
+ - he.po, courtesy of Yaron Shahrabani
+ - hu.po, courtesy of Balázs Úr
+
 Shotwell 33.rc
 ==============
 
