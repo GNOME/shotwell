@@ -1,3 +1,46 @@
+Shotwell 33.1
+=============
+
+ * Updated translations
+ * Fix a potential issue with continous rescanning of meta-data
+ * Fix text entry disappearing in Saved Search dialog
+ * Fix hierarchy path creation when moving a tag
+ * Fix jumping back to overview when deleting a picture
+ * Ignore folders containing .nomedia during monitoring
+ * Prefer dc::title over IPTC caption when resolving the title
+ * Allow EXIF dates in 1900
+ * Fix Help viewer launch from inside flatpak
+ * Fix descending sort order in event view
+ * Fix various slowness with zooming and panning
+ * Center on mouse cursor when scroll-wheel zooming
+ * Fix HiDPI issues with panning
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4078
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5004
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5048
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5140
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5196
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5198
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5199
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5200
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/113
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/114
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Roy-Magne Mo <rmo@sunnmore.net>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Muhammet Kara <muhammetk@gmail.com>
+
+Added/updated translations:
+ - nn.po, courtesy of Roy-Magne Mo
+ - ka.po, courtesy of Ekaterine Papava
+ - nn.po, courtesy of Roy-Magne Mo
+ - tr.po, courtesy of Muhammet Kara
+
 Shotwell 33.0
 =============
 

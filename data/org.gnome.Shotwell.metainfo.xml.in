@@ -60,6 +60,18 @@
   </screenshots>
   
   <releases>
+      <release version="33.1" date="2026-11-02" urgency="medium" type="stable">
+          <description>
+            <ul>
+              <li>Fixes various issues with zooming and panning</li>
+              <li>Fixes that editing and creating saved searches was no longer possible</li>
+              <li>Fixes hierarchical tag corruption when dragging a photo up the hierarchy</li>
+              <li>Now obeys .nomedia also during monitoring</li>
+              <li>Fixes an issue where a description would be used as a title</li>
+              <li>No longer jumps back to the overview when deleting a picture</li>
+            </ul>
+          </description>
+      </release>
       <release version="33.0" date="2026-09-13" urgency="medium" type="stable">
           <description>
             <p>
