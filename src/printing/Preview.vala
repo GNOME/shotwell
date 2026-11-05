@@ -409,6 +409,11 @@ public class PrintPreview : Gtk.Window {
     }
 
     private void on_radio_group_click(Gtk.CheckButton sender) {
+        // Prevent useless switching due to sharing the callback between the radio buttons
+        // and being notified for the sender being inactive
+        if (!sender.get_active())
+            return;
+
         if (sender == standard_size_radio) {
             set_content_layout_control_state(ContentLayout.STANDARD_SIZE);
             standard_sizes_combo.grab_focus();
@@ -433,8 +438,7 @@ public class PrintPreview : Gtk.Window {
             case ContentLayout.STANDARD_SIZE:
                 standard_sizes_combo.set_sensitive(true);
                 units_combo.set_sensitive(false);
-                custom_width_entry.set_sensitive(false);
-                custom_height_entry.set_sensitive(false);
+                set_custom_entries_sensitive(false);
                 aspect_ratio_check.set_sensitive(false);
                 image_per_page_combo.set_sensitive(false);
             break;
@@ -442,8 +446,7 @@ public class PrintPreview : Gtk.Window {
             case ContentLayout.CUSTOM_SIZE:
                 standard_sizes_combo.set_sensitive(false);
                 units_combo.set_sensitive(true);
-                custom_width_entry.set_sensitive(true);
-                custom_height_entry.set_sensitive(true);
+                set_custom_entries_sensitive(true);
                 aspect_ratio_check.set_sensitive(true);
                 image_per_page_combo.set_sensitive(false);
             break;
@@ -451,8 +454,7 @@ public class PrintPreview : Gtk.Window {
             case ContentLayout.IMAGE_PER_PAGE:
                 standard_sizes_combo.set_sensitive(false);
                 units_combo.set_sensitive(false);
-                custom_width_entry.set_sensitive(false);
-                custom_height_entry.set_sensitive(false);
+                set_custom_entries_sensitive(false);
                 aspect_ratio_check.set_sensitive(false);
                 image_per_page_combo.set_sensitive(true);
             break;
@@ -460,6 +462,16 @@ public class PrintPreview : Gtk.Window {
             default:
                 error("unknown ContentLayout enumeration value");
         }
+    }
+
+    private void set_custom_entries_sensitive(bool sensitive) {
+        // Work-around for https://gitlab.gnome.org/GNOME/gtk/-/work_items/5845
+        if (!sensitive &&
+            (custom_width_entry.has_focus || custom_height_entry.has_focus)) {
+            standard_size_radio.grab_focus();
+        }
+        custom_width_entry.set_sensitive(sensitive);
+        custom_height_entry.set_sensitive(sensitive);
     }
 
     private void set_content_layout(ContentLayout content_layout) {
