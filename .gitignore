@@ -86,3 +86,7 @@ virtualization/vagrant/config
 
 # Stuff from running flatpak in-tree
 .flatpak-builder
+
+# Certificates from piwigo dummy
+key.pem
+cert.pem
