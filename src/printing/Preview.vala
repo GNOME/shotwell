@@ -81,6 +81,21 @@ public class PrintPreview : Gtk.Window {
         this.manager = manager;
         
         set_transient_for(parent);
+
+        // Populate the combo models before restoring the persisted state from the job,
+        // otherwise set_image_per_page_selection()/set_size_selection() below would be
+        // applied to empty models and silently dropped.
+        var image_per_page_model = (Gtk.StringList)image_per_page_combo.model;
+        foreach (PrintLayout layout in PrintLayout.get_all()) {
+            image_per_page_model.append(layout.to_string());
+        }
+
+        unowned StandardPrintSize[] standard_sizes = manager.get_standard_sizes();
+        var standard_sizes_model = (Gtk.StringList)standard_sizes_combo.model;
+        foreach (StandardPrintSize size in standard_sizes) {
+            standard_sizes_model.append(size.name);
+        }
+
         sync_state_from_job(source_job);
 
         btn_back.clicked.connect(on_back_clicked);
@@ -108,20 +123,8 @@ public class PrintPreview : Gtk.Window {
         bind_property("current_page", lbl_current_page, "value", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
 
         image_per_page_combo.notify["selected-item"].connect(force_relayout);
-        var model = (Gtk.StringList)image_per_page_combo.model;
-        foreach (PrintLayout layout in PrintLayout.get_all()) {
-            model.append(layout.to_string());
-        }
-
-        unowned StandardPrintSize[] standard_sizes = manager.get_standard_sizes();
-        model = (Gtk.StringList)standard_sizes_combo.model;
-        foreach (StandardPrintSize size in standard_sizes) {
-            model.append(size.name);
-        }
-
-        standard_sizes_combo.set_selected(9 * Resources.get_default_measurement_unit());
         standard_sizes_combo.notify["selected-item"].connect(force_relayout);
- 
+
         var page_setup = source_job.page_setup;
 
         var focus = new Gtk.EventControllerFocus();
@@ -137,12 +140,12 @@ public class PrintPreview : Gtk.Window {
         units_combo.notify["selected-item"].connect(on_units_combo_changed);
         units_combo.set_selected(Resources.get_default_measurement_unit());
 
-        image_per_page_combo.notify["selected-item"].connect(force_relayout);
-
         /* connect this signal after state is sync'd */
         aspect_ratio_check.toggled.connect(on_aspect_ratio_check_clicked);
 
-        source_job.relayout_images();
+        // Use force_relayout() here so the job is consistent before the
+        // first draw; otherwise draw_page() may dereference an unset print_size.
+        force_relayout();
         double page_width = page_setup.get_page_width(Gtk.Unit.POINTS);
         double page_height = page_setup.get_page_height(Gtk.Unit.POINTS);
 
