@@ -60,6 +60,13 @@
   </screenshots>
   
   <releases>
+      <release version="33.2" date="2026-11-05" urgency="high" type="stable">
+          <description>
+            <ul>
+              <li>Fixes a crash when printing due to incorrectly loaded print settings</li>
+            </ul>
+          </description>
+      </release>
       <release version="33.1" date="2026-11-02" urgency="medium" type="stable">
           <description>
             <ul>

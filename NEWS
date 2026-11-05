@@ -1,3 +1,15 @@
+Shotwell 33.2
+=============
+
+ * Fix loading and storing of print settings
+ * Fix a warning about focus handling in the print dialog
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5206
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 33.1
 =============
 
