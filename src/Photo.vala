@@ -810,7 +810,11 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }
     
     // Sets the developer and develops the photo.
-    public void set_raw_developer(RawDeveloper d, bool notify = true) {
+    //
+    // If prefetch is true, the developed image is loaded once to check that it can be
+    // displayed. The import passes false: nothing displays the photo at that point, and the
+    // image would be decoded only to be discarded again at the end of this method.
+    public void set_raw_developer(RawDeveloper d, bool notify = true, bool prefetch = true) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
         
@@ -843,10 +847,17 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             backing_photo_row = developments.get(d);
             readers.developer = backing_photo_row.file_format.create_reader(backing_photo_row.filepath);
 
-            try {
-                get_prefetched_copy();
-            } catch (Error e) {
-                // couldn't reload the freshly-developed image, nothing to display
+            if (prefetch) {
+                try {
+                    get_prefetched_copy();
+                } catch (Error e) {
+                    // couldn't reload the freshly-developed image, nothing to display
+                    return;
+                }
+            } else if (row.development_ids[d].is_invalid()) {
+                // the development could not be read back, so it was not added to the
+                // database (see import_developed_backing_photo()); stop here, as the
+                // reload above would have failed as well
                 return;
             }
 
