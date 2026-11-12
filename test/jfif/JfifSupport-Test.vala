@@ -30,6 +30,9 @@ void add_jfif_sniff_fast_tests () {
                 assert(detected.format_name == "jpeg");
                 assert(detected.image_dim.width == 360);
                 assert(detected.image_dim.height == 236);
+                // NO_MD5 must not hash the file; the caller supplies the hashes
+                assert(detected.md5 == null);
+                assert(detected.thumbnail_md5 == null);
                 } catch (Error err) {
                 assert_not_reached();
             }
