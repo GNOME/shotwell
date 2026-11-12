@@ -181,8 +181,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         hbox.hexpand = false;
         hbox.vexpand = false;
 
-        var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
-        set_child(box);
+        var box = (Gtk.Box) get_content_area();
+        box.set_spacing(6);
         box.append(hbox);
 
         notification = new Gtk.Label("");
@@ -193,8 +193,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         box.append(notification);
         box.margin_start = 6;
         box.margin_end = 6;
+        box.margin_top = 6;
         box.margin_bottom = 6;
-        box.margin_end = 6;
 
         original_time = source.get_exposure_time();
 
