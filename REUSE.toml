@@ -122,6 +122,7 @@ path = [
     "help/sv/figures/trash_process.png",
     "plugins/shotwell-transitions/slideshow-plugin.png",
     "test/*.jpg",
+    "test/*.svg",
 ]
 SPDX-FileCopyrightText = "Software Freedom Conservancy Inc."
 SPDX-License-Identifier = "CC-BY-SA-3.0"
