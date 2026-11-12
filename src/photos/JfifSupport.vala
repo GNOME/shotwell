@@ -123,14 +123,6 @@ public class JfifSniffer : GlycinSniffer {
         is_corrupted = false;
         var detected = new DetectedPhotoInformation();
 
-        detected.metadata = new PhotoMetadata();
-        try {
-            detected.metadata.read_from_file(file);
-        } catch (Error err) {
-            // no metadata detected
-            detected.metadata = null;
-        }
-
         var fins = file.read(null);
         var dins = new DataInputStream(fins);
         dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
@@ -141,6 +133,16 @@ public class JfifSniffer : GlycinSniffer {
 
         if (marker != Jpeg.Marker.SOI) {
             return null;
+        }
+
+        // Only parse the metadata once the file is known to be a JPEG; the interrogator tries
+        // this sniffer first for every file, RAW files included
+        detected.metadata = new PhotoMetadata();
+        try {
+            detected.metadata.read_from_file(file);
+        } catch (Error err) {
+            // no metadata detected
+            detected.metadata = null;
         }
 
         length = Jpeg.read_marker_2(dins, out marker);
