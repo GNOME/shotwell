@@ -122,11 +122,11 @@ public class Tags.Branch : Sidebar.Branch {
 
 public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
     Sidebar.Contextable {
-    private Gtk.PopoverMenu? context_menu = null;
+    private GLib.MenuModel? context_menu = null;
     
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
-        this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
+        this.context_menu = get_menu_model_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu");
     }
 
     public bool internal_drop_received(Gee.Collection<MediaSource> media) {
@@ -170,7 +170,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     }
     
 
-    public Gtk.PopoverMenu? get_sidebar_context_menu() {
+    public GLib.MenuModel? get_sidebar_context_menu() {
         return context_menu;
     }
 }

@@ -57,13 +57,22 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
     return rect;
 }
 
+GLib.MenuModel get_menu_model_from_resource(string path, string id) {
+    var builder = new Gtk.Builder.from_resource(path);
+    return get_menu_model_from_builder(builder, id);
+}
+
+GLib.MenuModel get_menu_model_from_builder(Gtk.Builder builder, string id) {
+    return builder.get_object(id) as GLib.MenuModel;
+}
+
 Gtk.PopoverMenu get_popover_menu_from_resource(string path, string id, Gtk.Widget? parent) {
     var builder = new Gtk.Builder.from_resource(path);
     return get_popover_menu_from_builder(builder, id, parent);
 }
 
 Gtk.PopoverMenu get_popover_menu_from_builder(Gtk.Builder builder, string id, Gtk.Widget? parent) {
-    var model = builder.get_object (id) as GLib.MenuModel;
+    var model = get_menu_model_from_builder(builder, id);
     var popover = new Gtk.PopoverMenu.from_model (model);
     if (parent != null) {
         popover.set_parent (parent);

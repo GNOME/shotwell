@@ -59,14 +59,14 @@ public class Searches.Branch : Sidebar.Branch {
 }
 
 public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
-    private Gtk.PopoverMenu? context_menu = null;
+    private GLib.MenuModel? context_menu = null;
     
     public Header() {
         base (_("Saved Searches"), _("Organize your saved searches"));
-        context_menu = get_popover_menu_from_resource(Resources.get_ui("search_sidebar_context.ui"), "popup-menu", null);
+        context_menu = get_menu_model_from_resource(Resources.get_ui("search_sidebar_context.ui"), "popup-menu");
     }
 
-    public Gtk.PopoverMenu? get_sidebar_context_menu() {
+    public GLib.MenuModel? get_sidebar_context_menu() {
         return context_menu;
     }
 }

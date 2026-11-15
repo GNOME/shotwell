@@ -112,7 +112,9 @@ public class Sidebar.Tree : Gtk.TreeView {
     private int editing_disabled = 0;
     private bool mask_entry_selected_signal = false;
     private weak EntryWrapper? selected_wrapper = null;
-    private Gtk.PopoverMenu? default_context_menu = null;
+    private GLib.MenuModel? default_context_menu_model = null;
+    private Gtk.PopoverMenu? context_menu = null;
+    private GLib.SimpleActionGroup? sidebar_actions = null;
     private bool expander_called_manually = false;
     private int expander_special_count = 0;
     private bool is_internal_drag_in_progress = false;
@@ -238,15 +240,45 @@ public class Sidebar.Tree : Gtk.TreeView {
         // We should move away to ListView + TreeListModel anyway.
         try {
             this.builder.add_from_resource(Resources.get_ui("sidebar_default_context.ui"));
-            this.default_context_menu = get_popover_menu_from_builder(builder, "popup-menu", this);
-            var group = new GLib.SimpleActionGroup ();
-            group.add_action_entries (entries, this);
-            this.insert_action_group ("sidebar", group);
+            this.default_context_menu_model = get_menu_model_from_builder(builder, "popup-menu");
+            this.sidebar_actions = new GLib.SimpleActionGroup ();
+            this.sidebar_actions.add_action_entries (entries, this);
+            this.insert_action_group ("sidebar", sidebar_actions);
         } catch (Error error) {
             AppWindow.error_message("Error loading UI resource: %s".printf(
                 error.message));
             Application.get_instance().panic();
         }
+    }
+
+    // FIXME: A Gtk.PopoverMenu parented to a Gtk.TreeView does not get pointer motion, so its
+    // items are not highlighted on hover. Parent it to the tree's parent instead.
+    // See https://stackoverflow.com/questions/73165946/gtkmm-popover-menu-items-not-highlighting-when-used-with-treeview
+    private Gtk.PopoverMenu get_context_menu() {
+        if (context_menu != null)
+            return context_menu;
+
+        var anchor = get_parent();
+
+        context_menu = new Gtk.PopoverMenu.from_model(null);
+        context_menu.set_parent(anchor);
+        context_menu.set_has_arrow(false);
+
+        // Make the tree's action group reachable when the popover is not a child of the tree.
+        if (anchor != this && sidebar_actions != null)
+            anchor.insert_action_group("sidebar", sidebar_actions);
+
+        return context_menu;
+    }
+
+    private void popup_menu_model_at(GLib.MenuModel model, double x, double y) {
+        var menu = get_context_menu();
+
+        menu.set_menu_model(model);
+        menu.set_pointing_to ({(int)x, (int)y, 1, 1});
+        menu.position = Gtk.PositionType.BOTTOM;
+        menu.halign = Gtk.Align.START;
+        menu.popup();
     }
     
     private bool has_wrapper(Sidebar.Entry entry) {
@@ -846,39 +878,21 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (selectable != null)
             entry_selected(selectable);
 
-        var context_menu = contextable.get_sidebar_context_menu();
-        if (context_menu == null)
+        var context_model = contextable.get_sidebar_context_menu();
+        if (context_model == null)
             return false;
 
-        var parent = context_menu.get_parent();
-        if (parent != null && parent != this)
-            context_menu.unparent();
-        else
-            parent = null;
-
-        context_menu.set_parent (this);
-
-        context_menu.set_pointing_to ({(int)x, (int)y, 1, 1});
-        context_menu.position = Gtk.PositionType.BOTTOM;
-        context_menu.halign = Gtk.Align.START;
-        context_menu.popup();
-
-        // Fixme: Awful. Probably better to hand out the model, not the menu
-        ulong id = 0;
-        id = context_menu.closed.connect(() => {
-            if (parent != null) {
-                context_menu.unparent();
-                context_menu.set_parent(parent);
-            }
-            GLib.SignalHandler.disconnect(context_menu, id);
-        });
+        popup_menu_model_at(context_model, x, y);
 
         return true;
     }
     
     private bool popup_default_context_menu(double x, double y) {
-        default_context_menu.set_pointing_to ({(int)x, (int)y, 1, 1});
-        default_context_menu.popup();
+        if (default_context_menu_model == null)
+            return false;
+
+        popup_menu_model_at(default_context_menu_model, x, y);
+
         return true;
     }
     
