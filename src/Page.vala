@@ -285,6 +285,10 @@ public abstract class Page : Gtk.Box {
     public virtual Gtk.PopoverMenu? get_page_context_menu() {
         return null;
     }
+
+    public virtual GLib.MenuModel? get_page_context_menu_model() {
+        return null;
+    }
     
     public virtual void switching_from() {
         in_view = false;

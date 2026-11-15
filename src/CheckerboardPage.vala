@@ -119,6 +119,13 @@ public abstract class CheckerboardPage : Page {
         return page_context_menu;
     }
 
+    public override GLib.MenuModel? get_page_context_menu_model() {
+        if (page_context_menu_path == null)
+            return null;
+
+        return get_menu_model_from_builder(this.builder, page_context_menu_path);
+    }
+
     protected override bool on_context_keypress(Gtk.Widget source, Variant? args) {
         return popup_context_menu(get_context_menu(), 0, 0);
     }
