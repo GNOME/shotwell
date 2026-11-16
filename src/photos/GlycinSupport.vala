@@ -157,17 +157,27 @@ public abstract class GlycinSniffer : PhotoFileSniffer {
         var image = loader.load();
         var width = image.get_width();
         var height = image.get_height();
-        var request = new Gly.FrameRequest();
-        request.set_scale (width, height);
-        var frame = image.get_specific_frame(request);
-        var memory_format = frame.get_memory_format();
         
         detected.colorspace = Gdk.Colorspace.RGB;
-        detected.channels = memory_format.has_alpha() ? 4 : 3;
         detected.bits_per_channel = 8;
         detected.format_name = GlycinSniffer.format_name_from_mime(image.get_mime_type());
         detected.file_format = PhotoFileFormat.from_pixbuf_name(detected.format_name);
-        detected.image_dim = Dimensions((int)frame.get_width(), (int)frame.get_height());
+        
+        if (image.get_mime_type() == "image/jpeg") {
+            // glycin already knows the size from the header, so decoding the whole image here
+            // would only be thrown away. A JPEG has no alpha and is always decoded as RGB, even
+            // a grayscale one, so channels is 3 as it was with the frame's memory format
+            detected.channels = 3;
+            detected.image_dim = Dimensions((int)width, (int)height);
+        } else {
+            var request = new Gly.FrameRequest();
+            request.set_scale (width, height);
+            var frame = image.get_specific_frame(request);
+            var memory_format = frame.get_memory_format();
+            
+            detected.channels = memory_format.has_alpha() ? 4 : 3;
+            detected.image_dim = Dimensions((int)frame.get_width(), (int)frame.get_height());
+        }
             
         Checksum? md5_checksum = null;
         if (calc_md5)
