@@ -152,6 +152,11 @@ path = ["plugins/shotwell-publishing/piwigo.svg"]
 SPDX-FileCopyrightText = "The Piwigo project"
 SPDX-License-Identifier = "LicenseRef-ThirdParty-Service-Logos"
 
+[[annotations]]
+path = ["plugins/shotwell-publishing/mastodon/mastodon.svg"]
+SPDX-FileCopyrightText = "Copyright (c) Mastondon GmbH"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
 # chain-link{,-loose}-symbolic.svg come from the icon set shipped by the
 # GNOME icon-development-kit (obtained via Bilal Elmoussaoui's icon-library
 # tool); that project's COPYING.md is CC0-1.0.
