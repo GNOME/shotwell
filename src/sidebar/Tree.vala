@@ -412,10 +412,24 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     public void toggle_branch_expansion(Gtk.TreePath path, bool expand_all) {
         expander_called_manually = true;
-        if (is_row_expanded(path))
+        if (is_row_expanded(path)) {
             collapse_row(path);
-        else
-            expand_row(path, expand_all);
+            
+            return;
+        }
+        
+        // GTK scrolls to the cursor row after expanding.  Move the cursor to the expanded row
+        // without scrolling so it has nowhere to scroll to, then restore the view.
+        Gtk.Adjustment adj = get_vadjustment();
+        double saved_value = adj.get_value();
+        
+        expand_row(path, expand_all);
+        
+        if (!is_row_expanded(path))
+            return;
+        
+        set_cursor(path, null, false);
+        adj.set_value(saved_value);
     }
     
     public bool expand_to_entry(Sidebar.Entry entry) {
