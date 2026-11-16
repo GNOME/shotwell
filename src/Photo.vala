@@ -642,8 +642,11 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         var timestamp = coarsify_date_time(info.get_modification_date_time());
         
+        // Only the dimensions and the metadata are needed. BackingPhotoRow has no MD5, and
+        // NO_MD5 lets JfifSniffer read the dimensions from the JPEG header instead of
+        // decoding the whole image
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(
-            file, PhotoFileSniffer.Options.GET_ALL);
+            file, PhotoFileSniffer.Options.NO_MD5);
         interrogator.interrogate();
         
         DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
