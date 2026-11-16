@@ -63,6 +63,10 @@ public abstract class GlycinWriter : PhotoFileWriter {
                 return "image/heif";
             case PhotoFileFormat.JPEGXL:
                 return "image/jxl";
+            case PhotoFileFormat.JPEG2000:
+                return "image/jp2";
+            case PhotoFileFormat.SVG:
+                return "image/svg+xml";
             default:
                 return null;
         }
@@ -126,6 +130,12 @@ public abstract class GlycinSniffer : PhotoFileSniffer {
                 return "heif";
             case "image/jxl":
                 return "jxl";
+            case "image/jp2":
+            case "image/x-jp2-codestream":
+                return "jpeg2000";
+            case "image/svg+xml":
+            case "image/svg+xml-compressed":
+                return "svg";
             case "image/tiff":
                 return "tiff";
             case "image/jpeg":
