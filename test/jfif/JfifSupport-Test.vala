@@ -98,6 +98,7 @@ void add_svg_sniff_tests () {
                 assert(detected.image_dim.width == 200);
                 assert(detected.image_dim.height == 100);
                 } catch (Error err) {
+                Test.message(err.message);
                 assert_not_reached();
             }
     });

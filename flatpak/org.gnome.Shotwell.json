@@ -181,6 +181,13 @@
         {
             "name": "shotwell",
             "buildsystem": "meson",
+            "build-options": {
+                "test-args": [
+                    "--env=GTK_A11Y=none",
+                    "--env=NO_AT_SPI=1",
+                    "--env=GLYCIN_DISABLE_SANDBOX=i-know-the-risks"
+                ]
+            },
             "config-opts": [
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection_helper_bus=private",
