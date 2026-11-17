@@ -5661,6 +5661,25 @@ public class LibraryPhotoSourceHoldingTank : MediaSourceHoldingTank {
         base (sources, check_to_keep, get_key);
     }
     
+    // Destroyed photos must not stay reachable via the file maps
+    private void drop_indices(LibraryPhoto photo) {
+        foreach (File f in reverse_editable_file_map.get(photo))
+            editable_file_map.unset(f);
+        
+        foreach (File f in reverse_development_file_map.get(photo))
+            development_file_map.unset(f);
+        
+        reverse_editable_file_map.remove_all(photo);
+        reverse_development_file_map.remove_all(photo);
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        if (!(source is LibraryPhoto))
+            return;
+        
+        drop_indices((LibraryPhoto) source);
+    }
+    
     public LibraryPhoto? fetch_by_backing_file(File file) {
         LibraryPhoto? ret = null;
         ret = editable_file_map.get(file);
@@ -5693,23 +5712,19 @@ public class LibraryPhotoSourceHoldingTank : MediaSourceHoldingTank {
                 
                 photo.editable_replaced.connect(on_editable_replaced);
                 photo.raw_development_modified.connect(on_raw_development_modified);
+                photo.destroyed.connect(on_photo_destroyed);
             }
         }
         
         if (removed != null) {
             foreach (DataSource source in removed) {
                 LibraryPhoto photo = (LibraryPhoto) source;
-                foreach (File f in reverse_editable_file_map.get(photo))
-                    editable_file_map.unset(f);
                 
-                foreach (File f in reverse_development_file_map.get(photo))
-                    development_file_map.unset(f);
-                
-                reverse_editable_file_map.remove_all(photo);
-                reverse_development_file_map.remove_all(photo);
+                drop_indices(photo);
                 
                 photo.editable_replaced.disconnect(on_editable_replaced);
                 photo.raw_development_modified.disconnect(on_raw_development_modified);
+                photo.destroyed.disconnect(on_photo_destroyed);
             }
         }
         
