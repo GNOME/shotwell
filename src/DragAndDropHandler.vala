@@ -130,11 +130,48 @@ public class DragAndDropHandler {
         var thumb = (ThumbnailSource) page.get_view().get_selected_at(0).get_source();
         try {
             var icon = thumb.get_thumbnail(AppWindow.DND_ICON_SCALE);
-            var texture = Gdk.Texture.for_pixbuf (icon);
+            var selected = page.get_view().get_selected_count();
+            var texture = Gdk.Texture.for_pixbuf (compose_drag_icon(icon, selected.clamp(1, 3)));
             drag_source.set_icon(texture, 0, 0);
         } catch (Error err) {
             warning("Unable to fetch icon for drag-and-drop from %s: %s", thumb.to_string(), err.message);
         }
+    }
+
+    private static Gdk.Pixbuf compose_drag_icon(Gdk.Pixbuf thumb, int count) {
+
+        // Nothing to do, early exit
+        if (count == 1) {
+            return thumb;
+        }
+
+        var offset = 4;
+        var extra = offset * (count - 1);
+        var w = thumb.get_width();
+        var h = thumb.get_height();
+
+        var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, w + extra, h + extra);
+        var cr = new Cairo.Context(surface);
+
+        for (var i = count - 1; i >= 1; i--) {
+            double x = offset * i;
+            var shade = 0.5 + (count - 1 - i) * 0.0625;
+            cr.rectangle(x, x, w, h);
+            cr.set_source_rgb(shade, shade, shade);
+            cr.fill();
+            cr.set_line_width(1);
+            cr.set_source_rgb(1, 1, 1);
+            cr.move_to(x + 1, x + h - 0.5);
+            cr.line_to(x + w - 0.5, x + h - 0.5);
+            cr.line_to(x + w - 0.5, x + 1);
+            cr.stroke();
+        }
+
+        Gdk.cairo_set_source_pixbuf(cr, thumb, 0, 0);
+        cr.paint();
+        surface.flush();
+
+        return Gdk.pixbuf_get_from_surface(surface, 0, 0, w + extra, h + extra);
     }
 
     private Gdk.ContentProvider? on_drag_prepare(Gtk.DragSource source, double x, double y) {
