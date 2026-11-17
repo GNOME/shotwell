@@ -28,6 +28,7 @@ public class SourceHoldingTank {
     private DataSet tank = new DataSet();
     private Gee.HashSet<DataSource> relinks = new Gee.HashSet<DataSource>();
     private Gee.HashSet<DataSource> unlinking = new Gee.HashSet<DataSource>();
+    private bool defer_relinks = false;
     private int64 ordinal = 0;
     
     public virtual signal void contents_altered(Gee.Collection<DataSource>? added,
@@ -39,11 +40,13 @@ public class SourceHoldingTank {
         this.check_to_keep = check_to_keep;
         
         this.sources.item_destroyed.connect(on_source_destroyed);
+        this.sources.frozen.connect(on_source_collection_frozen);
         this.sources.thawed.connect(on_source_collection_thawed);
     }
     
     ~SourceHoldingTank() {
         sources.item_destroyed.disconnect(on_source_destroyed);
+        sources.frozen.disconnect(on_source_collection_frozen);
         sources.thawed.disconnect(on_source_collection_thawed);
     }
     
@@ -176,7 +179,7 @@ public class SourceHoldingTank {
         bool removed = tank.remove(source);
         assert(removed);
         
-        if (sources.are_notifications_frozen()) {
+        if (defer_relinks || sources.are_notifications_frozen()) {
             relinks.add(source);
             
             return;
@@ -187,7 +190,14 @@ public class SourceHoldingTank {
         sources.relink(source);
     }
     
+    // Relinking while frozen re-adds sources that a running destroy may already have destroyed
+    private void on_source_collection_frozen() {
+        defer_relinks = true;
+    }
+    
     private void on_source_collection_thawed() {
+        defer_relinks = false;
+        
         if (relinks.size == 0)
             return;
         
