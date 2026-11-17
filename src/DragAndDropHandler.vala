@@ -130,53 +130,11 @@ public class DragAndDropHandler {
         var thumb = (ThumbnailSource) page.get_view().get_selected_at(0).get_source();
         try {
             var icon = thumb.get_thumbnail(AppWindow.DND_ICON_SCALE);
-            var selected = page.get_view().get_selected_count();
-            var count = selected >= 3 ? 3 : (int) selected;
-            var composite = compose_drag_icon(icon, count);
-            var texture = Gdk.Texture.for_pixbuf (composite);
+            var texture = Gdk.Texture.for_pixbuf (icon);
             drag_source.set_icon(texture, 0, 0);
         } catch (Error err) {
             warning("Unable to fetch icon for drag-and-drop from %s: %s", thumb.to_string(), err.message);
         }
-    }
-
-    private static Gdk.Pixbuf compose_drag_icon(Gdk.Pixbuf thumb, int count) {
-        var offset = 4;
-        var extra = offset * (count - 1);
-        var width = thumb.get_width() + extra;
-        var height = thumb.get_height() + extra;
-
-        var result = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, width, height);
-        result.fill(0x00000000);
-
-        for (var i = count - 1; i >= 1; i--) {
-            var x = offset * i;
-            var y = offset * i;
-            var grey = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, thumb.get_width(), thumb.get_height());
-            grey.fill((uint32) (0x808080ff + (uint32) (i - 1) * 0x10101000));
-            grey.copy_area(0, 0, grey.get_width(), grey.get_height(), result, x, y);
-            draw_visible_border(result, x, y, grey.get_width(), grey.get_height());
-        }
-
-        if (thumb.get_has_alpha()) {
-            thumb.copy_area(0, 0, thumb.get_width(), thumb.get_height(), result, 0, 0);
-        } else {
-            var opaque = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, thumb.get_width(), thumb.get_height());
-            opaque.fill((uint32) 0xffffffff);
-            thumb.copy_area(0, 0, thumb.get_width(), thumb.get_height(), opaque, 0, 0);
-            opaque.copy_area(0, 0, opaque.get_width(), opaque.get_height(), result, 0, 0);
-        }
-        return result;
-    }
-
-    private static void draw_visible_border(Gdk.Pixbuf pixbuf, int x, int y, int w, int h) {
-        var strip = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, w, 1);
-        strip.fill((uint32) 0xffffffff);
-        strip.copy_area(0, 0, w, 1, pixbuf, x, y + h - 1);
-
-        var column = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, 1, h);
-        column.fill((uint32) 0xffffffff);
-        column.copy_area(0, 0, 1, h, pixbuf, x + w - 1, y);
     }
 
     private Gdk.ContentProvider? on_drag_prepare(Gtk.DragSource source, double x, double y) {
