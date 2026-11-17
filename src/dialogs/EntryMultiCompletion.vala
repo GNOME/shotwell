@@ -34,17 +34,19 @@ public class EntryMultiCompletion : Object {
         return completion_store;
     }
 
+    // Casefold, strip diacritics ("café" matches "cafe") and compose so that one
+    // character equals one Gtk.Entry position.
+    private static string sanitize(string s) {
+        return String.remove_diacritics(s.casefold()).normalize(-1, NormalizeMode.ALL_COMPOSE);
+    }
+
     private bool match_func(Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter) {
         Gtk.TreeModel model = completion.get_model();
         string possible_match;
         model.get(iter, 0, out possible_match);
 
-        // Normalize key and possible matches to allow comparison of non-ASCII characters.
-        // Use a "COMPOSE" normalization to allow comparison to the position value returned by
-        // Gtk.Entry, i.e. one character=one position. Using the default normalization a character
-        // like "é" or "ö" would have a length of two.
-        possible_match = possible_match.casefold().normalize(-1, NormalizeMode.ALL_COMPOSE);
-        string normed_key = key.normalize(-1, NormalizeMode.ALL_COMPOSE);
+        possible_match = sanitize(possible_match);
+        string normed_key = sanitize(key);
 
         if (delimiter == null) {
             return possible_match.has_prefix(normed_key.strip());
