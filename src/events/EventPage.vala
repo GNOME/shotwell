@@ -114,8 +114,13 @@ public class EventPage : CollectionPage {
     private void on_make_primary() {
         if (get_view().get_selected_count() != 1)
             return;
-        
-        page_event.set_primary_source((MediaSource) get_view().get_selected_at(0).get_source());
+
+        var source = (MediaSource) get_view().get_selected_at(0).get_source();
+
+        if (source == page_event.get_primary_source())
+            return;
+
+        AppWindow.get_command_manager().execute(new SetKeyPhotoCommand(page_event, source));
     }
 
     private void on_rename() {
